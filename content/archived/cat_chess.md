@@ -5,7 +5,7 @@ updated = 2024-06-25
 
 [taxonomies]
 categories = ["归档"]
-tags = ["展示", "在线", "含模拟", "javascript"]
+tags = ["展示", "在线", "含模拟", "Javascript"]
 +++
 
 ## 规则
@@ -44,6 +44,7 @@ tags = ["展示", "在线", "含模拟", "javascript"]
     	line-height: 1.8;
     	border: 1px dashed #999;
 	}
+
 	#launch_button_container {
 		text-align: center;
 	}
