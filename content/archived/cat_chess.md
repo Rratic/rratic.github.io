@@ -5,7 +5,7 @@ updated = 2024-06-25
 
 [taxonomies]
 categories = ["归档"]
-tags = ["展示", "在线", "含模拟", "Javascript"]
+tags = ["展示", "在线", "游戏", "含模拟", "Javascript"]
 +++
 
 ## 规则

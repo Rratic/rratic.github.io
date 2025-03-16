@@ -55,6 +55,7 @@ loading = "lazy"
 
 [extra.menus]
 my_header_menu = [
+	{ url = "$BASE_URL/pages/", name = "文章" },
 	{ url = "$BASE_URL/tags/", name = "标签" },
 	{ url = "$BASE_URL/archived/", name = "归档" },
 ]
