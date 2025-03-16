@@ -1,7 +1,7 @@
 +++
 title = "功能测试"
 date = 1900-01-01
-updated = 2025-03-15
+updated = 2025-03-16
 
 [extra]
 comment = true
@@ -11,7 +11,7 @@ mermaid = true
 [extra.cover]
 image = "images/cover/gear.png"
 width = 800
-height = 200
+height = 450
 
 [taxonomies]
 categories = ["项目"]
@@ -20,6 +20,8 @@ tags = ["测试"]
 
 ## Markdown
 封面图来自 [Shadertoy: Planetary gears](https://www.shadertoy.com/view/MsGczV)
+
+你的系统支持 *italic* 的 **FontFace**，并且你的浏览器（或者别的什么东西）~~继承~~了这一特性。
 
 > You can easily use inject to add new features to your side without modifying the theme itself.
 
@@ -50,8 +52,16 @@ impl SerializeWithRegistry for ComponentTypeLink {
 }
 ```
 
+```diff
+-let mut me = self.entry::<FreeWill>.mut();
+-world.execute(me);
++if Some(mut me) = self.entry::<FreeWill>.get_mut() {
++	world.execute(me);
++}
+```
+
 ## HTML
-<p>按下 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Delete</kbd> 以结束会话。</p>
+<p>按下 <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>Delete</kbd> 以结束会话。</p>
 
 <style>
 .notifications-container {
