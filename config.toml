@@ -1,0 +1,74 @@
+base_url = "https://rratic.github.io"
+theme = "linkita"
+
+author = "Rratic"
+title = "Rratic's"
+generate_feeds = false
+
+build_search_index = true
+compile_sass = false
+
+[[taxonomies]]
+name = "categories"
+paginate_by = 5
+
+[[taxonomies]]
+name = "tags"
+paginate_by = 5
+
+[markdown]
+highlight_code = true
+highlight_theme = "ayu-light"
+render_emoji = false
+
+[extra]
+comment = false
+math = false
+mermaid = false
+
+title_separator = " | "
+header_menu_name = "my_header_menu"
+
+disable_default_favicon = true
+disable_javascript = false
+post_navigation = "enabled"
+use_cdn = false
+
+[extra.footer]
+since = 2025
+license_url = "https://creativecommons.org/licenses/by-sa/4.0/"
+copyright = "&copy; $YEAR Rratic &vert; [CC BY-SA 4.0]($LICENSE_URL)"
+
+[extra.giscus]
+repo = "Rratic/pages"
+repo-id = "MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+category = "General"
+category-id = "DIC_kwDOE65r6s4CoFkL"
+mapping = "og:title"
+strict = 1
+reactions-enabled = 1
+emit-metadata = 0
+input-position = "top"
+theme = "preferred_color_scheme"
+lang = "zh-CN"
+loading = "lazy"
+
+[extra.menus]
+my_header_menu = [
+	{ url = "$BASE_URL/tags/", name = "标签" },
+	{ url = "$BASE_URL/archived/", name = "归档" },
+]
+
+[extra.profiles.rratic]
+name = "Rratic"
+bio = ""
+avatar_url = "images/avater.jpg"
+avatar_invert = true
+social = [{ name = "github", url = "https://github.com/rratic" }]
+
+[extra.style]
+bg_color = "white"
+bg_dark_color = "#161e27"
+header_blur = false
+header_color = "#e6f4ff"
+header_dark_color = "#061178"
