@@ -23,10 +23,20 @@ tags = ["测试"]
 
 你的系统支持 *italic* 的 **FontFace**，并且你的浏览器（或者别的什么东西）~~继承~~了这一特性。
 
-> You can easily use inject to add new features to your side without modifying the theme itself.
+> 庄子将死，弟子欲厚葬之。\
+> 庄子曰：“吾以天地为棺椁，以日月为连璧，星辰为珠玑，万物为齎送。吾葬具岂不备邪？何以加此！”\
+> 弟子曰：“吾恐乌鸢之食夫子也。”\
+> 庄子曰：“在上为乌鸢食，在下为蝼蚁食，夺彼与此，何其偏也。”\
+> 以不平平，其平也不平；以不徵徵，其徵也不徵。明者唯为之使，神者徵之。夫明之不胜神也久矣，而愚者恃其所见入于人，其功外也，不亦悲夫！
+> — 《庄子·杂篇·列御寇》
 
-暂时不能使用的功能：
+功能评注：
 - `` `text` `` 会产生 `text` 的效果
+	* 这个默认的 `<code></code>` 样式令人不悦，可以在 [LISP 模式](/pages/mode-lisp/) 找到一个自定义样式的展示。
+		1. 使用 `code::before, code::after { content: "" !important; }` 覆盖前后的反引号。
+		2. 使用 `p code { text-decoration: 3px gold underline; }` 制作高亮。
+	* Markdown 源文件中的链接无法自动转化同样令人不悦。
+- 这个列表的间距很好。
 
 | 猫的类型 | 颜色 |
 | :-: | :-: |
@@ -143,5 +153,7 @@ graph LR;
 
 ## Extensions
 {% admonition(type="tip", title="提示") %}
-		这是一个**提示框**。
+	{% admonition(type="warning", title="警告") %}
+		您的想法已被删除。
+	{% end %}
 {% end %}
