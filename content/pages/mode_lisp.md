@@ -90,7 +90,7 @@ E = x           // variables
 这样，`if e then u else v` 就可被重写为 $e\ u\ v$。
 
 #### Natural Number
-见后文数字一节。
+见后文[数字](#lambda-natural-number)一节。
 
 ## Lisp 之根源
 ### 表达式
@@ -444,7 +444,7 @@ list
 
 McCarthy 的想法仍是今日的 Lisp 的语义的核心。Lisp 本质上并非一个为 AI 或 `rapid prototyping` 等任务设计的工具，它是当你试图公理化计算时的一个产物。
 
-### 数字
+### 数字 {#lambda-natural-number}
 自然数可以被 Peano 公理所描述。其核心是，存在起点 0，并且每个自然数都有其后继。
 
 在 Lambda 演算中，我们可以这样定义。
