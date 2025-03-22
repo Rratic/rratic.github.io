@@ -3,6 +3,7 @@ title = "LISP 模式"
 date = 2025-03-18
 
 [extra]
+comment = true
 math = true
 toc = true
 
@@ -93,8 +94,8 @@ E = x           // variables
 见后文[数字](#lambda-natural-number)一节。
 
 ## Lisp 之根源
-### 表达式
-**表达式**（**expression**）可以是：
+### S-表达式
+一个**表达式**（**expression**）可以是：
 - 一个**原子**（**atom**），在这里是一个连续的字母序列，如 `foo`。
 - 一个**表**（**list**），表达方式形如 `()`，`(foo)`，`(foo bar)`，其中含有零个、一个、两个或多个表达式。
 

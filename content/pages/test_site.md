@@ -1,7 +1,7 @@
 +++
 title = "功能测试"
 date = 1900-01-01
-updated = 2025-03-16
+updated = 2025-03-22
 
 [extra]
 comment = true
@@ -137,6 +137,8 @@ impl SerializeWithRegistry for ComponentTypeLink {
 	</div>
 	</div>
 </div>
+
+<iframe width="640" height="360" frameborder="0" src="https://www.shadertoy.com/embed/MsGczV?gui=true&t=10&paused=true&muted=false" allowfullscreen></iframe>
 
 ## KaTeX
 $\mathbb{R}^{1,3} \rtimes \operatorname{SO}(1,3)$
