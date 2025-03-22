@@ -1,3 +1,7 @@
+article {
+	overflow-x: hidden; /* Ensures head bar works correctly. */
+}
+
 footer .block-bg:not(.block-hover) {
 	background-color: transparent;
 }

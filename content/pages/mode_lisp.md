@@ -1,6 +1,6 @@
 +++
 title = "LISP 模式"
-date = 2025-03-18
+date = 2025-03-22
 
 [extra]
 comment = true
@@ -220,7 +220,9 @@ $$Y = \lambda f. (\lambda x. f(x x))(\lambda x. f(x x))$$
 
 这使得
 
-$$Y f = (\lambda x. f(x x))(\lambda x. f(x x)) = (\lambda x. f(x x))(\lambda x. f(x x))(\lambda x. f(x x)) = f(Y f)$$
+$$Y f = (\lambda x. f(x x))(\lambda x. f(x x))$$
+$$= (\lambda x. f(x x))(\lambda x. f(x x))(\lambda x. f(x x))$$
+$$= f(Y f)$$
 
 不管怎么说，让我们引入记号 `label`。
 
@@ -493,14 +495,54 @@ mult 2 2 = 2 (add 2) 0
 ```
 
 ### side-effect
-[^3]
+本部分参考了 `AI Memo No. 543`。[^3]
+{{ todo() }}
 
 ## 重写系统
-TODO. 可阅读 <https://www.bananaspace.org/wiki/%E9%87%8D%E5%86%99%E7%B3%BB%E7%BB%9F>
+{{ todo() }}
+可阅读 <https://www.bananaspace.org/wiki/%E9%87%8D%E5%86%99%E7%B3%BB%E7%BB%9F>
 
 ## LISP 方言
+{{ todo() }}
+该部分将由 AI 生成。
 
-## 没有银弹
+### Common Lisp
+
+### Clojure
+
+### Scheme
+
+### Emacs Lisp
+
+### 其它启发
+除方言外，看看 Haskell
+
+## 困境
+然而，按照本句完成时的 [TIOBE 排名](https://www.tiobe.com/tiobe-index/)，Lisp 只在第二十三位，方言 Clojure 与 Scheme 在 51~100 位间，其它方言则在 100 位之后。
+
+然而我们没有银弹。Lisp 的核心理念与任何后续叠加的理念都不能在生产力、可靠性或简单性方面带来数量级的提升。[^4]
+
+Lisp 的一个明显问题是可读性。S-表达式看起来不符合人类的习惯。一个可以接受的例子是 [Julia 的元编程](https://docs.juliacn.com/latest/manual/metaprogramming/)。这是通过支持在运行时解析字符串实现的。
+```jl
+julia> Meta.parse("1 + 1")
+:(1 + 1)
+```
+
+你甚至可以运行这样的程序。
+```jl
+expr = :(function f(x)
+    y = x ^ 2;
+    x + y
+end)
+
+f = eval(expr)
+display(f(8))
+```
+
+{{ todo() }}
+另一个明显的问题是性能。
+
+两种复杂性Worse is better
 
 ## 后记
 ### The Roots of Lisp 的说明
@@ -583,6 +625,7 @@ TODO. 可阅读 <https://www.bananaspace.org/wiki/%E9%87%8D%E5%86%99%E7%B3%BB%E7
 [^elegant]: 尽管早有大量图灵完备的模型存在，先前并无具备足够抽象性的语言。\
             而这是发明 Lisp 的目标之一。
 [^3]: Guy Lewis Steele, Jr. and Gerald Jay Sussman, ”The Art of the Interpreter, or the Modularity Complex (Parts Zero, One, and Two),” MIT AI Lab Memo 453, May 1978.
+[^4]: No Silver Bullet—Essence and Accident in Software Engineering
 [^maplist]: > Present day Lisp programmers would use `mapcar` instead of `maplist` here. This example
             does clear up one mystery: why `maplist` is in Common Lisp at all. It was the original mapping
             function, and `mapcar` a later addition.
