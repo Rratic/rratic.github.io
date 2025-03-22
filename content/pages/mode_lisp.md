@@ -4,10 +4,10 @@ date = 2025-03-18
 
 [extra]
 math = true
-toc = { open = true }
+toc = true
 
 [taxonomies]
-categories = ["文章"]
+categories = ["知识"]
 tags = ["数学", "计算机", "离散", "抽象"]
 +++
 
@@ -61,7 +61,7 @@ E = x           // variables
 
 例如，不合法的 $\lambda x\ y.\ x+y$ 可以被表达为 $\lambda x.\ (\lambda y.\ x+y)$。后世的闭包思想也来自于此。
 
-巧妙地是，你可以传入少于全部参数个数的参数。例如代入 3，可以得到 $\lambda y.\ 3+y$。
+巧妙的是，你可以传入少于全部参数个数的参数。例如代入 3，可以得到 $\lambda y.\ 3+y$。
 
 ### 求值
 有两条求值规则：
@@ -78,14 +78,14 @@ E = x           // variables
 根据 Church–Rosser 定理，这两种方法是等价的，最终会得到相等的结果。
 
 但我们在计算时必须作出选择。因而产生了两种方式。
-* `Call by Value`；`Eager Evaluation`：在函数应用前，就计算函数参数的值。
-* `Call by Name`；`Lazy Evaluation`：在函数应用前，不计算函数参数的值，直到需要时才求值。
+* `Call by Value`；`Eager Evaluation` 紧迫求值：在函数应用前，就计算函数参数的值。
+* `Call by Name`；`Lazy Evaluation` 懒惰求值：在函数应用前，不计算函数参数的值，直到需要时才求值。
 
 ### 数据
 λ演算中只有函数而没有纯粹的 `boolean`，`number`，`list` 等实践中关心的类型。不过我们可以用函数来间接的表达它们。
 
 #### Boolean
-简单地定义 `true` 为 $\lambda x.\ \lambda y.\ x$，`false` 为 $\lambda x.\ \lambda y.\ y$。
+注意到，其最核心的功能是条件判断。简单地定义 `true` 为 $\lambda x.\ \lambda y.\ x$，`false` 为 $\lambda x.\ \lambda y.\ y$。
 
 这样，`if e then u else v` 就可被重写为 $e\ u\ v$。
 
@@ -454,7 +454,7 @@ $$0=\lambda f.\ \lambda s.\ s$$
 $$1=\lambda f.\ \lambda s.\ f\ s$$
 $$2=\lambda f.\ \lambda s.\ f\ (f\ s)$$
 
-……诸如此类。
+……诸如此类。自然数的信息被表现在 $f$ 的层叠数目上，对其计算只需用 $s$ 给出的接口添加层叠数即可。
 
 $$succ\ n = \lambda f.\ \lambda s.\ f\ (n\ f\ s)$$
 $$add\ n_1\ n_2 = n_1\ succ\ n_2$$

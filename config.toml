@@ -5,7 +5,8 @@ author = "Rratic"
 title = "Rratic's"
 generate_feeds = false
 
-build_search_index = true
+default_language = "zh"
+build_search_index = false
 compile_sass = false
 
 [[taxonomies]]
@@ -25,8 +26,8 @@ render_emoji = false
 comment = false
 math = false
 mermaid = false
+toc = false
 
-title_separator = " | "
 header_menu_name = "my_header_menu"
 
 disable_default_favicon = true
@@ -41,14 +42,14 @@ copyright = "&copy; $YEAR Rratic &vert; [CC BY-SA 4.0]($LICENSE_URL)"
 
 [extra.giscus]
 repo = "Rratic/pages"
-repo-id = "MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+repo_id = "MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
 category = "General"
-category-id = "DIC_kwDOE65r6s4CoFkL"
+category_id = "DIC_kwDOE65r6s4CoFkL"
 mapping = "og:title"
 strict = 1
-reactions-enabled = 1
-emit-metadata = 0
-input-position = "top"
+reactions_enabled = 1
+emit_metadata = 0
+input_position = "top"
 theme = "preferred_color_scheme"
 lang = "zh-CN"
 loading = "lazy"
@@ -56,6 +57,7 @@ loading = "lazy"
 [extra.menus]
 my_header_menu = [
 	{ url = "$BASE_URL/pages/", name = "文章" },
+	{ url = "$BASE_URL/categories/", name = "分类" },
 	{ url = "$BASE_URL/tags/", name = "标签" },
 	{ url = "$BASE_URL/archived/", name = "归档" },
 ]
