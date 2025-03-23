@@ -159,6 +159,8 @@ graph LR;
 
 {{ todo() }}
 
+{{ quote(id="main", text="生成引用") }}
+
 ## 特殊情形测试
 ### 过长的内容
 $$Y f = (\lambda x. f(x x))(\lambda x. f(x x)) = (\lambda x. f(x x))(\lambda x. f(x x))(\lambda x. f(x x)) = f(Y f) = f((\lambda x. f(x x))(\lambda x. f(x x))) = f((\lambda x. f(x x))(\lambda x. f(x x))(\lambda x. f(x x))) = f(f(Y f))$$

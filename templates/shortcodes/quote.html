@@ -1,0 +1,17 @@
+{% set data = load_data(path="quotes/"~id~".toml") %}
+{% set pool = data.pool %}
+
+<script>
+	function render_quote(event) {
+		let target = event.target.parentElement;
+		let entries = {{ pool | json_encode() | safe }};
+		let entry = entries[Math.floor(Math.random() * (entries.length))];
+		target.innerHTML = `${entry.text}<br>—${entry.source}`;
+	}
+</script>
+
+<blockquote>
+	<p>
+		<button onclick="render_quote(event)">{{ text }}</button>
+	</p>
+</blockquote>
