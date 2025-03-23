@@ -1,7 +1,7 @@
 +++
 title = "猫猫棋"
 date = 2023-12-09
-updated = 2024-06-25
+updated = 2025-03-23
 
 [taxonomies]
 categories = ["归档"]
@@ -27,6 +27,7 @@ tags = ["展示", "在线", "游戏", "含模拟", "Javascript"]
 	* 跳过棋子若变为黑则重置为**开始状态**
 
 ## 交互
+AI 采用了 α-β 剪枝算法。棋盘评估函数不一定合理。
 
 <script src="/script/chess/chess_base.js"></script>
 <script src="/script/chess/catchess.js"></script>
