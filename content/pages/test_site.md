@@ -4,7 +4,6 @@ date = 1900-01-01
 updated = 2025-03-23
 
 [extra]
-comment = true
 math = true
 mermaid = true
 

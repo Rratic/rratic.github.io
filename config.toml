@@ -23,7 +23,7 @@ highlight_theme = "ayu-light"
 render_emoji = false
 
 [extra]
-comment = false
+comment = true
 math = false
 mermaid = false
 toc = false

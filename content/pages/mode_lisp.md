@@ -4,7 +4,6 @@ date = 2025-03-22
 updated = 2025-03-23
 
 [extra]
-comment = true
 math = true
 toc = true
 
