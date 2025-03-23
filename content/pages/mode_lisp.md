@@ -1,6 +1,7 @@
 +++
 title = "LISP 模式"
 date = 2025-03-22
+updated = 2025-03-23
 
 [extra]
 comment = true
@@ -23,14 +24,14 @@ tags = ["数学", "计算机", "离散", "抽象"]
 </style>
 
 ## 说明
-在 1960 年，John McCarthy 提出了一个划时代的理论。其对编程的贡献有如欧几里德对几何的贡献。[^1]
+在 1960 年，John McCarthy 发表了一篇划时代的论文。其对编程的贡献有如欧几里德对几何的贡献。[^1]
 
-本文参考了[其原始论文](https://www-formal.stanford.edu/jmc/recursive.pdf)。
+这篇论文中定义了一个名为 Lisp（意为 list processing）的编程语言。Paul Graham 认为，“目前为止只有两种真正干净利落，始终如一的编程模式：C 语言模式和 Lisp 语言模式。此二者就象两座高地……随着计算机变得越来越强大，新开发的语言一直在坚定地趋向于 Lisp 模式。”
 
-部分参考了 [Paul Graham](http://www.paulgraham.com/) 所作 [The Roots of Lisp](https://blog.freecloud.dev/img/the-roots-of-lisp.pdf)。找到了其一个 2003 年的译本 [Lisp 之根源](http://daiyuwen.freeshell.org/gb/rol/roots_of_lisp.html)，但该翻译多有谬误。
+Lisp 似乎受到了 Lambda 演算与 Kleene 的递归论的影响，但不完全来自于它们。
 
 ## Lambda 演算
-让我们从 Alonzo Church 发明的 `Lambda Calculus` 开始。[^2]
+让我们从 Alonzo Church 发明的 `Lambda Calculus`，即**无类型 λ 演算**开始。[^2]
 
 本部分参考了[一篇 2014 年的文章](https://liujiacai.net/blog/2014/10/12/lambda-calculus-introduction/)以减少材料组织的工作。其按 [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) 许可。
 
@@ -67,20 +68,30 @@ E = x           // variables
 ### 求值
 有两条求值规则：
 * `Alpha equivalence` (or conversion)\
-  α-重命名意为，可以任意改变变量名。如有歧义的 $\lambda x.\ x(\lambda x.\ x)$ 可改为 $\lambda x.\ x(\lambda y.\ y)$。
+  $\alpha$-重命名意为，可以任意改变变量名。如有歧义的 $\lambda x.\ x(\lambda x.\ x)$ 可改为 $\lambda x.\ x(\lambda y.\ y)$。
 * `Beta reduction`\
-  β-规约意为，在应用时将声明展开。例如 $(\lambda x.\ x)(\lambda y.\ y)$ 被展开为 $\lambda y.\ y$。
+  $\beta$-规约意为，在应用时将声明展开。例如 $(\lambda x.\ x)(\lambda y.\ y)$ 被展开为 $\lambda y.\ y$。
+
+此外，$\eta$-等价意味，相同作用的函数可相互替换。
 
 ### 求值顺序
 考虑函数应用 $(\lambda y.\ (\lambda x.\ x)\ y) E$。它有两种计算方法：
 * 先求内层，得到 $(\lambda y.\ y) E$
 * 先求外层，得到 $(\lambda x.\ x) E$
 
-根据 Church–Rosser 定理，这两种方法是等价的，最终会得到相等的结果。
+根据 Church–Rosser 定理（[证明会在之后提供](#confluence)），这两种方法是等价的，最终会得到相等的结果。
 
 但我们在计算时必须作出选择。因而产生了两种方式。
-* `Call by Value`；`Eager Evaluation` 紧迫求值：在函数应用前，就计算函数参数的值。
-* `Call by Name`；`Lazy Evaluation` 懒惰求值：在函数应用前，不计算函数参数的值，直到需要时才求值。
+* 在函数应用前，就计算函数参数的值。
+  也被记作：
+  * `Call by Value`
+  * `Applicative Order` 应用次序
+  * `Eager Evaluation` 紧迫求值
+* 在函数应用前，不计算函数参数的值，直到需要时才求值。
+  也被记作：
+  * `Call by Name`
+  * 标准次序
+  * `Lazy Evaluation` 懒惰求值
 
 ### 数据
 λ演算中只有函数而没有纯粹的 `boolean`，`number`，`list` 等实践中关心的类型。不过我们可以用函数来间接的表达它们。
@@ -94,6 +105,10 @@ E = x           // variables
 见后文[数字](#lambda-natural-number)一节。
 
 ## Lisp 之根源
+本部分参考了[其原始论文](https://www-formal.stanford.edu/jmc/recursive.pdf)。
+
+另参考了 [Paul Graham](http://www.paulgraham.com/) 所作 [The Roots of Lisp](https://blog.freecloud.dev/img/the-roots-of-lisp.pdf)。找到了其一个 2003 年的译本 [Lisp 之根源](http://daiyuwen.freeshell.org/gb/rol/roots_of_lisp.html)，但该翻译多有谬误。
+
 ### S-表达式
 一个**表达式**（**expression**）可以是：
 - 一个**原子**（**atom**），在这里是一个连续的字母序列，如 `foo`。
@@ -254,6 +269,8 @@ $$= f(Y f)$$
                   (subst x y (cdr z))))))
 ```
 
+假定我们定义了加法和乘法，那么可以看到 S-表达式实际上使用了波兰标记法。如 $a*b+c*d$ 被表达为 `(+ (* a b) (* c d))`。
+
 ### 一些函数
 让我们定义一些新的函数。
 
@@ -275,7 +292,9 @@ e
 (a b c)
 ```
 
-接下来定义一些常见的逻辑工具。在原文中为防和 Common Lisp 存在的函数重复而在函数名后加 `.`，这里我们不关心任何 Lisp 方言，因此不作此操作。
+接下来定义一些常见的逻辑工具。
+
+在原文中为防止和 Common Lisp 存在的函数重复而无法在 Common Lisp 中运行，在函数名后加 `.` 来进行区分。这里我们不关心这一点，因此不作此操作。
 
 `(null x)` 检测 `x` 是否为空表。
 ```lisp
@@ -447,7 +466,7 @@ list
 
 McCarthy 的想法仍是今日的 Lisp 的语义的核心。Lisp 本质上并非一个为 AI 或 `rapid prototyping` 等任务设计的工具，它是当你试图公理化计算时的一个产物。
 
-### 数字 {#lambda-natural-number}
+## 引入数字 {#lambda-natural-number}
 自然数可以被 Peano 公理所描述。其核心是，存在起点 0，并且每个自然数都有其后继。
 
 在 Lambda 演算中，我们可以这样定义。
@@ -494,35 +513,118 @@ mult 2 2 = 2 (add 2) 0
          = 4
 ```
 
-### side-effect
-本部分参考了 `AI Memo No. 543`。[^3]
-{{ todo() }}
+## 引入副作用
+### 概述
+如果想要阅读如何构建一个有 `side-effect` 的解释器并且完成一些任务，可以阅读 `AI Memo No. 543`。[^3]这篇文章里充满了技术细节。
+
+如果想要在纯编程理论的方向继续前进，可以看看 Scheme。
+
+这里我们讨论解决更现实的问题。不如看看 Common Lisp 是如何设计的。这参阅了 [Common Lisp 教程](https://lisp.fullstack.org.cn/learn/getting-started/) 中的内容。
+
+首先，Common Lisp 允许 `3.14` 这样的数字，及 `+`，`my-variable` 等符号作为原子。另用冒号前缀符号表示关键字，其求值后为自身。
+
+这里 `t` 为真常量。
+```lisp
+CL-USER> (format t "Hello, world!")
+Hello, world!
+NIL
+```
+
+添加了很多人性化的内置功能。
+```lisp
+(defun fib (n)
+  "Return the nth Fibonacci number." ;; 允许一个字符串作为文档
+  (if (< n 2) ;; 函数体声明
+      n ;; 省去了 else
+      (+ (fib (- n 1))
+         (fib (- n 2))))) ;; if 是表达式，因此有返回值
+```
+
+可以以多种方式调用。
+```lisp
+(fib 30)
+;; => 832040
+
+(funcall #'fib 30)
+;; => 832040
+
+(apply #'fib (list 30))
+;; => 832040
+```
+
+可以声明局部变量。
+```lisp
+(let ((x 1)
+      (y 5))
+  (+ x y))
+
+;; => 6
+```
+
+同时允许全局变量，并允许局部上的作用域覆盖。
+
+支持用 `defmacro` 定义宏，用 `defgeneric` 声明通用函数（用 `defmethod` 声明其方法），用 `defclass` 定义类。
+
+可见相对于简洁的 Lisp 作出了很大的让步。
+
+### LISP 方言
+本表格由 DeepSeek 生成。
+
+| 特性 | Common Lisp | Clojure | Scheme | Emacs Lisp |
+|---|---|---|---|---|
+| **核心设计** | 通用、多范式 | 函数式、并发 | 极简、教学导向 | 编辑器扩展 |
+| **运行平台** | 原生编译/JIT | JVM/JS/.NET | 多实现（解释/编译） | Emacs 解释器 |
+| **类型系统** | 动态 | 动态 | 动态 | 动态 |
+| **并发模型** | 无内置支持 | STM、原子变量 | 依赖实现 | 单线程为主 |
+| **宏系统** | 强大但需谨慎使用 | 安全宏 `syntax-quote` | 卫生宏 `define-syntax` | 类似 Common Lisp |
+| **典型应用领域** | AI、复杂系统 | 分布式系统、数据 | 教学、语言研究 | 编辑器定制、自动化 |
+
+### 相关内容
+可以看看 Haskell。
 
 ## 重写系统
+让我们探讨一个更一般的模型。本部分参考了[香蕉空间](https://www.bananaspace.org)（采用 CC BY-SA 4.0 许可）的相关词条（**重写系统**，**正规性**，**合流性**）。
+
+**重写**是将表达式的一部分替换为其它表达式的过程，可以看作一种关系或者一组规则。在此之上，**重写系统**是由一个表达式的集合和表达式到表达式之间的重写关系组成的结构，类似于有向图。
+
+### 记号
+因此，所有资料为：表达式的集合 $E$ 与重写关系 $(\to ) \subset E\times E$。
+
+记 $\stackrel{*}{\to}$ 表示将 $\to$ 应用任意自然数次。
+
+用双向箭头 $\stackrel{*}{\leftrightarrow}$ 表示两边都可的版本。
+
+### 正规性
+对于重写系统 $E$ 和 $a,b\in E$，若 $a\stackrel{*}{\to} b \iff a=b$，那么 $a$ 是一个**正规形式**。
+
+若重写系统中任意表达式都能通过某个特定的顺序重写为正规形式，那么该重写系统是**弱正规**的。
+
+若重写系统中任意表达式都能通过任意顺序重写为正规形式，那么该重写系统是**强正规**的。强正规性又叫**停机性**。
+
+### 合流性 {#confluence}
+若对于重写系统 $E$ 和任意 $a,b,c\in E$ 一旦 $b\stackrel{\*}{\gets} a \stackrel{\*}{\to} c$ 就存在 $d$ 使得 $b\stackrel{\*}{\to} d \stackrel{\*}{\gets} c$，那么 $E$ 是合流的。
+
+Church–Rosser 定理说，λ 演算具有合流性。
+
+本部分参考了 [DOI 10.3233/FI-2010-306](https://www.cs.cornell.edu/~kozen/Papers/ChurchRosser.pdf)，其列举的文献中包含了其它的证明方式。你可以[在此](https://pauillac.inria.fr/~huet/PUBLIC/residuals.pdf)找到一个使用 Coq 形式化验证的证明。
+
 {{ todo() }}
-可阅读 <https://www.bananaspace.org/wiki/%E9%87%8D%E5%86%99%E7%B3%BB%E7%BB%9F>
-
-## LISP 方言
-{{ todo() }}
-该部分将由 AI 生成。
-
-### Common Lisp
-
-### Clojure
-
-### Scheme
-
-### Emacs Lisp
-
-### 其它启发
-除方言外，看看 Haskell
 
 ## 困境
-然而，按照本句完成时的 [TIOBE 排名](https://www.tiobe.com/tiobe-index/)，Lisp 只在第二十三位，方言 Clojure 与 Scheme 在 51~100 位间，其它方言则在 100 位之后。
+{% admonition(type="warning", title="警告") %}
+	此段未完全经过验证。
+{% end %}
 
-然而我们没有银弹。Lisp 的核心理念与任何后续叠加的理念都不能在生产力、可靠性或简单性方面带来数量级的提升。[^4]
+我们已经从纯理论与实践两个角度讨论了 Lisp。从表面上看，这种精巧的语言应该被广为接受才对。
 
-Lisp 的一个明显问题是可读性。S-表达式看起来不符合人类的习惯。一个可以接受的例子是 [Julia 的元编程](https://docs.juliacn.com/latest/manual/metaprogramming/)。这是通过支持在运行时解析字符串实现的。
+然而，按照本句完成时的 [TIOBE 排名](https://www.tiobe.com/tiobe-index/)，Lisp 只在第二十三位[^lisp-count]，方言 Clojure 与 Scheme 在 51~100 位间，其它方言则在 100 位之后。
+
+我们没有银弹。Lisp 的核心理念与任何后续叠加的理念，或者其它任何极好的理念，都不能单一地在生产力、可靠性或简单性方面带来数量级的提升。[^4]
+
+### 缺陷
+Lisp 的一个明显问题是可读性。S-表达式看起来不符合人类的习惯。
+
+现代的一个可以接受的例子是 [Julia 的元编程](https://docs.juliacn.com/latest/manual/metaprogramming/)。这是通过支持在运行时解析字符串实现的。
 ```jl
 julia> Meta.parse("1 + 1")
 :(1 + 1)
@@ -539,10 +641,24 @@ f = eval(expr)
 display(f(8))
 ```
 
-{{ todo() }}
-另一个明显的问题是性能。
+另一个明显的问题是性能。在编译器不够强大时，使用汇编进行底层操作，使用 C 模式进行指针操作是十分必要的。但函数式语言难以与这种优化产生联系。此外，动态类型具有较大的空间、时间开销。
 
-两种复杂性Worse is better
+### 复杂性
+在 The Mythical Man-Month 等诸多著作中都有一个认识，复杂性来自于**本质复杂性**（问题本身的复杂性）和**偶然复杂性**（语言、工具或方法带来的复杂性）这两类。在纯粹模型之外，Lisp 降低的复杂性没有那么大。
+
+Richard P. Gabriel 提出了[^4]两种设计理念的不同。
+1. The Right Thing
+  * 追求设计的完美和完整性。
+  * 强调正确性、一致性和优雅性。
+  * 倾向于复杂的设计，以满足所有可能的需求。
+2. Worse is Better
+  * 追求简单性和实用性。
+  * 强调快速实现、易于理解和广泛采用。
+  * 接受不完美和局限性，优先解决核心问题。
+
+后者支持快速迭代和广泛使用，更符合实际需求。
+
+实际上，由于 Lisp 可以较为自由地完成设计，而设计通常会很复杂，Lisp 社区常产生分歧。
 
 ## 后记
 ### The Roots of Lisp 的说明
@@ -625,7 +741,9 @@ display(f(8))
 [^elegant]: 尽管早有大量图灵完备的模型存在，先前并无具备足够抽象性的语言。\
             而这是发明 Lisp 的目标之一。
 [^3]: Guy Lewis Steele, Jr. and Gerald Jay Sussman, ”The Art of the Interpreter, or the Modularity Complex (Parts Zero, One, and Two),” MIT AI Lab Memo 453, May 1978.
+[^lisp-count]: 可能是指 Common Lisp。取决于具体的统计方式。
 [^4]: No Silver Bullet—Essence and Accident in Software Engineering
+[^5]: <https://www.dreamsongs.com/WorseIsBetter.html>
 [^maplist]: > Present day Lisp programmers would use `mapcar` instead of `maplist` here. This example
             does clear up one mystery: why `maplist` is in Common Lisp at all. It was the original mapping
             function, and `mapcar` a later addition.
