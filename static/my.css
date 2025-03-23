@@ -2,6 +2,21 @@ article {
 	overflow-x: hidden; /* Ensures head bar works correctly. */
 }
 
+.list-additions li::marker {
+	content: "+";
+	color: green;
+}
+
+.list-modifications li::marker {
+	content: "*";
+	color: yellow;
+}
+
+.list-deletions li::marker {
+	content: "-";
+	color: red;
+}
+
 footer .block-bg:not(.block-hover) {
 	background-color: transparent;
 }

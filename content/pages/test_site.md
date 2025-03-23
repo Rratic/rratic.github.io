@@ -1,7 +1,7 @@
 +++
 title = "功能测试"
 date = 1900-01-01
-updated = 2025-03-22
+updated = 2025-03-23
 
 [extra]
 comment = true
@@ -9,7 +9,7 @@ math = true
 mermaid = true
 
 [extra.cover]
-image = "images/cover/gear.png"
+image = "images/cover/gear.jpg"
 width = 800
 height = 450
 
@@ -138,22 +138,20 @@ impl SerializeWithRegistry for ComponentTypeLink {
 	</div>
 </div>
 
-<iframe width="640" height="360" frameborder="0" src="https://www.shadertoy.com/embed/MsGczV?gui=true&t=10&paused=true&muted=false" allowfullscreen></iframe>
+<p>
+	<iframe width="640" height="360" frameborder="0" src="https://www.shadertoy.com/embed/MsGczV?gui=true&t=10&paused=true&muted=false" allowfullscreen></iframe>
+</p>
 
 ## KaTeX
 $\mathbb{R}^{1,3} \rtimes \operatorname{SO}(1,3)$
 
-## Mermaid
-
+## Shortcodes
 {% mermaid() %}
-
 graph LR;
 	赤狐-->乙木;
 	赤狐-->丙火;
-
 {% end %}
 
-## Extensions
 {% admonition(type="tip", title="提示") %}
 	{% admonition(type="warning", title="警告") %}
 		您的想法已被删除。
