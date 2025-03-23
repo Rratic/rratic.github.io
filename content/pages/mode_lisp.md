@@ -10,7 +10,7 @@ toc = true
 
 [taxonomies]
 categories = ["知识"]
-tags = ["数学", "计算机", "离散", "抽象"]
+tags = ["数学", "计算机", "离散", "抽象", "Lisp"]
 +++
 
 <style>
@@ -19,7 +19,7 @@ tags = ["数学", "计算机", "离散", "抽象"]
   }
 
   p code, li code {
-    text-decoration: 3px gold underline;
+    text-decoration: 2px gold underline;
   }
 </style>
 
@@ -131,7 +131,7 @@ a
 (a b c)
 ```
 
-`(atom x)` 会在 `x` 是原子或空表时返回原子 `t`，否则返回 `()`。
+`(atom x)` 会在 $x$ 是原子或空表时返回原子 `t`，否则返回 `()`。
 按惯例用原子 `t` 表示真，用空表表示假。
 ```lisp
 > (atom 'a)
@@ -154,7 +154,7 @@ t
 
 `quote` 的作用即是**引用**，这一奇怪特性来自于 Lisp 最与众不同的特征：代码和数据由相同的结构构成。[^feature]
 
-`(eq x y)` 会在 `x` 和 `y` 的值是同一个原子或都是空表时返回 `t`，否则返回 `()`。
+`(eq x y)` 会在 $x$ 和 $y$ 的值是同一个原子或都是空表时返回 `t`，否则返回 `()`。
 ```lisp
 > (eq 'a 'a)
 t
@@ -164,19 +164,19 @@ t
 t
 ```
 
-`(car x)` 期望 `x` 的值是一个表，并且返回 `x` 的第一个元素。
+`(car x)` 期望 $x$ 的值是一个表，并且返回 $x$ 的第一个元素。
 ```lisp
 > (car '(a b c))
 a
 ```
 
-`(cdr x)` 期望 `x` 的值是一个表，并且返回 `x` 的第一个元素之后的所有元素。
+`(cdr x)` 期望 $x$ 的值是一个表，并且返回 $x$ 的第一个元素之后的所有元素。
 ```lisp
 > (cdr '(a b c))
 (b c)
 ```
 
-`(cons x y)` 期望 `y` 的值是一个表，并且返回一个新表，其第一个元素是 `x` 的值，之后是 `y` 的值的各个元素。
+`(cons x y)` 期望 $y$ 的值是一个表，并且返回一个新表，其第一个元素是 $x$ 的值，之后是 $y$ 的值的各个元素。
 ```lisp
 > (cons 'a '(b c))
 (a b c)
@@ -188,7 +188,7 @@ a
 (b c)
 ```
 
-`(cond (p1 e1) ... (pn en))` 依次对每个 `p` 表达式求值直到有一个返回 `t`，如果能找到这样的 `p` 表达式，相应的 `e` 表达式的值作为整个 `cond` 表达式的返回值。此命名即 `condition` 简称。
+`(cond (p1 e1) ... (pn en))` 依次对每个 $p$ 表达式求值直到有一个返回 `t`，如果能找到这样的 $p$ 表达式，相应的 $e$ 表达式的值作为整个 `cond` 表达式的返回值。此命名即 `condition` 简称。
 ```lisp
 > (cond ((eq 'a 'b) 'first)
         ((atom 'a)  'second))
@@ -202,10 +202,14 @@ second
 称这样的操作符为函数。
 
 ### 函数
-函数表示为 `(lambda (p1 ... pn) e)`，其中 $p_i$ 是原子，称为参数，`e` 是表达式。
+{% admonition(type="info", title="说明") %}
+  从这里开始的内容并非原始的定义。你将在[求值](#evaluation)中看到它们如何起作用。
+{% end %}
+
+函数表示为 `(lambda (p1 ... pn) e)`，其中 $p_i$ 是原子，称为参数，$e$ 是表达式。
 
 如果表达式形如 `((lambda (p1 ... pn) e) a1 ... an)` 则称为函数调用。
-它的值计算如下：每一个表达式 $a_i$ 先求值，然后 `e` 再求值。在 `e` 的求值过程中，每个出现在 `e` 中的 $p_i$ 的值是相应的 $a_i$ 在最近一次的函数调用中的值。
+它的值计算如下：每一个表达式 $a_i$ 先求值，然后 $e$ 再求值。在 $e$ 的求值过程中，每个出现在 $e$ 中的 $p_i$ 的值是相应的 $a_i$ 在最近一次的函数调用中的值。
 ```lisp
 > ((lambda (x) (cons x '(b))) 'a)
 (a b)
@@ -215,7 +219,7 @@ second
 (z b c)
 ```
 
-如果一个表达式的第一个元素 `f` 是原子且 `f` 不是原始操作符，形如 `(f a1 ... an)` 且 `f` 的值是一个函数`(lambda (p1 ... pn) e)`，则以上表达式的值就是 `((lambda (p1 ... pn) e) a1 ... an)` 的值。
+如果一个表达式的第一个元素 $f$ 是原子且 $f$ 不是原始操作符，形如 `(f a1 ... an)` 且 $f$ 的值是一个函数`(lambda (p1 ... pn) e)`，则以上表达式的值就是 `((lambda (p1 ... pn) e) a1 ... an)` 的值。
 
 这意味着，参数在表达式中可以作为操作符使用。
 ```lisp
@@ -241,9 +245,9 @@ $$= f(Y f)$$
 
 不管怎么说，让我们引入记号 `label`。
 
-用 `(label f (lambda (p1 ... pn) e))` 表示形如 `(lambda (p1 ... pn) e)` 的函数，并允许表达式 `e` 中的原子 `f` 对应整个函数 `f`。
+用 `(label f (lambda (p1 ... pn) e))` 表示形如 `(lambda (p1 ... pn) e)` 的函数，并允许表达式 $e$ 中的原子 $f$ 对应整个函数 $f$。
 
-假设我们要定义函数 `subst` 使 `(subst x y z)`，其中 `x` 为表达式，`y` 为原子，`z` 为表，得到一个基于 `z` 的表，但其中所有（任意深度的）原子 `y` 被替换为 `x` 的值。如：
+假设我们要定义函数 `subst` 使 `(subst x y z)`，其中 $x$ 为表达式，$y$ 为原子，$z$ 为表，得到一个基于 $z$ 的表，但其中所有的（任意深度的）原子 $y$ 被替换为 $x$ 的值。如：
 ```lisp
 > (subst 'm 'b '(a b (a b c) d))
 (a m (a m c) d)
@@ -269,7 +273,9 @@ $$= f(Y f)$$
                   (subst x y (cdr z))))))
 ```
 
-假定我们定义了加法和乘法，那么可以看到 S-表达式实际上使用了波兰标记法。如 $a*b+c*d$ 被表达为 `(+ (* a b) (* c d))`。
+假定我们定义了运算符号，那么可以看到 S-表达式实际上使用了波兰标记法。
+
+如 $a\times b+c^d$ 被表达为 `(+ (* a b) (^ c d))`。
 
 ### 一些函数
 让我们定义一些新的函数。
@@ -296,7 +302,7 @@ e
 
 在原文中为防止和 Common Lisp 存在的函数重复而无法在 Common Lisp 中运行，在函数名后加 `.` 来进行区分。这里我们不关心这一点，因此不作此操作。
 
-`(null x)` 检测 `x` 是否为空表。
+`(null x)` 检测 $x$ 是否为空表。
 ```lisp
 (defun null (x)
   (eq x '()))
@@ -337,14 +343,14 @@ t
               (pair (cdr x) (cdr y))))))
 ```
 
-`(assoc x y)` 取原子 `x` 和形如 `pair` 返回值的表 `y`，然后返回 `y` 中每一对中第一个值是 `x` 所对应的第二个值。
+`(assoc x y)` 取原子 $x$ 和形如 `pair` 返回值的表 $y$，然后返回 $y$ 中每一对中第一个值是 $x$ 所对应的第二个值。
 ```lisp
 (defun assoc (x y)
  (cond ((eq (caar y) x) (cadar y))
        ('t (assoc x (cdr y)))))
 ```
 
-### 计算
+### 求值 {#evaluation}
 现在我们已有了定义 `eval` 的所有材料。它可以接受任意 Lisp 表达式然后返回它的值。
 
 ```lisp
@@ -384,7 +390,7 @@ t
                   (evlis (cdr m) a)))))
 ```
 
-在 `(eval e a)` 中，`e` 是将被解析的表达式，而 `a` 是一个形如 `pair` 格式的列表，表示原子的值的注册，称为「环境」。
+在 `(eval e a)` 中，$e$ 是将被解析的表达式，而 $a$ 是一个形如 `pair` 格式的列表，表示原子的值的注册，称为「环境」。
 
 `eval` 的核心是通过条件判断进行的。
 
@@ -606,7 +612,7 @@ NIL
 
 Church–Rosser 定理说，λ 演算具有合流性。
 
-本部分参考了 [DOI 10.3233/FI-2010-306](https://www.cs.cornell.edu/~kozen/Papers/ChurchRosser.pdf)，其列举的文献中包含了其它的证明方式。你可以[在此](https://pauillac.inria.fr/~huet/PUBLIC/residuals.pdf)找到一个使用 Coq 形式化验证的证明。
+本部分参考了 [D. Kozen/Church–Rosser Made Easy](https://www.cs.cornell.edu/~kozen/Papers/ChurchRosser.pdf)[^4]，其列举的文献中包含了其它的证明方式。你可以[在此](https://pauillac.inria.fr/~huet/PUBLIC/residuals.pdf)找到一个使用 Coq 形式化验证的证明。
 
 {{ todo() }}
 
@@ -619,7 +625,7 @@ Church–Rosser 定理说，λ 演算具有合流性。
 
 然而，按照本句完成时的 [TIOBE 排名](https://www.tiobe.com/tiobe-index/)，Lisp 只在第二十三位[^lisp-count]，方言 Clojure 与 Scheme 在 51~100 位间，其它方言则在 100 位之后。
 
-我们没有银弹。Lisp 的核心理念与任何后续叠加的理念，或者其它任何极好的理念，都不能单一地在生产力、可靠性或简单性方面带来数量级的提升。[^4]
+我们没有银弹。Lisp 的核心理念与任何后续叠加的理念，或者其它任何极好的理念，都不能单一地在生产力、可靠性或简单性方面带来数量级的提升。[^5]
 
 ### 缺陷
 Lisp 的一个明显问题是可读性。S-表达式看起来不符合人类的习惯。
@@ -646,7 +652,7 @@ display(f(8))
 ### 复杂性
 在 The Mythical Man-Month 等诸多著作中都有一个认识，复杂性来自于**本质复杂性**（问题本身的复杂性）和**偶然复杂性**（语言、工具或方法带来的复杂性）这两类。在纯粹模型之外，Lisp 降低的复杂性没有那么大。
 
-Richard P. Gabriel 提出了[^4]两种设计理念的不同。
+Richard P. Gabriel 提出了[^6]两种设计理念的不同。
 1. The Right Thing
   * 追求设计的完美和完整性。
   * 强调正确性、一致性和优雅性。
@@ -741,9 +747,10 @@ Richard P. Gabriel 提出了[^4]两种设计理念的不同。
 [^elegant]: 尽管早有大量图灵完备的模型存在，先前并无具备足够抽象性的语言。\
             而这是发明 Lisp 的目标之一。
 [^3]: Guy Lewis Steele, Jr. and Gerald Jay Sussman, ”The Art of the Interpreter, or the Modularity Complex (Parts Zero, One, and Two),” MIT AI Lab Memo 453, May 1978.
+[^4]: DOI 10.3233/FI-2010-306
 [^lisp-count]: 可能是指 Common Lisp。取决于具体的统计方式。
-[^4]: No Silver Bullet—Essence and Accident in Software Engineering
-[^5]: <https://www.dreamsongs.com/WorseIsBetter.html>
+[^5]: No Silver Bullet—Essence and Accident in Software Engineering
+[^6]: <https://www.dreamsongs.com/WorseIsBetter.html>
 [^maplist]: > Present day Lisp programmers would use `mapcar` instead of `maplist` here. This example
             does clear up one mystery: why `maplist` is in Common Lisp at all. It was the original mapping
             function, and `mapcar` a later addition.
