@@ -1,7 +1,7 @@
 +++
 title = "LISP 模式"
 date = 2025-03-22
-updated = 2025-03-23
+updated = 2025-03-29
 
 [extra]
 math = true
@@ -19,22 +19,23 @@ tags = ["数学", "计算机", "离散", "抽象", "Lisp"]
 
   p code, li code {
     text-decoration: 2px gold underline;
+    text-underline-offset: 2px;
   }
 </style>
 
-## 说明
+## 说明 {#about}
 在 1960 年，John McCarthy 发表了一篇划时代的论文。其对编程的贡献有如欧几里德对几何的贡献。[^1]
 
 这篇论文中定义了一个名为 Lisp（意为 list processing）的编程语言。Paul Graham 认为，“目前为止只有两种真正干净利落，始终如一的编程模式：C 语言模式和 Lisp 语言模式。此二者就象两座高地……随着计算机变得越来越强大，新开发的语言一直在坚定地趋向于 Lisp 模式。”
 
 Lisp 似乎受到了 Lambda 演算与 Kleene 的递归论的影响，但不完全来自于它们。
 
-## Lambda 演算
+## Lambda 演算 {#lambda-calculus}
 让我们从 Alonzo Church 发明的 `Lambda Calculus`，即**无类型 λ 演算**开始。[^2]
 
 本部分参考了[一篇 2014 年的文章](https://liujiacai.net/blog/2014/10/12/lambda-calculus-introduction/)以减少材料组织的工作。其按 [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) 许可。
 
-### 语法
+### 语法 {#grammar}
 λ演算的语法形式极其简单。一种可理解的形式文法如下：
 ```c
 E = x           // variables
@@ -64,7 +65,7 @@ E = x           // variables
 
 巧妙的是，你可以传入少于全部参数个数的参数。例如代入 3，可以得到 $\lambda y.\ 3+y$。
 
-### 求值
+### 求值 {#lambda-evaluation}
 有两条求值规则：
 * `Alpha equivalence` (or conversion)\
   $\alpha$-重命名意为，可以任意改变变量名。如有歧义的 $\lambda x.\ x(\lambda x.\ x)$ 可改为 $\lambda x.\ x(\lambda y.\ y)$。
@@ -73,12 +74,12 @@ E = x           // variables
 
 此外，$\eta$-等价意味，相同作用的函数可相互替换。
 
-### 求值顺序
+### 求值顺序 {#evaluation-order}
 考虑函数应用 $(\lambda y.\ (\lambda x.\ x)\ y) E$。它有两种计算方法：
 * 先求内层，得到 $(\lambda y.\ y) E$
 * 先求外层，得到 $(\lambda x.\ x) E$
 
-根据 Church–Rosser 定理（[证明会在之后提供](#confluence)），这两种方法是等价的，最终会得到相等的结果。
+根据 Church–Rosser 定理（其证明会在[之后](#church-rosser-theorem)提供），这两种方法是等价的，最终会得到相等的结果。
 
 但我们在计算时必须作出选择。因而产生了两种方式。
 * 在函数应用前，就计算函数参数的值。
@@ -92,7 +93,7 @@ E = x           // variables
   * 标准次序
   * `Lazy Evaluation` 懒惰求值
 
-### 数据
+### 数据 {#data}
 λ演算中只有函数而没有纯粹的 `boolean`，`number`，`list` 等实践中关心的类型。不过我们可以用函数来间接的表达它们。
 
 #### Boolean
@@ -103,21 +104,21 @@ E = x           // variables
 #### Natural Number
 见后文[数字](#lambda-natural-number)一节。
 
-## Lisp 之根源
+## Lisp 之根源 {#roots-of-lisp}
 本部分参考了[其原始论文](https://www-formal.stanford.edu/jmc/recursive.pdf)。
 
 另参考了 [Paul Graham](http://www.paulgraham.com/) 所作 [The Roots of Lisp](https://blog.freecloud.dev/img/the-roots-of-lisp.pdf)。找到了其一个 2003 年的译本 [Lisp 之根源](http://daiyuwen.freeshell.org/gb/rol/roots_of_lisp.html)，但该翻译多有谬误。
 
-### S-表达式
-一个**表达式**（**expression**）可以是：
-- 一个**原子**（**atom**），在这里是一个连续的字母序列，如 `foo`。
-- 一个**表**（**list**），表达方式形如 `()`，`(foo)`，`(foo bar)`，其中含有零个、一个、两个或多个表达式。
+### S-表达式 {#s-expression}
+一个表达式（expression）可以是：
+- 一个原子（atom），在这里是一个连续的字母序列，如 `foo`。
+- 一个表（list），表达方式形如 `()`，`(foo)`，`(foo bar)`，其中含有零个、一个、两个或多个表达式。
 
 可见 `(foo (bar) baz)` 是表达式。
 
-在 Lisp 中，合法的表达式有**值**（**value**），求值往往是默认进行的。[^evaluate]
+在 Lisp 中，合法的表达式有值（value），求值往往是默认进行的。[^evaluate]
 
-### 原始操作符
+### 原始操作符 {#primitive-operators}
 只有七个原始操作符：`quote`，`atom`，`eq`，`car`，`cdr`，`cons` 和 `cond`。
 
 `(quote x)` 会返回未求值的 `x`，整个 `(quote x)` 也被简记为 `'x`。
@@ -200,7 +201,7 @@ second
 
 称这样的操作符为函数。
 
-### 函数
+### 函数 {#denoting-functions}
 {% admonition(type="info", title="说明") %}
   从这里开始的内容并非原始的定义。你将在[求值](#evaluation)中看到它们如何起作用。
 {% end %}
@@ -229,7 +230,7 @@ second
 
 有另外一个函数记号使得函数能提及它本身，使我们能方便地定义递归函数。
 
-### 递归
+### 递归 {#recursive-functions}
 理论上说，引入新的记号是可以通过 `Y combinator` 避免的。可以参阅：[Y组合子的一个启发式推导](https://zhuanlan.zhihu.com/p/547191928)。
 
 在 Lambda 演算中，其定义为：
@@ -276,7 +277,7 @@ $$= f(Y f)$$
 
 如 $a\times b+c^d$ 被表达为 `(+ (* a b) (^ c d))`。
 
-### 一些函数
+### 一些函数 {#some-functions}
 让我们定义一些新的函数。
 
 首先我们用形如 `cxr` 的序列定义 `car` 和 `cdr` 的组合，如 `(cadr e)` 为 `(car (cdr e))` 的缩写。
@@ -466,7 +467,7 @@ list
 
 这一设计的实现使得仅通过七个原始操作符 `quote`，`atom`，`eq`，`car`，`cdr`，`cons` 和 `cond` 完成[^only_seven]一个可用且具备优雅性[^elegant]的计算模型是可能的（尽管可能相当复杂）。
 
-### 反思
+### 反思 {#review}
 在 1960 的原始定义中缺乏了很多使用的特性。如语句不会产生 `side-effect`（即每一个完整的表达式被单独执行，没有联系），因而没有顺序执行流程。并且没有实用的数字（尽管可以用长度为 $n$ 的列表表示）。
 
 McCarthy 的想法仍是今日的 Lisp 的语义的核心。Lisp 本质上并非一个为 AI 或 `rapid prototyping` 等任务设计的工具，它是当你试图公理化计算时的一个产物。
@@ -518,8 +519,8 @@ mult 2 2 = 2 (add 2) 0
          = 4
 ```
 
-## 引入副作用
-### 概述
+## 引入副作用 {#introduce-side-effects}
+### 概述 {#conclusion}
 如果想要阅读如何构建一个有 `side-effect` 的解释器并且完成一些任务，可以阅读 `AI Memo No. 543`。[^3]这篇文章里充满了技术细节。
 
 如果想要在纯编程理论的方向继续前进，可以看看 Scheme。
@@ -572,8 +573,10 @@ NIL
 
 可见相对于简洁的 Lisp 作出了很大的让步。
 
-### LISP 方言
-本表格由 DeepSeek 生成。
+### LISP 方言 {#lisp-dialects}
+{% admonition(type="warning", title="警告") %}
+	本表格由 DeepSeek 生成，不保证真实性。
+{% end %}
 
 | 特性 | Common Lisp | Clojure | Scheme | Emacs Lisp |
 |---|---|---|---|---|
@@ -584,22 +587,22 @@ NIL
 | **宏系统** | 强大但需谨慎使用 | 安全宏 `syntax-quote` | 卫生宏 `define-syntax` | 类似 Common Lisp |
 | **典型应用领域** | AI、复杂系统 | 分布式系统、数据 | 教学、语言研究 | 编辑器定制、自动化 |
 
-### 相关内容
+### 相关内容 {#related-items}
 可以看看 Haskell。
 
-## 重写系统
+## 重写系统 {#rewriting-systems}
 让我们探讨一个更一般的模型。本部分参考了[香蕉空间](https://www.bananaspace.org)（采用 CC BY-SA 4.0 许可）的相关词条（**重写系统**，**正规性**，**合流性**）。
 
 **重写**是将表达式的一部分替换为其它表达式的过程，可以看作一种关系或者一组规则。在此之上，**重写系统**是由一个表达式的集合和表达式到表达式之间的重写关系组成的结构，类似于有向图。
 
-### 记号
+### 记号 {#rewriting-notation}
 因此，所有资料为：表达式的集合 $E$ 与重写关系 $(\to ) \subset E\times E$。
 
 记 $\stackrel{*}{\to}$ 表示将 $\to$ 应用任意自然数次。
 
 用双向箭头 $\stackrel{*}{\leftrightarrow}$ 表示两边都可的版本。
 
-### 正规性
+### 正规性 {#normalization}
 对于重写系统 $E$ 和 $a,b\in E$，若 $a\stackrel{*}{\to} b \iff a=b$，那么 $a$ 是一个**正规形式**。
 
 若重写系统中任意表达式都能通过某个特定的顺序重写为正规形式，那么该重写系统是**弱正规**的。
@@ -611,11 +614,24 @@ NIL
 
 Church–Rosser 定理说，λ 演算具有合流性。
 
-本部分参考了 [D. Kozen/Church–Rosser Made Easy](https://www.cs.cornell.edu/~kozen/Papers/ChurchRosser.pdf)[^4]，其列举的文献中包含了其它的证明方式。你可以[在此](https://pauillac.inria.fr/~huet/PUBLIC/residuals.pdf)找到一个使用 Coq 形式化验证的证明。
+### Church–Rosser 定理 {#church-rosser-theorem}
+本部分原本希望参考 [D. Kozen/Church–Rosser Made Easy](https://www.cs.cornell.edu/~kozen/Papers/ChurchRosser.pdf)[^4]，但其中包含了过多未声明含义的术语，且包含了今天看来不必要的步骤，例如，使用了包含序列的集合来定义树[^prefix_tree]，并混用术语。
+
+其列举的文献中包含了其它的证明方式。此外，你可以[在此](https://pauillac.inria.fr/~huet/PUBLIC/residuals.pdf)找到一个使用 Coq 形式化验证的证明。
+
+以下将对证明思路进行摘要。
+
+首先，α-等价关系的刻画是易完成的。只需考虑 β-规约，全体的合法 Lambda 表达式记作 $\omega = \omega^{\*}/\sim _\alpha$。
+
+$\omega$ 上的一个二元关系 $\oplus$ 称为相容的（congruent），如果 $a\oplus b \Rightarrow (f\ a)\oplus (f\ b), (a\ g)\oplus (b\ g), (\lambda x.\ a)\oplus (\lambda x.\ b)$ 成立。
+
+一步 β-规约是之前定义的 $(\lambda x.\ a)\ b\to Z[b/x]$，是相容关系。β-规约就是之前定义的 $\stackrel{\*}{\to}$，我们重新记作 $\twoheadrightarrow$，它也可看作一步 β-规约的自反传递闭包。
+
+对合流性定义的一边进行归纳，易知只需考察 $b \gets a \twoheadrightarrow c$ 的情形。
 
 {{ todo() }}
 
-## 困境
+## 困境 {#dilemma}
 {% admonition(type="warning", title="警告") %}
 	此段未完全经过验证。
 {% end %}
@@ -626,7 +642,7 @@ Church–Rosser 定理说，λ 演算具有合流性。
 
 我们没有银弹。Lisp 的核心理念与任何后续叠加的理念，或者其它任何极好的理念，都不能单一地在生产力、可靠性或简单性方面带来数量级的提升。[^5]
 
-### 缺陷
+### 缺陷 {#downside}
 Lisp 的一个明显问题是可读性。S-表达式看起来不符合人类的习惯。
 
 现代的一个可以接受的例子是 [Julia 的元编程](https://docs.juliacn.com/latest/manual/metaprogramming/)。这是通过支持在运行时解析字符串实现的。
@@ -650,7 +666,7 @@ display(f(8))
 
 可以看看新近的 [Exo 2](https://news.mit.edu/2025/high-performance-computing-with-much-less-code-0313)。
 
-### 复杂性
+### 复杂性 {#complexity}
 在 The Mythical Man-Month 等诸多著作中都有一个认识，复杂性来自于**本质复杂性**（问题本身的复杂性）和**偶然复杂性**（语言、工具或方法带来的复杂性）这两类。在纯粹模型之外，Lisp 降低的复杂性没有那么大。
 
 Richard P. Gabriel 提出了[^6]两种设计理念的不同。
@@ -667,8 +683,8 @@ Richard P. Gabriel 提出了[^6]两种设计理念的不同。
 
 实际上，由于 Lisp 可以较为自由地完成设计，而设计通常会很复杂，Lisp 社区常产生分歧。
 
-## 后记
-### The Roots of Lisp 的说明
+## 后记 {#aftermath}
+### The Roots of Lisp 的说明 {#aftermath-roots-of-lisp}
 > In translating McCarthy's notation into running code I tried to change as little
 > as possible. I was tempted to make the code easier to read, but I wanted to
 > keep the flavor of the original.
@@ -744,11 +760,13 @@ Richard P. Gabriel 提出了[^6]两种设计理念的不同。
 [^1]: ``Recursive Functions of Symbolic Expressions and Their Computation by Machine, Part1.'' Communication of the ACM 3:4, April 1960, pp. 184-195.
 [^2]: A. CHURCH, The Calculi of Lambda-Conversion (Princeton University Press, Princeton, N. J., 1941).
 [^feature]: 在现实中，生物、语言等具有更复杂的此种特性。
-[^only_seven]: 原文如此，但不借助 `lambda` 完成 `eval` 的递归似乎是不可能的。
+[^only_seven]: 原文如此，但不借助 `lambda` 等记号完成 `eval` 的递归特性似乎是不可能的。
 [^elegant]: 尽管早有大量图灵完备的模型存在，先前并无具备足够抽象性的语言。\
             而这是发明 Lisp 的目标之一。
 [^3]: Guy Lewis Steele, Jr. and Gerald Jay Sussman, ”The Art of the Interpreter, or the Modularity Complex (Parts Zero, One, and Two),” MIT AI Lab Memo 453, May 1978.
 [^4]: DOI 10.3233/FI-2010-306
+[^prefix_tree]: prefix-closed 的集合需满足，对其每个元素 $s$ 均有 $s$ 的前缀在集合中。
+                例如，使用 $\{\epsilon, a, ab, ac, abd\}$ 定义一个树的父子关系，其中 $\epsilon$ 表示空序列。
 [^lisp-count]: 可能是指 Common Lisp。取决于具体的统计方式。
 [^5]: No Silver Bullet—Essence and Accident in Software Engineering
 [^6]: <https://www.dreamsongs.com/WorseIsBetter.html>
