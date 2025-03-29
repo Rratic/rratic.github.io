@@ -23,7 +23,7 @@ tags = ["数学", "计算机", "离散", "抽象", "Lisp"]
   }
 </style>
 
-## 说明 {#about}
+## 介绍 {#about}
 在 1960 年，John McCarthy 发表了一篇划时代的论文。其对编程的贡献有如欧几里德对几何的贡献。[^1]
 
 这篇论文中定义了一个名为 Lisp（意为 list processing）的编程语言。Paul Graham 认为，“目前为止只有两种真正干净利落，始终如一的编程模式：C 语言模式和 Lisp 语言模式。此二者就象两座高地……随着计算机变得越来越强大，新开发的语言一直在坚定地趋向于 Lisp 模式。”
@@ -623,13 +623,21 @@ Church–Rosser 定理说，λ 演算具有合流性。
 
 首先，α-等价关系的刻画是易完成的。只需考虑 β-规约，全体的合法 Lambda 表达式记作 $\omega = \omega^{\*}/\sim _\alpha$。
 
-$\omega$ 上的一个二元关系 $\oplus$ 称为相容的（congruent），如果 $a\oplus b \Rightarrow (f\ a)\oplus (f\ b), (a\ g)\oplus (b\ g), (\lambda x.\ a)\oplus (\lambda x.\ b)$ 成立。
+一步 β-规约是之前定义的 $(\lambda x.\ a)\ b\to a[b/x]$。多步规约就是之前定义的 $\stackrel{\*}{\to}$，我们重新记作 $\twoheadrightarrow$，它也可看作一步 β-规约的自反传递闭包。
 
-一步 β-规约是之前定义的 $(\lambda x.\ a)\ b\to Z[b/x]$，是相容关系。β-规约就是之前定义的 $\stackrel{\*}{\to}$，我们重新记作 $\twoheadrightarrow$，它也可看作一步 β-规约的自反传递闭包。
+证明中最大的难题是归约时，内部的可归约式结构可能被破坏。
 
-对合流性定义的一边进行归纳，易知只需考察 $b \gets a \twoheadrightarrow c$ 的情形。
+为此，我们定义并行归约（parallel reduction），使用符号 $\Longrightarrow$ 标记，满足。
+- $x\Longrightarrow x$
+- 若 $M\Longrightarrow M'$ 则 $\lambda x.\ M\Longrightarrow \lambda x.\ M'$
+- 若 $M\Longrightarrow M', N\Longrightarrow N'$ 则 $M\ N\Longrightarrow M'\ N'$
+- 若 $M\Longrightarrow M', N\Longrightarrow N'$ 则 $(\lambda x.\ M)N\Longrightarrow M'[N'/x]$
 
-{{ todo() }}
+容易证明并行归约是合流的。
+
+而后，存在包含关系 $(\to)\subset(\Longrightarrow)\subset(\twoheadrightarrow)=(\stackrel{\*}{\Longrightarrow})$ 其中最后一点可以分别说明两边的包含关系。
+
+由此，λ 演算具有合流性。
 
 ## 困境 {#dilemma}
 {% admonition(type="warning", title="警告") %}
