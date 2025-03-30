@@ -1,7 +1,7 @@
 +++
 title = "功能测试"
 date = 1900-01-01
-updated = 2025-03-23
+updated = 2025-03-30
 
 [extra]
 math = true
@@ -144,6 +144,42 @@ impl SerializeWithRegistry for ComponentTypeLink {
 ## KaTeX
 $\mathbb{R}^{1,3} \rtimes \operatorname{SO}(1,3)$
 
+$$
+\begin{Vmatrix}
+   a & b \\\\
+   c & d
+\end{Vmatrix}
+$$
+
+$$
+\begin{CD}
+   A @>a>> B \\\\
+@VbVV @AAcA \\\\
+   C @= D
+\end{CD}
+$$
+
+## My CSS
+<div class="list-deletions">
+	<ul>
+		<li>太易：只有无垠虚无。</li>
+		<li>太初：无形无质，只有先天一炁。</li>
+	</ul>
+</div>
+
+<div class="list-modifications">
+	<ul>
+		<li>太始：有形无质，开天辟地前。</li>
+	</ul>
+</div>
+
+<div class="list-additions">
+	<ul>
+		<li>太素：原始物质。</li>
+		<li>太极：阴阳未分。</li>
+	</ul>
+</div>
+
 ## Shortcodes
 {% mermaid() %}
 graph LR;
@@ -164,3 +200,6 @@ graph LR;
 ## 特殊情形测试
 ### 过长的内容
 $$Y f = (\lambda x. f(x x))(\lambda x. f(x x)) = (\lambda x. f(x x))(\lambda x. f(x x))(\lambda x. f(x x)) = f(Y f) = f((\lambda x. f(x x))(\lambda x. f(x x))) = f((\lambda x. f(x x))(\lambda x. f(x x))(\lambda x. f(x x))) = f(f(Y f))$$
+
+## i18n
+**谓词（predicate）**和**性质（property）**应该分别是粗体。

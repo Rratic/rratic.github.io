@@ -2,7 +2,7 @@ base_url = "https://rratic.github.io"
 theme = "linkita"
 
 author = "Rratic"
-title = "Rratic's"
+title = "错行"
 generate_feeds = false
 
 default_language = "zh"

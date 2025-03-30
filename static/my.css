@@ -5,16 +5,22 @@ article {
 .list-additions li::marker {
 	content: "+";
 	color: green;
+	font-weight: 800;
+	font-family: 'Courier New', Courier, monospace;
 }
 
 .list-modifications li::marker {
 	content: "*";
-	color: yellow;
+	color: goldenrod;
+	font-weight: 800;
+	font-family: 'Courier New', Courier, monospace;
 }
 
 .list-deletions li::marker {
 	content: "-";
 	color: red;
+	font-weight: 800;
+	font-family: 'Courier New', Courier, monospace;
 }
 
 footer .block-bg:not(.block-hover) {
