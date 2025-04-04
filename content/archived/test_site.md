@@ -1,11 +1,12 @@
 +++
 title = "功能测试"
 date = 1900-01-01
-updated = 2025-03-30
+updated = 2025-04-04
 
 [extra]
 math = true
 mermaid = true
+toc = true
 
 [extra.cover]
 image = "images/cover/gear.jpg"
@@ -138,7 +139,11 @@ impl SerializeWithRegistry for ComponentTypeLink {
 </div>
 
 <p>
-	<iframe width="640" height="360" frameborder="0" src="https://www.shadertoy.com/embed/MsGczV?gui=true&t=10&paused=true&muted=false" allowfullscreen></iframe>
+	<iframe width="640" height="360" frameborder="0" src="https://www.shadertoy.com/embed/MsGczV?gui=true&paused=true&muted=false" allowfullscreen></iframe>
+</p>
+
+<p>
+	<iframe width="640" height="360" src="https://lazyfly.me/iframe" allowfullscreen></iframe>
 </p>
 
 ## KaTeX
@@ -193,11 +198,21 @@ graph LR;
 	{% end %}
 {% end %}
 
+## My Shortcodes
 {{ todo() }}
-
 {{ quote(id="main", text="生成引用") }}
+{{ quote(id="main", text="再一次生成引用") }}
+{% shell(text="What is a fish without an eye?") %}
+A fsh.
+{% end %}
+{% shell(text="点击**展开**回答。") %}
+**展 开** 回 答。
+{% end %}
 
 ## 特殊情形测试
+### 解析
+$1*2+3*4$
+
 ### 过长的内容
 $$Y f = (\lambda x. f(x x))(\lambda x. f(x x)) = (\lambda x. f(x x))(\lambda x. f(x x))(\lambda x. f(x x)) = f(Y f) = f((\lambda x. f(x x))(\lambda x. f(x x))) = f((\lambda x. f(x x))(\lambda x. f(x x))(\lambda x. f(x x))) = f(f(Y f))$$
 

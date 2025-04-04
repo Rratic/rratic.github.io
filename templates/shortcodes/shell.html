@@ -1,0 +1,19 @@
+{% if id %}
+	{% set faq_id = id %}
+{% else %}
+	{% set faq_id = "faq-" ~ nth %}
+{% endif %}
+{% if nth == 1 %}
+<script>
+	function touch_shell(event, id) {
+		let node = document.getElementById(id);
+		node.classList.toggle("folded");
+	}
+</script>
+{% endif %}
+<blockquote onclick="touch_shell(event, '{{ faq_id | safe }}')">
+	{{ text | markdown | safe }}
+</blockquote>
+<p id="{{ faq_id }}" class="folded">
+	{{ body | markdown(inline=true) | safe }}
+</p>

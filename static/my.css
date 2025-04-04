@@ -1,5 +1,10 @@
 article {
-	overflow-x: hidden; /* Ensures head bar works correctly. */
+	/* Ensures head bar works correctly. */
+	overflow-x: hidden;
+}
+
+.folded {
+	display: none;
 }
 
 .list-additions li::marker {
