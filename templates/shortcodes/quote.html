@@ -1,8 +1,9 @@
-{% set data = load_data(path="quotes/"~id~".toml") %}
+{% set data = load_data(path="quotes/" ~ id ~ ".toml") %}
 {% set pool = data.pool %}
+{% set func_name = "render_quote_" ~ id %}
 {% if nth == 1 %}
 <script>
-	function render_quote(event) {
+	function {{ func_name }}(event) {
 		let target = event.target;
 		let entries = {{ pool | json_encode() | safe }};
 		let entry = entries[Math.floor(Math.random() * (entries.length))];
@@ -10,7 +11,7 @@
 	}
 </script>
 {% endif %}
-<blockquote onclick="render_quote(event)">
+<blockquote onclick="{{ func_name }}(event)">
 	<p>
 		{{ text }}
 	</p>

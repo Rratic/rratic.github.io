@@ -200,8 +200,8 @@ graph LR;
 
 ## My Shortcodes
 {{ todo() }}
-{{ quote(id="main", text="生成引用") }}
-{{ quote(id="main", text="再一次生成引用") }}
+{{ quote(id="cat", text="生成引用") }}
+{{ quote(id="cat", text="再一次生成引用") }}
 {% shell(text="What is a fish without an eye?") %}
 A fsh.
 {% end %}

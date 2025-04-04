@@ -5,13 +5,13 @@
 {% endif %}
 {% if nth == 1 %}
 <script>
-	function touch_shell(event, id) {
+	function touch_shell(id) {
 		let node = document.getElementById(id);
 		node.classList.toggle("folded");
 	}
 </script>
 {% endif %}
-<blockquote onclick="touch_shell(event, '{{ faq_id | safe }}')">
+<blockquote onclick="touch_shell('{{ faq_id | safe }}')">
 	{{ text | markdown | safe }}
 </blockquote>
 <p id="{{ faq_id }}" class="folded">
