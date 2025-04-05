@@ -14,6 +14,6 @@
 <blockquote onclick="touch_shell('{{ faq_id | safe }}')">
 	{{ text | markdown | safe }}
 </blockquote>
-<p id="{{ faq_id }}" class="folded">
-	{{ body | markdown(inline=true) | safe }}
-</p>
+<div id="{{ faq_id }}" class="folded">
+	{{ body | markdown | safe }}
+</div>
