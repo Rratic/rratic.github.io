@@ -3,7 +3,6 @@ title = "本站说明"
 date = 2025-04-06
 
 [extra]
-comment = false
 toc = true
 
 [taxonomies]
