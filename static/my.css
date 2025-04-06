@@ -3,6 +3,10 @@ article {
 	overflow-x: hidden;
 }
 
+blockquote em {
+	text-decoration: 1px underline;
+}
+
 .folded {
 	display: none;
 }
