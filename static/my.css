@@ -3,7 +3,7 @@ article {
 	overflow-x: hidden;
 }
 
-blockquote em {
+blockquote cite em {
 	text-decoration: 1px underline;
 }
 
