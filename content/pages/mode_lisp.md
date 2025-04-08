@@ -9,7 +9,7 @@ toc = true
 
 [taxonomies]
 categories = ["知识"]
-tags = ["数学", "计算机", "离散", "抽象", "Lisp"]
+tags = ["数学", "解析", "计算机", "离散", "抽象", "Lisp"]
 +++
 
 <style>
