@@ -1,6 +1,7 @@
 +++
 title = "【草稿】希尔伯特第三问题"
 date = 2025-04-09
+updated = 2025-04-10
 
 [extra]
 math = true
@@ -12,15 +13,13 @@ tags = ["数学", "笔记", "连续", "具体", "几何", "初等几何"]
 +++
 
 ## 介绍 {#about}
-希尔伯特第三问题是希尔伯特问题中最早得到解决的。
+希尔伯特第三问题是 1900 年希尔伯特《数学问题》演讲[^hilbert23reprinted]提出的 23 个问题中最早得到解决的。
 
 原问题是：给定两个体积相等的多面体，是否总能将一个切成有限个多面体，通过平移、旋转组合成另一个？
 
-该问题由 Max Dehn 在提出当年（1900 年）使用不变量解决。
+该问题由 Max Dehn 在 1901 年 9 月使用不变量解决。[^paper-dehn]
 
-我尚未找到希尔伯特原文或 Dehn 的原始论文。
-
-## 背景：平面情形 {#background-plane}
+## 背景 - 平面情形 {#background-plane}
 在平面中，类似问题的回答是肯定的，这是 Wallace–Bolyai–Gerwien 定理。
 
 只需证明，多边形可以通过剪切拼接变为面积相等的正方形。这可以通过如下操作完成：
@@ -33,14 +32,25 @@ tags = ["数学", "笔记", "连续", "具体", "几何", "初等几何"]
 ## Dehn 不变量 {#dehn-invariant}
 对一个多面体，其 $n$ 个棱长为 $l_1, l_2, \cdots l_n$，对应的二面角为 $\theta _1, \theta _2, \cdots \theta _n$，则该不变量被定义为：
 
-$$\sum_{i=1}^n l_i\otimes \theta _i \in \mathbb{R}\otimes \mathbb{R}/2\pi\mathbb{Z}$$
+$$\sum_{i=1}^n l_i\otimes \theta _i \in \mathbb{R}\otimes _\mathbb{Z} \mathbb{R}/\pi\mathbb{Z}$$
 
-有些文章中会采取 $\sum_{i=1}^n l_i \theta _i$，这会导致无法区分形如“边长为 π”的多面体。
+其中 $\otimes$ 是张量积，$\mathbb{R}\otimes _\mathbb{Z} \mathbb{R}/\pi\mathbb{Z} = \mathbb{R}\otimes _\mathbb{Q} \mathbb{R}/\pi\mathbb{Q}$。
+
+这一二元组允许两个过程：
+- $(l_1 + l_2, \theta) = (l_1, \theta) + (l_2, \theta)$ 在棱上剪/接。
+- $(l, \theta _1 + \theta _2) = (l, \theta _1) + (l, \theta _2)$ 在角上剪/接。
+
+有些文章中会采取 $\sum_{i=1}^n l_i \theta _i$，这足以完成证明，但会导致无法区分形如“边长为 π”的多面体。
 
 ## 回答 {#answer}
-棱长为 1 的正四面体的 Dehn 不变量为 $(6, 2\arctan\frac{\sqrt{2}}{2})$​，这不能化约成 0（否则存在 $q\in\mathbb{Q}$ 使得 $\tan(q\pi)=\frac{\sqrt{2}}{2}$，通过极小多项式分析知矛盾）。而任意长方体的 Dehn 不变量都为 0。
+棱长为 1 的正四面体的 Dehn 不变量为 $(6, 2\arctan\frac{\sqrt{2}}{2})$​，这不能化约成 0[^not-zero]。而任意长方体的 Dehn 不变量都为 0。
 
 因此取体积与正四面体相等的长方体即为反例。
 
-## 加强
-Jean-Pierre Sydler 于 1965 年证明
+## 加强 {#enhancement}
+Jean-Pierre Sydler 于 1965 年证明体积与 Dehn 不变量都相同的多面体一定可通过互相剪拼得到。[^paper-sydler]
+
+[^hilbert23reprinted]: 一个英文重制文本见于 <https://people.tamu.edu/~rojas//hilbert23reprinted.pdf>。
+[^paper-dehn]: <https://link.springer.com/article/10.1007/BF01448001>
+[^not-zero]: 否则存在 $\frac{a}{b}\in\mathbb{Q}$ 使得 $\tan(\frac{a}{b}\pi)=\frac{\sqrt{2}}{2}$。一方面设 $y=e^{i\frac{a}{b}\pi}$ 则这等于 $-i\frac{y^2-1}{y^2+1}$，满足 $2(y^2-1)^2+(y^2+1)^2=0$。另一方面 $y$ 为单位根，极小多项式是分圆多项式，枚举知不成立。
+[^paper-sydler]: <https://link.springer.com/article/10.1007/BF02564364>

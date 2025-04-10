@@ -465,7 +465,7 @@ list
 
 ---
 
-这一设计的实现使得仅通过七个原始操作符 `quote`，`atom`，`eq`，`car`，`cdr`，`cons` 和 `cond` 完成[^only_seven]一个可用且具备优雅性[^elegant]的计算模型是可能的（尽管可能相当复杂）。
+这一设计的实现使得仅通过七个原始操作符 `quote`，`atom`，`eq`，`car`，`cdr`，`cons` 和 `cond` 完成[^only-seven]一个可用且具备优雅性[^elegant]的计算模型是可能的（尽管可能相当复杂）。
 
 ### 反思 {#review}
 在 1960 的原始定义中缺乏了很多使用的特性。如语句不会产生 `side-effect`（即每一个完整的表达式被单独执行，没有联系），因而没有顺序执行流程。并且没有实用的数字（尽管可以用长度为 $n$ 的列表表示）。
@@ -615,7 +615,7 @@ NIL
 Church–Rosser 定理说，λ 演算具有合流性。
 
 ### Church–Rosser 定理 {#church-rosser-theorem}
-本部分原本希望参考 [D. Kozen/Church–Rosser Made Easy](https://www.cs.cornell.edu/~kozen/Papers/ChurchRosser.pdf)[^4]，但其中包含了过多未声明含义的术语，且包含了今天看来不必要的步骤，例如，使用了包含序列的集合来定义树[^prefix_tree]，并混用术语。
+本部分原本希望参考 [D. Kozen/Church–Rosser Made Easy](https://www.cs.cornell.edu/~kozen/Papers/ChurchRosser.pdf)[^4]，但其中包含了过多未声明含义的术语，且包含了今天看来不必要的步骤，例如，使用了包含序列的集合来定义树[^prefix-tree]，并混用术语。
 
 其列举的文献中包含了其它的证明方式。此外，你可以[在此](https://pauillac.inria.fr/~huet/PUBLIC/residuals.pdf)找到一个使用 Coq 形式化验证的证明。
 
@@ -768,12 +768,11 @@ Richard P. Gabriel 提出了[^6]两种设计理念的不同。
 [^1]: ``Recursive Functions of Symbolic Expressions and Their Computation by Machine, Part1.'' Communication of the ACM 3:4, April 1960, pp. 184-195.
 [^2]: A. CHURCH, The Calculi of Lambda-Conversion (Princeton University Press, Princeton, N. J., 1941).
 [^feature]: 在现实中，生物、语言等具有更复杂的此种特性。
-[^only_seven]: 原文如此，但不借助 `lambda` 等记号完成 `eval` 的递归特性似乎是不可能的。
-[^elegant]: 尽管早有大量图灵完备的模型存在，先前并无具备足够抽象性的语言。\
-            而这是发明 Lisp 的目标之一。
+[^only-seven]: 原文如此，但不借助 `lambda` 等记号完成 `eval` 的递归特性似乎是不可能的。
+[^elegant]: 尽管早有大量图灵完备的模型存在，先前并无具备足够抽象性的语言。而这是发明 Lisp 的目标之一。
 [^3]: Guy Lewis Steele, Jr. and Gerald Jay Sussman, ”The Art of the Interpreter, or the Modularity Complex (Parts Zero, One, and Two),” MIT AI Lab Memo 453, May 1978.
 [^4]: DOI 10.3233/FI-2010-306
-[^prefix_tree]: prefix-closed 的集合需满足，对其每个元素 $s$ 均有 $s$ 的前缀在集合中。
+[^prefix-tree]: prefix-closed 的集合需满足，对其每个元素 $s$ 均有 $s$ 的前缀在集合中。
                 例如，使用 $\{\epsilon, a, ab, ac, abd\}$ 定义一个树的父子关系，其中 $\epsilon$ 表示空序列。
 [^lisp-count]: 可能是指 Common Lisp。取决于具体的统计方式。
 [^5]: No Silver Bullet—Essence and Accident in Software Engineering
