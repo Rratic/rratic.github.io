@@ -1,3 +1,5 @@
+import { Board } from "./chess_base.js";
+
 function cat_svg(color, color2, direction) {
 	let svg = new Image();
 	let circle_ml =
@@ -84,7 +86,7 @@ function moves_orange_cat(b, x, y) {
 	return list;
 }
 
-let catchessRules = {
+export let catchessRules = {
 	__init__: function (size) {
 		let board = new Board();
 		board.length = size;

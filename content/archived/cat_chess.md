@@ -29,9 +29,7 @@ tags = ["展示", "在线", "游戏", "含模拟", "Javascript"]
 ## 交互
 AI 采用了 α-β 剪枝算法。棋盘评估函数不一定合理。
 
-<script src="/script/chess/chess_base.js"></script>
-<script src="/script/chess/catchess.js"></script>
-<script src="/script/chess/catchess_handler.js"></script>
+<script type="module" src="/script/chess/catchess_handler.js"></script>
 
 <style>
 	input {
@@ -48,6 +46,15 @@ AI 采用了 α-β 剪枝算法。棋盘评估函数不一定合理。
 
 	#launch_button_container {
 		text-align: center;
+	}
+
+	#canvas_box {
+		display: flex;
+		justify-content: center;
+	}
+
+	#canvas_box > canvas {
+		border: 8px solid gold;
 	}
 </style>
 

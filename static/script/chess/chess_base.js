@@ -1,4 +1,4 @@
-class Board {
+export class Board {
 	length
 	height
 	contents
