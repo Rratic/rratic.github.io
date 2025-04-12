@@ -122,3 +122,9 @@ tags = ["说明"]
 {% shell(text = "这里的文章使用怎样的许可？") %}
 除特殊说明外，均按照 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/legalcode) 协议许可。
 {% end %}
+
+## 贡献
+{% shell(text = "如何给这个站点作贡献？") %}
+1. **积极评论**。
+2. 可与我联系进行合作。
+{% end %}
