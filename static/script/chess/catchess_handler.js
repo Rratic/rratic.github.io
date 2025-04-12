@@ -61,24 +61,17 @@ function init(maxWidth, size, use_ai) {
 	let cvs = document.createElement("canvas");
 	cvs.width = maxWidth;
 	cvs.height = maxWidth + 32;
-
-	let container = document.createElement("p");
-	container.id = "canvas_box";
-	container.appendChild(cvs);
-
 	board = catchessRules.__init__(size);
 	initialize_chess(cvs, use_ai);
-
-	return container;
+	return cvs;
 }
 
 function launch() {
-	let container = document.getElementById("canvas_container");
+	let container = document.getElementById("canvas_box");
 	let size = Number(document.getElementById("input_board_size").value);
 	if (size == 0) size = 8;
 	let use_ai = Number(document.getElementById("input_use_ai").value) == 1;
-	container.replaceChildren();
-	container.append(init(64 * size, size, use_ai));
+	container.replaceChildren(init(64 * size, size, use_ai));
 }
 
 window.launch = launch;

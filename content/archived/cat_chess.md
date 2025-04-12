@@ -5,7 +5,7 @@ updated = 2025-03-23
 
 [taxonomies]
 categories = ["归档"]
-tags = ["展示", "在线", "游戏", "含模拟", "Javascript"]
+tags = ["展示", "在线", "游戏", "含模拟"]
 +++
 
 ## 规则
@@ -58,8 +58,7 @@ AI 采用了 α-β 剪枝算法。棋盘评估函数不一定合理。
 	}
 </style>
 
-<div id="canvas_container"></div>
-
+<p id="canvas_box">&lt;棋盘生成处&gt;</p>
 <input id="input_board_size" type="number" placeholder="棋盘大小 5~16" min="5" max="16" />
 <input id="input_use_ai" type="number" placeholder="1=单人 2=双人" min="1" max="2" />
 <p id="launch_button_container"><a id="launch_button" onclick="launch()">建立</a></p>
