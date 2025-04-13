@@ -29,7 +29,8 @@ tags = ["数学", "笔记", "连续", "具体", "几何", "初等几何"]
 4. 矩形可以剪接成正方形（通过把它变为一边长为 $\sqrt{ab}$ 的平行四边形）。
 5. 两个正方形可以剪接成大正方形（将正方形并排放置，割出两个斜边 $\sqrt{a^2+b^2}$ 的直角三角形）。
 
-## Dehn 不变量 {#dehn-invariant}
+## 原问题 {#original-question}
+### Dehn 不变量 {#dehn-invariant}
 对一个多面体，其 $n$ 个棱长为 $l_1, l_2, \cdots l_n$，对应的二面角为 $\theta _1, \theta _2, \cdots \theta _n$，则该不变量被定义为：
 
 $$\sum_{i=1}^n l_i\otimes \theta _i \in \mathbb{R}\otimes _\mathbb{Z} \mathbb{R}/\pi\mathbb{Z}$$
@@ -42,7 +43,23 @@ $$\sum_{i=1}^n l_i\otimes \theta _i \in \mathbb{R}\otimes _\mathbb{Z} \mathbb{R}
 
 有些文章中会采取 $\sum_{i=1}^n l_i \theta _i$，这足以完成证明，但会导致无法区分形如“边长为 π”的多面体。
 
-## 回答 {#answer}
+### 张量积 {#tensor-product}
+这里解释一下张量积的严格定义。
+
+两个向量空间 $V,W$ 的张量积 $V\otimes W$ 是一个向量空间，由形如
+
+$$(v, w), v\in V, w\in W$$
+
+的元素张成，且满足双线性关系。
+
+$$(a_1v_1 + a_2v_2, w) = a_1(v_1, w) + a_2(v_2, w)$$
+$$(v, a_1w_1 + a_2w_2) = a_1(v, w_1) + a_2(v, w_2)$$
+
+前文中 $\otimes _\mathbb{Z}$ 是指这里 $a\in \mathbb{Z}$，在无歧义时可省略。
+
+张量积使得 $V\times W$ 上的双线性函数可以等价地看成 $V\otimes W$ 上的线性函数。
+
+### 回答 {#answer}
 棱长为 1 的正四面体的 Dehn 不变量为 $(6, 2\arctan\frac{\sqrt{2}}{2})$​，这不能化约成 0[^not-zero]。而任意长方体的 Dehn 不变量都为 0。
 
 因此取体积与正四面体相等的长方体即为反例。
