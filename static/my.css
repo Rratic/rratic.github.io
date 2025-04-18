@@ -3,6 +3,11 @@ article {
 	overflow-x: hidden;
 }
 
+blockquote cite.align-right {
+	display: block;
+	text-align: right;
+}
+
 blockquote cite em {
 	text-decoration: 1px underline;
 }
