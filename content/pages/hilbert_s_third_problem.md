@@ -35,8 +35,6 @@ tags = ["数学", "笔记", "连续", "具体", "几何", "初等几何"]
 
 $$\sum_{i=1}^n l_i\otimes \theta _i \in \mathbb{R}\otimes _\mathbb{Z} \mathbb{R}/\pi\mathbb{Z}$$
 
-其中 $\otimes$ 是张量积，$\mathbb{R}\otimes _\mathbb{Z} \mathbb{R}/\pi\mathbb{Z} = \mathbb{R}\otimes _\mathbb{Q} \mathbb{R}/\pi\mathbb{Q}$。
-
 这一二元组允许两个过程：
 - $(l_1 + l_2, \theta) = (l_1, \theta) + (l_2, \theta)$ 在棱上剪/接。
 - $(l, \theta _1 + \theta _2) = (l, \theta _1) + (l, \theta _2)$ 在角上剪/接。
@@ -44,7 +42,7 @@ $$\sum_{i=1}^n l_i\otimes \theta _i \in \mathbb{R}\otimes _\mathbb{Z} \mathbb{R}
 有些文章中会采取 $\sum_{i=1}^n l_i \theta _i$，这足以完成证明，但会导致无法区分形如“边长为 π”的多面体。
 
 ### 张量积 {#tensor-product}
-这里解释一下张量积的严格定义。
+这里解释一下张量积 $\otimes$ 的严格定义。
 
 两个向量空间 $V,W$ 的张量积 $V\otimes W$ 是一个向量空间，由形如
 
@@ -55,7 +53,7 @@ $$(v, w), v\in V, w\in W$$
 $$(a_1v_1 + a_2v_2, w) = a_1(v_1, w) + a_2(v_2, w)$$
 $$(v, a_1w_1 + a_2w_2) = a_1(v, w_1) + a_2(v, w_2)$$
 
-前文中 $\otimes _\mathbb{Z}$ 是指这里 $a\in \mathbb{Z}$，在无歧义时可省略。
+前文中 $\otimes _\mathbb{Z}$ 是指这里 $a\in \mathbb{Z}$，在无歧义时可省略。且易证明 $\mathbb{R}\otimes _\mathbb{Z} \mathbb{R}/\pi\mathbb{Z} = \mathbb{R}\otimes _\mathbb{Q} \mathbb{R}/\pi\mathbb{Q}$。
 
 张量积使得 $V\times W$ 上的双线性函数可以等价地看成 $V\otimes W$ 上的线性函数。
 
