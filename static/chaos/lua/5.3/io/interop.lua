@@ -1,9 +1,9 @@
 module = {}
 
 local js = require "js"
-local window = js.global
-document = window.document
-terminal = document:getElementById("terminal")
-output = terminal:querySelector(".output")
+Window = js.global
+Document = Window.document
+Terminal = Document:querySelector("#terminal")
+Output = Terminal:querySelector(".output")
 
 return module

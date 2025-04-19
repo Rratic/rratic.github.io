@@ -1,11 +1,16 @@
 :root {
 	--bg: #f4f4f4;
+	--fg: black;
 	--text: #333;
+	--choice: #b97c2c;
+	--choice-closed: #4f3411;
 	--prompt: #0078d4;
 }
 
 .dark {
 	--text: #ccc;
+	--choice: #cc8f1a;
+	--choice-closed: #c4af87;
 }
 
 body {
@@ -40,6 +45,43 @@ body {
 .input .prompt {
 	color: var(--prompt);
 	font-weight: 800;
+}
+
+p {
+	font-size: 13pt;
+	line-height: 1.7em;
+}
+
+/*
+	Buttons.
+*/
+
+a {
+	font-weight: 700;
+	color: var(--choice);
+	font-family: sans-serif;
+	text-decoration: none;
+}
+
+.unclickable {
+	color: var(--choice-closed);
+	cursor: not-allowed;
+}
+
+@media (hover: hover) {
+	a:hover {
+		color: var(--fg);
+	}
+
+	@media screen and (prefers-reduced-motion: no-preference) {
+		a {
+			transition: color 0.6s;
+		}
+
+		a:hover {
+			transition: color 0.1s;
+		}
+	}
 }
 
 /*
