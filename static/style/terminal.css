@@ -1,0 +1,47 @@
+:root {
+	--bg: #f4f4f4;
+	--text: #333;
+	--prompt: #0078d4;
+}
+
+.dark {
+	--text: #ccc;
+}
+
+body {
+	background: var(--bg);
+	margin: 0;
+	padding: 20px;
+	font-family: 'Courier New', monospace;
+	color: var(--text);
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+	body.switched {
+		transition: color 0.6s, background-color 0.6s;
+	}
+}
+
+#terminal {
+	max-width: 800px;
+	margin: 0 auto;
+	border: 1px solid #ddd;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.line {
+	background-color: white;
+	margin: 0;
+	padding: 8px 12px;
+	border-top: 1px solid #e0e0e0;
+	border-bottom: 1px solid #e0e0e0;
+}
+
+.input .prompt {
+	color: var(--prompt);
+	font-weight: 800;
+}
+
+/*
+	Customized line classes.
+*/
