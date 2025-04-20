@@ -8,17 +8,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="/style/terminal.css" type="text/css">
-	<script src="https://cdn.jsdelivr.net/npm/fengari-web@0.1.4/dist/fengari-web.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fengari-web@0.1.4/dist/fengari-web.js"></script>
 </head>
 
 <body>
     <div id="terminal">
         <div class="output">
         </div>
-        <div class="line input">
-            <span class="prompt">>>> </span><span class="command" contenteditable="true">_</span>
+        <div class="input">
+            <div class="line">
+                <span class="prompt">>>> </span><span class="command" contenteditable="true">/</span>
+            </div>
         </div>
     </div>
     <script src="lua/5.3/main.lua" type="application/lua" async></script>
 </body>
+
 </html>

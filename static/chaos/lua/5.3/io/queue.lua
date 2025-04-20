@@ -37,4 +37,8 @@ function module.push_plain_message(html)
 	module.push_raw(html, 1, { "line" })
 end
 
+function module.push_title(html)
+	module.push_raw(html, 1, { "line", "title" })
+end
+
 return module

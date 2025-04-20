@@ -4,6 +4,7 @@ module = {}
 Queue = require("io/queue")
 
 Command = {
+	type = "command",
 	__call = function(mytable, ...)
 		local args = { ... }
 		mytable.args = args
@@ -20,9 +21,8 @@ function Command:new(name, f)
 	return obj
 end
 
-function Command:run(...)
-	local args = { ... }
-	self.action(self, args)
+function Command:run()
+	self.action(self)
 end
 
 local help = Command:new("help", function(self)

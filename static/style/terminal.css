@@ -87,3 +87,8 @@ a {
 /*
 	Customized line classes.
 */
+
+.title {
+	font-size: 24pt;
+	font-weight: 800;
+}

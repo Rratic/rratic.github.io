@@ -1,8 +1,5 @@
+require("io/input")
 Commands = require("io/commands")
 
-Commands.display(function() return 1 end, { [0] = nil }):run()
-Commands.help:run()
-
-for i = 0, 10 do
-	Queue.push_choice("Message " .. i)
-end
+Queue.push_title("函数式混沌")
+Queue.push_choice("开始")
