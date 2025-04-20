@@ -1,9 +1,8 @@
 -- 定义命令（一种特殊返回值，会被调用）。
-module = {}
+local module = {}
+local Queue = require("io/queue")
 
-Queue = require("io/queue")
-
-Command = {
+local Command = {
 	type = "command",
 	__call = function(mytable, ...)
 		local args = { ... }

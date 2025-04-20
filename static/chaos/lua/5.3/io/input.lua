@@ -1,11 +1,9 @@
 -- 用于输入控制。
-module = {}
-
-Interop = require("io/interop")
+local module = "input"
+require("io/interop")
 
 local cli = Terminal:querySelector(".command")
 local cli_id = 0
-Prompt = Terminal:querySelector(".prompt")
 Prompt:addEventListener("click", function()
 	-- Detect command.
 	local command = cli.innerText

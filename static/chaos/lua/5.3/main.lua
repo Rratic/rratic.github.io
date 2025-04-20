@@ -1,5 +1,6 @@
 require("io/input")
 Commands = require("io/commands")
-
+Queue = require("io/queue")
+require("node/choices")
 Queue.push_title("函数式混沌")
-Queue.push_choice("开始")
+Queue.push_choices({ "开始" })
