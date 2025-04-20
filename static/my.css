@@ -1,6 +1,15 @@
+/*
+	Fix bad stylesheet.
+*/
+
 article {
 	/* Ensures head bar works correctly. */
 	overflow-x: hidden;
+}
+
+.pl-4 {
+	padding-left: 1rem;
+	padding-right: 1rem;
 }
 
 blockquote cite.align-right {
@@ -11,6 +20,14 @@ blockquote cite.align-right {
 blockquote cite em {
 	text-decoration: 1px underline;
 }
+
+footer .block-bg:not(.block-hover) {
+	background-color: transparent;
+}
+
+/*
+	For personal use.
+*/
 
 .folded {
 	display: none;
@@ -35,8 +52,4 @@ blockquote cite em {
 	color: red;
 	font-weight: 800;
 	font-family: 'Courier New', Courier, monospace;
-}
-
-footer .block-bg:not(.block-hover) {
-	background-color: transparent;
 }

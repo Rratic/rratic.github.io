@@ -1,7 +1,7 @@
 +++
 title = "功能测试"
 date = 1900-01-01
-updated = 2025-04-07
+updated = 2025-04-20
 
 [extra]
 math = true
@@ -218,5 +218,24 @@ $1*2+3*4$
 ### 过长的内容
 $$Y f = (\lambda x. f(x x))(\lambda x. f(x x)) = (\lambda x. f(x x))(\lambda x. f(x x))(\lambda x. f(x x)) = f(Y f) = f((\lambda x. f(x x))(\lambda x. f(x x))) = f((\lambda x. f(x x))(\lambda x. f(x x))(\lambda x. f(x x))) = f(f(Y f))$$
 
-## i18n
+{% admonition(type="abstract", title="摘要") %}
+- 猫猫垂怜（dyst die CATUS erny）
+	- 赠我真实（flux Rine Quosi）
+		- 铸铁的工作（αvek si jrol）
+			- 方解石的细屑（mδrn si alty）
+				- 水仙的精粹（rtof si wpriu）
+					- 素纸之上（groy sl ilver）
+						- 询疑加身（tin dyne uni）
+							- 安于原处（liy fotrii）
+								- 乞墨来应（gknot tinl rriv）
+									- 今日之俗世（Grndtk sl idin）
+										- 神秘之诠释（Smosi sl Mite）
+											- 神圣降临（Myth dyne frox）
+												- 应此福音（ccho fotrii Nox）
+													- 是为无名无相，超越时空和感觉经验的梵（cat）。
+{% end %}
+
+### i18n
 **谓词（predicate）**和**性质（property）**应该分别是粗体。
+
+若 $\\{A_n\\}_{n\geq 1}\subset \mathfrak{F}$ 则 $\bigcup\limits_{n=1}^{+\infty} A_n\in\mathfrak{F}$

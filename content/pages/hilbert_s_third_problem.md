@@ -1,7 +1,7 @@
 +++
-title = "【草稿】希尔伯特第三问题"
+title = "希尔伯特第三问题"
 date = 2025-04-09
-updated = 2025-04-10
+updated = 2025-04-20
 
 [extra]
 math = true
@@ -15,11 +15,18 @@ tags = ["数学", "笔记", "连续", "具体", "几何", "初等几何"]
 ## 介绍 {#about}
 希尔伯特第三问题是 1900 年希尔伯特《数学问题》演讲[^hilbert23reprinted]提出的 23 个问题中最早得到解决的。
 
-原问题是：给定两个体积相等的多面体，是否总能将一个切成有限个多面体，通过平移、旋转组合成另一个？
+在英文重制文本中，可以看到这样一段描述。
+>  Gauss mentions in particular the theorem of Euclid, that triangular pyramids of equal altitudes are to each other as their bases.
+
+这个问题某种程度上等价于：
+{% admonition(type="question", title="希尔伯特第三问题") %}
+给定两个体积相等的多面体，是否总能将一个切成有限个多面体，通过平移、旋转组合成另一个？
+{% end %}
 
 该问题由 Max Dehn 在 1901 年 9 月使用不变量解决。[^paper-dehn]
 
-## 背景 - 平面情形 {#background-plane}
+## 背景 {#background}
+### 平面情形 {#background-plane}
 在平面中，类似问题的回答是肯定的，这是 Wallace–Bolyai–Gerwien 定理。
 
 只需证明，多边形可以通过剪切拼接变为面积相等的正方形。这可以通过如下操作完成：
