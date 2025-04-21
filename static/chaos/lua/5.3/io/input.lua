@@ -1,6 +1,7 @@
 -- 用于输入控制。
 local module = "input"
 require("io/interop")
+local Queue = require("io/queue")
 
 local cli = Terminal:querySelector(".command")
 local cli_id = 0
@@ -12,17 +13,17 @@ Prompt:addEventListener("click", function()
 	end
 
 	-- Process.
-	ProcessInput(command)
+	local id = "#" .. cli_id
+	ProcessInput(id, command)
 
 	-- Restore cli.
 	cli.innerText = "/"
 end)
 
-function ProcessInput(string)
-	local id = "#" .. cli_id
+function ProcessInput(id, string)
 	local func = load(string, id, "t", _ENV)
 	if type(func) == "nil" then
-		Queue.push_plain_message("无法运行 " .. id)
+		Queue.push_error("无法运行 " .. id)
 	elseif type(func) == "function" then
 		-- Run command.
 		local result = func()

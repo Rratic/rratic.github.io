@@ -5,12 +5,28 @@
 	--choice: #b97c2c;
 	--choice-closed: #4f3411;
 	--prompt: #0078d4;
+	--ad-info: #31bdec;
+	--ad-success: #16b777;
+	--ad-warning: #ffd030;
+	--ad-error: #ff6f4f;
 }
 
 .dark {
 	--text: #ccc;
 	--choice: #cc8f1a;
 	--choice-closed: #c4af87;
+	--ad-info: #177ddc;
+	--ad-success: #49aa19;
+	--ad-warning: #d89614;
+	--ad-error: #a61d24;
+}
+
+.dark * {
+	scrollbar-color: gray black;
+}
+
+.dark *::-webkit-scrollbar {
+	color: gray black;
 }
 
 body {
@@ -63,6 +79,10 @@ a {
 	text-decoration: none;
 }
 
+.choice {
+	margin: 0.5em;
+}
+
 .unclickable {
 	color: var(--choice-closed);
 	cursor: not-allowed;
@@ -89,6 +109,21 @@ a {
 */
 
 .title {
-	font-size: 24pt;
 	font-weight: 800;
+}
+
+.info {
+	background-color: var(--ad-info);
+}
+
+.success {
+	background-color: var(--ad-success);
+}
+
+.warning {
+	background-color: var(--ad-warning);
+}
+
+.error {
+	background-color: var(--ad-error);
 }

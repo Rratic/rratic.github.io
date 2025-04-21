@@ -23,6 +23,22 @@ function module.push_plain_message(html)
 	module.push_raw(html, 1, { "line" })
 end
 
+function module.push_info(html)
+	module.push_raw(html, 1, { "line", "info" })
+end
+
+function module.push_success(html)
+	module.push_raw(html, 2, { "line", "success" })
+end
+
+function module.push_warning(html)
+	module.push_raw(html, 3, { "line", "warning" })
+end
+
+function module.push_error(html)
+	module.push_raw(html, 4, { "line", "error" })
+end
+
 function module.push_title(html)
 	module.push_raw(html, 1, { "line", "title" })
 end
