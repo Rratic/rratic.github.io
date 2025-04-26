@@ -12,7 +12,8 @@ function Queue.push_choices(list)
 
 		local a = Document:createElement("a")
 		a.href = "#"
-		a.innerText = list[i]
+		a.innerText = list[i].t
+		a:addEventListener("click", list[i].f)
 
 		pp:appendChild(a)
 		p:appendChild(pp)
