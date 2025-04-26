@@ -1,6 +1,6 @@
 require("io/input")
 Commands = require("io/commands")
-Queue = require("io/queue")
 require("node/choices")
-Queue.push_title("函数式混沌")
-Queue.push_choices({ "开始" })
+
+local pre = LocalStorage:getItem("chaos-preload")
+ProcessInput("*pre", pre)

@@ -19,6 +19,23 @@ function module.push_raw(html, level, classes)
 	module.push(p)
 end
 
+function module.clear(level, level_decrease)
+	local children = Output.children
+	local r = #children
+	local l = 0
+	while l < r do
+		local child = children[l]
+		local num = tonumber(child.dataset["l"])
+		if num < level then
+			Output:removeChild(child)
+			r = r - 1
+		else
+			child.dataset["l"] = num - level_decrease
+			l = l + 1
+		end
+	end
+end
+
 function module.push_plain_message(html)
 	module.push_raw(html, 1, { "line" })
 end
