@@ -133,6 +133,49 @@ impl SerializeWithRegistry for ComponentTypeLink {
 	</div>
 </div>
 
+<style>
+.list-additions li::marker {
+	content: "+";
+	color: green;
+	font-weight: 800;
+	font-family: 'Courier New', Courier, monospace;
+}
+
+.list-modifications li::marker {
+	content: "*";
+	color: goldenrod;
+	font-weight: 800;
+	font-family: 'Courier New', Courier, monospace;
+}
+
+.list-deletions li::marker {
+	content: "-";
+	color: red;
+	font-weight: 800;
+	font-family: 'Courier New', Courier, monospace;
+}
+</style>
+
+<div class="list-deletions">
+	<ul>
+		<li>太易：只有无垠虚无。</li>
+		<li>太初：无形无质，只有先天一炁。</li>
+	</ul>
+</div>
+
+<div class="list-modifications">
+	<ul>
+		<li>太始：有形无质，开天辟地前。</li>
+	</ul>
+</div>
+
+<div class="list-additions">
+	<ul>
+		<li>太素：原始物质。</li>
+		<li>太极：阴阳未分。</li>
+	</ul>
+</div>
+
 <p>
 	<iframe width="640" height="360" frameborder="0" src="https://www.shadertoy.com/embed/MsGczV?gui=true&paused=true&muted=false" allowfullscreen></iframe>
 </p>
@@ -158,28 +201,6 @@ $$
    C @= D
 \end{CD}
 $$
-
-## My CSS
-<div class="list-deletions">
-	<ul>
-		<li>太易：只有无垠虚无。</li>
-		<li>太初：无形无质，只有先天一炁。</li>
-	</ul>
-</div>
-
-<div class="list-modifications">
-	<ul>
-		<li>太始：有形无质，开天辟地前。</li>
-	</ul>
-</div>
-
-<div class="list-additions">
-	<ul>
-		<li>太素：原始物质。</li>
-		<li>太极：阴阳未分。</li>
-	</ul>
-</div>
-
 ## Shortcodes
 {% mermaid() %}
 graph LR;

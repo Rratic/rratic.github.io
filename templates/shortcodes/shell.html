@@ -11,7 +11,7 @@
 	}
 </script>
 {% endif %}
-<blockquote onclick="touch_shell('{{ faq_id | safe }}')">
+<blockquote class="folder" onclick="touch_shell('{{ faq_id | safe }}')">
 	{{ text | markdown | safe }}
 </blockquote>
 <div id="{{ faq_id }}" class="folded">

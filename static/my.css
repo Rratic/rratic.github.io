@@ -26,30 +26,13 @@ footer .block-bg:not(.block-hover) {
 }
 
 /*
-	For personal use.
+	For personal shortcodes.
 */
 
 .folded {
 	display: none;
 }
 
-.list-additions li::marker {
-	content: "+";
-	color: green;
-	font-weight: 800;
-	font-family: 'Courier New', Courier, monospace;
-}
-
-.list-modifications li::marker {
-	content: "*";
-	color: goldenrod;
-	font-weight: 800;
-	font-family: 'Courier New', Courier, monospace;
-}
-
-.list-deletions li::marker {
-	content: "-";
-	color: red;
-	font-weight: 800;
-	font-family: 'Courier New', Courier, monospace;
+.folder {
+	cursor: pointer;
 }
