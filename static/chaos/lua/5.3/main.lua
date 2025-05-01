@@ -7,7 +7,6 @@ Game = {
 require("io/input")
 require("node/choices")
 require("area/areas")
-Commands = require("io/commands")
 Schemes = {}
 
 local i18n = require("i18n")
@@ -30,7 +29,7 @@ Nodes:add("menu", {
 		} })
 	end,
 	beginning = function()
-		Queue.push_plain_message("可选的方案：")
+		Queue.push_html_line("可选的方案：")
 		Queue.push_choices(Schemes)
 		Nodes:jump({ "back" })
 	end,
@@ -46,7 +45,7 @@ Nodes:add("menu", {
 })
 
 local pre = LocalStorage:getItem("chaos-preload")
-ProcessInput("*pre", pre)
+ProcessInput("*pre", pre, _ENV)
 
 require("tutorial/lib")
 Nodes:run("menu", "entrance")

@@ -37,24 +37,34 @@ function module.clear(level, level_decrease)
 	end
 end
 
-function module.push_plain_message(html)
+function module.push_html_line(html)
 	module.push_raw(html, 1, { "line" })
 end
 
-function module.push_info(html)
-	module.push_raw(html, 1, { "line", "info" })
+function module.push_message(prepend, text, level)
+	local p = Document:createElement("p")
+	p.classList:add("line")
+	p.classList:add("multiline")
+	p.dataset["l"] = level
+	p.innerHTML = prepend
+	p:append(text);
+	module.push(p)
 end
 
-function module.push_success(html)
-	module.push_raw(html, 2, { "line", "success" })
+function module.push_info(message)
+	module.push_message("<span class='info'>[信息]</span> ", message, 1)
 end
 
-function module.push_warning(html)
-	module.push_raw(html, 3, { "line", "warning" })
+function module.push_success(message)
+	module.push_message("<span class='success'>[成功]</span> ", message, 2)
 end
 
-function module.push_error(html)
-	module.push_raw(html, 4, { "line", "error" })
+function module.push_warning(message)
+	module.push_message("<span class='warning'>[警告]</span> ", message, 3)
+end
+
+function module.push_error(message)
+	module.push_message("<span class='error'>[错误]</span> ", message, 4)
 end
 
 function module.push_title(html)

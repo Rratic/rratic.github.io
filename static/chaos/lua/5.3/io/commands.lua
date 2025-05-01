@@ -32,7 +32,7 @@ end
 
 local function explain_function(table)
 	local desc = i18n.description(table)
-	Queue.push_plain_message("<b>" .. table.abnf .. "</b> " .. desc)
+	Queue.push_html_line("<b>" .. table.abnf .. "</b> " .. desc)
 end
 
 local help = Command:new("help", function(self)
@@ -40,7 +40,7 @@ local help = Command:new("help", function(self)
 		explain_function(self.manual[self.args[1]])
 		return
 	end
-	Queue.push_plain_message(self.introduction)
+	Queue.push_html_line(self.introduction)
 	for _, value in pairs(self.manual) do
 		explain_function(value)
 	end
@@ -53,7 +53,7 @@ local function record_manual(name, docstring)
 end
 
 record_manual("help", {
-	abnf = "Commands.help([name])",
+	abnf = "commands.help([name])",
 	description = "获取帮助信息"
 })
 
@@ -61,18 +61,18 @@ local clear = Command:new("clear", function(self)
 	Queue.clear(10, 0)
 end)
 record_manual("clear", {
-	abnf = "Commands.clear()",
+	abnf = "commands.clear()",
 	description = "清除所有级别低于 10 的消息",
 })
 
 local display = Command:new("display", function(self)
 	-- Output with correct order.
 	for i = 1, self.args.n do
-		Queue.push_plain_message(tostring(self.args[i]))
+		Queue.push_info(tostring(self.args[i]))
 	end
 end)
 record_manual("display", {
-	abnf = "Commands.display(...)",
+	abnf = "commands.display(...)",
 	description = "以消息形式显示参数",
 })
 
@@ -83,7 +83,7 @@ local preload = Command:new("preload", function(self)
 	end
 end)
 record_manual("preload", {
-	abnf = "Commands.preload(code_string)",
+	abnf = "commands.preload(code_string)",
 	description = "注册预加载代码",
 })
 

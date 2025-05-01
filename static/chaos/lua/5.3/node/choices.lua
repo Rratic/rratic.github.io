@@ -18,7 +18,7 @@ function Queue.push_choices(list)
 		a:addEventListener("click", function()
 			Queue.clear(1, 0)
 			if item.w ~= nil then
-				Queue.push_plain_message(item.w)
+				Queue.push_html_line(item.w)
 			end
 			if item.f then
 				item.f()
