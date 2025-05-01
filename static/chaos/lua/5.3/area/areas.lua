@@ -1,4 +1,4 @@
-local module = {}
+local slots = require("area/slots")
 
 GlobalTime = 0
 Areas = {
@@ -6,16 +6,21 @@ Areas = {
 	name_mapping = {},
 }
 
-function Areas:add_scheduled(name, scheme)
-	self.slots[name] = {
-		parent = 0,
-		children = {},
-		state = {
-			type = "load_state",
-			loaded = false,
-			scheme = scheme,
-		}
+function Areas:init()
+	setmetatable(self, slots.Slots)
+	self.__index = self
+	self:slots_init()
+end
+
+function Areas:add_schedule(generator)
+	local ind = self:alloc_ind()
+	self.slots[ind].state {
+		loaded = false,
+		gen = generator,
 	}
 end
 
-return module
+function Areas:run_schedule(ind)
+	local slot = self.slots[ind]
+	slot.gen(self, ind, slot)
+end

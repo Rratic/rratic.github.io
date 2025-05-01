@@ -1,5 +1,4 @@
--- 用于输入控制。
-local module = "input"
+-- Controls command input.
 require("io/interop")
 local Queue = require("io/queue")
 
@@ -33,5 +32,3 @@ function ProcessInput(id, string)
 	end
 	cli_id = cli_id + 1
 end
-
-return module

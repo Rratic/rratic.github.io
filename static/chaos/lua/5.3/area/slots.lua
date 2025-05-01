@@ -1,27 +1,44 @@
-function InitIdController(container)
-	container.slots = {}
-	container.length = 0
-	container.free_indices = {}
+-- Manages slots.
+local module = {}
+local Slots = {}
+
+function Slots:slots_init()
+	self.slots = {}
+	self.length = 0
+	-- self.free_indices = {}
 end
 
-function AllocId(container)
-	local free = container.free_indices
-	if #free == 0 then
-		container.length = container.length + 1
-		return container.length
+function Slots:alloc_ind()
+	--[[
+	local free = self.free_indices
+	local free_num = #free
+	if free_num == 0 then
+		self.length = self.length + 1
+		return self.length
 	else
 		local l = free[1]
-		if container.slots[l + 1] == nil then
+		if self.slots[l + 1] == nil then
 			free[1] = l + 1
 		else
 			table.remove(free)
 		end
 		return l
 	end
+	]]
+	local l = self.length + 1
+	self.length = l
+	self.slots[l] = {
+		parent = 0,
+		-- children = {},
+	}
+	return l
 end
 
-function FreeId(container, id)
+function Slots:free_ind(ind)
+	self.slots[ind] = nil
+	self.length = self.length - 1
 end
 
-function FreeIdPeriod(container, left_bound, right_bound)
-end
+module.Slots = Slots
+
+return module
