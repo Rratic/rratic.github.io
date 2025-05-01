@@ -1,14 +1,16 @@
 require("io/input")
+require("node/choices")
 require("area/areas")
-require("node/knots")
 Commands = require("io/commands")
 Schemes = {}
 
 local Queue = require("io/queue")
+local Knots = require("node/knots")
+local Nodes = Knots.Nodes
 Nodes:add("menu", {
 	entrance = function()
 		Queue.push_title("函数式混沌")
-		Nodes:run("menu", "menu")
+		Nodes:jump({ "menu" })
 	end,
 	menu = function()
 		Queue.push_choices({ {

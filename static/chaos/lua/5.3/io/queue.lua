@@ -1,4 +1,5 @@
--- 用于处理伪命令行消息队列。
+-- Manages output queue.
+-- Uses `dataset["l"]` to store message levels.
 local module = {}
 require("io/interop")
 

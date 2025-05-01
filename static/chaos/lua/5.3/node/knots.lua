@@ -1,8 +1,6 @@
 local module = {}
 
-require("node/choices")
-
-Nodes = {
+local Nodes = {
 	type = "nodes",
 	current = "null",
 	map = {},

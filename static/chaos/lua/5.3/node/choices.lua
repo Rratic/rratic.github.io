@@ -1,4 +1,5 @@
 local Queue = require("io/queue")
+local Knots = require("node/knots")
 
 function Queue.push_choices(list)
 	local p = Document:createElement("p")
@@ -15,7 +16,7 @@ function Queue.push_choices(list)
 		a.href = "#"
 		a.innerText = item.t
 		a:addEventListener("click", function()
-			Queue.clear(0.5, 0)
+			Queue.clear(1, 0)
 			if item.w ~= nil then
 				Queue.push_plain_message(item.w)
 			end
@@ -23,7 +24,7 @@ function Queue.push_choices(list)
 				item.f()
 			end
 			if item.j ~= nil then
-				Nodes:jump(item.j)
+				Knots.Nodes:jump(item.j)
 			end
 		end)
 

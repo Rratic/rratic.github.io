@@ -1,10 +1,13 @@
--- 定义命令（一种特殊返回值，会被调用）。
+-- Defines commands, tables that store arguments
+-- and takes effect through `run`.
 local module = {}
 local Queue = require("io/queue")
 require("io/interop")
+require("i18n")
 
 local Command = {
 	type = "command",
+	args = {},
 	__call = function(mytable, ...)
 		-- Does not jump over `nil`.
 		local args = table.pack(...)
@@ -24,12 +27,22 @@ end
 
 function Command:run()
 	self.action(self)
+	self.args = {}
+end
+
+local function explain_function(table)
+	local desc = LocalDescription(table)
+	Queue.push_plain_message("<b>" .. table.abnf .. "</b> " .. desc)
 end
 
 local help = Command:new("help", function(self)
+	if self.args.n == 1 then
+		explain_function(self.manual[self.args[1]])
+		return
+	end
 	Queue.push_plain_message(self.introduction)
-	for key, value in pairs(self.manual) do
-		Queue.push_plain_message("<p class='title'>/" .. key .. "</p> " .. value)
+	for _, value in pairs(self.manual) do
+		explain_function(value)
 	end
 end)
 help.introduction = "欢迎使用帮助！<br>这是一份手册列表。"
@@ -39,10 +52,18 @@ local function record_manual(name, docstring)
 	help.manual[name] = docstring
 end
 
+record_manual("help", {
+	abnf = "Commands.help([name])",
+	description = "获取帮助信息"
+})
+
 local clear = Command:new("clear", function(self)
 	Queue.clear(10, 0)
 end)
-record_manual("clear", "清除所有级别低于 10 的消息")
+record_manual("clear", {
+	abnf = "Commands.clear()",
+	description = "清除所有级别低于 10 的消息",
+})
 
 local display = Command:new("display", function(self)
 	-- Output with correct order.
@@ -50,7 +71,10 @@ local display = Command:new("display", function(self)
 		Queue.push_plain_message(tostring(self.args[i]))
 	end
 end)
-record_manual("display", "以消息形式显示参数")
+record_manual("display", {
+	abnf = "Commands.display(...)",
+	description = "以消息形式显示参数",
+})
 
 local preload = Command:new("preload", function(self)
 	if self.args.n == 1 then
@@ -58,7 +82,10 @@ local preload = Command:new("preload", function(self)
 		LocalStorage:setItem("chaos-preload", str)
 	end
 end)
-record_manual("preload", "注册预加载代码")
+record_manual("preload", {
+	abnf = "Commands.preload(code_string)",
+	description = "注册预加载代码",
+})
 
 module.Command = Command
 module.help = help
