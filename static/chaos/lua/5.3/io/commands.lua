@@ -2,8 +2,8 @@
 -- and takes effect through `run`.
 local module = {}
 local Queue = require("io/queue")
+local i18n = require("i18n")
 require("io/interop")
-require("i18n")
 
 local Command = {
 	type = "command",
@@ -31,7 +31,7 @@ function Command:run()
 end
 
 local function explain_function(table)
-	local desc = LocalDescription(table)
+	local desc = i18n.description(table)
 	Queue.push_plain_message("<b>" .. table.abnf .. "</b> " .. desc)
 end
 

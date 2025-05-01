@@ -1,3 +1,5 @@
+local module = {}
+
 Language = "zh"
 DefaultLanguage = "zh"
 
@@ -25,10 +27,12 @@ local function local_word(name, source)
 	end
 end
 
-function LocalTitle(table)
+function module.title(table)
 	return local_word(table.name, table.title)
 end
 
-function LocalDescription(table)
+function module.description(table)
 	return local_word(table.name, table.description)
 end
+
+return module

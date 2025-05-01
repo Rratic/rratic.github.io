@@ -1,15 +1,22 @@
+Game = {
+	title = "函数式混沌",
+	version = "0.1.0",
+	platform = "web",
+}
+
 require("io/input")
 require("node/choices")
 require("area/areas")
 Commands = require("io/commands")
 Schemes = {}
 
+local i18n = require("i18n")
 local Queue = require("io/queue")
 local Knots = require("node/knots")
 local Nodes = Knots.Nodes
 Nodes:add("menu", {
 	entrance = function()
-		Queue.push_title("函数式混沌")
+		Queue.push_title(i18n.title(Game))
 		Nodes:jump({ "menu" })
 	end,
 	menu = function()
@@ -41,4 +48,5 @@ Nodes:add("menu", {
 local pre = LocalStorage:getItem("chaos-preload")
 ProcessInput("*pre", pre)
 
+require("tutorial/lib")
 Nodes:run("menu", "entrance")
