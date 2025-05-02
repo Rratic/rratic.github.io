@@ -1,10 +1,12 @@
 -- Manages output queue.
--- Uses `dataset["l"]` to store message levels.
 local module = {}
 require("io/interop")
 
+-- Stream.
+-- Uses `dataset["l"]` to store message levels.
+
 function module.push(element)
-	Output:appendChild(element)
+	OutputStream:appendChild(element)
 end
 
 function module.push_raw(html, level, classes)
@@ -21,14 +23,14 @@ function module.push_raw(html, level, classes)
 end
 
 function module.clear(level, level_decrease)
-	local children = Output.children
+	local children = OutputStream.children
 	local r = #children
 	local l = 0
 	while l < r do
 		local child = children[l]
 		local num = tonumber(child.dataset["l"])
 		if num < level then
-			Output:removeChild(child)
+			OutputStream:removeChild(child)
 			r = r - 1
 		else
 			child.dataset["l"] = num - level_decrease
@@ -69,6 +71,12 @@ end
 
 function module.push_title(html)
 	module.push_raw(html, 1, { "line", "title" })
+end
+
+-- Fixed.
+
+function module.push_fixed(element)
+	OutputFixed:appendChild(element)
 end
 
 return module

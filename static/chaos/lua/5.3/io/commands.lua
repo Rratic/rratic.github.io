@@ -53,7 +53,7 @@ local function record_manual(name, docstring)
 end
 
 record_manual("help", {
-	abnf = "commands.help([name])",
+	abnf = "commands.help(name?: string)",
 	description = "获取帮助信息"
 })
 
@@ -83,7 +83,7 @@ local preload = Command:new("preload", function(self)
 	end
 end)
 record_manual("preload", {
-	abnf = "commands.preload(code_string)",
+	abnf = "commands.preload(code_string: string)",
 	description = "注册预加载代码",
 })
 

@@ -24,7 +24,7 @@ Nodes:add("menu", {
 			j = { "beginning" }
 		}, {
 			t = "信息",
-			w = "使用 <b>/help</b> 获取帮助。",
+			w = "在输入栏键入命令，然后按提示符 <b>&gt;&gt;&gt;</b> 发送。<br>使用命令 <b>/help</b> 获取帮助。",
 			j = { "back" }
 		} })
 	end,
@@ -36,9 +36,7 @@ Nodes:add("menu", {
 	back = function()
 		Queue.push_choices({ {
 			t = "返回",
-			f = function()
-				Queue.clear(2, 1)
-			end,
+			c = true,
 			j = { "menu" }
 		} })
 	end,

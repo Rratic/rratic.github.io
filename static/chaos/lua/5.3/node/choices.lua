@@ -17,13 +17,16 @@ function Queue.push_choices(list)
 		a.innerText = item.t
 		a:addEventListener("click", function()
 			Queue.clear(1, 0)
-			if item.w ~= nil then
+			if item.w then
 				Queue.push_html_line(item.w)
+			end
+			if item.c then
+				Queue.clear(2, 1)
 			end
 			if item.f then
 				item.f()
 			end
-			if item.j ~= nil then
+			if item.j then
 				Knots.Nodes:jump(item.j)
 			end
 		end)
@@ -32,5 +35,5 @@ function Queue.push_choices(list)
 		p:appendChild(pp)
 	end
 
-	Output:appendChild(p)
+	Queue.push(p)
 end

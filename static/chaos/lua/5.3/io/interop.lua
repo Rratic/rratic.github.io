@@ -3,5 +3,6 @@ Window = js.global
 LocalStorage = Window.localStorage
 Document = Window.document
 Terminal = Document:querySelector("#terminal")
-Output = Terminal:querySelector(".output")
+OutputStream = Terminal:querySelector(".output.stream")
+OutputFixed = Terminal:querySelector(".output.fixed")
 Prompt = Terminal:querySelector(".prompt")
