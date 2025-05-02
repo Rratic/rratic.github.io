@@ -9,7 +9,7 @@ require("node/choices")
 require("area/areas")
 Schemes = {}
 
-local i18n = require("i18n")
+local i18n = require("utils/i18n")
 local Queue = require("io/queue")
 local Knots = require("node/knots")
 local Nodes = Knots.Nodes

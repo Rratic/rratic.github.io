@@ -2,7 +2,7 @@
 -- and takes effect through `run`.
 local module = {}
 local Queue = require("io/queue")
-local i18n = require("i18n")
+local i18n = require("utils/i18n")
 require("io/interop")
 
 local Command = {

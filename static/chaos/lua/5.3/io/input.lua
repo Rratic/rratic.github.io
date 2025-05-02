@@ -15,6 +15,13 @@ local Sandbox = {
 Prompt:addEventListener("click", function()
 	-- Detect command.
 	local command = cli.innerText
+	cli.innerText = "/"
+
+	if command == "/" or command == "" then
+		Queue.push_warning("Empty command has been skipped.")
+		return
+	end
+
 	if command:sub(1, 1) == "/" then
 		command = "commands." .. command:sub(2) .. ":run()"
 	end
@@ -23,9 +30,6 @@ Prompt:addEventListener("click", function()
 	local id = "#" .. cli_id
 	ProcessInput(id, command, Sandbox)
 	cli_id = cli_id + 1
-
-	-- Restore cli.
-	cli.innerText = "/"
 end)
 
 function ProcessInput(id, string, env)

@@ -83,10 +83,15 @@ body.dark #terminal {
 .input .prompt {
 	color: var(--prompt);
 	font-weight: 800;
+	display: inline-block;
+	vertical-align: top;
+	white-space: pre;
 }
 
 .input .command {
 	color: var(--command);
+	display: inline-block;
+	outline: none;
 }
 
 p {
@@ -147,7 +152,7 @@ a {
 }
 
 .multiline {
-	white-space: pre;
+	white-space: pre-wrap;
 }
 
 .info {
