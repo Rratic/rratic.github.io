@@ -40,12 +40,13 @@ local help = Command:new("help", function(self)
 		explain_function(self.manual[self.args[1]])
 		return
 	end
-	Queue.push_html_line(self.introduction)
-	for _, value in pairs(self.manual) do
-		explain_function(value)
+	local list = ""
+	for key, _ in pairs(self.manual) do
+		list = list .. key .. ", "
 	end
+	Queue.push_html_line(string.gsub(self.introduction, "{c}", list))
 end)
-help.introduction = "欢迎使用帮助！<br>这是一份手册列表。"
+help.introduction = "欢迎使用帮助！<br>可用的指令包括：{c}<br>使用 <b>/help(name)</b> 获得指令的用法信息。"
 help.manual = {
 	help = {
 		abnf = "commands.help(name?: string)",

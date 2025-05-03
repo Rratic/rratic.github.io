@@ -80,6 +80,10 @@ body.dark #terminal {
 	background-color: var(--line-output-bg);
 }
 
+.command {
+	white-space: pre;
+}
+
 .input .prompt {
 	color: var(--prompt);
 	font-weight: 800;

@@ -30,7 +30,7 @@ Nodes:add("menu", {
 			j = { "beginning" }
 		}, {
 			t = "信息",
-			w = "在输入栏键入命令，然后按提示符 <b>&gt;&gt;&gt;</b> 发送。<br>使用命令 <b>/help</b> 获取帮助。",
+			w = "在输入栏键入命令，然后按提示符 <b>&gt;&gt;&gt;</b> 或使用 <b>Ctrl + Enter</b> 发送。<br>使用命令 <b>/help</b> 获取帮助。",
 			j = { "back" }
 		} })
 	end,
