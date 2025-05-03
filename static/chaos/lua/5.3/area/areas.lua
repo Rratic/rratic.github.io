@@ -1,23 +1,28 @@
-local slots = require("area/slots")
+local Slots = require("area/slots")
 
-GlobalTime = 0
 Areas = {
 	type = "areas",
-	name_mapping = {},
+	mapping = {},
 }
 
 function Areas:init()
-	setmetatable(self, slots.Slots)
-	self.__index = self
+	self.slots_init = Slots.slots_init
+	self.alloc_ind = Slots.alloc_ind
+	self.free_ind = Slots.free_ind
 	self:slots_init()
 end
 
-function Areas:add_schedule(generator)
+function Areas:add_schedule(generator, key)
 	local ind = self:alloc_ind()
-	self.slots[ind].state {
+	local slot = self.slots[ind]
+	if key then
+		self.mapping[key] = ind
+	end
+	slot.state = {
 		loaded = false,
 		gen = generator,
 	}
+	return slot
 end
 
 function Areas:run_schedule(ind)

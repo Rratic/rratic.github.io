@@ -1,5 +1,4 @@
 -- Manages slots.
-local module = {}
 local Slots = {}
 
 function Slots:slots_init()
@@ -39,6 +38,4 @@ function Slots:free_ind(ind)
 	self.length = self.length - 1
 end
 
-module.Slots = Slots
-
-return module
+return Slots

@@ -2,6 +2,13 @@
 local module = {}
 require("io/interop")
 
+function module.line_wrap(html)
+	local div = Document:createElement("div")
+	div.innerHTML = html
+	div.classList:add("line")
+	return div
+end
+
 -- Stream.
 -- Uses `dataset["l"]` to store message levels.
 

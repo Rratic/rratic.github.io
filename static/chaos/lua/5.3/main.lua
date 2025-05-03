@@ -4,6 +4,12 @@ Game = {
 	platform = "web",
 }
 
+World = {
+	time = 0,
+}
+
+Player = {}
+
 require("io/input")
 require("node/choices")
 require("area/areas")
@@ -36,7 +42,7 @@ Nodes:add("menu", {
 	back = function()
 		Queue.push_choices({ {
 			t = "返回",
-			c = true,
+			cl = true,
 			j = { "menu" }
 		} })
 	end,

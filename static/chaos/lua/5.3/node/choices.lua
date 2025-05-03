@@ -16,11 +16,13 @@ function Queue.push_choices(list)
 		a.href = "#"
 		a.innerText = item.t
 		a:addEventListener("click", function()
-			Queue.clear(1, 0)
+			if item.rm ~= false then
+				Queue.clear(1, 0)
+			end
 			if item.w then
 				Queue.push_html_line(item.w)
 			end
-			if item.c then
+			if item.cl then
 				Queue.clear(2, 1)
 			end
 			if item.f then

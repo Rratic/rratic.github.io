@@ -46,51 +46,67 @@ local help = Command:new("help", function(self)
 	end
 end)
 help.introduction = "欢迎使用帮助！<br>这是一份手册列表。"
-help.manual = {}
+help.manual = {
+	help = {
+		abnf = "commands.help(name?: string)",
+		description = "获取帮助信息"
+	}
+}
 
-local function record_manual(name, docstring)
-	help.manual[name] = docstring
+local function register(table)
+	local name = table.name
+	help.manual[name] = {
+		abnf = table.abnf,
+		description = table.description,
+	}
+	return Command:new(name, table.f)
 end
 
-record_manual("help", {
-	abnf = "commands.help(name?: string)",
-	description = "获取帮助信息"
-})
-
-local clear = Command:new("clear", function(self)
-	Queue.clear(10, 0)
-end)
-record_manual("clear", {
+module.clear = register({
+	name = "clear",
 	abnf = "commands.clear()",
 	description = "清除所有级别低于 10 的消息",
+	f = function(self)
+		Queue.clear(10, 0)
+	end
 })
 
-local display = Command:new("display", function(self)
-	-- Output with correct order.
-	for i = 1, self.args.n do
-		Queue.push_info(tostring(self.args[i]))
+module.describe = register({
+	name = "describe",
+	abnf = "commands.describe(table: table)",
+	description = "根据 <b>title</b> 和 <b>description</b> 等字段描述 <b>table</b> 内容",
+	f = function(self)
+		local table = self.args[1]
+		Queue.push_info(i18n.title(table) .. "\n" .. i18n.description(table))
 	end
-end)
-record_manual("display", {
+})
+
+module.display = register({
+	name = "display",
 	abnf = "commands.display(...)",
 	description = "以消息形式显示参数",
+	f = function(self)
+		-- Output with correct order.
+		for i = 1, self.args.n do
+			Queue.push_info(tostring(self.args[i]))
+		end
+	end
 })
 
-local preload = Command:new("preload", function(self)
-	if self.args.n == 1 then
-		local str = self.args[1]
-		LocalStorage:setItem("chaos-preload", str)
-	end
-end)
-record_manual("preload", {
+module.preload = register({
+	name = "preload",
 	abnf = "commands.preload(code_string: string)",
-	description = "注册预加载代码",
+	description = "注册 <b>code_string</b> 为加载完毕后在 <b>_ENV</b> 环境下运行的代码",
+	f = function(self)
+		if self.args.n == 1 then
+			local str = self.args[1]
+			LocalStorage:setItem("chaos-preload", str)
+		end
+	end
 })
 
 module.Command = Command
 module.help = help
-module.clear = clear
-module.display = display
-module.preload = preload
+module.register = register
 
 return module
