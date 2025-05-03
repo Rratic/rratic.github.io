@@ -6,3 +6,5 @@ Terminal = Document:querySelector("#terminal")
 OutputStream = Terminal:querySelector(".output.stream")
 OutputFixed = Terminal:querySelector(".output.fixed")
 Prompt = Terminal:querySelector(".prompt")
+
+PressCallTable = Window.pressCallTable

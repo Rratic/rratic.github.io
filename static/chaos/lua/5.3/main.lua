@@ -48,6 +48,11 @@ Nodes:add("menu", {
 	end,
 })
 
+PressCallTable["Escape"] = function()
+	Queue.clear(100, 1)
+	Nodes:run("menu", "menu")
+end
+
 local pre = LocalStorage:getItem("chaos-preload")
 ProcessInput("*pre", pre, _ENV)
 

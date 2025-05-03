@@ -71,6 +71,8 @@ module.clear = register({
 	end
 })
 
+-- todo: config
+
 module.describe = register({
 	name = "describe",
 	abnf = "commands.describe(table: table)",

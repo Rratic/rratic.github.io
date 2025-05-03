@@ -28,6 +28,17 @@
         </div>
         <div class="output fixed"></div>
     </div>
+    <script>
+        var pressCallTable = {};
+        document.addEventListener("keydown", function (event) {
+            if (!event.target.classList.contains("command")) {
+                let f = pressCallTable[event.key];
+                if (f instanceof Function) {
+                    f();
+                }
+            }
+        });
+    </script>
     <script src="lua/5.3/main.lua" type="application/lua" async></script>
     <script>
         var savedTheme = localStorage.getItem("linkita-color-scheme");
