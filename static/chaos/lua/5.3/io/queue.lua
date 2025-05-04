@@ -50,30 +50,45 @@ function module.push_html_line(html)
 	module.push_raw(html, 1, { "line" })
 end
 
-function module.push_message(prepend, text, level)
+-- todo: markdown
+MESSAGE_TYPES = {
+	info = "信息",
+	success = "成功",
+	warning = "警告",
+	error = "错误",
+}
+function module.push_message(type, text, level)
 	local p = Document:createElement("p")
 	p.classList:add("line")
 	p.classList:add("multiline")
 	p.dataset["l"] = level
-	p.innerHTML = prepend
-	p:append(text);
+
+	local span = Document:createElement("span")
+	span.classList:add(type)
+	span.innerText = "[" .. MESSAGE_TYPES[type] .. "] "
+	span:addEventListener("click", function()
+		OutputStream:removeChild(p)
+	end)
+
+	p:appendChild(span)
+	p:append(text)
 	module.push(p)
 end
 
 function module.push_info(message)
-	module.push_message("<span class='info'>[信息]</span> ", message, 1)
+	module.push_message("info", message, 1)
 end
 
 function module.push_success(message)
-	module.push_message("<span class='success'>[成功]</span> ", message, 2)
+	module.push_message("success", message, 2)
 end
 
 function module.push_warning(message)
-	module.push_message("<span class='warning'>[警告]</span> ", message, 3)
+	module.push_message("warning", message, 3)
 end
 
 function module.push_error(message)
-	module.push_message("<span class='error'>[错误]</span> ", message, 4)
+	module.push_message("error", message, 4)
 end
 
 function module.push_title(html)

@@ -5,6 +5,7 @@ local Commands = require("io/commands")
 
 local cli = Terminal:querySelector(".command")
 local cli_id = 0
+-- todo: history
 local Sandbox = {
 	math = math,
 	string = string,

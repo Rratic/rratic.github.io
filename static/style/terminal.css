@@ -90,12 +90,18 @@ body.dark #terminal {
 	display: inline-block;
 	vertical-align: top;
 	white-space: pre;
+	cursor: pointer;
 }
 
 .input .command {
 	color: var(--command);
 	display: inline-block;
 	outline: none;
+}
+
+.line b,
+.input .command {
+	font-family: Consolas, "Courier New", monospace;
 }
 
 p {
@@ -157,6 +163,13 @@ a {
 
 .multiline {
 	white-space: pre-wrap;
+}
+
+.info,
+.success,
+.warning,
+.error {
+	cursor: pointer;
 }
 
 .info {

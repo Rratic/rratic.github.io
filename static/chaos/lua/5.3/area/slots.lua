@@ -4,6 +4,7 @@ local Slots = {}
 function Slots:slots_init()
 	self.slots = {}
 	self.length = 0
+	self.current = 0
 	-- self.free_indices = {}
 end
 

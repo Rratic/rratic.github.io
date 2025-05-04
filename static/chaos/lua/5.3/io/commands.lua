@@ -32,7 +32,7 @@ end
 
 local function explain_function(table)
 	local desc = i18n.description(table)
-	Queue.push_html_line("<b>" .. table.abnf .. "</b> " .. desc)
+	Queue.push_html_line("<b>" .. table.abnf .. "</b><br>" .. desc)
 end
 
 local help = Command:new("help", function(self)

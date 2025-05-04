@@ -39,23 +39,54 @@ local function reach_room_value(x, y)
 	return chunk.chunk:get(xr, yr)
 end
 
+local function set_room_value(x, y, v)
+	local xc, xr = x >> 5, x & 0x1f
+	local yc, yr = y >> 5, y & 0x1f
+	local chunk = reach_chunk(xc, yc)
+	return chunk.chunk:set(xr, yr, v)
+end
+
+--[[
+0 = solid wall
+1 = new room
+2 = empty room
+3 = room with chest
+4 = room with opened chest
+]]
+
+local room_descriptions = {
+	"这是一个未初始化的房间。",
+	"这是一个空房间。",
+	"房间中央有一个箱子。",
+	"房间中央有一个空箱子。",
+}
+
 local function reach_room(x, y)
 	local r = reach_room_value(x, y)
 	if r == 0 then
 		Queue.push_html_line("这个方向没有门！")
-	else
-		local str = ""
-		local list = {}
-		for d = 1, 4 do
-			local xd, yd = table.unpack(MOVE_TABLE[d])
-			list[d] = reach_room_value(x + xd, y + yd) ~= 0
-			if list[d] then
-				str = str .. WORDS_TABLE[d] .. "，"
-			end
-		end
-		Queue.push_html_line("这个房间有" .. str .. "方向的门。")
-		return list
+		return nil
 	end
+	if r == 1 then
+		if math.random() < 0.3 then
+			r = 3
+		else
+			r = 2
+		end
+		set_room_value(x, y, r)
+	end
+	Queue.push_html_line(room_descriptions[r])
+	local str = ""
+	local list = {}
+	for d = 1, 4 do
+		local xd, yd = table.unpack(MOVE_TABLE[d])
+		list[d] = reach_room_value(x + xd, y + yd) ~= 0
+		if list[d] then
+			str = str .. WORDS_TABLE[d] .. "，"
+		end
+	end
+	Queue.push_html_line("有" .. str .. "方向的门。")
+	return list
 end
 
 local function player_move(direction)
@@ -66,12 +97,29 @@ local function player_move(direction)
 		Player.position[1] = x + xd
 		Player.position[2] = y + yd
 	end
+	World.time = World.time + 10
 	return result
 end
 
+local function player_give(name, number)
+	if Player.items[name] == nil then
+		Player.items[name] = number
+	else
+		Player.items[name] = Player.items[name] + number
+	end
+end
+
 local function player_get()
-	Player.items["runes"] = 1
-	Queue.push_html_line("你获得一个符石。")
+	local x, y = table.unpack(Player.position)
+	local r = reach_room_value(x, y)
+	if r == 3 then
+		World.time = World.time + 3
+		player_give("rune", 1)
+		Queue.push_html_line("你获得一个符石。")
+		set_room_value(x, y, 4)
+		return false
+	end
+	return true
 end
 
 function module.register_keys()
@@ -79,13 +127,13 @@ function module.register_keys()
 	PressCallTable["d"] = function()
 		player_move(1)
 	end
-	PressCallTable["w"] = function()
+	PressCallTable["s"] = function()
 		player_move(2)
 	end
 	PressCallTable["a"] = function()
 		player_move(3)
 	end
-	PressCallTable["s"] = function()
+	PressCallTable["w"] = function()
 		player_move(4)
 	end
 	Queue.push_info("已注册 g")
@@ -100,7 +148,7 @@ function module.init()
 		abnf = "tutorial.move(direction: integer) -> nil|table",
 		description = [[
 			向指定方向移动；
-			1~4 分别代表东、北、西、南；
+			1~4 分别代表东、南、西、北；
 			若目标非房间，则返回 nil，否则返回长为 4 的列表，表示指定方位的门是否有效
 		]],
 		f = function(self)
@@ -116,10 +164,7 @@ function module.init()
 		name = "get",
 		abnf = "tutorial.get() -> boolean",
 		description = "拾取房间中的符石，若存在符石则必然成功，返回 true",
-		f = function(self)
-			player_get()
-			return true
-		end
+		f = player_get
 	})
 
 	Player.position = { 1, 1 }
