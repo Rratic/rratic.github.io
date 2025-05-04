@@ -48,9 +48,19 @@ Nodes:add("menu", {
 	end,
 })
 
+local Commands = require("io/commands")
+Commands.quit = Commands.register({
+	name = "quit",
+	abnf = "commands.quit()",
+	description = "回到主菜单",
+	f = function()
+		Queue.clear(100, 1)
+		Nodes:run("menu", "entrance")
+	end
+})
+
 PressCallTable["Escape"] = function()
-	Queue.clear(100, 1)
-	Nodes:run("menu", "menu")
+	Commands.quit:run()
 end
 
 local pre = LocalStorage:getItem("chaos-preload")
