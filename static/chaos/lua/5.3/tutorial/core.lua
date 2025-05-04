@@ -85,11 +85,12 @@ local function reach_room(x, y)
 			str = str .. WORDS_TABLE[d] .. "，"
 		end
 	end
-	Queue.push_html_line("有" .. str .. "方向的门。")
+	Queue.push_html_line("有" .. str:gsub("，$", "") .. "方向的门。")
 	return list
 end
 
 local function player_move(direction)
+	Queue.clear(2, 1)
 	local xd, yd = table.unpack(MOVE_TABLE[direction])
 	local x, y = table.unpack(Player.position)
 	local result = reach_room(x + xd, y + yd)
@@ -115,11 +116,11 @@ local function player_get()
 	if r == 3 then
 		World.time = World.time + 3
 		player_give("rune", 1)
-		Queue.push_html_line("你获得一个符石。")
+		Queue.push_success("获得一块符石！")
 		set_room_value(x, y, 4)
-		return false
+		return true
 	end
-	return true
+	return false
 end
 
 function module.register_keys()
