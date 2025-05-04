@@ -14,7 +14,8 @@ end
 
 function Areas:add_schedule(generator, key)
 	local ind = self:alloc_ind()
-	local slot = self.slots[ind]
+	local slot = {}
+	self.slots[ind] = slot
 	if key then
 		self.mapping[key] = ind
 	end
@@ -27,5 +28,8 @@ end
 
 function Areas:run_schedule(ind)
 	local slot = self.slots[ind]
-	slot.gen(self, ind, slot)
+	if not slot.state.loaded then
+		slot.state.gen(self, ind, slot)
+		slot.state.loaded = true
+	end
 end

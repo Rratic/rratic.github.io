@@ -14,11 +14,11 @@ function Chunk:fill(integer)
 end
 
 function Chunk:set(x, y, integer)
-	self[x << 5 + y] = integer
+	self[(x << 5) + y] = integer
 end
 
 function Chunk:get(x, y)
-	return self[x << 5 + y]
+	return self[(x << 5) + y]
 end
 
 return Chunk

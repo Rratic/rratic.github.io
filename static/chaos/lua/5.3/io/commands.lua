@@ -60,10 +60,10 @@ local function register(table)
 		abnf = table.abnf,
 		description = table.description,
 	}
-	return Command:new(name, table.f)
+	module[name] = Command:new(name, table.f)
 end
 
-module.clear = register({
+register({
 	name = "clear",
 	abnf = "commands.clear()",
 	description = "清除所有级别低于 10 的消息",
@@ -74,7 +74,7 @@ module.clear = register({
 
 -- todo: config
 
-module.describe = register({
+register({
 	name = "describe",
 	abnf = "commands.describe(table: table)",
 	description = "根据 <b>title</b> 和 <b>description</b> 等字段描述 <b>table</b> 内容",
@@ -84,7 +84,7 @@ module.describe = register({
 	end
 })
 
-module.display = register({
+register({
 	name = "display",
 	abnf = "commands.display(...)",
 	description = "以消息形式显示参数",
@@ -96,7 +96,7 @@ module.display = register({
 	end
 })
 
-module.preload = register({
+register({
 	name = "preload",
 	abnf = "commands.preload(code_string: string)",
 	description = "注册 <b>code_string</b> 为加载完毕后在 <b>_ENV</b> 环境下运行的代码",
