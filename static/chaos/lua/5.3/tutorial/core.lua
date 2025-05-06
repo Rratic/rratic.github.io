@@ -92,26 +92,26 @@ end
 local function player_move(direction)
 	Queue.clear(2, 1)
 	local xd, yd = table.unpack(MOVE_TABLE[direction])
-	local x, y = table.unpack(Player.position)
+	local x, y = table.unpack(User.position)
 	local result = reach_room(x + xd, y + yd)
 	if type(result) ~= "nil" then
-		Player.position[1] = x + xd
-		Player.position[2] = y + yd
+		User.position[1] = x + xd
+		User.position[2] = y + yd
 	end
 	World.time = World.time + 10
 	return result
 end
 
 local function player_give(name, number)
-	if Player.items[name] == nil then
-		Player.items[name] = number
+	if User.items[name] == nil then
+		User.items[name] = number
 	else
-		Player.items[name] = Player.items[name] + number
+		User.items[name] = User.items[name] + number
 	end
 end
 
 local function player_get()
-	local x, y = table.unpack(Player.position)
+	local x, y = table.unpack(User.position)
 	local r = reach_room_value(x, y)
 	if r == 3 then
 		World.time = World.time + 3
@@ -168,8 +168,8 @@ function module.init()
 		f = player_get
 	})
 
-	Player.position = { 1, 1 }
-	Player.items = {}
+	User.position = { 1, 1 }
+	User.items = {}
 
 	Areas:init()
 	reach_room(1, 1)

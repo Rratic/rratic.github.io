@@ -12,6 +12,9 @@ categories = ["知识"]
 tags = ["数学", "笔记", "离散", "具体", "概率论"]
 +++
 
+TODO
+- 阅读《概率论沉思录》
+
 ## 说明 {#about}
 本文旨在探讨两个问题：
 - 概率论对现实的描述何以可能指导现实活动？
@@ -64,13 +67,19 @@ $$\bigcup\limits_{n=1}^{+\infty} A_n\in\mathfrak{F}$$
 
 $\mathfrak{F}$ 上的概率 $P: 2^\Omega\to \mathbb{R}$ 满足
 1. 非负：$P(A)\geq 0$
-2. 规范性：
+2. 规范性：$P(\Omega)=1$
 3. 可列可加性：对 $\\{A_n\\}_{n\geq 1}$ 两两不交
 
 $$P(\bigcup\limits_{n=1}^{+\infty} A_n) = \sum_{n=1}^{+\infty} P(A_n)$$
 
+其余性质皆易导出。
+
 ## 离散样本空间
+如果 $\Omega$ 是有限集，那么“可列”的要求完全涵盖了 $\mathfrak{F}$ 中的所有集合操作。
+
+## 频率学派和贝叶斯学派
+
+## 典型问题
 ### 三门问题 {#three-door-problem}
-频率学派和贝叶斯学派。
 
 [^non-mathmatical]: 如果你疑心这是不可能使用纯数学的语言描述出来的，可以将其跳过。

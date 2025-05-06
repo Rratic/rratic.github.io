@@ -81,7 +81,7 @@ body.dark #terminal {
 }
 
 .command {
-	white-space: pre;
+	white-space: pre-wrap;
 }
 
 .input .prompt {

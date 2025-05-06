@@ -1,4 +1,4 @@
-Game = {
+Project = {
 	title = "函数式混沌",
 	version = "0.1.0",
 	platform = "web",
@@ -8,7 +8,7 @@ World = {
 	time = 0,
 }
 
-Player = {}
+User = {}
 
 require("io/input")
 require("node/choices")
@@ -21,12 +21,12 @@ local Knots = require("node/knots")
 local Nodes = Knots.Nodes
 Nodes:add("menu", {
 	entrance = function()
-		Queue.push_title(i18n.title(Game))
+		Queue.push_title(i18n.title(Project))
 		Nodes:jump({ "menu" })
 	end,
 	menu = function()
 		Queue.push_choices({ {
-			t = "新的开始",
+			t = "开始",
 			j = { "beginning" }
 		}, {
 			t = "信息",
