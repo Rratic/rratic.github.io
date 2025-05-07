@@ -18,7 +18,7 @@ tags = ["展示", "发布", "说明", "计算机", "Lua", "在线", "含模拟"]
 
 这个过程必然不是一蹴而就的，而且并不是封闭的，因此它必须有足够的灵活性。
 
-我认为 Lua 具有相当的优势：
+我认为 [Lua](https://www.lua.org/) 具有相当的优势：
 - 优雅
 	- 语法可以简单地讲清
 	- **函数是一等公民**
@@ -29,7 +29,7 @@ tags = ["展示", "发布", "说明", "计算机", "Lua", "在线", "含模拟"]
 - 作为一个广泛存在的插件语言有足够的支持
 
 ## 技术
-使用了 [fengari-web](https://github.com/fengari-lua/fengari-web) 直接加载嵌入在页面中的代码，它是基于 Lua 虚拟环境 [Fengari](https://fengari.io/) 和额外的 js 和 DOM 接口 [fengari-interop](https://github.com/fengari-lua/fengari-interop)。
+使用了 [fengari-web](https://github.com/fengari-lua/fengari-web) 直接加载嵌入在页面中的代码，它是基于 Lua 虚拟环境 [Fengari](https://fengari.io/) 和额外的 js 和 DOM 接口 [fengari-interop](https://github.com/fengari-lua/fengari-interop)。其支持的版本是 [Lua 5.3](https://www.lua.org/manual/5.3/manual.html)。
 
 未来可能会采用 Rust + tauri 作为桌面端的渲染基础。
 
