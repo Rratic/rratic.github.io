@@ -12,19 +12,8 @@ categories = ["知识"]
 tags = ["数学", "计算机", "解析", "离散", "抽象", "Lisp"]
 +++
 
-<style>
-  code::before, code::after {
-    content: "" !important;
-  }
-
-  p > code, li > code {
-    text-decoration: 2px gold underline;
-    text-underline-offset: 2px;
-  }
-</style>
-
 前置知识
-- [无类型 λ 演算](/pages/lambda-calculus/)
+- [无类型 λ 演算](/posts/lambda-calculus/)
 
 ---
 
@@ -162,7 +151,7 @@ second
 有另外一个函数记号使得函数能提及它本身，使我们能方便地定义递归函数。
 
 ### 递归记号 {#mark-for-recursive-functions}
-理论上说，引入新的记号是可以通过[组合子](/pages/lambda-calculus/#recursive-functions)避免的。
+理论上说，引入新的记号是可以通过[组合子](/posts/lambda-calculus/#recursive-functions)避免的。
 
 不管是为了降低复杂性还是组合子提出太晚，让我们引入记号 `label`。
 

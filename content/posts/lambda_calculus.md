@@ -12,17 +12,6 @@ categories = ["知识"]
 tags = ["数学", "计算机", "笔记", "离散", "抽象"]
 +++
 
-<style>
-  code::before, code::after {
-    content: "" !important;
-  }
-
-  p > code, li > code {
-    text-decoration: 2px gold underline;
-    text-underline-offset: 2px;
-  }
-</style>
-
 ## 说明 {#about}
 本节讨论的是 Alonzo Church 发明的 `Lambda Calculus`，即**无类型 λ 演算**。[^paper-invention]
 

@@ -25,6 +25,17 @@ footer .block-bg:not(.block-hover) {
 	background-color: transparent;
 }
 
+code::before,
+code::after {
+	content: "" !important;
+}
+
+p>code,
+li>code {
+	text-decoration: 2px gold underline;
+	text-underline-offset: 2px;
+}
+
 /*
 	For custom shortcodes.
 */

@@ -27,9 +27,9 @@ tags = ["测试"]
 
 功能评注：
 - `` `text` `` 会产生 `text` 的效果
-	* 这个默认的 `<code></code>` 样式令人不悦，可以在 [LISP 模式](/pages/mode-lisp/) 找到一个自定义样式的展示。
-		1. 使用 `code::before, code::after { content: "" !important; }` 覆盖前后的反引号。
-		2. 使用 `p code { text-decoration: 3px gold underline; }` 制作高亮。
+	* 默认的 `<code></code>` 样式令人不悦。
+		1. 使用 `content: "" !important;` 覆盖前后的反引号。
+		2. 使用 `text-decoration: 3px gold underline;` 制作高亮。
 	* Markdown 源文件中的链接无法自动转化同样令人不悦。
 - 这个列表的间距很好。
 
@@ -58,11 +58,11 @@ impl SerializeWithRegistry for ComponentTypeLink {
 ```
 
 ```diff
--let mut me = self.entry::<FreeWill>.mut();
--world.execute(me);
-+if Some(mut me) = self.entry::<FreeWill>.get_mut() {
-+	world.execute(me);
-+}
+- let mut me = self.entry::<FreeWill>.mut();
+- world.execute(me);
++ if Some(mut me) = self.entry::<FreeWill>.get_mut() {
++ 	  world.execute(me);
++ }
 ```
 
 ## HTML
