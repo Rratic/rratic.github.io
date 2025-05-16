@@ -30,17 +30,7 @@
     </div>
     <script src="/script/chaos/keydown.js"></script>
     <script src="lua/5.3/main.lua" type="application/lua" async></script>
-    <script>
-        var savedTheme = localStorage.getItem("linkita-color-scheme");
-        var browserDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        if (savedTheme === "dark" || (savedTheme == undefined && browserDark)) {
-            document.body.classList.add("dark");
-            localStorage.setItem("linkita-color-scheme", "dark");
-        }
-        else {
-            localStorage.setItem("linkita-color-scheme", "light");
-        }
-    </script>
+    <script src="/script/utils/color_scheme.js"></script>
 </body>
 
 </html>

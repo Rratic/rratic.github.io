@@ -58,6 +58,8 @@ function launch() {
 		interval = -1;
 	}
 	if (r != 0) {
+		document.getElementById("choose-door").style.display = "none";
+		document.getElementById("choose").style.display = "none";
 		run(config);
 	}
 	else {
