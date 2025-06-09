@@ -71,7 +71,7 @@ social = [{ name = "github", url = "https://github.com/rratic" }]
 
 [extra.style]
 bg_color = "white"
-bg_dark_color = "#161e27"
+bg_dark_color = "#424242"
 header_blur = false
 header_color = "#e6f4ff"
-header_dark_color = "#061178"
+header_dark_color = "#333333"
