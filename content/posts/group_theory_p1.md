@@ -1,5 +1,5 @@
 +++
-title = "【草稿】群论（一）"
+title = "群论（一）"
 description = "群在集合上的作用，Pólya 计数法与 Sylow 定理。"
 date = 2025-06-09
 updated = 2025-06-11
@@ -119,13 +119,41 @@ $$|G| = |Z(G)| + \sum |G\colon C_G(y_i)|$$
 对 $p^k\mid |G|$，Sylow p 子群 $P$，$p^k$ 阶子群必为 $P$ 的某个共轭的子群。
 {% end %}
 
+令 $\Omega$ 为 $P$ 的左陪集构成的集合，$|G|=p^lm$
+
+对一个 $p^k$ 阶子群 $H$，考察 $H$ 在 $P$ 上的作用 $\varphi(h) = (aP\mapsto haP)$
+
+有 $|Orb(aP)|\big| |H|$，且 $|\Omega|=\sum |Orb(aP)|\not\equiv 0\pmod{p}$
+
+故至少一个 $|Orb(aP)|=1$
+
+对应 $h\in aPa^{-1}$ 即 $H\subseteq aPa^{-1}$
+
 {% admonition(type="abstract", title="第三 Sylow 定理") %}
 对 $p^l\parallel |G|, |G|=p^lm$，Sylow p 子群个数 $r$，则 $r\equiv 1\pmod{p}, r\mid m$
 {% end %}
 
+称 $H$ 在 $G$ 中正规化子 $N_G(H) = \\{G\mid gHg^{-1}=H\\}$
+
+则对 $G$ 的 Sylow p 子群 $P$，有 $P\unlhd N_G(P)\le G$
+
+对 $G$ 的 Sylow p 子群 $Q\subseteq N_G(P)$，$P,Q$ 同为 $N_G(P)$ 的 Sylow p 子群，由第二定理知相互共轭。由 $P$ 为 $N_G(P)$ 的正规子群，$P=Q$
+
+令 $\Omega$ 为 Sylow p 子群的集合，$P$ 在 $\Omega$ 上作用为共轭 $\varphi(g) = (Q\mapsto gQg^{-1})$
+
+有 $|Orb(Q)|=1\Leftrightarrow Q=P$，其余整除 $|P|$
+
+故 $r=\sum |Orb(Q)|\equiv 1\pmod{p}$
+
+由第二定理知 $G$ 在 $\Omega$ 上的共轭作用使 $\Omega$ 成为轨道，$r=|\Omega|\big| |G|$，即 $r\mid m$
+
 {% admonition(type="abstract", title="p·q 阶群分类") %}
 对素数 $p<q$，$pq$ 阶群在 $q\not\equiv 1\pmod{p}$ 时只有循环群。
 {% end %}
+
+取 Sylow p 子群及 Sylow q 子群，由第三定理知个数均为 1，从而分别是正规的
+
+易知 $PQ=G$，又由 $P\cap Q=\\{e\\}$，可知 $G\cong P\oplus Q\cong Z_p\oplus Z_q\cong Z_{pq}$
 
 ## 注释
 [^1]: 通过以下步骤证明：
