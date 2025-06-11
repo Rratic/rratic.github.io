@@ -1,5 +1,6 @@
 +++
-title = "【草稿】群论（一）：轨道"
+title = "【草稿】群论（一）"
+description = "群在集合上的作用，Sylow 定理与 Pólya 计数法。"
 date = 2025-06-09
 
 [extra]

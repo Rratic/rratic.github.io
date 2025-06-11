@@ -1,5 +1,6 @@
 +++
 title = "无类型 λ 演算"
+description = "Lambda Calculus 的规则、使用和合流性。"
 date = 2025-03-22
 updated = 2025-04-12
 

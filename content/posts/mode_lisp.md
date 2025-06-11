@@ -1,5 +1,6 @@
 +++
 title = "LISP 模式"
+description = "最早的 LISP 及其扩展。"
 date = 2025-03-22
 updated = 2025-03-29
 
