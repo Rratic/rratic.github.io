@@ -16,7 +16,7 @@ categories = ["知识"]
 tags = ["数学", "解析", "代数", "离散", "抽象", "抽象代数"]
 +++
 
-- [索引](/posts/index-group-theory/)
+[索引](/posts/index-group-theory/)
 
 ## 群在集合上的作用
 群 $G$ 在集合 $\Omega$ 上的作用是一个映射
@@ -47,7 +47,7 @@ $$
 
 易知 $|Orb(\alpha)|=|G\colon Stab(\alpha)|$
 
-例如，对于正四面体（记顶点 $\\{A,B,C,D\\}$），设其旋转变换群为 $G$，则：任取一个顶点，它对应的稳定子群阶为 3，轨道为 $\\{A,B,C,D\\}$，故而 $G$ 是 $S_4$ 的 12 阶子群，必然是 $A_4\cong V_4\oplus Z_3$
+例如，对于正四面体（记顶点 $\\{A,B,C,D\\}$），设其旋转变换群为 $G$，则：任取一个顶点，它对应的稳定子群阶为 3，轨道为 $\\{A,B,C,D\\}$，故而 $G$ 是 $S_4$ 的 12 阶子群，必然是 $A_4\cong V_4\oplus Z_3\cong Z_2\oplus Z_2\oplus Z_3$
 
 ## Pólya 计数法
 使用 Pólya 计数法是为了解决这样的问题：我们对所有的可能计数，并且将具有特定对称性的视作同一种（见下面的例子）。
@@ -61,8 +61,6 @@ $\varphi$ 对应的轨道数为 $\frac{1}{|G|} \sum_{g\in G}|X(g)|$，其中 $X(
 对 $g$ 计数为 $\sum |Stab(g)| = \sum\frac{|G|}{|Orb(g)|} = |G|\cdot ans$
 
 对 $x$ 计数则为 $\sum_{g\in G}|X(g)|$
-
----
 
 {% admonition(type="question", title="立方体染色Ⅰ") %}
 一个立方体六个面颜色不同，有多少种旋转下不同的染色？
