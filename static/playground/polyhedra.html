@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8">
+	<title>多面体渲染</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
+	<style>
+		body {
+			margin: 0;
+			overflow: hidden;
+			touch-action: none;
+		}
+
+		canvas {
+			display: block;
+			touch-action: none;
+		}
+	</style>
+	<link rel="stylesheet" href="/style/slider.css" type="text/css">
+</head>
+
+<body>
+	<div class="switch-container" style="position: absolute; top: 20px; left: 20px;">
+		<label class="switch">
+			<input type="checkbox" id="toggle-debug">
+			<span class="slider"></span>
+		</label>
+		<span>调试模式</span>
+		<label class="switch">
+			<input type="checkbox" id="toggle-auto-rotate" checked>
+			<span class="slider"></span>
+		</label>
+		<span>自动旋转</span>
+	</div>
+	<div style="position: absolute; top: 20px; right: 20px;">
+		<select id="select-shape"></select>
+		<input type="color" id="select-color" value="#aa0000" style="width: 30px; height: 30px;">
+		<button id="button-add">添加</button>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+	<script src="/script/polyhedra/main.js"></script>
+</body>
+
+</html>
