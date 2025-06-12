@@ -7,6 +7,9 @@ updated = 2025-03-23
 math = true
 toc = true
 
+[extra.sitemap]
+priority = "0.7"
+
 [taxonomies]
 categories = ["归档"]
 tags = ["展示", "游戏", "离散"]

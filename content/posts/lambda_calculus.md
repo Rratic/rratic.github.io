@@ -8,6 +8,9 @@ updated = 2025-04-12
 math = true
 toc = true
 
+[extra.sitemap]
+priority = "0.8"
+
 [taxonomies]
 categories = ["知识"]
 tags = ["数学", "计算机", "笔记", "离散", "抽象"]

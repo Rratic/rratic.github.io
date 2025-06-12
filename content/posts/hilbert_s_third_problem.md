@@ -8,6 +8,9 @@ updated = 2025-04-20
 math = true
 toc = true
 
+[extra.sitemap]
+priority = "0.8"
+
 [taxonomies]
 categories = ["知识"]
 tags = ["数学", "笔记", "连续", "具体", "几何", "初等几何"]

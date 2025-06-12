@@ -8,6 +8,9 @@ updated = 2025-05-17
 math = true
 toc = true
 
+[extra.sitemap]
+priority = "0.8"
+
 [taxonomies]
 categories = ["知识"]
 tags = ["数学", "笔记", "离散", "具体", "概率论"]

@@ -2,6 +2,9 @@
 title = "基于 Lua 的模拟环境"
 date = 2025-05-06
 
+[extra.sitemap]
+priority = "0.7"
+
 [taxonomies]
 categories = ["杂物"]
 tags = ["展示", "发布", "说明", "计算机", "Lua", "在线", "含模拟"]

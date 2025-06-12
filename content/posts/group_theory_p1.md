@@ -8,9 +8,12 @@ updated = 2025-06-11
 math = true
 toc = true
 
+[extra.sitemap]
+priority = "0.8"
+
 [taxonomies]
 categories = ["知识"]
-tags = ["数学", "笔记", "代数", "离散", "抽象", "抽象代数"]
+tags = ["数学", "解析", "代数", "离散", "抽象", "抽象代数"]
 +++
 
 - [索引](/posts/index-group-theory/)
@@ -40,7 +43,7 @@ $$
 
 显然有 $\varphi$ 是从 $G$ 到 $\Omega$ 上变换群的同态。
 
-记集合元素 $\alpha$ 在这一关系下的等价类 $\\{\alpha^x\mid x\in G\\}$ 为其轨道 $Orb(\alpha)$；全体不变映射 $\\{x\mid\alpha^x=\alpha\\}$ 为其稳定子群 $Stab(\alpha)$
+记集合元素 $\alpha$ 在这一关系下的等价类 $\\{\alpha^x\mid x\in G\\}$ 为其**轨道** $Orb(\alpha)$；全体不变映射 $\\{x\mid\alpha^x=\alpha\\}$ 为其**稳定化子** $Stab(\alpha)$
 
 易知 $|Orb(\alpha)|=|G\colon Stab(\alpha)|$
 
@@ -90,11 +93,11 @@ $X(g)$ 只在单位元处取到 720，其余情况为空集。故所求为 30.
 ## 共轭作用
 共轭作用是在 $G$ 的集合上的作用：$\varphi(g) = (a\mapsto gag^{-1})$
 
-记 $G$ 上 $\\{x\\}$ 的中心化子 $C_G(x)=\\{a\mid xa=ax\\}$，中心 $Z(G) = \\{x\mid gx=xg (\forall g\in G)\\}$
+记 $G$ 上 $\\{x\\}$ 的**中心化子** $C_G(x)=\\{a\mid xa=ax\\}$，**中心** $Z(G) = \\{x\mid gx=xg (\forall g\in G)\\}$
 
 则 $x\in Z(G)\Leftrightarrow |Orb(x)|=1$
 
-那么我们可以写出类方程：
+那么我们可以写出**类方程**：
 
 $$|G| = |Z(G)| + \sum |G\colon C_G(y_i)|$$
 
@@ -103,7 +106,7 @@ $$|G| = |Z(G)| + \sum |G\colon C_G(y_i)|$$
 例如，对 $|G|=p^l$，所有的 $C_G(y_i)$ 都是真子群，从而 $p\mid |Z(G)|$
 
 ## Sylow 定理
-对有限群 $G$ 和素数 $p$ 使 $p^l\parallel |G|$，$G$ 的 $p^l$ 阶子群为其 Sylow p 子群。
+对有限群 $G$ 和素数 $p$ 使 $p^l\parallel |G|$，$G$ 的 $p^l$ 阶子群为其 **Sylow p 子群**。
 
 {% admonition(type="abstract", title="第一 Sylow 定理") %}
 对有限群 $G$ 和素数 $p$ 使 $p^k\mid |G|$，$G$ 存在 $p^k$ 阶子群。
@@ -133,7 +136,7 @@ $$|G| = |Z(G)| + \sum |G\colon C_G(y_i)|$$
 对 $p^l\parallel |G|, |G|=p^lm$，Sylow p 子群个数 $r$，则 $r\equiv 1\pmod{p}, r\mid m$
 {% end %}
 
-称 $H$ 在 $G$ 中正规化子 $N_G(H) = \\{G\mid gHg^{-1}=H\\}$
+称 $H$ 在 $G$ 中**正规化子** $N_G(H) = \\{G\mid gHg^{-1}=H\\}$
 
 则对 $G$ 的 Sylow p 子群 $P$，有 $P\unlhd N_G(P)\le G$
 

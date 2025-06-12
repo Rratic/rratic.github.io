@@ -8,6 +8,9 @@ updated = 2025-03-29
 math = true
 toc = true
 
+[extra.sitemap]
+priority = "0.8"
+
 [taxonomies]
 categories = ["知识"]
 tags = ["数学", "计算机", "解析", "离散", "抽象", "Lisp"]
