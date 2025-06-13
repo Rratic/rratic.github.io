@@ -217,7 +217,8 @@ files.forEach(file => {
 	shapeSelector.appendChild(option);
 });
 
-const loaded = [];
+const cache = {};
+const addedGroups = [];
 document.getElementById('button-add').addEventListener('click', () => {
 	const value = shapeSelector.value;
 
@@ -233,17 +234,27 @@ document.getElementById('button-add').addEventListener('click', () => {
 		"edge-color": edgeColor,
 	};
 
-	let promise = loadJson("/assets/polyhedra/" + value + ".json");
-	promise.then(data => {
+	const add = data => {
 		let group = buildPolyhydronGroup(data["vertices"], data["faces"], config);
 		scene.add(group);
-		loaded.push(group);
-	});
+		addedGroups.push(group);
+	};
+
+	if (cache[value] == undefined) {
+		let promise = loadJson("/assets/polyhedra/" + value + ".json");
+		promise.then(data => {
+			add(data);
+			cache[value] = data;
+		});
+	}
+	else {
+		add(cache[value]);
+	}
 });
 
 document.getElementById('button-clear').addEventListener('click', () => {
 	scene.clear();
-	loaded.splice(0, loaded.length);
+	addedGroups.splice(0, addedGroups.length);
 });
 
 // export
@@ -273,7 +284,7 @@ document.getElementById('exportSvgBtn').addEventListener('click', () => {
 function animate() {
 	requestAnimationFrame(animate);
 	if (autoRotate) {
-		for (let group of loaded) {
+		for (let group of addedGroups) {
 			group.rotation.x += 0.01;
 		}
 	}
