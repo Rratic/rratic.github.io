@@ -68,16 +68,16 @@ window.addEventListener('resize', () => {
 // definitions
 function createFaceMaterial(config) {
 	const color = config["face-color"];
-	return config["face-mode"] == "normal" ? new THREE.MeshBasicMaterial({
+	const material = new THREE.MeshBasicMaterial({
 		color: color,
 		wireframe: false,
-	}) : new THREE.MeshBasicMaterial({
-		color: color,
-		wireframe: false,
-		transparent: true,
-		opacity: 0.3,
 		side: THREE.DoubleSide
 	});
+	if (config["face-mode"] != "normal") {
+		material.transparent = true;
+		material.opacity = 0.3;
+	}
+	return material;
 }
 
 function createEdgeMaterial(config) {
@@ -192,6 +192,9 @@ const files = [{
 }, {
 	title: "正十二面体",
 	value: "dodecahedron",
+}, {
+	title: "正二十面体",
+	value: "icosahedron",
 }];
 
 function loadJson(path) {
