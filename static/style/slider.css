@@ -1,8 +1,9 @@
 .switch-container {
 	display: flex;
 	align-items: center;
-	gap: 10px;
+	flex-direction: column;
 	color: black;
+	padding: 20px;
 }
 
 .switch {

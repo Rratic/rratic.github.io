@@ -1,5 +1,6 @@
 :root {
 	--btn-confirm-color: #4caf50;
+	--btn-danger-color: #f44336;
 }
 
 .form-area {
@@ -25,6 +26,13 @@ button {
 
 .confirm-btn {
 	background-color: var(--btn-confirm-color);
+	color: white;
+	border: none;
+	cursor: pointer;
+}
+
+.danger-btn {
+	background-color: var(--btn-danger-color);
 	color: white;
 	border: none;
 	cursor: pointer;
