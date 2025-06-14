@@ -20,8 +20,8 @@ tags = ["索引", "数学", "代数", "离散", "抽象", "抽象代数"]
 - 自由群表示
 - 合成群列
 - 第一个*不典范*内容：[Sylow 定理相关](/posts/group-theory-p1/)
-	- [R^3 中的旋转与多面体](/posts/group-theory-p1-2/)
-	- 点群
+	- [R^3 上的旋转与多面体](/posts/group-theory-p1-2/)
+	- TODO: 点群
 - TODO: 魔方的解
 - TODO: 高次方程与 Galois 理论
 
