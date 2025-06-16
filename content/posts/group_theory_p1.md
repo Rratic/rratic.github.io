@@ -1,6 +1,6 @@
 +++
-title = "群论（一）"
-description = "群在集合上的作用，Pólya 计数法与 Sylow 定理。"
+title = "群论（一）：群在集合上的作用相关"
+description = "群在集合上的作用，Pólya 计数法，共轭作用与 Sylow 定理。"
 date = 2025-06-09
 updated = 2025-06-11
 
