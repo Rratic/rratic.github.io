@@ -12,7 +12,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["数学", "解析", "代数", "离散", "抽象", "抽象代数"]
+tags = ["数学", "讲义", "代数", "离散", "抽象", "抽象代数"]
 +++
 
 [索引](/posts/index-group-theory/)
