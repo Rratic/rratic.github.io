@@ -1,7 +1,7 @@
 // initialization
 var useOrthographicCamera = false;
 var debug = false;
-var autoRotate = true;
+var autoRotate = false;
 
 const scene = new THREE.Scene();
 
@@ -112,12 +112,8 @@ function buildPolyhydronGroup(vertices, faces, config) {
 	if (config["face-mode"] != "none") {
 		const triangulatedFaces = [];
 		faces.forEach(face => {
-			if (face.length === 3) {
-				triangulatedFaces.push(...face);
-			} else if (face.length > 3) {
-				for (let i = 1; i < face.length - 1; i++) {
-					triangulatedFaces.push(face[0], face[i], face[i + 1]);
-				}
+			for (let i = 1; i < face.length - 1; i++) {
+				triangulatedFaces.push(face[0], face[i], face[i + 1]);
 			}
 		});
 		geometry.setIndex(triangulatedFaces);
@@ -195,7 +191,22 @@ const files = [{
 }, {
 	title: "正二十面体",
 	value: "icosahedron",
-}];
+}/*, {
+	title: "小星形十二面体",
+	value: "small_stellated_dodecahedron"
+}, {
+	title: "大十二面体",
+	value: "great_dodecahedron"
+}, {
+	title: "大星形十二面体",
+	value: "great_stellated_dodecahedron"
+}, {
+	title: "大二十面体",
+	value: "great_icosahedron"
+}*/
+];
+
+
 
 function loadJson(path) {
 	let promise = fetch(path)
