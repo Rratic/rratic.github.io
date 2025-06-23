@@ -156,7 +156,7 @@ $$|G| = |Z(G)| + \sum |G\colon C_G(y_i)|$$
 
 易知 $PQ=G$，又由 $P\cap Q=\\{e\\}$，可知 $G\cong P\oplus Q\cong Z_p\oplus Z_q\cong Z_{pq}$
 
-## 注释
+## 注释 {#comments}
 [^1]: 通过以下步骤证明：
 * 将 $G$ 用自由群表示法表示为 $<g_1, g_2\cdots g_n\mid rules>$
 * 由于是交换群，可以将一个规则（形如 $g_1 g_2^{-1} g_1^2$）任意交换顺序写成 $3x_1-x_2=0$ 的形式

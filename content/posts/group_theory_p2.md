@@ -1,7 +1,8 @@
 +++
-title = "群论（二）：魔方，混杂的内容"
-description = "换位子，半直积与 Schreier 子群引理。"
+title = "群论（二）：魔方与次正规群列"
+description = "换位子，半直积，Schreier 子群引理，可解群，导群，合成群列，Schreier 定理与 Jordan-Hölder 定理。"
 date = 2025-06-16
+updated = 2025-06-23
 
 [extra]
 math = true
@@ -105,6 +106,73 @@ $$h = (\overline{s_0t_0}^{-1}s_1t_1)(\overline{s_1t_1}^{-1}s_2t_2)\cdots (\overl
 ---
 
 上式给出了一般的找到链的方法，代码可参见 <https://oi-wiki.org/math/algebra/schreier-sims/>
+
+## 群列
+### 次正规群列
+仍考虑前述的链 $G = G_0 > G_1 > G_2 \cdots G_n = \\{e\\}$，我们希望它的性质足够好。
+
+称序列 $G = G_0 \triangleright G_1 \triangleright G_2 \cdots G_n = \\{e\\}$ 为 $G$ 的**次正规群列**。
+
+### 可解群
+称群是**可解群**，如果在次正规群列中每个商 $G_{i-1}/G_i$（称为**合成因子**）都是交换群。
+
+{% admonition(type="abstract", title="可解群的群列") %}
+称**导群**是一个群所有的换位子生成的群，记作 $G'=G^{(1)}$，则一个群可解等价于它的若干阶导群 $G^{(k)} = \\{e\\}$
+{% end %}
+
+一方面，所有的 $G^{(k)}$ 给出了这个群列的构造。可以证明 $G/G'$ 交换：考虑映射
+
+$$
+\begin{aligned}
+\sigma \colon & G \to G/G',\\\\
+        &g \mapsto gG'
+\end{aligned}
+$$
+
+有 $Ker\\:\sigma = G'$，即 $\sigma(xyx^{-1}y^{-1})=e$，从而 $\sigma(x)\sigma(y)=\sigma(y)\sigma(x)$，$Im\\:\sigma = G/G'$ 交换。
+
+另一方面，我们可以与上类似地说明对 $H\triangleleft G$，$G/H$ 交换当且仅当 $G'\leq H$
+
+{% admonition(type="abstract", title="Feit-Thompson 定理") %}
+每一个奇阶的有限群都是可解群。
+{% end %}
+
+此定理的证明长达 254 页，在此仅作告示之用。
+
+### 合成群列
+如果次正规群列中每个商都是单群，则称为**合成群列**。
+
+{% admonition(type="abstract", title="Schreier 定理") %}
+有限群的任何次正规群列可以加细为合成群列。
+{% end %}
+
+取长度极大的次正规群列，假设不是合成群列，某个 $G_{i-1}/G_i$ 有非平凡正规子群 $H$
+
+取其在典范同态
+
+$$
+\begin{aligned}
+\sigma \colon & G_{i-1} \to G_{i-1}/G_i,\\\\
+        &g \mapsto gG_i
+\end{aligned}
+$$
+
+下的原像，可以插在序列中，与极大矛盾。
+
+---
+
+进一步地，可解群的合成因子均为交换的单群，从而是素数阶循环群（利用了[交换群一定可以分解为循环群的直积](/posts/group-theory-p1/#comments)）。
+
+{% admonition(type="abstract", title="Jordan-Hölder 定理") %}
+两个合成群列
+
+$$G = G_0 \triangleright G_1 \triangleright G_2 \cdots G_n = \\{e\\}$$
+$$G = H_0 \triangleright H_1 \triangleright H_2 \cdots H_m = \\{e\\}$$
+
+可以以某种方式配对，使对应的合成因子同构。
+{% end %}
+
+存在一些归纳的证法。同时可以抽象成短正合列说明。
 
 ## 注释
 [^1]: https://www.jaapsch.net/puzzles/schreier.htm
