@@ -66,6 +66,20 @@ window.addEventListener('resize', () => {
 });
 
 // definitions
+const standardizedColors = [
+	0xffffff, // 0
+	0xffffff, // 1
+	0xffffff, // 2
+	0xffc000,
+	0xff8000,
+	0xff0a00,
+	0x30a0ff,
+	0xffffff, // 7
+	0x0ab0e0,
+	0xffffff, // 9
+	0x0ab08a,
+];
+
 function createFaceMaterial(config) {
 	const color = config["face-color"];
 	const material = new THREE.MeshBasicMaterial({
@@ -73,7 +87,7 @@ function createFaceMaterial(config) {
 		wireframe: false,
 		side: THREE.DoubleSide
 	});
-	if (config["face-mode"] != "normal") {
+	if (config["face-mode"] == "transparent") {
 		material.transparent = true;
 		material.opacity = 0.3;
 	}
@@ -103,24 +117,41 @@ function createTextTexture(text) {
 }
 
 function buildPolyhydronGroup(vertices, faces, config) {
-	const geometry = new THREE.BufferGeometry();
 	const group = new THREE.Group();
 
+	const geometry = new THREE.BufferGeometry();
 	geometry.setFromPoints(vertices.map(v => new THREE.Vector3(...v)));
 
 	// generate faces
 	if (config["face-mode"] != "none") {
-		const triangulatedFaces = [];
-		faces.forEach(face => {
-			for (let i = 1; i < face.length - 1; i++) {
-				triangulatedFaces.push(face[0], face[i], face[i + 1]);
-			}
-		});
-		geometry.setIndex(triangulatedFaces);
+		if (config["face-mode"] == "standardized") {
+			faces.forEach(face => {
+				const faceGeometry = geometry.clone();
+				const triangulatedFaces = [];
+				for (let i = 1; i < face.length - 1; i++) {
+					triangulatedFaces.push(face[0], face[i], face[i + 1]);
+				}
+				faceGeometry.setIndex(triangulatedFaces);
 
-		const faceMaterial = createFaceMaterial(config);
-		const mesh = new THREE.Mesh(geometry, faceMaterial);
-		group.add(mesh);
+				config["face-color"] = standardizedColors[face.length];
+				const faceMaterial = createFaceMaterial(config);
+				const mesh = new THREE.Mesh(faceGeometry, faceMaterial);
+				group.add(mesh);
+			});
+		}
+		else {
+			const triangulatedFaces = [];
+			faces.forEach(face => {
+				for (let i = 1; i < face.length - 1; i++) {
+					triangulatedFaces.push(face[0], face[i], face[i + 1]);
+				}
+			});
+			geometry.setIndex(triangulatedFaces);
+
+			const faceMaterial = createFaceMaterial(config);
+			const mesh = new THREE.Mesh(geometry, faceMaterial);
+			group.add(mesh);
+		}
 	}
 
 	// generate edges
@@ -203,10 +234,46 @@ const files = [{
 }, {
 	title: "大二十面体",
 	value: "great_icosahedron"
-}*/
-];
-
-
+}*/, {
+	title: "截角四面体",
+	value: "truncated_tetrahedron"
+}, {
+	title: "立方八面体",
+	value: "cuboctahedron",
+}, {
+	title: "截角八面体",
+	value: "truncated_octahedron",
+}, {
+	title: "截角立方体",
+	value: "truncated_cube",
+}, {
+	title: "小斜方截半立方体",
+	value: "rhombicuboctahedron",
+}, {
+	title: "扭棱立方体",
+	value: "snub_cube",
+}, {
+	title: "大斜方截半立方体",
+	value: "great_rhombicuboctahedron",
+}, {
+	title: "截半二十面体",
+	value: "icosidodecahedron",
+}, {
+	title: "截角二十面体",
+	value: "truncated_icosahedron",
+}, {
+	title: "小斜方截半二十面体",
+	value: "rhombicosidodecahedron",
+}, {
+	title: "截角十二面体",
+	value: "truncated_dodecahedron",
+}, {
+	title: "扭棱二十面体",
+	value: "snub_dodecahedron",
+}, {
+	title: "大斜方截半二十面体",
+	value: "great_rhombicosidodecahedron",
+}];
 
 function loadJson(path) {
 	let promise = fetch(path)
