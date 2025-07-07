@@ -73,7 +73,7 @@ $$(v, a_1w_1 + a_2w_2) = a_1(v, w_1) + a_2(v, w_2)$$
 
 因此取体积与正四面体相等的长方体即为反例。
 
-## 加强 {#enhancement}
+## 后续 {#advancement}
 Jean-Pierre Sydler 于 1965 年证明体积与 Dehn 不变量都相同的多面体一定可通过互相剪拼得到。[^paper-sydler]
 
 [^hilbert23reprinted]: 一个英文重制文本见于 <https://people.tamu.edu/~rojas//hilbert23reprinted.pdf>。

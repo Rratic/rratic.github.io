@@ -1,6 +1,7 @@
 +++
 title = "基于 Lua 的模拟环境"
 date = 2025-05-06
+updated = 2025-07-07
 
 [extra.sitemap]
 priority = "0.7"
@@ -9,6 +10,15 @@ priority = "0.7"
 categories = ["杂物"]
 tags = ["展示", "发布", "说明", "计算机", "Lua", "在线", "含模拟"]
 +++
+
+<style>
+	table code {
+		color: orange !important;
+		border: 1px grey solid;
+		padding: 4px;
+		border-radius: 4px;
+	}
+</style>
 
 [函数式混沌](/chaos/)
 
@@ -46,6 +56,30 @@ tags = ["展示", "发布", "说明", "计算机", "Lua", "在线", "含模拟"]
 此外，提供了快捷键和亮暗色模式（跟随整个站点的设置 `localStorage["linkita-color-scheme"]`）。
 
 ## API
-暂不提供文档，希望自行阅读[源代码](https://github.com/Rratic/rratic.github.io/tree/main/static/chaos)。
+只提供部分文档，希望自行阅读[源代码](https://github.com/Rratic/rratic.github.io/tree/main/static/chaos)。
 
 由于进行了模块化（尽管还不够完全），你可以随意地编写 mod 带来翻天覆地的改变，然后放到 `preload` 中。
+
+### 情节节点控制 Nodes
+`Nodes` 是两层的字典，一个节点是第一层 `Nodes.map[name]` 的值，一个结点是第二层 `Nodes.map[name][subname]` 的值，是一个函数。
+
+| 方法 | 效果 |
+| :-: | :-: |
+| `Nodes.add(name: string, knots: dictionary<function>)` | 添加一组节点 |
+| `Nodes.run(node: string, knot: string)` | 运行结点 |
+| `Nodes.jump(dest: array<string>)` | 跳转到结点，若长为 1 则在当前结点下跳转，否则视作完整的路径 |
+
+### 消息队列 Queue
+每一条消息都有一个整数的重要性指标，存储在 HTML 标签的 `dataset["l"]`。
+
+`Queue.push_choices(list: array<dictionary>)` 可以添加一组选项，每个选项有以下字段
+
+| 字段 | 用于 | 默认 |
+| :-: | :-: | :-: |
+| `on: boolean` | 控制是否被使用 | 是 |
+| `t: string` | 文本内容 | **必填** |
+| `rm: boolean` | 选择后是否运行 `Queue.clear(1, 0)` | 执行 |
+| `w: string` | 选择后显示的 HTML 消息 | 无显示 |
+| `cl: boolean` | 选择后是否运行 `Queue.clear(2, 1)` | 不执行 |
+| `f: function` | 选择后额外调用的函数 | 无 |
+| `j: array<string>` | 选择后调用 `Nodes.jump(j)` | 不执行 |
