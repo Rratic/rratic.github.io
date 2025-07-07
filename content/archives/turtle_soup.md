@@ -1,10 +1,11 @@
 +++
 title = "海龟汤"
+description = "一些原创的，可能很奇怪的海龟汤。"
 date = 2022-08-14
 updated = 2024-12-01
 
 [taxonomies]
-categories = ["归档"]
+categories = ["杂物"]
 tags = ["展示", "游戏"]
 +++
 

@@ -1,5 +1,6 @@
 +++
 title = "魔术的构造"
+description = "收集精妙或有深刻背景的魔术/游戏构造。"
 date = 2025-03-22
 updated = 2025-03-23
 
@@ -11,7 +12,7 @@ toc = true
 priority = "0.7"
 
 [taxonomies]
-categories = ["归档"]
+categories = ["杂物"]
 tags = ["展示", "游戏", "离散"]
 +++
 

@@ -1,10 +1,11 @@
 +++
 title = "猫猫棋"
+description = "原创棋类。流程较长。"
 date = 2023-12-09
 updated = 2025-03-23
 
 [taxonomies]
-categories = ["归档"]
+categories = ["杂物"]
 tags = ["展示", "在线", "游戏", "含模拟"]
 +++
 
