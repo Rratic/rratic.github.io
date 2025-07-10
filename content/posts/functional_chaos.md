@@ -20,7 +20,7 @@ tags = ["展示", "发布", "说明", "计算机", "Lua", "在线", "含模拟"]
 	}
 </style>
 
-[函数式混沌](/chaos/)
+[函数式混沌](/playground/chaos.html)
 
 ## 介绍
 一直以来都有一个横亘在我们眼前的难题，即如何弥合现实（这里指现实的离散、抽象部分）与模拟之间的鸿沟。
@@ -56,7 +56,7 @@ tags = ["展示", "发布", "说明", "计算机", "Lua", "在线", "含模拟"]
 此外，提供了快捷键和亮暗色模式（跟随整个站点的设置 `localStorage["linkita-color-scheme"]`）。
 
 ## API
-只提供部分文档，希望自行阅读[源代码](https://github.com/Rratic/rratic.github.io/tree/main/static/chaos)。
+只提供部分文档，希望自行阅读[源代码](https://github.com/Rratic/rratic.github.io/tree/main/static/script/chaos)。
 
 由于进行了模块化（尽管还不够完全），你可以随意地编写 mod 带来翻天覆地的改变，然后放到 `preload` 中。
 
