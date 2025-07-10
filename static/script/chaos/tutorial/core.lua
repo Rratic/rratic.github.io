@@ -3,9 +3,11 @@ local module = {}
 local Chunk = require("tutorial/chunk")
 local Maze = require("tutorial/maze_gen")
 
-require("utils/move_table")
-local Commands = require("io/commands")
-local Queue = require("io/queue")
+require("std/utils/move_table")
+local Commands = require("std/io/commands")
+local Queue = require("std/io/queue")
+
+require("areas/lib")
 
 -- todo: avoid hash collision
 local function pairing(x, y)

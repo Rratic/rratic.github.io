@@ -1,9 +1,9 @@
 -- Defines commands, tables that store arguments
 -- and takes effect through `run`.
 local module = {}
-local Queue = require("io/queue")
-local i18n = require("utils/i18n")
-require("io/interop")
+local Queue = require("std/io/queue")
+local i18n = require("std/utils/i18n")
+require("std/interop")
 
 local Command = {
 	type = "command",

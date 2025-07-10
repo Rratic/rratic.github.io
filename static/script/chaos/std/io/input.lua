@@ -1,7 +1,7 @@
 -- Controls command input.
-require("io/interop")
-local Queue = require("io/queue")
-local Commands = require("io/commands")
+require("std/interop")
+local Queue = require("std/io/queue")
+local Commands = require("std/io/commands")
 
 local cli = Terminal:querySelector(".command")
 local cli_id = 0

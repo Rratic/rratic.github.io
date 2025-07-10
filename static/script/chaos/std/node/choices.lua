@@ -1,5 +1,5 @@
-local Queue = require("io/queue")
-local Knots = require("node/knots")
+local Queue = require("std/io/queue")
+local Knots = require("std/node/knots")
 
 local function run_item_config(item)
 	if item.rm ~= false then

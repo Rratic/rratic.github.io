@@ -1,19 +1,26 @@
-local Slots = require("area/slots")
-
 Areas = {
 	type = "areas",
+
+	length = 0,
+	current = 0,
+	slots = {},
+
 	mapping = {},
 }
 
-function Areas:init()
-	self.slots_init = Slots.slots_init
-	self.alloc_ind = Slots.alloc_ind
-	self.free_ind = Slots.free_ind
-	self:slots_init()
+function Areas:allocate()
+	local l = self.length + 1
+	self.length = l
+	return l
+end
+
+function Areas:free(ind)
+	self.slots[ind] = nil
+	self.length = self.length - 1
 end
 
 function Areas:add_schedule(generator, key)
-	local ind = self:alloc_ind()
+	local ind = self:allocate()
 	local slot = {}
 	self.slots[ind] = slot
 	if key then

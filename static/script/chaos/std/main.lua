@@ -10,14 +10,13 @@ World = {
 
 User = {}
 
-require("io/input")
-require("node/choices")
-require("area/areas")
+require("std/io/input")
+require("std/node/choices")
 Schemes = {}
 
-local i18n = require("utils/i18n")
-local Queue = require("io/queue")
-local Knots = require("node/knots")
+local i18n = require("std/utils/i18n")
+local Queue = require("std/io/queue")
+local Knots = require("std/node/knots")
 local Nodes = Knots.Nodes
 Nodes:add("menu", {
 	entrance = function()
@@ -48,7 +47,7 @@ Nodes:add("menu", {
 	end,
 })
 
-local Commands = require("io/commands")
+local Commands = require("std/io/commands")
 Commands.register({
 	name = "quit",
 	abnf = "commands.quit()",

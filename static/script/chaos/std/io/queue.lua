@@ -1,6 +1,6 @@
 -- Manages output queue.
 local module = {}
-require("io/interop")
+require("std/interop")
 
 function module.line_wrap(html)
 	local div = Document:createElement("div")

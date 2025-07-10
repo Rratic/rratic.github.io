@@ -1,7 +1,7 @@
 -- Entrance of the module.
 local core = require("tutorial/core")
-local Knots = require("node/knots")
-local Queue = require("io/queue")
+local Knots = require("std/node/knots")
+local Queue = require("std/io/queue")
 Knots.Nodes:add("tutorial", {
 	introduction = function()
 		Queue.clear(2, 1)
