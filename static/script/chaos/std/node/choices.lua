@@ -6,7 +6,7 @@ local function run_item_config(item)
 		Queue.clear(1, 0)
 	end
 	if item.w then
-		Queue.push_html_line(item.w)
+		Queue.push_line(item.w)
 	end
 	if item.cl then
 		Queue.clear(2, 1)

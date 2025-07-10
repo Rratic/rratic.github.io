@@ -7,4 +7,5 @@ OutputStream = Terminal:querySelector(".output.stream")
 OutputFixed = Terminal:querySelector(".output.fixed")
 Prompt = Terminal:querySelector(".prompt")
 
+Marked = Window.marked
 PressCallTable = Window.pressCallTable

@@ -18,6 +18,15 @@ local i18n = require("std/utils/i18n")
 local Queue = require("std/io/queue")
 local Knots = require("std/node/knots")
 local Nodes = Knots.Nodes
+
+local info = [[
+在输入栏键入命令，然后按提示符 `>>>` 或使用 `Ctrl + Enter` 发送。
+
+常用命令
+- `/help` 获取可用的指令列表
+- `/quit` 回到主菜单
+]]
+
 Nodes:add("menu", {
 	entrance = function()
 		Queue.push_title(i18n.title(Project))
@@ -29,22 +38,16 @@ Nodes:add("menu", {
 			j = { "beginning" }
 		}, {
 			t = "信息",
-			w = "在输入栏键入命令，然后按提示符 <b>&gt;&gt;&gt;</b> 或使用 <b>Ctrl + Enter</b> 发送。<br>使用命令 <b>/help</b> 获取帮助。",
-			j = { "back" }
+			w = info,
+			j = { "null" }
 		} })
 	end,
 	beginning = function()
-		Queue.push_html_line("可选的方案：")
 		Queue.push_choices(Schemes)
-		Nodes:jump({ "back" })
+		Nodes:jump({ "null" })
 	end,
-	back = function()
-		Queue.push_choices({ {
-			t = "返回",
-			cl = true,
-			j = { "menu" }
-		} })
-	end,
+	null = function()
+	end
 })
 
 local Commands = require("std/io/commands")
@@ -64,7 +67,7 @@ end
 
 local pre = LocalStorage:getItem("chaos-preload")
 if type(pre) == "string" then
-	ProcessInput("*pre", pre, _ENV)
+	ProcessInput("preload", pre, _ENV)
 end
 
 require("tutorial/lib")

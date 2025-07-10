@@ -5,9 +5,9 @@ local Queue = require("std/io/queue")
 Knots.Nodes:add("tutorial", {
 	introduction = function()
 		Queue.clear(2, 1)
-		Queue.push_html_line("欢迎使用这个模组！")
-		Queue.push_html_line("这同时是一个使用教程和一个 <b>mod</b> 编写教程。")
-		Queue.push_html_line("这里有一个无限地牢迷宫，你需要在地牢房间间移动，收集符石。");
+		Queue.push_line("欢迎使用这个模组！")
+		Queue.push_line("这同时是一个使用教程和一个 `mod` 编写教程。")
+		Queue.push_line("这里有一个无限地牢迷宫，你需要在地牢房间间移动，收集符石。");
 		Knots.Nodes:jump({ "choices" })
 	end,
 	choices = function()
@@ -22,7 +22,7 @@ Knots.Nodes:add("tutorial", {
 		} })
 	end,
 	space = function()
-		Queue.push_html_line("新增了命令 <b>move</b> 和 <b>get</b>。<br>使用 <b>/help(\"move\")</b> 获取用法。")
+		Queue.push_line("新增了命令 `move` 和 `get`。")
 		core.init()
 	end
 })

@@ -66,7 +66,7 @@ local room_descriptions = {
 local function reach_room(x, y)
 	local r = reach_room_value(x, y)
 	if r == 0 then
-		Queue.push_html_line("这个方向没有门！")
+		Queue.push_line("这个方向没有门！")
 		return nil
 	end
 	if r == 1 then
@@ -77,7 +77,7 @@ local function reach_room(x, y)
 		end
 		set_room_value(x, y, r)
 	end
-	Queue.push_html_line(room_descriptions[r])
+	Queue.push_line(room_descriptions[r])
 	local str = ""
 	local list = {}
 	for d = 1, 4 do
@@ -87,7 +87,7 @@ local function reach_room(x, y)
 			str = str .. WORDS_TABLE[d] .. "，"
 		end
 	end
-	Queue.push_html_line("有" .. str:gsub("，$", "") .. "方向的门。")
+	Queue.push_line("有" .. str:gsub("，$", "") .. "方向的门。")
 	return list
 end
 

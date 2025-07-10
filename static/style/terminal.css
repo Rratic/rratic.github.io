@@ -146,8 +146,17 @@ a {
 }
 
 /*
-	Customized line classes.
+	Customized line contents.
 */
+
+code {
+    font-size: .875em;
+	font-weight: 600;
+	color: var(--command);
+	border: 1px grey solid;
+	padding: 4px;
+	border-radius: 4px;
+}
 
 .title {
 	background-color: white;

@@ -16,16 +16,21 @@ function module.push(element)
 	OutputStream:appendChild(element)
 end
 
-function module.push_raw(html, level, classes)
-	-- Uses paragraph.
+function module.push_paragraph(string, type, level, classes)
 	local p = Document:createElement("p")
-	p.innerHTML = html
+	if type == "plain" then
+		p.innerText = string
+	elseif type == "markdown" then
+		p.innerHTML = Marked:parse(string)
+	elseif type == "html" then
+		p.innerHTML = string
+	end
+
 	for i = 1, #classes do
 		p.classList:add(classes[i])
 	end
 	p.dataset["l"] = level
 
-	-- Pushes into output.
 	module.push(p)
 end
 
@@ -46,11 +51,11 @@ function module.clear(level, level_decrease)
 	end
 end
 
-function module.push_html_line(html)
-	module.push_raw(html, 1, { "line" })
+function module.push_line(string, type)
+	type = type or "markdown"
+	module.push_paragraph(string, type, 1, { "line" })
 end
 
--- todo: markdown
 MESSAGE_TYPES = {
 	info = "信息",
 	success = "成功",
@@ -92,7 +97,7 @@ function module.push_error(message)
 end
 
 function module.push_title(html)
-	module.push_raw(html, 1, { "line", "title" })
+	module.push_paragraph(html, "plain", 1, { "line", "title" })
 end
 
 -- Fixed.

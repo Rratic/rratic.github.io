@@ -32,7 +32,7 @@ end
 
 local function explain_function(table)
 	local desc = i18n.description(table)
-	Queue.push_html_line("<b>" .. table.abnf .. "</b><br>" .. desc)
+	Queue.push_line("`" .. table.abnf .. "`\n\n" .. desc)
 end
 
 local help = Command:new("help", function(self)
@@ -40,17 +40,24 @@ local help = Command:new("help", function(self)
 		explain_function(self.manual[self.args[1]])
 		return
 	end
+
 	local list = ""
 	for key, _ in pairs(self.manual) do
-		list = list .. key .. ", "
+		list = list .. "\n* `" .. key .. "`"
 	end
-	Queue.push_html_line(string.gsub(self.introduction, "{c}", list))
+
+	local str = string.gsub(self.introduction, "{c}", list)
+	Queue.push_line(str)
 end)
-help.introduction = "欢迎使用帮助！<br>可用的指令包括：{c}<br>使用 <b>/help(name)</b> 获得指令的用法信息。"
+help.introduction = [[
+可用的指令包括：{c}
+
+使用 `/help("name")` 获得指令的用法信息。
+]]
 help.manual = {
 	help = {
 		abnf = "commands.help(name?: string)",
-		description = "获取帮助信息"
+		description = "获取指令列表及用法信息"
 	}
 }
 
@@ -77,7 +84,7 @@ register({
 register({
 	name = "describe",
 	abnf = "commands.describe(table: table)",
-	description = "根据 <b>title</b> 和 <b>description</b> 等字段描述 <b>table</b> 内容",
+	description = "根据 `title` 和 `description` 等字段描述 `table` 内容",
 	f = function(self)
 		local table = self.args[1]
 		Queue.push_info(i18n.title(table) .. "\n" .. i18n.description(table))
@@ -99,7 +106,7 @@ register({
 register({
 	name = "preload",
 	abnf = "commands.preload(code_string: string)",
-	description = "注册 <b>code_string</b> 为加载完毕后在 <b>_ENV</b> 环境下运行的代码",
+	description = "注册 `code_string` 为加载完毕后在完整 `_ENV` 环境下运行的代码",
 	f = function(self)
 		if self.args.n == 1 then
 			local str = self.args[1]

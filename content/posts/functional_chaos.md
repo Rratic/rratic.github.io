@@ -79,7 +79,7 @@ tags = ["展示", "发布", "说明", "计算机", "Lua", "在线", "含模拟"]
 | `on: boolean` | 控制是否被使用 | 是 |
 | `t: string` | 文本内容 | **必填** |
 | `rm: boolean` | 选择后是否运行 `Queue.clear(1, 0)` | 执行 |
-| `w: string` | 选择后显示的 HTML 消息 | 无显示 |
+| `w: string` | 选择后显示的 Markdown 消息 | 无显示 |
 | `cl: boolean` | 选择后是否运行 `Queue.clear(2, 1)` | 不执行 |
 | `f: function` | 选择后额外调用的函数 | 无 |
 | `j: array<string>` | 选择后调用 `Nodes.jump(j)` | 不执行 |
