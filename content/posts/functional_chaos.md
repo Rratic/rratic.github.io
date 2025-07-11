@@ -1,7 +1,7 @@
 +++
 title = "基于 Lua 的模拟环境"
 date = 2025-05-06
-updated = 2025-07-07
+updated = 2025-07-11
 
 [extra.sitemap]
 priority = "0.7"
@@ -60,7 +60,7 @@ tags = ["展示", "发布", "说明", "计算机", "Lua", "在线", "含模拟"]
 
 由于进行了模块化（尽管还不够完全），你可以随意地编写 mod 带来翻天覆地的改变，然后放到 `preload` 中。
 
-### 情节节点控制 Nodes
+### 节点控制 Nodes
 `Nodes` 是两层的字典，一个节点是第一层 `Nodes.map[name]` 的值，一个结点是第二层 `Nodes.map[name][subname]` 的值，是一个函数。
 
 | 方法 | 效果 |
@@ -71,6 +71,16 @@ tags = ["展示", "发布", "说明", "计算机", "Lua", "在线", "含模拟"]
 
 ### 消息队列 Queue
 每一条消息都有一个整数的重要性指标，存储在 HTML 标签的 `dataset["l"]`。
+
+`Queue.clear(level: integer, level_decrease: integer)` 会遍历所有消息，直接移除重要性指标小于 `level` 的，并将所有重要性指标减去 `level_decrease`
+
+| 方法 | 效果 | 重要性指标 |
+| :-: | :-: | :-: |
+| `Queue.push_line(string: string, type: string)` | 增加一行消息，可选类型 `markdown`（默认），`plain`，`html` | 1 |
+| `Queue.push_info(message: string)` | 增加一行“信息”消息 | 1 |
+| `Queue.push_success(message: string)` | 增加一行“成功”消息 | 2 |
+| `Queue.push_warning(message: string)` | 增加一行“警告”消息 | 3 |
+| `Queue.push_error(message: string)` | 增加一行“错误”消息 | 4 |
 
 `Queue.push_choices(list: array<dictionary>)` 可以添加一组选项，每个选项有以下字段
 

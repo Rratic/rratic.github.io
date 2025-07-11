@@ -6,7 +6,7 @@ DefaultLanguage = "zh"
 local function local_word(name, source)
 	local nDefault = Language ~= DefaultLanguage
 	if type(name) == "nil" then
-		name = "[?]"
+		name = "???"
 	end
 	if type(source) == "string" then
 		if nDefault and DefaultLanguage == "en" then

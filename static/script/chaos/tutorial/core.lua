@@ -125,34 +125,16 @@ local function player_get()
 	return false
 end
 
-function module.register_keys()
-	Queue.push_info("已注册 w,a,s,d")
-	PressCallTable["d"] = function()
-		player_move(1)
-	end
-	PressCallTable["s"] = function()
-		player_move(2)
-	end
-	PressCallTable["a"] = function()
-		player_move(3)
-	end
-	PressCallTable["w"] = function()
-		player_move(4)
-	end
-	Queue.push_info("已注册 g")
-	PressCallTable["g"] = function()
-		player_get()
-	end
-end
-
-function module.init()
+function module.register_commands()
 	Commands.register({
 		name = "move",
 		abnf = "tutorial.move(direction: integer) -> nil|table",
 		description = [[
-			向指定方向移动；
-			1~4 分别代表东、南、西、北；
-			若目标非房间，则返回 nil，否则返回长为 4 的列表，表示指定方位的门是否有效
+向指定方向移动。
+
+1~4 分别代表东、南、西、北。
+
+若目标非房间，则返回 `nil`，否则返回长为 4 的列表，表示指定方位的门是否有效。
 		]],
 		f = function(self)
 			local direction = self.args[1]
@@ -166,10 +148,30 @@ function module.init()
 	Commands.register({
 		name = "get",
 		abnf = "tutorial.get() -> boolean",
-		description = "拾取房间中的符石，若存在符石则必然成功，返回 true",
+		description = "拾取房间中的符石，若存在符石则必然成功，返回 `true`",
 		f = player_get
 	})
+end
 
+function module.register_keys()
+	PressCallTable["d"] = function()
+		player_move(1)
+	end
+	PressCallTable["s"] = function()
+		player_move(2)
+	end
+	PressCallTable["a"] = function()
+		player_move(3)
+	end
+	PressCallTable["w"] = function()
+		player_move(4)
+	end
+	PressCallTable["g"] = function()
+		player_get()
+	end
+end
+
+function module.init()
 	User.position = { 1, 1 }
 	User.items = {}
 

@@ -1,6 +1,6 @@
 Project = {
 	title = "函数式混沌",
-	version = "0.1.0",
+	version = "0.2.0",
 	platform = "web",
 }
 
@@ -11,13 +11,11 @@ World = {
 User = {}
 
 require("std/io/input")
-require("std/node/choices")
+require("std/nodes")
 Schemes = {}
 
 local i18n = require("std/utils/i18n")
 local Queue = require("std/io/queue")
-local Knots = require("std/node/knots")
-local Nodes = Knots.Nodes
 
 local info = [[
 在输入栏键入命令，然后按提示符 `>>>` 或使用 `Ctrl + Enter` 发送。

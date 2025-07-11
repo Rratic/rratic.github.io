@@ -1,6 +1,7 @@
 -- Manages output queue.
 local module = {}
 require("std/interop")
+require("std/nodes")
 
 function module.line_wrap(html)
 	local div = Document:createElement("div")
@@ -104,6 +105,55 @@ end
 
 function module.push_fixed(element)
 	OutputFixed:appendChild(element)
+end
+
+-- Choices.
+
+local function run_item_config(item)
+	if item.rm ~= false then
+		module.clear(1, 0)
+	end
+	if item.w then
+		module.push_line(item.w)
+	end
+	if item.cl then
+		module.clear(2, 1)
+	end
+	if item.f then
+		item.f()
+	end
+	if item.j then
+		Nodes:jump(item.j)
+	end
+end
+
+function module.push_choices(list)
+	local p = Document:createElement("p")
+	p.classList:add("line")
+	p.dataset["l"] = 0
+
+	for i = 1, #list do
+		local item = list[i]
+		if item.on == false then
+			goto continue
+		end
+
+		local pp = Document:createElement("p")
+		pp.classList:add("choice")
+
+		local a = Document:createElement("a")
+		a.href = "#"
+		a.innerText = item.t
+		a:addEventListener("click", function()
+			run_item_config(item)
+		end)
+
+		pp:appendChild(a)
+		p:appendChild(pp)
+		::continue::
+	end
+
+	module.push(p)
 end
 
 return module

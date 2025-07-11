@@ -1,12 +1,8 @@
-local module = {}
-
-local Nodes = {
+Nodes = {
 	type = "nodes",
 	current = "null",
 	map = {},
 }
-
--- todo: function ProcessChoiceSet
 
 function Nodes:add(name, knots)
 	self.map[name] = knots
@@ -25,7 +21,3 @@ function Nodes:jump(dest)
 		self.map[self.current][dest[2]]()
 	end
 end
-
-module.Nodes = Nodes
-
-return module
