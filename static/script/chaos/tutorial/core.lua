@@ -175,7 +175,6 @@ function module.init()
 	User.position = { 1, 1 }
 	User.items = {}
 
-	Areas:init()
 	reach_room(1, 1)
 end
 

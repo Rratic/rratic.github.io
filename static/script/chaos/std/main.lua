@@ -1,6 +1,6 @@
 Project = {
 	title = "函数式混沌",
-	version = "0.2.0",
+	version = "0.2.1",
 	platform = "web",
 }
 
@@ -23,6 +23,8 @@ local info = [[
 常用命令
 - `/help` 获取可用的指令列表
 - `/quit` 回到主菜单
+
+`/require("tutorial")` 可打开使用教程。
 ]]
 
 Nodes:add("menu", {
@@ -68,5 +70,4 @@ if type(pre) == "string" then
 	ProcessInput("preload", pre, _ENV)
 end
 
-require("tutorial/lib")
 Nodes:run("menu", "entrance")

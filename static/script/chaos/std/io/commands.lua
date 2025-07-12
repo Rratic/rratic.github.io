@@ -79,8 +79,6 @@ register({
 	end
 })
 
--- todo: config
-
 register({
 	name = "describe",
 	abnf = "commands.describe(table: table)",
@@ -99,6 +97,18 @@ register({
 		-- Output with correct order.
 		for i = 1, self.args.n do
 			Queue.push_info(tostring(self.args[i]))
+		end
+	end
+})
+
+register({
+	name = "require",
+	abnf = "commands.require(path: string)",
+	description = "从路径 `/script/chaos/{path}/lib.lua` 导入代码",
+	f = function(self)
+		if self.args.n == 1 then
+			local str = self.args[1]
+			require(str .. "/lib")
 		end
 	end
 })
