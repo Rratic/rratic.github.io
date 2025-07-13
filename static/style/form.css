@@ -17,6 +17,11 @@
 	align-items: center;
 }
 
+.form-area input {
+	width: 120px;
+	padding: 8px 12px;
+}
+
 .form-area select,
 button {
 	padding: 8px 12px;

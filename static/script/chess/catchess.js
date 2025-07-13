@@ -63,10 +63,10 @@ function moves_black_cat(b, x, y) {
 	let cell = b.getIndex(x, y);
 	let me = cell.ownership;
 	let front = b.config.front(me);
-	let flag = _ch_void_black_cat(b, list, x, y, 0, front); // front
+	let cutOff = _ch_void_black_cat(b, list, x, y, 0, front); // front
 	_ch_enemy_black_cat(b, list, me, x, y, 1, front); // front-left
 	_ch_enemy_black_cat(b, list, me, x, y, -1, front); // front-right
-	if (cell.flag == undefined && flag) {
+	if (cell.cutOff == undefined && cutOff) {
 		_ch_void_black_cat(b, list, x, y, 0, front * 2);
 	}
 	return list;
@@ -172,13 +172,7 @@ export let catchessRules = {
 		let t = [0, 0];
 		for (let j = 0; j <= 1; j++) {
 			let c = board.count[j];
-			let d = 0;
-			if (c[2] + c[3] == 0) d = c[1];
-			else {
-				d = c[1] <= 5 ? 5 : c[1];
-				d += 2 * c[2] + 3 * c[3];
-			}
-			t[j] = d;
+			t[j] = c[1] + 1.2 * c[2] + 1.5 * c[3];
 		}
 		return t[player] - t[1 - player];
 	},
@@ -197,17 +191,19 @@ export let catchessRules = {
 	 * β: 最小上界
 	 * 
 	 */
-	alphabeta(board, depth, α, β, player, tellMove) {
+	alphabeta(board, depth, maxDepth, α, β) {
 		// terminalize
+		let player = depth % 2;
 		let allies = board.existAllies(player);
 		let cnt_ally = allies[0].length;
 		let count = board.existCount();
-		if (depth == 0 || cnt_ally == 0 || cnt_ally == count) {
-			return this.__evaluate(board, player);
+		if (depth == maxDepth || cnt_ally == 0 || cnt_ally == count) {
+			return this.__evaluate(board, 0);
 		}
+		let cantMove = true;
+
 		// branches
-		let typeBigger = (player == 0); // is 极大节点
-		let flag = false, flagAv = true;
+		let cutOff = false;
 		let saveLast = undefined;
 		let bridge = undefined;
 		for (let ind = 0; ind < cnt_ally; ind++) {
@@ -216,15 +212,15 @@ export let catchessRules = {
 			let cell = board.getIndex(x, y);
 			let moves = board.config.cells[cell.id].moves(board, x, y);
 			for (let move of moves) {
-				flagAv = false;
+				cantMove = false;
 				let child = board.copy();
 				let tx = move.tx;
 				let ty = move.ty;
 				let on = move.on;
 				this.__play_without_ai(child, x, y, tx, ty, on);
-				let value = this.alphabeta(child, depth - 1, α, β, 1 - player, false);
-				if (tellMove) saveLast = [value, x, y, tx, ty, on];
-				if (typeBigger) {
+				let value = this.alphabeta(child, depth + 1, maxDepth, α, β);
+				if (depth == 0) saveLast = [value, x, y, tx, ty, on];
+				if (player == 0) {
 					if (value > α) {
 						α = value;
 						bridge = saveLast;
@@ -237,17 +233,21 @@ export let catchessRules = {
 					}
 				}
 				if (β <= α) { // cut-off
-					flag = true;
+					cutOff = true;
 					break;
 				}
 			}
-			if (flag) {
+			if (cutOff) {
 				break;
 			}
 		}
-		if (flagAv) return this.__evaluate(board, player); // missed terminal
-		let result = typeBigger ? α : β;
-		if (!tellMove) {
+
+		// missed terminal
+		if (cantMove) return this.__evaluate(board, 0);
+
+		// return
+		let result = (player == 0) ? α : β;
+		if (depth != 0) {
 			return result;
 		}
 		else {
@@ -256,8 +256,8 @@ export let catchessRules = {
 			return bridge;
 		}
 	},
-	__play_ai(board, ownsId) {
-		let value = this.alphabeta(board, 4, -Infinity, Infinity, ownsId, true);
+	__play_ai(board, depth) {
+		let value = this.alphabeta(board, 0, depth, -Infinity, Infinity);
 		if (typeof (value) == "object") {
 			if (value.length == 1) {
 				console.error("unexpected: no proper behaviour");

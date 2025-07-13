@@ -2,7 +2,7 @@ import { catchessRules } from "./catchess.js";
 
 let board = null;
 
-function initialize_chess(canvas, use_ai) {
+function initialize_chess(canvas, mode) {
 	let context = canvas.getContext("2d");
 	let wi = Math.floor(canvas.width / board.length);
 	let status = -1; // pending
@@ -27,12 +27,11 @@ function initialize_chess(canvas, use_ai) {
 				catchessRules.__play_without_ai(board, chosen_x, chosen_y, x, y, flag);
 				status = board.config.turn_player_id(status);
 				board.config.canvas_display(context, wi, status);
-				if (use_ai) {
-					let player = status;
+				if (mode != 0 && status == 0) { // AI must be player 0
 					setTimeout(() => {
-						catchessRules.__play_ai(board, player);
-						status = board.config.turn_player_id(player);
-						board.config.canvas_display(context, wi, player);
+						catchessRules.__play_ai(board, mode);
+						status = 1;
+						board.config.canvas_display(context, wi, 1);
 					}, 500);
 					status = -1;
 				}
@@ -57,21 +56,21 @@ function initialize_chess(canvas, use_ai) {
 	board.config.canvas_display(context, wi, status);
 }
 
-function init(maxWidth, size, use_ai) {
+function init(maxWidth, size, mode) {
 	let cvs = document.createElement("canvas");
 	cvs.width = maxWidth;
 	cvs.height = maxWidth + 32;
 	board = catchessRules.__init__(size);
-	initialize_chess(cvs, use_ai);
+	initialize_chess(cvs, mode);
 	return cvs;
 }
 
 function launch() {
 	let container = document.getElementById("canvas_box");
-	let size = Number(document.getElementById("input_board_size").value);
+	let size = Number(document.getElementById("input-board-size").value);
 	if (size == 0) size = 8;
-	let use_ai = Number(document.getElementById("input_use_ai").value) == 1;
-	container.replaceChildren(init(64 * size, size, use_ai));
+	let mode = Number(document.getElementById("select-mode").value);
+	container.replaceChildren(init(64 * size, size, mode));
 }
 
 window.launch = launch;
