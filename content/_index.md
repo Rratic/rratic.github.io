@@ -12,4 +12,4 @@ profile = "rratic"
 
 ---
 
-正在更新的系列：[群论](/posts/index-group-theory/)
+知识系列：[群论](/posts/index-group-theory/) | [交换代数](/posts/index-commutative-algebra/)
