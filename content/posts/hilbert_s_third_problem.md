@@ -13,7 +13,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["数学", "笔记", "连续", "具体", "几何", "初等几何"]
+tags = ["笔记", "数学", "几何", "Euclid 几何"]
 +++
 
 ## 介绍 {#about}

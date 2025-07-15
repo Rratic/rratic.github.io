@@ -12,4 +12,17 @@ profile = "rratic"
 
 ---
 
-知识系列：[群论](/posts/index-group-theory/) | [交换代数](/posts/index-commutative-algebra/)
+数学知识系列（包括可能不会写的方向）[^math-classify]
+- 数学的基础：数理逻辑 | 集合论 | 类型论
+- 范畴论：普通范畴论 | 同伦代数 | 高阶范畴论
+- 代数学：线性代数 | [群论](/posts/index-group-theory/) {域论} | 非交换代数 | [交换代数](/posts/index-commutative-algebra/) {模论} | 同调代数 | 高阶代数
+- 数论：初等数论 | 代数数论 | 解析数论
+- 拓扑学：[点集拓扑](/posts/index-topology/) | 代数拓扑 | 几何拓扑 | 层论
+- 几何学：Euclid 几何 | 微分几何 | Riemann 几何 | 辛几何 | 复几何 | Lie 理论 | 代数几何 | 代数群理论 | p 进几何 | 算数几何 | 组合几何 | 非交换几何 | 高阶几何
+- 分析学：微积分学 | 测度论 | 复分析 | 泛函分析 | 调和分析 | 动力系统 | 常微分方程 | 偏微分方程
+- 概率论：概率论 | 随机过程与随机分析
+- 组合学：计数组合 | 图论 | 组合设计 | 博弈论
+
+---
+
+[^math-classify]: 参考 [香蕉空间: 写作计划](https://www.bananaspace.org/wiki/%E9%A6%99%E8%95%89%E7%A9%BA%E9%97%B4:%E5%86%99%E4%BD%9C%E8%AE%A1%E5%88%92)，有部分改动

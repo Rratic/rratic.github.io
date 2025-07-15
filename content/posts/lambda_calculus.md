@@ -13,7 +13,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["数学", "计算机", "笔记", "离散", "抽象"]
+tags = ["笔记", "数学", "计算机"]
 +++
 
 ## 说明 {#about}

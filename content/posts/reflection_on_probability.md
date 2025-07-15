@@ -13,7 +13,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["数学", "笔记", "离散", "具体", "概率论"]
+tags = ["笔记", "数学", "概率论", "含模拟", "在线"]
 +++
 
 TODO

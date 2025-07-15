@@ -8,7 +8,7 @@ priority = "0.7"
 
 [taxonomies]
 categories = ["杂物"]
-tags = ["展示", "发布", "说明", "计算机", "Lua", "在线", "含模拟"]
+tags = ["发布", "说明", "展示", "计算机", "含模拟", "在线", "Lua"]
 +++
 
 <style>
