@@ -9,7 +9,7 @@ MOVE_TABLE = {
 	{ 1,  -1 },
 }
 
-WORDS_TABLE = {
+MOVE_WORDS_TABLE = {
 	"东", "南", "西", "北",
 	"东南", "西南", "西北", "东北",
 }

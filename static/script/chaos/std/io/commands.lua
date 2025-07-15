@@ -2,7 +2,7 @@
 -- and takes effect through `run`.
 local module = {}
 local Queue = require("std/io/queue")
-local i18n = require("std/utils/i18n")
+local i18n = require("std/i18n")
 require("std/interop")
 
 local Command = {
@@ -32,7 +32,7 @@ end
 
 local function explain_function(table)
 	local desc = i18n.description(table)
-	Queue.push_line("`" .. table.abnf .. "`\n\n" .. desc)
+	Queue.push_line("`" .. table.abnf .. "`\n\n" .. i18n.locale(desc))
 end
 
 local help = Command:new("help", function(self)
@@ -46,7 +46,7 @@ local help = Command:new("help", function(self)
 		list = list .. "\n* `" .. key .. "`"
 	end
 
-	local str = string.gsub(self.introduction, "{c}", list)
+	local str = string.gsub(i18n.locale(self.introduction), "{c}", list)
 	Queue.push_line(str)
 end)
 help.introduction = [[

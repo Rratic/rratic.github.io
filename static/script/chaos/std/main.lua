@@ -1,6 +1,6 @@
 Project = {
 	title = "函数式混沌",
-	version = "0.2.1",
+	version = "0.2.2",
 	platform = "web",
 }
 
@@ -11,10 +11,11 @@ World = {
 User = {}
 
 require("std/io/input")
+require("std/config")
 require("std/nodes")
 Schemes = {}
 
-local i18n = require("std/utils/i18n")
+local i18n = require("std/i18n")
 local Queue = require("std/io/queue")
 
 local info = [[
@@ -50,13 +51,20 @@ Nodes:add("menu", {
 	end
 })
 
+AfterQuit = {
+	std = function()
+		Queue.clear(100, 1)
+	end
+}
 local Commands = require("std/io/commands")
 Commands.register({
 	name = "quit",
 	abnf = "commands.quit()",
 	description = "回到主菜单",
 	f = function()
-		Queue.clear(100, 1)
+		for _, value in pairs(AfterQuit) do
+			value()
+		end
 		Nodes:run("menu", "entrance")
 	end
 })

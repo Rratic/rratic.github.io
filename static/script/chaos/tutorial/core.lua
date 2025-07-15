@@ -3,11 +3,12 @@ local module = {}
 local Chunk = require("tutorial/chunk")
 local Maze = require("tutorial/maze_gen")
 
-require("std/utils/move_table")
+local i18n = require("std/i18n")
 local Commands = require("std/io/commands")
 local Queue = require("std/io/queue")
 
 require("areas/lib")
+require("grids/move_table")
 
 -- todo: avoid hash collision
 local function pairing(x, y)
@@ -84,7 +85,7 @@ local function reach_room(x, y)
 		local xd, yd = table.unpack(MOVE_TABLE[d])
 		list[d] = reach_room_value(x + xd, y + yd) ~= 0
 		if list[d] then
-			str = str .. WORDS_TABLE[d] .. "，"
+			str = str .. i18n.locale(MOVE_WORDS_TABLE[d]) .. "，"
 		end
 	end
 	Queue.push_line("有" .. str:gsub("，$", "") .. "方向的门。")
@@ -128,7 +129,7 @@ end
 function module.register_commands()
 	Commands.register({
 		name = "move",
-		abnf = "tutorial.move(direction: integer) -> nil|table",
+		abnf = "commands.move(direction: integer) -> nil|table",
 		description = [[
 向指定方向移动。
 
@@ -147,7 +148,7 @@ function module.register_commands()
 
 	Commands.register({
 		name = "get",
-		abnf = "tutorial.get() -> boolean",
+		abnf = "commands.get() -> boolean",
 		description = "拾取房间中的符石，若存在符石则必然成功，返回 `true`",
 		f = player_get
 	})
