@@ -135,7 +135,7 @@ $$
 \end{aligned}
 $$
 
-有 $ker\ \varphi = \\{e\\}$，从而 $Gal(E/F)\cong Im(\varphi)\leq S(\Omega)$
+有 $\ker\varphi = \\{e\\}$，从而 $Gal(E/F)\cong Im(\varphi)\leq S(\Omega)$
 
 ### 根式可解性
 我们用代数的语言定义根式可解性。

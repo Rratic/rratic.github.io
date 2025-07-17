@@ -129,7 +129,7 @@ $$
 \end{aligned}
 $$
 
-有 $Ker\\:\sigma = G'$，即 $\sigma(xyx^{-1}y^{-1})=e$，从而 $\sigma(x)\sigma(y)=\sigma(y)\sigma(x)$，$Im\\:\sigma = G/G'$ 交换。
+有 $\ker\sigma = G'$，即 $\sigma(xyx^{-1}y^{-1})=e$，从而 $\sigma(x)\sigma(y)=\sigma(y)\sigma(x)$，$Im\\:\sigma = G/G'$ 交换。
 
 另一方面，我们可以与上类似地说明对 $H\triangleleft G$，$G/H$ 交换当且仅当 $G'\leq H$
 
