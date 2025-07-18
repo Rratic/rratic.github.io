@@ -31,4 +31,7 @@ tags = ["索引", "数学", "拓扑"]
 - 可数性（邻域基，第一可数空间；拓扑基，第二可数空间）
 - 分离性（T₀/Kolmogorov 空间，T₁ 空间，T₂/Hausdorff 空间，拓扑流形，T₃/正则空间，Sorgenfrey 平面，T₄/正规空间，Urysohn 度量化定理）
 - 连通性（连通，局部连通，道路连通，拓扑学家的正弦曲线）
-- 紧性
+- 紧性（Tychonoff 定理，仿紧，列紧）
+- 维数（Lebesgue 覆盖定理，拓扑维数 $\dim$，Menger-Nöbeling 嵌入定理，Hausdorff/分形维数，分形）
+
+### 闭曲面

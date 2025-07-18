@@ -14,7 +14,7 @@ profile = "rratic"
 
 数学知识系列（包括可能不会写的方向）[^math-classify]
 - 数学的基础：数理逻辑 | 集合论 | 类型论
-- 范畴论：普通范畴论 | 同伦代数 | 高阶范畴论
+- 范畴论：[普通范畴论](/posts/index-category-theory/) | 同伦代数 | 高阶范畴论
 - 代数学：线性代数 | [群论](/posts/index-group-theory/) {域论} | 非交换代数 | [交换代数](/posts/index-commutative-algebra/) {模论} | 同调代数 | 高阶代数
 - 数论：初等数论 | 代数数论 | 解析数论
 - 拓扑学：[点集拓扑](/posts/index-topology/) | 代数拓扑 | 几何拓扑 | 层论
