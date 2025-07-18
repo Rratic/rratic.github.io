@@ -1,5 +1,6 @@
 +++
 title = "主页"
+description = "Rratic 的站点主页。"
 template = "my_index.html"
 
 [extra]
@@ -22,6 +23,11 @@ profile = "rratic"
 - 分析学：微积分学 | 测度论 | 复分析 | 泛函分析 | 调和分析 | 动力系统 | 常微分方程 | 偏微分方程
 - 概率论：概率论 | 随机过程与随机分析
 - 组合学：计数组合 | 图论 | 组合设计 | 博弈论
+
+---
+
+其它项目
+- [Julialang 中文学习指导](https://learn.juliacn.com/)
 
 ---
 
