@@ -34,4 +34,4 @@ tags = ["索引", "数学", "拓扑"]
 - 紧性（Tychonoff 定理，仿紧，列紧）
 - 维数（Lebesgue 覆盖定理，拓扑维数 $\dim$，Menger-Nöbeling 嵌入定理，Hausdorff/分形维数，分形）
 
-### 闭曲面
+### 曲面分类

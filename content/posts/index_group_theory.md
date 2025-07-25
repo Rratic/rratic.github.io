@@ -33,6 +33,8 @@ tags = ["索引", "数学", "代数", "群论", "Galois 理论"]
 ### Galois 理论
 - 域论（扩张，特征，正规扩张，可分扩张），Galois 理论（Galois 群，根式可解性判断，Abel-Ruffini 定理）：见[**群论（三）**](/posts/group-theory-p3/)
 
+### 群表示论
+
 ## 有限群
 有限群优雅而美好。
 
