@@ -82,3 +82,10 @@ $$
 {% end %}
 
 取 $\frac{1}{r} = \lim_{n \to \infty}\sup\sqrt[n]{|a_n|}$.
+
+### 函数定义
+定义 $\exp$ 为满足 $f'(z)=f(z)$ 及 $f(0)=1$ 的解。
+
+有 $(e^z\cdot e^{a-z})' = e^z\cdot e^{a-z}+e^z\cdot (-e^{a-z}) = 0$ 故 $e^{z+w}=e^z\cdot e^w$
+
+定义 $\cos z = \frac{e^{iz}+e^{-iz}}{2}, \sin z = \frac{e^{iz}-e^{-iz}}{2i}$
