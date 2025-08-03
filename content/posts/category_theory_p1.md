@@ -2,6 +2,7 @@
 title = "【草稿】范畴论（一）：代数结构的各种积"
 description = "代数结构积的范畴论观点：笛卡尔积，无交并，直积，直和，积空间。"
 date = 2025-08-02
+updated = 2025-08-03
 
 [extra]
 math = true
@@ -34,15 +35,15 @@ tags = ["讲义", "数学", "范畴论"]
 
 拓扑中，一族 $(X_i, \tau_i)$ 的积空间中的拓扑是使所有投影映射 $X\to X_i$ 连续的最粗拓扑。积拓扑的基可以由所有的 $\prod U_i, U_i\in\tau_i$ 其中只有有限个 $U_i\neq X_i$ 给出。
 
----
-
 这些定义实际上体现了泛性质的不同。
 
-对范畴 $\mathcal{C}$，称 $P$ 是一族 $\\{X_i\\}_{i\in I}$ 的积，如果存在一族态射 $\pi_i\colon P\to X_i$ 使任一族态射 $\varphi_i\colon Y\to X_i$，存在唯一的 $\phi: Y\to P$ 使 $\pi_i\circ\phi=\varphi_i$
+---
+
+对范畴 $\mathcal{C}$，称 $P$ 是一族 $\\{X_i\\}_{i\in I}$ 的**积**，如果存在一族态射 $\pi_i\colon P\to X_i$ 使任一族态射 $\varphi_i\colon Y\to X_i$，存在唯一的 $\phi: Y\to P$ 使 $\pi_i\circ\phi=\varphi_i$
 
 易知积在同构意义下是唯一的。
 
-积的对偶是余积（或称上积，上的译法可能来自画图时的方向），即：称 $P$ 是一族 $\\{X_i\\}_{i\in I}$ 的积，如果存在一族态射 $\iota_i\colon X_i\to P$ 使任一族态射 $\varphi_i\colon X_i\to Y$，存在唯一的 $\phi: P\to B$ 使 $\phi\circ\iota_i=\varphi_i$
+积的对偶是余积（或称上积，上的译法可能来自画图时的方向），即：称 $P$ 是一族 $\\{X_i\\}_{i\in I}$ 的**余积**，如果存在一族态射 $\iota_i\colon X_i\to P$ 使任一族态射 $\varphi_i\colon X_i\to Y$，存在唯一的 $\phi: P\to B$ 使 $\phi\circ\iota_i=\varphi_i$
 
 特别地，如果一族对象的积与余积相同，则称为双积。
 
@@ -55,4 +56,16 @@ tags = ["讲义", "数学", "范畴论"]
 | 拓扑 | 积空间 | 无交并 |
 
 ## 拉回与推出
-纤维积
+在拓扑中，对一个拓扑空间 $B$，一个 $B$ 上的空间（或称 $B$-空间）是指拓扑空间 $X$ 和连续映射 $p:X\to B$，可以将它看成一族空间 $X_b=p^{-1}(b)$（称作点 $b$ 的纤维）。两个 $B$-空间的连续 $B$-映射是满足 $p'\circ f = p$ 的连续映射 $f: X\to X'$
+
+对一族 $B$-空间 $(X_i, p_i)_{i\in I}$，称它们的纤维积是：
+- 集合为 $\\{(b, (x_i)_{i\in I})\mid p_i(x_i)=b, \forall i\in I\\}$
+- 拓扑为：
+
+这对应的是拉回。
+
+---
+
+对于对象 $B, C, D$ 与态射 $B\to D, C\to D$，它们的**拉回**是对象 $A$ 及态射 $A\to B, A\to C$，满足泛性质：对另一组对象 $A'$ 及态射 $A'\to B, A'\to C$，存在唯一的态射 $A'\to A$ 使图表交换。
+
+可以验证：一个集合的两个子集的拉回是它们的交。

@@ -1,7 +1,7 @@
 +++
 title = "基于 Lua 的模拟环境"
 date = 2025-05-06
-updated = 2025-07-11
+updated = 2025-08-03
 
 [extra.sitemap]
 priority = "0.7"
@@ -21,6 +21,8 @@ tags = ["发布", "说明", "展示", "计算机", "含模拟", "在线", "Lua"]
 </style>
 
 [函数式混沌](/playground/chaos.html)
+
+一个基于此想法但 API 不同的项目见于 [Milfoil](https://github.com/FoamWorld/milfoil).
 
 ## 介绍
 一直以来都有一个横亘在我们眼前的难题，即如何弥合现实（这里指现实的离散、抽象部分）与模拟之间的鸿沟。

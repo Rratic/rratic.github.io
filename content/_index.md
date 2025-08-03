@@ -26,7 +26,11 @@ profile = "rratic"
 
 ---
 
-其它项目
+物理知识系列：TODO
+
+---
+
+计算机知识系列：
 - [Julialang 中文学习指导](https://learn.juliacn.com/)
 
 ---
