@@ -19,6 +19,7 @@ tags = ["讲义", "数学", "分析", "复分析"]
 
 前置知识
 - 数学分析
+- [点集拓扑](/posts/index-topology/)
 
 ## 复函数
 ### 解析函数
@@ -89,3 +90,18 @@ $$
 有 $(e^z\cdot e^{a-z})' = e^z\cdot e^{a-z}+e^z\cdot (-e^{a-z}) = 0$ 故 $e^{z+w}=e^z\cdot e^w$
 
 定义 $\cos z = \frac{e^{iz}+e^{-iz}}{2}, \sin z = \frac{e^{iz}-e^{-iz}}{2i}$
+
+### 连续映射 {#continuous-mapping}
+点集拓扑告诉我们，连续映射把紧集映成紧集。因而对紧集到 $\mathbb{R}$ 的映射 $f$，像是紧集，从而是闭集，从而有最大、最小值。一般来说，可以对 $z\mapsto |f(z)|$ 使用这个定理。
+
+称两个度量空间间的函数 $f$ 一致连续，如果 $\forall\epsilon>0: \exists\delta>0, \forall (x_1, x_2): d(x_1, x_2)<\delta \implies d'(f(x_1), f(x_2))<\epsilon$
+
+由数学分析易知紧集上连续函数是一致连续的。
+
+## 曲线
+用连续映射 $z=f(t), t\in [\alpha, \beta]$ 表示曲线。若 $z'(t)$ 存在且连续，称该弧是可微的。若再有 $z'(t)\neq 0$，称该弧是正则的（使得折线不被认为是狭义的“曲线”）。若 $f(\alpha)=f(\beta)$ 则称其为闭曲线。
+
+{{ todo() }}
+
+### 复积分
+{{ todo() }}

@@ -28,7 +28,7 @@ tags = ["讲义", "数学", "代数", "域论", "Galois 理论"]
 
 只需证明非常值复系数多项式有根。以下给出 Frode Terkelsen 的一个简短初等证明。
 
-由数学分析知 $|P(z)|$ 有最小值，若最小值非零，不妨设其为 $|P(0)| = 1$
+[由数学分析](/posts/complex-analysis-p1/#continuous-mapping)知 $|P(z)|$ 有最小值，若最小值非零，不妨设其为 $|P(0)| = 1$
 
 设 $P(z) = 1+az^n+z^{n+1}Q(z), a\neq 0$
 
