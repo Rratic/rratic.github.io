@@ -28,10 +28,10 @@ tags = ["索引", "数学", "代数", "群论", "Galois 理论"]
 	- 多面体对称性（R^3 上的旋转，正多面体，半正多面体）：见[**群论（一）应用（一）**](/posts/group-theory-p1-2/)
 	- TODO: 点群
 - 次正规群列（换位子 $[a, b]$，半直积 $\rtimes$，Schreier 子群引理，可解群，导群 $G'$，合成群列，Schreier 定理，Jordan-Hölder 定理）：见[**群论（二）**](/posts/group-theory-p2/)
-- 特征（内自同构 $Inn$，（外）自同构 $Aut$，特征子群 $char$，特征单群）
+- 特征（内自同构 $Inn$，（外）自同构 $Aut$，特征子群 $char$，特征单群）：见[**群论（三）**](/posts/group-theory-p3/)
 
 ### Galois 理论
-- 域论（扩张，特征，正规扩张，可分扩张），Galois 理论（Galois 群，根式可解性判断，Abel-Ruffini 定理）：见[**群论（三）**](/posts/group-theory-p3/)
+- 域论（扩张，特征，正规扩张，可分扩张），Galois 理论（Galois 群，根式可解性判断，Abel-Ruffini 定理）：见[**域论（一）**](/posts/field-theory-p1/)
 
 ### 群表示论
 
