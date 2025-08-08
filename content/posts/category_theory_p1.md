@@ -1,8 +1,8 @@
 +++
-title = "【草稿】范畴论（一）：代数结构的各种积"
+title = "范畴论（一）：代数结构的各种积"
 description = "代数结构积的范畴论观点：笛卡尔积，无交并，直积，直和，积空间。"
 date = 2025-08-02
-updated = 2025-08-03
+updated = 2025-08-08
 
 [extra]
 math = true
@@ -41,9 +41,13 @@ tags = ["讲义", "数学", "范畴论"]
 
 对范畴 $\mathcal{C}$，称 $P$ 是一族 $\\{X_i\\}_{i\in I}$ 的**积**，如果存在一族态射 $\pi_i\colon P\to X_i$ 使任一族态射 $\varphi_i\colon Y\to X_i$，存在唯一的 $\phi: Y\to P$ 使 $\pi_i\circ\phi=\varphi_i$
 
+特别地，$I=\emptyset$ 时定义空积为终对象。
+
 易知积在同构意义下是唯一的。
 
 积的对偶是余积（或称上积，上的译法可能来自画图时的方向），即：称 $P$ 是一族 $\\{X_i\\}_{i\in I}$ 的**余积**，如果存在一族态射 $\iota_i\colon X_i\to P$ 使任一族态射 $\varphi_i\colon X_i\to Y$，存在唯一的 $\phi: P\to B$ 使 $\phi\circ\iota_i=\varphi_i$
+
+$I=\emptyset$ 时定义空积为始对象。
 
 特别地，如果一族对象的积与余积相同，则称为双积。
 
@@ -60,7 +64,7 @@ tags = ["讲义", "数学", "范畴论"]
 
 对一族 $B$-空间 $(X_i, p_i)_{i\in I}$，称它们的纤维积是：
 - 集合为 $\\{(b, (x_i)_{i\in I})\mid p_i(x_i)=b, \forall i\in I\\}$
-- 拓扑为：
+- 拓扑为：{{ todo() }}
 
 这对应的是拉回。
 
@@ -69,3 +73,11 @@ tags = ["讲义", "数学", "范畴论"]
 对于对象 $B, C, D$ 与态射 $B\to D, C\to D$，它们的**拉回**是对象 $A$ 及态射 $A\to B, A\to C$，满足泛性质：对另一组对象 $A'$ 及态射 $A'\to B, A'\to C$，存在唯一的态射 $A'\to A$ 使图表交换。
 
 可以验证：一个集合的两个子集的拉回是它们的交。
+
+拉回可以由积和等化子确定。
+
+对 $A\overset{\quad f\quad}{\underset{g}{\rightrightarrows}} B$，称对象 $E$ 及态射 $e:E\to A$ 为它们的**等化子**，如果对任意 $z:Z\to A$ 有唯一的态射 $Z\to E$ 使图表交换。
+
+观察图表即可发现拉回是 $B\times C\to D$ 的等化子。
+
+拉回、等化子的对偶是**推出**、**余等化子**。
