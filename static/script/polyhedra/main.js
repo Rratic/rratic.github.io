@@ -116,6 +116,18 @@ function createTextTexture(text) {
 	return canvas.toDataURL();
 }
 
+function tag_1_by_id(i) {
+	return String(i);
+}
+
+function tag_2_by_id(i) {
+	return String.fromCharCode(64 + i); // 'A': 65
+}
+
+function tag_3_by_id(i) {
+	return String.fromCharCode(96 + i); // 'a': 97
+}
+
 function buildPolyhydronGroup(vertices, faces, config) {
 	const group = new THREE.Group();
 
@@ -192,14 +204,39 @@ function buildPolyhydronGroup(vertices, faces, config) {
 			transparent: true
 		});
 
+		// 顶点 tag
 		vertices.forEach((vertex, i) => {
 			const sprite = new THREE.Sprite(textMaterial.clone());
-			sprite.material.map = loader.load(createTextTexture(i.toString()));
+			sprite.material.map = loader.load(createTextTexture(tag_1_by_id(i)));
 			sprite.position.set(...vertex);
 			sprite.scale.set(0.3, 0.3, 1); // 文本大小
 			sprite.position.multiplyScalar(1.1); // 稍微外移避免重叠
 
 			group.add(sprite);
+		});
+
+		// 棱 tag
+		// todo
+
+		// 面 tag
+		let fi = 1;
+		faces.forEach(face => {
+			let l = face.length;
+			let x = 0.0; let y = 0.0; let z = 0.0;
+			for (let i = 0; i < l; i++) {
+				x += vertices[face[i]][0];
+				y += vertices[face[i]][1];
+				z += vertices[face[i]][2];
+			}
+
+			const sprite = new THREE.Sprite(textMaterial.clone());
+			sprite.material.map = loader.load(createTextTexture(tag_3_by_id(fi)));
+			sprite.position.set(x / l, y / l, z / l);
+			sprite.scale.set(0.3, 0.3, 1); // 文本大小
+			sprite.position.multiplyScalar(1.1); // 稍微外移避免重叠
+
+			group.add(sprite);
+			fi += 1;
 		});
 	}
 
