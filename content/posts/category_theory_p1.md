@@ -45,7 +45,7 @@ tags = ["讲义", "数学", "范畴论"]
 
 易知积在同构意义下是唯一的。
 
-积的对偶是余积（或称上积，上的译法可能来自画图时的方向），即：称 $P$ 是一族 $\\{X_i\\}_{i\in I}$ 的**余积**，如果存在一族态射 $\iota_i\colon X_i\to P$ 使任一族态射 $\varphi_i\colon X_i\to Y$，存在唯一的 $\phi: P\to B$ 使 $\phi\circ\iota_i=\varphi_i$
+积的对偶是余积（或称上积，上的译法可能来自画图时的方向），即：称 $P$ 是一族 $\\{X_i\\}_{i\in I}$ 的**余积**，如果存在一族态射 $\iota_i\colon X_i\to P$ 使任一族态射 $\varphi_i\colon X_i\to Y$，存在唯一的 $\phi: P\to Y$ 使 $\phi\circ\iota_i=\varphi_i$
 
 $I=\emptyset$ 时定义空积为始对象。
 
