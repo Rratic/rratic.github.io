@@ -16,7 +16,7 @@ categories = ["知识"]
 tags = ["讲义", "数学", "代数", "抽象代数", "群论"]
 +++
 
-[索引](/posts/index-group-theory/)
+[索引与符号表](/posts/index-group-theory/)
 
 前置知识
 - 线性代数
