@@ -1,9 +1,10 @@
 +++
-title = "Haskell 学习（一）"
+title = "Haskell 学习（一）：基础内容"
+description = "Haskell 的基础语法特性概览。"
 date = 2025-08-26
+updated = 2025-08-27
 
 [extra]
-math = true
 toc = true
 
 [extra.sitemap]
@@ -83,11 +84,13 @@ ghci> ['A'..'Z']
 
 `[1..]` 将生成一个无限列表。这得益于 Haskell 是懒惰求值的。
 ```hs
+ghci> [1..] -- 使用 Ctrl + C 打断输出
+[1,2,3,4,5,6,7,8,9,1Interrupted.
 ghci> take 10 [1..]
 [1,2,3,4,5,6,7,8,9,10]
 ```
 
-这里可以使用列表构造的语法糖，在 `|` 左侧为值，右边为符合的条件。这类似于集合的一种表达方式。
+这里可以使用列表构造的语法糖，在竖杠左侧为值，右边为符合的条件。这类似于集合的一种表达方式。
 ```hs
 ghci> map (+1) [1..10]
 [2,3,4,5,6,7,8,9,10,11]
@@ -103,8 +106,6 @@ ghci> filter' even [1..10]
 
 现在可以在位于 `./Main.hs` 的文件中编辑代码
 ```hs
-module Main where
-
 import Data.Char
 import Data.List
 
@@ -117,9 +118,6 @@ canonical = filter (/= ' ') . map normalise
 normalise c | isUpper c = c
             | isLower c = toUpper c
             | otherwise = ' '
-
-main :: IO ()
-main = putStrLn "Hello, Haskell!"
 ```
 
 并使用 `:load Main` 运行，这会得到
@@ -143,9 +141,10 @@ ghci> unused "Hello, world!"
 ```
 
 ## 类型
-我们可以定义类型别名
+我们可以定义类型别名，或基于原类型定义新类型
 ```hs
 ghci> type Id = Int
+ghci> newtype Id = Id Int
 ```
 
 也可以从头开始定义类型
@@ -181,7 +180,7 @@ toHList (Cons x xs) = x : toHList xs
 
 也可以实现我们在现代语言中熟悉的 `Option`
 ```hs
-data Option a = None | Some a deriving Show
+data Option a = None | Some a deriving (Show)
 
 safeDiv :: Int -> Int -> Option Int
 safeDiv a 0 = None
@@ -191,7 +190,7 @@ safeDiv a b = Some (a `div` b)
 对于结构体，有更简单的定义方法
 ```hs
 data Person = Person {
-    name :: String,
+  name :: String,
 	id   :: Int
 	dob  :: (Int, Int, Int) -- day of birth
 }
@@ -206,4 +205,82 @@ ghci> (putStrLn . show) [1, 2, 3]
 [1,2,3]
 ```
 
-我们可以通过 `class` 和 `instance` 自己实现。
+我们可以通过 `class` 和 `instance` 自己实现。例如：
+```hs
+data List a = Empty | Cons a (List a)
+
+class Display a where
+  display :: a -> String
+
+instance Display Int where
+  display x = show x
+
+instance Display a => Display (List a) where
+  display (Empty)     = "[]"
+  display (Cons a xs) = "[" ++ display a ++ ", " ++ display xs ++ "]"
+```
+
+`display (Cons (1::Int) (Cons (2::Int) Empty))` 会得到 `"[1, [2, []]]"`
+
+`deriving` 的方式也可以允许自动推导出 `Eq`、`Ord` 等
+
+有时，我们不接受默认的推导方式，可自行定义
+```hs
+data Q = Q Integer Integer
+
+instance Show Q where
+  show (Q a b) = concat [show a, "/", show b]
+
+simp :: Q -> Q
+simp (Q a b) = Q (a `div` c) (b `div` c)
+  where c = gcd a b
+
+instance Eq Q where
+  r1 == r2 = (a1 == a2) && (b1 == b2)
+    where (Q a1 b1) = simp r1
+          (Q a2 b2) = simp r2
+
+addQ :: Q -> Q -> Q
+addQ (Q a1 b1) (Q a2 b2) = simp $ Q (c1 + c2) m
+  where m  = lcm b1 b2
+        c1 = a1 * (m `div` b1)
+        c2 = a2 * (m `div` b2)
+
+mulQ :: Q -> Q -> Q
+mulQ (Q a1 b1) (Q a2 b2) = simp $ Q (a1 * a2) (b1 * b2)
+
+instance Num Q where
+  (+)             = addQ
+  negate (Q a b)  = Q (-a) b
+  (*)             = mulQ
+  abs (Q a b)     = Q (abs a) (abs b)
+  signum  (Q a b) = Q (signum a * signum b) 1
+  fromInteger n   = Q n 1
+```
+
+我们将得到
+```hs
+ghci> Q (-1) 10 + Q 1 2
+2/5
+```
+
+## 折叠
+`foldl` 与 `foldr` 是有趣的函数。
+```hs
+ghci> :t foldr
+foldr :: Foldable t => (a -> b -> b) -> b -> t a -> b
+ghci> :t (:)
+(:) :: a -> [a] -> [a]
+ghci> :t []
+[] :: [a]
+ghci> 1 : 2 : 3 : []
+[1,2,3]
+ghci> 1 + 2 + 3 + 0
+6
+ghci> foldr (:) [] [1..10]
+[1,2,3,4,5,6,7,8,9,10]
+ghci> foldr (+) 0 [1..10]
+55
+ghci> foldr (*) 1 [1..10]
+3628800
+```
