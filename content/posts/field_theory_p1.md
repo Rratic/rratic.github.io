@@ -12,7 +12,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["讲义", "数学", "代数", "域论", "Galois 理论"]
+tags = ["笔记", "数学", "代数", "域论", "Galois 理论"]
 +++
 
 前置知识

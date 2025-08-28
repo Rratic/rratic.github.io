@@ -13,7 +13,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["讲义", "数学", "计算机", "Lisp"]
+tags = ["笔记", "数学", "计算机", "Lisp"]
 +++
 
 前置知识

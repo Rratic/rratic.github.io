@@ -47,7 +47,7 @@ ghci> mconcat [[1,2,3], mempty, [4,5,6]]
 函子的类型类原型是：[^omit]
 ```hs
 class Functor f where
-  fmap :: (a -> b) -> f a
+  fmap :: (a -> b) -> f a -> f b
 ```
 
 我们可以给之前的 `Option` 实现 `Functor`

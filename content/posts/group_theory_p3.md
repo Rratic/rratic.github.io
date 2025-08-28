@@ -12,7 +12,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["讲义", "数学", "代数", "抽象代数", "群论"]
+tags = ["笔记", "数学", "代数", "抽象代数", "群论"]
 +++
 
 [索引与符号表](/posts/index-group-theory/)
