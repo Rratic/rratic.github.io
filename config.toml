@@ -54,6 +54,10 @@ theme = "preferred_color_scheme"
 lang = "zh-CN"
 loading = "lazy"
 
+[extra.languages.zh.term_descriptions]
+categories = "在此阅读 $NAME 分类下的页面。"
+tags = "在此阅读含有 $NAME 标签的页面。"
+
 [extra.menus]
 my_header_menu = [
 	{ url = "$BASE_URL/posts/", name = "文章" },

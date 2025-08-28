@@ -1,5 +1,5 @@
 +++
-title = "Haskell 学习（二）"
+title = "Haskell 学习（二）：单子"
 description = "函数式的典型内容：幺半群、函子、应用、单子。"
 date = 2025-08-27
 
