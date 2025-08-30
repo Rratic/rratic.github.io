@@ -100,40 +100,40 @@ u^3+v^3=-q \\\\
 对 0 特征域 $F$，每个扩张 $E/F$ 都可分。
 {% end %}
 
-对不可约的 $f$，由于特征为 0，$f'$ 非零，从而 $gcd(f, f')=1$，$f$ 没有重根。
+对不可约的 $f$，由于特征为 0，$f'$ 非零，从而 $\gcd(f, f')=1$，$f$ 没有重根。
 
 ## Galois 理论
 ### Galois 群
 Galois 理论给出了域的扩张与其自同构群的联系。
 
-对域扩张 $E/F$，对自同构 $Aut(E)$ 中的元素 $\sigma$，称其**保持** $F$，如果 $\sigma(a)=a, \forall a\in F$
+对域扩张 $E/F$，对自同构 $\rm{Aut}(E)$ 中的元素 $\sigma$，称其**保持** $F$，如果 $\sigma(a)=a, \forall a\in F$
 
 以下讨论 $n$ 次首一多项式 $f\in F[x]$ 在 $E/F$ 中分裂，所有根 $\Omega = \\{z_i\\}$ 且 $E=F(\Omega)$
 
 {% admonition(type="abstract", title="命题") %}
-对 $\sigma\in Aut(E)$ 保持 $F$，它在 $\Omega$ 上是一个置换。
+对 $\sigma\in \rm{Aut}(E)$ 保持 $F$，它在 $\Omega$ 上是一个置换。
 {% end %}
 
 因为 $f(\sigma(z_i)) = \sigma(f(z_i)) = 0, \sigma(z_i)\in\Omega$，且 $\sigma$ 是单射。
 
 ---
 
-记 Galois 群 $Gal(E/F)$ 为 $Aut(E)$ 中所有保持 $F$ 的元素构成的群。
+记 Galois 群 $\rm{Gal}(E/F)$ 为 $\rm{Aut}(E)$ 中所有保持 $F$ 的元素构成的群。
 
 我们可以说明单位元对应的是 $E$ 上的单位映射：
 
 对 $n$ 归纳，$n=1$ 时 $E$ 中元素均形如 $\frac{f(z_1)}{g(z_1)}$ 知成立。又 $F(z_1, \cdots z_n) = (F(z_1))(z_2, \cdots z_n)$
 
-进一步地，$Gal(E/F)$ 同构于 $S_n$ 的一个子群。考察
+进一步地，$\rm{Gal}(E/F)$ 同构于 $S_n$ 的一个子群。考察
 
 $$
 \begin{aligned}
-\varphi \colon & Gal(E/F) \to S(\Omega),\\\\
+\varphi \colon & \rm{Gal}(E/F) \to S(\Omega),\\\\
         &\sigma \mapsto \sigma |_\Omega
 \end{aligned}
 $$
 
-有 $\ker\varphi = \\{e\\}$，从而 $Gal(E/F)\cong Im(\varphi)\leq S(\Omega)$
+有 $\ker\varphi = \\{e\\}$，从而 $\rm{Gal}(E/F)\cong \rm{Im}(\varphi)\leq S(\Omega)$
 
 ### 根式可解性
 我们用代数的语言定义根式可解性。
@@ -141,17 +141,17 @@ $$
 对域 $F$ 和非常数多项式 $f\in F[x]$，对应正规扩张 $E$，如果存在一列扩张 $F=K_0\subset K_1\subset \cdots K_t$ 满足 $K_{i+1} = K_i(u)$，其中 $u^k\in K_i, k\in\mathbb{Z}^+$，且 $E\subseteq K_t$，则称 $f$ 根式可解。
 
 {% admonition(type="abstract", title="命题") %}
-对 $F\subset K\subset E$，其中 $K/F, E/F$ 是正规扩张，则对任意 $\sigma\in Gal(E/F)$，有
+对 $F\subset K\subset E$，其中 $K/F, E/F$ 是正规扩张，则对任意 $\sigma\in \rm{Gal}(E/F)$，有
 - $\sigma\ K = K$
-- $Gal(E/K)\triangleleft Gal(E/F)$
-- $Gal(E/K)/Gal(E/F)\cong Gal(F/K)$
+- $\rm{Gal}(E/K)\triangleleft \rm{Gal}(E/F)$
+- $\rm{Gal}(E/K)/\rm{Gal}(E/F)\cong \rm{Gal}(F/K)$
 {% end %}
 
 第一个结论由定义易得。
 
 $$
 \begin{aligned}
-\varphi \colon & Gal(E/F) \to Gal(K/F),\\\\
+\varphi \colon & \rm{Gal}(E/F) \to \rm{Gal}(K/F),\\\\
         &\sigma \mapsto \sigma |_K
 \end{aligned}
 $$
@@ -161,10 +161,10 @@ $$
 {% admonition(type="abstract", title="根式扩张导出 Galois 群的次正规群列") %}
 对一列扩张 $F=K_0\subset K_1\subset \cdots K_t$ 满足 $K_{i+1} = K_i(u)$，其中 $u^{p_i}\in K_i, p\in\mathbb{P}$，且 $K_t/F$ 正规，$F$ 包含所有 $p_i$ 阶单位根。
 
-则有子群列 $\\{e\\} = G_t \subset \cdots G_1\subset G_0 = Gal(K_t/F)$，其中 $G_{i+1}\triangleleft G_i$，$G_i/G_{i+1}$ 为 $\\{e\\}$ 或 $p_{i+1}$ 阶循环群。
+则有子群列 $\\{e\\} = G_t \subset \cdots G_1\subset G_0 = \rm{Gal}(K_t/F)$，其中 $G_{i+1}\triangleleft G_i$，$G_i/G_{i+1}$ 为 $\\{e\\}$ 或 $p_{i+1}$ 阶循环群。
 {% end %}
 
-令 $G_i = Gal(K_t/F)$
+令 $G_i = \rm{Gal}(K_t/F)$
 
 ---
 
@@ -173,7 +173,7 @@ $$
 我们给出
 
 {% admonition(type="abstract", title="n 次方程可解性问题") %}
-域 $F$ 和非常数多项式 $f\in F[x]$，正规扩张 $E$，若 $f$ 根式可解，则 $Gal(E/F)$ 为可解群。
+域 $F$ 和非常数多项式 $f\in F[x]$，正规扩张 $E$，若 $f$ 根式可解，则 $\rm{Gal}(E/F)$ 为可解群。
 {% end %}
 
 特别地，
@@ -182,7 +182,7 @@ $$
 五次方程不存在通用根式解。
 {% end %}
 
-此时对应的 $Gal(E/F)\cong S_n, n\geq 5$
+此时对应的 $\rm{Gal}(E/F)\cong S_n, n\geq 5$
 
 我们知道 $S_n, n\geq 5$ 不可解，因为其子群 $A_n$ 为单群（通过说明非平凡正规子群一定包含全体三轮换），不可解。
 

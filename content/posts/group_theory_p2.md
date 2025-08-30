@@ -41,7 +41,7 @@ $$G\leq Z_3^8\times S_8 \times Z_2^{12}\times S_{12}$$
 
 定义换位子 $[a, b] = aba^{-1}b^{-1}$
 
-如果 $x^{[a, b]}\neq x$，则要么 $a\notin Stab(x), b\notin Stab(x^a)$，要么 $b\notin Stab(x), a\notin Stab(x^b)$
+如果 $x^{[a, b]}\neq x$，则要么 $a\notin \rm{Stab}(x), b\notin \rm{Stab}(x^a)$，要么 $b\notin \rm{Stab}(x), a\notin \rm{Stab}(x^b)$
 
 例如，我们构造操作：$[[R, U], D] = RUR'U'DURU'R'D'$，这只会改变三个角块的状态。
 
@@ -129,7 +129,7 @@ $$
 \end{aligned}
 $$
 
-有 $\ker\sigma = G'$，即 $\sigma(xyx^{-1}y^{-1})=e$，从而 $\sigma(x)\sigma(y)=\sigma(y)\sigma(x)$，$Im\\:\sigma = G/G'$ 交换。
+有 $\ker\sigma = G'$，即 $\sigma(xyx^{-1}y^{-1})=e$，从而 $\sigma(x)\sigma(y)=\sigma(y)\sigma(x)$，$\rm{Im}\\:\sigma = G/G'$ 交换。
 
 另一方面，我们可以与上类似地说明对 $H\triangleleft G$，$G/H$ 交换当且仅当 $G'\leq H$
 

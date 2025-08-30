@@ -51,9 +51,9 @@ $$
 
 显然有 $\varphi$ 是从 $G$ 到 $\Omega$ 上变换群的同态。
 
-记集合元素 $\alpha$ 在这一关系下的等价类 $\\{\alpha^x\mid x\in G\\}$ 为其**轨道** $Orb(\alpha)$；全体不变映射 $\\{x\mid\alpha^x=\alpha\\}$ 为其**稳定化子** $Stab(\alpha)$
+记集合元素 $\alpha$ 在这一关系下的等价类 $\\{\alpha^x\mid x\in G\\}$ 为其**轨道** $Orb(\alpha)$；全体不变映射 $\\{x\mid\alpha^x=\alpha\\}$ 为其**稳定化子** $\rm{Stab}(\alpha)$
 
-易知 $|Orb(\alpha)|=|G\colon Stab(\alpha)|$
+易知 $|\rm{Orb}(\alpha)|=|G\colon \rm{Stab}(\alpha)|$
 
 例如，对于正四面体（记顶点 $\\{A,B,C,D\\}$），设其旋转变换群为 $G$，则：任取一个顶点，它对应的稳定子群阶为 3，轨道为 $\\{A,B,C,D\\}$，故而 $G$ 是 $S_4$ 的 12 阶子群，必然是 $A_4\cong V_4\oplus Z_3\cong Z_2\oplus Z_2\oplus Z_3$
 
@@ -66,7 +66,7 @@ $\varphi$ 对应的轨道数为 $\frac{1}{|G|} \sum_{g\in G}|X(g)|$，其中 $X(
 
 其本质是对所有满足 $x^g = x$ 的数对的算两次。
 
-对 $g$ 计数为 $\sum |Stab(g)| = \sum\frac{|G|}{|Orb(g)|} = |G|\cdot ans$
+对 $g$ 计数为 $\sum |\rm{Stab}(g)| = \sum\frac{|G|}{|\rm{Orb}(g)|} = |G|\cdot ans$
 
 对 $x$ 计数则为 $\sum_{g\in G}|X(g)|$
 
@@ -74,7 +74,7 @@ $\varphi$ 对应的轨道数为 $\frac{1}{|G|} \sum_{g\in G}|X(g)|$，其中 $X(
 一个立方体六个面颜色不同，有多少种旋转下不同的染色？
 {% end %}
 
-易知对称群 $|G| = |Orb(x)|\cdot |Stab(x)| = 24$
+易知对称群 $|G| = |\rm{Orb}(x)|\cdot |\rm{Stab}(x)| = 24$
 
 集合 $\Omega$ 是六个面的染色状态构成的集合，作用 $\varphi$ 使得 $\varphi(g)$ 是进行 $g$ 对应的旋转操作。所求即它的轨道数。
 
@@ -101,7 +101,7 @@ $X(g)$ 只在单位元处取到 720，其余情况为空集。故所求为 30.
 
 记 $G$ 上 $\\{x\\}$ 的**中心化子** $C_G(x)=\\{a\mid xa=ax\\}$，**中心** $Z(G) = \\{x\mid gx=xg (\forall g\in G)\\}$
 
-则 $x\in Z(G)\Leftrightarrow |Orb(x)|=1$
+则 $x\in Z(G)\Leftrightarrow |\rm{Orb}(x)|=1$
 
 那么我们可以写出**类方程**：
 
@@ -122,7 +122,7 @@ $$|G| = |Z(G)| + \sum |G\colon C_G(y_i)|$$
 
 对 $|G|$ 归纳。
 - 若 $p\mid Z(G)$，由于它是交换的，有 p 阶子群。考察它和对应的商群，使用归纳假设。
-- 若 $p\nmid Z(G)$，由类方程，存在一个 $p\nmid Orb(y_i)$，有 $p^l\parallel C_G(y_i)$，使用归纳假设。
+- 若 $p\nmid Z(G)$，由类方程，存在一个 $p\nmid \rm{Orb}(y_i)$，有 $p^l\parallel C_G(y_i)$，使用归纳假设。
 
 {% admonition(type="abstract", title="第二 Sylow 定理") %}
 对 $p^k\mid |G|$，Sylow p 子群 $P$，$p^k$ 阶子群必为 $P$ 的某个共轭的子群。
@@ -132,9 +132,9 @@ $$|G| = |Z(G)| + \sum |G\colon C_G(y_i)|$$
 
 对一个 $p^k$ 阶子群 $H$，考察 $H$ 在 $P$ 上的作用 $\varphi(h) = (aP\mapsto haP)$
 
-有 $|Orb(aP)|\big| |H|$，且 $|\Omega|=\sum |Orb(aP)|\not\equiv 0\pmod{p}$
+有 $|Orb(aP)|\big| |H|$，且 $|\Omega|=\sum |\rm{Orb}(aP)|\not\equiv 0\pmod{p}$
 
-故至少一个 $|Orb(aP)|=1$
+故至少一个 $|\rm{Orb}(aP)|=1$
 
 对应 $h\in aPa^{-1}$ 即 $H\subseteq aPa^{-1}$
 
@@ -150,9 +150,9 @@ $$|G| = |Z(G)| + \sum |G\colon C_G(y_i)|$$
 
 令 $\Omega$ 为 Sylow p 子群的集合，$P$ 在 $\Omega$ 上作用为共轭 $\varphi(g) = (Q\mapsto gQg^{-1})$
 
-有 $|Orb(Q)|=1\Leftrightarrow Q=P$，其余整除 $|P|$
+有 $|\rm{Orb}(Q)|=1\Leftrightarrow Q=P$，其余整除 $|P|$
 
-故 $r=\sum |Orb(Q)|\equiv 1\pmod{p}$
+故 $r=\sum |\rm{Orb}(Q)|\equiv 1\pmod{p}$
 
 由第二定理知 $G$ 在 $\Omega$ 上的共轭作用使 $\Omega$ 成为轨道，$r=|\Omega|\big| |G|$，即 $r\mid m$
 
