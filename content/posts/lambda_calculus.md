@@ -40,30 +40,30 @@ E = x           // variables
 * 函数声明时，函数体尽可能向右扩展。
 * 函数应用时，从左到右结合（即“左结合”）。
 
-例如，$\lambda x.\ x\ \lambda y.\ x\ y\ z$ 应被理解为 $\lambda x.\ (x\ \lambda y.\ ((x\ y)\ z))$。
+例如，$\lambda x.\ x\ \lambda y.\ x\ y\ z$ 应被理解为 $\lambda x.\ (x\ \lambda y.\ ((x\ y)\ z))$
 
 ## Currying
 尽管在定义中，函数必须恰有一个参数，多个参数的函数仍然可以通过 `currying` 技术间接地表示。
 
 例如，不合法的 $\lambda x\ y.\ x+y$ 可以被表达为 $\lambda x.\ (\lambda y.\ x+y)$。后世的闭包思想也来自于此。
 
-巧妙的是，你可以传入少于全部参数个数的参数。例如代入 3，可以得到 $\lambda y.\ 3+y$。
+巧妙的是，你可以传入少于全部参数个数的参数。例如代入 3，可以得到 $\lambda y.\ 3+y$
 
 ## 求值 {#lambda-evaluation}
 有两条求值规则：
 * `Alpha equivalence` (or conversion)
 
-  $\alpha$-重命名意为，可任意改变变量名。如有歧义的 $\lambda x.\ x(\lambda x.\ x)$ 可改为 $\lambda x.\ x(\lambda y.\ y)$。
+  $\alpha$-重命名意为，可任意改变变量名。如有歧义的 $\lambda x.\ x(\lambda x.\ x)$ 可改为 $\lambda x.\ x(\lambda y.\ y)$
 * `Beta reduction`
 
-  $\beta$-规约意为，在应用时将声明展开。例如 $(\lambda x.\ x)(\lambda y.\ y)$ 被展开为 $\lambda y.\ y$。
+  $\beta$-规约意为，在应用时将声明展开。例如 $(\lambda x.\ x)(\lambda y.\ y)$ 被展开为 $\lambda y.\ y$
 
-此外，$\eta$-等价意为，相同作用的函数可相互替换。
+此外，$\eta$-等价意为，$\lambda x. f(x)$ 可改为 $f$
 
 ## 求值顺序 {#evaluation-order}
 考虑函数应用 $(\lambda y.\ (\lambda x.\ x)\ y) E$。它有两种计算方法：
-* 先求内层，得到 $(\lambda y.\ y) E$，然后得到 $E$。
-* 先求外层，得到 $(\lambda x.\ x) E$，然后得到 $E$。
+* 先求内层，得到 $(\lambda y.\ y) E$，然后得到 $E$
+* 先求外层，得到 $(\lambda x.\ x) E$，然后得到 $E$
 
 根据 Church–Rosser 定理（其证明会在[之后](#church-rosser-theorem)提供），这两种方法是等价的，最终会得到相等的结果。
 
@@ -134,7 +134,7 @@ Lambda 演算中只有函数而没有纯粹的、实践中关心的数据类型�
 ### 布尔值 {#datatype-boolean}
 布尔值支持二元逻辑运算，但其最重要的意义是实现条件判断。
 
-简单地定义 `true` 为 $\lambda x.\ \lambda y.\ x$，`false` 为 $\lambda x.\ \lambda y.\ y$。
+简单地定义 `true` 为 $\lambda x.\ \lambda y.\ x$，`false` 为 $\lambda x.\ \lambda y.\ y$
 
 这样，`if e then u else v` 就可被重写为 $e\ u\ v$。
 
@@ -199,23 +199,24 @@ cons 1 (cons 2 (cons 3 nil)) // 构造列表示例
 在 [Part 1](https://tejqunair.com/posts/lambda-part-1/) 与 [Part 2](https://tejqunair.com/posts/lambda-part-2/) 阅读如何使用 Rust 完成 Lambda 演算解释器。你可以在[这里](https://sshwy.github.io/lamcalc/playground.html)找到一个在线演绎器，但它需要手动操作。
 
 ## 重写系统 {#rewriting-systems}
-让我们探讨一个更一般的模型。本部分参考了[香蕉空间](https://www.bananaspace.org)（采用 CC BY-SA 4.0 许可）的相关词条（**重写系统**，**正规性**，**合流性**）。
+### 术语 {#jargon}
+**重写**是将表达式的一部分替换为其它表达式的过程，可以看作一种关系或者一组规则，在这里，规则包括 $\alpha, \beta, \eta$ 三种归约。
 
-**重写**是将表达式的一部分替换为其它表达式的过程，可以看作一种关系或者一组规则。在此之上，**重写系统**是由一个表达式的集合和表达式到表达式之间的重写关系组成的结构，类似于有向图。
+在此之上，**重写系统**是由一个表达式的集合和表达式到表达式之间的重写关系组成的结构，类似于有向图。
 
 ### 记号 {#rewriting-notation}
-因此，所有资料为：表达式的集合 $E$ 与重写关系 $(\to ) \subset E\times E$。
+因此，所有资料为：表达式的集合 $E$ 与重写关系 $(\to ) \subset E\times E$
 
 记 $\stackrel{*}{\to}$ 表示将 $\to$ 应用任意自然数次。
 
 用双向箭头 $\stackrel{*}{\leftrightarrow}$ 表示两边都可的版本。
 
 ### 正规性 {#normalization}
-对于重写系统 $E$ 和 $a,b\in E$，若 $a\stackrel{*}{\to} b \iff a=b$，那么 $a$ 是一个**正规形式**。
+对于重写系统 $E$ 和 $a,b\in E$，若 $a\stackrel{*}{\to} b \iff a=b$，那么 $a$ 是一个**正规形式/既约形式**。
 
-若重写系统中任意表达式都能通过某个特定的顺序重写为正规形式，那么该重写系统是**弱正规**的。
+若重写系统中任意表达式都能通过某个特定的顺序重写为正规形式，那么该重写系统是**弱正规/弱停机**的。
 
-若重写系统中任意表达式都能通过任意顺序重写为正规形式，那么该重写系统是**强正规**的。强正规性又叫**停机性**。
+若重写系统中任意表达式都能通过任意顺序重写为正规形式，那么该重写系统是**强正规/强停机**的。
 
 ### 合流性 {#confluence}
 若对于重写系统 $E$ 和任意 $a,b,c\in E$ 一旦 $b\stackrel{\*}{\gets} a \stackrel{\*}{\to} c$ 就存在 $d$ 使得 $b\stackrel{\*}{\to} d \stackrel{\*}{\gets} c$，那么 $E$ 是合流的。
