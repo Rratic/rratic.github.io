@@ -1,0 +1,17 @@
++++
+title = "#域论"
+
+[extra]
+math = true
++++
+
+## 基本概念
+- 基本的定义（域，子域 $\subseteq$，特征 $\rm{char}$）
+- 多项式（多项式域 $F[x]$，次数 $\rm{deg}$，极小多项式 $m_{\alpha, F}$）
+- 扩张（扩张 $E/F$，次数 $[E:F]$，单扩张 $F(x)$，正规扩张，可分扩张）
+- 代数扩张（代数闭包）
+
+## Galois 理论
+- Galois 扩张
+- Galois 群（Galois 群 $\rm{Gal}(E/F)$，根式可解性判断，Abel-Ruffini 定理）
+- 微分 Galois 理论（Liouville 定理，Risch 算法）

@@ -16,7 +16,7 @@ categories = ["知识"]
 tags = ["笔记", "数学", "代数", "抽象代数", "群论"]
 +++
 
-[索引与符号表](/posts/index-group-theory/)
+{{ ref_index(to = "group-theory") }}
 
 注意到有一些群论的文章以魔方为例，但停留在将它作为例子，本文对三阶魔方进行详细说明。
 

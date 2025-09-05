@@ -15,7 +15,7 @@ categories = ["知识"]
 tags = ["笔记", "数学", "代数", "抽象代数", "群论"]
 +++
 
-[索引与符号表](/posts/index-group-theory/)
+{{ ref_index(to = "group-theory") }}
 
 ## 自同构
 定义自同构群 $\rm{Aut}(G)$ 为全体自同构（也就是 $G\to G$ 的同构）构成的群。

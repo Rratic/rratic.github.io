@@ -1,17 +1,8 @@
 +++
-title = "范畴论知识索引"
-description = "按学习历程排布的范畴论相关文章及符号表。"
-date = 2025-07-22
+title = "#范畴论"
 
 [extra]
 math = true
-
-[extra.sitemap]
-priority = "0.6"
-
-[taxonomies]
-categories = ["项目"]
-tags = ["索引", "数学", "范畴论"]
 +++
 
 ## 主线

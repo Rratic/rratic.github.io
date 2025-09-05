@@ -1,17 +1,11 @@
 +++
-title = "交换代数知识索引"
-description = "按学习历程排布的交换代数相关文章及符号表。"
-date = 2025-07-15
+title = "#交换代数"
 
 [extra]
 math = true
 
-[extra.sitemap]
-priority = "0.6"
-
 [taxonomies]
-categories = ["项目"]
-tags = ["索引", "数学", "代数", "交换代数"]
+tags = ["交换代数"]
 +++
 
 ## 主线

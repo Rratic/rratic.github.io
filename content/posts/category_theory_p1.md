@@ -16,7 +16,7 @@ categories = ["知识"]
 tags = ["笔记", "数学", "范畴论"]
 +++
 
-[索引与符号表](/posts/index-category-theory/)
+{{ ref_index(to = "category-theory") }}
 
 前置知识
 - 范畴论基本概念

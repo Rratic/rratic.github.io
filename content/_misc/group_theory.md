@@ -1,18 +1,8 @@
 +++
-title = "群论知识索引"
-description = "按学习历程排布的群论相关文章及符号表。"
-date = 2025-04-09
-updated = 2025-06-23
+title = "#群论"
 
 [extra]
 math = true
-
-[extra.sitemap]
-priority = "0.6"
-
-[taxonomies]
-categories = ["项目"]
-tags = ["索引", "数学", "代数", "群论", "Galois 理论"]
 +++
 
 ## 主线
@@ -30,12 +20,9 @@ tags = ["索引", "数学", "代数", "群论", "Galois 理论"]
 - 次正规群列（换位子 $[a, b]$，半直积 $\rtimes$，Schreier 子群引理，可解群，导群 $G'$，合成群列，Schreier 定理，Jordan-Hölder 定理）⇒ [**群论（二）**](/posts/group-theory-p2/)
 - 特征（内自同构 $\rm{Inn}$，（外）自同构 $\rm{Aut}$，特征子群 $\rm{char}$，特征单群）⇒ [**群论（三）**](/posts/group-theory-p3/)
 
-### Galois 理论
-- 域论（扩张，特征，正规扩张，可分扩张），Galois 理论（Galois 群，根式可解性判断，Abel-Ruffini 定理）⇒ [**域论（一）**](/posts/field-theory-p1/)
-
 ### 群表示论
 
-## 有限群
+## 有限群论
 有限群优雅而美好。
 
-打算开一个系列，阅读有限单群分类定理相关证明。
+## 几何群论
