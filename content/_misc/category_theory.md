@@ -3,12 +3,14 @@ title = "#范畴论"
 
 [extra]
 math = true
+
+[taxonomies]
+tags = ["数学", "范畴论"]
 +++
 
-## 主线
 参考阅读 Tom Leinster 的 *Basic Category Theory*，Steve Awodey 的 *Category Theory*（尚未找到中译本）及李文威的《代数学方法：卷一》
 
-### 范畴与态射
+## 范畴与态射
 - 基本的概念
 	- 定义（范畴，对象 $\operatorname{Ob}(\mathcal{C})$，态射 $\operatorname{Mor}(\mathcal{C}), \operatorname{Hom}_{\mathcal{C}}(X, Y), X\xrightarrow{f}Y$，来源/域 $s, \operatorname{dom}$，目标/陪域 $t, \operatorname{cod}$，复合 $\circ$，恒等态射 $1_A$）
 	- 自同态 $\operatorname{End}_{\mathcal{C}}(X)$

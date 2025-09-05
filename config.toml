@@ -9,6 +9,9 @@ default_language = "zh"
 build_search_index = false
 compile_sass = false
 
+[slugify]
+taxonomies = "off"
+
 [[taxonomies]]
 name = "categories"
 paginate_by = 5
@@ -63,7 +66,6 @@ my_header_menu = [
 	{ url = "$BASE_URL/posts/", name = "文章" },
 	{ url = "$BASE_URL/categories/", name = "分类" },
 	{ url = "$BASE_URL/tags/", name = "标签" },
-	{ url = "$BASE_URL/archives/", name = "归档" },
 ]
 
 [extra.profiles.rratic]
