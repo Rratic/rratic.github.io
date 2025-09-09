@@ -69,7 +69,11 @@ u^3+v^3=-q \\\\
 易说明，若特征是 0，一定存在子域同构于 $\mathbb{Q}$，否则特征一定是素数，同构于子域 $F_p = Z/pZ$，并且由 $(x+y)^p = x^p+y^p$ 有 Frobenius 自同态 $x\mapsto x^p$
 
 {% admonition(type="example", title="p-进数域") %}
-全体有限的 p 进制小数构成的域。
+对 $q=p^n \frac{a}{b}$，其中 $a$，$b$ 与 $p$ 互素，定义 p-进绝对值 $|q|_p = p^{-n}$
+
+$\mathbb{Q}$ 由 p-进绝对值完备化为 $\mathbb{Q}_p$
+
+可以看成全体有限的 p 进制小数（每一位为 $\mathbb{F}_p$）构成的域。
 {% end %}
 
 其特征为 p
