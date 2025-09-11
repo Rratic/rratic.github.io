@@ -12,4 +12,4 @@ tags = ["数学", "代数", "交换代数"]
 
 ## 基本概念
 - 环与理想（环及其类似物，子环，同态，理想 $\mathfrak{a}$，商环，零因子，整环，幂零元，可逆元，单位群 $\operatorname{U}(R)$，主理想 $(x)$，素理想 $\mathfrak{p}$，极大理想 $\mathfrak{m}$，局部环，小根/幂零元根 $\mathfrak{N}$，大根/Jacobson 根 $\mathfrak{R}$，和，积，互素，直积，商 $(a:b)$，根 $r(\mathfrak{a})$，扩理想，局限理想）
-- 模（模同态/线性映射，子模，商模，余核 $\text{coker}$，和，交，零化子 $\operatorname{Ann}$，直和 $\oplus$，直积 $\prod$，自由模）
+- 模（模同态/线性映射，子模，商模，余核 $\rm{coker}$，和，交，零化子 $\rm{Ann}$，直和 $\oplus$，直积 $\prod$，自由模）
