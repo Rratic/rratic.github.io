@@ -1,6 +1,6 @@
 +++
 title = "无类型 λ 演算"
-description = "Lambda Calculus 的规则、使用和合流性。"
+description = "最经典的类型论例子：无类型 λ 演算的规则、使用和合流性。"
 date = 2025-03-22
 updated = 2025-04-12
 
@@ -13,7 +13,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["笔记", "数学", "计算机"]
+tags = ["笔记", "数学", "计算机", "函数式编程"]
 +++
 
 ## 说明 {#about}

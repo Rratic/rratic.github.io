@@ -1,6 +1,6 @@
 +++
 title = "LISP 模式"
-description = "最早的 LISP 及其扩展。"
+description = "最早的 LISP 的核心想法、在此基础上的扩展及现状。"
 date = 2025-03-22
 updated = 2025-03-29
 
@@ -13,7 +13,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["笔记", "数学", "计算机", "Lisp"]
+tags = ["笔记", "数学", "计算机", "函数式编程", "Lisp"]
 +++
 
 前置知识

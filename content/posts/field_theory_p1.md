@@ -1,6 +1,6 @@
 +++
 title = "域论（一）：高次方程与 Galois 理论"
-description = "代数基本定理，低次方程求根公式，域扩张，Galois 扩张，Galois 群，根式可解性判断与 Abel-Ruffini 定理。"
+description = "关于高次方程的根式解：代数基本定理，低次方程求根公式，域扩张，Galois 扩张，Galois 群，根式可解性判断与 Abel-Ruffini 定理。"
 date = 2025-07-09
 
 [extra]

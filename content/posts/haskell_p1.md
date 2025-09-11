@@ -12,7 +12,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["笔记", "计算机", "Haskell"]
+tags = ["笔记", "计算机", "函数式编程", "Haskell"]
 +++
 
 前置知识

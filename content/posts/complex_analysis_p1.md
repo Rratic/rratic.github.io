@@ -1,6 +1,6 @@
 +++
 title = "复分析（一）：速通"
-description = "重要概念的速通。"
+description = "复变函数重要概念的速通，计划写到 Riemann 单值化定理。"
 date = 2025-07-27
 updated = 2025-08-12
 
