@@ -31,8 +31,8 @@ profile = "rratic"
 ---
 
 计算机知识系列：
-- [相关内容](/tags/ji-suan-ji/)
-- [Julialang 中文学习指导](https://learn.juliacn.com/)
+- 抽象的模型：[函数式编程](/tags/函数式编程/)
+- 具体的模型：[Julialang 中文学习指导](https://learn.juliacn.com/)
 
 ---
 
