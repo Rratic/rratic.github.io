@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>猫猫棋</title>
+	<meta name="description" content="原创棋类。流程较长。" />
+	<link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
+	<style>
+		#canvas_box {
+			display: flex;
+			justify-content: center;
+		}
+
+		#canvas_box>canvas {
+			border: 8px solid gold;
+		}
+	</style>
+	<link rel="stylesheet" href="/style/form.css" type="text/css">
+	<script type="module" src="/script/chess/catchess_handler.js"></script>
+</head>
+
+<body>
+	<div class="form-area">
+		<fieldset class="row">
+			<legend>配置</legend>
+			<input id="input-board-size" type="number" placeholder="棋盘大小 5~16" min="5" max="16" />
+			<select id="select-mode">
+				<option value="0">双人</option>
+				<option value="2">AI（非常简单）</option>
+				<option value="4">AI（简单）</option>
+			</select>
+			<button type="button" class="confirm-btn" onclick="launch()">建立</button>
+		</fieldset>
+	</div>
+	<p id="canvas_box">&lt;棋盘生成处&gt;</p>
+</body>
+
+</html>

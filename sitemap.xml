@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+  <loc>https://rratic.github.io/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/_misc/category-theory/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/_misc/commutative-algebra/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/_misc/computer-science/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/_misc/field-theory/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/_misc/group-theory/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/_misc/topology/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/about-blog-2025/</loc>
+  <lastmod>2025-04-24</lastmod>
+</url>
+<url>
+  <loc>https://rratic.github.io/categories/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/categories/杂物/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/categories/杂物/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/categories/知识/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/categories/知识/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/categories/知识/page/2/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/categories/知识/page/3/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/categories/项目/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/categories/项目/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/faqs/</loc>
+  <lastmod>2025-08-28</lastmod>
+</url>
+<url>
+  <loc>https://rratic.github.io/posts/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/posts/cat-chess/</loc>
+  <lastmod>2025-07-13</lastmod>
+</url>
+<url>
+  <loc>https://rratic.github.io/posts/category-theory-p1/</loc>
+  <lastmod>2025-08-08</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://rratic.github.io/posts/complex-analysis-p1/</loc>
+  <lastmod>2025-08-12</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://rratic.github.io/posts/field-theory-p1/</loc>
+  <lastmod>2025-07-09</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://rratic.github.io/posts/functional-chaos/</loc>
+  <lastmod>2025-08-03</lastmod>
+</url>
+<url>
+  <loc>https://rratic.github.io/posts/group-theory-p1-2/</loc>
+  <lastmod>2025-06-23</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://rratic.github.io/posts/group-theory-p1/</loc>
+  <lastmod>2025-06-11</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://rratic.github.io/posts/group-theory-p2/</loc>
+  <lastmod>2025-06-23</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://rratic.github.io/posts/group-theory-p3/</loc>
+  <lastmod>2025-08-08</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://rratic.github.io/posts/haskell-p1/</loc>
+  <lastmod>2025-08-27</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://rratic.github.io/posts/haskell-p2/</loc>
+  <lastmod>2025-08-27</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://rratic.github.io/posts/hilbert-s-third-problem/</loc>
+  <lastmod>2025-04-20</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://rratic.github.io/posts/lambda-calculus/</loc>
+  <lastmod>2025-04-12</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://rratic.github.io/posts/magic-construction/</loc>
+  <lastmod>2025-03-23</lastmod>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://rratic.github.io/posts/mode-lisp/</loc>
+  <lastmod>2025-03-29</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://rratic.github.io/posts/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/posts/page/2/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/posts/page/3/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/posts/reflection-on-probability/</loc>
+  <lastmod>2025-09-04</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://rratic.github.io/posts/selections-from-new-poetry/</loc>
+  <lastmod>2025-07-27</lastmod>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://rratic.github.io/posts/shader-p1/</loc>
+  <lastmod>2025-09-03</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://rratic.github.io/posts/turtle-soup/</loc>
+  <lastmod>2024-12-01</lastmod>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/Euclid 几何/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/Euclid 几何/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/Galois 理论/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/Galois 理论/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/Haskell/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/Haskell/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/Lisp/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/Lisp/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/Lua/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/Lua/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/交换代数/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/交换代数/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/代数/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/代数/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/代数/page/2/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/几何/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/几何/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/函数式编程/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/函数式编程/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/分析/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/分析/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/发布/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/发布/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/含模拟/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/含模拟/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/在线/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/在线/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/域论/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/域论/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/复分析/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/复分析/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/展示/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/展示/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/抽象代数/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/抽象代数/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/抽象代数/page/2/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/拓扑/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/拓扑/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/数学/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/数学/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/数学/page/2/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/数学/page/3/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/数学/page/4/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/文学/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/文学/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/概率论/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/概率论/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/游戏/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/游戏/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/笔记/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/笔记/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/笔记/page/2/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/笔记/page/3/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/统计学/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/统计学/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/群论/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/群论/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/范畴论/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/范畴论/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/计算机/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/计算机/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/计算机/page/2/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/说明/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/tags/说明/page/1/</loc>
+</url>
+<url>
+  <loc>https://rratic.github.io/test-site/</loc>
+  <lastmod>2025-04-20</lastmod>
+  <priority>0.0</priority>
+</url>
+</urlset>

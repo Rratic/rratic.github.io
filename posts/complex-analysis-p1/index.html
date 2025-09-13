@@ -1,0 +1,390 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>复分析（一）：速通 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="复分析（一）：速通" />
+  <meta name="description" content="复变函数重要概念的速通，计划写到 Riemann 单值化定理。" />
+  <meta property="og:description" content="复变函数重要概念的速通，计划写到 Riemann 单值化定理。" />
+  <meta property="og:url" content="https://rratic.github.io/posts/complex-analysis-p1/" />
+  <link rel="canonical" href="https://rratic.github.io/posts/complex-analysis-p1/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2025-07-27T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2025-08-12T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="分析" />
+  <meta property="article:tag" content="复分析" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.github.io/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.github.io/style/shared.css?h=69d4ff7f9a05c47d2322" />
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.github.io/main.min.css?h=2e89f7f30f1019877d14" />
+  <style>
+  :root{--bg: white; --header: #e6f4ff; color-scheme: light;}
+  :root.dark{--bg: #424242; --header: #333333; color-scheme: dark;}
+  </style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.github.io/js/linkita.min.js?h=1dd3ed42fc674277bc34"></script>
+  <link rel="stylesheet" href="https://rratic.github.io/katex/katex.min.css?h=19095127357ed6d29fe0" />
+  <script defer src="https://rratic.github.io/katex/katex.min.js?h=e8d885505949f3a5f4ab"></script>
+  <script defer src="https://rratic.github.io/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.linkita.initKatex);</script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out bg-[var(--bg)] dark:text-white">
+  <!-- Header -->
+<header class="bg-[var(--header)] fixed top-0 z-40 mx-auto min-h-[3.25rem] w-full header-icons">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8">
+        <a title="转到主页" accesskey="!"
+          href="https://rratic.github.io/" class="text-2xl font-semibold">错行</a>
+        <button type="button" title="切换颜色方案" accesskey="$"
+          onclick="window.linkita.toggleDarkMode();" ondblclick="window.linkita.resetDarkMode();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover dark:invert [background-image:var(--icon-theme-dark)] dark:[background-image:var(--icon-theme-light)]"
+        ></button>
+      </div>
+      <div title="导航" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.linkita.toggleHeaderMenu();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.linkita.toggleHeaderMenu() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral relative mx-auto min-h-[calc(100%-4rem)]
+    max-w-3xl break-words px-4 pb-12 pt-28 lg:pt-32 dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">复分析（一）：速通</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2025-07-27T00:00:00+00:00">2025-07-27</time><span
+        class="middot"></span>↻ <time
+      datetime="2025-08-12T00:00:00+00:00">2025-08-12</time><span
+        class="middot"></span><time
+    datetime="PT0H6M0S">6&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+<div class="block-bg mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-4" accesskey="=">
+      <span class="cursor-pointer">目录</span>
+    </summary>
+    <div class="px-2">
+      <ul>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/complex-analysis-p1/#fu-han-shu">复函数</a>
+          <ul>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/complex-analysis-p1/#jie-xi-han-shu">解析函数</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/complex-analysis-p1/#han-shu-ding-yi">函数定义</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/complex-analysis-p1/#continuous-mapping">连续映射</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/complex-analysis-p1/#fu-ping-mian">复平面</a>
+          <ul>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/complex-analysis-p1/#qu-xian">曲线</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/complex-analysis-p1/#xian-xing-bian-huan">线性变换</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/complex-analysis-p1/#fu-ji-fen">复积分</a>
+        </li>
+      </ul>
+    </div>
+  </details>
+</div>
+
+  <!-- Content -->
+  <section><blockquote>
+<p>复分析会告诉你：性质好的函数性质有多好。</p>
+</blockquote>
+<p>前置知识</p>
+<ul>
+<li>数学分析</li>
+<li><a href="/_misc/topology/">点集拓扑</a></li>
+</ul>
+<h2 id="fu-han-shu">复函数</h2>
+<h3 id="jie-xi-han-shu">解析函数</h3>
+<p>在复数域 $\mathbb{C}$ 上，极限的表述可以参照数学分析中的表述。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-[var(--admonition-bg)]"
+  style="--admonition-bg: rgba(0, 176, 255, 0.1);"
+>
+  <div class="flex items-center rounded-t-lg bg-[var(--admonition-bg)] p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(./icons/abstract.svg);"
+    >
+      abstract
+    </div>
+    <span><strong>极限</strong></span>
+  </div>
+  <div class="pl-4"><p>称 $\lim_{z \to z_0} f(z) = w$，如果对任意 $\omega &gt; 0$，存在 $\delta &gt; 0$，对任意 $0&lt;|z-z_0|&lt;\delta$ 有 $|f(z)-w|&lt;\omega$.</p>
+</div>
+</div>
+<p>更一般地，可以参考拓扑中的紧性相关定义。</p>
+<p>以类似的方式，我们可以定义导数。</p>
+<p>复函数 $f(z) = u(z) + \mathrm{i}v(z)$ 在 $x+y\mathrm{i}$ 处可导的充要条件是</p>
+<p>$\frac{\partial u}{\partial x}, \frac{\partial u}{\partial y}, \frac{\partial v}{\partial x}, \frac{\partial v}{\partial y}$ 在 $z$ 处存在，且</p>
+<p>$$
+\left\{\begin{matrix}
+\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}\\
+\frac{\partial u}{\partial y} = -\frac{\partial v}{\partial x}
+\end{matrix}\right.
+$$</p>
+<p>后者称为 Cauchy-Riemann 条件。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-[var(--admonition-bg)]"
+  style="--admonition-bg: rgba(0, 176, 255, 0.1);"
+>
+  <div class="flex items-center rounded-t-lg bg-[var(--admonition-bg)] p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(./icons/abstract.svg);"
+    >
+      abstract
+    </div>
+    <span><strong>解析&#x2F;全纯函数</strong></span>
+  </div>
+  <div class="pl-4"><p>若函数 $f$ 在开集 $D$ 内每一点都是复可导的，则称其为 $D$ 上的解析/全纯函数。</p>
+</div>
+</div>
+<p>我们在之后将说明，解析函数的导数仍然是解析的。</p>
+<p>由此，</p>
+<p>$$
+\left\{\begin{matrix}
+\Delta u = \frac{\partial^2 u}{\partial x^2}+\frac{\partial^2 u}{\partial y^2} = 0\\
+\Delta v = \frac{\partial^2 v}{\partial x^2}+\frac{\partial^2 v}{\partial y^2} = 0
+\end{matrix}\right.
+$$</p>
+<p>我们称满足 $\Delta u = 0$ 的函数 $u$ 为调和函数。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-[var(--admonition-bg)]"
+  style="--admonition-bg: rgba(0, 176, 255, 0.1);"
+>
+  <div class="flex items-center rounded-t-lg bg-[var(--admonition-bg)] p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(./icons/abstract.svg);"
+    >
+      abstract
+    </div>
+    <span><strong>Lucas 定理</strong></span>
+  </div>
+  <div class="pl-4"><p>若多项式 $P$ 的零点均在某个半平面 $H$ 内，则 $P'$ 的零点也在 $H$ 内。从而，$P'$ 的零点在 $P$ 的零点组成的凸包内。</p>
+</div>
+</div>
+<p>我们在之后证明代数基本定理。</p>
+<p>设 $P(z) = k\prod_{i=1}^n (z-z_i)$，则 $\frac{P'(z)}{P(z)} = \sum_{i=1}^n \frac{1}{z-z_i}$</p>
+<p>记半平面 $H\colon \operatorname{Im} \frac{z-a}{b}&lt;0$</p>
+<p>分析 $\operatorname{Im} \frac{bP'(z)}{P(z)} = \sum_{i=1}^n \operatorname{Im} \frac{b}{z-z_i}$ 即可。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-[var(--admonition-bg)]"
+  style="--admonition-bg: rgba(0, 176, 255, 0.1);"
+>
+  <div class="flex items-center rounded-t-lg bg-[var(--admonition-bg)] p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(./icons/abstract.svg);"
+    >
+      abstract
+    </div>
+    <span><strong>收敛圆</strong></span>
+  </div>
+  <div class="pl-4"><p>对幂级数 $a_0+a_1z+a_2z^2+\cdots$，存在扩展实数 $0\leq r\leq \infty$ 满足</p>
+<ol>
+<li>对 $|z|&lt;r$ 级数收敛</li>
+<li>对 $|z|&gt;r$ 级数发散</li>
+<li>在 $|z|&lt;r$ 内级数的和是解析函数，导数可由逐项微分得到，对应的收敛半径相同。</li>
+</ol>
+</div>
+</div>
+<p>取 $\frac{1}{r} = \lim_{n \to \infty}\sup\sqrt[n]{|a_n|}$.</p>
+<h3 id="han-shu-ding-yi">函数定义</h3>
+<p>定义 $\exp$ 为满足 $f'(z)=f(z)$ 及 $f(0)=1$ 的解。</p>
+<p>有 $(e^z\cdot e^{a-z})' = e^z\cdot e^{a-z}+e^z\cdot (-e^{a-z}) = 0$ 故 $e^{z+w}=e^z\cdot e^w$</p>
+<p>定义 $\cos z = \frac{e^{iz}+e^{-iz}}{2}, \sin z = \frac{e^{iz}-e^{-iz}}{2i}$</p>
+<h3 id="continuous-mapping">连续映射</h3>
+<p>点集拓扑告诉我们，连续映射把紧集映成紧集。因而对紧集到 $\mathbb{R}$ 的映射 $f$，像是紧集，从而是闭集，从而有最大、最小值。一般来说，可以对 $z\mapsto |f(z)|$ 使用这个定理。</p>
+<p>称两个度量空间间的函数 $f$ 一致连续，如果 $\forall\epsilon&gt;0: \exists\delta&gt;0, \forall (x_1, x_2): d(x_1, x_2)&lt;\delta \implies d'(f(x_1), f(x_2))&lt;\epsilon$</p>
+<p>由数学分析易知紧集上连续函数是一致连续的。</p>
+<h2 id="fu-ping-mian">复平面</h2>
+<h3 id="qu-xian">曲线</h3>
+<p>用连续映射 $z=f(t), t\in [\alpha, \beta]$ 表示曲线。若 $z'(t)$ 存在且连续，称该弧是可微的。若再有 $z'(t)\neq 0$，称该弧是正则的（使得折线不被认为是狭义的“曲线”）。若 $f(\alpha)=f(\beta)$ 则称其为闭曲线。</p>
+<h3 id="xian-xing-bian-huan">线性变换</h3>
+<p>分式线性变换是指 $z\mapsto \frac{az+b}{cz+d}$ 及 $z\mapsto \frac{a\bar{z}+b}{c\bar{z}+d}$，均可将扩充平面映到自身。</p>
+<p>若将 $z$ 视作 $\frac{z_1}{z_2}$，并写为 $z = \begin{pmatrix}z_1\\ z_2\end{pmatrix}$ 则前者为：</p>
+<p>$$
+z\mapsto \begin{pmatrix}a&amp;b\\ c&amp;d\end{pmatrix} z
+$$</p>
+<p>可由典型变换平移、位似、伊朗式反演复合得到。</p>
+<p>对扩充平面上三个不同的点 $z_2, z_3, z_4$，将它们变成 $1, 0, \infty$ 的变换将 $z_1$ 映到<strong>交比</strong> $(z_1, z_2, z_3, z_4)$</p>
+<p>交比满足：线性变换 $S$ 使得 $(S(z_1), S(z_2), S(z_3), S(z_4)) = (z_1, z_2, z_3, z_4)$</p>
+<h2 id="fu-ji-fen">复积分</h2>
+<p>解析函数的许多性质最好用复积分证明。</p>
+<p>在一个实区间上的定积分可以直接由实积分推广得到。</p>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mb-1.5 mr-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mb-1.5 mr-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/分析/">分析</a>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/复分析/">复分析</a>
+    
+  </div>
+</footer>
+
+  <!-- Post Nav -->
+<nav class="block-bg mt-12 flex flex-wrap rounded-lg text-lg">
+  <a
+    class="block-hover-mask flex min-w-[50%] grow items-center rounded-l-md p-6 pr-3 font-semibold no-underline"
+    href="https://rratic.github.io/posts/category-theory-p1/" accesskey=","
+    ><span class="mr-1.5">&#8249;</span><span>范畴论（一）：代数结构的各种积</span></a>
+  <a
+    class="block-hover-mask ml-auto flex min-w-[50%] grow items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline"
+    href="https://rratic.github.io/posts/selections-from-new-poetry/" accesskey="."
+    ><span>《百年新诗选》诗选</span><span class="ml-1.5">&#8250;</span></a>
+</nav>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/pages"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

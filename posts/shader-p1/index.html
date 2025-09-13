@@ -1,0 +1,397 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>着色器（一） | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="着色器（一）" />
+  <meta name="description" content="基于 GLSL 的着色器基础内容：2D 绚丽图像及 Raymarching." />
+  <meta property="og:description" content="基于 GLSL 的着色器基础内容：2D 绚丽图像及 Raymarching." />
+  <meta property="og:url" content="https://rratic.github.io/posts/shader-p1/" />
+  <link rel="canonical" href="https://rratic.github.io/posts/shader-p1/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2025-09-03T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="计算机" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.github.io/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.github.io/style/shared.css?h=69d4ff7f9a05c47d2322" />
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.github.io/main.min.css?h=2e89f7f30f1019877d14" />
+  <style>
+  :root{--bg: white; --header: #e6f4ff; color-scheme: light;}
+  :root.dark{--bg: #424242; --header: #333333; color-scheme: dark;}
+  </style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.github.io/js/linkita.min.js?h=1dd3ed42fc674277bc34"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out bg-[var(--bg)] dark:text-white">
+  <!-- Header -->
+<header class="bg-[var(--header)] fixed top-0 z-40 mx-auto min-h-[3.25rem] w-full header-icons">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8">
+        <a title="转到主页" accesskey="!"
+          href="https://rratic.github.io/" class="text-2xl font-semibold">错行</a>
+        <button type="button" title="切换颜色方案" accesskey="$"
+          onclick="window.linkita.toggleDarkMode();" ondblclick="window.linkita.resetDarkMode();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover dark:invert [background-image:var(--icon-theme-dark)] dark:[background-image:var(--icon-theme-light)]"
+        ></button>
+      </div>
+      <div title="导航" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.linkita.toggleHeaderMenu();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.linkita.toggleHeaderMenu() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral relative mx-auto min-h-[calc(100%-4rem)]
+    max-w-3xl break-words px-4 pb-12 pt-28 lg:pt-32 dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">着色器（一）</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2025-09-03T00:00:00+00:00">2025-09-03</time><span
+        class="middot"></span><time
+    datetime="PT0H2M0S">2&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+<div class="block-bg mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-4" accesskey="=">
+      <span class="cursor-pointer">目录</span>
+    </summary>
+    <div class="px-2">
+      <ul>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/shader-p1/#ji-ben-xiao-guo">基本效果</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/shader-p1/#raymarching">Raymarching</a>
+        </li>
+      </ul>
+    </div>
+  </details>
+</div>
+
+  <!-- Content -->
+  <section><p>参考了 <a href="https://www.youtube.com/@kishimisu">kishimisu</a> 的视频教程。</p>
+<p>以下均采取平台 <a href="https://www.shadertoy.com/new">Shadertoy</a> 的配置，使用 <a href="https://registry.khronos.org/OpenGL-Refpages/gl4/index.php">GLSL</a></p>
+<h2 id="ji-ben-xiao-guo">基本效果</h2>
+<p>着色器的入口函数是 <code>mainImage</code>，接受参数</p>
+<ul>
+<li>写 <code>fragColor</code>，类型为 <code>vec4(r, g, b, a)</code></li>
+<li>读 <code>fragCoord</code>，类型为 <code>vec2(x, y)</code></li>
+</ul>
+<p>从一个简单的例子开始</p>
+<pre data-lang="glsl" style="background-color:#fafafa;color:#61676c;" class="language-glsl "><code class="language-glsl" data-lang="glsl"><span style="font-style:italic;color:#abb0b6;">// 颜色渐变调色板函数
+</span><span style="color:#fa6e32;">vec3 </span><span style="color:#f29718;">palette</span><span>(</span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">t</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">vec3 </span><span style="color:#ff8f40;">a</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">vec3 </span><span style="color:#ff8f40;">b</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">vec3 </span><span style="color:#ff8f40;">c</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">vec3 </span><span style="color:#ff8f40;">d</span><span>) {
+</span><span>	</span><span style="color:#fa6e32;">return</span><span> a </span><span style="color:#ed9366;">+</span><span> b </span><span style="color:#ed9366;">* </span><span style="color:#f07171;">cos</span><span>(</span><span style="color:#ff8f40;">6.28318</span><span style="color:#ed9366;">*</span><span>(c</span><span style="color:#ed9366;">*</span><span>t</span><span style="color:#ed9366;">+</span><span>d))</span><span style="color:#61676ccc;">;
+</span><span>}
+</span><span>
+</span><span style="color:#fa6e32;">void </span><span style="color:#f29718;">mainImage</span><span>(</span><span style="color:#fa6e32;">out vec4 </span><span style="color:#ff8f40;">fragColor</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">in vec2 </span><span style="color:#ff8f40;">fragCoord</span><span>)
+</span><span>{
+</span><span>    </span><span style="font-style:italic;color:#abb0b6;">// 归一化，使坐标范围 -1 ~ 1
+</span><span>    </span><span style="color:#fa6e32;">vec2</span><span> uv </span><span style="color:#ed9366;">=</span><span> fragCoord </span><span style="color:#ed9366;">/</span><span> iResolution</span><span style="color:#ed9366;">.</span><span>xy </span><span style="color:#ed9366;">* </span><span style="color:#ff8f40;">2.0 </span><span style="color:#ed9366;">- </span><span style="color:#ff8f40;">1.0</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>	</span><span style="font-style:italic;color:#abb0b6;">// 保证图像不被拉伸
+</span><span>	uv</span><span style="color:#ed9366;">.</span><span>x </span><span style="color:#ed9366;">*=</span><span> iResolution</span><span style="color:#ed9366;">.</span><span>x </span><span style="color:#ed9366;">/</span><span> iResolution</span><span style="color:#ed9366;">.</span><span>y</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>	</span><span style="font-style:italic;color:#abb0b6;">// 到原点的距离
+</span><span>	</span><span style="color:#fa6e32;">float</span><span> d </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">length</span><span>(uv)</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>	</span><span style="font-style:italic;color:#abb0b6;">// note: SDF 有向距离场：一个点到一个闭曲线的最短距离（外部为正，内部为负）
+</span><span>	</span><span style="font-style:italic;color:#abb0b6;">// d = d - 0.5;
+</span><span>
+</span><span>	</span><span style="color:#fa6e32;">vec3</span><span> col </span><span style="color:#ed9366;">= </span><span style="color:#f29718;">palette</span><span>(d </span><span style="color:#ed9366;">+</span><span> iTime</span><span style="color:#61676ccc;">,
+</span><span>		</span><span style="color:#fa6e32;">vec3</span><span>(</span><span style="color:#ff8f40;">0.5</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">0.5</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">0.5</span><span>)</span><span style="color:#61676ccc;">,
+</span><span>		</span><span style="color:#fa6e32;">vec3</span><span>(</span><span style="color:#ff8f40;">0.5</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">0.5</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">0.5</span><span>)</span><span style="color:#61676ccc;">,
+</span><span>		</span><span style="color:#fa6e32;">vec3</span><span>(</span><span style="color:#ff8f40;">1.0</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">1.0</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">1.0</span><span>)</span><span style="color:#61676ccc;">,
+</span><span>		</span><span style="color:#fa6e32;">vec3</span><span>(</span><span style="color:#ff8f40;">0.263</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">0.416</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">0.557</span><span>))</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>	</span><span style="font-style:italic;color:#abb0b6;">// 随时间变化
+</span><span>	d </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">sin</span><span>(d</span><span style="color:#ed9366;">*</span><span style="color:#ff8f40;">8</span><span>. </span><span style="color:#ed9366;">+</span><span> iTime)</span><span style="color:#ed9366;">/</span><span style="color:#ff8f40;">8</span><span>.</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>	d </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">abs</span><span>(d)</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>	</span><span style="font-style:italic;color:#abb0b6;">// 平滑过渡
+</span><span>	</span><span style="font-style:italic;color:#abb0b6;">// d = smoothstep(0.0, 1.0, d);
+</span><span>
+</span><span>	d </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">0.02 </span><span style="color:#ed9366;">/</span><span> d</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>	col </span><span style="color:#ed9366;">*=</span><span> d</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>	fragColor </span><span style="color:#ed9366;">= </span><span style="color:#fa6e32;">vec4</span><span>(col</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">1.0</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>}
+</span></code></pre>
+<p>可以更进一步</p>
+<pre data-lang="glsl" style="background-color:#fafafa;color:#61676c;" class="language-glsl "><code class="language-glsl" data-lang="glsl"><span style="color:#fa6e32;">void </span><span style="color:#f29718;">mainImage</span><span>(</span><span style="color:#fa6e32;">out vec4 </span><span style="color:#ff8f40;">fragColor</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">in vec2 </span><span style="color:#ff8f40;">fragCoord</span><span>)
+</span><span>{
+</span><span>    </span><span style="color:#fa6e32;">vec2</span><span> uv </span><span style="color:#ed9366;">= </span><span>(fragCoord </span><span style="color:#ed9366;">* </span><span style="color:#ff8f40;">2.0 </span><span style="color:#ed9366;">-</span><span> iResolution</span><span style="color:#ed9366;">.</span><span>xy) </span><span style="color:#ed9366;">/</span><span> iResolution</span><span style="color:#ed9366;">.</span><span>y</span><span style="color:#61676ccc;">;
+</span><span>	</span><span style="color:#fa6e32;">vec2</span><span> uv0 </span><span style="color:#ed9366;">=</span><span> uv</span><span style="color:#61676ccc;">;
+</span><span>	</span><span style="color:#fa6e32;">vec3</span><span> finalColor </span><span style="color:#ed9366;">= </span><span style="color:#fa6e32;">vec3</span><span>(</span><span style="color:#ff8f40;">0.0</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>	</span><span style="font-style:italic;color:#abb0b6;">// 迭代
+</span><span>	</span><span style="color:#fa6e32;">for </span><span>(</span><span style="color:#fa6e32;">float</span><span> i </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">0.0</span><span style="color:#61676ccc;">;</span><span> i </span><span style="color:#ed9366;">&lt; </span><span style="color:#ff8f40;">4.0</span><span style="color:#61676ccc;">;</span><span> i</span><span style="color:#ed9366;">++</span><span>) {
+</span><span>		</span><span style="font-style:italic;color:#abb0b6;">// 区域重复
+</span><span>		</span><span style="font-style:italic;color:#abb0b6;">// uv = fract(uv * 2.0) - 0.5;
+</span><span>
+</span><span>		</span><span style="font-style:italic;color:#abb0b6;">// 非整数引入更多变化
+</span><span>		uv </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">fract</span><span>(uv </span><span style="color:#ed9366;">* </span><span style="color:#ff8f40;">1.5</span><span>) </span><span style="color:#ed9366;">- </span><span style="color:#ff8f40;">0.5</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>		</span><span style="font-style:italic;color:#abb0b6;">// float d = length(uv);
+</span><span>		</span><span style="color:#fa6e32;">float</span><span> d </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">length</span><span>(uv) </span><span style="color:#ed9366;">* </span><span style="color:#f07171;">exp</span><span>(</span><span style="color:#ed9366;">-</span><span style="color:#f07171;">length</span><span>(uv0))</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>		</span><span style="color:#fa6e32;">vec3</span><span> col </span><span style="color:#ed9366;">= </span><span style="color:#f29718;">palette</span><span>(</span><span style="color:#f07171;">length</span><span>(uv0) </span><span style="color:#ed9366;">+</span><span> iTime </span><span style="color:#ed9366;">*</span><span> .</span><span style="color:#ff8f40;">4</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>		d </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">sin</span><span>(d </span><span style="color:#ed9366;">* </span><span style="color:#ff8f40;">8</span><span>. </span><span style="color:#ed9366;">+</span><span> iTime) </span><span style="color:#ed9366;">/ </span><span style="color:#ff8f40;">8</span><span>.</span><span style="color:#61676ccc;">;
+</span><span>		d </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">abs</span><span>(d)</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>		</span><span style="font-style:italic;color:#abb0b6;">// d = 0.02 / d;
+</span><span>
+</span><span>		</span><span style="font-style:italic;color:#abb0b6;">// 降低暗部颜色
+</span><span>		d </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">pow</span><span>(</span><span style="color:#ff8f40;">0.01 </span><span style="color:#ed9366;">/</span><span> d</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">1.2</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>		finalColor </span><span style="color:#ed9366;">+=</span><span> col </span><span style="color:#ed9366;">*</span><span> d</span><span style="color:#61676ccc;">;
+</span><span>	}
+</span><span>
+</span><span>	fragColor </span><span style="color:#ed9366;">= </span><span style="color:#fa6e32;">vec4</span><span>(finalColor</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">1.0</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>}
+</span></code></pre>
+<h2 id="raymarching">Raymarching</h2>
+<p>一种 3D 技术是将场景分割成大量的三角形，渲染的主要流程为：</p>
+<ol>
+<li>vertex shader 将 3D 坐标转化为画布坐标</li>
+<li>rasterization 光栅化，判断三角形覆盖哪些像素</li>
+<li>fragment shader 给这些像素填色</li>
+</ol>
+<p>另一种技术是 ray-marching，使用步进的方法让光线行进直到击中对象（不同于直接求交的 ray-tracing），由于巨大的计算开销，通常用于渲染体积云、局部光照和数学模型。</p>
+<p>可以参考 <a href="https://www.shadertoy.com/view/wlSGWy">Shadertoy: Raymarching in Raymarching</a> 的演示，以及这个关于<a href="https://iquilezles.org/articles/distfunctions/">有向距离函数</a>的文章。</p>
+<p>从一个最简单的例子开始</p>
+<pre data-lang="glsl" style="background-color:#fafafa;color:#61676c;" class="language-glsl "><code class="language-glsl" data-lang="glsl"><span style="font-style:italic;color:#abb0b6;">// Sphere SDF
+</span><span style="color:#fa6e32;">float </span><span style="color:#f29718;">sdSphere</span><span>(</span><span style="color:#fa6e32;">vec3 </span><span style="color:#ff8f40;">p</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">s</span><span>) {
+</span><span>	</span><span style="color:#fa6e32;">return </span><span style="color:#f07171;">length</span><span>(p) </span><span style="color:#ed9366;">-</span><span> s</span><span style="color:#61676ccc;">;
+</span><span>}
+</span><span>
+</span><span style="font-style:italic;color:#abb0b6;">// distance to scene
+</span><span style="color:#fa6e32;">float </span><span style="color:#f29718;">map</span><span>(</span><span style="color:#fa6e32;">vec3 </span><span style="color:#ff8f40;">p</span><span>) {
+</span><span>	</span><span style="color:#fa6e32;">vec3</span><span> spherePos </span><span style="color:#ed9366;">= </span><span style="color:#fa6e32;">vec3</span><span>(</span><span style="color:#f07171;">sin</span><span>(iTime) </span><span style="color:#ed9366;">* </span><span style="color:#ff8f40;">3</span><span>.</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">0</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>	</span><span style="color:#fa6e32;">float</span><span> sphere </span><span style="color:#ed9366;">= </span><span style="color:#f29718;">sdSphere</span><span>(p </span><span style="color:#ed9366;">-</span><span> spherePos</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">1</span><span>.)</span><span style="color:#61676ccc;">;
+</span><span>	</span><span style="color:#fa6e32;">return</span><span> sphere</span><span style="color:#61676ccc;">;
+</span><span>}
+</span><span>
+</span><span style="color:#fa6e32;">void </span><span style="color:#f29718;">mainImage</span><span>(</span><span style="color:#fa6e32;">out vec4 </span><span style="color:#ff8f40;">fragColor</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">in vec2 </span><span style="color:#ff8f40;">fragCoord</span><span>)
+</span><span>{
+</span><span>	</span><span style="color:#fa6e32;">vec2</span><span> uv </span><span style="color:#ed9366;">= </span><span>(fragCoord </span><span style="color:#ed9366;">* </span><span style="color:#ff8f40;">2</span><span>. </span><span style="color:#ed9366;">-</span><span> iResolution</span><span style="color:#ed9366;">.</span><span>xy) </span><span style="color:#ed9366;">/</span><span> iResolution</span><span style="color:#ed9366;">.</span><span>y</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>	</span><span style="color:#fa6e32;">vec3</span><span> ro </span><span style="color:#ed9366;">= </span><span style="color:#fa6e32;">vec3</span><span>(</span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">, </span><span style="color:#ed9366;">-</span><span style="color:#ff8f40;">3</span><span>)</span><span style="color:#61676ccc;">; </span><span style="font-style:italic;color:#abb0b6;">// ray origin
+</span><span>	</span><span style="color:#fa6e32;">vec3</span><span> rd </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">normalize</span><span>(</span><span style="color:#fa6e32;">vec3</span><span>(uv</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">1</span><span>))</span><span style="color:#61676ccc;">; </span><span style="font-style:italic;color:#abb0b6;">// ray direction
+</span><span>	</span><span style="color:#fa6e32;">vec3</span><span> col </span><span style="color:#ed9366;">= </span><span style="color:#fa6e32;">vec3</span><span>(</span><span style="color:#ff8f40;">0</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>	</span><span style="color:#fa6e32;">float</span><span> t </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">0</span><span>.</span><span style="color:#61676ccc;">; </span><span style="font-style:italic;color:#abb0b6;">// distance travelled
+</span><span>
+</span><span>	</span><span style="color:#fa6e32;">for </span><span>(</span><span style="color:#fa6e32;">int</span><span> i </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">;</span><span> i </span><span style="color:#ed9366;">&lt; </span><span style="color:#ff8f40;">80</span><span style="color:#61676ccc;">;</span><span> i</span><span style="color:#ed9366;">++</span><span>) {
+</span><span>		</span><span style="color:#fa6e32;">vec3</span><span> p </span><span style="color:#ed9366;">=</span><span> ro </span><span style="color:#ed9366;">+</span><span> rd </span><span style="color:#ed9366;">*</span><span> t</span><span style="color:#61676ccc;">; </span><span style="font-style:italic;color:#abb0b6;">// position
+</span><span>		</span><span style="color:#fa6e32;">float</span><span> d </span><span style="color:#ed9366;">= </span><span style="color:#f29718;">map</span><span>(p)</span><span style="color:#61676ccc;">;
+</span><span>		t </span><span style="color:#ed9366;">+=</span><span> d</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>		</span><span style="font-style:italic;color:#abb0b6;">// col = vec3(i) / 80.;
+</span><span>
+</span><span>		</span><span style="color:#fa6e32;">if </span><span>(d </span><span style="color:#ed9366;">&lt;</span><span> .</span><span style="color:#ff8f40;">001 </span><span style="color:#ed9366;">||</span><span> t </span><span style="color:#ed9366;">&gt; </span><span style="color:#ff8f40;">100</span><span>.) </span><span style="color:#fa6e32;">break</span><span style="color:#61676ccc;">; </span><span style="font-style:italic;color:#abb0b6;">// early stop
+</span><span>	}
+</span><span>
+</span><span>	col </span><span style="color:#ed9366;">= </span><span style="color:#fa6e32;">vec3</span><span>(t </span><span style="color:#ed9366;">*</span><span> .</span><span style="color:#ff8f40;">2</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>	fragColor </span><span style="color:#ed9366;">= </span><span style="color:#fa6e32;">vec4</span><span>(col</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">1</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>}
+</span></code></pre>
+<p>可以继续添加其它形状，并组合</p>
+<pre data-lang="glsl" style="background-color:#fafafa;color:#61676c;" class="language-glsl "><code class="language-glsl" data-lang="glsl"><span style="color:#fa6e32;">float </span><span style="color:#f29718;">opUnion</span><span>(</span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">d1</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">d2</span><span>)
+</span><span>{
+</span><span>    </span><span style="color:#fa6e32;">return </span><span style="color:#f07171;">min</span><span>(d1</span><span style="color:#61676ccc;">,</span><span> d2)</span><span style="color:#61676ccc;">;
+</span><span>}
+</span><span style="color:#fa6e32;">float </span><span style="color:#f29718;">opSubtraction</span><span>(</span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">d1</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">d2</span><span>)
+</span><span>{
+</span><span>    </span><span style="color:#fa6e32;">return </span><span style="color:#f07171;">max</span><span>(</span><span style="color:#ed9366;">-</span><span>d1</span><span style="color:#61676ccc;">,</span><span> d2)</span><span style="color:#61676ccc;">;
+</span><span>}
+</span><span style="color:#fa6e32;">float </span><span style="color:#f29718;">opIntersection</span><span>(</span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">d1</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">d2</span><span>)
+</span><span>{
+</span><span>    </span><span style="color:#fa6e32;">return </span><span style="color:#f07171;">max</span><span>(d1</span><span style="color:#61676ccc;">,</span><span> d2)</span><span style="color:#61676ccc;">;
+</span><span>}
+</span><span style="color:#fa6e32;">float </span><span style="color:#f29718;">opXor</span><span>(</span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">d1</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">d2</span><span>)
+</span><span>{
+</span><span>    </span><span style="color:#fa6e32;">return </span><span style="color:#f07171;">max</span><span>(</span><span style="color:#f07171;">min</span><span>(d1</span><span style="color:#61676ccc;">,</span><span> d2)</span><span style="color:#61676ccc;">, </span><span style="color:#ed9366;">-</span><span style="color:#f07171;">max</span><span>(d1</span><span style="color:#61676ccc;">,</span><span> d2))</span><span style="color:#61676ccc;">;
+</span><span>}
+</span></code></pre>
+<p>以及平滑过渡等</p>
+<pre data-lang="glsl" style="background-color:#fafafa;color:#61676c;" class="language-glsl "><code class="language-glsl" data-lang="glsl"><span style="color:#fa6e32;">float </span><span style="color:#f29718;">opSmoothUnion</span><span>(</span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">d1</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">d2</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">k</span><span>)
+</span><span>{
+</span><span>    </span><span style="color:#fa6e32;">float</span><span> h </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">clamp</span><span>(</span><span style="color:#ff8f40;">0.5 </span><span style="color:#ed9366;">+ </span><span style="color:#ff8f40;">0.5</span><span style="color:#ed9366;">*</span><span>(d2</span><span style="color:#ed9366;">-</span><span>d1)</span><span style="color:#ed9366;">/</span><span>k</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">0.0</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">1.0</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">return </span><span style="color:#f07171;">mix</span><span>(d2</span><span style="color:#61676ccc;">,</span><span> d1</span><span style="color:#61676ccc;">,</span><span> h) </span><span style="color:#ed9366;">-</span><span> k</span><span style="color:#ed9366;">*</span><span>h</span><span style="color:#ed9366;">*</span><span>(</span><span style="color:#ff8f40;">1.0 </span><span style="color:#ed9366;">-</span><span> h)</span><span style="color:#61676ccc;">;
+</span><span>}
+</span><span>
+</span><span style="color:#fa6e32;">float </span><span style="color:#f29718;">opSmoothSubtraction</span><span>(</span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">d1</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">d2</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">k</span><span>)
+</span><span>{
+</span><span>    </span><span style="color:#fa6e32;">float</span><span> h </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">clamp</span><span>(</span><span style="color:#ff8f40;">0.5 </span><span style="color:#ed9366;">- </span><span style="color:#ff8f40;">0.5</span><span style="color:#ed9366;">*</span><span>(d2</span><span style="color:#ed9366;">+</span><span>d1)</span><span style="color:#ed9366;">/</span><span>k</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">0.0</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">1.0</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">return </span><span style="color:#f07171;">mix</span><span>(d2</span><span style="color:#61676ccc;">, </span><span style="color:#ed9366;">-</span><span>d1</span><span style="color:#61676ccc;">,</span><span> h) </span><span style="color:#ed9366;">+</span><span> k</span><span style="color:#ed9366;">*</span><span>h</span><span style="color:#ed9366;">*</span><span>(</span><span style="color:#ff8f40;">1.0 </span><span style="color:#ed9366;">-</span><span> h)</span><span style="color:#61676ccc;">;
+</span><span>}
+</span><span>
+</span><span style="color:#fa6e32;">float </span><span style="color:#f29718;">opSmoothIntersection</span><span>(</span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">d1</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">d2</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">k</span><span>)
+</span><span>{
+</span><span>    </span><span style="color:#fa6e32;">float</span><span> h </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">clamp</span><span>(</span><span style="color:#ff8f40;">0.5 </span><span style="color:#ed9366;">- </span><span style="color:#ff8f40;">0.5</span><span style="color:#ed9366;">*</span><span>(d2</span><span style="color:#ed9366;">-</span><span>d1)</span><span style="color:#ed9366;">/</span><span>k</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">0.0</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">1.0</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">return </span><span style="color:#f07171;">mix</span><span>(d2</span><span style="color:#61676ccc;">,</span><span> d1</span><span style="color:#61676ccc;">,</span><span> h) </span><span style="color:#ed9366;">+</span><span> k</span><span style="color:#ed9366;">*</span><span>h</span><span style="color:#ed9366;">*</span><span>(</span><span style="color:#ff8f40;">1.0 </span><span style="color:#ed9366;">-</span><span> h)</span><span style="color:#61676ccc;">;
+</span><span>}
+</span></code></pre>
+<p>缩放、旋转可以通过数学方法得到。</p>
+<pre data-lang="glsl" style="background-color:#fafafa;color:#61676c;" class="language-glsl "><code class="language-glsl" data-lang="glsl"><span style="font-style:italic;color:#abb0b6;">// float box = sdBox(q * 4., vec3(.75)) / 4.;
+</span><span>
+</span><span style="color:#fa6e32;">mat2 </span><span style="color:#f29718;">rot2D</span><span>(</span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">angle</span><span>) {
+</span><span>	</span><span style="color:#fa6e32;">float</span><span> s </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">sin</span><span>(angle)</span><span style="color:#61676ccc;">;
+</span><span>	</span><span style="color:#fa6e32;">float</span><span> c </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">cos</span><span>(angle)</span><span style="color:#61676ccc;">;
+</span><span>	</span><span style="color:#fa6e32;">return mat2</span><span>(c</span><span style="color:#61676ccc;">, </span><span style="color:#ed9366;">-</span><span>s</span><span style="color:#61676ccc;">,</span><span> s</span><span style="color:#61676ccc;">,</span><span> c)</span><span style="color:#61676ccc;">;
+</span><span>}
+</span><span>
+</span><span style="font-style:italic;color:#abb0b6;">// p.xy *= rot2D(iTime);
+</span><span>
+</span><span style="color:#fa6e32;">vec3 </span><span style="color:#f29718;">rot3D</span><span>(</span><span style="color:#fa6e32;">vec3 </span><span style="color:#ff8f40;">p</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">vec3 </span><span style="color:#ff8f40;">axis</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">angle</span><span>) {
+</span><span>	</span><span style="font-style:italic;color:#abb0b6;">// Rodrigues&#39; rotation formula
+</span><span>	</span><span style="color:#fa6e32;">return </span><span style="color:#f07171;">mix</span><span>(</span><span style="color:#f07171;">dot</span><span>(axis</span><span style="color:#61676ccc;">,</span><span> p) </span><span style="color:#ed9366;">*</span><span> axis</span><span style="color:#61676ccc;">,</span><span> p</span><span style="color:#61676ccc;">, </span><span style="color:#f07171;">cos</span><span>(angle))
+</span><span>		</span><span style="color:#ed9366;">+ </span><span style="color:#f07171;">cross</span><span>(axis</span><span style="color:#61676ccc;">,</span><span> p) </span><span style="color:#ed9366;">* </span><span style="color:#f07171;">sin</span><span>(angle</span><span style="color:#61676ccc;">;</span><span>)
+</span><span>}
+</span></code></pre>
+<p>使用全局变量 <code>iMouse</code> 可以实现随鼠标旋转的效果。</p>
+<p>使用 <code>mod(x, 1.0) = fract(x)</code> 可以实现空间复制的效果。</p>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mb-1.5 mr-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mb-1.5 mr-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/计算机/">计算机</a>
+    
+  </div>
+</footer>
+
+  <!-- Post Nav -->
+<nav class="block-bg mt-12 flex flex-wrap rounded-lg text-lg">
+  <a
+    class="block-hover-mask ml-auto flex min-w-[50%] grow items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline"
+    href="https://rratic.github.io/posts/haskell-p2/" accesskey="."
+    ><span>Haskell 学习（二）：单子</span><span class="ml-1.5">&#8250;</span></a>
+</nav>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/pages"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>
