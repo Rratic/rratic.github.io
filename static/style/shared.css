@@ -44,6 +44,7 @@ li>code {
 	display: none;
 }
 
-.folder {
+.folder,
+.quote-display {
 	cursor: pointer;
 }
