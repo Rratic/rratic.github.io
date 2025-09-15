@@ -16,7 +16,6 @@ categories = ["知识"]
 tags = ["笔记", "数学", "计算机", "函数式编程"]
 +++
 
-## 说明 {#about}
 本节讨论的是 Alonzo Church 发明的 `Lambda Calculus`，即**无类型 λ 演算**。[^paper-invention]
 
 ## 语法 {#grammar}
@@ -42,25 +41,35 @@ E = x           // variables
 
 例如，$\lambda x.\ x\ \lambda y.\ x\ y\ z$ 应被理解为 $\lambda x.\ (x\ \lambda y.\ ((x\ y)\ z))$
 
-## Currying
+### Currying
 尽管在定义中，函数必须恰有一个参数，多个参数的函数仍然可以通过 `currying` 技术间接地表示。
 
-例如，不合法的 $\lambda x\ y.\ x+y$ 可以被表达为 $\lambda x.\ (\lambda y.\ x+y)$。后世的闭包思想也来自于此。
+例如 $f(x, y)=x+y$ 可以被表达为 $f=\lambda x.\ (\lambda y.\ x+y)$
 
-巧妙的是，你可以传入少于全部参数个数的参数。例如代入 3，可以得到 $\lambda y.\ 3+y$
+对上述 $f$，你可以传入少于全部参数个数的参数。
+
+例如代入 $g = f\ 1$，得到的 $g = \lambda y.\ 1+y$ 也是一个可用的函数。
 
 ## 求值 {#lambda-evaluation}
+### 求值规则 {#evaluation-rules}
 有两条求值规则：
-* `Alpha equivalence` (or conversion)
 
-  $\alpha$-重命名意为，可任意改变变量名。如有歧义的 $\lambda x.\ x(\lambda x.\ x)$ 可改为 $\lambda x.\ x(\lambda y.\ y)$
-* `Beta reduction`
+$\alpha$-重命名（`Alpha equivalence/conversion`）意为，可任意改变变量名。如有歧义的 $\lambda x.\ x(\lambda x.\ x)$ 可改为 $\lambda x.\ x(\lambda y.\ y)$
 
-  $\beta$-规约意为，在应用时将声明展开。例如 $(\lambda x.\ x)(\lambda y.\ y)$ 被展开为 $\lambda y.\ y$
+$\beta$-规约（`Beta reduction`）意为，在应用时将声明展开。例如 $(\lambda x.\ x)(\lambda y.\ y)$ 被展开为 $\lambda y.\ y$
 
-此外，$\eta$-等价意为，$\lambda x. f(x)$ 可改为 $f$
+此外，还有术语 $\eta$-等价意为，$\lambda x.\ f(x)$ 可改为 $f$
 
-## 求值顺序 {#evaluation-order}
+在 SKI 演算中，我们定义
+* $I=\lambda x.\ x$
+* $K=\lambda x\ y.\ x$
+* $S=\lambda x\ y\ z.\ x\ z (y\ z)$
+
+读者可自行验证 $I=S\ K\ K$
+
+通过 $\lambda x.\ A\ B = S\ (\lambda x.\ A)\ (\lambda x.\ B)$，可找到一般的用这些组合子表达 Lambda 表达式的方法。
+
+### 求值顺序 {#evaluation-order}
 考虑函数应用 $(\lambda y.\ (\lambda x.\ x)\ y) E$。它有两种计算方法：
 * 先求内层，得到 $(\lambda y.\ y) E$，然后得到 $E$
 * 先求外层，得到 $(\lambda x.\ x) E$，然后得到 $E$
@@ -68,31 +77,42 @@ E = x           // variables
 根据 Church–Rosser 定理（其证明会在[之后](#church-rosser-theorem)提供），这两种方法是等价的，最终会得到相等的结果。
 
 但我们在计算时必须作出选择。因而产生了两种不同的方式。
-* 在函数应用前，就计算函数参数的值。
-  也被记作：
-  * `Call by Value`
-  * `Applicative Order` 应用次序
-  * `Eager Evaluation` 紧迫求值
-* 在函数应用前，不计算函数参数的值，直到需要时才求值。
-  也被记作：
-  * `Call by Name`
-  * `Normal Order` 正则/标准次序
-  * `Lazy Evaluation` 懒惰求值
+
+一种是在函数应用前，就计算函数参数的值。也被记作：
+* 应用次序（`Applicative Order`）
+* 紧迫求值（`Eager Evaluation`）
+
+另一种是在函数应用前，不计算函数参数的值，直到需要时才求值。也被记作：
+* 正则/标准次序（`Normal Order`）
+* 懒惰求值（`Lazy Evaluation`）
 
 如果表达式可以被化简，那么标准次序总是能够将表达式成功化简，使用应用次序则可能陷入无限递归。
 
-### 递归 {#recursive-functions}
-通过 `Y combinator` 可以原生地实现递归。可以参阅：[Y组合子的一个启发式推导](https://zhuanlan.zhihu.com/p/547191928)。
+### 不动点 {#fixed-point}
+事实上，对一般的函数 $f$，我们都可以找到不动点，此不动点与该函数的结构无关。
 
-在 Lambda 演算中，其定义为：
+可以参阅[此文章的启发式推导](https://zhuanlan.zhihu.com/p/547191928)。大意如下：
+
+我们希望有一个一般的方法找到 $p$ 使得 $p = f(p)$，让 $p=Y(f)$，即 $Y(f)=f(Y(f))$
+
+可以看出 $p=Y(f)$ *形如* $f\ f\ f\ f\cdots$，不妨将该无穷列看成两段 $G\ G$
+
+有 $G\ G = f\ (G\ G)$，可以看出一个构造 $G = \lambda x.\ f(x\ x)$
+
+从而我们找到了
 
 $$Y = \lambda f. (\lambda x. f(x x))(\lambda x. f(x x))$$
 
-这使得
+称为 Y 组合子（`Y combinator`）。不难验证
 
-$$Y f = (\lambda x. f(x x))(\lambda x. f(x x))$$
-$$= (\lambda x. f(x x))(\lambda x. f(x x))(\lambda x. f(x x))$$
-$$= f(Y f)$$
+```txt
+Y f = (λx. f(x x)) (λx. f(x x))
+    = f ((λx. f(x x)) (λx. f(x x)))
+    = f (Y f)
+```
+
+### 递归 {#recursive-functions}
+Y 组合子可以用于实现递归。
 
 如果我们希望定义一个递归函数。
 $$f = \lambda fact. (\lambda n. \begin{cases} 1, & \text {if $n$ < 2} \\\\ n\times fact(n-1), & \text{else} \end{cases})$$
@@ -115,7 +135,7 @@ Y f 2 = (λx. f(x x))(λx. f(x x)) 2
       = ...
 ```
 
-此时需改用 `Z combinator`，将参数改造成延迟求值的。
+此时需改用 Z 组合子，将参数改造成延迟求值的。
 
 $$Z = \lambda f. (\lambda x. f(\lambda y. (x x) y))(\lambda x. f(\lambda y. (x x) y))$$
 

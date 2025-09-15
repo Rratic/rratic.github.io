@@ -8,7 +8,11 @@ math = true
 tags = ["数学", "范畴论"]
 +++
 
-参考阅读 Tom Leinster 的 *Basic Category Theory*，Steve Awodey 的 *Category Theory*（尚未找到中译本）及李文威的《代数学方法：卷一》
+参考阅读
+* Tom Leinster *Basic Category Theory*
+* Steve Awodey *Category Theory*
+* *Categories for the Working Mathematician* (GTM 5)
+* 李文威《代数学方法：卷一》
 
 ## 范畴与态射
 - 基本的概念
