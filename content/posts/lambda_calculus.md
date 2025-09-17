@@ -26,7 +26,7 @@ E = x           // variables
   | E1 E2       // function application
 ```
 
-上面的 $E$ 称为 λ-表达式或 `λ-terms`，它的值有三种形式：
+上面的 $E$ 称为 λ-表达式（`λ-terms`），它的值有三种形式：
 * 变量。
 * 函数声明或抽象。函数**有且仅有**一个参数。在 $\lambda x.\ E$ 中，$x$ 是参数，$E$ 是函数体。
 * 函数应用。即函数调用。
@@ -34,6 +34,7 @@ E = x           // variables
 一些简单的例子：
 * 恒等函数 $\lambda x.\ x$
 * 返回恒等函数的函数 $\lambda y.\ (\lambda x.\ x)$ 这里的 $y$ 参数被忽略了。引入参数而不使用它是被允许的。
+* 表示复合的函数 $\circ = \lambda g.\ \lambda f.\ \lambda x.\ g\ (f\ x)$
 
 在书写时，常常省略括号。对此的惯例是：
 * 函数声明时，函数体尽可能向右扩展。
@@ -52,22 +53,23 @@ E = x           // variables
 
 ## 求值 {#lambda-evaluation}
 ### 求值规则 {#evaluation-rules}
-有两条求值规则：
+求值规则包括：
+* $\alpha$-重命名，可任意改变变量名。如有歧义的 $\lambda x.\ x(\lambda x.\ x)$ 可改为 $\lambda x.\ x(\lambda y.\ y)$
+* $\beta$-归约（`reduction`），在应用时将声明展开。例如 $(\lambda x.\ x)(\lambda y.\ y)$ 被展开为 $\lambda y.\ y$
+* $\eta$-等价，形如 $\lambda x.\ f(x)$ 的表达式可改为 $f$，这一般来说只是提前省略了一步 β-归约。
 
-$\alpha$-重命名（`Alpha equivalence/conversion`）意为，可任意改变变量名。如有歧义的 $\lambda x.\ x(\lambda x.\ x)$ 可改为 $\lambda x.\ x(\lambda y.\ y)$
+这三者均可称为归约（`conversion`）
 
-$\beta$-规约（`Beta reduction`）意为，在应用时将声明展开。例如 $(\lambda x.\ x)(\lambda y.\ y)$ 被展开为 $\lambda y.\ y$
-
-此外，还有术语 $\eta$-等价意为，$\lambda x.\ f(x)$ 可改为 $f$
-
-在 SKI 演算中，我们定义
+{% admonition(type="example", title="SKI 演算") %}
+我们定义
 * $I=\lambda x.\ x$
-* $K=\lambda x\ y.\ x$
-* $S=\lambda x\ y\ z.\ x\ z (y\ z)$
+* $K=\lambda x\ \lambda y.\ x$
+* $S=\lambda x\ \lambda y\ \lambda z.\ x\ z\ (y\ z)$
 
 读者可自行验证 $I=S\ K\ K$
 
 通过 $\lambda x.\ A\ B = S\ (\lambda x.\ A)\ (\lambda x.\ B)$，可找到一般的用这些组合子表达 Lambda 表达式的方法。
+{% end %}
 
 ### 求值顺序 {#evaluation-order}
 考虑函数应用 $(\lambda y.\ (\lambda x.\ x)\ y) E$。它有两种计算方法：
@@ -76,7 +78,9 @@ $\beta$-规约（`Beta reduction`）意为，在应用时将声明展开。例�
 
 根据 Church–Rosser 定理（其证明会在[之后](#church-rosser-theorem)提供），这两种方法是等价的，最终会得到相等的结果。
 
-但我们在计算时必须作出选择。因而产生了两种不同的方式。
+但我们在计算时必须作出选择。
+
+有两种常用的不同计算方式：
 
 一种是在函数应用前，就计算函数参数的值。也被记作：
 * 应用次序（`Applicative Order`）
@@ -148,8 +152,8 @@ Z f 2 = (λx. f(λy. (x x) y)) (λx. f(λy. (x x) y)) 2
       = 2 * 1
 ```
 
-## 数据类型 {#datatype}
-Lambda 演算中只有函数而没有纯粹的、实践中关心的数据类型，不过我们可以用函数来间接地表达它们。
+## 类型模拟 {#simulate-types}
+无类型 λ 演算中只有函数而没有纯粹的、实践中关心的数据类型，不过我们可以用函数来间接地表达它们。
 
 ### 布尔值 {#datatype-boolean}
 布尔值支持二元逻辑运算，但其最重要的意义是实现条件判断。
@@ -250,9 +254,9 @@ Church–Rosser 定理说，λ 演算具有合流性。
 
 以下将对证明思路进行摘要。
 
-首先，α-等价关系的刻画是易完成的。只需考虑 β-规约，全体的合法 Lambda 表达式记作 $\omega = \omega^{\*}/\sim _\alpha$。
+首先，α-等价关系的刻画是易完成的。只需考虑 β-归约，全体的合法 Lambda 表达式记作 $\omega = \omega^{\*}/\sim _\alpha$。
 
-一步 β-规约是之前定义的 $(\lambda x.\ a)\ b\to a[b/x]$。多步规约就是之前定义的 $\stackrel{\*}{\to}$，我们重新记作 $\twoheadrightarrow$，它也可看作一步 β-规约的自反传递闭包。
+一步 β-归约是之前定义的 $(\lambda x.\ a)\ b\to a[b/x]$。多步归约就是之前定义的 $\stackrel{\*}{\to}$，我们重新记作 $\twoheadrightarrow$，它也可看作一步 β-归约的自反传递闭包。
 
 证明中最大的难题是归约时，内部的可归约式结构可能被破坏。
 
