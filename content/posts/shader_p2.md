@@ -11,7 +11,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["杂物"]
-tags = ["数学", "计算机"]
+tags = ["数学", "计算机", "计算机图形学"]
 +++
 
 ## 色彩

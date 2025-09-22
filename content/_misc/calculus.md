@@ -21,11 +21,13 @@ tags = ["数学", "微积分学"]
 - 极限（级数，数列极限 $\lim_{x\to \infty}$，Fubini 定理，Riemann 重排定理）
 
 ### 一元函数
-- 基本概念（连续性 $C^k(U)$，可导性，导数 $f'$，光滑性 $C^{\infty}(U)$，中值定理）
-- Taylor 定理，解析性 $C^{\omega}(U)$
+- 基本概念（左右极限，连续性 $C^k(U)$，可导性，导数 $f'$，光滑性 $C^{\infty}(U)$，中值定理）
+- 求导（L’Hôpital 法则，Taylor 定理，解析性 $C^{\omega}(U)$）
 - Riemann 积分（积分 $\int_a^b f(x) dx$，Riemann 和，Darboux 上下和，Newton–Leibniz 公式，Riemann 可积性，反常积分）
 - Lebesgue 积分
 
 ### 多元函数
+- 高维微分（方向导数 $\nabla_v(f) = \frac{\partial f}{\partial v}$，微分 $df(x_0)$）
+- 映射微分（Jacobi 矩阵，链式法则）
 
 ## 特殊函数论
