@@ -1,5 +1,5 @@
 +++
-title = "着色器（一）"
+title = "着色器（一）：基础逻辑与技巧"
 description = "基于 GLSL 的着色器基础内容：2D 绚丽图像及 Raymarching."
 date = 2025-09-03
 
