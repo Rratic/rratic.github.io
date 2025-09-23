@@ -1,0 +1,506 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>无类型 λ 演算 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="无类型 λ 演算" />
+  <meta name="description" content="最经典的类型论例子：无类型 λ 演算的规则、使用和合流性。" />
+  <meta property="og:description" content="最经典的类型论例子：无类型 λ 演算的规则、使用和合流性。" />
+  <meta property="og:url" content="https://rratic.github.io/posts/lambda-calculus/" />
+  <link rel="canonical" href="https://rratic.github.io/posts/lambda-calculus/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2025-03-22T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2025-04-12T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="计算机" />
+  <meta property="article:tag" content="函数式编程" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.github.io/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.github.io/style/shared.css?h=69d4ff7f9a05c47d2322" />
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.github.io/main.min.css?h=2e89f7f30f1019877d14" />
+  <style>
+  :root{--bg: white; --header: #e6f4ff; color-scheme: light;}
+  :root.dark{--bg: #424242; --header: #333333; color-scheme: dark;}
+  </style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.github.io/js/linkita.min.js?h=1dd3ed42fc674277bc34"></script>
+  <link rel="stylesheet" href="https://rratic.github.io/katex/katex.min.css?h=19095127357ed6d29fe0" />
+  <script defer src="https://rratic.github.io/katex/katex.min.js?h=e8d885505949f3a5f4ab"></script>
+  <script defer src="https://rratic.github.io/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.linkita.initKatex);</script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out bg-[var(--bg)] dark:text-white">
+  <!-- Header -->
+<header class="bg-[var(--header)] fixed top-0 z-40 mx-auto min-h-[3.25rem] w-full header-icons">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8">
+        <a title="转到主页" accesskey="!"
+          href="https://rratic.github.io/" class="text-2xl font-semibold">错行</a>
+        <button type="button" title="切换颜色方案" accesskey="$"
+          onclick="window.linkita.toggleDarkMode();" ondblclick="window.linkita.resetDarkMode();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover dark:invert [background-image:var(--icon-theme-dark)] dark:[background-image:var(--icon-theme-light)]"
+        ></button>
+      </div>
+      <div title="导航" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.linkita.toggleHeaderMenu();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.linkita.toggleHeaderMenu() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral relative mx-auto min-h-[calc(100%-4rem)]
+    max-w-3xl break-words px-4 pb-12 pt-28 lg:pt-32 dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">无类型 λ 演算</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2025-03-22T00:00:00+00:00">2025-03-22</time><span
+        class="middot"></span>↻ <time
+      datetime="2025-04-12T00:00:00+00:00">2025-04-12</time><span
+        class="middot"></span><time
+    datetime="PT0H12M0S">12&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+<div class="block-bg mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-4" accesskey="=">
+      <span class="cursor-pointer">目录</span>
+    </summary>
+    <div class="px-2">
+      <ul>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/lambda-calculus/#grammar">语法</a>
+          <ul>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/lambda-calculus/#currying">Currying</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/lambda-calculus/#lambda-evaluation">求值</a>
+          <ul>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/lambda-calculus/#evaluation-rules">求值规则</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/lambda-calculus/#evaluation-order">求值顺序</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/lambda-calculus/#fixed-point">不动点</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/lambda-calculus/#recursive-functions">递归</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/lambda-calculus/#simulate-types">类型模拟</a>
+          <ul>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/lambda-calculus/#datatype-boolean">布尔值</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/lambda-calculus/#datatype-number">自然数</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/lambda-calculus/#datatype-list">列表</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/lambda-calculus/#interpreter">解释器</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/lambda-calculus/#rewriting-systems">重写系统</a>
+          <ul>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/lambda-calculus/#jargon">术语</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/lambda-calculus/#rewriting-notation">记号</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/lambda-calculus/#normalization">正规性</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/lambda-calculus/#confluence">合流性</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/lambda-calculus/#church-rosser-theorem">Church–Rosser 定理</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </details>
+</div>
+
+  <!-- Content -->
+  <section><p>本节讨论的是 Alonzo Church 发明的 <code>Lambda Calculus</code>，即<strong>无类型 λ 演算</strong>。<sup class="footnote-reference"><a href="#paper-invention">1</a></sup></p>
+<h2 id="grammar">语法</h2>
+<p>Lambda 演算的语法形式极其简单。一种可理解的形式文法如下：</p>
+<pre data-lang="c" style="background-color:#fafafa;color:#61676c;" class="language-c "><code class="language-c" data-lang="c"><span>E </span><span style="color:#ed9366;">=</span><span> x           </span><span style="font-style:italic;color:#abb0b6;">// variables
+</span><span>  </span><span style="color:#ed9366;">|</span><span> λx</span><span style="color:#ed9366;">.</span><span> E       </span><span style="font-style:italic;color:#abb0b6;">// function creation (abstraction)
+</span><span>  </span><span style="color:#ed9366;">|</span><span> E1 E2       </span><span style="font-style:italic;color:#abb0b6;">// function application
+</span></code></pre>
+<p>上面的 $E$ 称为 λ-表达式（<code>λ-terms</code>），它的值有三种形式：</p>
+<ul>
+<li>变量。</li>
+<li>函数声明或抽象。函数<strong>有且仅有</strong>一个参数。在 $\lambda x.\ E$ 中，$x$ 是参数，$E$ 是函数体。</li>
+<li>函数应用。即函数调用。</li>
+</ul>
+<p>一些简单的例子：</p>
+<ul>
+<li>恒等函数 $\lambda x.\ x$</li>
+<li>返回恒等函数的函数 $\lambda y.\ (\lambda x.\ x)$ 这里的 $y$ 参数被忽略了。引入参数而不使用它是被允许的。</li>
+<li>表示复合的函数 $\circ = \lambda g.\ \lambda f.\ \lambda x.\ g\ (f\ x)$</li>
+</ul>
+<p>在书写时，常常省略括号。对此的惯例是：</p>
+<ul>
+<li>函数声明时，函数体尽可能向右扩展。</li>
+<li>函数应用时，从左到右结合（即“左结合”）。</li>
+</ul>
+<p>例如，$\lambda x.\ x\ \lambda y.\ x\ y\ z$ 应被理解为 $\lambda x.\ (x\ \lambda y.\ ((x\ y)\ z))$</p>
+<h3 id="currying">Currying</h3>
+<p>尽管在定义中，函数必须恰有一个参数，多个参数的函数仍然可以通过 <code>currying</code> 技术间接地表示。</p>
+<p>例如 $f(x, y)=x+y$ 可以被表达为 $f=\lambda x.\ (\lambda y.\ x+y)$</p>
+<p>对上述 $f$，你可以传入少于全部参数个数的参数。</p>
+<p>例如代入 $g = f\ 1$，得到的 $g = \lambda y.\ 1+y$ 也是一个可用的函数。</p>
+<h2 id="lambda-evaluation">求值</h2>
+<h3 id="evaluation-rules">求值规则</h3>
+<p>求值规则包括：</p>
+<ul>
+<li>$\alpha$-重命名，可任意改变变量名。如有歧义的 $\lambda x.\ x(\lambda x.\ x)$ 可改为 $\lambda x.\ x(\lambda y.\ y)$</li>
+<li>$\beta$-归约（<code>reduction</code>），在应用时将声明展开。例如 $(\lambda x.\ x)(\lambda y.\ y)$ 被展开为 $\lambda y.\ y$</li>
+<li>$\eta$-等价，形如 $\lambda x.\ f(x)$ 的表达式可改为 $f$，这一般来说只是提前省略了一步 β-归约。</li>
+</ul>
+<p>这三者均可称为归约（<code>conversion</code>）</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-[var(--admonition-bg)]"
+  style="--admonition-bg: rgba(101, 31, 255, 0.1);"
+>
+  <div class="flex items-center rounded-t-lg bg-[var(--admonition-bg)] p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(./icons/example.svg);"
+    >
+      example
+    </div>
+    <span><strong>SKI 演算</strong></span>
+  </div>
+  <div class="pl-4"><p>我们定义</p>
+<ul>
+<li>$I=\lambda x.\ x$</li>
+<li>$K=\lambda x\ \lambda y.\ x$</li>
+<li>$S=\lambda x\ \lambda y\ \lambda z.\ x\ z\ (y\ z)$</li>
+</ul>
+<p>读者可自行验证 $I=S\ K\ K$</p>
+<p>通过 $\lambda x.\ A\ B = S\ (\lambda x.\ A)\ (\lambda x.\ B)$，可找到一般的用这些组合子表达 Lambda 表达式的方法。</p>
+</div>
+</div>
+<h3 id="evaluation-order">求值顺序</h3>
+<p>考虑函数应用 $(\lambda y.\ (\lambda x.\ x)\ y) E$。它有两种计算方法：</p>
+<ul>
+<li>先求内层，得到 $(\lambda y.\ y) E$，然后得到 $E$</li>
+<li>先求外层，得到 $(\lambda x.\ x) E$，然后得到 $E$</li>
+</ul>
+<p>根据 Church–Rosser 定理（其证明会在<a href="https://rratic.github.io/posts/lambda-calculus/#church-rosser-theorem">之后</a>提供），这两种方法是等价的，最终会得到相等的结果。</p>
+<p>但我们在计算时必须作出选择。</p>
+<p>有两种常用的不同计算方式：</p>
+<p>一种是在函数应用前，就计算函数参数的值。也被记作：</p>
+<ul>
+<li>应用次序（<code>Applicative Order</code>）</li>
+<li>紧迫求值（<code>Eager Evaluation</code>）</li>
+</ul>
+<p>另一种是在函数应用前，不计算函数参数的值，直到需要时才求值。也被记作：</p>
+<ul>
+<li>正则/标准次序（<code>Normal Order</code>）</li>
+<li>懒惰求值（<code>Lazy Evaluation</code>）</li>
+</ul>
+<p>如果表达式可以被化简，那么标准次序总是能够将表达式成功化简，使用应用次序则可能陷入无限递归。</p>
+<h3 id="fixed-point">不动点</h3>
+<p>事实上，对一般的函数 $f$，我们都可以找到不动点，此不动点与该函数的结构无关。</p>
+<p>可以参阅<a href="https://zhuanlan.zhihu.com/p/547191928">此文章的启发式推导</a>。大意如下：</p>
+<p>我们希望有一个一般的方法找到 $p$ 使得 $p = f(p)$，让 $p=Y(f)$，即 $Y(f)=f(Y(f))$</p>
+<p>可以看出 $p=Y(f)$ <em>形如</em> $f\ f\ f\ f\cdots$，不妨将该无穷列看成两段 $G\ G$</p>
+<p>有 $G\ G = f\ (G\ G)$，可以看出一个构造 $G = \lambda x.\ f(x\ x)$</p>
+<p>从而我们找到了</p>
+<p>$$Y = \lambda f. (\lambda x. f(x x))(\lambda x. f(x x))$$</p>
+<p>称为 Y 组合子（<code>Y combinator</code>）。不难验证</p>
+<pre data-lang="txt" style="background-color:#fafafa;color:#61676c;" class="language-txt "><code class="language-txt" data-lang="txt"><span>Y f = (λx. f(x x)) (λx. f(x x))
+</span><span>    = f ((λx. f(x x)) (λx. f(x x)))
+</span><span>    = f (Y f)
+</span></code></pre>
+<h3 id="recursive-functions">递归</h3>
+<p>Y 组合子可以用于实现递归。</p>
+<p>如果我们希望定义一个递归函数。
+$$f = \lambda fact. (\lambda n. \begin{cases} 1, &amp; \text {if $n$ &lt; 2} \\ n\times fact(n-1), &amp; \text{else} \end{cases})$$</p>
+<p>那么，若使用正则次序，可得到正确的结果。</p>
+<pre data-lang="txt" style="background-color:#fafafa;color:#61676c;" class="language-txt "><code class="language-txt" data-lang="txt"><span>Y f 2 = (λx. f(x x))(λx. f(x x)) 2
+</span><span>      = f((λx. f(x x))(λx. f(x x)) 2)
+</span><span>      = 2 * (λx. f(x x))(λx. f(x x))(1)
+</span><span>      = 2 * f((λx. f(x x))(λx. f(x x)) 1)
+</span><span>      = 2 * 1
+</span></code></pre>
+<p>但使用应用次序，则会造成无限递归。</p>
+<pre data-lang="txt" style="background-color:#fafafa;color:#61676c;" class="language-txt "><code class="language-txt" data-lang="txt"><span>Y f 2 = (λx. f(x x))(λx. f(x x)) 2
+</span><span>      = f((λx. f(x x))(λx. f(x x)) 2)
+</span><span>      = f(f((λx. f(x x))(λx. f(x x))) 2)
+</span><span>      = f(f(f((λx. f(x x))(λx. f(x x)))) 2)
+</span><span>      = ...
+</span></code></pre>
+<p>此时需改用 Z 组合子，将参数改造成延迟求值的。</p>
+<p>$$Z = \lambda f. (\lambda x. f(\lambda y. (x x) y))(\lambda x. f(\lambda y. (x x) y))$$</p>
+<pre data-lang="txt" style="background-color:#fafafa;color:#61676c;" class="language-txt "><code class="language-txt" data-lang="txt"><span>Z f 2 = (λx. f(λy. (x x) y)) (λx. f(λy. (x x) y)) 2
+</span><span>      = f((λy. (λx. f(λy. (x x) y)) (λx. f(λy. (x x) y)) y) 2)
+</span><span>      = 2 * (λy. (λx. f(λy. (x x) y)) (λx. f(λy. (x x) y)) y) 1
+</span><span>      = 2 * (λx. f(λy. (x x) y)) (λx. f(λy. (x x) y)) 1
+</span><span>      = ...
+</span><span>      = 2 * 1
+</span></code></pre>
+<h2 id="simulate-types">类型模拟</h2>
+<p>无类型 λ 演算中只有函数而没有纯粹的、实践中关心的数据类型，不过我们可以用函数来间接地表达它们。</p>
+<h3 id="datatype-boolean">布尔值</h3>
+<p>布尔值支持二元逻辑运算，但其最重要的意义是实现条件判断。</p>
+<p>简单地定义 <code>true</code> 为 $\lambda x.\ \lambda y.\ x$，<code>false</code> 为 $\lambda x.\ \lambda y.\ y$</p>
+<p>这样，<code>if e then u else v</code> 就可被重写为 $e\ u\ v$。</p>
+<h3 id="datatype-number">自然数</h3>
+<p>自然数可以被 Peano 公理所描述。其核心是，存在起点 0，并且每个自然数都有其后继。</p>
+<p>在 Lambda 演算中，我们可以这样定义。</p>
+<p>$$iszero\ n = n\ (\lambda b.\ false)\ true$$
+$$0=\lambda f.\ \lambda s.\ s$$
+$$1=\lambda f.\ \lambda s.\ f\ s$$
+$$2=\lambda f.\ \lambda s.\ f\ (f\ s)$$</p>
+<p>……诸如此类。自然数的信息被表现在 $f$ 的层叠数目上，对其计算只需用 $s$ 给出的接口添加层叠数即可。</p>
+<p>$$succ\ n = \lambda f.\ \lambda s.\ f\ (n\ f\ s)$$
+$$add\ n_1\ n_2 = n_1\ succ\ n_2$$
+$$mult\ n_1\ n_2 = n_1\ (add\ n_2)\ 0$$</p>
+<p>举个例子。</p>
+<pre data-lang="txt" style="background-color:#fafafa;color:#61676c;" class="language-txt "><code class="language-txt" data-lang="txt"><span>add 0 = (λn1. λn2. n1 succ n2) 0
+</span><span>      = λn2. 0 succ n2
+</span><span>      = λn2. n2
+</span><span>      = λx. x
+</span></code></pre>
+<p>又如。</p>
+<pre data-lang="txt" style="background-color:#fafafa;color:#61676c;" class="language-txt "><code class="language-txt" data-lang="txt"><span>add 1 1 = 1 succ 1
+</span><span>        = succ 1
+</span><span>        = λf. λs. f (f s)
+</span><span>        = 2
+</span></code></pre>
+<p>又如。</p>
+<pre data-lang="txt" style="background-color:#fafafa;color:#61676c;" class="language-txt "><code class="language-txt" data-lang="txt"><span>mult 2 2 = 2 (add 2) 0
+</span><span>         = (add 2) ((add 2) 0)
+</span><span>         = 2 succ (2 succ 0)
+</span><span>         = succ (succ (succ (succ 0)))
+</span><span>         = succ (succ (succ (λf. λs. f (0 f s))))
+</span><span>         = succ (succ (succ (λf. λs. f s)))
+</span><span>         = succ (succ (λg. λy. g ((λf. λs. f s) g y)))
+</span><span>         = succ (succ (λg. λy. g (g y)))
+</span><span>         = ...
+</span><span>         = λg. λy. g (g (g (g y)))
+</span><span>         = 4
+</span></code></pre>
+<h3 id="datatype-list">列表</h3>
+<p>构造基于这一思想：将“如何遍历列表”的问题放到使用列表时。</p>
+<pre data-lang="rust" style="background-color:#fafafa;color:#61676c;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#fa6e32;">let</span><span> nil </span><span style="color:#ed9366;">=</span><span> λc</span><span style="color:#ed9366;">.</span><span> λn</span><span style="color:#ed9366;">.</span><span> n </span><span style="font-style:italic;color:#abb0b6;">// 空列表
+</span><span style="color:#fa6e32;">let</span><span> cons </span><span style="color:#ed9366;">=</span><span> λh</span><span style="color:#ed9366;">.</span><span> λt</span><span style="color:#ed9366;">.</span><span> λc</span><span style="color:#ed9366;">.</span><span> λn</span><span style="color:#ed9366;">.</span><span> c h (t c n) </span><span style="font-style:italic;color:#abb0b6;">// h 表示在开头添加的元素，t 是之后的列表部分
+</span><span>
+</span><span>cons </span><span style="color:#ff8f40;">1 </span><span>(cons </span><span style="color:#ff8f40;">2 </span><span>(cons </span><span style="color:#ff8f40;">3</span><span> nil)) </span><span style="font-style:italic;color:#abb0b6;">// 构造列表示例
+</span><span style="font-style:italic;color:#abb0b6;">// = λc. λn. c 1 (λc. λn. c 2 (λc. λn. c 3 (λc. λn. n)))
+</span></code></pre>
+<h2 id="interpreter">解释器</h2>
+<p>在 <a href="https://tejqunair.com/posts/lambda-part-1/">Part 1</a> 与 <a href="https://tejqunair.com/posts/lambda-part-2/">Part 2</a> 阅读如何使用 Rust 完成 Lambda 演算解释器。你可以在<a href="https://sshwy.github.io/lamcalc/playground.html">这里</a>找到一个在线演绎器，但它需要手动操作。</p>
+<h2 id="rewriting-systems">重写系统</h2>
+<h3 id="jargon">术语</h3>
+<p><strong>重写</strong>是将表达式的一部分替换为其它表达式的过程，可以看作一种关系或者一组规则，在这里，规则包括 $\alpha, \beta, \eta$ 三种归约。</p>
+<p>在此之上，<strong>重写系统</strong>是由一个表达式的集合和表达式到表达式之间的重写关系组成的结构，类似于有向图。</p>
+<h3 id="rewriting-notation">记号</h3>
+<p>因此，所有资料为：表达式的集合 $E$ 与重写关系 $(\to ) \subset E\times E$</p>
+<p>记 $\stackrel{*}{\to}$ 表示将 $\to$ 应用任意自然数次。</p>
+<p>用双向箭头 $\stackrel{*}{\leftrightarrow}$ 表示两边都可的版本。</p>
+<h3 id="normalization">正规性</h3>
+<p>对于重写系统 $E$ 和 $a,b\in E$，若 $a\stackrel{*}{\to} b \iff a=b$，那么 $a$ 是一个<strong>正规形式/既约形式</strong>。</p>
+<p>若重写系统中任意表达式都能通过某个特定的顺序重写为正规形式，那么该重写系统是<strong>弱正规/弱停机</strong>的。</p>
+<p>若重写系统中任意表达式都能通过任意顺序重写为正规形式，那么该重写系统是<strong>强正规/强停机</strong>的。</p>
+<h3 id="confluence">合流性</h3>
+<p>若对于重写系统 $E$ 和任意 $a,b,c\in E$ 一旦 $b\stackrel{*}{\gets} a \stackrel{*}{\to} c$ 就存在 $d$ 使得 $b\stackrel{*}{\to} d \stackrel{*}{\gets} c$，那么 $E$ 是合流的。</p>
+<p>Church–Rosser 定理说，λ 演算具有合流性。</p>
+<h3 id="church-rosser-theorem">Church–Rosser 定理</h3>
+<p>本部分原本希望参考 <a href="https://www.cs.cornell.edu/~kozen/Papers/ChurchRosser.pdf">D. Kozen/Church–Rosser Made Easy</a><sup class="footnote-reference"><a href="#paper-proof">2</a></sup>，但其中包含了过多未声明含义的术语，且包含了今天看来不必要的步骤，例如，使用了包含序列的集合来定义树<sup class="footnote-reference"><a href="#prefix-tree">3</a></sup>，并混用术语。</p>
+<p>其列举的文献中包含了其它的证明方式。此外，你可以<a href="https://pauillac.inria.fr/~huet/PUBLIC/residuals.pdf">在此</a>找到一个使用 Coq 形式化验证的证明。</p>
+<p>以下将对证明思路进行摘要。</p>
+<p>首先，α-等价关系的刻画是易完成的。只需考虑 β-归约，全体的合法 Lambda 表达式记作 $\omega = \omega^{*}/\sim _\alpha$。</p>
+<p>一步 β-归约是之前定义的 $(\lambda x.\ a)\ b\to a[b/x]$。多步归约就是之前定义的 $\stackrel{*}{\to}$，我们重新记作 $\twoheadrightarrow$，它也可看作一步 β-归约的自反传递闭包。</p>
+<p>证明中最大的难题是归约时，内部的可归约式结构可能被破坏。</p>
+<p>为此，我们定义并行归约（parallel reduction），使用符号 $\Longrightarrow$ 标记，满足。</p>
+<ul>
+<li>$x\Longrightarrow x$</li>
+<li>若 $M\Longrightarrow M'$ 则 $\lambda x.\ M\Longrightarrow \lambda x.\ M'$</li>
+<li>若 $M\Longrightarrow M', N\Longrightarrow N'$ 则 $M\ N\Longrightarrow M'\ N'$</li>
+<li>若 $M\Longrightarrow M', N\Longrightarrow N'$ 则 $(\lambda x.\ M)N\Longrightarrow M'[N'/x]$</li>
+</ul>
+<p>容易证明并行归约是合流的。</p>
+<p>而后，存在包含关系 $(\to)\subset(\Longrightarrow)\subset(\twoheadrightarrow)=(\stackrel{*}{\Longrightarrow})$ 其中最后一点可以分别说明两边的包含关系。</p>
+<p>由此，λ 演算具有合流性。</p>
+<div class="footnote-definition" id="paper-invention"><sup class="footnote-definition-label">1</sup>
+<p>A. CHURCH, The Calculi of Lambda-Conversion (Princeton University Press, Princeton, N. J., 1941).</p>
+</div>
+<div class="footnote-definition" id="paper-proof"><sup class="footnote-definition-label">2</sup>
+<p>DOI 10.3233/FI-2010-306</p>
+</div>
+<div class="footnote-definition" id="prefix-tree"><sup class="footnote-definition-label">3</sup>
+<p><code>prefix-closed</code> 的集合需满足，对其每个元素 $s$ 均有 $s$ 的前缀在集合中。
+例如，使用 ${\epsilon, a, ab, ac, abd}$ 定义一个树的父子关系，其中 $\epsilon$ 表示空序列。</p>
+</div>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mb-1.5 mr-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mb-1.5 mr-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/计算机/">计算机</a>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/函数式编程/">函数式编程</a>
+    
+  </div>
+</footer>
+
+  <!-- Post Nav -->
+<nav class="block-bg mt-12 flex flex-wrap rounded-lg text-lg">
+  <a
+    class="block-hover-mask flex min-w-[50%] grow items-center rounded-l-md p-6 pr-3 font-semibold no-underline"
+    href="https://rratic.github.io/posts/hilbert-s-third-problem/" accesskey=","
+    ><span class="mr-1.5">&#8249;</span><span>希尔伯特第三问题：多面体剪接的 Dehn 不变量</span></a>
+  <a
+    class="block-hover-mask ml-auto flex min-w-[50%] grow items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline"
+    href="https://rratic.github.io/posts/magic-construction/" accesskey="."
+    ><span>魔术的构造</span><span class="ml-1.5">&#8250;</span></a>
+</nav>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/pages"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>
