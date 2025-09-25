@@ -18,7 +18,7 @@ tags = ["数学", "微积分学"]
 ## 数学分析
 ### 基本概念
 - 实数（实数集 $\mathbb{R}$，Archimedes 性，上界，下界，上确界 $\sup$，下确界 $\inf$）
-- 极限（级数，数列极限 $\lim_{x\to \infty}$，Fubini 定理，Riemann 重排定理）
+- 极限（级数，数列极限 $\lim_{x\to \infty}$，Stolz 定理，Fubini 定理，Riemann 重排定理）
 
 ### 一元函数
 - 基本概念（左右极限，连续性 $C^k(U)$，可导性，导数 $f'$，光滑性 $C^{\infty}(U)$，中值定理）
