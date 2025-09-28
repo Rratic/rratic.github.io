@@ -48,3 +48,7 @@ li>code {
 .quote-display {
 	cursor: pointer;
 }
+
+.quote-display {
+	user-select: none;
+}
