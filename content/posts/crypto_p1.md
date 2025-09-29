@@ -2,6 +2,7 @@
 title = "密码学（一）"
 description = "使用 Haskell 完成的 The Cryptopals Crypto Challenges - Set 1"
 date = 2025-09-22
+updated = 2025-09-29
 
 [extra]
 toc = true
@@ -20,6 +21,9 @@ tags = ["笔记", "计算机", "密码学", "Haskell"]
 
 本文实现 [The Cryptopals Crypto Challenges](https://cryptopals.com/) 的基础练习集 Set 1
 
+## 技巧
+TODO: 长行输入、获取剪贴板内容、获取指定 URL 内容
+
 ## 格式转换
 > Always operate on raw bytes, never on encoded strings. Only use hex and base64 for pretty-printing.
 
@@ -31,10 +35,13 @@ import Data.Maybe
 
 type Raw = [Bool]
 
-writeSized :: Int -> Int -> [Bool]
+readSized :: Int -> Raw -> Int
+readSized sz raw = sum [if raw !! i then 2 ^ (sz - i - 1) else 0 | i <- [0 .. sz - 1]]
+
+writeSized :: Int -> Int -> Raw
 writeSized sz int
   | sz == 0 = []
-  | otherwise = (int `mod` 2 == 1) : writeSized (sz - 1) int
+  | otherwise = writeSized (sz - 1) (int `div` 2) ++ [int `mod` 2 == 1]
 ```
 
 ### 解耦
@@ -60,7 +67,7 @@ splits len = unfoldr split
 ```
 
 ### Hex
-这里实际上存在大小端的约定问题。
+这里实际上存在大小端的约定问题。按照 Challenge 1 的结果，对 $4=(0100)_2$，按从左至右顺序排布。
 
 ```hs
 readHex :: String -> Raw
@@ -70,10 +77,50 @@ readHex = concatMap read1
       where
         table = "0123456789abcdef"
 
-(readHex "1f") == [True,False,False,False,True,True,True,True]
+writeHex :: Raw -> String
+writeHex raw = concatMap write4 (splits 4 padded)
+  where
+    padded = pad 4 raw (const False)
+    write4 seq = [table !! readSized 4 seq]
+      where
+        table = "0123456789abcdef"
 ```
 
+我们已经可以实现 Challenge 2
+
 ### Base64
-{{ todo() }}
+```hs
+writeBase64 :: Raw -> String
+writeBase64 raw = concatMap write6 (splits 6 padded)
+  where
+    padded = pad 6 raw (const False)
+    write6 seq = [table !! readSized 6 seq]
+      where
+        table = ['A' .. 'Z'] ++ ['a' .. 'z'] ++ ['0' .. '9'] ++ "+/"
+```
 
 有了这些东西我们已经可以实现 Challenge 1
+
+### Ascii
+{{ todo() }}
+
+## 文字密码
+Challenge 3 要求 do this by hand
+
+观察十六进制编码，分为两个一段，即
+```plain
+1b 37 37 33 31 36 3f 78 15 1b 7f 2b 78 34 31 33 3d 78 39 78 28 37 2d 36 3c 78 37 3e 78 3a 39 3b 37 36
+```
+
+由于 78 大量出现，猜测它是空格，再猜测 39 是 a 发现是一致的。
+
+英语词频分析的方法似乎有很多，包括[单/双/三/四字母组词频](http://practicalcryptography.com/cryptanalysis/text-characterisation/quadgrams/)、常用单词词频、首/末字母词频、双重字母词频。这里我们先使用单字母词频。
+
+{% admonition(type="warning", title="词频失真") %}
+随着 AI 生成内容的大量出现，英文词频发生了较大的失真。
+{% end %}
+
+{{ todo() }}
+
+## AES
+{{ todo() }}
