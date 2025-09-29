@@ -31,6 +31,8 @@ Set-ExecutionPolicy Bypass -Scope Process -Force;[System.Net.ServicePointManager
 
 安装完毕后，运行命令 `ghci` 就可打开交互式窗口。
 
+可以在 VSCode 中安装 Haskell 插件，它可以提供简化函数定义的功能。
+
 ## 函数与列表
 函数只接受一个输入。GHCi 中可以用 `:t` 命令查看类型。
 ```hs

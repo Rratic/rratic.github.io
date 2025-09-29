@@ -116,3 +116,36 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
     fragColor = vec4(dest1, dest2, 1.0 - dest1 * dest2, 1.0);
 }
 ```
+
+### 分形
+GLSL 不支持递归（因为需要支持不支持递归的硬件），但是我们仍然可以使用循环。
+
+一般的思路是：找到一个适合递归的结构，然后作坐标转换。
+
+以下为 Kech 雪花的示例。
+```glsl
+// 一条 (0, 0) 到 (1, 0) 的边，向上方延伸
+float kech_edge(float x, float y) {
+    float d = s3;
+    for (int i = 0; i < DEPTH; i++) {
+        if (x > 0.5) x = 1.0 - x;
+        if (y > x / s3) return 1.0;
+        if (x < 1.0 / 3.0) {
+            x *= 3.0;
+            y *= 3.0;
+        }
+        else {
+            x -= 1.0 / 3.0;
+            float y0 = (y - s3 * x) / 2.0;
+            if (y0 <= 0.0) {
+                return y0 / d;
+            }
+            float x0 = sqrt(x * x + y * y - y0 * y0);
+            x = x0 * 3.0;
+            y = y0 * 3.0;
+        }
+        d *= s3;
+    }
+    return 1.0;
+}
+```

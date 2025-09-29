@@ -34,7 +34,9 @@ profile = "rratic"
 
 ---
 
-物理知识系列：TODO
+物理知识系列：
+
+{{ todo() }}
 
 ---
 
