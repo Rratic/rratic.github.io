@@ -1,8 +1,8 @@
 +++
-title = "范畴论（一）：代数结构的各种积"
-description = "代数结构积的范畴论观点：笛卡尔积，无交并，直积，直和，积空间。"
+title = "范畴论（一）：代数上的定义对应的泛性质"
+description = "代数上的定义的范畴论观点：关于笛卡尔积，无交并，直积，直和，积空间，纤维积。"
 date = 2025-08-02
-updated = 2025-08-08
+updated = 2025-09-29
 
 [extra]
 math = true
@@ -31,21 +31,26 @@ tags = ["笔记", "数学", "范畴论"]
 ## 积与余积
 除笛卡尔积之外，我们有无交并，技术上可以定义为 $A\sqcup B = \\{(0, a)\mid a\in A\\}\cup \\{(1, b)\mid b\in B\\}$
 
+参照集合中的情形，在类型论中，有元组 $(a:A, b:B)$ 与枚举类型 $a: A \mid b: B$
+
 同样地，抽象代数中有直积与直和，直和要求只要有限个分量不是单位元。
 
 拓扑中，一族 $(X_i, \tau_i)$ 的积空间中的拓扑是使所有投影映射 $X\to X_i$ 连续的最粗拓扑。积拓扑的基可以由所有的 $\prod U_i, U_i\in\tau_i$ 其中只有有限个 $U_i\neq X_i$ 给出。
 
 这些定义实际上体现了泛性质的不同。
 
----
-
+{% admonition(type="abstract", title="积") %}
 对范畴 $\mathcal{C}$，称 $P$ 是一族 $\\{X_i\\}_{i\in I}$ 的**积**，如果存在一族态射 $\pi_i\colon P\to X_i$ 使任一族态射 $\varphi_i\colon Y\to X_i$，存在唯一的 $\phi: Y\to P$ 使 $\pi_i\circ\phi=\varphi_i$
+{% end %}
 
 特别地，$I=\emptyset$ 时定义空积为终对象。
 
 易知积在同构意义下是唯一的。
 
-积的对偶是余积（或称上积，上的译法可能来自画图时的方向），即：称 $P$ 是一族 $\\{X_i\\}_{i\in I}$ 的**余积**，如果存在一族态射 $\iota_i\colon X_i\to P$ 使任一族态射 $\varphi_i\colon X_i\to Y$，存在唯一的 $\phi: P\to Y$ 使 $\phi\circ\iota_i=\varphi_i$
+积的对偶是余积（或称上积，上的译法可能来自画图时的方向），即：
+{% admonition(type="abstract", title="余积") %}
+称 $P$ 是一族 $\\{X_i\\}_{i\in I}$ 的**余积**，如果存在一族态射 $\iota_i\colon X_i\to P$ 使任一族态射 $\varphi_i\colon X_i\to Y$，存在唯一的 $\phi: P\to Y$ 使 $\phi\circ\iota_i=\varphi_i$
+{% end %}
 
 $I=\emptyset$ 时定义空积为始对象。
 
@@ -62,22 +67,30 @@ $I=\emptyset$ 时定义空积为始对象。
 ## 拉回与推出
 在拓扑中，对一个拓扑空间 $B$，一个 $B$ 上的空间（或称 $B$-空间）是指拓扑空间 $X$ 和连续映射 $p:X\to B$，可以将它看成一族空间 $X_b=p^{-1}(b)$（称作点 $b$ 的纤维）。两个 $B$-空间的连续 $B$-映射是满足 $p'\circ f = p$ 的连续映射 $f: X\to X'$
 
-对一族 $B$-空间 $(X_i, p_i)_{i\in I}$，称它们的纤维积是：
-- 集合为 $\\{(b, (x_i)_{i\in I})\mid p_i(x_i)=b, \forall i\in I\\}$
-- 拓扑为：{{ todo() }}
+对两个 $D$-空间 $(B, f: B\to D)$ 与 $(C, g: C\to D)$，称它们的纤维积是：
 
-这对应的是拉回。
+对 $d\in D$，考虑 $B_d\times C_d$，将它们拼成一个大空间，这也是一个 $D$-空间。
 
----
+纤维积对应的是拉回。
 
+{% admonition(type="abstract", title="拉回") %}
 对于对象 $B, C, D$ 与态射 $B\to D, C\to D$，它们的**拉回**是对象 $A$ 及态射 $A\to B, A\to C$，满足泛性质：对另一组对象 $A'$ 及态射 $A'\to B, A'\to C$，存在唯一的态射 $A'\to A$ 使图表交换。
-
-可以验证：一个集合的两个子集的拉回是它们的交。
+{% end %}
 
 拉回可以由积和等化子确定。
 
+{% admonition(type="abstract", title="等化子") %}
 对 $A\overset{\quad f\quad}{\underset{g}{\rightrightarrows}} B$，称对象 $E$ 及态射 $e:E\to A$ 为它们的**等化子**，如果对任意 $z:Z\to A$ 有唯一的态射 $Z\to E$ 使图表交换。
+{% end %}
 
 观察图表即可发现拉回是 $B\times C\to D$ 的等化子。
 
-拉回、等化子的对偶是**推出**、**余等化子**。
+通过此容易写出两个集合的拉回是 $\\{(b,c)\in B\times C\mid f(b)=g(c)\\}$，可以验证：一个集合的两个子集的拉回是它们的交。
+
+使用拉回可以定义一般的核 $\ker f$ 概念。
+
+{% admonition(type="abstract", title="核") %}
+对范畴 $\mathcal{C}$ 及零对象 $0$，态射 $f: X\to Y$，$f$ 的**核**为 $f$ 与 $u:0\to Y$ 的拉回。
+{% end %}
+
+拉回、等化子、核的对偶是**推出**、**余等化子**、**余核**。
