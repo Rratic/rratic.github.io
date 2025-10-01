@@ -117,6 +117,41 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
 }
 ```
 
+### 变换
+图形的基础变换（平移、旋转、缩放）是容易完成的。
+
+一个好的例子是 [Oblivion radar](https://www.shadertoy.com/view/4s2SRt)
+
+这里包含了一些技巧
+
+对 2D 场景来说，不重合的图形可以直接不断使用加
+```glsl
+vec3 finalColor;
+finalColor += ...
+finalColor += ...
+```
+
+指针的曳尾效果部分代码整理为
+```glsl
+float movingLine(vec2 d, float radius) {
+    float theta0 = -1.2 * iTime;
+    float r = length(d);
+    if (r < radius) {
+        // 计算点 d 到 θ0 角度线的距离，但钳制为劣角
+        vec2 p = radius * vec2(cos(theta0), sin(theta0));
+        float l = length(d - p * clamp(dot(d, p) / dot(p, p), 0.0, 1.0));
+
+        // 计算角度之差并钳制角的大小
+   	 	float theta = mod(atan(d.y, d.x) - theta0, 2.0 * PI);
+        float gradient = clamp(1.0 - 1.2 * theta, 0.0, 1.0);
+
+        // 亮色部分主要利用了 smoothstep 中调用了 clamp
+        return (1.0 - smoothstep(0.0, 2.0, l)) + 0.5 * gradient;
+    }
+    else return 0.0;
+}
+```
+
 ### 分形
 GLSL 不支持递归（因为需要支持不支持递归的硬件），但是我们仍然可以使用循环。
 
