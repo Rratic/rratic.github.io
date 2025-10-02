@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <title>函数式混沌</title>
+    <meta name="description" content="基于 Lua 的复杂体系的模拟框架。">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="/style/terminal.css" type="text/css">
+    <script src="https://unpkg.com/fengari-web@0.1.4/dist/fengari-web.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
+</head>
+
+<body>
+    <div id="terminal">
+        <div class="output stream">
+        </div>
+        <div class="input">
+            <div class="line">
+                <span class="prompt">>>> </span><span class="command" contenteditable="true">/</span>
+            </div>
+        </div>
+        <div class="output fixed"></div>
+    </div>
+    <script src="/script/chaos/keydown.js"></script>
+    <script type="application/lua">
+        package.path = "/script/chaos/?.lua"
+        require("std/main")
+    </script>
+    <script src="/script/utils/color_scheme.js"></script>
+</body>
+
+</html>

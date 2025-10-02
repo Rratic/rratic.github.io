@@ -1,0 +1,389 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>着色器（二）：色彩与复杂绘制 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="着色器（二）：色彩与复杂绘制" />
+  <meta name="description" content="基于 GLSL 的 HSV 操作与经典数学对象的绘制。" />
+  <meta property="og:description" content="基于 GLSL 的 HSV 操作与经典数学对象的绘制。" />
+  <meta property="og:url" content="https://rratic.github.io/posts/shader-p2/" />
+  <link rel="canonical" href="https://rratic.github.io/posts/shader-p2/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2025-09-22T00:00:00+00:00" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="计算机" />
+  <meta property="article:tag" content="计算机图形学" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.github.io/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.github.io/style/shared.css?h=74471d1f38c46232d571" />
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.github.io/main.min.css?h=2e89f7f30f1019877d14" />
+  <style>
+  :root{--bg: white; --header: #e6f4ff; color-scheme: light;}
+  :root.dark{--bg: #424242; --header: #333333; color-scheme: dark;}
+  </style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.github.io/js/linkita.min.js?h=1dd3ed42fc674277bc34"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out bg-[var(--bg)] dark:text-white">
+  <!-- Header -->
+<header class="bg-[var(--header)] fixed top-0 z-40 mx-auto min-h-[3.25rem] w-full header-icons">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8">
+        <a title="转到主页" accesskey="!"
+          href="https://rratic.github.io/" class="text-2xl font-semibold">错行</a>
+        <button type="button" title="切换颜色方案" accesskey="$"
+          onclick="window.linkita.toggleDarkMode();" ondblclick="window.linkita.resetDarkMode();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover dark:invert [background-image:var(--icon-theme-dark)] dark:[background-image:var(--icon-theme-light)]"
+        ></button>
+      </div>
+      <div title="导航" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.linkita.toggleHeaderMenu();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.linkita.toggleHeaderMenu() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral relative mx-auto min-h-[calc(100%-4rem)]
+    max-w-3xl break-words px-4 pb-12 pt-28 lg:pt-32 dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">着色器（二）：色彩与复杂绘制</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2025-09-22T00:00:00+00:00">2025-09-22</time><span
+        class="middot"></span><time
+    datetime="PT0H2M0S">2&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+<div class="block-bg mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-4" accesskey="=">
+      <span class="cursor-pointer">目录</span>
+    </summary>
+    <div class="px-2">
+      <ul>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/shader-p2/#se-cai">色彩</a>
+          <ul>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/shader-p2/#hsv">HSV</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/shader-p2/#se-ban-sheng-cheng-suan-fa">色板生成算法</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/shader-p2/#shu-xue-hui-zhi">数学绘制</a>
+          <ul>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/shader-p2/#shi-li">示例</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/shader-p2/#bian-huan">变换</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/shader-p2/#fen-xing">分形</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </details>
+</div>
+
+  <!-- Content -->
+  <section><h2 id="se-cai">色彩</h2>
+<h3 id="hsv">HSV</h3>
+<p>HSV 是一种比较好的适用于人类视觉的颜色模型。</p>
+<p>一个颜色包含了</p>
+<ul>
+<li>色相（Hue）的范围是 0° ~ 360°，其中 0° 为红，120° 为绿，240° 为蓝</li>
+<li>饱和度（Saturation）的范围是 0% ~ 100%</li>
+<li>亮度（Value）的范围是 0% ~ 100%</li>
+</ul>
+<p>在以下讨论中，我们都归一到范围 0 ~ 1</p>
+<p>GLSL 中参数是 RGB 的，因此需要将 HSV 转为 RGB，可参考 Sam Hocevar 的代码。（可以在 <a href="https://github.com/hughsk/glsl-hsv2rgb">https://github.com/hughsk/glsl-hsv2rgb</a> 找到它的一个 npm package）</p>
+<pre data-lang="glsl" style="background-color:#fafafa;color:#61676c;" class="language-glsl "><code class="language-glsl" data-lang="glsl"><span style="color:#fa6e32;">vec3 </span><span style="color:#f29718;">hsv2rgb</span><span>(</span><span style="color:#fa6e32;">vec3 </span><span style="color:#ff8f40;">c</span><span>) {
+</span><span>    </span><span style="color:#fa6e32;">vec4</span><span> K </span><span style="color:#ed9366;">= </span><span style="color:#fa6e32;">vec4</span><span>(</span><span style="color:#ff8f40;">1.0</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">2.0 </span><span style="color:#ed9366;">/ </span><span style="color:#ff8f40;">3.0</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">1.0 </span><span style="color:#ed9366;">/ </span><span style="color:#ff8f40;">3.0</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">3.0</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">vec3</span><span> p </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">abs</span><span>(</span><span style="color:#f07171;">fract</span><span>(c</span><span style="color:#ed9366;">.</span><span>xxx </span><span style="color:#ed9366;">+</span><span> K</span><span style="color:#ed9366;">.</span><span>xyz) </span><span style="color:#ed9366;">* </span><span style="color:#ff8f40;">6.0 </span><span style="color:#ed9366;">-</span><span> K</span><span style="color:#ed9366;">.</span><span>www)</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">return</span><span> c</span><span style="color:#ed9366;">.</span><span>z </span><span style="color:#ed9366;">* </span><span style="color:#f07171;">mix</span><span>(K</span><span style="color:#ed9366;">.</span><span>xxx</span><span style="color:#61676ccc;">, </span><span style="color:#f07171;">clamp</span><span>(p </span><span style="color:#ed9366;">-</span><span> K</span><span style="color:#ed9366;">.</span><span>xxx</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">0.0</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">1.0</span><span>)</span><span style="color:#61676ccc;">,</span><span> c</span><span style="color:#ed9366;">.</span><span>y)</span><span style="color:#61676ccc;">;
+</span><span>}
+</span></code></pre>
+<h3 id="se-ban-sheng-cheng-suan-fa">色板生成算法</h3>
+<p><a href="https://ant.design/docs/spec/colors-cn">Ant Design 的色板互动页面</a></p>
+<p>参考这个帖子：<a href="https://zhuanlan.zhihu.com/p/32422584">Ant Design 色板生成算法演进之路</a>。</p>
+<p>将其中的 Javascript 代码翻译为 GLSL 如下：</p>
+<pre data-lang="glsl" style="background-color:#fafafa;color:#61676c;" class="language-glsl "><code class="language-glsl" data-lang="glsl"><span style="color:#fa6e32;">#define </span><span style="color:#399ee6;">hueStep </span><span>(</span><span style="color:#ff8f40;">1.0 </span><span style="color:#ed9366;">/ </span><span style="color:#ff8f40;">180.0</span><span>)
+</span><span style="color:#fa6e32;">float </span><span style="color:#f29718;">getHue </span><span>(</span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">h</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">i</span><span>) {
+</span><span>	</span><span style="color:#fa6e32;">if </span><span>(h </span><span style="color:#ed9366;">&gt;= </span><span style="color:#ff8f40;">1.0 </span><span style="color:#ed9366;">/ </span><span style="color:#ff8f40;">6.0 </span><span style="color:#ed9366;">&amp;&amp;</span><span> h </span><span style="color:#ed9366;">&lt;= </span><span style="color:#ff8f40;">2.0 </span><span style="color:#ed9366;">/ </span><span style="color:#ff8f40;">3.0</span><span>) { </span><span style="font-style:italic;color:#abb0b6;">// 冷色调
+</span><span>		</span><span style="font-style:italic;color:#abb0b6;">// 减淡变亮 色相顺时针旋转 更暖
+</span><span>		</span><span style="font-style:italic;color:#abb0b6;">// 加深变暗 色相逆时针旋转 更冷
+</span><span>		</span><span style="color:#fa6e32;">return</span><span> h </span><span style="color:#ed9366;">+</span><span> hueStep </span><span style="color:#ed9366;">*</span><span> i</span><span style="color:#61676ccc;">;
+</span><span>	}
+</span><span>
+</span><span>	</span><span style="font-style:italic;color:#abb0b6;">// 暖色调
+</span><span>	</span><span style="font-style:italic;color:#abb0b6;">// 减淡变亮 色相逆时针旋转 更暖
+</span><span>	</span><span style="font-style:italic;color:#abb0b6;">// 加深变暗 色相顺时针旋转 更冷
+</span><span>	</span><span style="color:#fa6e32;">return</span><span> h </span><span style="color:#ed9366;">-</span><span> hueStep </span><span style="color:#ed9366;">*</span><span> i</span><span style="color:#61676ccc;">;
+</span><span>}
+</span><span>
+</span><span style="color:#fa6e32;">float </span><span style="color:#f29718;">getSaturation </span><span>(</span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">s</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">i</span><span>) {
+</span><span>	</span><span style="font-style:italic;color:#abb0b6;">// 减淡变亮 饱和度迅速降低
+</span><span>	</span><span style="color:#fa6e32;">if </span><span>(i </span><span style="color:#ed9366;">&lt;= </span><span style="color:#ff8f40;">0.0</span><span>) {
+</span><span>		</span><span style="color:#fa6e32;">return</span><span> s </span><span style="color:#ed9366;">+ </span><span style="color:#ff8f40;">0.16 </span><span style="color:#ed9366;">*</span><span> i</span><span style="color:#61676ccc;">;
+</span><span>	}
+</span><span>
+</span><span>	</span><span style="font-style:italic;color:#abb0b6;">// 加深变暗-最暗 饱和度提高
+</span><span>	</span><span style="color:#fa6e32;">if </span><span>(i </span><span style="color:#ed9366;">&gt;= </span><span style="color:#ff8f40;">4.0</span><span>) {
+</span><span>		</span><span style="color:#fa6e32;">return</span><span> s </span><span style="color:#ed9366;">+ </span><span style="color:#ff8f40;">0.16</span><span style="color:#61676ccc;">;
+</span><span>	}
+</span><span>
+</span><span>	</span><span style="font-style:italic;color:#abb0b6;">// 加深变暗 饱和度缓慢提高
+</span><span>	</span><span style="color:#fa6e32;">return</span><span> s </span><span style="color:#ed9366;">+ </span><span style="color:#ff8f40;">0.05 </span><span style="color:#ed9366;">*</span><span> i</span><span style="color:#61676ccc;">;
+</span><span>}
+</span><span>
+</span><span style="color:#fa6e32;">float </span><span style="color:#f29718;">getValue </span><span>(</span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">v</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">i</span><span>) {
+</span><span>	</span><span style="color:#fa6e32;">if </span><span>(i </span><span style="color:#ed9366;">&lt;= </span><span style="color:#ff8f40;">0.0</span><span>) {
+</span><span>		</span><span style="color:#fa6e32;">return</span><span> v </span><span style="color:#ed9366;">- </span><span style="color:#ff8f40;">0.05 </span><span style="color:#ed9366;">*</span><span> i</span><span style="color:#61676ccc;">;
+</span><span>	}
+</span><span>
+</span><span>	</span><span style="color:#fa6e32;">return</span><span> v </span><span style="color:#ed9366;">- </span><span style="color:#ff8f40;">0.15 </span><span style="color:#ed9366;">*</span><span> i</span><span style="color:#61676ccc;">;
+</span><span>}
+</span><span>
+</span><span style="color:#fa6e32;">vec3 </span><span style="color:#f29718;">palette </span><span>(</span><span style="color:#fa6e32;">vec3 </span><span style="color:#ff8f40;">col</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">i</span><span>) {
+</span><span>	</span><span style="color:#fa6e32;">return </span><span style="color:#f29718;">hsv2rgb</span><span>(</span><span style="color:#fa6e32;">vec3</span><span>(
+</span><span>		</span><span style="color:#f29718;">getHue</span><span>(col</span><span style="color:#ed9366;">.</span><span>x</span><span style="color:#61676ccc;">,</span><span> i)</span><span style="color:#61676ccc;">,
+</span><span>		</span><span style="color:#f29718;">getSaturation</span><span>(col</span><span style="color:#ed9366;">.</span><span>y</span><span style="color:#61676ccc;">,</span><span> i)</span><span style="color:#61676ccc;">,
+</span><span>		</span><span style="color:#f29718;">getValue</span><span>(col</span><span style="color:#ed9366;">.</span><span>z</span><span style="color:#61676ccc;">,</span><span> i)
+</span><span>	))</span><span style="color:#61676ccc;">;
+</span><span>}
+</span></code></pre>
+<h2 id="shu-xue-hui-zhi">数学绘制</h2>
+<h3 id="shi-li">示例</h3>
+<p>以下代码绘制的是 Poincaré 圆盘模型中，上半平面模型的格线的对应。</p>
+<p>其想法很简单：算出逆映射并模拟。</p>
+<pre data-lang="glsl" style="background-color:#fafafa;color:#61676c;" class="language-glsl "><code class="language-glsl" data-lang="glsl"><span style="color:#fa6e32;">void </span><span style="color:#f29718;">mainImage</span><span>(</span><span style="color:#fa6e32;">out vec4 </span><span style="color:#ff8f40;">fragColor</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">in vec2 </span><span style="color:#ff8f40;">fragCoord</span><span>)
+</span><span>{
+</span><span>    </span><span style="color:#fa6e32;">vec2</span><span> uv </span><span style="color:#ed9366;">= </span><span>(fragCoord </span><span style="color:#ed9366;">* </span><span style="color:#ff8f40;">2.0 </span><span style="color:#ed9366;">-</span><span> iResolution</span><span style="color:#ed9366;">.</span><span>xy) </span><span style="color:#ed9366;">/</span><span> iResolution</span><span style="color:#ed9366;">.</span><span>y</span><span style="color:#61676ccc;">;
+</span><span>    
+</span><span>    </span><span style="color:#fa6e32;">float</span><span> l2 </span><span style="color:#ed9366;">=</span><span> uv</span><span style="color:#ed9366;">.</span><span>x </span><span style="color:#ed9366;">*</span><span> uv</span><span style="color:#ed9366;">.</span><span>x </span><span style="color:#ed9366;">+</span><span> uv</span><span style="color:#ed9366;">.</span><span>y </span><span style="color:#ed9366;">*</span><span> uv</span><span style="color:#ed9366;">.</span><span>y</span><span style="color:#61676ccc;">;
+</span><span>	
+</span><span>    </span><span style="color:#fa6e32;">if </span><span>(l2 </span><span style="color:#ed9366;">&gt; </span><span style="color:#ff8f40;">1.0</span><span>) {
+</span><span>        fragColor </span><span style="color:#ed9366;">= </span><span style="color:#fa6e32;">vec4</span><span>(</span><span style="color:#ff8f40;">0.0</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">0.0</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">0.0</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">1.0</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>        </span><span style="color:#fa6e32;">return</span><span style="color:#61676ccc;">;
+</span><span>    }
+</span><span> 
+</span><span>    uv</span><span style="color:#ed9366;">.</span><span>y </span><span style="color:#ed9366;">+= </span><span style="color:#ff8f40;">1.0</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>    l2 </span><span style="color:#ed9366;">=</span><span> uv</span><span style="color:#ed9366;">.</span><span>x </span><span style="color:#ed9366;">*</span><span> uv</span><span style="color:#ed9366;">.</span><span>x </span><span style="color:#ed9366;">+</span><span> uv</span><span style="color:#ed9366;">.</span><span>y </span><span style="color:#ed9366;">*</span><span> uv</span><span style="color:#ed9366;">.</span><span>y</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>    </span><span style="color:#fa6e32;">vec2</span><span> uv2 </span><span style="color:#ed9366;">=</span><span> uv </span><span style="color:#ed9366;">/</span><span> l2</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>    </span><span style="color:#fa6e32;">float</span><span> dest1 </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">fract</span><span>(uv2</span><span style="color:#ed9366;">.</span><span>x)</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">float</span><span> dest2 </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">fract</span><span>(uv2</span><span style="color:#ed9366;">.</span><span>y)</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>    fragColor </span><span style="color:#ed9366;">= </span><span style="color:#fa6e32;">vec4</span><span>(dest1</span><span style="color:#61676ccc;">,</span><span> dest2</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">1.0 </span><span style="color:#ed9366;">-</span><span> dest1 </span><span style="color:#ed9366;">*</span><span> dest2</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">1.0</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>}
+</span></code></pre>
+<h3 id="bian-huan">变换</h3>
+<p>图形的基础变换（平移、旋转、缩放）是容易完成的。</p>
+<p>一个好的例子是 <a href="https://www.shadertoy.com/view/4s2SRt">Oblivion radar</a></p>
+<p>这里包含了一些技巧</p>
+<p>对 2D 场景来说，不重合的图形可以直接不断使用加</p>
+<pre data-lang="glsl" style="background-color:#fafafa;color:#61676c;" class="language-glsl "><code class="language-glsl" data-lang="glsl"><span style="color:#fa6e32;">vec3</span><span> finalColor</span><span style="color:#61676ccc;">;
+</span><span>finalColor </span><span style="color:#ed9366;">+=</span><span> ...
+</span><span>finalColor </span><span style="color:#ed9366;">+=</span><span> ...
+</span></code></pre>
+<p>指针的曳尾效果部分代码整理为</p>
+<pre data-lang="glsl" style="background-color:#fafafa;color:#61676c;" class="language-glsl "><code class="language-glsl" data-lang="glsl"><span style="color:#fa6e32;">float </span><span style="color:#f29718;">movingLine</span><span>(</span><span style="color:#fa6e32;">vec2 </span><span style="color:#ff8f40;">d</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">radius</span><span>) {
+</span><span>    </span><span style="color:#fa6e32;">float</span><span> theta0 </span><span style="color:#ed9366;">= -</span><span style="color:#ff8f40;">1.2 </span><span style="color:#ed9366;">*</span><span> iTime</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">float</span><span> r </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">length</span><span>(d)</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">if </span><span>(r </span><span style="color:#ed9366;">&lt;</span><span> radius) {
+</span><span>        </span><span style="font-style:italic;color:#abb0b6;">// 计算点 d 到 θ0 角度线的距离，但钳制为劣角
+</span><span>        </span><span style="color:#fa6e32;">vec2</span><span> p </span><span style="color:#ed9366;">=</span><span> radius </span><span style="color:#ed9366;">* </span><span style="color:#fa6e32;">vec2</span><span>(</span><span style="color:#f07171;">cos</span><span>(theta0)</span><span style="color:#61676ccc;">, </span><span style="color:#f07171;">sin</span><span>(theta0))</span><span style="color:#61676ccc;">;
+</span><span>        </span><span style="color:#fa6e32;">float</span><span> l </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">length</span><span>(d </span><span style="color:#ed9366;">-</span><span> p </span><span style="color:#ed9366;">* </span><span style="color:#f07171;">clamp</span><span>(</span><span style="color:#f07171;">dot</span><span>(d</span><span style="color:#61676ccc;">,</span><span> p) </span><span style="color:#ed9366;">/ </span><span style="color:#f07171;">dot</span><span>(p</span><span style="color:#61676ccc;">,</span><span> p)</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">0.0</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">1.0</span><span>))</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>        </span><span style="font-style:italic;color:#abb0b6;">// 计算角度之差并钳制角的大小
+</span><span>   	 	</span><span style="color:#fa6e32;">float</span><span> theta </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">mod</span><span>(</span><span style="color:#f07171;">atan</span><span>(d</span><span style="color:#ed9366;">.</span><span>y</span><span style="color:#61676ccc;">,</span><span> d</span><span style="color:#ed9366;">.</span><span>x) </span><span style="color:#ed9366;">-</span><span> theta0</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">2.0 </span><span style="color:#ed9366;">*</span><span> PI)</span><span style="color:#61676ccc;">;
+</span><span>        </span><span style="color:#fa6e32;">float</span><span> gradient </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">clamp</span><span>(</span><span style="color:#ff8f40;">1.0 </span><span style="color:#ed9366;">- </span><span style="color:#ff8f40;">1.2 </span><span style="color:#ed9366;">*</span><span> theta</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">0.0</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">1.0</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>        </span><span style="font-style:italic;color:#abb0b6;">// 亮色部分主要利用了 smoothstep 中调用了 clamp
+</span><span>        </span><span style="color:#fa6e32;">return </span><span>(</span><span style="color:#ff8f40;">1.0 </span><span style="color:#ed9366;">- </span><span style="color:#f07171;">smoothstep</span><span>(</span><span style="color:#ff8f40;">0.0</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">2.0</span><span style="color:#61676ccc;">,</span><span> l)) </span><span style="color:#ed9366;">+ </span><span style="color:#ff8f40;">0.5 </span><span style="color:#ed9366;">*</span><span> gradient</span><span style="color:#61676ccc;">;
+</span><span>    }
+</span><span>    </span><span style="color:#fa6e32;">else return </span><span style="color:#ff8f40;">0.0</span><span style="color:#61676ccc;">;
+</span><span>}
+</span></code></pre>
+<h3 id="fen-xing">分形</h3>
+<p>GLSL 不支持递归（因为需要支持不支持递归的硬件），但是我们仍然可以使用循环。</p>
+<p>一般的思路是：找到一个适合递归的结构，然后作坐标转换。</p>
+<p>以下为 Kech 雪花的示例。</p>
+<pre data-lang="glsl" style="background-color:#fafafa;color:#61676c;" class="language-glsl "><code class="language-glsl" data-lang="glsl"><span style="font-style:italic;color:#abb0b6;">// 一条 (0, 0) 到 (1, 0) 的边，向上方延伸
+</span><span style="color:#fa6e32;">float </span><span style="color:#f29718;">kech_edge</span><span>(</span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">x</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">float </span><span style="color:#ff8f40;">y</span><span>) {
+</span><span>    </span><span style="color:#fa6e32;">float</span><span> d </span><span style="color:#ed9366;">=</span><span> s3</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">for </span><span>(</span><span style="color:#fa6e32;">int</span><span> i </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">;</span><span> i </span><span style="color:#ed9366;">&lt;</span><span> DEPTH</span><span style="color:#61676ccc;">;</span><span> i</span><span style="color:#ed9366;">++</span><span>) {
+</span><span>        </span><span style="color:#fa6e32;">if </span><span>(x </span><span style="color:#ed9366;">&gt; </span><span style="color:#ff8f40;">0.5</span><span>) x </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">1.0 </span><span style="color:#ed9366;">-</span><span> x</span><span style="color:#61676ccc;">;
+</span><span>        </span><span style="color:#fa6e32;">if </span><span>(y </span><span style="color:#ed9366;">&gt;</span><span> x </span><span style="color:#ed9366;">/</span><span> s3) </span><span style="color:#fa6e32;">return </span><span style="color:#ff8f40;">1.0</span><span style="color:#61676ccc;">;
+</span><span>        </span><span style="color:#fa6e32;">if </span><span>(x </span><span style="color:#ed9366;">&lt; </span><span style="color:#ff8f40;">1.0 </span><span style="color:#ed9366;">/ </span><span style="color:#ff8f40;">3.0</span><span>) {
+</span><span>            x </span><span style="color:#ed9366;">*= </span><span style="color:#ff8f40;">3.0</span><span style="color:#61676ccc;">;
+</span><span>            y </span><span style="color:#ed9366;">*= </span><span style="color:#ff8f40;">3.0</span><span style="color:#61676ccc;">;
+</span><span>        }
+</span><span>        </span><span style="color:#fa6e32;">else </span><span>{
+</span><span>            x </span><span style="color:#ed9366;">-= </span><span style="color:#ff8f40;">1.0 </span><span style="color:#ed9366;">/ </span><span style="color:#ff8f40;">3.0</span><span style="color:#61676ccc;">;
+</span><span>            </span><span style="color:#fa6e32;">float</span><span> y0 </span><span style="color:#ed9366;">= </span><span>(y </span><span style="color:#ed9366;">-</span><span> s3 </span><span style="color:#ed9366;">*</span><span> x) </span><span style="color:#ed9366;">/ </span><span style="color:#ff8f40;">2.0</span><span style="color:#61676ccc;">;
+</span><span>            </span><span style="color:#fa6e32;">if </span><span>(y0 </span><span style="color:#ed9366;">&lt;= </span><span style="color:#ff8f40;">0.0</span><span>) {
+</span><span>                </span><span style="color:#fa6e32;">return</span><span> y0 </span><span style="color:#ed9366;">/</span><span> d</span><span style="color:#61676ccc;">;
+</span><span>            }
+</span><span>            </span><span style="color:#fa6e32;">float</span><span> x0 </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">sqrt</span><span>(x </span><span style="color:#ed9366;">*</span><span> x </span><span style="color:#ed9366;">+</span><span> y </span><span style="color:#ed9366;">*</span><span> y </span><span style="color:#ed9366;">-</span><span> y0 </span><span style="color:#ed9366;">*</span><span> y0)</span><span style="color:#61676ccc;">;
+</span><span>            x </span><span style="color:#ed9366;">=</span><span> x0 </span><span style="color:#ed9366;">* </span><span style="color:#ff8f40;">3.0</span><span style="color:#61676ccc;">;
+</span><span>            y </span><span style="color:#ed9366;">=</span><span> y0 </span><span style="color:#ed9366;">* </span><span style="color:#ff8f40;">3.0</span><span style="color:#61676ccc;">;
+</span><span>        }
+</span><span>        d </span><span style="color:#ed9366;">*=</span><span> s3</span><span style="color:#61676ccc;">;
+</span><span>    }
+</span><span>    </span><span style="color:#fa6e32;">return </span><span style="color:#ff8f40;">1.0</span><span style="color:#61676ccc;">;
+</span><span>}
+</span></code></pre>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mb-1.5 mr-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/categories/杂物/">杂物</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mb-1.5 mr-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/计算机/">计算机</a>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/计算机图形学/">计算机图形学</a>
+    
+  </div>
+</footer>
+
+  <!-- Post Nav -->
+<nav class="block-bg mt-12 flex flex-wrap rounded-lg text-lg">
+  <a
+    class="block-hover-mask flex min-w-[50%] grow items-center rounded-l-md p-6 pr-3 font-semibold no-underline"
+    href="https://rratic.github.io/posts/crypto-p1/" accesskey=","
+    ><span class="mr-1.5">&#8249;</span><span>密码学（一）</span></a>
+  <a
+    class="block-hover-mask ml-auto flex min-w-[50%] grow items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline"
+    href="https://rratic.github.io/posts/shader-p1/" accesskey="."
+    ><span>着色器（一）：基础逻辑与技巧</span><span class="ml-1.5">&#8250;</span></a>
+</nav>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/pages"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>
