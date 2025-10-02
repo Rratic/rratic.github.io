@@ -2,6 +2,7 @@
 title = "域论（一）：高次方程与 Galois 理论"
 description = "关于高次方程的根式解：代数基本定理，低次方程求根公式，域扩张，Galois 扩张，Galois 群，根式可解性判断与 Abel-Ruffini 定理。"
 date = 2025-07-09
+updated = 2025-10-02
 
 [extra]
 math = true
@@ -50,6 +51,19 @@ u^3+v^3=-q \\\\
 
 之后 Niels Abel 严格证明了五次方程不存在通用根式解，Évariste Galois 彻底解决了任意次方程的可解性问题。
 
+### Lagrange 预解式
+Lagrange 在解方程时构造了辅助量。
+
+对三次方程的情形，$L_1 = x_1 + \omega x_2 + \omega^2 x_3, L_2 = x_1 + \omega^2 x_2 + \omega x_3$
+
+考察 $(x_1, x_2, x_3)$ 上的置换群，$L_1$ 与 $L_2$ 在 $A_3$ 下不变，
+
+而解二次方程 $Z^2-(L_1^3+L_2^3)Z+(L_1^3L_2^3)=0$ 的过程解决了对换。
+
+这已经暗含了对称性的思想。可阅读：[为什么要消去二次项才能解一元三次方程？ - 酱紫君的回答 - 知乎](https://www.zhihu.com/question/450445294/answer/1934019614859330183)。
+
+四次方程同样可被类似的方式解决。但 Lagrange 发现使用该方法解五次方程时，需要解一个六次方程。
+
 ## 基本概念
 ### 基本定义
 域 $F$ 是一个配备两种运算的集合，满足：
@@ -64,9 +78,13 @@ u^3+v^3=-q \\\\
 例如，$\mathbb{Q}(\sqrt{2}) = \\{a+b\sqrt{2}\mid a,b\in \mathbb{Q}\\}$ 是 $\mathbb{Q}$ 的次数为 2 的扩张，基为 $\{1, \sqrt{2}\}$，而 $\mathbb{R}/\mathbb{Q}$ 为无限扩张。
 
 ### 特征
-域 $F$ 的**特征**是使得 $n\cdot 1=0$ 成立的最小正整数 $n$，如果不存在，则称特征是 0
+域 $F$ 的**特征** $\mathrm{char}\ F$ 是使得 $n\cdot 1=0$ 成立的最小正整数 $n$，如果不存在，则称特征是 0
 
 易说明，若特征是 0，一定存在子域同构于 $\mathbb{Q}$，否则特征一定是素数，同构于子域 $F_p = Z/pZ$，并且由 $(x+y)^p = x^p+y^p$ 有 Frobenius 自同态 $x\mapsto x^p$
+
+最典型的特征 p 的域是 $F_p$，定义为整数在 mod p 意义下的代表类按照常规的加法、乘法构成的域。
+
+不那么平凡但重要的例子如下：
 
 {% admonition(type="example", title="p-进数域") %}
 对 $q=p^n \frac{a}{b}$，其中 $a$，$b$ 与 $p$ 互素，定义 p-进绝对值 $|q|_p = p^{-n}$
@@ -112,7 +130,7 @@ Galois 理论给出了域的扩张与其自同构群的联系。
 
 对域扩张 $E/F$，对自同构 $\mathrm{Aut}(E)$ 中的元素 $\sigma$，称其**保持** $F$，如果 $\sigma(a)=a, \forall a\in F$
 
-以下讨论 $n$ 次首一多项式 $f\in F[x]$ 在 $E/F$ 中分裂，所有根 $\Omega = \\{z_i\\}$ 且 $E=F(\Omega)$
+以下讨论 $n$ 次首一多项式 $f\in F[x]$ 在 $E/F$ 中分裂，所有根 $\Omega = \\{z_i\\}$ 有序且 $E=F(\Omega)$
 
 {% admonition(type="abstract", title="命题") %}
 对 $\sigma\in \mathrm{Aut}(E)$ 保持 $F$，它在 $\Omega$ 上是一个置换。
@@ -172,8 +190,6 @@ $$
 
 再由[群论（二）](/posts/group-theory-p2/)知上述为次正规群列。
 
----
-
 我们给出
 
 {% admonition(type="abstract", title="n 次方程可解性问题") %}
@@ -190,7 +206,27 @@ $$
 
 我们知道 $S_n, n\geq 5$ 不可解，因为其子群 $A_n$ 为单群（通过说明非平凡正规子群一定包含全体三轮换），不可解。
 
-### TO READ
-- [为什么要消去二次项才能解一元三次方程？](https://www.zhihu.com/question/450445294/)
-- [计算多项式的Galois群](https://zhuanlan.zhihu.com/p/622822909)
-- [mod p 约化技巧](https://www.zhihu.com/question/458961859/)
+## 计算 Galois 群
+关于一到六次方程计算 Galois 群的流程图可参考：[为什么课本上计算 Galois 群都是先求出根再计算的（不可解的除外）？ - 酱紫君的回答 - 知乎](https://www.zhihu.com/question/458961859/answer/1926427500826846761)
+
+### mod p 约化
+使用 mod p 约化技巧，有时得到一些性质
+
+过程如下：[^1]
+1. 对多项式 $f\in \mathbb{Z}[x]$，例如 $x^4+3x^2−3x−2$，取一个素数（这里是 3）
+2. 在 $F_3[x]$ 下多项式变为 $\bar{f} = x^4-2 = (x^2+x+2)(x^2+2x+2)$
+3. 其分裂域为 $F_9$，$\mathrm{Gal}(\mathbb{F}_9/\bar{f}) = Z_2$，从而 $f$ 的 Galois 群中有阶为 3 的元素
+4. 再 mod 7 做一次，知 Galois 群中有阶为 4 的元素，故为 $S_4$
+
+### 通用方法
+以下设 $f\in F[x]$ 是首一不可约可分多项式，且 $\mathrm{char}\ F\neq 2$
+
+令 $D = \prod_{1\leq i\le j\leq n}(z_i-z_j)=\begin{vmatrix} 1 & 1 & \cdots & 1\\\\  z_1 & z_2 & \cdots & z_n \\\\  \vdots & \vdots & \ddots &\vdots \\\\ z_1^{n-1} & z_2^{n-1} & \cdots &z_n^{n-1} \end{vmatrix}$
+
+它具有这样的性质：$\sigma$ 是偶置换当且仅当 $D(\sigma(\Omega)) = D(\Omega)$
+
+从而 $\mathrm{Gal}(f)\leq A_n \iff D\in F$
+
+又，$z_i, z_j$ 在 $F$ 上的极小多项式相同，有 $\mathrm{Gal}(f)$ 是传递子群。
+
+[^1]: https://math.stackexchange.com/questions/2223818/computing-a-galois-group-by-reducing-mod-p
