@@ -1,6 +1,6 @@
 +++
 title = "Haskell 学习（一）：基础内容"
-description = "Haskell 的基础语法特性概览。"
+description = "Haskell 的基础语法特性概览：函数、列表、类型。"
 date = 2025-08-26
 updated = 2025-08-27
 
@@ -22,6 +22,8 @@ tags = ["笔记", "计算机", "函数式编程", "Haskell"]
 参考的是 <https://www.bilibili.com/video/BV1pwdgYmE9L>
 
 ## 环境配置
+如果读者不想配置，可使用 <https://play.haskell.org/> 的在线运行，但它不提供交互式。
+
 参考 <https://www.haskell.org/downloads/> 的指引
 
 在 Windows 下，可使用以下 Powershell 命令

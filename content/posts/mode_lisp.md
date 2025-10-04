@@ -1,6 +1,6 @@
 +++
-title = "LISP 模式"
-description = "最早的 LISP 的核心想法、在此基础上的扩展及现状。"
+title = "LISP 模式：图灵完备及元编程"
+description = "关于最早的 LISP 的核心想法，它如何实现图灵完备及元编程，及在此基础上的扩展和现状。"
 date = 2025-03-22
 updated = 2025-03-29
 
