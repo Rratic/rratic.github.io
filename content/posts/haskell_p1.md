@@ -35,8 +35,25 @@ Set-ExecutionPolicy Bypass -Scope Process -Force;[System.Net.ServicePointManager
 
 可以在 VSCode 中安装 Haskell 插件，它可以提供简化函数定义的功能。
 
-## 函数与列表
-函数只接受一个输入。GHCi 中可以用 `:t` 命令查看类型。
+## 类型
+### 值
+Haskell 是一个强类型语言，每一个值都有类型。但我们无法去对类型本身进行操作，因此不讨论类型的类型。
+
+GHCi 中可以用 `:t` 命令查看类型。
+
+```hs
+ghci> :t 0
+0 :: Num a => a
+ghci> :t 0::Integer
+0::Integer :: Integer
+ghci> :t 0::Int
+0::Int :: Int
+```
+
+### 函数
+类似于[无类型 λ 演算](/posts/lambda-calculus/)中的定义，Haskell 中的函数“只接受一个参数”。
+
+例如
 ```hs
 ghci> :t isUpper
 isUpper :: Char -> Bool
@@ -55,14 +72,18 @@ ghci> isUpper "abc"
       In an equation for ‘it’: it = isUpper "abc"
 ```
 
-括号表示元组，例如
+这个函数接受一个 `Char` 类型参数，返回一个 `Bool` 类型的值。
+
+Haskell 中实际上存在元组，对应的泛性质是[积](/posts/category-theory-p1/#product-and-coproduct)。
+
+用括号表示元组，例如
 ```hs
 ghci> addInt (a, b) = a + b
 ghci> addInt (101, 103)
 204
 ```
 
-但这不是正确的 Haskell 使用方式。我们应当这样：
+但这不是正确的 Haskell 使用方式。我们应当使用 Curry 化：
 ```hs
 ghci> addInt a b = a + b
 ghci> :t addInt
@@ -76,7 +97,8 @@ ghci> (incr . incr) 10
 12
 ```
 
-列表
+## 列表
+### 构造
 ```hs
 ghci> 0 : [1,2,3] ++ [4,5]
 [0,1,2,3,4,5]
@@ -90,11 +112,14 @@ ghci> ['A'..'Z']
 ```hs
 ghci> [1..] -- 使用 Ctrl + C 打断输出
 [1,2,3,4,5,6,7,8,9,1Interrupted.
+ghci> :t [1..]
+[1..] :: (Num a, Enum a) => [a]
 ghci> take 10 [1..]
 [1,2,3,4,5,6,7,8,9,10]
 ```
 
-这里可以使用列表构造的语法糖，在竖杠左侧为值，右边为符合的条件。这类似于集合的一种表达方式。
+### 列表推导式
+这是一种语法糖。在竖杠左侧为值，右边为符合的条件。这类似于集合的一种表达方式。
 ```hs
 ghci> map (+1) [1..10]
 [2,3,4,5,6,7,8,9,10,11]
@@ -105,6 +130,9 @@ ghci> filter' p xs = [ n | n <- xs, p n ]
 ghci> filter' even [1..10]
 [2,4,6,8,10]
 ```
+
+### 应用
+`String` 其实是 `[Char]` 的别名。
 
 让我们做一些大一点的东西。
 
@@ -144,7 +172,8 @@ ghci> unused "Hello, world!"
 [('D',1),('E',1),('H',1),('L',3),('O',2),('R',1),('W',1)]
 ```
 
-## 类型
+## 自定义类型
+### 新类型
 我们可以定义类型别名，或基于原类型定义新类型
 ```hs
 ghci> type Id = Int
@@ -200,7 +229,7 @@ data Person = Person {
 }
 ```
 
-## 类型类
+### 类型类
 我们之前用到了 `show`，可以将数据变为显示的字符串
 ```hs
 ghci> show 'A'
@@ -268,7 +297,8 @@ ghci> Q (-1) 10 + Q 1 2
 2/5
 ```
 
-## 折叠
+## 高阶函数
+### 折叠
 `foldl` 与 `foldr` 是有趣的函数。
 ```hs
 ghci> :t foldr
