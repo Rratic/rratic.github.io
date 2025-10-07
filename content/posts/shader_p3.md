@@ -34,7 +34,7 @@ float res = fract(sin(x) * 100000.0);
 在 2D 情形下，需要采取不可约的系数（读者可自行测试 `col = vec3(fract(sin(uv.x) * 100000.0 + sin(uv.y) * 100.0));` 的结果）
 ```glsl
 float random(vec2 uv) {
-	return fract(sin(dot(uv.xy, vec2(11.9898,78.233))) * 43758.5453123);
+	return fract(sin(dot(uv.xy, vec2(11.9898, 78.233))) * 43758.5453123);
 }
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord)
@@ -45,7 +45,13 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
 }
 ```
 
-这种随机结果的更多应用参加 <https://thebookofshaders.com/10/>
+这种随机结果的更多应用参见 <https://thebookofshaders.com/10/>
+
+可以把一个系数调得很小，产生在该方向上长条形的效果。
+
+{% admonition(type="tip", title="提示") %}
+如果你希望保持长条形的效果但将它改为曲线，则不应在浮点数上操作，而是在原来的像素整点上操作到整点再使用。
+{% end %}
 
 ## 噪声
 上述的随机生成确实保证了随机性，类似于白噪声，但我们通常希望看到更平滑的图像。

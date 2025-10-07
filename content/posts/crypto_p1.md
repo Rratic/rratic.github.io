@@ -1,8 +1,8 @@
 +++
-title = "【草稿】密码学（一）：古典密码与 AES"
+title = "【草稿】密码学（一）：异或密码与 AES"
 description = "使用 Haskell 完成的 The Cryptopals Crypto Challenges - Set 1"
 date = 2025-09-22
-updated = 2025-09-29
+updated = 2025-10-07
 
 [extra]
 toc = true
@@ -78,10 +78,10 @@ readHex = concatMap read1
         table = "0123456789abcdef"
 
 writeHex :: Raw -> String
-writeHex raw = concatMap write4 (splits 4 padded)
+writeHex raw = map write4 (splits 4 padded)
   where
     padded = pad 4 raw (const False)
-    write4 seq = [table !! readSized 4 seq]
+    write4 seq = table !! readSized 4 seq
       where
         table = "0123456789abcdef"
 ```
@@ -91,10 +91,10 @@ writeHex raw = concatMap write4 (splits 4 padded)
 ### Base64
 ```hs
 writeBase64 :: Raw -> String
-writeBase64 raw = concatMap write6 (splits 6 padded)
+writeBase64 raw = map write6 (splits 6 padded)
   where
     padded = pad 6 raw (const False)
-    write6 seq = [table !! readSized 6 seq]
+    write6 seq = table !! readSized 6 seq
       where
         table = ['A' .. 'Z'] ++ ['a' .. 'z'] ++ ['0' .. '9'] ++ "+/"
 ```
@@ -102,7 +102,13 @@ writeBase64 raw = concatMap write6 (splits 6 padded)
 有了这些东西我们已经可以实现 Challenge 1
 
 ### Ascii
-{{ todo() }}
+```hs
+writeAscii :: Raw -> String
+writeAscii raw = map write8 (splits 8 padded)
+  where
+    padded = pad 8 raw (const False)
+    write8 seq = chr $ readSized 8 seq
+```
 
 ## 文字密码
 Challenge 3 要求 do this by hand
@@ -120,7 +126,44 @@ Challenge 3 要求 do this by hand
 随着 AI 生成内容的大量出现，英文词频发生了较大的失真。
 {% end %}
 
-{{ todo() }}
+```hs
+evalPhrase :: String -> Float
+evalPhrase str = sum $ map eval1 str
+  where
+    eval1 c
+      | c == ' ' = 0.1918182
+      | isAsciiLower c = table !! (ord c - ord 'a')
+      | isAsciiUpper c = table !! (ord c - ord 'A')
+      | otherwise = 0.0
+    table =
+      [ 0.0651738,
+        0.0124248,
+        0.0217339,
+        0.0349835,
+        0.1041442,
+        0.0197881,
+        0.0158610,
+        0.0492888,
+        0.0558094,
+        0.0009033,
+        0.0050529,
+        0.0331490,
+        0.0202124,
+        0.0564513,
+        0.0596302,
+        0.0137645,
+        0.0008606,
+        0.0497563,
+        0.0515760,
+        0.0729357,
+        0.0225134,
+        0.0082903,
+        0.0171272,
+        0.0013692,
+        0.0145984,
+        0.0007836
+      ]
+```
 
 ## AES
 {{ todo() }}
