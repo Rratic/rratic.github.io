@@ -18,4 +18,5 @@ tags = ["数学", "代数", "抽象代数", "域论"]
 ## Galois 理论
 - Galois 扩张
 - Galois 群（Galois 群 $\rm{Gal}(E/F)$，根式可解性判断，Abel-Ruffini 定理）
+	- 可阅读 [**域论（一）**](/posts/field-theory-p1/)
 - 微分 Galois 理论（Liouville 定理，Risch 算法）

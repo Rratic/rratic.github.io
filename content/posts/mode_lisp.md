@@ -586,6 +586,7 @@ Richard P. Gabriel 提出了[^6]两种设计理念的不同。
 > does not complicate the definition of eval very much, but it may make compilers
 > harder to write.
 
+## 注释 {#footnotes}
 [^1]: ``Recursive Functions of Symbolic Expressions and Their Computation by Machine, Part1.'' Communication of the ACM 3:4, April 1960, pp. 184-195.
 [^feature]: 在现实中，生物、语言等具有更复杂的此种特性。
 [^only-seven]: 原文如此，但不借助 `lambda` 等记号完成 `eval` 的递归特性似乎是不可能的。

@@ -229,4 +229,5 @@ $$
 
 又，$z_i, z_j$ 在 $F$ 上的极小多项式相同，有 $\mathrm{Gal}(f)$ 是传递子群。
 
+## 注释
 [^1]: https://math.stackexchange.com/questions/2223818/computing-a-galois-group-by-reducing-mod-p

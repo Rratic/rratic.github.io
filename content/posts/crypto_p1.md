@@ -19,6 +19,8 @@ tags = ["笔记", "计算机", "密码学", "Haskell"]
 
 关于密码学一个很好的书是 *Real World Cryptography*，兼具细节和高观点。但本文不会涉及太复杂的内容。
 
+OverTheWire 提供的 [Krypton](https://overthewire.org/wargames/krypton/) 也是一个在线练习平台，但是内容过少。
+
 本文实现 [The Cryptopals Crypto Challenges](https://cryptopals.com/) 的基础练习集 Set 1
 
 ## 技巧
