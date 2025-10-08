@@ -4,6 +4,9 @@ description = "一个纯粹实验性、无实质内容的项目"
 date = 2025-05-06
 updated = 2025-08-03
 
+[extra.cover]
+image = "/images/cover/seniorious.png"
+
 [taxonomies]
 categories = ["杂物"]
 tags = ["发布", "说明", "展示", "计算机", "含模拟", "在线", "Lua"]
@@ -18,7 +21,11 @@ tags = ["发布", "说明", "展示", "计算机", "含模拟", "在线", "Lua"]
 	}
 </style>
 
-[函数式混沌](/playground/chaos.html)
+封面图为珂朵莉持有的圣剑「瑟尼欧里斯」，在设定中由 41 个形如“感冒发烧时睡觉不会做噩梦”、“在喝茶时不会被茶烫到舌头”的护符组成，异稟是“将对手化为死者”。
+
+---
+
+本文章对应的在线项目见于 [函数式混沌](/playground/chaos.html)
 
 一个基于此想法但 API 不同的项目见于 [Milfoil](https://github.com/FoamWorld/milfoil).
 

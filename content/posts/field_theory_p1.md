@@ -8,6 +8,9 @@ updated = 2025-10-02
 math = true
 toc = true
 
+[extra.cover]
+image = "/images/cover/galois_theory.png"
+
 [extra.sitemap]
 priority = "0.8"
 
@@ -15,6 +18,10 @@ priority = "0.8"
 categories = ["知识"]
 tags = ["笔记", "数学", "代数", "域论", "Galois 理论"]
 +++
+
+封面图来自知乎上阐释的一个[使用拓扑 Galois 理论的证明](https://www.zhihu.com/question/29316970/answer/151649630)。
+
+---
 
 前置知识
 - 数学分析

@@ -7,6 +7,9 @@ updated = 2025-08-27
 [extra]
 toc = true
 
+[extra.cover]
+image = "/images/cover/haskell_p1.png"
+
 [extra.sitemap]
 priority = "0.8"
 
@@ -14,6 +17,10 @@ priority = "0.8"
 categories = ["知识"]
 tags = ["笔记", "计算机", "函数式编程", "Haskell"]
 +++
+
+封面图为 Haskell 实现的快速排序算法，使用字体 JetBrains Mono.
+
+---
 
 前置知识
 - 一般的编程基础
