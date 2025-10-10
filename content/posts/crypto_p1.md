@@ -116,7 +116,7 @@ writeAscii raw = map write8 (splits 8 padded)
 Challenge 3 要求 do this by hand
 
 观察十六进制编码，分为两个一段，即
-```plain
+```txt
 1b 37 37 33 31 36 3f 78 15 1b 7f 2b 78 34 31 33 3d 78 39 78 28 37 2d 36 3c 78 37 3e 78 3a 39 3b 37 36
 ```
 

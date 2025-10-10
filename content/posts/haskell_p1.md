@@ -305,6 +305,27 @@ ghci> Q (-1) 10 + Q 1 2
 ```
 
 ## 高阶函数
+高阶函数是指参数或返回值中有类型是函数的函数。
+
+一个典型的简单例子是 `flip`
+```hs
+ghci> :t flip
+flip :: (a -> b -> c) -> b -> a -> c
+ghci> flip (\x y -> x) 'x' 'y'
+'y'
+ghci> (+++) = flip $ foldr (:)
+ghci> "Hello, " +++ "world!"
+"Hello, world!"
+```
+
+`map` 是常用的函数
+```hs
+ghci> map (\x -> [x, 2*x]) [1..3]
+[[1,2],[2,4],[3,6]]
+ghci> concatMap (\x -> [x, 2*x]) [1..3]
+[1,2,2,4,3,6]
+```
+
 ### 折叠
 `foldl` 与 `foldr` 是有趣的函数。
 ```hs
