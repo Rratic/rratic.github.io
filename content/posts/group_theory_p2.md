@@ -175,4 +175,4 @@ $$G = H_0 \triangleright H_1 \triangleright H_2 \cdots H_m = \\{e\\}$$
 存在一些归纳的证法。同时可以抽象成短正合列说明。
 
 ## 注释
-[^1]: https://www.jaapsch.net/puzzles/schreier.htm
+[^1]: [Computational Group theory](https://www.jaapsch.net/puzzles/schreier.htm)

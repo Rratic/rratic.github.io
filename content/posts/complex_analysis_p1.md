@@ -1,5 +1,5 @@
 +++
-title = "复分析（一）：速通"
+title = "复分析（一）：速通指南"
 description = "复变函数重要概念的速通，计划写到 Riemann 单值化定理。"
 date = 2025-07-27
 updated = 2025-10-10
@@ -66,7 +66,7 @@ $$
 
 定义全微分是指：
 
-$$\mathrm{d}f = \mathrm{d}u + \mathrm{i}\mathrm{d}v = \frac{\partial f}{\partial x}\mathrm{d}x + \frac{\partial f}{\partial y}\mathrm{d}y$$
+$$\mathrm{d}f = \mathrm{d}u + \mathrm{i}\cdot\mathrm{d}v = \frac{\partial f}{\partial x}\mathrm{d}x + \frac{\partial f}{\partial y}\mathrm{d}y$$
 
 ### 性质良好函数
 若函数 $f$ 在区域 $D$ 内每一点都是复可导的，则称其为 $D$ 上的**全纯函数**。
@@ -144,8 +144,6 @@ $f$ 为区域 $D$ 上的处处非 0 全纯函数，则存在 $g^n = f$
 
 取 $\exp(\frac{1}{n}\ln(f))$ 即可。
 
----
-
 {% admonition(type="abstract", title="保角性") %}
 全纯函数是保角的，也就是说 $z_1(t)$ 与 $z_2(t)$ 的夹角等于 $f(z_1(t))$ 与 $f(z_2(t))$ 
 {% end %}
@@ -172,12 +170,17 @@ $f$ 为区域 $D$ 上的处处非 0 全纯函数，则存在 $g^n = f$
 
 取 $\frac{1}{r} = \lim_{n \to \infty}\sup\sqrt[n]{|a_n|}$.
 
-### 连续映射 {#continuous-mapping}
-点集拓扑告诉我们，连续映射把紧集映成紧集。因而对紧集到 $\mathbb{R}$ 的映射 $f$，像是紧集，从而是闭集，从而有最大、最小值。一般来说，可以对 $z\mapsto |f(z)|$ 使用这个定理。
+### 多值函数
+不严格地说，多值函数 $F: \Omega \to \mathbb{C}$ 中的值是复数构成的集合。
 
-称两个度量空间间的函数 $f$ 一致连续，如果 $\forall\epsilon>0: \exists\delta>0, \forall (x_1, x_2): d(x_1, x_2)<\delta \implies d'(f(x_1), f(x_2))<\epsilon$
+例如，因为复数上的 $\exp$ 不是单的，它的反函数形如 $\mathrm{Ln} (r\cdot e^{\mathrm{i}\theta}) = \mathrm{Ln} r + \mathrm{i}\theta$
 
-由数学分析易知紧集上连续函数是一致连续的。
+一般来说，我们希望找到它的一个单值分支 $f$，即在 $\Omega$ 上有 $f(z)\in F(z)$ 且它是解析的。
+
+例如，在 $\mathbb{C}$ 去掉一个原点引出的射线这一区域上，$\mathrm{Ln}$ 是可以定义单值分支的。
+
+TODO
+- Riemann 面
 
 ## 复平面
 ### 扩充复平面

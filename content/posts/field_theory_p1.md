@@ -24,7 +24,6 @@ tags = ["笔记", "数学", "代数", "域论", "Galois 理论"]
 ---
 
 前置知识
-- 数学分析
 - 线性代数
 - [群论（二）](/posts/group-theory-p2/)
 
@@ -34,9 +33,9 @@ tags = ["笔记", "数学", "代数", "域论", "Galois 理论"]
 一个复系数 $n$ 次多项式 $P(z)$ 恰有 $n$ 个复根（计入重数）。
 {% end %}
 
-只需证明非常值复系数多项式有根。以下给出 Frode Terkelsen 的一个简短初等证明。
+只需证明非常值复系数多项式有根。以下给出 Frode Terkelsen 的一个简短且较为初等的证明。
 
-[由数学分析](/posts/complex-analysis-p1/#continuous-mapping)知 $|P(z)|$ 有最小值，若最小值非零，不妨设其为 $|P(0)| = 1$
+由分析[^continuous-mapping]知 $|P(z)|$ 有最小值，若最小值非零，不妨设其为 $|P(0)| = 1$
 
 设 $P(z) = 1+az^n+z^{n+1}Q(z), a\neq 0$
 
@@ -237,4 +236,6 @@ $$
 又，$z_i, z_j$ 在 $F$ 上的极小多项式相同，有 $\mathrm{Gal}(f)$ 是传递子群。
 
 ## 注释
-[^1]: https://math.stackexchange.com/questions/2223818/computing-a-galois-group-by-reducing-mod-p
+[^continuous-mapping]: 点集拓扑告诉我们，连续映射把紧集映成紧集。因而对紧集到 $\mathbb{R}$ 的映射 $f$，像是紧集，从而是闭集，从而有最大、最小值。一般来说，可以对 $z\mapsto |f(z)|$ 使用这个定理。我们称两个度量空间间的函数 $f$ 一致连续，如果 $\forall\epsilon>0: \exists\delta>0, \forall (x_1, x_2): d(x_1, x_2)<\delta \implies d'(f(x_1), f(x_2))<\epsilon$，易知紧集上连续函数是一致连续的。
+
+[^1]: [Mathematics Stack Exchange: Computing a Galois Group by Reducing Mod P](https://math.stackexchange.com/questions/2223818/computing-a-galois-group-by-reducing-mod-p)
