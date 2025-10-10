@@ -114,19 +114,17 @@ $$
 \end{matrix}\right.
 $$
 
-{% admonition(type="abstract", title="性质") %}
+{% admonition(type="abstract", title="共轭调和函数") %}
 单连通区域 $\Omega$，对任意调和函数 $u$，存在函数 $v$ 为它的共轭调和，且 $v$ 在差一个常数下是唯一的。
 {% end %}
 
 定义 $\omega = \frac{\partial u}{\partial x}\mathrm{d}y - \frac{\partial u}{\partial y}\mathrm{d}x$
 
-有 $\mathrm{d}\omega = \left(\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2}\right)\mathrm{d}x\wedge \mathrm{d}y = 0$
+有 $\mathrm{d}\omega = \left(\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2}\right)\mathrm{d}x\wedge \mathrm{d}y = 0$（我们会在之后给出路径积分的定义）
 
 对区域 $D\subset \Omega$，有 $\int_{\partial D} \omega = \int_{D}\rm{d}\omega = 0$
 
-这个结论说明路径积分只与起点、终点有关，而与选取的路径无关（我们会在之后给出路径积分的定义）
-
-有 $v(x, y) = \int_{(x_0, y_0)}^{(x, y)}\omega$ 即可（差一个常数下）。
+取 $v(x, y) = \int_{(x_0, y_0)}^{(x, y)}\omega$ 即可（差一个常数下）。
 
 ---
 
@@ -207,7 +205,7 @@ $$
 
 可由典型变换平移、位似、伊朗式反演复合得到。
 
-{% admonition(type="abstract", title="性质") %}
+{% admonition(type="abstract", title="唯一确定") %}
 对不同的三点 $z_i$ 及不同的三点 $w_i$，恰存在一个分式线性变换使 $f(z_i) = w_i$
 {% end %}
 
@@ -236,6 +234,43 @@ $$
 
 $$\int_{\gamma} f(z) dz = \int_{[a, b]} f(\gamma(z)) \mathrm{d}\gamma(z) = \int_{[a, b]} f(\gamma(z))\gamma'(z) \mathrm{d}z$$
 
-我们在之前已说明，如果函数在单连通区域上都有定义，则路径积分只与起点、终点有关，而与选取的路径无关。
+或者，
 
+$$\int_{\gamma} (u+\mathrm{i}v)(\mathrm{d}x+\mathrm{i}\cdot\mathrm{d}y) = \int_{\gamma} (u\mathrm{d}x-v\mathrm{d}y) + \mathrm{i}\int_{\gamma} (u\mathrm{d}y+v\mathrm{d}x)$$
+
+现在给一些具体的例子，
+
+对闭曲线 $\gamma$ 和 $n\neq -1$，有
+
+$$\oint_{\gamma}z^n \mathrm{d}z = \int_{\gamma}\frac{1}{n+1} \mathrm{d}z^{n+1} = 0$$
+
+$n = -1$ 时考虑曲线 $\gamma: [0, 2\pi]\to\mathbb{C}, \theta\mapsto re^{\mathrm{i}\theta}$，换元知积分结果 $2\pi\mathrm{i}$；若原点不在曲线内部，则化为 $\oint \mathrm{d}\ \mathrm{Ln}z = 0$；通过曲线加减法可以推知，对所有把 0 包含在内部的闭曲线，积分结果均为 $2\pi\mathrm{i}$
+
+我们来说明一个更一般的结论
+
+{% admonition(type="abstract", title="Cauchy 定理") %}
+有界区域 $\Omega$ 以有限段光滑曲线为边界，对 $f$ 在 $\bar{\Omega}$ 上连续，在 $\Omega$ 内解析，则有
+
+$$\int_{\partial \Omega} f(z)\mathrm{d}z = 0$$
+
+这将说明路径积分的值只与起点、终点有关，而与选取的路径无关。
+{% end %}
+
+证明的大致思想是说，可以把一个三角形上的路径积分转化为它按中点分割成的四个三角形上的路径积分之和。
+
+{% admonition(type="abstract", title="Cauchy 公式") %}
+有界区域 $\Omega$ 以有限段光滑曲线为边界，对 $f$ 在 $\bar{\Omega}$ 上连续，在 $\Omega$ 内解析，则对 $z\in\Omega$
+
+$$f(z) = \frac{1}{2\pi\mathrm{i}}\int_{\partial \Omega}\frac{f(w)}{w-z}\mathrm{d}w$$
+{% end %}
+
+这是因为我们可以取 $\epsilon>0$ 使 $\bar{D(z, \epsilon)}\subset\Omega$
+
+故 $\mathrm{RHS} = \frac{1}{2\pi\mathrm{i}}\int_{|w-z|=\epsilon}\frac{f(w)}{w-z}\mathrm{d}w$
+
+令 $f(w) = f(z) + f'(z) + \rho(w, z)(w-z)$，其中 $\lim_{w\to z}\rho(w, z) = 0$
+
+有 $\int_{|w-z|=\epsilon}f'(z)\mathrm{d}w = 0$，而 $\int_{|w-z|=\epsilon}\rho(w, z)\mathrm{d}w$ 是常数且随 $\epsilon\to 0$ 趋向于 0，原式得证。
+
+### 应用幂级数
 {{ todo() }}
