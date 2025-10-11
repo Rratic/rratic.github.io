@@ -51,9 +51,7 @@ tags = ["笔记", "数学", "分析", "复分析"]
 
 以类似的方式，我们可以定义导数。
 
-复值函数 $f = u + \mathrm{i}v$ 在 $x+y\mathrm{i}$ 处可导的充要条件是
-
-$\frac{\partial u}{\partial x}, \frac{\partial u}{\partial y}, \frac{\partial v}{\partial x}, \frac{\partial v}{\partial y}$ 在 $z$ 处存在，且
+易知，复值函数 $f = u + \mathrm{i}v$ 在 $x+y\mathrm{i}$ 处可导的充要条件是：$\frac{\partial u}{\partial x}, \frac{\partial u}{\partial y}, \frac{\partial v}{\partial x}, \frac{\partial v}{\partial y}$ 在 $z$ 处存在，且
 
 $$
 \left\\{\begin{matrix}
@@ -71,7 +69,7 @@ $$\mathrm{d}f = \mathrm{d}u + \mathrm{i}\cdot\mathrm{d}v = \frac{\partial f}{\pa
 ### 性质良好函数
 若函数 $f$ 在区域 $D$ 内每一点都是复可导的，则称其为 $D$ 上的**全纯函数**。
 
-若 $f$ 在区域 $D$ 内每一点都可展开为幂级数，则称它是**解析**的。
+若 $f$ 在区域 $D$ 内每一点 $z_0$，都可在它的邻域上展开为 $z-z_0$ 的幂级数，则称它在 $D$ 上是**解析**的。
 
 我们在之后将说明，全纯函数的导数仍然是全纯的，并且全纯函数和解析函数是等价的条件。
 
@@ -272,5 +270,49 @@ $$f(z) = \frac{1}{2\pi\mathrm{i}}\int_{\partial \Omega}\frac{f(w)}{w-z}\mathrm{d
 
 有 $\int_{|w-z|=\epsilon}f'(z)\mathrm{d}w = 0$，而 $\int_{|w-z|=\epsilon}\rho(w, z)\mathrm{d}w$ 是常数且随 $\epsilon\to 0$ 趋向于 0，原式得证。
 
+### 等价性
+我们现在可以证明全纯函数和解析函数是等价的条件了。
+
+解析推全纯是容易的，因为幂级数在收敛半径内全纯。
+
+若已知全纯，对 $z_0\in\Omega$，取充分小的 $r$ 使 $\bar{D(z_0, r)}\subset\Omega$，则由 Cauchy 公式，
+
+$$f(z) = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = r}\frac{f(w)}{w-z}\mathrm{d}w$$
+
+而由
+
+$$\frac{1}{w-z} = \frac{1}{w-z_0}\cdot\sum_{n=0}^{+\infty}\left(\frac{z-z_0}{w-z_0}\right)^n$$
+
+且该级数是一致收敛的，可写成
+
+$$f(z) = \sum_{n=0}^{+\infty} \frac{1}{2\pi\mathrm{i}}(z-z_0)^n\int_{|w-z_0| = r}\frac{f(w)}{(w-z_0)^{n+1}}\mathrm{d}w$$
+
+即所求的幂级数。可喜可贺！
+
+进一步地，若 $f$ 是全纯的，则 $u, v$ 都是实解析的。
+
+{% admonition(type="abstract", title="Morera 定理") %}
+对区域 $\Omega$ 与其上的连续函数 $f$，一下两个条件等价
+1. $f$ 在 $\Omega$ 内解析
+2. 对 $\Omega$ 内任意逐段光滑曲线围成的有界区域 $D$ 使 $\bar{D}\subset\Omega$，有 $\int_{\partial D}f(w)\mathrm{d}w = 0$
+{% end %}
+
+1 推 2 是 Cauchy 定理。
+
+对于2 推 1，我们考虑任意 $z_0\in\Omega$ 及 $\epsilon>0$ 使 $D(z_0, \epsilon)\subset\Omega$ 让 $f$ 在上面是解析的。
+
+对该邻域中的点 $z$，令 $F(z) = \int_{z_0}^z f(w)\mathrm{d}w$，它是良定义的。
+
+可证 $F$ 在该邻域内可导，且 $F'=f$，从而 $F$ 是解析的，从而 $f$ 是解析的。
+
+其中的一部分结论整理如下：
+
+{% admonition(type="abstract", title="存在原函数") %}
+对单连通区域 $D$ 和它上的解析函数 $f$，则存在它上的函数 $F$ 使 $F'=f$
+{% end %}
+
+对非单连通区域，有反例：$\mathbb{C}-\\{0\\}$ 上的 $f: z\mapsto \frac{1}{z}$
+
 ### 应用幂级数
+
 {{ todo() }}
