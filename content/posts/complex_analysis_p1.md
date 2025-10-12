@@ -314,5 +314,60 @@ $$f(z) = \sum_{n=0}^{+\infty} \frac{1}{2\pi\mathrm{i}}(z-z_0)^n\int_{|w-z_0| = r
 对非单连通区域，有反例：$\mathbb{C}-\\{0\\}$ 上的 $f: z\mapsto \frac{1}{z}$
 
 ### 应用幂级数
+对一个指定的区域 $\Omega$ 上的解析函数 $f$，令 $S = \\{z\in\Omega\mid f'(z) = f''(z) = \cdots = 0 \\}$
+
+由连续性知 $\\{f^{(n)}(z) = 0\\}$ 为闭集，从而 $S$ 为闭集。
+
+又，对 $z_0\in S$ 有 $f$ 在其一个邻域内可展成幂级数，对应的 $D(z_0, \epsilon)\subset S$，知 $S$ 为开集。
+
+从而，若 $S$ 非空，那么它就是整个 $\Omega$，从而 $f$ 在 $\Omega$ 上是常值的。
+
+这就给出了结论：对区域 $\Omega$ 上的非常值解析函数 $f$ 及任一点 $z_0$，存在一个自然数 $m$，使
+* $f'(z_0) = \cdots = f^{(n-1)}(z_0) = 0$
+* $f^{(n)}(z_0) \neq 0$
+
+此时称 $z_0$ 为 $m$ 阶零点。
+
+从而，在 $z_0$ 的某个邻域上有 $f(z) - f(z_0) = (z-z_0)^m g(z)$，其中 $g$ 解析且 $g(z_0) \neq 0$
+
+这将给出如下结论：
+
+{% admonition(type="abstract", title="零点孤立性") %}
+对区域 $\Omega$ 上的非常值解析函数 $f$，其零点是孤立的。
+{% end %}
+
+我们取 $\epsilon>0$ 使 $g$ 在对应的圆盘上处处不为 0.
+
+---
+
+进而，我们有：
+
+{% admonition(type="abstract", title="解析函数的刚性/唯一性定理") %}
+区域 $\Omega$ 上的解析函数 $f, g$，若存在点列 $\\{z_n\\}$ 且它有 $\Omega$ 内的极限点，则 $\Omega$ 上 $f\equiv g$.
+{% end %}
+
+这是因为该极限点不是 $f-g$ 的孤立零点。
+
+如果极限点不在 $\Omega$ 内，则有反例 $f: z\mapsto \sin \frac{1}{z}, g: z\mapsto 0, z_n = \frac{1}{n\pi}$
+
+{{ todo() }}
+
+### 代数基本定理
+我们来使用开映射定理：
+
+{% admonition(type="abstract", title="最大模原理") %}
+对区域 $\Omega$ 上的非常值解析函数 $f$，$|f(z)|$ 在 $\Omega$ 内无最大值点。
+{% end %}
+
+因为 $f(z_0)$ 是 $f(D(z_0, \epsilon))$ 的内点。
+
+{% admonition(type="abstract", title="代数基本定理") %}
+$n$ 次多项式 $P(z) = a_nz^n+\cdots+a_0$ 在 $\mathbb{C}$ 中有零点。
+{% end %}
+
+法一：
+> 由 $\lim_{n\to\infty} |P(z)| = +\infty$，存在 $R$ 使 $\min \\{|P(z)|\mid |z|=R\\}>|P(0)|$
+>
+> 设 $z_0$ 是 $|P(z)|$ 在 $\bar{D(0, R)}$ 的最小值点，则 $P(z_0)$ 为 $P(D(0, R))$ 的内点，故 $|P(z_0)| = 0$
 
 {{ todo() }}
