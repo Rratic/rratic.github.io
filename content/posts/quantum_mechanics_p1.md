@@ -30,7 +30,7 @@ $$\omega_{mn} = \omega_{ml} + \omega_{ln} \tag{1.1}$$
 
 后来人们整理出氢原子的光谱的公式，即巴尔末-里德堡公式：
 
-$$\omega_{mn} = 2\pi Rc(\frac{1}{m^2}-\frac{1}{n^2}) \tag{1.2}$$
+$$\omega_{mn} = 2\pi Rc \left(\frac{1}{m^2}-\frac{1}{n^2}\right) \tag{1.2}$$
 
 其中 R 是 Rydberg 常数。
 
@@ -128,3 +128,18 @@ $$H = \frac{P^2}{2m_e} + V(X) \tag{1.7}$$
 有 $[X, X^n] = X[X, X^{n-1}] + X[X, X^{n-1}]X = \cdots = 0$，故 $[X, V(X)] = 0$
 
 如果我们要求量子系统与相应的经典系统相对应，则能得出 $[X, P] = i\hbar$
+
+---
+
+最后，让我们换一个写法，记
+
+$$A_{mn} = \langle m|\hat{A}|n\rangle \tag{1.8}$$
+
+那么就有 $\langle m|\hat{A}^\dagger|n\rangle = \langle m|\hat{A}|n\rangle^*$ 及 $\langle m|n \rangle = \langle m|\mathbf{1}|n \rangle =\delta_{mn}$.
+
+不严格地说，可以把左态矢 $\langle m|$ 看作行向量，把右态矢 $|n \rangle$ 看作列向量。
+
+## 量子力学基本原理
+我们现在讨论一般的可能性集（而非氢原子电子的定态）。
+
+{{ todo() }}

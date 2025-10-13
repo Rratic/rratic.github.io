@@ -20,7 +20,7 @@ tags = ["数学", "范畴论"]
 	- 自同态 $\operatorname{End}_{\mathcal{C}}(X)$
 	- 子范畴
 - 常见的范畴（集合与函数 $\mathrm{Sets}$，偏序集与单调函数 $\mathrm{Pos}$，关系 $\mathrm{Rel}$，有限范畴，离散范畴）
-- 构造（积 $\times, \prod$，对偶 $\mathcal{C}^{op}$，箭头 $\mathcal{C}^\to$，切片 $\mathcal{C}/C$，余切片 $C/\mathcal{C}$）
+- 构造（积 $\times, \prod$，对偶 $\mathcal{C}^{op}$，箭头 $\mathcal{C}^\to$，切片 $\mathcal{C}/C$，余切片 $C/\mathcal{C}$，逗号范畴 $T\downarrow S$）
 - 自由范畴（Kleene 闭包）
 - 单态射 $\rightarrowtail$，满态射 $\twoheadrightarrow$
 - 技术细节（大、小、局部小）
