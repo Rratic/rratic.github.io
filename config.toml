@@ -73,7 +73,10 @@ name = "Rratic"
 bio = ""
 avatar_url = "images/avater.jpg"
 avatar_invert = true
-social = [{ name = "github", url = "https://github.com/rratic" }]
+social = [
+	{ name = "github", url = "https://github.com/rratic" },
+	{ name = "email", url = "mailto:rratic@163.com" },
+]
 
 [extra.style]
 bg_color = "white"

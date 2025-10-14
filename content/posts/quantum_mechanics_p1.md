@@ -1,6 +1,7 @@
 +++
 title = "【草稿】《初识量子力学》笔记"
 date = 2025-10-05
+updated = 2025-10-13
 
 [extra]
 math = true
