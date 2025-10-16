@@ -1,6 +1,6 @@
 +++
-title = "复分析（一）：速通指南"
-description = "复变函数重要概念的速通，计划写到 Riemann 单值化定理。"
+title = "复分析速通指南（一）：基本概念"
+description = "复变函数基本概念的速通，从复值函数写到 Cauchy 公式及其推论。"
 date = 2025-07-27
 updated = 2025-10-10
 
@@ -369,5 +369,12 @@ $n$ 次多项式 $P(z) = a_nz^n+\cdots+a_0$ 在 $\mathbb{C}$ 中有零点。
 > 由 $\lim_{n\to\infty} |P(z)| = +\infty$，存在 $R$ 使 $\min \\{|P(z)|\mid |z|=R\\}>|P(0)|$
 >
 > 设 $z_0$ 是 $|P(z)|$ 在 $\bar{D(0, R)}$ 的最小值点，则 $P(z_0)$ 为 $P(D(0, R))$ 的内点，故 $|P(z_0)| = 0$
+
+法二：
+> 将 $P$ 视作 $\bar{\mathbb{C}}\to\bar{\mathbb{C}}$ 的连续映射。
+>
+> 其不为常数，故 $P(\bar{\mathbb{C}})$ 为开集，而 $\bar{\mathbb{C}}$ 是紧的，故 $P(\bar{\mathbb{C}})$ 为闭集。从而值域是 $\bar{\mathbb{C}}$
+
+我们将 $\mathbb{C}$ 上称为**整函数**，其中不为多项式的称为**超越整函数**。
 
 {{ todo() }}
