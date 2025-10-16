@@ -1,0 +1,411 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>【草稿】着色器（三）：随机与噪声 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="【草稿】着色器（三）：随机与噪声" />
+  <meta name="description" content="基于 GLSL 的噪声实现及应用。" />
+  <meta property="og:description" content="基于 GLSL 的噪声实现及应用。" />
+  <meta property="og:url" content="https://rratic.github.io/posts/shader-p3/" />
+  <link rel="canonical" href="https://rratic.github.io/posts/shader-p3/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2025-10-01T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2025-10-16T00:00:00+00:00" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="计算机" />
+  <meta property="article:tag" content="计算机图形学" />
+  <meta property="og:image" content="https://rratic.github.io/images/cover/shader_pencil_effect.png" />
+  <meta property="og:image:alt" content="" />
+  <meta property="og:image:width" content="1080" />
+  <meta property="og:image:height" content="360" />
+  <meta property="og:image:type" content="image/png" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.github.io/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.github.io/style/shared.css?h=74471d1f38c46232d571" />
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.github.io/main.min.css?h=2e89f7f30f1019877d14" />
+  <style>
+  :root{--bg: white; --header: #e6f4ff; color-scheme: light;}
+  :root.dark{--bg: #424242; --header: #333333; color-scheme: dark;}
+  </style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.github.io/js/linkita.min.js?h=1dd3ed42fc674277bc34"></script>
+  <link rel="stylesheet" href="https://rratic.github.io/katex/katex.min.css?h=19095127357ed6d29fe0" />
+  <script defer src="https://rratic.github.io/katex/katex.min.js?h=e8d885505949f3a5f4ab"></script>
+  <script defer src="https://rratic.github.io/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.linkita.initKatex);</script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out bg-[var(--bg)] dark:text-white">
+  <!-- Header -->
+<header class="bg-[var(--header)] fixed top-0 z-40 mx-auto min-h-[3.25rem] w-full header-icons">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8">
+        <a title="转到主页" accesskey="!"
+          href="https://rratic.github.io/" class="text-2xl font-semibold">错行</a>
+        <button type="button" title="切换颜色方案" accesskey="$"
+          onclick="window.linkita.toggleDarkMode();" ondblclick="window.linkita.resetDarkMode();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover dark:invert [background-image:var(--icon-theme-dark)] dark:[background-image:var(--icon-theme-light)]"
+        ></button>
+      </div>
+      <div title="导航" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.linkita.toggleHeaderMenu();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.linkita.toggleHeaderMenu() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral relative mx-auto min-h-[calc(100%-4rem)]
+    max-w-3xl break-words px-4 pb-12 pt-28 lg:pt-32 dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">【草稿】着色器（三）：随机与噪声</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2025-10-01T00:00:00+00:00">2025-10-01</time><span
+        class="middot"></span>↻ <time
+      datetime="2025-10-16T00:00:00+00:00">2025-10-16</time><span
+        class="middot"></span><time
+    datetime="PT0H4M0S">4&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <figure class="mb-12 mt-0">
+    <img
+      class="h-auto w-full rounded-lg"
+      src="https://rratic.github.io/images/cover/shader_pencil_effect.png"
+      width="1080"
+      height="360"
+    />
+  </figure>
+  <!-- TOC -->
+<div class="block-bg mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-4" accesskey="=">
+      <span class="cursor-pointer">目录</span>
+    </summary>
+    <div class="px-2">
+      <ul>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/shader-p3/#sui-ji">随机</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/shader-p3/#zao-sheng">噪声</a>
+          <ul>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/shader-p3/#perlin-zao-sheng">Perlin 噪声</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/shader-p3/#simplex-zao-sheng">Simplex 噪声</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/shader-p3/#worley-zao-sheng">Worley 噪声</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/shader-p3/#ji-qiao">技巧</a>
+          <ul>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/shader-p3/#fen-xing-hua">分形化</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/shader-p3/#wen-li">纹理</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </details>
+</div>
+
+  <!-- Content -->
+  <section><p>参考了 <a href="https://thebookofshaders.com/">The Book of Shaders</a></p>
+<h2 id="sui-ji">随机</h2>
+<p>由于 GLSL 并不能从物理世界获得熵源，随机都是伪随机。</p>
+<p>但我们并不需要真随机，只需要看起来有随机性即可。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-[var(--admonition-bg)]"
+  style="--admonition-bg: rgba(0, 191, 165, 0.1);"
+>
+  <div class="flex items-center rounded-t-lg bg-[var(--admonition-bg)] p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(./icons/tip.svg);"
+    >
+      tip
+    </div>
+    <span><strong>提示</strong></span>
+  </div>
+  <div class="pl-4"><p>真随机与均匀随机是不同的概念。</p>
+</div>
+</div>
+<p>一个简洁的生成方法是</p>
+<pre data-lang="glsl" style="background-color:#fafafa;color:#61676c;" class="language-glsl "><code class="language-glsl" data-lang="glsl"><span style="color:#fa6e32;">float</span><span> res </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">fract</span><span>(</span><span style="color:#f07171;">sin</span><span>(x) </span><span style="color:#ed9366;">* </span><span style="color:#ff8f40;">100000.0</span><span>)</span><span style="color:#61676ccc;">;
+</span></code></pre>
+<p>在 2D 情形下，需要采取不可约的系数（读者可自行测试 <code>col = vec3(fract(sin(uv.x) * 100000.0 + sin(uv.y) * 100.0));</code> 的结果）</p>
+<pre data-lang="glsl" style="background-color:#fafafa;color:#61676c;" class="language-glsl "><code class="language-glsl" data-lang="glsl"><span style="color:#fa6e32;">float </span><span style="color:#f29718;">random</span><span>(</span><span style="color:#fa6e32;">vec2 </span><span style="color:#ff8f40;">uv</span><span>) {
+</span><span>	</span><span style="color:#fa6e32;">return </span><span style="color:#f07171;">fract</span><span>(</span><span style="color:#f07171;">sin</span><span>(</span><span style="color:#f07171;">dot</span><span>(uv</span><span style="color:#ed9366;">.</span><span>xy</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">vec2</span><span>(</span><span style="color:#ff8f40;">11.9898</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">78.233</span><span>))) </span><span style="color:#ed9366;">* </span><span style="color:#ff8f40;">43758.5453123</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>}
+</span><span>
+</span><span style="color:#fa6e32;">void </span><span style="color:#f29718;">mainImage</span><span>(</span><span style="color:#fa6e32;">out vec4 </span><span style="color:#ff8f40;">fragColor</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">in vec2 </span><span style="color:#ff8f40;">fragCoord</span><span>)
+</span><span>{
+</span><span>    </span><span style="color:#fa6e32;">vec2</span><span> uv </span><span style="color:#ed9366;">=</span><span> fragCoord</span><span style="color:#ed9366;">/</span><span>iResolution</span><span style="color:#ed9366;">.</span><span>xy</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">vec3</span><span> col </span><span style="color:#ed9366;">= </span><span style="color:#fa6e32;">vec3</span><span>(</span><span style="color:#f29718;">random</span><span>(uv))</span><span style="color:#61676ccc;">;
+</span><span>    fragColor </span><span style="color:#ed9366;">= </span><span style="color:#fa6e32;">vec4</span><span>(col</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">1.0</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>}
+</span></code></pre>
+<p>这种随机结果的更多应用参见 <a href="https://thebookofshaders.com/10/">https://thebookofshaders.com/10/</a></p>
+<p>可以把一个系数调得很小，产生在该方向上长条形的效果。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-[var(--admonition-bg)]"
+  style="--admonition-bg: rgba(0, 191, 165, 0.1);"
+>
+  <div class="flex items-center rounded-t-lg bg-[var(--admonition-bg)] p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(./icons/tip.svg);"
+    >
+      tip
+    </div>
+    <span><strong>提示</strong></span>
+  </div>
+  <div class="pl-4"><p>如果你希望保持长条形的效果但将它改为曲线，则不应在浮点数上操作，而是在原来的像素整点上操作到整点再使用。</p>
+</div>
+</div>
+<h2 id="zao-sheng">噪声</h2>
+<p>上述的随机生成确实保证了随机性，类似于白噪声，但我们通常希望看到更平滑的图像。</p>
+<p>噪声是算法生成的、具有随机性的图像，可以用于生成地形、纹理。</p>
+<h3 id="perlin-zao-sheng">Perlin 噪声</h3>
+<p>我们来看 2D 版本的代码：</p>
+<pre data-lang="glsl" style="background-color:#fafafa;color:#61676c;" class="language-glsl "><code class="language-glsl" data-lang="glsl"><span style="color:#fa6e32;">float </span><span style="color:#f29718;">noise </span><span>(</span><span style="color:#fa6e32;">vec2 </span><span style="color:#ff8f40;">st</span><span>) {
+</span><span>    </span><span style="color:#fa6e32;">vec2</span><span> i </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">floor</span><span>(st)</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">vec2</span><span> f </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">fract</span><span>(st)</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>    </span><span style="color:#fa6e32;">float</span><span> a </span><span style="color:#ed9366;">= </span><span style="color:#f29718;">random</span><span>(i)</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">float</span><span> b </span><span style="color:#ed9366;">= </span><span style="color:#f29718;">random</span><span>(i </span><span style="color:#ed9366;">+ </span><span style="color:#fa6e32;">vec2</span><span>(</span><span style="color:#ff8f40;">1.0</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">0.0</span><span>))</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">float</span><span> c </span><span style="color:#ed9366;">= </span><span style="color:#f29718;">random</span><span>(i </span><span style="color:#ed9366;">+ </span><span style="color:#fa6e32;">vec2</span><span>(</span><span style="color:#ff8f40;">0.0</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">1.0</span><span>))</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">float</span><span> d </span><span style="color:#ed9366;">= </span><span style="color:#f29718;">random</span><span>(i </span><span style="color:#ed9366;">+ </span><span style="color:#fa6e32;">vec2</span><span>(</span><span style="color:#ff8f40;">1.0</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">1.0</span><span>))</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>    </span><span style="color:#fa6e32;">vec2</span><span> u </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">smoothstep</span><span>(</span><span style="color:#ff8f40;">0.0</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">1.0</span><span style="color:#61676ccc;">,</span><span> f)</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>    </span><span style="color:#fa6e32;">return </span><span style="color:#f07171;">mix</span><span>(a</span><span style="color:#61676ccc;">,</span><span> b</span><span style="color:#61676ccc;">,</span><span> u</span><span style="color:#ed9366;">.</span><span>x) </span><span style="color:#ed9366;">+
+</span><span>            (c </span><span style="color:#ed9366;">-</span><span> a) </span><span style="color:#ed9366;">*</span><span> u</span><span style="color:#ed9366;">.</span><span>y </span><span style="color:#ed9366;">* </span><span>(</span><span style="color:#ff8f40;">1.0 </span><span style="color:#ed9366;">-</span><span> u</span><span style="color:#ed9366;">.</span><span>x) </span><span style="color:#ed9366;">+
+</span><span>            (d </span><span style="color:#ed9366;">-</span><span> b) </span><span style="color:#ed9366;">*</span><span> u</span><span style="color:#ed9366;">.</span><span>x </span><span style="color:#ed9366;">*</span><span> u</span><span style="color:#ed9366;">.</span><span>y</span><span style="color:#61676ccc;">;
+</span><span>}
+</span></code></pre>
+<p>这里 <code>mix</code> 函数用于插值，表达式为 <code>mix(x, y, a) = x * (1 - a) + y * a</code></p>
+<p>整个函数的思路是：划分成一个个单元格，格的顶点被赋予随机的值，而后格内部进行平滑的插值。</p>
+<p>但是现在看起来有明显的方形轮廓。</p>
+<p>对此，有以下优化思路：</p>
+<ul>
+<li>对格的顶点赋予向量值，做两次插值。</li>
+<li>另外可以进行优化：将 <code>smoothstep</code> 中调用的 $\mathrm{lerp}(x) = 3x^2-2x^3$ 改为 $6x^5-15x^4+10x^3$.</li>
+<li>进行局部随机化。</li>
+</ul>
+<p>封面图的代码如下，使用了局部随机化：</p>
+<pre data-lang="glsl" style="background-color:#fafafa;color:#61676c;" class="language-glsl "><code class="language-glsl" data-lang="glsl"><span style="color:#fa6e32;">#define </span><span style="color:#399ee6;">RED </span><span style="color:#fa6e32;">vec3</span><span>(</span><span style="color:#ff8f40;">0.926</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">0.109</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">0.141</span><span>)
+</span><span>
+</span><span style="color:#fa6e32;">float </span><span style="color:#f29718;">random</span><span>(</span><span style="color:#fa6e32;">vec2 </span><span style="color:#ff8f40;">uv</span><span>) {
+</span><span>	</span><span style="color:#fa6e32;">return </span><span style="color:#f07171;">fract</span><span>(</span><span style="color:#f07171;">sin</span><span>(</span><span style="color:#f07171;">dot</span><span>(uv</span><span style="color:#ed9366;">.</span><span>xy</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">vec2</span><span>(</span><span style="color:#ff8f40;">11.143</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">78.233</span><span>))) </span><span style="color:#ed9366;">* </span><span style="color:#ff8f40;">43758.5453123</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>}
+</span><span>
+</span><span style="color:#fa6e32;">float </span><span style="color:#f29718;">noise </span><span>(</span><span style="color:#fa6e32;">vec2 </span><span style="color:#ff8f40;">st</span><span>) { ... }
+</span><span>
+</span><span style="color:#fa6e32;">void </span><span style="color:#f29718;">mainImage</span><span>(</span><span style="color:#fa6e32;">out vec4 </span><span style="color:#ff8f40;">fragColor</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">in vec2 </span><span style="color:#ff8f40;">fragCoord</span><span>)
+</span><span>{
+</span><span>    </span><span style="color:#fa6e32;">vec2</span><span> uv </span><span style="color:#ed9366;">=</span><span> fragCoord</span><span style="color:#ed9366;">/</span><span>iResolution</span><span style="color:#ed9366;">.</span><span>y</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">if </span><span>(</span><span style="color:#f07171;">length</span><span>(uv </span><span style="color:#ed9366;">* </span><span style="color:#ff8f40;">2.0 </span><span style="color:#ed9366;">- </span><span style="color:#fa6e32;">vec2</span><span>(</span><span style="color:#ff8f40;">1.0</span><span>)) </span><span style="color:#ed9366;">&gt; </span><span style="color:#ff8f40;">1.0</span><span>) {
+</span><span>        fragColor </span><span style="color:#ed9366;">= </span><span style="color:#fa6e32;">vec4</span><span>(</span><span style="color:#ff8f40;">1.0</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>        </span><span style="color:#fa6e32;">return</span><span style="color:#61676ccc;">;
+</span><span>    }
+</span><span>    </span><span style="color:#fa6e32;">float</span><span> nx </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">0.5 </span><span style="color:#ed9366;">- </span><span style="color:#f07171;">sin</span><span>(</span><span style="color:#f07171;">asin</span><span>(</span><span style="color:#ff8f40;">1.0 </span><span style="color:#ed9366;">- </span><span style="color:#ff8f40;">2.0 </span><span style="color:#ed9366;">*</span><span> uv</span><span style="color:#ed9366;">.</span><span>x) </span><span style="color:#ed9366;">/ </span><span style="color:#ff8f40;">3.0</span><span>)</span><span style="color:#61676ccc;">; </span><span style="font-style:italic;color:#abb0b6;">// 按位置改变密度
+</span><span>    </span><span style="color:#fa6e32;">float</span><span> ny </span><span style="color:#ed9366;">=</span><span> fragCoord</span><span style="color:#ed9366;">.</span><span>y </span><span style="color:#ed9366;">/</span><span> iResolution</span><span style="color:#ed9366;">.</span><span>y</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">vec2</span><span> uv2 </span><span style="color:#ed9366;">= </span><span style="color:#fa6e32;">vec2</span><span>(nx </span><span style="color:#ed9366;">* </span><span style="color:#ff8f40;">20.0</span><span style="color:#61676ccc;">,</span><span> ny </span><span style="color:#ed9366;">* </span><span style="color:#ff8f40;">2000.0</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">float</span><span> fr </span><span style="color:#ed9366;">= </span><span style="color:#f29718;">noise</span><span>(uv2 </span><span style="color:#ed9366;">+ </span><span style="color:#f29718;">random</span><span>(uv2))</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>    </span><span style="color:#fa6e32;">float</span><span> t </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">smoothstep</span><span>(</span><span style="color:#ff8f40;">0.0</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">1.0</span><span style="color:#61676ccc;">,</span><span> fr)</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">vec3</span><span> col </span><span style="color:#ed9366;">=</span><span> t </span><span style="color:#ed9366;">*</span><span> RED </span><span style="color:#ed9366;">+ </span><span>(</span><span style="color:#ff8f40;">1.0 </span><span style="color:#ed9366;">-</span><span> t) </span><span style="color:#ed9366;">* </span><span style="color:#fa6e32;">vec3</span><span>(</span><span style="color:#ff8f40;">1.0</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>    fragColor </span><span style="color:#ed9366;">= </span><span style="color:#fa6e32;">vec4</span><span>(col</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">1.0</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>}
+</span></code></pre>
+<h3 id="simplex-zao-sheng">Simplex 噪声</h3>
+<p>这是对 Perlin 噪声的优化（在高维情形下，Perlin 的时间复杂度是 $O(2^n)$）。</p>
+<p>我们以单形为晶格（在 2D 中是三角形，在 3D 中是四面体）。</p>
+<p>这些单形是从立方晶格中裁得的。</p>
+<h3 id="worley-zao-sheng">Worley 噪声</h3>
+<p>Voronoi/Worley/Cell 噪声可产生类似细胞的效果。</p>
+<p>类似于 Perlin，仍然给每个格点赋值一个向量，但是是作为它的偏移。</p>
+<p>当我们判断一个点在哪个细胞中时，我们进行 3×3 的采样，分别计算偏移后的坐标，找到其中最近的那个。</p>
+<h2 id="ji-qiao">技巧</h2>
+<p>你可以把时间作为一个维度。</p>
+<h3 id="fen-xing-hua">分形化</h3>
+
+
+<div class="my-4 flex flex-col rounded-lg bg-[var(--admonition-bg)]" style="--admonition-bg: rgba(255, 145, 0, 0.1);">
+	<div class="flex items-center rounded-t-lg bg-[var(--admonition-bg)] p-1">
+		<div class="mx-2 h-4 w-4 text-[0] [background:var(--url)_center_center_no-repeat] dark:invert"
+			style="--url: url(./icons/warning.svg)">
+		</div>
+		<span><strong>TODO</strong></span>
+	</div>
+	<div class="pl-4">
+		<p>该部分未完成。</p>
+	</div>
+</div><h3 id="wen-li">纹理</h3>
+
+
+<div class="my-4 flex flex-col rounded-lg bg-[var(--admonition-bg)]" style="--admonition-bg: rgba(255, 145, 0, 0.1);">
+	<div class="flex items-center rounded-t-lg bg-[var(--admonition-bg)] p-1">
+		<div class="mx-2 h-4 w-4 text-[0] [background:var(--url)_center_center_no-repeat] dark:invert"
+			style="--url: url(./icons/warning.svg)">
+		</div>
+		<span><strong>TODO</strong></span>
+	</div>
+	<div class="pl-4">
+		<p>该部分未完成。</p>
+	</div>
+</div></section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mb-1.5 mr-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/categories/杂物/">杂物</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mb-1.5 mr-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/计算机/">计算机</a>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/计算机图形学/">计算机图形学</a>
+    
+  </div>
+</footer>
+
+  <!-- Post Nav -->
+<nav class="block-bg mt-12 flex flex-wrap rounded-lg text-lg">
+  <a
+    class="block-hover-mask flex min-w-[50%] grow items-center rounded-l-md p-6 pr-3 font-semibold no-underline"
+    href="https://rratic.github.io/posts/classical-mechanics-p1/" accesskey=","
+    ><span class="mr-1.5">&#8249;</span><span>《初识经典力学》笔记</span></a>
+  <a
+    class="block-hover-mask ml-auto flex min-w-[50%] grow items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline"
+    href="https://rratic.github.io/posts/crypto-p1/" accesskey="."
+    ><span>【草稿】密码学（一）：异或密码与 AES</span><span class="ml-1.5">&#8250;</span></a>
+</nav>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/pages"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

@@ -1,0 +1,383 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>迷宫生成算法：固定大小迷宫与无限迷宫 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="迷宫生成算法：固定大小迷宫与无限迷宫" />
+  <meta property="og:url" content="https://rratic.github.io/posts/maze-generation/" />
+  <link rel="canonical" href="https://rratic.github.io/posts/maze-generation/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2022-08-29T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2024-01-21T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="计算机" />
+  <meta property="article:tag" content="算法" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.github.io/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.github.io/style/shared.css?h=74471d1f38c46232d571" />
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.github.io/main.min.css?h=2e89f7f30f1019877d14" />
+  <style>
+  :root{--bg: white; --header: #e6f4ff; color-scheme: light;}
+  :root.dark{--bg: #424242; --header: #333333; color-scheme: dark;}
+  </style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.github.io/js/linkita.min.js?h=1dd3ed42fc674277bc34"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out bg-[var(--bg)] dark:text-white">
+  <!-- Header -->
+<header class="bg-[var(--header)] fixed top-0 z-40 mx-auto min-h-[3.25rem] w-full header-icons">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8">
+        <a title="转到主页" accesskey="!"
+          href="https://rratic.github.io/" class="text-2xl font-semibold">错行</a>
+        <button type="button" title="切换颜色方案" accesskey="$"
+          onclick="window.linkita.toggleDarkMode();" ondblclick="window.linkita.resetDarkMode();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover dark:invert [background-image:var(--icon-theme-dark)] dark:[background-image:var(--icon-theme-light)]"
+        ></button>
+      </div>
+      <div title="导航" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.linkita.toggleHeaderMenu();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.linkita.toggleHeaderMenu() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral relative mx-auto min-h-[calc(100%-4rem)]
+    max-w-3xl break-words px-4 pb-12 pt-28 lg:pt-32 dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">迷宫生成算法：固定大小迷宫与无限迷宫</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2022-08-29T00:00:00+00:00">2022-08-29</time><span
+        class="middot"></span>↻ <time
+      datetime="2024-01-21T00:00:00+00:00">2024-01-21</time><span
+        class="middot"></span><time
+    datetime="PT0H1M0S">1&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+
+  <!-- Content -->
+  <section><p>注：本文迁移自之前的文章集</p>
+<h2 id="gu-ding-da-xiao">固定大小</h2>
+<p>考虑一种随机化 Prim 算法，思路如下：</p>
+<pre data-lang="c" style="background-color:#fafafa;color:#61676c;" class="language-c "><code class="language-c" data-lang="c"><span>地图 </span><span style="color:#ed9366;">=</span><span> 全部为墙
+</span><span>标记 </span><span style="color:#ed9366;">=</span><span> 全部为空
+</span><span>起点 </span><span style="color:#ed9366;">=</span><span> 随机选一格
+</span><span>列表 </span><span style="color:#ed9366;">= </span><span>[起点]
+</span><span style="color:#fa6e32;">while </span><span>(列表 非空) {
+</span><span>	一格 </span><span style="color:#ed9366;">=</span><span> 从列表中 随机挑
+</span><span>    从列表中 删除 该格
+</span><span>	</span><span style="color:#fa6e32;">if </span><span>(该格 被标记) </span><span style="color:#fa6e32;">continue</span><span style="color:#61676ccc;">;
+</span><span>    标记 该格
+</span><span>    </span><span style="color:#fa6e32;">if </span><span>(该格 周围墙数 ≤ </span><span style="color:#ff8f40;">1</span><span>) { 将周围4面墙加入列表 }
+</span><span>	终点 </span><span style="color:#ed9366;">=</span><span> 该格
+</span><span>}
+</span></code></pre>
+<p>代码：</p>
+<pre data-lang="cpp" style="background-color:#fafafa;color:#61676c;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#fa6e32;">#include </span><span style="color:#86b300;">&lt;array&gt;
+</span><span style="color:#fa6e32;">#include </span><span style="color:#86b300;">&lt;iostream&gt;
+</span><span style="color:#fa6e32;">#include </span><span style="color:#86b300;">&lt;vector&gt;
+</span><span>
+</span><span style="color:#fa6e32;">using namespace</span><span> std</span><span style="color:#61676ccc;">;
+</span><span style="color:#fa6e32;">#define </span><span style="color:#f29718;">isin</span><span>(</span><span style="color:#ff8f40;">x</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">y</span><span>) (x</span><span style="color:#ed9366;">&gt;=</span><span style="color:#ff8f40;">0 </span><span style="color:#ed9366;">&amp;&amp;</span><span> y</span><span style="color:#ed9366;">&gt;=</span><span style="color:#ff8f40;">0 </span><span style="color:#ed9366;">&amp;&amp;</span><span> x</span><span style="color:#ed9366;">&lt;</span><span>m </span><span style="color:#ed9366;">&amp;&amp;</span><span> y</span><span style="color:#ed9366;">&lt;</span><span>n)
+</span><span>
+</span><span style="color:#fa6e32;">template</span><span>&lt;</span><span style="color:#fa6e32;">unsigned short</span><span> l</span><span style="color:#ed9366;">=</span><span style="color:#ff8f40;">15</span><span style="color:#61676ccc;">,</span><span style="color:#fa6e32;">unsigned short</span><span> w</span><span style="color:#ed9366;">=</span><span style="color:#ff8f40;">15</span><span>&gt;
+</span><span style="color:#fa6e32;">void </span><span style="color:#f29718;">prim </span><span>(</span><span style="color:#fa6e32;">unsigned short </span><span style="color:#ff8f40;">maze_len</span><span style="color:#61676ccc;">, </span><span style="color:#fa6e32;">unsigned short </span><span style="color:#ff8f40;">maze_wid</span><span style="color:#61676ccc;">,</span><span> array&lt;array&lt;</span><span style="color:#fa6e32;">unsigned short</span><span style="color:#61676ccc;">,</span><span>l&gt;</span><span style="color:#61676ccc;">,</span><span>w&gt;</span><span style="color:#ed9366;">&amp;</span><span style="color:#ff8f40;">a</span><span>){
+</span><span>    </span><span style="color:#fa6e32;">int</span><span> m </span><span style="color:#ed9366;">=</span><span> maze_len</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">int</span><span> n </span><span style="color:#ed9366;">=</span><span> maze_wid</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">short</span><span> mox[</span><span style="color:#ff8f40;">4</span><span>] </span><span style="color:#ed9366;">= </span><span>{</span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">,</span><span style="color:#ed9366;">-</span><span style="color:#ff8f40;">1</span><span>}</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">short</span><span> moy[</span><span style="color:#ff8f40;">4</span><span>] </span><span style="color:#ed9366;">= </span><span>{</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">,</span><span style="color:#ed9366;">-</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">0</span><span>}</span><span style="color:#61676ccc;">;
+</span><span>    vector&lt;pair&lt;</span><span style="color:#fa6e32;">unsigned short</span><span style="color:#61676ccc;">,</span><span style="color:#fa6e32;">unsigned short</span><span>&gt;&gt;li</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">bool</span><span> was[</span><span style="color:#ff8f40;">21</span><span>][</span><span style="color:#ff8f40;">21</span><span>]</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">for </span><span>(</span><span style="color:#fa6e32;">int</span><span> i</span><span style="color:#ed9366;">=</span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">;</span><span> i</span><span style="color:#ed9366;">&lt;</span><span>m</span><span style="color:#61676ccc;">; </span><span style="color:#ed9366;">++</span><span>i){
+</span><span>        </span><span style="color:#fa6e32;">for </span><span>(</span><span style="color:#fa6e32;">int</span><span> j</span><span style="color:#ed9366;">=</span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">;</span><span> j</span><span style="color:#ed9366;">&lt;</span><span>n</span><span style="color:#61676ccc;">; </span><span style="color:#ed9366;">++</span><span>j){
+</span><span>            a[i][j] </span><span style="color:#ed9366;">= </span><span style="color:#86b300;">&#39;#&#39;</span><span style="color:#61676ccc;">;
+</span><span>            was[i][j] </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">false</span><span style="color:#61676ccc;">;
+</span><span>        }
+</span><span>    }
+</span><span>    </span><span style="color:#fa6e32;">unsigned short</span><span> stx</span><span style="color:#61676ccc;">,</span><span> sty</span><span style="color:#61676ccc;">,</span><span> enx</span><span style="color:#61676ccc;">,</span><span> eny</span><span style="color:#61676ccc;">;
+</span><span>    stx </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">rand</span><span>() </span><span style="color:#ed9366;">%</span><span> m</span><span style="color:#61676ccc;">;
+</span><span>    sty </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">rand</span><span>() </span><span style="color:#ed9366;">%</span><span> n</span><span style="color:#61676ccc;">;
+</span><span>    a[stx][sty] </span><span style="color:#ed9366;">= </span><span style="color:#86b300;">&#39;.&#39;</span><span style="color:#61676ccc;">;
+</span><span>    li</span><span style="color:#ed9366;">.</span><span style="color:#f29718;">push_back</span><span>(</span><span style="color:#f29718;">make_pair</span><span>(stx</span><span style="color:#61676ccc;">,</span><span> sty))</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">while </span><span>(</span><span style="color:#ed9366;">!</span><span>li</span><span style="color:#ed9366;">.</span><span style="color:#f29718;">empty</span><span>()) {
+</span><span>        </span><span style="color:#fa6e32;">auto</span><span> rr </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">rand</span><span>() </span><span style="color:#ed9366;">%</span><span> li</span><span style="color:#ed9366;">.</span><span style="color:#f29718;">size</span><span>()</span><span style="color:#61676ccc;">;
+</span><span>        </span><span style="color:#fa6e32;">auto</span><span> r </span><span style="color:#ed9366;">=</span><span> li[rr]</span><span style="color:#61676ccc;">;
+</span><span>        li</span><span style="color:#ed9366;">.</span><span style="color:#f29718;">erase</span><span>(li</span><span style="color:#ed9366;">.</span><span style="color:#f29718;">begin</span><span>() </span><span style="color:#ed9366;">+</span><span> rr)</span><span style="color:#61676ccc;">;
+</span><span>        </span><span style="color:#fa6e32;">if </span><span>(was[r</span><span style="color:#ed9366;">.</span><span>first][r</span><span style="color:#ed9366;">.</span><span>second]) </span><span style="color:#fa6e32;">continue</span><span style="color:#61676ccc;">;
+</span><span>        was[r</span><span style="color:#ed9366;">.</span><span>first][r</span><span style="color:#ed9366;">.</span><span>second] </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">true</span><span style="color:#61676ccc;">;
+</span><span>        </span><span style="color:#fa6e32;">unsigned short</span><span> c </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">;
+</span><span>        </span><span style="color:#fa6e32;">for </span><span>(</span><span style="color:#fa6e32;">int</span><span> i</span><span style="color:#ed9366;">=</span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">;</span><span> i</span><span style="color:#ed9366;">&lt;</span><span style="color:#ff8f40;">4</span><span style="color:#61676ccc;">; </span><span style="color:#ed9366;">++</span><span>i) {
+</span><span>            </span><span style="color:#fa6e32;">if</span><span>(</span><span style="color:#f29718;">isin</span><span>(r</span><span style="color:#ed9366;">.</span><span>first</span><span style="color:#ed9366;">+</span><span>mox[i]</span><span style="color:#61676ccc;">,</span><span> r</span><span style="color:#ed9366;">.</span><span>second</span><span style="color:#ed9366;">+</span><span>moy[i]) </span><span style="color:#ed9366;">&amp;&amp;</span><span> a[r</span><span style="color:#ed9366;">.</span><span>first</span><span style="color:#ed9366;">+</span><span>mox[i]][r</span><span style="color:#ed9366;">.</span><span>second</span><span style="color:#ed9366;">+</span><span>moy[i]]</span><span style="color:#ed9366;">==</span><span style="color:#86b300;">&#39;.&#39;</span><span>)
+</span><span>				</span><span style="color:#ed9366;">++</span><span>c</span><span style="color:#61676ccc;">;
+</span><span>        }
+</span><span>        </span><span style="color:#fa6e32;">if </span><span>(c </span><span style="color:#ed9366;">&lt;= </span><span style="color:#ff8f40;">1</span><span>) {
+</span><span>            a[r</span><span style="color:#ed9366;">.</span><span>first][r</span><span style="color:#ed9366;">.</span><span>second] </span><span style="color:#ed9366;">= </span><span style="color:#86b300;">&#39;.&#39;</span><span style="color:#61676ccc;">;
+</span><span>            </span><span style="color:#fa6e32;">for </span><span>(</span><span style="color:#fa6e32;">int</span><span> i</span><span style="color:#ed9366;">=</span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">;</span><span> i</span><span style="color:#ed9366;">&lt;</span><span style="color:#ff8f40;">4</span><span style="color:#61676ccc;">; </span><span style="color:#ed9366;">++</span><span>i)
+</span><span>                </span><span style="color:#fa6e32;">if </span><span>(</span><span style="color:#ed9366;">!</span><span>was[r</span><span style="color:#ed9366;">.</span><span>first</span><span style="color:#ed9366;">+</span><span>mox[i]][r</span><span style="color:#ed9366;">.</span><span>second</span><span style="color:#ed9366;">+</span><span>moy[i]] </span><span style="color:#ed9366;">&amp;&amp; </span><span style="color:#f29718;">isin</span><span>(r</span><span style="color:#ed9366;">.</span><span>first</span><span style="color:#ed9366;">+</span><span>mox[i]</span><span style="color:#61676ccc;">,</span><span> r</span><span style="color:#ed9366;">.</span><span>second</span><span style="color:#ed9366;">+</span><span>moy[i]))
+</span><span>                    li</span><span style="color:#ed9366;">.</span><span style="color:#f29718;">push_back</span><span>(</span><span style="color:#f29718;">make_pair</span><span>(r</span><span style="color:#ed9366;">.</span><span>first</span><span style="color:#ed9366;">+</span><span>mox[i]</span><span style="color:#61676ccc;">,</span><span> r</span><span style="color:#ed9366;">.</span><span>second</span><span style="color:#ed9366;">+</span><span>moy[i]))</span><span style="color:#61676ccc;">;
+</span><span>        }
+</span><span>        enx </span><span style="color:#ed9366;">=</span><span> r</span><span style="color:#ed9366;">.</span><span>first</span><span style="color:#61676ccc;">;
+</span><span>        eny </span><span style="color:#ed9366;">=</span><span> r</span><span style="color:#ed9366;">.</span><span>second</span><span style="color:#61676ccc;">;
+</span><span>    }
+</span><span>    a[stx][sty] </span><span style="color:#ed9366;">= </span><span style="color:#86b300;">&#39;@&#39;</span><span style="color:#61676ccc;">;
+</span><span>    a[enx][eny] </span><span style="color:#ed9366;">= </span><span style="color:#86b300;">&#39;%&#39;</span><span style="color:#61676ccc;">;
+</span><span>}
+</span><span>
+</span><span style="color:#fa6e32;">int </span><span style="color:#f29718;">main</span><span>() {
+</span><span>	</span><span style="color:#f07171;">srand</span><span>(</span><span style="color:#f07171;">time</span><span>(</span><span style="color:#ff8f40;">nullptr</span><span>))</span><span style="color:#61676ccc;">;
+</span><span>    array&lt;array&lt;</span><span style="color:#fa6e32;">unsigned short</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">15</span><span>&gt;</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">15</span><span>&gt;a</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#f29718;">prim</span><span>&lt;</span><span style="color:#ff8f40;">15</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">15</span><span>&gt;(</span><span style="color:#ff8f40;">15</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">15</span><span style="color:#61676ccc;">,</span><span> a)</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">for </span><span>(</span><span style="color:#fa6e32;">int</span><span> i</span><span style="color:#ed9366;">=</span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">;</span><span> i</span><span style="color:#ed9366;">&lt;</span><span style="color:#ff8f40;">15</span><span style="color:#61676ccc;">; </span><span style="color:#ed9366;">++</span><span>i) {
+</span><span>        </span><span style="color:#fa6e32;">for </span><span>(</span><span style="color:#fa6e32;">int</span><span> j</span><span style="color:#ed9366;">=</span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">;</span><span> j</span><span style="color:#ed9366;">&lt;</span><span style="color:#ff8f40;">15</span><span style="color:#61676ccc;">; </span><span style="color:#ed9366;">++</span><span>j) {
+</span><span>            cout </span><span style="color:#ed9366;">&lt;&lt; </span><span style="color:#fa6e32;">char</span><span>(a[i][j])</span><span style="color:#61676ccc;">;
+</span><span>        }
+</span><span>        cout </span><span style="color:#ed9366;">&lt;&lt; </span><span style="color:#86b300;">&#39;</span><span style="color:#4cbf99;">\n</span><span style="color:#86b300;">&#39;</span><span style="color:#61676ccc;">;
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>产生的迷宫以弯道为主，例如：</p>
+<pre data-lang="txt" style="background-color:#fafafa;color:#61676c;" class="language-txt "><code class="language-txt" data-lang="txt"><span>..#.#..#.##.#%.
+</span><span>.##..#.#.....#.
+</span><span>...#.#...###...
+</span><span>#.#...#.##..###
+</span><span>#..#.#..#..#...
+</span><span>..##...#.#..#.#
+</span><span>#...#.##...#...
+</span><span>..##.....##.#.#
+</span><span>#..##.##..#.#..
+</span><span>..#.#.#.##..#.#
+</span><span>#.........#.#..
+</span><span>..###.#.#.....#
+</span><span>#....##..#.##..
+</span><span>.@#.#...#....#.
+</span><span>.#..#.##..#.#..
+</span></code></pre>
+<p>关于更自由地使用此算法，可参考 <a href="https://zhuanlan.zhihu.com/p/27381213">https://zhuanlan.zhihu.com/p/27381213</a></p>
+<h2 id="wu-xian-mi-gong">无限迷宫</h2>
+<p>我们需要做的是将迷宫分割成若干个区域（如 64×64 大小的区域），然后将它们衔接</p>
+<p>在每个区域，可使用递归分割算法</p>
+<pre data-lang="c" style="background-color:#fafafa;color:#61676c;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#fa6e32;">void </span><span style="color:#f29718;">func </span><span>(args</span><span style="color:#ed9366;">...</span><span>) {
+</span><span>	建造横墙
+</span><span>	建造竖墙
+</span><span>	在墙上挖三个洞
+</span><span>	</span><span style="color:#fa6e32;">for </span><span>(区域 </span><span style="color:#ed9366;">:</span><span> 四个区域) {
+</span><span>		</span><span style="color:#f29718;">func </span><span>(args</span><span style="color:#ed9366;">...</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>	}
+</span><span>}
+</span></code></pre>
+<p>代码：</p>
+<pre data-lang="js" style="background-color:#fafafa;color:#61676c;" class="language-js "><code class="language-js" data-lang="js"><span style="font-style:italic;color:#abb0b6;">// C-flavour random
+</span><span style="color:#fa6e32;">let </span><span>gsrand </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">0
+</span><span style="color:#fa6e32;">function </span><span style="color:#f29718;">srand</span><span>(</span><span style="color:#ff8f40;">x</span><span>) { gsrand </span><span style="color:#ed9366;">= </span><span>x</span><span style="color:#61676ccc;">; </span><span>}
+</span><span style="color:#fa6e32;">function </span><span style="color:#f29718;">rand</span><span>() {
+</span><span>    gsrand </span><span style="color:#ed9366;">= </span><span>(gsrand </span><span style="color:#ed9366;">* </span><span style="color:#ff8f40;">1103515245</span><span style="color:#ed9366;">+</span><span style="color:#ff8f40;">12345</span><span>) </span><span style="color:#ed9366;">&amp; </span><span style="color:#ff8f40;">0xffffffff</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">return </span><span>gsrand </span><span style="color:#ed9366;">&gt;&gt; </span><span style="color:#ff8f40;">16 </span><span style="color:#ed9366;">&amp; </span><span style="color:#ff8f40;">32767</span><span style="color:#61676ccc;">;
+</span><span>}
+</span><span>
+</span><span style="color:#fa6e32;">class </span><span style="color:#399ee6;">Chunk </span><span>{
+</span><span>    matrix
+</span><span>    </span><span style="color:#fa6e32;">constructor</span><span>() {
+</span><span>        </span><span style="font-style:italic;color:#abb0b6;">// 64×64 chunk
+</span><span>        </span><span style="font-style:italic;color:#55b4d4;">this</span><span style="color:#ed9366;">.</span><span>matrix </span><span style="color:#ed9366;">= new </span><span style="color:#399ee6;">Uint8Array</span><span>(</span><span style="color:#ff8f40;">4096</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span style="font-style:italic;color:#55b4d4;">Chunk</span><span style="color:#ed9366;">.</span><span>prototype</span><span style="color:#ed9366;">.</span><span style="color:#f29718;">put </span><span style="color:#ed9366;">= </span><span style="color:#fa6e32;">function</span><span>(</span><span style="color:#ff8f40;">x</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">y</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">type</span><span>) {
+</span><span>    </span><span style="font-style:italic;color:#55b4d4;">this</span><span style="color:#ed9366;">.</span><span>matrix[x </span><span style="color:#ed9366;">&lt;&lt; </span><span style="color:#ff8f40;">6 </span><span style="color:#ed9366;">| </span><span>y] </span><span style="color:#ed9366;">= </span><span>type </span><span style="color:#ed9366;">== </span><span style="color:#86b300;">&#39;space&#39; </span><span style="color:#ed9366;">? </span><span style="color:#ff8f40;">0 </span><span style="color:#ed9366;">: </span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">;
+</span><span>}
+</span><span>
+</span><span style="font-style:italic;color:#abb0b6;">/* * * Core * * */
+</span><span style="font-style:italic;color:#55b4d4;">Chunk</span><span style="color:#ed9366;">.</span><span>prototype</span><span style="color:#ed9366;">.</span><span style="color:#f29718;">generate__infmaze_4 </span><span style="color:#ed9366;">= </span><span style="color:#fa6e32;">function </span><span>(</span><span style="color:#ff8f40;">lx</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">ly</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">rx</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">ry</span><span>) {
+</span><span>	</span><span style="color:#fa6e32;">let </span><span>x0 </span><span style="color:#ed9366;">= </span><span>rx </span><span style="color:#ed9366;">- </span><span>lx</span><span style="color:#61676ccc;">;
+</span><span>	</span><span style="color:#fa6e32;">let </span><span>y0 </span><span style="color:#ed9366;">= </span><span>ry </span><span style="color:#ed9366;">- </span><span>ly</span><span style="color:#61676ccc;">;
+</span><span>	</span><span style="font-style:italic;color:#abb0b6;">// room small enough (width = 1)
+</span><span>	</span><span style="color:#fa6e32;">if </span><span>(x0 </span><span style="color:#ed9366;">== </span><span style="color:#ff8f40;">0 </span><span style="color:#ed9366;">|| </span><span>y0 </span><span style="color:#ed9366;">== </span><span style="color:#ff8f40;">0</span><span>) {
+</span><span>		</span><span style="color:#fa6e32;">for </span><span>(</span><span style="color:#fa6e32;">let </span><span>i </span><span style="color:#ed9366;">= </span><span>lx</span><span style="color:#61676ccc;">; </span><span>i </span><span style="color:#ed9366;">&lt;= </span><span>rx</span><span style="color:#61676ccc;">; </span><span>i</span><span style="color:#ed9366;">++</span><span>) {
+</span><span>			</span><span style="color:#fa6e32;">for </span><span>(</span><span style="color:#fa6e32;">let </span><span>j </span><span style="color:#ed9366;">= </span><span>ly</span><span style="color:#61676ccc;">; </span><span>j </span><span style="color:#ed9366;">&lt;= </span><span>ry</span><span style="color:#61676ccc;">; </span><span>j</span><span style="color:#ed9366;">++</span><span>) </span><span style="font-style:italic;color:#55b4d4;">this</span><span style="color:#ed9366;">.</span><span style="color:#f29718;">put</span><span>(i</span><span style="color:#61676ccc;">, </span><span>j</span><span style="color:#61676ccc;">, </span><span style="color:#86b300;">&#39;space&#39;</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>		}
+</span><span>		</span><span style="color:#fa6e32;">return</span><span style="color:#61676ccc;">;
+</span><span>	}
+</span><span>	</span><span style="color:#fa6e32;">let </span><span>mx </span><span style="color:#ed9366;">= </span><span>lx </span><span style="color:#ed9366;">+ </span><span style="color:#ff8f40;">2 </span><span style="color:#ed9366;">* </span><span>(</span><span style="color:#f29718;">rand</span><span>() </span><span style="color:#ed9366;">% </span><span>(x0 </span><span style="color:#ed9366;">&gt;&gt; </span><span style="color:#ff8f40;">1</span><span>)) </span><span style="color:#ed9366;">+ </span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">;
+</span><span>	</span><span style="color:#fa6e32;">let </span><span>my </span><span style="color:#ed9366;">= </span><span>ly </span><span style="color:#ed9366;">+ </span><span style="color:#ff8f40;">2 </span><span style="color:#ed9366;">* </span><span>(</span><span style="color:#f29718;">rand</span><span>() </span><span style="color:#ed9366;">% </span><span>(y0 </span><span style="color:#ed9366;">&gt;&gt; </span><span style="color:#ff8f40;">1</span><span>)) </span><span style="color:#ed9366;">+ </span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">;
+</span><span>	</span><span style="color:#fa6e32;">for </span><span>(</span><span style="color:#fa6e32;">let </span><span>i </span><span style="color:#ed9366;">= </span><span>lx</span><span style="color:#61676ccc;">; </span><span>i </span><span style="color:#ed9366;">&lt;= </span><span>rx</span><span style="color:#61676ccc;">; </span><span>i</span><span style="color:#ed9366;">++</span><span>) </span><span style="font-style:italic;color:#55b4d4;">this</span><span style="color:#ed9366;">.</span><span style="color:#f29718;">put</span><span>(i</span><span style="color:#61676ccc;">, </span><span>my</span><span style="color:#61676ccc;">, </span><span style="color:#86b300;">&#39;wall&#39;</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>	</span><span style="color:#fa6e32;">for </span><span>(</span><span style="color:#fa6e32;">let </span><span>i </span><span style="color:#ed9366;">= </span><span>ly</span><span style="color:#61676ccc;">; </span><span>i </span><span style="color:#ed9366;">&lt;= </span><span>ry</span><span style="color:#61676ccc;">; </span><span>i</span><span style="color:#ed9366;">++</span><span>) </span><span style="font-style:italic;color:#55b4d4;">this</span><span style="color:#ed9366;">.</span><span style="color:#f29718;">put</span><span>(mx</span><span style="color:#61676ccc;">, </span><span>i</span><span style="color:#61676ccc;">, </span><span style="color:#86b300;">&#39;wall&#39;</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>	</span><span style="font-style:italic;color:#abb0b6;">// split the map into four smaller rooms
+</span><span>	</span><span style="font-style:italic;color:#55b4d4;">this</span><span style="color:#ed9366;">.</span><span style="color:#f29718;">generate__infmaze_4</span><span>(lx</span><span style="color:#61676ccc;">, </span><span>ly</span><span style="color:#61676ccc;">, </span><span>mx </span><span style="color:#ed9366;">- </span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">, </span><span>my </span><span style="color:#ed9366;">- </span><span style="color:#ff8f40;">1</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>	</span><span style="font-style:italic;color:#55b4d4;">this</span><span style="color:#ed9366;">.</span><span style="color:#f29718;">generate__infmaze_4</span><span>(lx</span><span style="color:#61676ccc;">, </span><span>my </span><span style="color:#ed9366;">+ </span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">, </span><span>mx </span><span style="color:#ed9366;">- </span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">, </span><span>ry)</span><span style="color:#61676ccc;">;
+</span><span>	</span><span style="font-style:italic;color:#55b4d4;">this</span><span style="color:#ed9366;">.</span><span style="color:#f29718;">generate__infmaze_4</span><span>(mx </span><span style="color:#ed9366;">+ </span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">, </span><span>ly</span><span style="color:#61676ccc;">, </span><span>rx</span><span style="color:#61676ccc;">, </span><span>my </span><span style="color:#ed9366;">- </span><span style="color:#ff8f40;">1</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>	</span><span style="font-style:italic;color:#55b4d4;">this</span><span style="color:#ed9366;">.</span><span style="color:#f29718;">generate__infmaze_4</span><span>(mx </span><span style="color:#ed9366;">+ </span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">, </span><span>my </span><span style="color:#ed9366;">+ </span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">, </span><span>rx</span><span style="color:#61676ccc;">, </span><span>ry)</span><span style="color:#61676ccc;">;
+</span><span>	</span><span style="font-style:italic;color:#abb0b6;">// three exits serve as passages through rooms
+</span><span>	</span><span style="color:#fa6e32;">let </span><span>d </span><span style="color:#ed9366;">= </span><span style="color:#f29718;">rand</span><span>() </span><span style="color:#ed9366;">% </span><span style="color:#ff8f40;">4</span><span style="color:#61676ccc;">;
+</span><span>	</span><span style="color:#fa6e32;">let </span><span>myl </span><span style="color:#ed9366;">= </span><span>(my </span><span style="color:#ed9366;">- </span><span>ly </span><span style="color:#ed9366;">+ </span><span style="color:#ff8f40;">1</span><span>) </span><span style="color:#ed9366;">&gt;&gt; </span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">;
+</span><span>	</span><span style="color:#fa6e32;">let </span><span>myr </span><span style="color:#ed9366;">= </span><span>(ry </span><span style="color:#ed9366;">- </span><span>my </span><span style="color:#ed9366;">+ </span><span style="color:#ff8f40;">1</span><span>) </span><span style="color:#ed9366;">&gt;&gt; </span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">;
+</span><span>	</span><span style="color:#fa6e32;">let </span><span>mxl </span><span style="color:#ed9366;">= </span><span>(mx </span><span style="color:#ed9366;">- </span><span>lx </span><span style="color:#ed9366;">+ </span><span style="color:#ff8f40;">1</span><span>) </span><span style="color:#ed9366;">&gt;&gt; </span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">;
+</span><span>	</span><span style="color:#fa6e32;">let </span><span>mxr </span><span style="color:#ed9366;">= </span><span>(rx </span><span style="color:#ed9366;">- </span><span>mx </span><span style="color:#ed9366;">+ </span><span style="color:#ff8f40;">1</span><span>) </span><span style="color:#ed9366;">&gt;&gt; </span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">;
+</span><span>	</span><span style="color:#fa6e32;">if </span><span>(d </span><span style="color:#ed9366;">!= </span><span style="color:#ff8f40;">0</span><span>) </span><span style="font-style:italic;color:#55b4d4;">this</span><span style="color:#ed9366;">.</span><span style="color:#f29718;">put</span><span>(lx </span><span style="color:#ed9366;">+ </span><span style="color:#ff8f40;">2 </span><span style="color:#ed9366;">* </span><span>(</span><span style="color:#f29718;">rand</span><span>() </span><span style="color:#ed9366;">% </span><span>mxl)</span><span style="color:#61676ccc;">, </span><span>my</span><span style="color:#61676ccc;">, </span><span style="color:#86b300;">&#39;space&#39;</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>	</span><span style="color:#fa6e32;">if </span><span>(d </span><span style="color:#ed9366;">!= </span><span style="color:#ff8f40;">1</span><span>) </span><span style="font-style:italic;color:#55b4d4;">this</span><span style="color:#ed9366;">.</span><span style="color:#f29718;">put</span><span>(rx </span><span style="color:#ed9366;">- </span><span style="color:#ff8f40;">2 </span><span style="color:#ed9366;">* </span><span>(</span><span style="color:#f29718;">rand</span><span>() </span><span style="color:#ed9366;">% </span><span>mxr)</span><span style="color:#61676ccc;">, </span><span>my</span><span style="color:#61676ccc;">, </span><span style="color:#86b300;">&#39;space&#39;</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>	</span><span style="color:#fa6e32;">if </span><span>(d </span><span style="color:#ed9366;">!= </span><span style="color:#ff8f40;">2</span><span>) </span><span style="font-style:italic;color:#55b4d4;">this</span><span style="color:#ed9366;">.</span><span style="color:#f29718;">put</span><span>(mx</span><span style="color:#61676ccc;">, </span><span>ly </span><span style="color:#ed9366;">+ </span><span style="color:#ff8f40;">2 </span><span style="color:#ed9366;">* </span><span>(</span><span style="color:#f29718;">rand</span><span>() </span><span style="color:#ed9366;">% </span><span>myl)</span><span style="color:#61676ccc;">, </span><span style="color:#86b300;">&#39;space&#39;</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>	</span><span style="color:#fa6e32;">if </span><span>(d </span><span style="color:#ed9366;">!= </span><span style="color:#ff8f40;">3</span><span>) </span><span style="font-style:italic;color:#55b4d4;">this</span><span style="color:#ed9366;">.</span><span style="color:#f29718;">put</span><span>(mx</span><span style="color:#61676ccc;">, </span><span>ry </span><span style="color:#ed9366;">- </span><span style="color:#ff8f40;">2 </span><span style="color:#ed9366;">* </span><span>(</span><span style="color:#f29718;">rand</span><span>() </span><span style="color:#ed9366;">% </span><span>myr)</span><span style="color:#61676ccc;">, </span><span style="color:#86b300;">&#39;space&#39;</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>}
+</span><span>
+</span><span style="font-style:italic;color:#55b4d4;">Chunk</span><span style="color:#ed9366;">.</span><span>prototype</span><span style="color:#ed9366;">.</span><span style="color:#f29718;">generate__infmaze </span><span style="color:#ed9366;">= </span><span style="color:#fa6e32;">function</span><span>(</span><span style="color:#ff8f40;">x</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">y</span><span>) {
+</span><span>    </span><span style="font-style:italic;color:#abb0b6;">// chunks are isolated at first
+</span><span>    </span><span style="color:#fa6e32;">for</span><span>(</span><span style="color:#fa6e32;">let </span><span>i </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">; </span><span>i </span><span style="color:#ed9366;">&lt; </span><span style="color:#ff8f40;">64</span><span style="color:#61676ccc;">; </span><span>i</span><span style="color:#ed9366;">++</span><span>) {
+</span><span>        </span><span style="font-style:italic;color:#55b4d4;">this</span><span style="color:#ed9366;">.</span><span style="color:#f29718;">put</span><span>(i</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">, </span><span style="color:#86b300;">&#39;wall&#39;</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>        </span><span style="font-style:italic;color:#55b4d4;">this</span><span style="color:#ed9366;">.</span><span style="color:#f29718;">put</span><span>(</span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">, </span><span>i</span><span style="color:#61676ccc;">, </span><span style="color:#86b300;">&#39;wall&#39;</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="font-style:italic;color:#abb0b6;">// use seed
+</span><span>    </span><span style="color:#f29718;">srand</span><span>((x </span><span style="color:#ed9366;">&lt;&lt; </span><span style="color:#ff8f40;">15 </span><span style="color:#ed9366;">+ </span><span>y) </span><span style="color:#ed9366;">^ </span><span>seed </span><span style="color:#ed9366;">&lt;&lt; </span><span style="color:#ff8f40;">3</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="font-style:italic;color:#55b4d4;">this</span><span style="color:#ed9366;">.</span><span style="color:#f29718;">generate__infmaze_4</span><span>(</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">63</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">63</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>    </span><span style="font-style:italic;color:#abb0b6;">// connect chunks
+</span><span>    </span><span style="color:#fa6e32;">let </span><span>r1 </span><span style="color:#ed9366;">= </span><span style="color:#f29718;">rand</span><span>() </span><span style="color:#ed9366;">% </span><span style="color:#ff8f40;">32</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="font-style:italic;color:#55b4d4;">this</span><span style="color:#ed9366;">.</span><span style="color:#f29718;">put</span><span>(</span><span style="color:#ff8f40;">2 </span><span style="color:#ed9366;">* </span><span>(</span><span style="color:#f29718;">rand</span><span>() </span><span style="color:#ed9366;">% </span><span style="color:#ff8f40;">32</span><span>) </span><span style="color:#ed9366;">+ </span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">, </span><span style="color:#86b300;">&#39;space&#39;</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="font-style:italic;color:#55b4d4;">this</span><span style="color:#ed9366;">.</span><span style="color:#f29718;">put</span><span>(</span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">2 </span><span style="color:#ed9366;">* </span><span>(</span><span style="color:#f29718;">rand</span><span>() </span><span style="color:#ed9366;">% </span><span style="color:#ff8f40;">32</span><span>) </span><span style="color:#ed9366;">+ </span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">, </span><span style="color:#86b300;">&#39;space&#39;</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>}
+</span></code></pre>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mb-1.5 mr-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mb-1.5 mr-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/计算机/">计算机</a>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/算法/">算法</a>
+    
+  </div>
+</footer>
+
+  <!-- Post Nav -->
+<nav class="block-bg mt-12 flex flex-wrap rounded-lg text-lg">
+  <a
+    class="block-hover-mask flex min-w-[50%] grow items-center rounded-l-md p-6 pr-3 font-semibold no-underline"
+    href="https://rratic.github.io/posts/cat-chess/" accesskey=","
+    ><span class="mr-1.5">&#8249;</span><span>猫猫棋：一个棋子可变的游戏设计</span></a>
+  <a
+    class="block-hover-mask ml-auto flex min-w-[50%] grow items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline"
+    href="https://rratic.github.io/posts/turtle-soup/" accesskey="."
+    ><span>原创海龟汤列表</span><span class="ml-1.5">&#8250;</span></a>
+</nav>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/pages"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>
