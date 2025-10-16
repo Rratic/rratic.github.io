@@ -2,10 +2,14 @@
 title = "【草稿】着色器（三）：随机与噪声"
 description = "基于 GLSL 的噪声实现及应用。"
 date = 2025-10-01
+updated = 2025-10-16
 
 [extra]
 toc = true
 math = true
+
+[extra.cover]
+image = "images/cover/shader_pencil_effect.png"
 
 [extra.sitemap]
 priority = "0.8"
@@ -82,9 +86,40 @@ float noise (vec2 st) {
 
 整个函数的思路是：划分成一个个单元格，格的顶点被赋予随机的值，而后格内部进行平滑的插值。
 
-但是现在看起来有明显的方形轮廓。可以进行优化：对格的顶点赋予向量值，做两次插值。
+但是现在看起来有明显的方形轮廓。
 
-另外可以进行优化：将 `smoothstep` 中调用的 $\mathrm{lerp}(x) = 3x^2-2x^3$ 改为 $6x^5-15x^4+10x^3$
+对此，有以下优化思路：
+* 对格的顶点赋予向量值，做两次插值。
+* 另外可以进行优化：将 `smoothstep` 中调用的 $\mathrm{lerp}(x) = 3x^2-2x^3$ 改为 $6x^5-15x^4+10x^3$.
+* 进行局部随机化。
+
+封面图的代码如下，使用了局部随机化：
+```glsl
+#define RED vec3(0.926, 0.109, 0.141)
+
+float random(vec2 uv) {
+	return fract(sin(dot(uv.xy, vec2(11.143, 78.233))) * 43758.5453123);
+}
+
+float noise (vec2 st) { ... }
+
+void mainImage(out vec4 fragColor, in vec2 fragCoord)
+{
+    vec2 uv = fragCoord/iResolution.y;
+    if (length(uv * 2.0 - vec2(1.0)) > 1.0) {
+        fragColor = vec4(1.0);
+        return;
+    }
+    float nx = 0.5 - sin(asin(1.0 - 2.0 * uv.x) / 3.0); // 按位置改变密度
+    float ny = fragCoord.y / iResolution.y;
+    vec2 uv2 = vec2(nx * 20.0, ny * 2000.0);
+    float fr = noise(uv2 + random(uv2));
+
+    float t = smoothstep(0.0, 1.0, fr);
+    vec3 col = t * RED + (1.0 - t) * vec3(1.0);
+    fragColor = vec4(col, 1.0);
+}
+```
 
 ### Simplex 噪声
 这是对 Perlin 噪声的优化（在高维情形下，Perlin 的时间复杂度是 $O(2^n)$）。
