@@ -236,6 +236,6 @@ $$
 又，$z_i, z_j$ 在 $F$ 上的极小多项式相同，有 $\mathrm{Gal}(f)$ 是传递子群。
 
 ## 注释
-[^continuous-mapping]: 点集拓扑告诉我们，连续映射把紧集映成紧集。因而对紧集到 $\mathbb{R}$ 的映射 $f$，像是紧集，从而是闭集，从而有最大、最小值。一般来说，可以对 $z\mapsto |f(z)|$ 使用这个定理。我们称两个度量空间间的函数 $f$ 一致连续，如果 $\forall\epsilon>0: \exists\delta>0, \forall (x_1, x_2): d(x_1, x_2)<\delta \implies d'(f(x_1), f(x_2))<\epsilon$，易知紧集上连续函数是一致连续的。
+[^continuous-mapping]: 点集拓扑告诉我们，连续映射把紧集映成紧集。因而对紧集到 $\mathbb{R}$ 的映射 $f$，像是紧集，从而是闭集，从而有最大、最小值。一般来说，可以对 $z\mapsto |f(z)|$ 使用这个定理。我们称两个度量空间间的函数 $f$ 一致连续，如果 $\forall\varepsilon>0: \exists\delta>0, \forall (x_1, x_2): d(x_1, x_2)<\delta \implies d'(f(x_1), f(x_2))<\varepsilon$，易知紧集上连续函数是一致连续的。
 
 [^1]: [Mathematics Stack Exchange: Computing a Galois Group by Reducing Mod P](https://math.stackexchange.com/questions/2223818/computing-a-galois-group-by-reducing-mod-p)

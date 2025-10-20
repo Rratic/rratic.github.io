@@ -262,13 +262,13 @@ $$\int_{\partial \Omega} f(z)\mathrm{d}z = 0$$
 $$f(z) = \frac{1}{2\pi\mathrm{i}}\int_{\partial \Omega}\frac{f(w)}{w-z}\mathrm{d}w$$
 {% end %}
 
-这是因为我们可以取 $\epsilon>0$ 使 $\bar{D(z, \epsilon)}\subset\Omega$
+这是因为我们可以取 $\varepsilon>0$ 使 $\bar{D(z, \varepsilon)}\subset\Omega$
 
-故 $\mathrm{RHS} = \frac{1}{2\pi\mathrm{i}}\int_{|w-z|=\epsilon}\frac{f(w)}{w-z}\mathrm{d}w$
+故 $\mathrm{RHS} = \frac{1}{2\pi\mathrm{i}}\int_{|w-z|=\varepsilon}\frac{f(w)}{w-z}\mathrm{d}w$
 
 令 $f(w) = f(z) + f'(z) + \rho(w, z)(w-z)$，其中 $\lim_{w\to z}\rho(w, z) = 0$
 
-有 $\int_{|w-z|=\epsilon}f'(z)\mathrm{d}w = 0$，而 $\int_{|w-z|=\epsilon}\rho(w, z)\mathrm{d}w$ 是常数且随 $\epsilon\to 0$ 趋向于 0，原式得证。
+有 $\int_{|w-z|=\varepsilon}f'(z)\mathrm{d}w = 0$，而 $\int_{|w-z|=\varepsilon}\rho(w, z)\mathrm{d}w$ 是常数且随 $\varepsilon\to 0$ 趋向于 0，原式得证。
 
 ### 等价性
 我们现在可以证明全纯函数和解析函数是等价的条件了。
@@ -299,7 +299,7 @@ $$f(z) = \sum_{n=0}^{+\infty} \frac{1}{2\pi\mathrm{i}}(z-z_0)^n\int_{|w-z_0| = r
 
 1 推 2 是 Cauchy 定理。
 
-对于2 推 1，我们考虑任意 $z_0\in\Omega$ 及 $\epsilon>0$ 使 $D(z_0, \epsilon)\subset\Omega$ 让 $f$ 在上面是解析的。
+对于2 推 1，我们考虑任意 $z_0\in\Omega$ 及 $\varepsilon>0$ 使 $D(z_0, \varepsilon)\subset\Omega$ 让 $f$ 在上面是解析的。
 
 对该邻域中的点 $z$，令 $F(z) = \int_{z_0}^z f(w)\mathrm{d}w$，它是良定义的。
 
@@ -313,12 +313,12 @@ $$f(z) = \sum_{n=0}^{+\infty} \frac{1}{2\pi\mathrm{i}}(z-z_0)^n\int_{|w-z_0| = r
 
 对非单连通区域，有反例：$\mathbb{C}-\\{0\\}$ 上的 $f: z\mapsto \frac{1}{z}$
 
-### 应用幂级数
+### 幂级数工具
 对一个指定的区域 $\Omega$ 上的解析函数 $f$，令 $S = \\{z\in\Omega\mid f'(z) = f''(z) = \cdots = 0 \\}$
 
 由连续性知 $\\{f^{(n)}(z) = 0\\}$ 为闭集，从而 $S$ 为闭集。
 
-又，对 $z_0\in S$ 有 $f$ 在其一个邻域内可展成幂级数，对应的 $D(z_0, \epsilon)\subset S$，知 $S$ 为开集。
+又，对 $z_0\in S$ 有 $f$ 在其一个邻域内可展成幂级数，对应的 $D(z_0, \varepsilon)\subset S$，知 $S$ 为开集。
 
 从而，若 $S$ 非空，那么它就是整个 $\Omega$，从而 $f$ 在 $\Omega$ 上是常值的。
 
@@ -336,7 +336,7 @@ $$f(z) = \sum_{n=0}^{+\infty} \frac{1}{2\pi\mathrm{i}}(z-z_0)^n\int_{|w-z_0| = r
 对区域 $\Omega$ 上的非常值解析函数 $f$，其零点是孤立的。
 {% end %}
 
-我们取 $\epsilon>0$ 使 $g$ 在对应的圆盘上处处不为 0.
+我们取 $\varepsilon>0$ 使 $g$ 在对应的圆盘上处处不为 0.
 
 ---
 
@@ -350,7 +350,21 @@ $$f(z) = \sum_{n=0}^{+\infty} \frac{1}{2\pi\mathrm{i}}(z-z_0)^n\int_{|w-z_0| = r
 
 如果极限点不在 $\Omega$ 内，则有反例 $f: z\mapsto \sin \frac{1}{z}, g: z\mapsto 0, z_n = \frac{1}{n\pi}$
 
-{{ todo() }}
+---
+
+接下来，我们将解析函数看作平面区域到平面区域的映射。
+
+由于对 $f(z)-f(z_0)$ 的 $m$ 阶零点有 $f(z) - f(z_0) = (z-z_0)^m g(z)$，我们可进一步取 $h^m = g$ 使 $f(z) - f(z_0) = ((z-z_0) h(z))^m$.
+
+令 $\varphi(z) = (z-z_0) h(z)$，则 $\varphi'(z_0) = h(z_0)\neq 0$，故存在 $z_0$ 的邻域及 $\varphi(z_0) = 0$ 的邻域使 $\varphi$ 为解析同胚。
+
+{% admonition(type="abstract", title="开映射定理") %}
+区域 $\Omega$ 上的非常值解析函数 $f$，将 $\Omega$ 中开集映到开集。
+{% end %}
+
+只需 $f(\Omega)$ 开。对 $w_0 = f(z_0)$，其中 $z_0$ 为 $f(z)-f(z_0)$ 的 $m$ 阶零点，存在 $w_0$ 的邻域 $O$，使其中点在 $z_0$ 邻域内有 $m$ 个原像，故 $O\subset f(\Omega)$.
+
+进而我们知道对单叶解析函数 $f$，它是 $\Omega\to f(\Omega)$ 的解析同胚。
 
 ### 代数基本定理
 我们来使用开映射定理：
@@ -359,7 +373,7 @@ $$f(z) = \sum_{n=0}^{+\infty} \frac{1}{2\pi\mathrm{i}}(z-z_0)^n\int_{|w-z_0| = r
 对区域 $\Omega$ 上的非常值解析函数 $f$，$|f(z)|$ 在 $\Omega$ 内无最大值点。
 {% end %}
 
-因为 $f(z_0)$ 是 $f(D(z_0, \epsilon))$ 的内点。
+因为 $f(z_0)$ 是 $f(D(z_0, \varepsilon))$ 的内点。
 
 {% admonition(type="abstract", title="代数基本定理") %}
 $n$ 次多项式 $P(z) = a_nz^n+\cdots+a_0$ 在 $\mathbb{C}$ 中有零点。
@@ -375,6 +389,49 @@ $n$ 次多项式 $P(z) = a_nz^n+\cdots+a_0$ 在 $\mathbb{C}$ 中有零点。
 >
 > 其不为常数，故 $P(\bar{\mathbb{C}})$ 为开集，而 $\bar{\mathbb{C}}$ 是紧的，故 $P(\bar{\mathbb{C}})$ 为闭集。从而值域是 $\bar{\mathbb{C}}$
 
-我们将 $\mathbb{C}$ 上称为**整函数**，其中不为多项式的称为**超越整函数**。
+### 积分工具
+{% admonition(type="abstract", title="Cauchy 不等式") %}
+区域 $\Omega$ 上的解析函数 $|f|\leq M$，则 $\forall z_0\in\Omega, 0<r\leq \mathrm{dist}(z_0, \partial\Omega)$ 有
+
+$$|f^{(n)}(z_0)|\leq \frac{n!M}{r^n}$$
+{% end %}
+
+对 $0<r<\mathrm{dist}(z_0, \partial\Omega)$，由
+
+$$f^{(n)}(z_0) = \frac{n!}{2\pi\mathrm{i}}\int_{|w-z_0| = r}\frac{f(w)}{(w-z_0)^{n+1}}\mathrm{d}w$$
+
+有
+
+$$|f^{(n)}(z_0)| = \frac{n!}{2\pi\mathrm{i}}\int_{|w-z_0| = r}\left|\frac{f(w)}{(w-z_0)^{n+1}}\right||\mathrm{d}w|\leq \frac{n!M}{r^n}$$
+
+再让 $r\to\mathrm{dist}(z_0, \partial\Omega)$ 即可。
+
+这表明，我们可以用 $|f(z)|$ 在区域内的最大值控制任意的 $|f^{(n)}(z)|$.
+
+{% admonition(type="abstract", title="Liouville 定理") %}
+解析函数 $f$ 在 $\mathbb{C}$ 上有界，则必为常数。
+{% end %}
+
+因为可以取 $r\to+\infty$ 使 $|f'(z_0)|\leq 0$.
+
+这表明：在解析同胚意义下，$\mathbb{C}$ 中单连通区域恰有 $\mathbb{C}$ 和 $D(0, 1)$ 两类。
+
+我们将 $\mathbb{C}$ 上的解析函数称为**整函数**，其中不为多项式的称为**超越整函数**。
+
+可以给出 Liouville 定理的推广如下：
+
+{% admonition(type="abstract", title="Weierstrass 定理") %}
+对非常值的整函数 $f$，有 $f(\mathbb{C})$ 在 $\mathbb{C}$ 中稠密。
+{% end %}
+
+假设结论不成立，存在 $z_0\in\mathbb{C}-\bar{f(\mathbb{C})}$ 为开集，有 $g(z)=\frac{1}{f(z)-z_0}$ 有界，矛盾。
+
+---
+
+我们期待对于定义在 $\mathbb{C}$ 上的超越整函数，能够如多项式一样证明它的值域是 $\mathbb{C}$；而事实上我们有相当接近的结论：
+
+{% admonition(type="abstract", title="Picard 小定理") %}
+对 $\mathbb{C}$ 上的超越整函数 $f$，有 $\mathbb{C}-f(\mathbb{C})$ 至多包含一个点。
+{% end %}
 
 {{ todo() }}
