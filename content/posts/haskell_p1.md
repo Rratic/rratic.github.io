@@ -46,7 +46,7 @@ Set-ExecutionPolicy Bypass -Scope Process -Force;[System.Net.ServicePointManager
 ### 值
 Haskell 是一个强类型语言，每一个值都有类型。但我们无法去对类型本身进行操作，因此不讨论类型的类型。
 
-GHCi 中可以用 `:t` 命令查看类型。
+GHCi 中可以用 `:t` 命令查看一个值的类型。
 
 ```hs
 ghci> :t 0
@@ -83,18 +83,29 @@ ghci> isUpper "abc"
 
 Haskell 中实际上存在元组，对应的泛性质是[积](/posts/category-theory-p1/#product-and-coproduct)。
 
-用括号表示元组，例如
+用括号表示元组
+```hs
+ghci> (fst (1, 2), snd (3, 4))
+(1,4)
+```
+
+可以使用元组作为函数的参数。注意这里使用了模式匹配（否则就要写 `addInt tup = fst tup + snd tup`）。
 ```hs
 ghci> addInt (a, b) = a + b
 ghci> addInt (101, 103)
 204
 ```
 
-但这不是正确的 Haskell 使用方式。我们应当使用 Curry 化：
+但这不是正确的 Haskell 的函数使用方式。我们应当使用 Curry 化：
 ```hs
-ghci> addInt a b = a + b
-ghci> :t addInt
 addInt :: Num a => a -> a -> a
+addInt a b = a + b
+```
+
+我们可以正常使用它或用它生成填充了部分参数的函数：
+```hs
+ghci> addInt 3 4
+7
 ghci> incr = addInt 1
 ghci> :t incr
 incr :: Num a => a -> a
@@ -115,14 +126,18 @@ ghci> ['A'..'Z']
 "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 ```
 
-`[1..]` 将生成一个无限列表。这得益于 Haskell 是懒惰求值的。
+`[1..]` 将生成一个无限列表。
+
+得益于 Haskell 是懒惰求值的，我们可以取出它的前若干项。
 ```hs
-ghci> [1..] -- 使用 Ctrl + C 打断输出
-[1,2,3,4,5,6,7,8,9,1Interrupted.
+ghci> [1..] -- 不断输出；使用 Ctrl + C 打断
+[1,2,3,4,5,6,7,8,9,Interrupted.
+ghci> last [1..] -- 无法停止；使用 Ctrl + C 打断
+Interrupted.
 ghci> :t [1..]
 [1..] :: (Num a, Enum a) => [a]
-ghci> take 10 [1..]
-[1,2,3,4,5,6,7,8,9,10]
+ghci> take 10 ([2, 3, 7] ++ [1..])
+[2,3,7,1,2,3,4,5,6,7]
 ```
 
 ### 列表推导式
@@ -138,12 +153,16 @@ ghci> filter' even [1..10]
 [2,4,6,8,10]
 ```
 
+实际上使用起来相当自由：
+```hs
+ghci> [ e | li <- ["Ahh!", "meow~", "..."], e <- li ]
+"Ahh!meow~..."
+```
+
 ### 应用
-`String` 其实是 `[Char]` 的别名。
+`String` 其实上就是 `[Char]` 的别名。
 
-让我们做一些大一点的东西。
-
-现在可以在位于 `./Main.hs` 的文件中编辑代码
+考虑以下代码（在位于 `./Main.hs` 的文件中编辑）
 ```hs
 import Data.Char
 import Data.List
@@ -164,6 +183,12 @@ normalise c | isUpper c = c
 ghci> :load Main
 [1 of 2] Compiling Main             ( Main.hs, interpreted )
 Ok, one module loaded.
+```
+
+或者，也可以使用 GHCi 提供的多行输入（从 `:{` 开始，以 `:}` 结束）
+
+我们来测试以下：
+```hs
 ghci> canonical "Hello, world!"
 "HELLOWORLD"
 ghci> f = group . sort . canonical
@@ -231,9 +256,18 @@ safeDiv a b = Some (a `div` b)
 ```hs
 data Person = Person {
   name :: String,
-	id   :: Int
-	dob  :: (Int, Int, Int) -- day of birth
-}
+  id   :: Int,
+  dob  :: (Int, Int, Int) -- day of birth
+} deriving (Show)
+```
+
+你会得到：
+```hs
+ghci> a = Person "Alice" 20 (1901, 1, 1)
+ghci> a
+Person {name = "Alice", id = 20, dob = (1901,1,1)}
+ghci> name a
+"Alice"
 ```
 
 ### 类型类
