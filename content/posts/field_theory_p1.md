@@ -100,10 +100,10 @@ $\mathbb{Q}$ 由 p-进绝对值完备化为 $\mathbb{Q}_p$
 可以看成全体有限的 p 进制小数（每一位为 $\mathbb{F}_p$）构成的域。
 {% end %}
 
-其特征为 p
+其特征为 $p$.
 
 {% admonition(type="example", title="形式 Laurent 级数域") %}
-对域 $F$，$F((x))$ 是全体 $\sum_{n=k}^\infty a_nx^n, k\in\mathbb{Z}, a_n\in F$ 的域。
+对域 $F$，$F(\\!(x)\\!)$ 是全体 $\sum_{n=k}^\infty a_nx^n, k\in\mathbb{Z}, a_n\in F$ 的域。
 {% end %}
 
 其特征与 $F$ 一致。

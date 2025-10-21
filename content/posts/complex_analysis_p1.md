@@ -167,7 +167,7 @@ $f$ 为区域 $D$ 上的处处非 0 全纯函数，则存在 $g^n = f$
 取 $\frac{1}{r} = \lim_{n \to \infty}\sup\sqrt[n]{|a_n|}$.
 
 ### 多值函数
-不严格地说，多值函数 $F: \Omega \to \mathbb{C}$ 中的值是复数构成的集合。
+多值函数 $F: \Omega \to \mathbb{C}$ 中的值 $F(z)$ 可以看作复数构成的集合。
 
 例如，因为复数上的 $\exp$ 不是单的，它的反函数形如 $\mathrm{Ln} (r\cdot e^{\mathrm{i}\theta}) = \mathrm{Ln} r + \mathrm{i}\theta$
 
@@ -175,8 +175,7 @@ $f$ 为区域 $D$ 上的处处非 0 全纯函数，则存在 $g^n = f$
 
 例如，在 $\mathbb{C}$ 去掉一个原点引出的射线这一区域上，$\mathrm{Ln}$ 是可以定义单值分支的。
 
-TODO
-- Riemann 面
+对特定的函数，我们可以定义它的 Riemann 曲面（是 $1$ 维的连通复流形），使函数在其上是单值的。
 
 ## 复平面
 ### 扩充复平面
@@ -195,7 +194,7 @@ $$z\mapsto \frac{az+b}{cz+d}$$
 
 又称 Möbius 变换。有时我们也会考虑共轭分式线性变换 $z\mapsto \frac{a\bar{z}+b}{c\bar{z}+d}$，它们均可将扩充复平面映到自身。
 
-若将 $z$ 视作 $\frac{z_1}{z_2}$，并写为 $z = \begin{pmatrix}z_1\\\\ z_2\end{pmatrix}$ 则前者为：
+若将 $z$ 视作 $\frac{z_1}{z_2}$（或视作齐次坐标），并写为 $z = \begin{pmatrix}z_1\\\\ z_2\end{pmatrix}$ 则前者为：
 
 $$
 z\mapsto \begin{pmatrix}a&b\\\\ c&d\end{pmatrix} z
@@ -433,5 +432,7 @@ $$|f^{(n)}(z_0)| = \frac{n!}{2\pi\mathrm{i}}\int_{|w-z_0| = r}\left|\frac{f(w)}{
 {% admonition(type="abstract", title="Picard 小定理") %}
 对 $\mathbb{C}$ 上的超越整函数 $f$，有 $\mathbb{C}-f(\mathbb{C})$ 至多包含一个点。
 {% end %}
+
+此证明将略过。
 
 {{ todo() }}
