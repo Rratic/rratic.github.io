@@ -95,7 +95,7 @@ float noise (vec2 st) {
 
 封面图的代码如下，使用了局部随机化：
 ```glsl
-#define RED vec3(0.926, 0.109, 0.141)
+vec3 hsv2rgb(vec3 c) { ... }
 
 float random(vec2 uv) {
 	return fract(sin(dot(uv.xy, vec2(11.143, 78.233))) * 43758.5453123);
@@ -116,7 +116,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
     float fr = noise(uv2 + random(uv2));
 
     float t = smoothstep(0.0, 1.0, fr);
-    vec3 col = t * RED + (1.0 - t) * vec3(1.0);
+    vec3 col = t * hsv2rgb(vec3(1.0 - abs(ny), 0.88, 0.92)) + (1.0 - t) * vec3(1.0);
     fragColor = vec4(col, 1.0);
 }
 ```
