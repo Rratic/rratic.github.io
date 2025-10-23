@@ -5,6 +5,10 @@ date = 2025-09-22
 
 [extra]
 toc = true
+math = true
+
+[extra.cover]
+image = "images/cover/shader_exp_inv.png"
 
 [extra.sitemap]
 priority = "0.8"
@@ -149,6 +153,30 @@ float movingLine(vec2 d, float radius) {
         return (1.0 - smoothstep(0.0, 2.0, l)) + 0.5 * gradient;
     }
     else return 0.0;
+}
+```
+
+### 复函数
+参考 <https://complex-analysis.com/content/domain_coloring.html>，可以用色相来表示值的辐角，用亮度表示值的模长。
+
+渲染 $z\mapsto e^{\frac{1}{z}}$ 的代码如下：
+```glsl
+precision highp float; // 设置为最高精度
+
+#define PI 3.141592653589793
+
+vec3 hsv2rgb(vec3 c) { ... }
+
+void mainImage(out vec4 fragColor, in vec2 fragCoord)
+{
+    vec2 uv = (fragCoord * 2.0 - iResolution.xy) / iResolution.y;
+    uv = uv / (0.1 + iTime);
+    uv = vec2(uv.x, -uv.y) / (uv.x * uv.x + uv.y * uv.y);
+    vec2 val = vec2(exp(uv.x) * cos(uv.y), exp(uv.x) * sin(uv.y));
+    float len = 0.5 + 0.5 * exp(fract(log(length(val)) * 2.0) - 1.0);
+    float rot = fract((uv.y / PI + 1.0) / 2.0);
+    vec3 col = vec3(rot, 1.0, len);
+    fragColor = vec4(hsv2rgb(col), 1.0);
 }
 ```
 

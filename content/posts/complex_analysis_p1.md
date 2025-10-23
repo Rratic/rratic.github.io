@@ -423,7 +423,7 @@ $$|f^{(n)}(z_0)| = \frac{n!}{2\pi\mathrm{i}}\int_{|w-z_0| = r}\left|\frac{f(w)}{
 对非常值的整函数 $f$，有 $f(\mathbb{C})$ 在 $\mathbb{C}$ 中稠密。
 {% end %}
 
-假设结论不成立，存在 $z_0\in\mathbb{C}-\bar{f(\mathbb{C})}$ 为开集，有 $g(z)=\frac{1}{f(z)-z_0}$ 有界，矛盾。
+假设结论不成立，存在 $z_0\in\mathbb{C}-\overline{f(\mathbb{C})}$ 为开集，有 $g(z)=\frac{1}{f(z)-z_0}$ 有界，矛盾。
 
 ---
 
