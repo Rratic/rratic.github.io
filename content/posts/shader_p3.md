@@ -93,30 +93,24 @@ float noise (vec2 st) {
 * 另外可以进行优化：将 `smoothstep` 中调用的 $\mathrm{lerp}(x) = 3x^2-2x^3$ 改为 $6x^5-15x^4+10x^3$.
 * 进行局部随机化。
 
-封面图的代码如下，使用了局部随机化：
+封面图的代码如下，使用了局部随机化，并引入了时间维度：
 ```glsl
 vec3 hsv2rgb(vec3 c) { ... }
 
 float random(vec2 uv) {
-	return fract(sin(dot(uv.xy, vec2(11.143, 78.233))) * 43758.5453123);
+	return fract(sin(dot(uv.xy, vec2(11.143, 78.233))) * (43758.5453123 + iTime));
 }
 
 float noise (vec2 st) { ... }
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord)
 {
-    vec2 uv = fragCoord/iResolution.y;
-    if (length(uv * 2.0 - vec2(1.0)) > 1.0) {
-        fragColor = vec4(1.0);
-        return;
-    }
-    float nx = 0.5 - sin(asin(1.0 - 2.0 * uv.x) / 3.0); // 按位置改变密度
-    float ny = fragCoord.y / iResolution.y;
-    vec2 uv2 = vec2(nx * 20.0, ny * 2000.0);
+    vec2 uv = (fragCoord * 2.0 - iResolution.xy) / iResolution.y;
+    vec2 uv2 = vec2(uv.x * 20.0, uv.y * 1000.0);
     float fr = noise(uv2 + random(uv2));
 
     float t = smoothstep(0.0, 1.0, fr);
-    vec3 col = t * hsv2rgb(vec3(1.0 - abs(ny), 0.88, 0.92)) + (1.0 - t) * vec3(1.0);
+    vec3 col = t * hsv2rgb(vec3((1.0 - uv.y) / 2.0, 1.0, 1.0)) + (1.0 - t) * vec3(1.0);
     fragColor = vec4(col, 1.0);
 }
 ```
@@ -136,10 +130,7 @@ Voronoi/Worley/Cell 噪声可产生类似细胞的效果。
 当我们判断一个点在哪个细胞中时，我们进行 3×3 的采样，分别计算偏移后的坐标，找到其中最近的那个。
 
 ## 技巧
-你可以把时间作为一个维度。
-
 ### 分形化
-{{ todo() }}
+考虑 Diffusion-limited Aggregation
 
-### 纹理
 {{ todo() }}
