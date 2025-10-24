@@ -51,7 +51,7 @@ $$
 
 显然有 $\varphi$ 是从 $G$ 到 $\Omega$ 上变换群的同态。
 
-记集合元素 $\alpha$ 在这一关系下的等价类 $\\{\alpha^x\mid x\in G\\}$ 为其**轨道** $Orb(\alpha)$；全体不变映射 $\\{x\mid\alpha^x=\alpha\\}$ 为其**稳定化子** $\mathrm{Stab}(\alpha)$
+记集合元素 $\alpha$ 在这一关系下的等价类 $\\{\alpha^x\mid x\in G\\}$ 为其**轨道** $\mathrm{Orb}(\alpha)$；全体不变映射 $\\{x\mid\alpha^x=\alpha\\}$ 为其**稳定化子** $\mathrm{Stab}(\alpha)$
 
 易知 $|\mathrm{Orb}(\alpha)|=|G\colon \mathrm{Stab}(\alpha)|$
 
