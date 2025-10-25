@@ -1,0 +1,54 @@
+/*
+	Fix bad stylesheet.
+*/
+
+article {
+	/* Ensures head bar works correctly. */
+	overflow-x: hidden;
+}
+
+.pl-4 {
+	padding-left: 1rem;
+	padding-right: 1rem;
+}
+
+blockquote cite.align-right {
+	display: block;
+	text-align: right;
+}
+
+blockquote cite em {
+	text-decoration: 1px underline;
+}
+
+footer .block-bg:not(.block-hover) {
+	background-color: transparent;
+}
+
+code::before,
+code::after {
+	content: "" !important;
+}
+
+p>code,
+li>code {
+	text-decoration: 2px gold underline;
+	text-underline-offset: 2px;
+}
+
+/*
+	For custom shortcodes.
+*/
+
+.folded {
+	display: none;
+}
+
+.folder,
+.quote-display {
+	cursor: pointer;
+}
+
+.quote-display {
+	user-select: none;
+}
