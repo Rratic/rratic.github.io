@@ -2,7 +2,7 @@
 title = "【草稿】复分析速通指南（二）"
 description = "计划写到 Riemann 单值化定理。"
 date = 2025-10-16
-updated = 2025-10-23
+updated = 2025-10-25
 
 [extra]
 math = true
@@ -94,7 +94,9 @@ $$a_n = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = \varepsilon}\frac{f(w)}{(w-z_0)^
 若 $z_0$ 是 $f$ 的一个本性奇点，则对任意 $\varepsilon>0$，$f(\mathring{D}(z_0, \varepsilon))$ 在 $\mathbb{C}$ 中稠密。
 {% end %}
 
-{{ todo() }}
+我们知道 $\mathbb{C}-\overline{f(D_0(z_0, \varepsilon))}$ 是开集，若它非空，存在 $z^*$ 及 $\delta>0$ 使 $D(z^*, \delta)$ 在其内。
+
+令 $g(z) = \frac{1}{f(z)-z^*}$，有 $|g(z)|\leq \frac{1}{\delta}$，从而 $z_0$ 是 $g$ 的可去奇点，只能是 $f$ 的可去奇点或极点，与条件矛盾。
 
 更进一步，我们有 Picard 大定理：
 {% admonition(type="abstract", title="Picard 大定理") %}
@@ -103,7 +105,21 @@ $z_0$ 是 $f$ 的一个本性奇点，且 $f$ 在 $\mathring{D}(z_0, \varepsilon
 
 甚至还有更强的结论 Julia 定理。
 
+{% admonition(type="abstract", title="全纯自同胚") %}
+$f:\mathbb{C}\to\mathbb{C}$ 是全纯自同胚当且仅当它形如 $az+b\ (a\neq 0)$.
+{% end %}
+
+只需证左推右。我们知道 $f$ 是整函数，且 $\infty$ 是孤立奇点。
+
+由 $f$ 无界知 $\infty$ 不是可去奇点，又由 Weierstrass 定理知它不是本性奇点，从而是极点。
+
+从而它是多项式，由代数学基本定理知是一次的。
+
 ### 亚纯函数
+对 $\bar{\mathbb{C}}$ 中区域 $\Omega$ 上的函数 $f$，若除了（可能）有极点外处处解析，则称它是**亚纯**的。
+
+一个区域上的亚纯函数全体构成一个域，记作 $m(\Omega)$.
+
 {{ todo() }}
 
 ## 留数
