@@ -1,6 +1,6 @@
 +++
 title = "Haskell 学习（一）：基础内容"
-description = "Haskell 的基础语法特性概览：函数、列表、类型。"
+description = "函数式语言的基础特性概览：列表、类型与高阶函数。"
 date = 2025-08-26
 updated = 2025-08-27
 
@@ -46,7 +46,7 @@ Set-ExecutionPolicy Bypass -Scope Process -Force;[System.Net.ServicePointManager
 ### 值
 Haskell 是一个强类型语言，每一个值都有类型。但我们无法去对类型本身进行操作，因此不讨论类型的类型。
 
-GHCi 中可以用 `:t` 命令查看一个值的类型。
+GHCi 中可以用 `:type` 或其简写 `:t` 命令查看一个值的类型。
 
 ```hs
 ghci> :t 0
@@ -243,7 +243,7 @@ toHList (Cons x xs) = x : toHList xs
 
 或可使用语法糖 `toHList $ Cons 'a' $ Cons 'b' Empty`
 
-也可以实现我们在现代语言中熟悉的 `Option`
+也可以实现我们在现代语言中熟悉的 `Option`（在 Haskell 里对应的类型是 `data Maybe a = Nothing | Just a`）
 ```hs
 data Option a = None | Some a deriving (Show)
 

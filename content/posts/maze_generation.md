@@ -1,5 +1,6 @@
 +++
 title = "迷宫生成算法：固定大小迷宫与无限迷宫"
+description = "固定大小迷宫的随机化 Prim 算法及其 C++ 示例；无限迷宫的递归分割算法及其 Javascript 示例。"
 date = 2022-08-29
 updated = 2024-01-21
 
@@ -184,7 +185,7 @@ Chunk.prototype.generate__infmaze_4 = function (lx, ly, rx, ry) {
 }
 
 Chunk.prototype.generate__infmaze = function(x, y) {
-    // chunks are isolated at first
+    // isolate chunks
     for(let i = 0; i < 64; i++) {
         this.put(i, 0, 'wall');
         this.put(0, i, 'wall');
