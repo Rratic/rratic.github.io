@@ -6,6 +6,7 @@ updated = 2025-10-07
 
 [extra]
 toc = true
+math = true
 
 [extra.sitemap]
 priority = "0.8"

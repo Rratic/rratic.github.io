@@ -1,7 +1,8 @@
 +++
 title = "【草稿】《初识量子力学》笔记"
+description = "《初识量子力学》是一个理顺量子力学理论的尝试。"
 date = 2025-10-05
-updated = 2025-10-13
+updated = 2025-10-27
 
 [extra]
 math = true
@@ -23,6 +24,7 @@ tags = ["笔记", "物理", "量子力学"]
 - [《初识量子力学》](https://chaoli.club/index.php/10485)
 
 ## 矩阵革命
+### 矩阵引入与运动方程
 人们发现原子光谱中谱线角频率总是可以被一组正整数表示成 $\omega_{mn}$，且满足里兹组合规则
 
 $$\omega_{mn} = \omega_{ml} + \omega_{ln} \tag{1.1}$$
@@ -114,27 +116,37 @@ $$
 
 对任意物理量 $A$ 的对应矩阵，只要满足 (1.5) 条件，对时间求导，可以得到海森堡运动方程：
 
-$$i\hbar \frac{\mathrm{d}A}{\mathrm{d}t} = [A, H] \tag{1.6}$$
+$$i\hbar \frac{\mathrm{d}A}{\mathrm{d}t} = [A, H] \tag{1.7}$$
 
 如果一个物理量满足 $[A, H] = 0$，则就有 $\frac{\mathrm{d}A}{\mathrm{d}t}=0$，它是守恒量。
 
-可以证明，若 $A, B$ 均满足 (1.6) 方程，则 $\lambda A, A+B, AB$ 也满足该方程，进而 $[A, B]$ 也满足该方程。
+可以证明，若 $A, B$ 均满足 (1.7) 方程，则 $\lambda A, A+B, AB$ 也满足该方程，进而 $[A, B]$ 也满足该方程。
 
+### 对易关系
 现在考虑经典系统的哈密顿量：
 
-$$H = \frac{P^2}{2m_e} + V(X) \tag{1.7}$$
+$$H = \frac{P^2}{2m_e} + V(X) \tag{1.8}$$
 
 其中 $V(X)$ 使用 $V(x)$ 展开成幂级数的形式（为什么是合理的？）
 
 有 $[X, X^n] = X[X, X^{n-1}] + X[X, X^{n-1}]X = \cdots = 0$，故 $[X, V(X)] = 0$
 
-如果我们要求量子系统与相应的经典系统相对应，则能得出 $[X, P] = i\hbar$
+如果我们要求量子系统与相应的经典系统相对应，即将哈密顿正则方程改造为：
 
----
+$$\frac{\mathrm{d}X}{\mathrm{d}t}=\frac{P}{m_e},\quad \frac{\mathrm{d}P}{\mathrm{d}t} = -V'(X) \tag{1.9}$$
 
+并且满足 (1.7) 方程，如果我们再假定一些良好的性质，则能得出 $[X, P] = i\hbar$，称为量子力学基本对易关系。
+
+在多自由度情形，由于运动的不同自由度相互独立，我们有：
+
+$$[X_a, P_b] = i\hbar\delta_{ab}, [X_a, X_b] = 0, [P_a, P_b] = 0 \tag{1.10}$$
+
+在原书中，作者还对一维谐振子作了具体的计算，此文中略过。
+
+### 新记号
 最后，让我们换一个写法，记
 
-$$A_{mn} = \langle m|\hat{A}|n\rangle \tag{1.8}$$
+$$A_{mn} = \langle m|\hat{A}|n\rangle \tag{1.11}$$
 
 那么就有 $\langle m|\hat{A}^\dagger|n\rangle = \langle m|\hat{A}|n\rangle^*$ 及 $\langle m|n \rangle = \langle m|\mathbf{1}|n \rangle =\delta_{mn}$.
 
