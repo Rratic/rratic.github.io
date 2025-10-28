@@ -15,8 +15,8 @@ image = "images/cover/shader_pencil_effect.png"
 priority = "0.8"
 
 [taxonomies]
-categories = ["杂物"]
-tags = ["数学", "计算机", "计算机图形学"]
+categories = ["知识"]
+tags = ["笔记", "计算机", "计算机图形学"]
 +++
 
 参考了 [The Book of Shaders](https://thebookofshaders.com/)

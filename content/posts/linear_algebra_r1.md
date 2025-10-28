@@ -17,11 +17,17 @@ tags = ["笔记", "数学", "代数", "线性代数"]
 本文用于准备高等代数实验班 2025 - 2026(I) 的期中考试。
 
 ## 作业及延申
+{% admonition(type="question", title="Steinitz 替换引理") %}
+若 $S = \\{\alpha_1,\cdots,\alpha_s\\}$ 线性无关，可由 $T = \\{\beta_1,\cdots,\beta_t\\}$ 线性表出，则可用 $S$ 替换 $T$ 中的 $s$ 个向量，使新的向量组与 $S$ 等价。
+{% end %}
+
+我们维护一个向量组，初始是 $T$，每次取出某个 $\alpha_i$，放入后整体变得线性相关，此时总是可以弹出一个 $\beta_j$.
+
 {% admonition(type="question", title="习题 2.3:6") %}
 $V$ 为 $n$ 维 $F$-线性空间，子空间 $M_1,\cdots,M_{n-1},N_1,\cdots,N_{n-1}$ 使 $\dim M_i = \dim N_i = i$，且 $M_i\subset M_{i+1}, N_i\subset N_{i+1}$，证明存在 $V$ 的基 $S$，使这些子空间均由它的子集生成。
 {% end %}
 
-同例题，记 $M_0=N_0=\emptyset$，又记 $k_i$ 是使 $(M_i\setminus M_{i-1})\cap N_{k_i}\neq\emptyset$ 的最小下标，则 $k_i$ 互不相等。
+同例题使用的证法，记 $M_0=N_0=\emptyset$，又记 $k_i$ 是使 $(M_i\setminus M_{i-1})\cap N_{k_i}\neq\emptyset$ 的最小下标，则 $k_i$ 互不相等。
 
 取 $s_i\in (M_i\setminus M_{i-1})\cap (N_{k_i}\setminus N_{k_i-1})$ 即可。
 

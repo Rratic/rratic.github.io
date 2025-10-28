@@ -141,6 +141,8 @@ $$\frac{\mathrm{d}X}{\mathrm{d}t}=\frac{P}{m_e},\quad \frac{\mathrm{d}P}{\mathrm
 
 $$[X_a, P_b] = i\hbar\delta_{ab}, [X_a, X_b] = 0, [P_a, P_b] = 0 \tag{1.10}$$
 
+称为海森堡代数。
+
 在原书中，作者还对一维谐振子作了具体的计算，此文中略过。
 
 ### 新记号
