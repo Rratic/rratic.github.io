@@ -8,6 +8,9 @@ updated = 2025-10-26
 toc = true
 math = true
 
+[extra.cover]
+image = "/images/cover/haskell_p2.png"
+
 [extra.sitemap]
 priority = "0.8"
 
