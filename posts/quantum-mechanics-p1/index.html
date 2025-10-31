@@ -1,0 +1,370 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>【草稿】《初识量子力学》笔记 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="【草稿】《初识量子力学》笔记" />
+  <meta name="description" content="《初识量子力学》是一个理顺量子力学理论的尝试。" />
+  <meta property="og:description" content="《初识量子力学》是一个理顺量子力学理论的尝试。" />
+  <meta property="og:url" content="https://rratic.github.io/posts/quantum-mechanics-p1/" />
+  <link rel="canonical" href="https://rratic.github.io/posts/quantum-mechanics-p1/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2025-10-05T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2025-10-27T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="物理" />
+  <meta property="article:tag" content="量子力学" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.github.io/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.github.io/style/shared.css?h=74471d1f38c46232d571" />
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.github.io/main.min.css?h=2e89f7f30f1019877d14" />
+  <style>
+  :root{--bg: white; --header: #e6f4ff; color-scheme: light;}
+  :root.dark{--bg: #424242; --header: #333333; color-scheme: dark;}
+  </style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.github.io/js/linkita.min.js?h=1dd3ed42fc674277bc34"></script>
+  <link rel="stylesheet" href="https://rratic.github.io/katex/katex.min.css?h=19095127357ed6d29fe0" />
+  <script defer src="https://rratic.github.io/katex/katex.min.js?h=e8d885505949f3a5f4ab"></script>
+  <script defer src="https://rratic.github.io/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.linkita.initKatex);</script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out bg-[var(--bg)] dark:text-white">
+  <!-- Header -->
+<header class="bg-[var(--header)] fixed top-0 z-40 mx-auto min-h-[3.25rem] w-full header-icons">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8">
+        <a title="转到主页" accesskey="!"
+          href="https://rratic.github.io/" class="text-2xl font-semibold">错行</a>
+        <button type="button" title="切换颜色方案" accesskey="$"
+          onclick="window.linkita.toggleDarkMode();" ondblclick="window.linkita.resetDarkMode();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover dark:invert [background-image:var(--icon-theme-dark)] dark:[background-image:var(--icon-theme-light)]"
+        ></button>
+      </div>
+      <div title="导航" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.linkita.toggleHeaderMenu();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.linkita.toggleHeaderMenu() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral relative mx-auto min-h-[calc(100%-4rem)]
+    max-w-3xl break-words px-4 pb-12 pt-28 lg:pt-32 dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">【草稿】《初识量子力学》笔记</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2025-10-05T00:00:00+00:00">2025-10-05</time><span
+        class="middot"></span>↻ <time
+      datetime="2025-10-27T00:00:00+00:00">2025-10-27</time><span
+        class="middot"></span><time
+    datetime="PT0H7M0S">7&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+<div class="block-bg mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-4" accesskey="=">
+      <span class="cursor-pointer">目录</span>
+    </summary>
+    <div class="px-2">
+      <ul>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/quantum-mechanics-p1/#ju-zhen-ge-ming">矩阵革命</a>
+          <ul>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/quantum-mechanics-p1/#ju-zhen-yin-ru-yu-yun-dong-fang-cheng">矩阵引入与运动方程</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/quantum-mechanics-p1/#dui-yi-guan-xi">对易关系</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/quantum-mechanics-p1/#xin-ji-hao">新记号</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/quantum-mechanics-p1/#liang-zi-li-xue-ji-ben-yuan-li">量子力学基本原理</a>
+        </li>
+      </ul>
+    </div>
+  </details>
+</div>
+
+  <!-- Content -->
+  <section><p>前置知识</p>
+<ul>
+<li>线性代数（矩阵运算即可）</li>
+<li>一般的经典力学基础</li>
+</ul>
+<p>参考阅读</p>
+<ul>
+<li><a href="https://chaoli.club/index.php/10485">《初识量子力学》</a></li>
+</ul>
+<h2 id="ju-zhen-ge-ming">矩阵革命</h2>
+<h3 id="ju-zhen-yin-ru-yu-yun-dong-fang-cheng">矩阵引入与运动方程</h3>
+<p>人们发现原子光谱中谱线角频率总是可以被一组正整数表示成 $\omega_{mn}$，且满足里兹组合规则</p>
+<p>$$\omega_{mn} = \omega_{ml} + \omega_{ln} \tag{1.1}$$</p>
+<p>经典物理不仅解释不了原子光谱的分立性，而且无法解释原子的稳定性（按理说电子会不断辐射发出电磁辐射而失去能量）。</p>
+<p>后来人们整理出氢原子的光谱的公式，即巴尔末-里德堡公式：</p>
+<p>$$\omega_{mn} = 2\pi Rc \left(\frac{1}{m^2}-\frac{1}{n^2}\right) \tag{1.2}$$</p>
+<p>其中 R 是 Rydberg 常数。</p>
+<p>对于氢原子光谱，玻尔提出了三条假设</p>
+<ul>
+<li><strong>定态</strong>假设：核外电子绕核运动只能取某些特定的轨道，此时不辐射电磁波损失能量，有恒定能量 $E_n$</li>
+<li>跃迁假设：电子从第 n 个定态跃迁到第 m 个定态，辐射出频率 $\omega_{mn}$ 的电磁波</li>
+<li>轨道角动量量子化假设：第 n 个定态上电子的角动量 $J = rp = n\hbar$</li>
+</ul>
+<p>令精细结构常数 $\alpha = \frac{e^2}{4\pi\epsilon_0\hbar c}\approx \frac{1}{137}$</p>
+<p>可推导</p>
+<p>$$
+\left\{\begin{matrix}
+m_e\frac{v^2}{r} = \frac{e^2}{4\pi\epsilon_0 r^2} \\
+rm_ev = n\hbar
+\end{matrix}\right.
+$$</p>
+<p>有</p>
+<p>$$E_n = -\frac{1}{2n^2}m_e\alpha^2 c^2 \tag{1.3}$$</p>
+<p>尽管玻尔的理论从结构上不令人满意，定态和定态跃迁成为了量子力学基本性的观念。</p>
+<p>海森堡后来指出，电子轨道不可以观察，更恰当的看法是，定态是原子的一种确定可能性，定态跃迁也是随机的。</p>
+<p>电动力学推导出，一个加速运动的电子辐射电磁波的功率为</p>
+<p>$$P = \frac{e^2}{3\pi\epsilon_0 c^3}|\ddot{x}|^2 \tag{1.4}$$</p>
+<p>其中 $x$ 是轨道。</p>
+<p>通过普朗克对黑体辐射公式的推导，海森堡知道，原子定态跃迁发出电磁辐射的过程可以看成简谐振动，写为</p>
+<p>$$x_{mn} = x_{0_{mn}} e^{-i\omega_{mn}t} \tag{1.5}$$</p>
+<p>其中 $x_{0_{mn}}$ 与时间无关。</p>
+<p>为了遍历所有的正整数 $(m, n)$，规定 $\omega_{mn}=-\omega_{nm}, \omega_{nn}=0$，我们有包含所有 $x_{mn}$ 的无穷大表格（尽管海森堡当时还不知道矩阵）。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-[var(--admonition-bg)]"
+  style="--admonition-bg: rgba(83, 211, 230, 0.1);"
+>
+  <div class="flex items-center rounded-t-lg bg-[var(--admonition-bg)] p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(./icons/info.svg);"
+    >
+      info
+    </div>
+    <span><strong>Hermitian 矩阵</strong></span>
+  </div>
+  <div class="pl-4"><p>我们称 Hermitian 共轭（有时被音译为厄米/埃尔米特共轭）是指 $A^\dagger = \left(A^T\right)^*$，</p>
+<p>其中 $A^T$ 是矩阵转置，$A^*$ 是（按分量）复共轭。</p>
+<p>一个矩阵是 Hermitian 矩阵，若 $A = A^\dagger$</p>
+</div>
+</div>
+<p>易验证上述表格构成 Hermitian 矩阵。</p>
+<p>我们对时间求导，再乘以质量，得到一个关于动量的矩阵，它也是 Hermitian 的。</p>
+<p>在物理中会遇到这样的问题：有些物理量，例如能量，需要将两个这样的无穷大表格乘在一起。</p>
+<p>式 (1.1) 对中间的 $l$ 态没有任何限制，海森堡选择将它们都加起来，这就对应矩阵的乘法。</p>
+<p>量子力学中还会用到对易子运算：</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-[var(--admonition-bg)]"
+  style="--admonition-bg: rgba(83, 211, 230, 0.1);"
+>
+  <div class="flex items-center rounded-t-lg bg-[var(--admonition-bg)] p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(./icons/info.svg);"
+    >
+      info
+    </div>
+    <span><strong>对易子</strong></span>
+  </div>
+  <div class="pl-4"><p>对易子定义为 $[A, B] = AB-BA$</p>
+<p>它满足双线性、反对称性和 Jacobi 恒等式，故构成李代数。</p>
+<p>如果 $A, B$ 都是 Hermitian 矩阵，则 $i[A, B]$ 也是 Hermitian 矩阵。</p>
+</div>
+</div>
+<p>现在考虑哈密顿量对应的矩阵。我们知道它不能依赖于时间，因此它是对角矩阵。</p>
+<p>$$
+H = \begin{bmatrix}
+E_1 &amp; 0   &amp; 0 &amp; \cdots \\
+0   &amp; E_2 &amp; 0 &amp; \cdots \\
+0   &amp; 0 &amp; E_3 &amp; \cdots \\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots
+\end{bmatrix} \tag{1.6}
+$$</p>
+<p>其中 $\omega_{mn}=(E_n-E_m)/\hbar$</p>
+<p>对任意物理量 $A$ 的对应矩阵，只要满足 (1.5) 条件，对时间求导，可以得到海森堡运动方程：</p>
+<p>$$i\hbar \frac{\mathrm{d}A}{\mathrm{d}t} = [A, H] \tag{1.7}$$</p>
+<p>如果一个物理量满足 $[A, H] = 0$，则就有 $\frac{\mathrm{d}A}{\mathrm{d}t}=0$，它是守恒量。</p>
+<p>可以证明，若 $A, B$ 均满足 (1.7) 方程，则 $\lambda A, A+B, AB$ 也满足该方程，进而 $[A, B]$ 也满足该方程。</p>
+<h3 id="dui-yi-guan-xi">对易关系</h3>
+<p>现在考虑经典系统的哈密顿量：</p>
+<p>$$H = \frac{P^2}{2m_e} + V(X) \tag{1.8}$$</p>
+<p>其中 $V(X)$ 使用 $V(x)$ 展开成幂级数的形式（为什么是合理的？）</p>
+<p>有 $[X, X^n] = X[X, X^{n-1}] + X[X, X^{n-1}]X = \cdots = 0$，故 $[X, V(X)] = 0$</p>
+<p>如果我们要求量子系统与相应的经典系统相对应，即将哈密顿正则方程改造为：</p>
+<p>$$\frac{\mathrm{d}X}{\mathrm{d}t}=\frac{P}{m_e},\quad \frac{\mathrm{d}P}{\mathrm{d}t} = -V'(X) \tag{1.9}$$</p>
+<p>并且满足 (1.7) 方程，如果我们再假定一些良好的性质，则能得出 $[X, P] = i\hbar$，称为量子力学基本对易关系。</p>
+<p>在多自由度情形，由于运动的不同自由度相互独立，我们有：</p>
+<p>$$[X_a, P_b] = i\hbar\delta_{ab}, [X_a, X_b] = 0, [P_a, P_b] = 0 \tag{1.10}$$</p>
+<p>称为海森堡代数。</p>
+<p>在原书中，作者还对一维谐振子作了具体的计算，此文中略过。</p>
+<h3 id="xin-ji-hao">新记号</h3>
+<p>最后，让我们换一个写法，记</p>
+<p>$$A_{mn} = \langle m|\hat{A}|n\rangle \tag{1.11}$$</p>
+<p>那么就有 $\langle m|\hat{A}^\dagger|n\rangle = \langle m|\hat{A}|n\rangle^*$ 及 $\langle m|n \rangle = \langle m|\mathbf{1}|n \rangle =\delta_{mn}$.</p>
+<p>不严格地说，可以把左态矢 $\langle m|$ 看作行向量，把右态矢 $|n \rangle$ 看作列向量。</p>
+<h2 id="liang-zi-li-xue-ji-ben-yuan-li">量子力学基本原理</h2>
+<p>我们现在讨论一般的可能性集（而非氢原子电子的定态）。</p>
+
+
+<div class="my-4 flex flex-col rounded-lg bg-[var(--admonition-bg)]" style="--admonition-bg: rgba(255, 145, 0, 0.1);">
+	<div class="flex items-center rounded-t-lg bg-[var(--admonition-bg)] p-1">
+		<div class="mx-2 h-4 w-4 text-[0] [background:var(--url)_center_center_no-repeat] dark:invert"
+			style="--url: url(./icons/warning.svg)">
+		</div>
+		<span><strong>TODO</strong></span>
+	</div>
+	<div class="pl-4">
+		<p>该部分未完成。</p>
+	</div>
+</div></section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mb-1.5 mr-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mb-1.5 mr-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/物理/">物理</a>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/量子力学/">量子力学</a>
+    
+  </div>
+</footer>
+
+  <!-- Post Nav -->
+<nav class="block-bg mt-12 flex flex-wrap rounded-lg text-lg">
+  <a
+    class="block-hover-mask flex min-w-[50%] grow items-center rounded-l-md p-6 pr-3 font-semibold no-underline"
+    href="https://rratic.github.io/posts/complex-analysis-p2/" accesskey=","
+    ><span class="mr-1.5">&#8249;</span><span>【草稿】复分析速通指南（二）</span></a>
+  <a
+    class="block-hover-mask ml-auto flex min-w-[50%] grow items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline"
+    href="https://rratic.github.io/posts/classical-mechanics-p1/" accesskey="."
+    ><span>《初识经典力学》笔记</span><span class="ml-1.5">&#8250;</span></a>
+</nav>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/pages"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

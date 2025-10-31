@@ -1,0 +1,676 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>Haskell 学习（二）：单子与副作用 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="Haskell 学习（二）：单子与副作用" />
+  <meta name="description" content="函数式语言如何引入副作用：函子、应用函子、单子。" />
+  <meta property="og:description" content="函数式语言如何引入副作用：函子、应用函子、单子。" />
+  <meta property="og:url" content="https://rratic.github.io/posts/haskell-p2/" />
+  <link rel="canonical" href="https://rratic.github.io/posts/haskell-p2/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2025-08-27T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2025-10-26T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="计算机" />
+  <meta property="article:tag" content="函数式编程" />
+  <meta property="article:tag" content="Haskell" />
+  <meta property="og:image" content="https://rratic.github.io/images/cover/haskell_p2.png" />
+  <meta property="og:image:alt" content="" />
+  <meta property="og:image:width" content="600" />
+  <meta property="og:image:height" content="292" />
+  <meta property="og:image:type" content="image/png" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.github.io/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.github.io/style/shared.css?h=74471d1f38c46232d571" />
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.github.io/main.min.css?h=2e89f7f30f1019877d14" />
+  <style>
+  :root{--bg: white; --header: #e6f4ff; color-scheme: light;}
+  :root.dark{--bg: #424242; --header: #333333; color-scheme: dark;}
+  </style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.github.io/js/linkita.min.js?h=1dd3ed42fc674277bc34"></script>
+  <link rel="stylesheet" href="https://rratic.github.io/katex/katex.min.css?h=19095127357ed6d29fe0" />
+  <script defer src="https://rratic.github.io/katex/katex.min.js?h=e8d885505949f3a5f4ab"></script>
+  <script defer src="https://rratic.github.io/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.linkita.initKatex);</script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out bg-[var(--bg)] dark:text-white">
+  <!-- Header -->
+<header class="bg-[var(--header)] fixed top-0 z-40 mx-auto min-h-[3.25rem] w-full header-icons">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8">
+        <a title="转到主页" accesskey="!"
+          href="https://rratic.github.io/" class="text-2xl font-semibold">错行</a>
+        <button type="button" title="切换颜色方案" accesskey="$"
+          onclick="window.linkita.toggleDarkMode();" ondblclick="window.linkita.resetDarkMode();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover dark:invert [background-image:var(--icon-theme-dark)] dark:[background-image:var(--icon-theme-light)]"
+        ></button>
+      </div>
+      <div title="导航" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.linkita.toggleHeaderMenu();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.linkita.toggleHeaderMenu() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral relative mx-auto min-h-[calc(100%-4rem)]
+    max-w-3xl break-words px-4 pb-12 pt-28 lg:pt-32 dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">Haskell 学习（二）：单子与副作用</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2025-08-27T00:00:00+00:00">2025-08-27</time><span
+        class="middot"></span>↻ <time
+      datetime="2025-10-26T00:00:00+00:00">2025-10-26</time><span
+        class="middot"></span><time
+    datetime="PT0H9M0S">9&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <figure class="mb-12 mt-0">
+    <img
+      class="h-auto w-full rounded-lg"
+      src="https://rratic.github.io/images/cover/haskell_p2.png"
+      width="600"
+      height="292"
+    />
+  </figure>
+  <!-- TOC -->
+<div class="block-bg mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-4" accesskey="=">
+      <span class="cursor-pointer">目录</span>
+    </summary>
+    <div class="px-2">
+      <ul>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/haskell-p2/#fu-zuo-yong">副作用</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/haskell-p2/#chou-xiang-ceng-ci">抽象层次</a>
+          <ul>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/haskell-p2/#ban-qun-yu-yao-ban-qun">半群与幺半群</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/haskell-p2/#hask-fan-chou">Hask 范畴</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/haskell-p2/#han-zi">函子</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/haskell-p2/#ying-yong-han-zi">应用函子</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/haskell-p2/#dan-zi">单子</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/haskell-p2/#wei-liao-fu-zuo-yong">为了副作用</a>
+          <ul>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/haskell-p2/#ji-ben-fu-zuo-yong">基本副作用</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/haskell-p2/#shang-xia-wen-fu-zuo-yong">上下文副作用</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/haskell-p2/#gong-ju-functor">工具 Functor</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/haskell-p2/#gao-ji-monad">高级 Monad</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </details>
+</div>
+
+  <!-- Content -->
+  <section><p>封面图为 Monad 类型类的声明，使用字体 JetBrains Mono.</p>
+<hr />
+<p>前置知识</p>
+<ul>
+<li>一般的抽象代数基础</li>
+<li><a href="/posts/haskell-p1/">Haskell 学习（一）</a></li>
+<li>一般的范畴论基础</li>
+</ul>
+<p>关于 Haskell 有一句广泛流传的话</p>
+<blockquote>
+<p>一个单子说白了不过就是自函子范畴上的一个幺半群而已，这有什么难以理解的？</p>
+</blockquote>
+<p>这句话有一点不负责任。现在我们来尝试理清 Haskell 中对应的概念。</p>
+<h2 id="fu-zuo-yong">副作用</h2>
+<p>在 Haskell 中，函数是没有副作用的，正如数学中的函数不会进行输出一样。</p>
+<p>而 <code>IO</code> 类则以一种方式间接的方式<em>引入</em>了副作用。</p>
+<p>我们可以把 <code>IO</code> 类型的定义视作：</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span style="color:#fa6e32;">type </span><span style="color:#ff8f40;">IO</span><span> a </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">World </span><span style="color:#ed9366;">-&gt;</span><span> (a</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">World</span><span>)
+</span></code></pre>
+<p>然后可以使用相关函数进行 IO 操作：</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span style="color:#f29718;">getChar </span><span style="color:#fa6e32;">:: IO Char
+</span><span style="color:#f29718;">putChar </span><span style="color:#fa6e32;">:: Char -&gt; IO </span><span style="font-style:italic;color:#ed9366;">()
+</span><span style="color:#f29718;">putStrLn </span><span style="color:#fa6e32;">:: String -&gt; IO </span><span style="font-style:italic;color:#ed9366;">()
+</span><span style="color:#f29718;">return </span><span style="color:#fa6e32;">:: </span><span>a </span><span style="color:#fa6e32;">-&gt; IO </span><span>a
+</span></code></pre>
+<p>使用 <code>do</code> 语法糖，我们可以顺序地执行</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span style="color:#f29718;">myGetLine </span><span style="color:#fa6e32;">:: IO String
+</span><span>myGetLine </span><span style="color:#ed9366;">= </span><span style="color:#fa6e32;">do
+</span><span>  x </span><span style="color:#ed9366;">&lt;-</span><span> getChar
+</span><span>  </span><span style="color:#fa6e32;">if</span><span> x </span><span style="color:#ed9366;">== </span><span style="color:#86b300;">&#39;</span><span style="color:#4cbf99;">\n</span><span style="color:#86b300;">&#39;
+</span><span>    </span><span style="color:#fa6e32;">then
+</span><span>      return </span><span style="color:#ff8f40;">[]
+</span><span>    </span><span style="color:#fa6e32;">else do
+</span><span>      xs </span><span style="color:#ed9366;">&lt;-</span><span> myGetLine
+</span><span>      return (x </span><span style="color:#ed9366;">:</span><span> xs)
+</span></code></pre>
+<p>就有：</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> str </span><span style="color:#ed9366;">&lt;-</span><span> myGetLine
+</span><span style="color:#ff8f40;">It</span><span>&#39;s a red fox</span><span style="color:#ed9366;">.
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> str
+</span><span style="color:#86b300;">&quot;It&#39;s a red fox.&quot;
+</span></code></pre>
+<p>我们在文件中写</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span style="color:#fa6e32;">module </span><span>Main </span><span style="color:#fa6e32;">where
+</span><span>
+</span><span style="color:#f29718;">main </span><span style="color:#fa6e32;">:: IO </span><span style="font-style:italic;color:#ed9366;">()
+</span><span>main </span><span style="color:#ed9366;">= </span><span style="color:#fa6e32;">do
+</span><span>  putStrLn </span><span style="color:#86b300;">&quot;Hello, Haskell!&quot;
+</span><span>  putStrLn </span><span style="color:#86b300;">&quot;Hello, World!&quot;
+</span></code></pre>
+<p>并用 <code>:load Main</code> 加载模块就可得到效果：</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt; :</span><span>main
+</span><span style="color:#ff8f40;">Hello</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">Haskell</span><span style="color:#ed9366;">!
+</span><span style="color:#ff8f40;">Hello</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">World</span><span style="color:#ed9366;">!
+</span></code></pre>
+<h2 id="chou-xiang-ceng-ci">抽象层次</h2>
+<p>半群与幺半群是计算机中很容易出现的事物。</p>
+<p>如果以一串函数复合为元素，考虑复合，或以一段程序为元素，定义复合为把两段程序紧挨着拼起来，那么此种意义下它们就是半群。</p>
+<p>如果进一步允许恒等函数/空程序段，就能构成幺半群。</p>
+<p>这将意味着，如果想要良好地处理副作用，就需要研究幺半群的结构和如何保持幺半群。</p>
+<h3 id="ban-qun-yu-yao-ban-qun">半群与幺半群</h3>
+<p><code>Semigroup</code> 半群类型类的原型如下：<sup class="footnote-reference"><a href="#omit">1</a></sup></p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span style="color:#fa6e32;">class </span><span style="text-decoration:underline;color:#399ee6;">Semigroup </span><span>a </span><span style="color:#fa6e32;">where
+</span><span>  </span><span style="color:#f29718;">(&lt;&gt;) </span><span style="color:#fa6e32;">:: </span><span>a </span><span style="color:#fa6e32;">-&gt; </span><span>a </span><span style="color:#fa6e32;">-&gt; </span><span>a
+</span></code></pre>
+<p>我们要求 <code>&lt;&gt;</code> 是一个满足结合律的二元运算（尽管编译器无法强制检查这一点）。</p>
+<p>易知列表类型 <code>[a]</code> 是半群。</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> [</span><span style="color:#ff8f40;">1</span><span style="color:#ed9366;">..</span><span style="color:#ff8f40;">3</span><span>] </span><span style="color:#ed9366;">&lt;&gt;</span><span> [</span><span style="color:#ff8f40;">4</span><span style="color:#ed9366;">..</span><span style="color:#ff8f40;">6</span><span>]
+</span><span>[</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">3</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">4</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">5</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">6</span><span>]
+</span></code></pre>
+<p><code>Monoid</code> 幺半群类型类的原型如下：</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span style="color:#fa6e32;">class </span><span style="text-decoration:underline;color:#399ee6;">Semigroup </span><span>a =&gt; </span><span style="font-style:italic;color:#55b4d4;">Monoid </span><span>a </span><span style="color:#fa6e32;">where
+</span><span>  </span><span style="color:#f29718;">mempty </span><span style="color:#fa6e32;">:: </span><span>a
+</span><span>  </span><span style="color:#f29718;">mappend </span><span style="color:#fa6e32;">:: </span><span>a </span><span style="color:#fa6e32;">-&gt; </span><span>a </span><span style="color:#fa6e32;">-&gt; </span><span>a
+</span><span>  </span><span style="color:#f29718;">mconcat </span><span style="color:#fa6e32;">::</span><span> [a] </span><span style="color:#fa6e32;">-&gt; </span><span>a
+</span></code></pre>
+<p>其中 <code>mempty</code> 是需要定义的，对应单位元；而 <code>mappend</code> 与 <code>mconcat</code> 可由二元运算和单位元得到。</p>
+<p>列表 <code>[a]</code> 同样是幺半群。</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> [</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">3</span><span>] </span><span style="color:#ed9366;">&lt;&gt;</span><span> [</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">3</span><span>]
+</span><span>[</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">3</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">3</span><span>]
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> mappend [</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">3</span><span>] [</span><span style="color:#ff8f40;">4</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">5</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">6</span><span>]
+</span><span>[</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">3</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">4</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">5</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">6</span><span>]
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> mappend [</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">3</span><span>] mempty
+</span><span>[</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">3</span><span>]
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> mconcat [[</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">3</span><span>]</span><span style="color:#61676ccc;">,</span><span> mempty</span><span style="color:#61676ccc;">,</span><span> [</span><span style="color:#ff8f40;">4</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">5</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">6</span><span>]]
+</span><span>[</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">3</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">4</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">5</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">6</span><span>]
+</span></code></pre>
+<p><code>Ordering</code> 类型也是幺半群，其原型为 <code>data Ordering = LT | EQ | GT</code>，可用于多个分量的数据的大小比较。</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt; </span><span style="color:#ff8f40;">LT </span><span style="color:#ed9366;">&lt;&gt; </span><span style="color:#ff8f40;">GT </span><span style="color:#ed9366;">&lt;&gt; </span><span style="color:#ff8f40;">EQ
+</span><span style="color:#ff8f40;">LT
+</span><span>ghci</span><span style="color:#ed9366;">&gt; </span><span style="color:#ff8f40;">EQ </span><span style="color:#ed9366;">&lt;&gt; </span><span style="color:#ff8f40;">GT
+</span><span style="color:#ff8f40;">GT
+</span></code></pre>
+<h3 id="hask-fan-chou">Hask 范畴</h3>
+<p>我们所说 $\mathbf{Hask}$ 范畴是指：</p>
+<ul>
+<li>以类型（如 <code>Int</code> 等）为对象</li>
+<li>以函数（如 <code>isUpper</code> 等）为态射</li>
+<li>单位态射为 <code>id</code></li>
+<li>态射复合是 <code>.</code></li>
+</ul>
+<p>不过，这个说法是不严格的，例如说：</p>
+<ul>
+<li>Haskell 的惰性求值特性会导致等式与求值策略有关</li>
+<li><code>seq</code> 与性能分析等可以区分细节</li>
+<li>存在 <code>undefined</code> 等特殊特性</li>
+</ul>
+<p>如果我们需要讨论 <code>Functor</code> 等高级特性，还需要注意两个 Haskell 语言特性带来的影响。</p>
+<p>Functor 和 Monad 是 $\mathbf{Hask}$-enriched 的（参考 <a href="https://ncatlab.org/nlab/show/enriched+category+theory">enriched category theory in nLab</a> 页面），这意味着它们所定义的那些操作本身就是 Haskell 中的态射，只不过是高阶函数。</p>
+<p>Functor 和 Monad 是自带 strength 的。</p>
+<h3 id="han-zi">函子</h3>
+<p>我们来考虑前述 $\mathbf{Hask}$ 范畴上的自函子。</p>
+<p><code>Functor</code> 函子类型类的原型是：</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span style="color:#fa6e32;">class </span><span style="font-style:italic;color:#55b4d4;">Functor </span><span>f </span><span style="color:#fa6e32;">where
+</span><span>  </span><span style="color:#f29718;">fmap </span><span style="color:#fa6e32;">::</span><span> (a </span><span style="color:#fa6e32;">-&gt; </span><span>b) </span><span style="color:#fa6e32;">-&gt; </span><span>f a </span><span style="color:#fa6e32;">-&gt; </span><span>f b
+</span><span>  </span><span style="color:#f29718;">(&lt;$) </span><span style="color:#fa6e32;">:: </span><span>a </span><span style="color:#fa6e32;">-&gt; </span><span>f b </span><span style="color:#fa6e32;">-&gt; </span><span>f a
+</span><span>  </span><span style="color:#f29718;">(&lt;$) </span><span style="color:#ed9366;">=</span><span> fmap </span><span style="color:#ed9366;">.</span><span> const
+</span></code></pre>
+<p>例如说，<code>IO</code> 实现了 <code>Functor</code>，其中 <code>IO</code> 本身将对象（如类型 <code>a</code>）映到对象（类型 <code>IO a</code>），函数 <code>fmap</code> 则将 <code>a -&gt; b</code> 的态射映到 <code>IO a -&gt; IO b</code> 的态射。</p>
+<p>我们希望它对应到数学上协/共变函子的定义，这给出的额外要求是：</p>
+<ul>
+<li><code>fmap id</code> 恒等于 <code>id</code></li>
+<li><code>fmap (f . g)</code> 恒等于 <code>fmap f . fmap g</code></li>
+</ul>
+<p>让我们测试这一点：</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> fmap show </span><span style="color:#ed9366;">$</span><span> return </span><span style="color:#ff8f40;">True
+</span><span style="color:#86b300;">&quot;True&quot;
+</span></code></pre>
+<p>这是因为 <code>show</code> 的类型是 <code>Show a =&gt; a -&gt; String</code>，从而 <code>fmap</code> 把一个 <code>IO Bool</code> 映到了 <code>IO String</code>.</p>
+<p>我们可以给之前的 <code>Option</code> 实现 <code>Functor</code>.</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span style="color:#fa6e32;">data </span><span style="color:#ff8f40;">Option</span><span> a </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">None </span><span style="color:#ed9366;">| </span><span style="color:#ff8f40;">Some</span><span> a </span><span style="color:#fa6e32;">deriving</span><span> (</span><span style="text-decoration:underline;color:#399ee6;">Show</span><span>)
+</span><span>
+</span><span style="color:#fa6e32;">instance Functor Option where
+</span><span>  fmap f (</span><span style="color:#ff8f40;">Some</span><span> a) </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">Some </span><span style="color:#ed9366;">$</span><span> f a
+</span><span>  fmap f (</span><span style="color:#ff8f40;">None</span><span>)   </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">None
+</span></code></pre>
+<p>有：</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> fmap (</span><span style="color:#ed9366;">+</span><span style="color:#ff8f40;">1</span><span>) </span><span style="color:#ff8f40;">None
+</span><span style="color:#ff8f40;">None
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> fmap (</span><span style="color:#ed9366;">+</span><span style="color:#ff8f40;">1</span><span>) </span><span style="color:#ed9366;">$ </span><span style="color:#ff8f40;">Some 2
+</span><span style="color:#ff8f40;">Some 3
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> (</span><span style="color:#ed9366;">+</span><span style="color:#ff8f40;">1</span><span>) </span><span style="color:#ed9366;">&lt;$&gt;</span><span> (</span><span style="color:#ff8f40;">Some 2</span><span>)
+</span><span style="color:#ff8f40;">Some 3
+</span></code></pre>
+<h3 id="ying-yong-han-zi">应用函子</h3>
+<p>我们来考虑 $\mathbf{Hask}$ 范畴到自身的 lax monoidal functor（参考 <a href="https://ncatlab.org/nlab/show/monoidal+functor">monoidal functor in nLab</a> 页面，是通过特定的自然变换保持幺半结构（张量积和单位元）的函子）。</p>
+<p><code>Applicative</code> 类型类的原型如下：</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span style="color:#fa6e32;">class </span><span style="font-style:italic;color:#55b4d4;">Functor </span><span>f =&gt; </span><span style="font-style:italic;color:#55b4d4;">Applicative </span><span>f </span><span style="color:#fa6e32;">where
+</span><span>  </span><span style="color:#f29718;">pure </span><span style="color:#fa6e32;">:: </span><span>a </span><span style="color:#fa6e32;">-&gt; </span><span>f a
+</span><span>  </span><span style="color:#f29718;">(&lt;*&gt;) </span><span style="color:#ed9366;">::</span><span> f (a </span><span style="color:#ed9366;">-&gt;</span><span> b) </span><span style="color:#ed9366;">-&gt;</span><span> f a </span><span style="color:#ed9366;">-&gt;</span><span> f b
+</span><span>  </span><span style="color:#f29718;">liftA2 </span><span style="color:#fa6e32;">::</span><span> (a </span><span style="color:#fa6e32;">-&gt; </span><span>b </span><span style="color:#fa6e32;">-&gt; </span><span>c) </span><span style="color:#fa6e32;">-&gt; </span><span>f a </span><span style="color:#fa6e32;">-&gt; </span><span>f b </span><span style="color:#fa6e32;">-&gt; </span><span>f c
+</span><span>  </span><span style="color:#f29718;">(*&gt;) </span><span style="color:#ed9366;">::</span><span> f a </span><span style="color:#ed9366;">-&gt;</span><span> f b </span><span style="color:#ed9366;">-&gt;</span><span> f b
+</span><span>  </span><span style="color:#f29718;">(&lt;*) </span><span style="color:#ed9366;">::</span><span> f a </span><span style="color:#ed9366;">-&gt;</span><span> f b </span><span style="color:#ed9366;">-&gt;</span><span> f a
+</span></code></pre>
+<p>其中必须实现的是 <code>pure</code>，另可选择实现 <code>&lt;*&gt;</code> 与 <code>liftA2</code> 之一。</p>
+<p>它们可以由如下方式组合出：</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span style="color:#f29718;">fmap0 </span><span style="color:#fa6e32;">:: </span><span>a </span><span style="color:#fa6e32;">-&gt; </span><span>f a
+</span><span>fmap0 </span><span style="color:#ed9366;">=</span><span> pure
+</span><span>
+</span><span style="color:#f29718;">fmap1 </span><span style="color:#fa6e32;">::</span><span> (a </span><span style="color:#fa6e32;">-&gt; </span><span>b) </span><span style="color:#fa6e32;">-&gt; </span><span>f a </span><span style="color:#fa6e32;">-&gt; </span><span>f b
+</span><span>fmap1 g x </span><span style="color:#ed9366;">=</span><span> pure g </span><span style="color:#ed9366;">&lt;</span><span>*</span><span style="color:#ed9366;">&gt;</span><span> x </span><span style="color:#ed9366;">=</span><span> fmap g x </span><span style="color:#ed9366;">=</span><span> g </span><span style="color:#ed9366;">&lt;$&gt;</span><span> x
+</span><span>
+</span><span style="color:#f29718;">fmap2 </span><span style="color:#fa6e32;">::</span><span> (a </span><span style="color:#fa6e32;">-&gt; </span><span>b </span><span style="color:#fa6e32;">-&gt; </span><span>c) </span><span style="color:#fa6e32;">-&gt; </span><span>f a </span><span style="color:#fa6e32;">-&gt; </span><span>f b </span><span style="color:#fa6e32;">-&gt; </span><span>f c
+</span><span>fmap2 g x y </span><span style="color:#ed9366;">=</span><span> g </span><span style="color:#ed9366;">&lt;$&gt;</span><span> x </span><span style="color:#ed9366;">&lt;</span><span>*</span><span style="color:#ed9366;">&gt;</span><span> y
+</span><span>
+</span><span style="color:#f29718;">fmap3 </span><span style="color:#fa6e32;">::</span><span> (a </span><span style="color:#fa6e32;">-&gt; </span><span>b </span><span style="color:#fa6e32;">-&gt; </span><span>c </span><span style="color:#fa6e32;">-&gt; </span><span>d) </span><span style="color:#fa6e32;">-&gt; </span><span>f a </span><span style="color:#fa6e32;">-&gt; </span><span>f b </span><span style="color:#fa6e32;">-&gt; </span><span>f c </span><span style="color:#fa6e32;">-&gt; </span><span>f d
+</span><span>fmap3 g x y z </span><span style="color:#ed9366;">=</span><span> g </span><span style="color:#ed9366;">&lt;$&gt;</span><span> x </span><span style="color:#ed9366;">&lt;</span><span>*</span><span style="color:#ed9366;">&gt;</span><span> y </span><span style="color:#ed9366;">&lt;</span><span>*</span><span style="color:#ed9366;">&gt;</span><span> z
+</span></code></pre>
+<p>我们可以接着定义：</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span style="color:#fa6e32;">instance Applicative Option where
+</span><span>  pure                  </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">Some
+</span><span>  (</span><span style="color:#ff8f40;">Some</span><span> f) </span><span style="color:#ed9366;">&lt;</span><span>*</span><span style="color:#ed9366;">&gt;</span><span> (</span><span style="color:#ff8f40;">Some</span><span> x) </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">Some </span><span style="color:#ed9366;">$</span><span> f x
+</span><span>  (</span><span style="color:#ff8f40;">None</span><span>)   </span><span style="color:#ed9366;">&lt;</span><span>*</span><span style="color:#ed9366;">&gt;</span><span> _        </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">None
+</span><span>  _        </span><span style="color:#ed9366;">&lt;</span><span>*</span><span style="color:#ed9366;">&gt;</span><span> (</span><span style="color:#ff8f40;">None</span><span>)   </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">None
+</span></code></pre>
+<p>从而</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt; </span><span style="color:#fa6e32;">import </span><span>Data.Char
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> (</span><span style="color:#ff8f40;">Some</span><span> isUpper) </span><span style="color:#ed9366;">&lt;</span><span>*</span><span style="color:#ed9366;">&gt;</span><span> (</span><span style="color:#ff8f40;">Some </span><span style="color:#86b300;">&#39;a&#39;</span><span>)
+</span><span style="color:#ff8f40;">Some False
+</span></code></pre>
+<p>一个神奇的例子是：</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt; </span><span style="color:#fa6e32;">data </span><span style="color:#ff8f40;">Person </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">Person String Int Int </span><span style="color:#fa6e32;">deriving</span><span> (</span><span style="text-decoration:underline;color:#399ee6;">Show</span><span>)
+</span><span>ghci</span><span style="color:#ed9366;">&gt; </span><span style="color:#ff8f40;">Person </span><span style="color:#ed9366;">&lt;$&gt;</span><span> (</span><span style="color:#ff8f40;">Some </span><span style="color:#86b300;">&quot;Alice&quot;</span><span>) </span><span style="color:#ed9366;">&lt;</span><span>*</span><span style="color:#ed9366;">&gt;</span><span> (</span><span style="color:#ff8f40;">Some 1</span><span>) </span><span style="color:#ed9366;">&lt;</span><span>*</span><span style="color:#ed9366;">&gt;</span><span> (</span><span style="color:#ff8f40;">Some 2</span><span>)
+</span><span style="color:#ff8f40;">Some</span><span> (</span><span style="color:#ff8f40;">Person </span><span style="color:#86b300;">&quot;Alice&quot; </span><span style="color:#ff8f40;">1 2</span><span>)
+</span><span>ghci</span><span style="color:#ed9366;">&gt; :</span><span>t </span><span style="color:#ff8f40;">Person
+</span><span style="color:#ff8f40;">Person </span><span style="color:#ed9366;">:: </span><span style="color:#ff8f40;">String </span><span style="color:#ed9366;">-&gt; </span><span style="color:#ff8f40;">Int </span><span style="color:#ed9366;">-&gt; </span><span style="color:#ff8f40;">Int </span><span style="color:#ed9366;">-&gt; </span><span style="color:#ff8f40;">Person
+</span><span>ghci</span><span style="color:#ed9366;">&gt; :</span><span>t </span><span style="color:#ff8f40;">Person </span><span style="color:#ed9366;">&lt;$&gt;</span><span> (</span><span style="color:#ff8f40;">Some </span><span style="color:#86b300;">&quot;Alice&quot;</span><span>)
+</span><span style="color:#ff8f40;">Person </span><span style="color:#ed9366;">&lt;$&gt;</span><span> (</span><span style="color:#ff8f40;">Some </span><span style="color:#86b300;">&quot;Alice&quot;</span><span>) </span><span style="color:#ed9366;">:: </span><span style="color:#ff8f40;">Option</span><span> (</span><span style="color:#ff8f40;">Int </span><span style="color:#ed9366;">-&gt; </span><span style="color:#ff8f40;">Int </span><span style="color:#ed9366;">-&gt; </span><span style="color:#ff8f40;">Person</span><span>)
+</span><span>ghci</span><span style="color:#ed9366;">&gt; :</span><span>t </span><span style="color:#ff8f40;">Person </span><span style="color:#ed9366;">&lt;$&gt;</span><span> (</span><span style="color:#ff8f40;">Some </span><span style="color:#86b300;">&quot;Alice&quot;</span><span>) </span><span style="color:#ed9366;">&lt;</span><span>*</span><span style="color:#ed9366;">&gt;</span><span> (</span><span style="color:#ff8f40;">Some 1</span><span>)
+</span><span style="color:#ff8f40;">Person </span><span style="color:#ed9366;">&lt;$&gt;</span><span> (</span><span style="color:#ff8f40;">Some </span><span style="color:#86b300;">&quot;Alice&quot;</span><span>) </span><span style="color:#ed9366;">&lt;</span><span>*</span><span style="color:#ed9366;">&gt;</span><span> (</span><span style="color:#ff8f40;">Some 1</span><span>) </span><span style="color:#ed9366;">:: </span><span style="color:#ff8f40;">Option</span><span> (</span><span style="color:#ff8f40;">Int </span><span style="color:#ed9366;">-&gt; </span><span style="color:#ff8f40;">Person</span><span>)
+</span><span>ghci</span><span style="color:#ed9366;">&gt; :</span><span>t </span><span style="color:#ff8f40;">Person </span><span style="color:#ed9366;">&lt;$&gt;</span><span> (</span><span style="color:#ff8f40;">Some </span><span style="color:#86b300;">&quot;Alice&quot;</span><span>) </span><span style="color:#ed9366;">&lt;</span><span>*</span><span style="color:#ed9366;">&gt;</span><span> (</span><span style="color:#ff8f40;">Some 1</span><span>) </span><span style="color:#ed9366;">&lt;</span><span>*</span><span style="color:#ed9366;">&gt;</span><span> (</span><span style="color:#ff8f40;">Some 2</span><span>)
+</span><span style="color:#ff8f40;">Person </span><span style="color:#ed9366;">&lt;$&gt;</span><span> (</span><span style="color:#ff8f40;">Some </span><span style="color:#86b300;">&quot;Alice&quot;</span><span>) </span><span style="color:#ed9366;">&lt;</span><span>*</span><span style="color:#ed9366;">&gt;</span><span> (</span><span style="color:#ff8f40;">Some 1</span><span>) </span><span style="color:#ed9366;">&lt;</span><span>*</span><span style="color:#ed9366;">&gt;</span><span> (</span><span style="color:#ff8f40;">Some 2</span><span>)
+</span><span>  </span><span style="color:#ed9366;">:: </span><span style="color:#ff8f40;">Option Person
+</span></code></pre>
+<h3 id="dan-zi">单子</h3>
+<p>现在我们可以考虑把副作用包装起来了。</p>
+<p><code>Monad</code> 单子类型类的原型是：</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span style="color:#fa6e32;">class </span><span style="font-style:italic;color:#55b4d4;">Applicative </span><span>m =&gt; </span><span style="font-style:italic;color:#55b4d4;">Monad </span><span>m </span><span style="color:#fa6e32;">where
+</span><span>  </span><span style="color:#f29718;">(&gt;&gt;=) </span><span style="color:#fa6e32;">:: </span><span>m a </span><span style="color:#fa6e32;">-&gt;</span><span> (a </span><span style="color:#fa6e32;">-&gt; </span><span>m b) </span><span style="color:#fa6e32;">-&gt; </span><span>m b
+</span><span>
+</span><span>  </span><span style="color:#f29718;">(&gt;&gt;) </span><span style="color:#fa6e32;">:: </span><span>m a </span><span style="color:#fa6e32;">-&gt; </span><span>m b </span><span style="color:#fa6e32;">-&gt; </span><span>m b
+</span><span>    m &gt;&gt; k = m &gt;&gt;= \_ </span><span style="color:#fa6e32;">-&gt; </span><span>k
+</span><span>
+</span><span>  </span><span style="color:#f29718;">return </span><span style="color:#fa6e32;">:: </span><span>a </span><span style="color:#fa6e32;">-&gt; </span><span>m a
+</span><span>  return </span><span style="color:#ed9366;">=</span><span> pure </span><span style="font-style:italic;color:#abb0b6;">-- 不要更改此定义
+</span></code></pre>
+<p>其中必须实现的是 <code>&gt;&gt;=</code>，它表义为 <code>flatmap/bind</code>.</p>
+<p><code>ma &gt;&gt;= mb</code> 等价于：</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span style="color:#fa6e32;">do</span><span> a </span><span style="color:#ed9366;">&lt;-</span><span> ma
+</span><span>  mb a
+</span></code></pre>
+<p>因此我们可以写</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> [</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">3</span><span>] </span><span style="color:#ed9366;">&gt;&gt;=</span><span> (</span><span style="color:#ed9366;">\</span><span>x </span><span style="color:#ed9366;">-&gt;</span><span> [x</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">0</span><span>])
+</span><span>[</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">3</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">0</span><span>]
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> putStrLn </span><span style="color:#86b300;">&quot;Hello, Haskell!&quot; </span><span style="color:#ed9366;">&gt;&gt;=</span><span> (</span><span style="color:#ed9366;">\</span><span>_ </span><span style="color:#ed9366;">-&gt;</span><span> putStrLn </span><span style="color:#86b300;">&quot;Hello, World!&quot;</span><span>)
+</span><span style="color:#ff8f40;">Hello</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">Haskell</span><span style="color:#ed9366;">!
+</span><span style="color:#ff8f40;">Hello</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">World</span><span style="color:#ed9366;">!
+</span></code></pre>
+<p>我们的要求是:</p>
+<ul>
+<li><code>return x &gt;&gt;= f</code> 等价于 <code>f x</code></li>
+<li><code>mx &gt;&gt;= return</code> 等价于 <code>mx</code></li>
+<li><code>(mx &gt;&gt;= f) &gt;&gt;= g</code> 等价于 <code>mx &gt;&gt;= (\x -&gt; f x &gt;&gt;= g)</code></li>
+</ul>
+<p>我们发现它确实构成一个 $\mathbf{Hask}$ 范畴上的自函子范畴上的幺半群。</p>
+<p>让我们继续定义</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span style="color:#fa6e32;">instance Monad Option where
+</span><span>  (</span><span style="color:#ff8f40;">Some</span><span> x) </span><span style="color:#ed9366;">&gt;&gt;=</span><span> f </span><span style="color:#ed9366;">=</span><span> f x
+</span><span>  (</span><span style="color:#ff8f40;">None</span><span>)   </span><span style="color:#ed9366;">&gt;&gt;=</span><span> f </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">None
+</span><span>
+</span><span style="color:#f29718;">safeDiv </span><span style="color:#fa6e32;">:: Option Int -&gt; Option Int -&gt; Option Int
+</span><span>safeDiv xm ym </span><span style="color:#ed9366;">=</span><span> xm </span><span style="color:#ed9366;">&gt;&gt;=</span><span> (</span><span style="color:#ed9366;">\</span><span>x </span><span style="color:#ed9366;">-&gt;
+</span><span>                ym </span><span style="color:#ed9366;">&gt;&gt;=</span><span> (</span><span style="color:#ed9366;">\</span><span>y </span><span style="color:#ed9366;">-&gt;
+</span><span>                  </span><span style="color:#fa6e32;">if</span><span> y </span><span style="color:#ed9366;">== </span><span style="color:#ff8f40;">0 </span><span style="color:#fa6e32;">then </span><span style="color:#ff8f40;">None
+</span><span>                            </span><span style="color:#fa6e32;">else</span><span> return (x </span><span style="color:#ed9366;">`div`</span><span> y)))
+</span></code></pre>
+<p><code>safeDiv</code> 的定义也可以使用 <code>do</code> 语法糖</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>safeDiv xm ym </span><span style="color:#ed9366;">= </span><span style="color:#fa6e32;">do
+</span><span>           x </span><span style="color:#ed9366;">&lt;-</span><span> xm
+</span><span>		   y </span><span style="color:#ed9366;">&lt;-</span><span> ym
+</span><span>           </span><span style="color:#fa6e32;">if</span><span> y </span><span style="color:#ed9366;">== </span><span style="color:#ff8f40;">0 </span><span style="color:#fa6e32;">then </span><span style="color:#ff8f40;">None
+</span><span>                     </span><span style="color:#fa6e32;">else</span><span> return (x </span><span style="color:#ed9366;">`div`</span><span> y)
+</span></code></pre>
+<p>有</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> safeDiv (</span><span style="color:#ff8f40;">Some 4</span><span>) </span><span style="color:#ed9366;">$</span><span> safeDiv (</span><span style="color:#ff8f40;">Some 1</span><span>) (</span><span style="color:#ff8f40;">Some 0</span><span>)
+</span><span style="color:#ff8f40;">None
+</span></code></pre>
+<h2 id="wei-liao-fu-zuo-yong">为了副作用</h2>
+<p>让我们从抽象的定义中抽身，看看现在究竟能做到怎样的副作用处理。</p>
+<p><code>Monad</code> 的定义使得我们可以进行顺序计算，并在计算时携带类型安全的上下文/副作用。</p>
+<h3 id="ji-ben-fu-zuo-yong">基本副作用</h3>
+<p><code>Maybe</code> 类型的原型是：</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span style="color:#fa6e32;">data </span><span style="color:#ff8f40;">Maybe</span><span> a </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">Nothing </span><span style="color:#ed9366;">| </span><span style="color:#ff8f40;">Just</span><span> a
+</span></code></pre>
+<p>这将允许计算失败。</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span style="color:#f29718;">safeDiv </span><span style="color:#fa6e32;">:: Integral </span><span>a </span><span style="color:#fa6e32;">=&gt; </span><span>a </span><span style="color:#fa6e32;">-&gt; </span><span>a </span><span style="color:#fa6e32;">-&gt; Maybe </span><span>a
+</span><span>safeDiv _ </span><span style="color:#ff8f40;">0 </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">Nothing
+</span><span>safeDiv x y </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">Just</span><span> (x </span><span style="color:#ed9366;">`div`</span><span> y)
+</span><span>
+</span><span style="color:#f29718;">result </span><span style="color:#fa6e32;">:: Maybe Int
+</span><span>result </span><span style="color:#ed9366;">= </span><span style="color:#fa6e32;">do
+</span><span>  x </span><span style="color:#ed9366;">&lt;- </span><span style="color:#ff8f40;">Just 6
+</span><span>  y </span><span style="color:#ed9366;">&lt;-</span><span> safeDiv x </span><span style="color:#ff8f40;">2
+</span><span>  z </span><span style="color:#ed9366;">&lt;-</span><span> safeDiv y </span><span style="color:#ff8f40;">0
+</span><span>  return z
+</span></code></pre>
+<hr />
+<p><code>Either</code> 类型的原型是：</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span style="color:#fa6e32;">data </span><span style="color:#ff8f40;">Either</span><span> a b </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">Left</span><span> a </span><span style="color:#ed9366;">| </span><span style="color:#ff8f40;">Right</span><span> b
+</span></code></pre>
+<p>它可以这样用：<code>Left</code> 与 <code>Right</code> 一边存储异常提示，一边存储返回值。</p>
+<hr />
+<p>列表作为单子，副作用语义是一个计算可能产生多个结果，我们会对所有可能性的笛卡尔积遍历。</p>
+<h3 id="shang-xia-wen-fu-zuo-yong">上下文副作用</h3>
+<p>下文中提到的 <code>Monad</code> 都需通过以下方式导入</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span style="color:#fa6e32;">import </span><span>Control.Monad.Reader
+</span></code></pre>
+<p>GHCi 可能会提示说它在一个隐藏的 package "mtl-2.3.1" 里，需要运行指令 <code>:set -package mtl</code> 来导入。</p>
+<p><code>Reader</code> 类型的原型是 <code>type Reader r = ReaderT r Identity</code>，为方便起见，把它视作 <code>Reader r a</code>，其含义是：<code>r</code> 是只读的环境，<code>a</code> 是你操作的值。<sup class="footnote-reference"><a href="#reader">2</a></sup></p>
+<p>一个例子如下：</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span style="color:#fa6e32;">import </span><span>Control.Monad.Reader
+</span><span>
+</span><span style="color:#f29718;">tom </span><span style="color:#fa6e32;">:: Reader String String
+</span><span>tom </span><span style="color:#ed9366;">= </span><span style="color:#fa6e32;">do
+</span><span>    env </span><span style="color:#ed9366;">&lt;-</span><span> ask </span><span style="font-style:italic;color:#abb0b6;">-- gives you the environment which in this case is a String
+</span><span>    return (env </span><span style="color:#ed9366;">++ </span><span style="color:#86b300;">&quot; This is Tom.&quot;</span><span>)
+</span><span>
+</span><span style="color:#f29718;">jerry </span><span style="color:#fa6e32;">:: Reader String String
+</span><span>jerry </span><span style="color:#ed9366;">= </span><span style="color:#fa6e32;">do
+</span><span>  env </span><span style="color:#ed9366;">&lt;-</span><span> ask
+</span><span>  return (env </span><span style="color:#ed9366;">++ </span><span style="color:#86b300;">&quot; This is Jerry.&quot;</span><span>)
+</span><span>
+</span><span style="color:#f29718;">tomAndJerry </span><span style="color:#fa6e32;">:: Reader String String
+</span><span>tomAndJerry </span><span style="color:#ed9366;">= </span><span style="color:#fa6e32;">do
+</span><span>    t </span><span style="color:#ed9366;">&lt;-</span><span> tom
+</span><span>    j </span><span style="color:#ed9366;">&lt;-</span><span> jerry
+</span><span>    return (t </span><span style="color:#ed9366;">++ </span><span style="color:#86b300;">&quot;</span><span style="color:#4cbf99;">\n</span><span style="color:#86b300;">&quot; </span><span style="color:#ed9366;">++</span><span> j)
+</span><span>
+</span><span style="color:#f29718;">runJerryRun </span><span style="color:#fa6e32;">:: String
+</span><span>runJerryRun </span><span style="color:#ed9366;">=</span><span> (runReader tomAndJerry) </span><span style="color:#86b300;">&quot;Who is this?&quot;
+</span></code></pre>
+<p>这将给出：</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> putStrLn </span><span style="color:#ed9366;">$</span><span> runJerryRun
+</span><span style="color:#ff8f40;">Who</span><span> is this</span><span style="color:#ed9366;">? </span><span style="color:#ff8f40;">This</span><span> is </span><span style="color:#ff8f40;">Tom</span><span style="color:#ed9366;">.
+</span><span style="color:#ff8f40;">Who</span><span> is this</span><span style="color:#ed9366;">? </span><span style="color:#ff8f40;">This</span><span> is </span><span style="color:#ff8f40;">Jerry</span><span style="color:#ed9366;">.
+</span></code></pre>
+<p>这可用于依赖注入、配置传递。</p>
+<hr />
+<p><code>Writer</code> 类型同理，可视作 <code>Monoid w =&gt; Writer w a</code>。每次计算会产生一个辅助的输出，其将被 <code>mappend</code> 到 <code>w</code> 中。</p>
+<p>这可用于日志、计数器等。</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span style="color:#fa6e32;">import </span><span>Control.Monad.Writer
+</span><span>
+</span><span style="color:#f29718;">compute </span><span style="color:#fa6e32;">:: Writer</span><span> [</span><span style="color:#fa6e32;">String</span><span>] </span><span style="color:#fa6e32;">Int
+</span><span>compute </span><span style="color:#ed9366;">= </span><span style="color:#fa6e32;">do
+</span><span>  tell [</span><span style="color:#86b300;">&quot;Starts here ###&quot;</span><span>]
+</span><span>  </span><span style="color:#fa6e32;">let</span><span> x </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">10
+</span><span>  tell [</span><span style="color:#86b300;">&quot;Initial: &quot; </span><span style="color:#ed9366;">++</span><span> show x]
+</span><span>  </span><span style="color:#fa6e32;">let</span><span> y </span><span style="color:#ed9366;">=</span><span> x * </span><span style="color:#ff8f40;">2
+</span><span>  tell [</span><span style="color:#86b300;">&quot;Multiply by 2: &quot; </span><span style="color:#ed9366;">++</span><span> show y]
+</span><span>  
+</span><span>  </span><span style="color:#fa6e32;">let</span><span> z </span><span style="color:#ed9366;">=</span><span> y </span><span style="color:#ed9366;">+ </span><span style="color:#ff8f40;">5
+</span><span>  tell [</span><span style="color:#86b300;">&quot;Add by 5: &quot; </span><span style="color:#ed9366;">++</span><span> show z]
+</span><span>  
+</span><span>  tell [</span><span style="color:#86b300;">&quot;Done.&quot;</span><span>]
+</span><span>  return z
+</span><span>
+</span><span style="color:#f29718;">example </span><span style="color:#fa6e32;">:: IO </span><span style="font-style:italic;color:#ed9366;">()
+</span><span>example </span><span style="color:#ed9366;">= </span><span style="color:#fa6e32;">do
+</span><span>  </span><span style="color:#fa6e32;">let</span><span> (result</span><span style="color:#61676ccc;">,</span><span> log) </span><span style="color:#ed9366;">=</span><span> runWriter compute
+</span><span>  putStrLn </span><span style="color:#ed9366;">$ </span><span style="color:#86b300;">&quot;Result: &quot; </span><span style="color:#ed9366;">++</span><span> show result
+</span><span>  putStrLn </span><span style="color:#86b300;">&quot;Log:&quot;
+</span><span>  mapM_ putStrLn log
+</span></code></pre>
+<hr />
+<p><code>State</code> 同样可看作 <code>State s a</code>，可看作 <code>Reader</code> 与 <code>Writer</code> 的结合。</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span style="color:#fa6e32;">import </span><span>Control.Monad.State
+</span><span>
+</span><span style="color:#fa6e32;">type </span><span style="color:#ff8f40;">Account </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">Int
+</span><span>
+</span><span style="color:#f29718;">deposit </span><span style="color:#fa6e32;">:: Int -&gt; State Account </span><span style="font-style:italic;color:#ed9366;">()
+</span><span>deposit amount </span><span style="color:#ed9366;">=</span><span> modify (</span><span style="color:#ed9366;">+</span><span> amount)
+</span><span>
+</span><span style="color:#f29718;">withdraw </span><span style="color:#fa6e32;">:: Int -&gt; State Account Bool
+</span><span>withdraw amount </span><span style="color:#ed9366;">= </span><span style="color:#fa6e32;">do
+</span><span>  balance </span><span style="color:#ed9366;">&lt;-</span><span> get
+</span><span>  </span><span style="color:#fa6e32;">if</span><span> amount </span><span style="color:#ed9366;">&lt;=</span><span> balance
+</span><span>    </span><span style="color:#fa6e32;">then</span><span> modify (subtract amount) </span><span style="color:#ed9366;">&gt;&gt;</span><span> return </span><span style="color:#ff8f40;">True
+</span><span>    </span><span style="color:#fa6e32;">else</span><span> return </span><span style="color:#ff8f40;">False
+</span><span>
+</span><span style="color:#f29718;">example </span><span style="color:#fa6e32;">::</span><span> (</span><span style="color:#fa6e32;">Bool</span><span>, </span><span style="color:#fa6e32;">Account</span><span>)
+</span><span>example </span><span style="color:#ed9366;">=</span><span> runState (</span><span style="color:#fa6e32;">do
+</span><span>  put </span><span style="color:#ff8f40;">10
+</span><span>  deposit </span><span style="color:#ff8f40;">100
+</span><span>  deposit </span><span style="color:#ff8f40;">50
+</span><span>  success </span><span style="color:#ed9366;">&lt;-</span><span> withdraw </span><span style="color:#ff8f40;">200
+</span><span>  return success) </span><span style="color:#ff8f40;">1000
+</span></code></pre>
+<h3 id="gong-ju-functor">工具 Functor</h3>
+<p><code>Data.Functor</code> 提供了一些工具性质的函子。</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt; </span><span style="color:#fa6e32;">import </span><span>Data.Functor.Identity
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> fmap (</span><span style="color:#ed9366;">+</span><span style="color:#ff8f40;">1</span><span>) (</span><span style="color:#ff8f40;">Identity 0</span><span>)
+</span><span style="color:#ff8f40;">Identity 1
+</span><span>ghci</span><span style="color:#ed9366;">&gt; :</span><span>{
+</span><span>ghci</span><span style="color:#ed9366;">| </span><span style="color:#fa6e32;">do
+</span><span>ghci</span><span style="color:#ed9366;">|</span><span>   x </span><span style="color:#ed9366;">&lt;- </span><span style="color:#ff8f40;">Identity 10
+</span><span>ghci</span><span style="color:#ed9366;">|</span><span>   y </span><span style="color:#ed9366;">&lt;- </span><span style="color:#ff8f40;">Identity</span><span> (x </span><span style="color:#ed9366;">+ </span><span style="color:#ff8f40;">5</span><span>)
+</span><span>ghci</span><span style="color:#ed9366;">|</span><span>   pure (x </span><span style="color:#ed9366;">+</span><span> y)
+</span><span>ghci</span><span style="color:#ed9366;">| :</span><span>}
+</span><span style="color:#ff8f40;">Identity 25
+</span><span>ghci</span><span style="color:#ed9366;">&gt; </span><span style="color:#fa6e32;">import </span><span>Data.Functor.Const
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> fmap (</span><span style="color:#ed9366;">++ </span><span style="color:#86b300;">&quot;World&quot;</span><span>) (</span><span style="color:#ff8f40;">Const </span><span style="color:#86b300;">&quot;Hello&quot;</span><span>)
+</span><span style="color:#ff8f40;">Const </span><span style="color:#86b300;">&quot;Hello&quot;
+</span><span>ghci</span><span style="color:#ed9366;">&gt; </span><span style="color:#ff8f40;">Const</span><span> [</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">3</span><span>] </span><span style="color:#ed9366;">&lt;</span><span>*</span><span style="color:#ed9366;">&gt; </span><span style="color:#ff8f40;">Const</span><span> [</span><span style="color:#ff8f40;">4</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">5</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">6</span><span>]
+</span><span style="color:#ff8f40;">Const</span><span> [</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">3</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">4</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">5</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">6</span><span>]
+</span></code></pre>
+<h3 id="gao-ji-monad">高级 Monad</h3>
+<p>Haskell 中还有更加强大的控制流。</p>
+<p>以下在 GHCi 中需要设置 <code>:set -package transformers</code>.</p>
+<p><code>Cont</code> 可以做 continuation-passing style 计算，可以实现任意跳转、提前返回、复杂错误处理。</p>
+<p><code>Select</code> 是 <code>Cont</code> 的一个特化版本，可解决搜索和优化问题。</p>
+<p><code>Free</code> 可以将任意 <code>Functor</code> 提升为 <code>Monad</code>.</p>
+<p>关于它们的详细内容或许会在之后的文章中讨论。</p>
+<hr />
+<p>事实上，在实际的 Haskell 开发中很少直接使用 <code>State s</code> 或 <code>Writer w</code> 等纯的单子，而是组合 Monad 变换器，形如：</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span style="color:#fa6e32;">type </span><span style="color:#ff8f40;">MyApp </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">ReaderT Config</span><span> (</span><span style="color:#ff8f40;">StateT AppState</span><span> (</span><span style="color:#ff8f40;">ExceptT Error IO</span><span>))
+</span></code></pre>
+<div class="footnote-definition" id="omit"><sup class="footnote-definition-label">1</sup>
+<p>在 GHCi 中使用命令 <code>:info Semigroup</code>（可简写为 <code>:i Semigroup</code>）可以看到更详细的信息。一部分不必要的内容被省略了，下同。</p>
+</div>
+<div class="footnote-definition" id="reader"><sup class="footnote-definition-label">2</sup>
+<p>参考了 <a href="https://blog.ssanj.net/posts/2014-09-23-A-Simple-Reader-Monad-Example.html">A Simple Reader Monad Example</a> 的看法，下面的示例也来自此文。</p>
+</div>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mb-1.5 mr-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mb-1.5 mr-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/计算机/">计算机</a>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/函数式编程/">函数式编程</a>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/Haskell/">Haskell</a>
+    
+  </div>
+</footer>
+
+  <!-- Post Nav -->
+<nav class="block-bg mt-12 flex flex-wrap rounded-lg text-lg">
+  <a
+    class="block-hover-mask flex min-w-[50%] grow items-center rounded-l-md p-6 pr-3 font-semibold no-underline"
+    href="https://rratic.github.io/posts/shader-p1/" accesskey=","
+    ><span class="mr-1.5">&#8249;</span><span>着色器（一）：基础逻辑与技巧</span></a>
+  <a
+    class="block-hover-mask ml-auto flex min-w-[50%] grow items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline"
+    href="https://rratic.github.io/posts/haskell-p1/" accesskey="."
+    ><span>Haskell 学习（一）：基础内容</span><span class="ml-1.5">&#8250;</span></a>
+</nav>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/pages"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

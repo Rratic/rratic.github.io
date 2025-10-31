@@ -1,0 +1,588 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>Haskell 学习（一）：基础内容 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="Haskell 学习（一）：基础内容" />
+  <meta name="description" content="函数式语言的基础特性概览：列表、类型与高阶函数。" />
+  <meta property="og:description" content="函数式语言的基础特性概览：列表、类型与高阶函数。" />
+  <meta property="og:url" content="https://rratic.github.io/posts/haskell-p1/" />
+  <link rel="canonical" href="https://rratic.github.io/posts/haskell-p1/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2025-08-26T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2025-08-27T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="计算机" />
+  <meta property="article:tag" content="函数式编程" />
+  <meta property="article:tag" content="Haskell" />
+  <meta property="og:image" content="https://rratic.github.io/images/cover/haskell_p1.png" />
+  <meta property="og:image:alt" content="" />
+  <meta property="og:image:width" content="924" />
+  <meta property="og:image:height" content="240" />
+  <meta property="og:image:type" content="image/png" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.github.io/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.github.io/style/shared.css?h=74471d1f38c46232d571" />
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.github.io/main.min.css?h=2e89f7f30f1019877d14" />
+  <style>
+  :root{--bg: white; --header: #e6f4ff; color-scheme: light;}
+  :root.dark{--bg: #424242; --header: #333333; color-scheme: dark;}
+  </style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.github.io/js/linkita.min.js?h=1dd3ed42fc674277bc34"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out bg-[var(--bg)] dark:text-white">
+  <!-- Header -->
+<header class="bg-[var(--header)] fixed top-0 z-40 mx-auto min-h-[3.25rem] w-full header-icons">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8">
+        <a title="转到主页" accesskey="!"
+          href="https://rratic.github.io/" class="text-2xl font-semibold">错行</a>
+        <button type="button" title="切换颜色方案" accesskey="$"
+          onclick="window.linkita.toggleDarkMode();" ondblclick="window.linkita.resetDarkMode();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover dark:invert [background-image:var(--icon-theme-dark)] dark:[background-image:var(--icon-theme-light)]"
+        ></button>
+      </div>
+      <div title="导航" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.linkita.toggleHeaderMenu();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.linkita.toggleHeaderMenu() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral relative mx-auto min-h-[calc(100%-4rem)]
+    max-w-3xl break-words px-4 pb-12 pt-28 lg:pt-32 dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">Haskell 学习（一）：基础内容</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2025-08-26T00:00:00+00:00">2025-08-26</time><span
+        class="middot"></span>↻ <time
+      datetime="2025-08-27T00:00:00+00:00">2025-08-27</time><span
+        class="middot"></span><time
+    datetime="PT0H5M0S">5&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <figure class="mb-12 mt-0">
+    <img
+      class="h-auto w-full rounded-lg"
+      src="https://rratic.github.io/images/cover/haskell_p1.png"
+      width="924"
+      height="240"
+    />
+  </figure>
+  <!-- TOC -->
+<div class="block-bg mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-4" accesskey="=">
+      <span class="cursor-pointer">目录</span>
+    </summary>
+    <div class="px-2">
+      <ul>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/haskell-p1/#huan-jing-pei-zhi">环境配置</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/haskell-p1/#lei-xing">类型</a>
+          <ul>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/haskell-p1/#zhi">值</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/haskell-p1/#han-shu">函数</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/haskell-p1/#lie-biao">列表</a>
+          <ul>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/haskell-p1/#gou-zao">构造</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/haskell-p1/#lie-biao-tui-dao-shi">列表推导式</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/haskell-p1/#ying-yong">应用</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/haskell-p1/#zi-ding-yi-lei-xing">自定义类型</a>
+          <ul>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/haskell-p1/#xin-lei-xing">新类型</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/haskell-p1/#lei-xing-lei">类型类</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/haskell-p1/#gao-jie-han-shu">高阶函数</a>
+          <ul>
+            <li>
+              <a class="no-underline hover:underline" href="https://rratic.github.io/posts/haskell-p1/#zhe-die">折叠</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </details>
+</div>
+
+  <!-- Content -->
+  <section><p>封面图为 Haskell 实现的快速排序算法，使用字体 JetBrains Mono.</p>
+<hr />
+<p>前置知识</p>
+<ul>
+<li>一般的编程基础</li>
+<li><a href="/posts/lambda-calculus/">无类型 λ 演算</a></li>
+</ul>
+<p>参考的是 <a href="https://www.bilibili.com/video/BV1pwdgYmE9L">https://www.bilibili.com/video/BV1pwdgYmE9L</a></p>
+<h2 id="huan-jing-pei-zhi">环境配置</h2>
+<p>如果读者不想配置，可使用 <a href="https://play.haskell.org/">https://play.haskell.org/</a> 的在线运行，但它不提供交互式。</p>
+<p>参考 <a href="https://www.haskell.org/downloads/">https://www.haskell.org/downloads/</a> 的指引</p>
+<p>在 Windows 下，可使用以下 Powershell 命令</p>
+<pre data-lang="powershell" style="background-color:#fafafa;color:#61676c;" class="language-powershell "><code class="language-powershell" data-lang="powershell"><span style="color:#f07171;">Set-ExecutionPolicy</span><span> Bypass </span><span style="color:#ed9366;">-</span><span>Scope </span><span style="color:#fa6e32;">Process </span><span style="color:#ed9366;">-</span><span>Force</span><span style="color:#61676ccc;">;</span><span>[</span><span style="color:#fa6e32;">System.Net.ServicePointManager</span><span>]::SecurityProtocol </span><span style="color:#ed9366;">= </span><span>[</span><span style="color:#fa6e32;">System.Net.ServicePointManager</span><span>]::SecurityProtocol </span><span style="color:#ed9366;">-bor </span><span style="color:#ff8f40;">3072</span><span style="color:#61676ccc;">; </span><span style="color:#fa6e32;">try </span><span>{ </span><span style="color:#ed9366;">&amp; </span><span>([</span><span style="color:#fa6e32;">ScriptBlock</span><span>]::Create((</span><span style="color:#f07171;">Invoke-WebRequest</span><span> https:</span><span style="color:#ed9366;">//</span><span>www.haskell.org</span><span style="color:#ed9366;">/</span><span>ghcup</span><span style="color:#ed9366;">/</span><span>sh</span><span style="color:#ed9366;">/</span><span>bootstrap</span><span style="color:#ed9366;">-</span><span>haskell.ps1 </span><span style="color:#ed9366;">-</span><span>UseBasicParsing))) </span><span style="color:#ed9366;">-</span><span>Interactive </span><span style="color:#ed9366;">-</span><span>DisableCurl } </span><span style="color:#fa6e32;">catch </span><span>{ </span><span style="color:#f07171;">Write-Error </span><span>$_ }
+</span></code></pre>
+<p>安装完毕后，运行命令 <code>ghci</code> 就可打开交互式窗口。</p>
+<p>可以在 VSCode 中安装 Haskell 插件，它可以提供简化函数定义的功能。</p>
+<h2 id="lei-xing">类型</h2>
+<h3 id="zhi">值</h3>
+<p>Haskell 是一个强类型语言，每一个值都有类型。但我们无法去对类型本身进行操作，因此不讨论类型的类型。</p>
+<p>GHCi 中可以用 <code>:type</code> 或其简写 <code>:t</code> 命令查看一个值的类型。</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt; :</span><span>t </span><span style="color:#ff8f40;">0
+</span><span style="color:#ff8f40;">0 </span><span style="color:#ed9366;">:: </span><span style="color:#ff8f40;">Num</span><span> a </span><span style="color:#ed9366;">=&gt;</span><span> a
+</span><span>ghci</span><span style="color:#ed9366;">&gt; :</span><span>t </span><span style="color:#ff8f40;">0</span><span style="color:#ed9366;">::</span><span style="color:#ff8f40;">Integer
+</span><span style="color:#ff8f40;">0</span><span style="color:#ed9366;">::</span><span style="color:#ff8f40;">Integer </span><span style="color:#ed9366;">:: </span><span style="color:#ff8f40;">Integer
+</span><span>ghci</span><span style="color:#ed9366;">&gt; :</span><span>t </span><span style="color:#ff8f40;">0</span><span style="color:#ed9366;">::</span><span style="color:#ff8f40;">Int
+</span><span style="color:#ff8f40;">0</span><span style="color:#ed9366;">::</span><span style="color:#ff8f40;">Int </span><span style="color:#ed9366;">:: </span><span style="color:#ff8f40;">Int
+</span></code></pre>
+<p>这有时也会产生一些需要处理的问题</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> b</span><span style="color:#ed9366;">::</span><span style="color:#ff8f40;">Int </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">3
+</span><span>ghci</span><span style="color:#ed9366;">&gt; </span><span style="color:#ff8f40;">2 </span><span style="color:#ed9366;">/ </span><span style="color:#ff8f40;">3
+</span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">.</span><span style="color:#ff8f40;">6666666666666666
+</span><span>ghci</span><span style="color:#ed9366;">&gt; </span><span style="color:#ff8f40;">2 </span><span style="color:#ed9366;">/</span><span> b
+</span><span>
+</span><span style="color:#ed9366;">&lt;</span><span>interactive</span><span style="color:#ed9366;">&gt;:</span><span style="color:#ff8f40;">3</span><span style="color:#ed9366;">:</span><span style="color:#ff8f40;">3</span><span style="color:#ed9366;">:</span><span> error</span><span style="color:#ed9366;">:</span><span> [</span><span style="color:#ff8f40;">GHC</span><span style="color:#ed9366;">-</span><span style="color:#ff8f40;">39999</span><span>]
+</span><span>    </span><span style="color:#ed9366;">? </span><span style="color:#ff8f40;">No </span><span style="color:#fa6e32;">instance </span><span>for ‘</span><span style="color:#fa6e32;">Fractional Int</span><span>’ arising from a use of ‘/’
+</span><span>    </span><span style="color:#ed9366;">? </span><span style="color:#ff8f40;">In</span><span> the expression</span><span style="color:#ed9366;">: </span><span style="color:#ff8f40;">2 </span><span style="color:#ed9366;">/</span><span> b
+</span><span>      </span><span style="color:#ff8f40;">In</span><span> an equation for ‘it’</span><span style="color:#ed9366;">:</span><span> it </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">2 </span><span style="color:#ed9366;">/</span><span> b
+</span><span>ghci</span><span style="color:#ed9366;">&gt; </span><span style="color:#ff8f40;">2 </span><span style="color:#ed9366;">/</span><span> fromIntegral b
+</span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">.</span><span style="color:#ff8f40;">6666666666666666
+</span></code></pre>
+<h3 id="han-shu">函数</h3>
+<p>类似于<a href="/posts/lambda-calculus/">无类型 λ 演算</a>中的定义，Haskell 中的函数“只接受一个参数”。</p>
+<p>例如</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt; :</span><span>t isUpper
+</span><span style="color:#f29718;">isUpper </span><span style="color:#fa6e32;">:: Char -&gt; Bool
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> isUpper </span><span style="color:#86b300;">&#39;A&#39;
+</span><span style="color:#ff8f40;">True
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> isUpper </span><span style="color:#86b300;">&#39; &#39;
+</span><span style="color:#ff8f40;">False
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> isUpper </span><span style="color:#86b300;">&quot;abc&quot;
+</span><span>
+</span><span style="color:#ed9366;">&lt;</span><span>interactive</span><span style="color:#ed9366;">&gt;:</span><span style="color:#ff8f40;">5</span><span style="color:#ed9366;">:</span><span style="color:#ff8f40;">9</span><span style="color:#ed9366;">:</span><span> error</span><span style="color:#ed9366;">:</span><span> [</span><span style="color:#ff8f40;">GHC</span><span style="color:#ed9366;">-</span><span style="color:#ff8f40;">83865</span><span>]
+</span><span>    </span><span style="color:#ed9366;">? </span><span style="color:#ff8f40;">Couldn</span><span>&#39;t match </span><span style="color:#fa6e32;">type</span><span> ‘[</span><span style="color:#ff8f40;">Char</span><span>]’ with ‘</span><span style="color:#ff8f40;">Char</span><span>’
+</span><span>      </span><span style="color:#ff8f40;">Expected</span><span style="color:#ed9366;">: </span><span style="color:#ff8f40;">Char
+</span><span>        </span><span style="color:#ff8f40;">Actual</span><span style="color:#ed9366;">: </span><span style="color:#ff8f40;">String
+</span><span>    </span><span style="color:#ed9366;">? </span><span style="color:#ff8f40;">In</span><span> the first argument </span><span style="color:#fa6e32;">of</span><span> ‘isUpper’</span><span style="color:#61676ccc;">,</span><span> namely ‘</span><span style="color:#86b300;">&quot;abc&quot;</span><span>’
+</span><span>      </span><span style="color:#ff8f40;">In</span><span> the expression</span><span style="color:#ed9366;">:</span><span> isUpper </span><span style="color:#86b300;">&quot;abc&quot;
+</span><span>      </span><span style="color:#ff8f40;">In</span><span> an equation for ‘it’</span><span style="color:#ed9366;">:</span><span> it </span><span style="color:#ed9366;">=</span><span> isUpper </span><span style="color:#86b300;">&quot;abc&quot;
+</span></code></pre>
+<p>这个函数接受一个 <code>Char</code> 类型参数，返回一个 <code>Bool</code> 类型的值。</p>
+<p>Haskell 中实际上存在元组，对应的泛性质是<a href="/posts/category-theory-p1/#product-and-coproduct">积</a>。</p>
+<p>用括号表示元组</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> (fst (</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">2</span><span>)</span><span style="color:#61676ccc;">,</span><span> snd (</span><span style="color:#ff8f40;">3</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">4</span><span>))
+</span><span>(</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">4</span><span>)
+</span></code></pre>
+<p>可以使用元组作为函数的参数。注意这里使用了模式匹配（否则就要写 <code>addInt tup = fst tup + snd tup</code>）。</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> addInt (a</span><span style="color:#61676ccc;">,</span><span> b) </span><span style="color:#ed9366;">=</span><span> a </span><span style="color:#ed9366;">+</span><span> b
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> addInt (</span><span style="color:#ff8f40;">101</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">103</span><span>)
+</span><span style="color:#ff8f40;">204
+</span></code></pre>
+<p>但这不是正确的 Haskell 的函数使用方式。我们应当使用 Curry 化：</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span style="color:#f29718;">addInt </span><span style="color:#fa6e32;">:: Num </span><span>a </span><span style="color:#fa6e32;">=&gt; </span><span>a </span><span style="color:#fa6e32;">-&gt; </span><span>a </span><span style="color:#fa6e32;">-&gt; </span><span>a
+</span><span>addInt a b </span><span style="color:#ed9366;">=</span><span> a </span><span style="color:#ed9366;">+</span><span> b
+</span></code></pre>
+<p>我们可以正常使用它或用它生成填充了部分参数的函数：</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> addInt </span><span style="color:#ff8f40;">3 4
+</span><span style="color:#ff8f40;">7
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> incr </span><span style="color:#ed9366;">=</span><span> addInt </span><span style="color:#ff8f40;">1
+</span><span>ghci</span><span style="color:#ed9366;">&gt; :</span><span>t incr
+</span><span style="color:#f29718;">incr </span><span style="color:#fa6e32;">:: Num </span><span>a </span><span style="color:#fa6e32;">=&gt; </span><span>a </span><span style="color:#fa6e32;">-&gt; </span><span>a
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> incr </span><span style="color:#ff8f40;">10
+</span><span style="color:#ff8f40;">11
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> (incr </span><span style="color:#ed9366;">.</span><span> incr) </span><span style="color:#ff8f40;">10
+</span><span style="color:#ff8f40;">12
+</span></code></pre>
+<h2 id="lie-biao">列表</h2>
+<h3 id="gou-zao">构造</h3>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt; </span><span style="color:#ff8f40;">0 </span><span style="color:#ed9366;">:</span><span> [</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">3</span><span>] </span><span style="color:#ed9366;">++</span><span> [</span><span style="color:#ff8f40;">4</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">5</span><span>]
+</span><span>[</span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">3</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">4</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">5</span><span>]
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> [</span><span style="color:#ff8f40;">1</span><span style="color:#ed9366;">..</span><span style="color:#ff8f40;">10</span><span>]
+</span><span>[</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">3</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">4</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">5</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">6</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">7</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">8</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">9</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">10</span><span>]
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> [</span><span style="color:#86b300;">&#39;A&#39;</span><span style="color:#ed9366;">..</span><span style="color:#86b300;">&#39;Z&#39;</span><span>]
+</span><span style="color:#86b300;">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;
+</span></code></pre>
+<p><code>[1..]</code> 将生成一个无限列表。</p>
+<p>得益于 Haskell 是懒惰求值的，我们可以取出它的前若干项。</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> [</span><span style="color:#ff8f40;">1</span><span style="color:#ed9366;">..</span><span>] </span><span style="font-style:italic;color:#abb0b6;">-- 不断输出；使用 Ctrl + C 打断
+</span><span>[</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">3</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">4</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">5</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">6</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">7</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">8</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">9</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">Interrupted</span><span style="color:#ed9366;">.
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> last [</span><span style="color:#ff8f40;">1</span><span style="color:#ed9366;">..</span><span>] </span><span style="font-style:italic;color:#abb0b6;">-- 无法停止；使用 Ctrl + C 打断
+</span><span style="color:#ff8f40;">Interrupted</span><span style="color:#ed9366;">.
+</span><span>ghci</span><span style="color:#ed9366;">&gt; :</span><span>t [</span><span style="color:#ff8f40;">1</span><span style="color:#ed9366;">..</span><span>]
+</span><span>[</span><span style="color:#ff8f40;">1</span><span style="color:#ed9366;">..</span><span>] </span><span style="color:#ed9366;">::</span><span> (</span><span style="color:#ff8f40;">Num</span><span> a</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">Enum</span><span> a) </span><span style="color:#ed9366;">=&gt;</span><span> [a]
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> take </span><span style="color:#ff8f40;">10</span><span> ([</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">3</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">7</span><span>] </span><span style="color:#ed9366;">++</span><span> [</span><span style="color:#ff8f40;">1</span><span style="color:#ed9366;">..</span><span>])
+</span><span>[</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">3</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">7</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">3</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">4</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">5</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">6</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">7</span><span>]
+</span></code></pre>
+<h3 id="lie-biao-tui-dao-shi">列表推导式</h3>
+<p>这是一种语法糖。在竖杠左侧为值，右边为符合的条件。这类似于集合的一种表达方式。</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> map (</span><span style="color:#ed9366;">+</span><span style="color:#ff8f40;">1</span><span>) [</span><span style="color:#ff8f40;">1</span><span style="color:#ed9366;">..</span><span style="color:#ff8f40;">10</span><span>]
+</span><span>[</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">3</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">4</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">5</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">6</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">7</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">8</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">9</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">10</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">11</span><span>]
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> map&#39; f xs </span><span style="color:#ed9366;">=</span><span> [ f n </span><span style="color:#ed9366;">|</span><span> n </span><span style="color:#ed9366;">&lt;-</span><span> xs ]
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> map&#39; (</span><span style="color:#ed9366;">+</span><span style="color:#ff8f40;">1</span><span>) [</span><span style="color:#ff8f40;">1</span><span style="color:#ed9366;">..</span><span style="color:#ff8f40;">10</span><span>]
+</span><span>[</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">3</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">4</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">5</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">6</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">7</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">8</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">9</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">10</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">11</span><span>]
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> filter&#39; p xs </span><span style="color:#ed9366;">=</span><span> [ n </span><span style="color:#ed9366;">|</span><span> n </span><span style="color:#ed9366;">&lt;-</span><span> xs</span><span style="color:#61676ccc;">,</span><span> p n ]
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> filter&#39; even [</span><span style="color:#ff8f40;">1</span><span style="color:#ed9366;">..</span><span style="color:#ff8f40;">10</span><span>]
+</span><span>[</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">4</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">6</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">8</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">10</span><span>]
+</span></code></pre>
+<p>实际上使用起来相当自由：</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> [ e </span><span style="color:#ed9366;">|</span><span> li </span><span style="color:#ed9366;">&lt;-</span><span> [</span><span style="color:#86b300;">&quot;Ahh!&quot;</span><span style="color:#61676ccc;">, </span><span style="color:#86b300;">&quot;meow~&quot;</span><span style="color:#61676ccc;">, </span><span style="color:#86b300;">&quot;...&quot;</span><span>]</span><span style="color:#61676ccc;">,</span><span> e </span><span style="color:#ed9366;">&lt;-</span><span> li ]
+</span><span style="color:#86b300;">&quot;Ahh!meow~...&quot;
+</span></code></pre>
+<h3 id="ying-yong">应用</h3>
+<p><code>String</code> 其实上就是 <code>[Char]</code> 的别名。</p>
+<p>考虑以下代码（在位于 <code>./Main.hs</code> 的文件中编辑）</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span style="color:#fa6e32;">import </span><span>Data.Char
+</span><span style="color:#fa6e32;">import </span><span>Data.List
+</span><span>
+</span><span style="color:#f29718;">unused </span><span style="color:#fa6e32;">:: String -&gt;</span><span> [(</span><span style="color:#fa6e32;">Char</span><span>, </span><span style="color:#fa6e32;">Int</span><span>)]
+</span><span>unused </span><span style="color:#ed9366;">=</span><span> undefined </span><span style="font-style:italic;color:#abb0b6;">-- canonical
+</span><span>
+</span><span style="color:#f29718;">canonical </span><span style="color:#fa6e32;">:: String -&gt; String
+</span><span>canonical </span><span style="color:#ed9366;">=</span><span> filter (</span><span style="color:#ed9366;">/= </span><span style="color:#86b300;">&#39; &#39;</span><span>) </span><span style="color:#ed9366;">.</span><span> map normalise
+</span><span>
+</span><span>normalise c </span><span style="color:#ed9366;">|</span><span> isUpper c </span><span style="color:#ed9366;">=</span><span> c
+</span><span>            </span><span style="color:#ed9366;">|</span><span> isLower c </span><span style="color:#ed9366;">=</span><span> toUpper c
+</span><span>            </span><span style="color:#ed9366;">|</span><span> otherwise </span><span style="color:#ed9366;">= </span><span style="color:#86b300;">&#39; &#39;
+</span></code></pre>
+<p>并使用 <code>:load Main</code> 运行，这会得到</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt; :</span><span>load </span><span style="color:#ff8f40;">Main
+</span><span>[</span><span style="color:#ff8f40;">1 </span><span style="color:#fa6e32;">of </span><span style="color:#ff8f40;">2</span><span>] </span><span style="color:#ff8f40;">Compiling Main</span><span>             ( </span><span style="color:#ff8f40;">Main</span><span style="color:#ed9366;">.</span><span>hs</span><span style="color:#61676ccc;">,</span><span> interpreted )
+</span><span style="color:#ff8f40;">Ok</span><span style="color:#61676ccc;">,</span><span> one </span><span style="color:#fa6e32;">module </span><span style="color:#f51818;">loaded</span><span>.
+</span></code></pre>
+<p>或者，也可以使用 GHCi 提供的多行输入（从 <code>:{</code> 开始，以 <code>:}</code> 结束）</p>
+<p>我们来测试以下：</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> canonical </span><span style="color:#86b300;">&quot;Hello, world!&quot;
+</span><span style="color:#86b300;">&quot;HELLOWORLD&quot;
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> f </span><span style="color:#ed9366;">=</span><span> group </span><span style="color:#ed9366;">.</span><span> sort </span><span style="color:#ed9366;">.</span><span> canonical
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> f </span><span style="color:#86b300;">&quot;Hello, world!&quot;
+</span><span>[</span><span style="color:#86b300;">&quot;D&quot;</span><span style="color:#61676ccc;">,</span><span style="color:#86b300;">&quot;E&quot;</span><span style="color:#61676ccc;">,</span><span style="color:#86b300;">&quot;H&quot;</span><span style="color:#61676ccc;">,</span><span style="color:#86b300;">&quot;LLL&quot;</span><span style="color:#61676ccc;">,</span><span style="color:#86b300;">&quot;OO&quot;</span><span style="color:#61676ccc;">,</span><span style="color:#86b300;">&quot;R&quot;</span><span style="color:#61676ccc;">,</span><span style="color:#86b300;">&quot;W&quot;</span><span>]
+</span></code></pre>
+<p>用反斜杠 <code>\</code> 声明 Lambda 表达式。</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> display </span><span style="color:#ed9366;">=</span><span> map (</span><span style="color:#ed9366;">\</span><span>x </span><span style="color:#ed9366;">-&gt;</span><span> (head x</span><span style="color:#61676ccc;">,</span><span> length x))
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> unused </span><span style="color:#ed9366;">=</span><span> display </span><span style="color:#ed9366;">.</span><span> group </span><span style="color:#ed9366;">.</span><span> sort </span><span style="color:#ed9366;">.</span><span> canonical
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> unused </span><span style="color:#86b300;">&quot;Hello, world!&quot;
+</span><span>[(</span><span style="color:#86b300;">&#39;D&#39;</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">1</span><span>)</span><span style="color:#61676ccc;">,</span><span>(</span><span style="color:#86b300;">&#39;E&#39;</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">1</span><span>)</span><span style="color:#61676ccc;">,</span><span>(</span><span style="color:#86b300;">&#39;H&#39;</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">1</span><span>)</span><span style="color:#61676ccc;">,</span><span>(</span><span style="color:#86b300;">&#39;L&#39;</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">3</span><span>)</span><span style="color:#61676ccc;">,</span><span>(</span><span style="color:#86b300;">&#39;O&#39;</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">2</span><span>)</span><span style="color:#61676ccc;">,</span><span>(</span><span style="color:#86b300;">&#39;R&#39;</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">1</span><span>)</span><span style="color:#61676ccc;">,</span><span>(</span><span style="color:#86b300;">&#39;W&#39;</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">1</span><span>)]
+</span></code></pre>
+<h2 id="zi-ding-yi-lei-xing">自定义类型</h2>
+<h3 id="xin-lei-xing">新类型</h3>
+<p>我们可以定义类型别名，或基于原类型定义新类型</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt; </span><span style="color:#fa6e32;">type </span><span style="color:#ff8f40;">Id </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">Int
+</span><span>ghci</span><span style="color:#ed9366;">&gt; </span><span style="color:#fa6e32;">newtype </span><span style="color:#ff8f40;">Id </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">Id Int
+</span></code></pre>
+<p>也可以从头开始定义类型</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt; </span><span style="color:#fa6e32;">data </span><span style="color:#ff8f40;">Lis </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">Empty </span><span style="color:#ed9366;">| </span><span style="color:#ff8f40;">Cons Int</span><span> (</span><span style="color:#ff8f40;">Lis</span><span>)
+</span><span>ghci</span><span style="color:#ed9366;">&gt; :</span><span>t </span><span style="color:#ff8f40;">Empty
+</span><span style="color:#ff8f40;">Empty </span><span style="color:#ed9366;">:: </span><span style="color:#ff8f40;">Lis
+</span><span>ghci</span><span style="color:#ed9366;">&gt; :</span><span>t </span><span style="color:#ff8f40;">Cons 1</span><span> (</span><span style="color:#ff8f40;">Cons 2 Empty</span><span>)
+</span><span style="color:#ff8f40;">Cons 1</span><span> (</span><span style="color:#ff8f40;">Cons 2 Empty</span><span>) </span><span style="color:#ed9366;">:: </span><span style="color:#ff8f40;">Lis
+</span></code></pre>
+<p>可以增加泛型</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt; </span><span style="color:#fa6e32;">data </span><span style="color:#ff8f40;">Lis</span><span> ty </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">Empty </span><span style="color:#ed9366;">| </span><span style="color:#ff8f40;">Cons</span><span> ty (</span><span style="color:#ff8f40;">Lis</span><span> ty)
+</span><span>ghci</span><span style="color:#ed9366;">&gt; :</span><span>t </span><span style="color:#ff8f40;">Cons 1</span><span> (</span><span style="color:#ff8f40;">Cons 2 Empty</span><span>)
+</span><span style="color:#ff8f40;">Cons 1</span><span> (</span><span style="color:#ff8f40;">Cons 2 Empty</span><span>) </span><span style="color:#ed9366;">:: </span><span style="color:#ff8f40;">Num</span><span> ty </span><span style="color:#ed9366;">=&gt; </span><span style="color:#ff8f40;">Lis</span><span> ty
+</span><span>ghci</span><span style="color:#ed9366;">&gt; :</span><span>t </span><span style="color:#ff8f40;">Cons </span><span style="color:#86b300;">&#39;A&#39;</span><span> (</span><span style="color:#ff8f40;">Cons </span><span style="color:#86b300;">&#39;B&#39; </span><span style="color:#ff8f40;">Empty</span><span>)
+</span><span style="color:#ff8f40;">Cons </span><span style="color:#86b300;">&#39;A&#39;</span><span> (</span><span style="color:#ff8f40;">Cons </span><span style="color:#86b300;">&#39;B&#39; </span><span style="color:#ff8f40;">Empty</span><span>) </span><span style="color:#ed9366;">:: </span><span style="color:#ff8f40;">Lis Char
+</span></code></pre>
+<p>在文件中写如下内容</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span style="color:#fa6e32;">data </span><span style="color:#ff8f40;">Lis</span><span> ty </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">Empty </span><span style="color:#ed9366;">| </span><span style="color:#ff8f40;">Cons</span><span> ty (</span><span style="color:#ff8f40;">Lis</span><span> ty)
+</span><span>
+</span><span style="color:#f29718;">toHList </span><span style="color:#fa6e32;">:: Lis </span><span>a </span><span style="color:#fa6e32;">-&gt;</span><span> [a]
+</span><span>toHList </span><span style="color:#ff8f40;">Empty       </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">[]
+</span><span>toHList (</span><span style="color:#ff8f40;">Cons</span><span> x xs) </span><span style="color:#ed9366;">=</span><span> x </span><span style="color:#ed9366;">:</span><span> toHList xs
+</span></code></pre>
+<p>即有 <code>toHList (Cons 'a' (Cons 'b' Empty))</code> 给出 <code>"ab"</code></p>
+<p>或可使用语法糖 <code>toHList $ Cons 'a' $ Cons 'b' Empty</code></p>
+<p>也可以实现我们在现代语言中熟悉的 <code>Option</code>（在 Haskell 里对应的类型是 <code>data Maybe a = Nothing | Just a</code>）</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span style="color:#fa6e32;">data </span><span style="color:#ff8f40;">Option</span><span> a </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">None </span><span style="color:#ed9366;">| </span><span style="color:#ff8f40;">Some</span><span> a </span><span style="color:#fa6e32;">deriving</span><span> (</span><span style="text-decoration:underline;color:#399ee6;">Show</span><span>)
+</span><span>
+</span><span style="color:#f29718;">safeDiv </span><span style="color:#fa6e32;">:: Int -&gt; Int -&gt; Option Int
+</span><span>safeDiv a </span><span style="color:#ff8f40;">0 </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">None
+</span><span>safeDiv a b </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">Some</span><span> (a </span><span style="color:#ed9366;">`div`</span><span> b)
+</span></code></pre>
+<p>对于结构体，有更简单的定义方法</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span style="color:#fa6e32;">data </span><span style="color:#ff8f40;">Person </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">Person</span><span> {
+</span><span>  </span><span style="color:#f29718;">name </span><span style="color:#fa6e32;">:: String</span><span>,
+</span><span>  </span><span style="color:#f29718;">id   </span><span style="color:#fa6e32;">:: Int</span><span>,
+</span><span>  </span><span style="color:#f29718;">dob  </span><span style="color:#fa6e32;">::</span><span> (</span><span style="color:#fa6e32;">Int</span><span>, </span><span style="color:#fa6e32;">Int</span><span>, </span><span style="color:#fa6e32;">Int</span><span>) </span><span style="font-style:italic;color:#abb0b6;">-- day of birth
+</span><span>} </span><span style="color:#fa6e32;">deriving</span><span> (</span><span style="text-decoration:underline;color:#399ee6;">Show</span><span>)
+</span></code></pre>
+<p>你会得到：</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> a </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">Person </span><span style="color:#86b300;">&quot;Alice&quot; </span><span style="color:#ff8f40;">20</span><span> (</span><span style="color:#ff8f40;">1901</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">1</span><span>)
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> a
+</span><span style="color:#ff8f40;">Person</span><span> {name </span><span style="color:#ed9366;">= </span><span style="color:#86b300;">&quot;Alice&quot;</span><span style="color:#61676ccc;">,</span><span> id </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">20</span><span style="color:#61676ccc;">,</span><span> dob </span><span style="color:#ed9366;">=</span><span> (</span><span style="color:#ff8f40;">1901</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">1</span><span>)}
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> name a
+</span><span style="color:#86b300;">&quot;Alice&quot;
+</span></code></pre>
+<h3 id="lei-xing-lei">类型类</h3>
+<p>我们之前用到了 <code>show</code>，可以将数据变为显示的字符串</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> show </span><span style="color:#86b300;">&#39;A&#39;
+</span><span style="color:#86b300;">&quot;&#39;A&#39;&quot;
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> (putStrLn </span><span style="color:#ed9366;">.</span><span> show) [</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">3</span><span>]
+</span><span>[</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">3</span><span>]
+</span></code></pre>
+<p>我们可以通过 <code>class</code> 和 <code>instance</code> 自己实现。例如：</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span style="color:#fa6e32;">data </span><span style="color:#ff8f40;">List</span><span> a </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">Empty </span><span style="color:#ed9366;">| </span><span style="color:#ff8f40;">Cons</span><span> a (</span><span style="color:#ff8f40;">List</span><span> a)
+</span><span>
+</span><span style="color:#fa6e32;">class </span><span style="text-decoration:underline;color:#399ee6;">Display </span><span>a </span><span style="color:#fa6e32;">where
+</span><span>  </span><span style="color:#f29718;">display </span><span style="color:#fa6e32;">:: </span><span>a </span><span style="color:#fa6e32;">-&gt; String
+</span><span>
+</span><span style="color:#fa6e32;">instance Display Int where
+</span><span>  display x </span><span style="color:#ed9366;">=</span><span> show x
+</span><span>
+</span><span style="color:#fa6e32;">instance Display </span><span>a </span><span style="color:#fa6e32;">=&gt; Display</span><span> (</span><span style="color:#fa6e32;">List </span><span>a) </span><span style="color:#fa6e32;">where
+</span><span>  display (</span><span style="color:#ff8f40;">Empty</span><span>)     </span><span style="color:#ed9366;">= </span><span style="color:#86b300;">&quot;[]&quot;
+</span><span>  display (</span><span style="color:#ff8f40;">Cons</span><span> a xs) </span><span style="color:#ed9366;">= </span><span style="color:#86b300;">&quot;[&quot; </span><span style="color:#ed9366;">++</span><span> display a </span><span style="color:#ed9366;">++ </span><span style="color:#86b300;">&quot;, &quot; </span><span style="color:#ed9366;">++</span><span> display xs </span><span style="color:#ed9366;">++ </span><span style="color:#86b300;">&quot;]&quot;
+</span></code></pre>
+<p><code>display (Cons (1::Int) (Cons (2::Int) Empty))</code> 会得到 <code>"[1, [2, []]]"</code></p>
+<p><code>deriving</code> 的方式也可以允许自动推导出 <code>Eq</code>、<code>Ord</code> 等</p>
+<p>有时，我们不接受默认的推导方式，可自行定义</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span style="color:#fa6e32;">data </span><span style="color:#ff8f40;">Q </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">Q Integer Integer
+</span><span>
+</span><span style="color:#fa6e32;">instance Show Q where
+</span><span>  show (</span><span style="color:#ff8f40;">Q</span><span> a b) </span><span style="color:#ed9366;">=</span><span> concat [show a</span><span style="color:#61676ccc;">, </span><span style="color:#86b300;">&quot;/&quot;</span><span style="color:#61676ccc;">,</span><span> show b]
+</span><span>
+</span><span style="color:#f29718;">simp </span><span style="color:#fa6e32;">:: Q -&gt; Q
+</span><span>simp (</span><span style="color:#ff8f40;">Q</span><span> a b) </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">Q</span><span> (a </span><span style="color:#ed9366;">`div`</span><span> c) (b </span><span style="color:#ed9366;">`div`</span><span> c)
+</span><span>  </span><span style="color:#fa6e32;">where</span><span> c </span><span style="color:#ed9366;">=</span><span> gcd a b
+</span><span>
+</span><span style="color:#fa6e32;">instance Eq Q where
+</span><span>  r1 </span><span style="color:#ed9366;">==</span><span> r2 </span><span style="color:#ed9366;">=</span><span> (a1 </span><span style="color:#ed9366;">==</span><span> a2) &amp;&amp; (b1 </span><span style="color:#ed9366;">==</span><span> b2)
+</span><span>    </span><span style="color:#fa6e32;">where</span><span> (</span><span style="color:#ff8f40;">Q</span><span> a1 b1) </span><span style="color:#ed9366;">=</span><span> simp r1
+</span><span>          (</span><span style="color:#ff8f40;">Q</span><span> a2 b2) </span><span style="color:#ed9366;">=</span><span> simp r2
+</span><span>
+</span><span style="color:#f29718;">addQ </span><span style="color:#fa6e32;">:: Q -&gt; Q -&gt; Q
+</span><span>addQ (</span><span style="color:#ff8f40;">Q</span><span> a1 b1) (</span><span style="color:#ff8f40;">Q</span><span> a2 b2) </span><span style="color:#ed9366;">=</span><span> simp </span><span style="color:#ed9366;">$ </span><span style="color:#ff8f40;">Q</span><span> (c1 </span><span style="color:#ed9366;">+</span><span> c2) m
+</span><span>  </span><span style="color:#fa6e32;">where</span><span> m  </span><span style="color:#ed9366;">=</span><span> lcm b1 b2
+</span><span>        c1 </span><span style="color:#ed9366;">=</span><span> a1 * (m </span><span style="color:#ed9366;">`div`</span><span> b1)
+</span><span>        c2 </span><span style="color:#ed9366;">=</span><span> a2 * (m </span><span style="color:#ed9366;">`div`</span><span> b2)
+</span><span>
+</span><span style="color:#f29718;">mulQ </span><span style="color:#fa6e32;">:: Q -&gt; Q -&gt; Q
+</span><span>mulQ (</span><span style="color:#ff8f40;">Q</span><span> a1 b1) (</span><span style="color:#ff8f40;">Q</span><span> a2 b2) </span><span style="color:#ed9366;">=</span><span> simp </span><span style="color:#ed9366;">$ </span><span style="color:#ff8f40;">Q</span><span> (a1 * a2) (b1 * b2)
+</span><span>
+</span><span style="color:#fa6e32;">instance Num Q where
+</span><span>  </span><span style="color:#f29718;">(+)             </span><span style="color:#ed9366;">=</span><span> addQ
+</span><span>  negate (</span><span style="color:#ff8f40;">Q</span><span> a b)  </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">Q</span><span> (</span><span style="color:#ed9366;">-</span><span>a) b
+</span><span>  </span><span style="color:#f29718;">(*)             </span><span style="color:#ed9366;">=</span><span> mulQ
+</span><span>  abs (</span><span style="color:#ff8f40;">Q</span><span> a b)     </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">Q</span><span> (abs a) (abs b)
+</span><span>  signum  (</span><span style="color:#ff8f40;">Q</span><span> a b) </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">Q</span><span> (signum a * signum b) </span><span style="color:#ff8f40;">1
+</span><span>  fromInteger n   </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">Q</span><span> n </span><span style="color:#ff8f40;">1
+</span></code></pre>
+<p>我们<em>希望</em>你的 <code>Eq</code> 等类型类的实现满足对应的语义，尽管编译器无法检查。</p>
+<p>例如 <code>Eq</code> 要求满足自反性、对称性、传递性。</p>
+<p>上例中，我们将得到：</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt; </span><span style="color:#ff8f40;">Q</span><span> (</span><span style="color:#ed9366;">-</span><span style="color:#ff8f40;">1</span><span>) </span><span style="color:#ff8f40;">10 </span><span style="color:#ed9366;">+ </span><span style="color:#ff8f40;">Q 1 2
+</span><span style="color:#ff8f40;">2</span><span style="color:#ed9366;">/</span><span style="color:#ff8f40;">5
+</span></code></pre>
+<h2 id="gao-jie-han-shu">高阶函数</h2>
+<p>高阶函数是指参数或返回值中有类型是函数的函数。</p>
+<p>一个典型的简单例子是 <code>flip</code></p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt; :</span><span>t flip
+</span><span style="color:#f29718;">flip </span><span style="color:#fa6e32;">::</span><span> (a </span><span style="color:#fa6e32;">-&gt; </span><span>b </span><span style="color:#fa6e32;">-&gt; </span><span>c) </span><span style="color:#fa6e32;">-&gt; </span><span>b </span><span style="color:#fa6e32;">-&gt; </span><span>a </span><span style="color:#fa6e32;">-&gt; </span><span>c
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> flip (</span><span style="color:#ed9366;">\</span><span>x y </span><span style="color:#ed9366;">-&gt;</span><span> x) </span><span style="color:#86b300;">&#39;x&#39; &#39;y&#39;
+</span><span style="color:#86b300;">&#39;y&#39;
+</span><span>ghci</span><span style="color:#ed9366;">&gt; </span><span style="color:#f29718;">(+++) </span><span style="color:#ed9366;">=</span><span> flip </span><span style="color:#ed9366;">$</span><span> foldr </span><span style="color:#f29718;">(:)
+</span><span>ghci</span><span style="color:#ed9366;">&gt; </span><span style="color:#86b300;">&quot;Hello, &quot; </span><span style="color:#ed9366;">+++ </span><span style="color:#86b300;">&quot;world!&quot;
+</span><span style="color:#86b300;">&quot;Hello, world!&quot;
+</span></code></pre>
+<p><code>map</code> 是常用的函数</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> map (</span><span style="color:#ed9366;">\</span><span>x </span><span style="color:#ed9366;">-&gt;</span><span> [x</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">2</span><span>*x]) [</span><span style="color:#ff8f40;">1</span><span style="color:#ed9366;">..</span><span style="color:#ff8f40;">3</span><span>]
+</span><span>[[</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">2</span><span>]</span><span style="color:#61676ccc;">,</span><span>[</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">4</span><span>]</span><span style="color:#61676ccc;">,</span><span>[</span><span style="color:#ff8f40;">3</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">6</span><span>]]
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> concatMap (</span><span style="color:#ed9366;">\</span><span>x </span><span style="color:#ed9366;">-&gt;</span><span> [x</span><span style="color:#61676ccc;">, </span><span style="color:#ff8f40;">2</span><span>*x]) [</span><span style="color:#ff8f40;">1</span><span style="color:#ed9366;">..</span><span style="color:#ff8f40;">3</span><span>]
+</span><span>[</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">4</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">3</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">6</span><span>]
+</span></code></pre>
+<h3 id="zhe-die">折叠</h3>
+<p><code>foldl</code> 与 <code>foldr</code> 是有趣的函数。</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span>ghci</span><span style="color:#ed9366;">&gt; :</span><span>t foldr
+</span><span style="color:#f29718;">foldr </span><span style="color:#fa6e32;">:: Foldable </span><span>t </span><span style="color:#fa6e32;">=&gt;</span><span> (a </span><span style="color:#fa6e32;">-&gt; </span><span>b </span><span style="color:#fa6e32;">-&gt; </span><span>b) </span><span style="color:#fa6e32;">-&gt; </span><span>b </span><span style="color:#fa6e32;">-&gt; </span><span>t a </span><span style="color:#fa6e32;">-&gt; </span><span>b
+</span><span>ghci</span><span style="color:#ed9366;">&gt; :</span><span>t </span><span style="color:#f29718;">(:)
+</span><span style="color:#f29718;">(:) </span><span style="color:#ed9366;">::</span><span> a </span><span style="color:#ed9366;">-&gt;</span><span> [a] </span><span style="color:#ed9366;">-&gt;</span><span> [a]
+</span><span>ghci</span><span style="color:#ed9366;">&gt; :</span><span>t </span><span style="color:#ff8f40;">[]
+</span><span style="color:#ff8f40;">[] </span><span style="color:#ed9366;">::</span><span> [a]
+</span><span>ghci</span><span style="color:#ed9366;">&gt; </span><span style="color:#ff8f40;">1 </span><span style="color:#ed9366;">: </span><span style="color:#ff8f40;">2 </span><span style="color:#ed9366;">: </span><span style="color:#ff8f40;">3 </span><span style="color:#ed9366;">: </span><span style="color:#ff8f40;">[]
+</span><span>[</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">3</span><span>]
+</span><span>ghci</span><span style="color:#ed9366;">&gt; </span><span style="color:#ff8f40;">1 </span><span style="color:#ed9366;">+ </span><span style="color:#ff8f40;">2 </span><span style="color:#ed9366;">+ </span><span style="color:#ff8f40;">3 </span><span style="color:#ed9366;">+ </span><span style="color:#ff8f40;">0
+</span><span style="color:#ff8f40;">6
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> foldr </span><span style="color:#f29718;">(:) </span><span style="color:#ff8f40;">[]</span><span> [</span><span style="color:#ff8f40;">1</span><span style="color:#ed9366;">..</span><span style="color:#ff8f40;">10</span><span>]
+</span><span>[</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">3</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">4</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">5</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">6</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">7</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">8</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">9</span><span style="color:#61676ccc;">,</span><span style="color:#ff8f40;">10</span><span>]
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> foldr </span><span style="color:#f29718;">(+) </span><span style="color:#ff8f40;">0</span><span> [</span><span style="color:#ff8f40;">1</span><span style="color:#ed9366;">..</span><span style="color:#ff8f40;">10</span><span>]
+</span><span style="color:#ff8f40;">55
+</span><span>ghci</span><span style="color:#ed9366;">&gt;</span><span> foldr </span><span style="color:#f29718;">(*) </span><span style="color:#ff8f40;">1</span><span> [</span><span style="color:#ff8f40;">1</span><span style="color:#ed9366;">..</span><span style="color:#ff8f40;">10</span><span>]
+</span><span style="color:#ff8f40;">3628800
+</span></code></pre>
+<p>对 <code>[]</code> 类型，典型的定义方式为：</p>
+<pre data-lang="hs" style="background-color:#fafafa;color:#61676c;" class="language-hs "><code class="language-hs" data-lang="hs"><span style="color:#f29718;">foldr </span><span style="color:#fa6e32;">::</span><span> (a </span><span style="color:#fa6e32;">-&gt; </span><span>b </span><span style="color:#fa6e32;">-&gt; </span><span>b) </span><span style="color:#fa6e32;">-&gt; </span><span>b </span><span style="color:#fa6e32;">-&gt;</span><span> [a] </span><span style="color:#fa6e32;">-&gt; </span><span>b
+</span><span>foldr _ v </span><span style="color:#ff8f40;">[] </span><span style="color:#ed9366;">=</span><span> v 
+</span><span>foldr f v (x</span><span style="color:#ed9366;">:</span><span>xs) </span><span style="color:#ed9366;">=</span><span> x </span><span style="color:#ed9366;">`f`</span><span> (foldr f v xs)
+</span></code></pre>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mb-1.5 mr-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mb-1.5 mr-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/计算机/">计算机</a>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/函数式编程/">函数式编程</a>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/Haskell/">Haskell</a>
+    
+  </div>
+</footer>
+
+  <!-- Post Nav -->
+<nav class="block-bg mt-12 flex flex-wrap rounded-lg text-lg">
+  <a
+    class="block-hover-mask flex min-w-[50%] grow items-center rounded-l-md p-6 pr-3 font-semibold no-underline"
+    href="https://rratic.github.io/posts/haskell-p2/" accesskey=","
+    ><span class="mr-1.5">&#8249;</span><span>Haskell 学习（二）：单子与副作用</span></a>
+  <a
+    class="block-hover-mask ml-auto flex min-w-[50%] grow items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline"
+    href="https://rratic.github.io/posts/group-theory-p3/" accesskey="."
+    ><span>【草稿】群论（三）：特征子群与 Hall 定理</span><span class="ml-1.5">&#8250;</span></a>
+</nav>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/pages"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>
