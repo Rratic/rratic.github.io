@@ -499,13 +499,15 @@ Const [1,2,3,4,5,6]
 ### 高级 Monad
 Haskell 中还有更加强大的控制流。
 
-`Cont` 可以做 continuation-passing style 计算。
+以下在 GHCi 中需要设置 `:set -package transformers`.
 
-`Select` 是 `Cont` 的一个特化版本。
+`Cont` 可以做 continuation-passing style 计算，可以实现任意跳转、提前返回、复杂错误处理。
 
-`Free`.
+`Select` 是 `Cont` 的一个特化版本，可解决搜索和优化问题。
 
-{{ todo() }}
+`Free` 可以将任意 `Functor` 提升为 `Monad`.
+
+关于它们的详细内容或许会在之后的文章中讨论。
 
 ---
 

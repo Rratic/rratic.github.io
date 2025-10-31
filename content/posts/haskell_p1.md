@@ -400,3 +400,10 @@ ghci> foldr (+) 0 [1..10]
 ghci> foldr (*) 1 [1..10]
 3628800
 ```
+
+对 `[]` 类型，典型的定义方式为：
+```hs
+foldr :: (a -> b -> b) -> b -> [a] -> b
+foldr _ v [] = v 
+foldr f v (x:xs) = x `f` (foldr f v xs)
+```
