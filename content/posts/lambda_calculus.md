@@ -90,7 +90,7 @@ E = x           // variables
 * 正则/标准次序（`Normal Order`）
 * 懒惰求值（`Lazy Evaluation`）
 
-如果表达式可以被化简，那么标准次序总是能够将表达式成功化简，使用应用次序则可能陷入无限递归。
+如果表达式可以被化简，那么标准次序总是能够将表达式成功化简[^succeeds]，使用应用次序则可能陷入无限递归。
 
 ### 不动点 {#fixed-point}
 事实上，对一般的函数 $f$，我们都可以找到不动点，此不动点与该函数的结构无关。
@@ -273,6 +273,7 @@ Church–Rosser 定理说，λ 演算具有合流性。
 由此，λ 演算具有合流性。
 
 [^paper-invention]: A. CHURCH, The Calculi of Lambda-Conversion (Princeton University Press, Princeton, N. J., 1941).
+[^succeeds]: 其证明超出了本文范围，可参考标准教材如 *The Lambda Calculus: Its Syntax and Semantics* 中的证明。
 [^paper-proof]: DOI 10.3233/FI-2010-306
 [^prefix-tree]: `prefix-closed` 的集合需满足，对其每个元素 $s$ 均有 $s$ 的前缀在集合中。
                 例如，使用 $\{\epsilon, a, ab, ac, abd\}$ 定义一个树的父子关系，其中 $\epsilon$ 表示空序列。

@@ -57,6 +57,22 @@ ghci> :t 0::Int
 0::Int :: Int
 ```
 
+这有时也会产生一些需要处理的问题
+
+```hs
+ghci> b::Int = 3
+ghci> 2 / 3
+0.6666666666666666
+ghci> 2 / b
+
+<interactive>:3:3: error: [GHC-39999]
+    ? No instance for ‘Fractional Int’ arising from a use of ‘/’
+    ? In the expression: 2 / b
+      In an equation for ‘it’: it = 2 / b
+ghci> 2 / fromIntegral b
+0.6666666666666666
+```
+
 ### 函数
 类似于[无类型 λ 演算](/posts/lambda-calculus/)中的定义，Haskell 中的函数“只接受一个参数”。
 
