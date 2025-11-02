@@ -63,6 +63,8 @@ $$\dim\ker (T_1T_2)\leq \dim\ker (T_1) + \dim\ker (T_2)\leq 2\dim\ker (T_2T_1)$$
 
 令 $T_0=T_2|_{\ker (T_1T_2)}$，则 $\dim\ker (T_1T_2) = \dim\ker(T_0) + \dim\mathrm{Im}(T_0)$，而 $\ker(T_0)=\ker(T_2)$ 且 $\mathrm{Im}(T_0)\subseteq\ker(T_1)$.
 
+又有 $\dim\ker (T_2) = n - \dim\mathrm{Im} (T_2) \leq n - \dim\mathrm{Im} (T_2T_1) = \dim\ker (T_2T_1)$.
+
 {% admonition(type="question", title="2019 P1") %}
 实矩阵 $A=\begin{pmatrix} 1 & 1 & 1 \\\\ 0 & 1 & 1 \\\\ 0 & 0 & 1 \end{pmatrix}$，令 $V_n = \mathrm{span}(A^n, A^{n+1})$.
 1. 求 $\dim V_6$.

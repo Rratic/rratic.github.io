@@ -107,7 +107,7 @@ $$
 {{ todo() }}
 
 ## 变换
-**仿射变换**是指报直线的双射，有 $\mathrm{Aff}(\mathbb{E}^n) = \mathrm{Transl}(\mathbb{E}^n) \rtimes \mathrm{GL}(n, \mathbb{R})$.
+**仿射变换**是指保直线的双射，有 $\mathrm{Aff}(\mathbb{E}^n) = \mathrm{Transl}(\mathbb{E}^n) \rtimes \mathrm{GL}(n, \mathbb{R})$.
 
 对**保距变换**，有 $\mathrm{Isom}(\mathbb{E}^n) = \mathrm{Transl}(\mathbb{E}^n) \rtimes \mathrm{O}(n, \mathbb{R})$.
 
