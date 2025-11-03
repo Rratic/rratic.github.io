@@ -77,6 +77,12 @@ $$\mathrm{rank}(A)+\mathrm{rank}(B)-n\leq \mathrm{rank}(AB)\leq \min \\{\mathrm{
 
 就有 $A^n$ 是可逆的（或者直接取逆为 $(A^{-1})^n$），从而有 $A^nf(A)=A^ng(A)\iff f(A)=g(A)$.
 
+{% admonition(type="question", title="2022 P2") %}
+对域 $F$，一个 $F^{n\times n}$ 的子空间 $M$ 称为“优美”的，如果对任意 $A\in F^{n\times n}, B\in M$ 有 $AB\in M$，求“优美”的子空间维数的所有可能值。
+{% end %}
+
+采取这样的视角：$A$ 把 $B$ 原来的一行变为原来所有行的线性组合（可以有任意多的系数为零），那么一个子空间 $M$ 可以有至多 $n$ 个线性无关的行向量作为“素材”，对其中的元素，每一个素材在每一行有一个可变的系数取遍 $F$，故可能值为 $0, n, 2n, \cdots, n^2$.
+
 {% admonition(type="question", title="2022 P3") %}
 域 $F$ 上 $A\in F^{n\times n}, B=A^n, \alpha\in F^{n\times 1}$，设 $B^3\alpha = B^2\alpha$，则 $B^2\alpha = B\alpha$.
 {% end %}
