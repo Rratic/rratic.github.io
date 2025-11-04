@@ -2,7 +2,7 @@
 title = "高等代数Ⅰ期中复习笔记"
 description = "可能有用的小结论及往年题选做。"
 date = 2025-10-28
-updated = 2025-10-29
+updated = 2025-11-04
 
 [extra]
 math = true
@@ -51,6 +51,14 @@ $$E_{ii}-E_{i+1,i+1} = E_{i,i+1}(E_{i,i+1}+E_{i+1,i}) - (E_{i,i+1}+E_{i+1,i})E_{
 可由后者表出。
 
 ## 往年题选做
+{% admonition(type="question", title="2016 P7") %}
+求最小正整数 $k$，使对任意 $A\in F^{9\times 9}, A^4 = 0$，存在 $B\in F^{9\times k}, C\in F^{k\times 9}$ 使 $A=BC$.
+{% end %}
+
+采取这样的视角：$B$ 把 $C$ 原来的一行变为原来所有行的线性组合（可以有任意多的系数为零），那么所求即 $\mathrm{rank}(A)$ 的最大值。
+
+使用 $\mathrm{rank}(A^2)\geq 2\ \mathrm{rank}(A)-9, \mathrm{rank}(A^4)\geq 2\ \mathrm{rank}(A^2)-9$ 即可。
+
 {% admonition(type="question", title="2017 P5") %}
 $V$ 为 $n$ 维 $F$-线性空间，$T_1, T_2\in L(V)$，证 $|\dim\ker (T_1T_2) - \dim\ker (T_2T_1)|\leq \frac{n}{2}$.
 {% end %}
@@ -130,3 +138,12 @@ $$M = \bigcap_{i=1}^k (W_i+M)$$
 {% end %}
 
 由 $M \neq \cap_{i=1}^k (W_i+M) \iff \exists \gamma\notin M, \forall 1\leq i\leq k, \dim W_i\cap (M+\gamma)>0$ 易知为 $4$.
+
+## 考后总结
+错了一道填空题，内容为：
+
+{% admonition(type="question", title="2025 P1 (4)") %}
+对 $\Omega = \mathbb{Z}\times\mathbb{Z}$，是否存在 $T\in L(\mathbb{R}^2)$，使 $T(\Omega+(\frac15, 0)) = \Omega+(\frac25, 0)$.
+{% end %}
+
+存在，取 $T: (x, y)\mapsto (2x+y, 5x+2y)$.

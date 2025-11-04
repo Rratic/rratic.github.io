@@ -56,9 +56,11 @@ E = x           // variables
 求值规则包括：
 * $\alpha$-重命名，可任意改变变量名。如有歧义的 $\lambda x.\ x(\lambda x.\ x)$ 可改为 $\lambda x.\ x(\lambda y.\ y)$
 * $\beta$-归约（`reduction`），在应用时将声明展开。例如 $(\lambda x.\ x)(\lambda y.\ y)$ 被展开为 $\lambda y.\ y$
-* $\eta$-等价，形如 $\lambda x.\ f(x)$ 的表达式可改为 $f$，这一般来说只是提前省略了一步 β-归约。
+* $\eta$-等价，形如 $\lambda x.\ f(x)$ 的表达式可改为 $f$，这一般来说只是提前省略了一步 β-归约
 
-这三者均可称为归约（`conversion`）
+这三者均可称为归约（`conversion`）。
+
+现在来看一些经典的例子：
 
 {% admonition(type="example", title="SKI 演算") %}
 我们定义
@@ -69,6 +71,13 @@ E = x           // variables
 读者可自行验证 $I=S\ K\ K$
 
 通过 $\lambda x.\ A\ B = S\ (\lambda x.\ A)\ (\lambda x.\ B)$，可找到一般的用这些组合子表达 Lambda 表达式的方法。
+{% end %}
+
+{% admonition(type="example", title="Iota 组合子") %}
+我们定义 $\iota = \lambda f.\ ((f\ S)\ K)$，读者可自行验证：
+* $\iota\ \iota = I$
+* $\iota\ (\iota\ I) = K$
+* $\iota\ K = S$
 {% end %}
 
 ### 求值顺序 {#evaluation-order}
