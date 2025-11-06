@@ -2,7 +2,7 @@
 title = "复分析速通指南（一）：基本概念"
 description = "复变函数基本概念的速通，从复值函数写到 Cauchy 公式及其推论。"
 date = 2025-07-27
-updated = 2025-10-10
+updated = 2025-11-06
 
 [extra]
 math = true
@@ -434,5 +434,64 @@ $$|f^{(n)}(z_0)| = \frac{n!}{2\pi\mathrm{i}}\int_{|w-z_0| = r}\left|\frac{f(w)}{
 {% end %}
 
 此证明将略过。
+
+---
+
+{% admonition(type="abstract", title="平均值定理") %}
+区域 $\Omega$ 上的解析函数 $f$，对任意 $z_0\in\Omega, 0<r<\mathrm{dist}(z_0, \partial \Omega)$，有：
+
+$$f(z_0) = \frac{1}{2\pi}\int_0^{2\pi} f(z_0+re^{i\theta})\mathrm{d}\theta$$
+{% end %}
+
+这可直接由 Cauchy 公式得到。
+
+这给出**平均值不等式**：
+
+$$|f(z_0)| = \frac{1}{2\pi}\int_0^{2\pi} |f(z_0+re^{i\theta})|\mathrm{d}\theta$$
+
+进一步有：
+
+$$f(z_0) = \frac{1}{\pi R^2}\iint\limits_{D(z_0, R)} f(z) \mathrm{d}S$$
+
+### 平方可积解析函数
+这一节中我们假定区域 $\Omega$ 以有限条逐段光滑曲线为边界。
+
+对其上的复值函数 $f$，称它为**平方可积函数**，若 $|f(z)^2|$ 在 $\Omega$ 上广义可积，其全体记作 $A^2(\Omega)$.
+
+若 $f, g\in A^2(\Omega)$，就有 $|f(z)+g(z)|^2\leq 2 (|f(z)|^2 + |g(z)|^2)$，即 $f+g\in A^2(\Omega)$，从而易知 $A^2(\Omega)$ 是复线性空间。
+
+我们进一步在其上定义**内积**如下：
+
+$$(f, g) = \iint\limits_\Omega f(z)\overline{g(z)} \mathrm{d}S$$
+
+它满足对称性 $(f, g) = \overline{(g, f)}$ 及线性性、正定性。
+
+我们有 Cauchy 不等式 $(f, g)^2 < (f, f) (g, g)$.
+
+现在可以给出一个最大模原理的新证明：
+> 设 $z_0\in\Omega$ 是 $|f(z)|$ 最大值点，有
+> $$\iint\limits_{D(z_0, \epsilon)} (|f(z_0)|^2 - |f(z)|^2) \mathrm{d}S\geq 0$$
+> 使用 Cauchy 不等式，得到 $|f(z)|^2 \equiv |f(z_0)|^2$.
+
+有了内积，我们可以进一步典范地定义范数 $\\|f\\| = \sqrt{(f, f)}$、度量，它是完备的。
+
+我们称两函数**正交**，如果 $(f, g) = 0$，**单位正交函数系**是指一族 $(\varphi_i, \varphi_j) = \delta_{ij}$，如果不存在函数与它的元素都正交，则进一步称为**完备单位正交函数系**。
+
+我们考虑函数 $f$ 对于一族完备单位正交函数系的形式级数：
+
+$$f(z) \sim \sum_{n=1}^\infty (f, \varphi_n)\varphi_n(z)$$
+
+称为 $f$ 关于 $\\{\varphi_n\\}$ 的 Fourier 级数。它均方收敛且内闭收敛于 $f$.
+
+### 非欧几何
+{% admonition(type="abstract", title="Schwarz 引理") %}
+$f$ 是单位圆盘到自身的解析映射，且 $f(0) = 0$，则：
+1. 对圆盘内任一点，有 $|f(z)|\leq |z|$，这会使得 $|f'(0)|\leq 1$
+2. 存在 $z_0\neq 0$ 使 $|f(z_0)| = |z_0|$ 或 $|f'(0)| = 1$ 的充要条件是 $f(z)=e^{\mathrm{i}\theta}z$
+{% end %}
+
+考虑 $f$ 在 $z=0$ 处展开成的幂级数 $a_0+a_1z+\cdots$，常数项为 $0$，故 $\frac{f(z)}{z} = a_1+a_2z+\cdots$ 在单位圆盘内解析。
+
+对 $z_0$，取 $|z_0|<r<1$，由最大模原理有 $|\frac{f(z)}{z}|\leq |\frac{f(r)}|{r}< \frac{1}{r}$，令 $r\to 1$ 即有 $|f(z_0)|\leq |z_0|$.
 
 {{ todo() }}

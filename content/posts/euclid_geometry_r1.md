@@ -17,6 +17,8 @@ tags = ["笔记", "数学", "几何", "Euclid 几何"]
 
 本文用于准备几何学I（实验班）2025秋的期中考试。
 
+几何是一个关联很多数学分支的分支，因此本文中可能涉及*不那么几何*的结论。
+
 ## 向量代数
 需要记住 Lagrange 定理（远交近攻）：
 
@@ -147,5 +149,25 @@ $$
 - **滑反射**：关于一条直线对称再沿它的方向平移
 - **错切**：关于一条直线平行移动，移动距离与点到直线距离成正比
 - **斜压缩**：沿着一个向量方向移动，使点到指定直线距离按比例放缩
+
+来看一些结论：
+
+{% admonition(type="abstract", title="变积系数") %}
+仿射变换将图形映到图形，面积比是一致的。
+{% end %}
+
+{% admonition(type="abstract", title="特征值") %}
+实对称矩阵的特征值都是实的。
+{% end %}
+
+设 $A\in \mathbb{R}^{n\times n}, A^T=A$，有 $A\mathbf{v} = \lambda\mathbf{v}$，定义 $\mathbb{C}$ 上内积 $\langle x, y\rangle = y^\dagger x = \sum \overline{y_i}x_i$.
+
+则 $v^\dagger Av = \lambda \\|v\\|^2$，又 $(v^\dagger Av)^\dagger = v^\dagger Av$ 知它是实数，有 $\lambda$ 是实数。
+
+{% admonition(type="abstract", title="仿射变换分解") %}
+一个仿射变换可以分解成一个保距变换复合上一族两两正交的正压缩。
+{% end %}
+
+因为单位球的像（必然为椭球体，因为方程仍然是二次的并且保基本群）可以唯一地决定仿射变换（考虑所有的对称轴）。
 
 [^asymptote]: 没有在教材中找到定义，此定义来自 Wikipedia.

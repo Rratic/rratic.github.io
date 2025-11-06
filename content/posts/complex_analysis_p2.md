@@ -105,6 +105,12 @@ $z_0$ 是 $f$ 的一个本性奇点，且 $f$ 在 $\mathring{D}(z_0, \varepsilon
 
 甚至还有更强的结论 Julia 定理。
 
+{% admonition(type="abstract", title="Julia 定理") %}
+$z_0$ 是 $f$ 的一个本性奇点，则存在 $\theta\in [0, 2\pi)$，对任意 $\epsilon>0$ 及 $\omega\in\mathbb{C}$（至多存在一个例外），在 $|\arg (z-z_0) - \theta| < \epsilon$ 中 $f(z)=\omega$ 有无穷多解。
+{% end %}
+
+此证明将略过。
+
 {% admonition(type="abstract", title="全纯自同胚") %}
 $f:\mathbb{C}\to\mathbb{C}$ 是全纯自同胚当且仅当它形如 $az+b\ (a\neq 0)$.
 {% end %}
