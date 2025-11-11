@@ -44,7 +44,7 @@ $V$ 为 $n$ 维 $F$-线性空间，子空间 $M_1,\cdots,M_{n-1},N_1,\cdots,N_{n
 
 那么就有：
 
-$$E_{ij} = E_{ii}E_{jj}-E_{jj}E_{ii}$$
+$$E_{ij} = E_{ii}E_{ij}-E_{ij}E_{ii}$$
 
 $$E_{ii}-E_{i+1,i+1} = E_{i,i+1}(E_{i,i+1}+E_{i+1,i}) - (E_{i,i+1}+E_{i+1,i})E_{i,i+1}$$
 

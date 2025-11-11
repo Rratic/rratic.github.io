@@ -30,6 +30,8 @@ tags = ["笔记", "数学", "代数", "抽象代数", "群论"]
 
 我们可以仿照它把正规子群的定义重写为 $\sigma(H)\subseteq H, \forall \sigma\in\mathrm{Inn}(G)$
 
+群 $G$ 的导群是其特征子群，因为对 $\sigma\in\mathrm{Aut}(G)$，有 $\sigma([a, b]) = [\sigma(a), \sigma(b)]$.
+
 ## Hall 定理
 {% admonition(type="abstract", title="Hall 定理") %}
 若 $G$ 是 $mn$ 阶可解群，其中 $(n,m)=1$，则它
