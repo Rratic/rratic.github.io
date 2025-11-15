@@ -30,6 +30,8 @@ highlight_themes_css = [
 	{ theme = "visual-studio-dark", filename = "style/theme-dark.css" },
 ]
 
+extra_syntaxes_and_themes = ["syntaxes"]
+
 [extra]
 comment = true
 math = false
