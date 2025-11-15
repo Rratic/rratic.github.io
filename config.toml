@@ -22,8 +22,13 @@ paginate_by = 5
 
 [markdown]
 highlight_code = true
-highlight_theme = "ayu-light"
+highlight_theme = "css"
 render_emoji = false
+
+highlight_themes_css = [
+	{ theme = "ayu-light", filename = "style/theme-light.css" },
+	{ theme = "visual-studio-dark", filename = "style/theme-dark.css" },
+]
 
 [extra]
 comment = true
