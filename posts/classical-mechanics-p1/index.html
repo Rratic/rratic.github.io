@@ -1,0 +1,312 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>《初识经典力学》笔记 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="《初识经典力学》笔记" />
+  <meta name="description" content="一般形式的哈密顿量和常见定律的导出。" />
+  <meta property="og:description" content="一般形式的哈密顿量和常见定律的导出。" />
+  <meta property="og:url" content="https://rratic.github.io/posts/classical-mechanics-p1/" />
+  <link rel="canonical" href="https://rratic.github.io/posts/classical-mechanics-p1/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2025-10-04T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="物理" />
+  <meta property="article:tag" content="经典力学" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.github.io/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.github.io/style/shared.css?h=74471d1f38c46232d571" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.github.io/main.min.css?h=2e89f7f30f1019877d14" />
+  <style>
+  :root{--bg: white; --header: #e6f4ff; color-scheme: light;}
+  :root.dark{--bg: #424242; --header: #333333; color-scheme: dark;}
+  </style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.github.io/js/linkita.min.js?h=1dd3ed42fc674277bc34"></script>
+  <link rel="stylesheet" href="https://rratic.github.io/katex/katex.min.css?h=19095127357ed6d29fe0" />
+  <script defer src="https://rratic.github.io/katex/katex.min.js?h=e8d885505949f3a5f4ab"></script>
+  <script defer src="https://rratic.github.io/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.linkita.initKatex);</script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out bg-[var(--bg)] dark:text-white">
+  <!-- Header -->
+<header class="bg-[var(--header)] fixed top-0 z-40 mx-auto min-h-[3.25rem] w-full header-icons">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8">
+        <a title="转到主页" accesskey="!"
+          href="https://rratic.github.io/" class="text-2xl font-semibold">错行</a>
+        <button type="button" title="切换颜色方案" accesskey="$"
+          onclick="window.linkita.toggleDarkMode();" ondblclick="window.linkita.resetDarkMode();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover dark:invert [background-image:var(--icon-theme-dark)] dark:[background-image:var(--icon-theme-light)]"
+        ></button>
+      </div>
+      <div title="导航" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.linkita.toggleHeaderMenu();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.linkita.toggleHeaderMenu() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral relative mx-auto min-h-[calc(100%-4rem)]
+    max-w-3xl break-words px-4 pb-12 pt-28 lg:pt-32 dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">《初识经典力学》笔记</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2025-10-04T00:00:00+00:00">2025-10-04</time><span
+        class="middot"></span><time
+    datetime="PT0H8M0S">8&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+<div class="block-bg mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-4" accesskey="=">
+      <span class="cursor-pointer">目录</span>
+    </summary>
+    <div class="px-2">
+      <ul>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/classical-mechanics-p1/#zhuang-tai-yu-yan-hua">状态与演化</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/classical-mechanics-p1/#yuan-li">原理</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/classical-mechanics-p1/#dui-cheng-xing">对称性</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/classical-mechanics-p1/#dao-chu">导出</a>
+        </li>
+      </ul>
+    </div>
+  </details>
+</div>
+
+  <!-- Content -->
+  <section><p>前置知识</p>
+<ul>
+<li>数学分析（多元微分即可）</li>
+</ul>
+<p>参考阅读</p>
+<ul>
+<li><a href="https://chaoli.club/index.php/10248">《初识经典力学》</a>，是一个创新性的，直接从哈密顿力学开始的经典力学讲义，且没有涉及拉格朗日力学</li>
+</ul>
+<p>本笔记掠过了该讲义的最后几章。</p>
+<h2 id="zhuang-tai-yu-yan-hua">状态与演化</h2>
+<p>我们假定系统默认指封闭系统，观察者对系统的观察和测量不会干扰系统本身。</p>
+<p>称一个经典力学系统所有可能的状态构成的空间为<strong>状态空间/相空间</strong>，记作 $\Gamma$，其中一个状态一般记作 $X_t$</p>
+<p>经典力学系统满足决定论（时间上严格的因果关系），形式上我们认为</p>
+<p>$$\frac{\mathrm{d}X_t}{\mathrm{d}t} = f(X_t)$$</p>
+<p>飞矢不动悖论指出，我们不能只用位置这一个变量来刻画粒子的状态。在现代物理中，我们额外引入动量（忘记它和速度的关系）。</p>
+<p>为了量化位置 $x_i$ 和动量 $p_i$，我们选取一个参照物并构建坐标系，合称<strong>参考系</strong>，记作 $K$</p>
+<p>在普通的 $\mathbb{E}^3$ 空间中，我们希望建立的是笛卡尔坐标系，此时 $\dim \Gamma = 2n = 6N$，其中有 $N$ 个粒子，称 $n=3N$ 为其自由度数目。</p>
+<h2 id="yuan-li">原理</h2>
+<p>我们希望选取适当的参考系，使得物理在时间、空间上是等价的。<strong>伽利略相对性原理</strong>提出，所有惯性系在物理上都等价。</p>
+<p>我们希望有熟知的不变量。<strong>能量守恒定律</strong>指出，封闭系统随时间演化过程中，有一个名为能量的物理量保持不变。可以参考 Feynman 关于“积木”的论述。</p>
+<p>经典力学系统涉及的只有动能和势能。</p>
+<p>经典力学系统的总能量是系统状态的函数，通常记作 $H(X)$，称作哈密顿函数/<strong>哈密顿量</strong>。</p>
+<p>我们知道</p>
+<p>$$\frac{\mathrm{d}H(X_t)}{\mathrm{d}t} = 0$$</p>
+<p>这是很强的条件。</p>
+<p>不同惯性系中测到的系统总能量可能并不相同，只不过演化规律一样。</p>
+<p>能量具有以下性质</p>
+<ul>
+<li>可加性：我们先取定标度消除 $H'=cH$ 的不确定性，再规定所有粒子都相距很远且每个粒子都静止不动时能量为 0（在狭义相对论下会有所不同）。若两部分之间没有相互作用，我们可以写 $H(X)=H_A(X_A)+H_B(X_B)$</li>
+<li>有下界：我们希望如此；不过可以有上界</li>
+</ul>
+<h2 id="dui-cheng-xing">对称性</h2>
+<p>哈密顿量需要满足以下对称性</p>
+<ul>
+<li>时间平移不变性，哈密顿量并不显式依赖于 $t$</li>
+<li>空间平移不变性，$\sum_{i=1}^N\frac{\partial H}{\partial x_i} = 0$</li>
+<li>空间旋转对称性，$H$ 将形如 $x_i\cdot x_j, x_i\cdot p_j, p_i\cdot p_j$ 的组合。</li>
+<li>另外还有时间反演对称性（反演是指 $t\mapsto -t$）和空间反演对称性。</li>
+</ul>
+<p>从上述对称性可推出，对单个粒子，存在 $H=T(p^2)$，称 $T$ 为该粒子的动能。</p>
+<p>多粒子系统的哈密顿量有一般形式（如果我们假定相互作用与动量无关，有关的情况并非不存在）</p>
+<p>$$H = \sum_{i=1}^N T_i(p_i^2) + V(x_1, x_2 \cdots x_N) \tag{0}$$</p>
+<p>为了确定 $V$ 的形式，需要考虑另一种对称性，即伽利略相对性原理，这将涉及伽利略变换（狭义相对论下是 Lorentz 变换）。</p>
+<p>现在我们猜测演化定律，即 $f: \Gamma \to \Gamma$ 的形式</p>
+<p>从 $n=1$ 情形开始，有</p>
+<p>$$\left(\frac{\mathrm{d}x}{\mathrm{d}t}, \frac{\mathrm{d}p}{\mathrm{d}t}\right) = k(x, p)\left(\frac{\partial H}{\partial p}, -\frac{\partial H}{\partial x}\right)$$</p>
+<p>我们自然地将它推广成 $n$ 自由度的哈密顿正则方程：</p>
+<p>$$\frac{\mathrm{d}x^\mu}{\mathrm{d}t} = \frac{\partial H}{\partial p_\mu},\ \frac{\mathrm{d}p_\mu}{\mathrm{d}t} = -\frac{\partial H}{\partial x^\mu} \tag{1}$$</p>
+<p>这里位置的分量用上标表示，是一种物理的传统记法。</p>
+<p>我们把相空间<em>看作一个空间</em>，$X_t$ 是以时间为参数的曲线。由微分方程解的唯一性，过一点恰有一条曲线，因此不同曲线不相交。</p>
+<p>称这一性质为<strong>满足决定论</strong>。</p>
+<p>有一个一般的 Noether 定理说，经典力学系统任何一个连续对称性都必然对应着一条守恒定律。</p>
+<p>我们暂时不去讨论它，而是仅限于一些例子。</p>
+<ul>
+<li>令总动量 $P = \sum_{i=1}^N p_i$，由空间平移不变性及 (1) 知 $\frac{\mathrm{d}P}{\mathrm{d}t} = 0$</li>
+<li>在 $\mathbb{E}^3$ 中，可以使用叉积来表达，然后我们可以取一阶小量。令总角动量 $P = \sum_{i=1}^N (x_i\times p_i)$，有 $\frac{\mathrm{d}L}{\mathrm{d}t} = 0$</li>
+</ul>
+<h2 id="dao-chu">导出</h2>
+<p>对单个粒子，$H=T(p^2)$，有</p>
+<p>$$\frac{\mathrm{d}x}{\mathrm{d}t} = 2T'(p^2)p,\ \frac{\mathrm{d}p}{\mathrm{d}t} = 0$$</p>
+<p>从而速度 $v = \frac{\mathrm{d}x}{\mathrm{d}t}$ 为常矢量，得到惯性定律/牛顿第一定律。</p>
+<p>物体运动的原因是 (0) 中的 $V$ 项。我们称第 i 个粒子受到的其它粒子的作用力为</p>
+<p>$$F_i = -\frac{\partial V}{\partial x_i}$$</p>
+<p>从而 $\frac{\mathrm{d}p_i}{\mathrm{d}t} = F_i$，这几乎是牛顿第二定律。</p>
+<p>由空间平移对称性，$\sum_{i=1}^N = 0$，若把系统分为两部分，就得到牛顿第三定律。</p>
+<p>我们定义粒子相对原点的力矩为 $M_i = x_i \times F_i$，有 $\frac{\mathrm{d}L_i}{\mathrm{d}t} = M_i$</p>
+<p>若我们假定两体间势能 $V$ 与粒子动量无关，可进一步说明两体相互作用力必沿着两粒子连线方向。</p>
+<p>我们来看一些两体相互作用势：</p>
+<ul>
+<li>核外电子绕原子核运动，存在自旋轨道耦合项，依赖于粒子自旋</li>
+<li>Lennard-Jones 势，即电中性原子/分子间势的模型
+$$V_{LJ} = 4\epsilon [(\frac{\delta}{r})^{12}-(\frac{\delta}{r})^{6}]$$</li>
+<li>正-反两个夸克间的相互作用势
+$$V_{q\bar{q}}(r) = -\frac{\alpha_s}{r}+\sigma r$$
+此处第一项是库伦势，第二项是禁闭势（距离越远相互作用势越大）</li>
+</ul>
+<p>对非封闭系统，可以将其看成大的封闭系统的子系统。可以导出功能原理、动量定理。</p>
+<p>此外，有伽利略变换。</p>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mb-1.5 mr-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mb-1.5 mr-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/物理/">物理</a>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/经典力学/">经典力学</a>
+    
+  </div>
+</footer>
+
+  <!-- Post Nav -->
+<nav class="block-bg mt-12 flex flex-wrap rounded-lg text-lg">
+  <a
+    class="block-hover-mask flex min-w-[50%] grow items-center rounded-l-md p-6 pr-3 font-semibold no-underline"
+    href="https://rratic.github.io/posts/quantum-mechanics-p1/" accesskey=","
+    ><span class="mr-1.5">&#8249;</span><span>【草稿】《初识量子力学》笔记</span></a>
+  <a
+    class="block-hover-mask ml-auto flex min-w-[50%] grow items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline"
+    href="https://rratic.github.io/posts/shader-p3/" accesskey="."
+    ><span>着色器（三）：随机与噪声</span><span class="ml-1.5">&#8250;</span></a>
+</nav>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/pages"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

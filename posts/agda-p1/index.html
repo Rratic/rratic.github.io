@@ -1,0 +1,294 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>Agda 学习（一） | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="Agda 学习（一）" />
+  <meta property="og:url" content="https://rratic.github.io/posts/agda-p1/" />
+  <link rel="canonical" href="https://rratic.github.io/posts/agda-p1/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2025-11-12T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="计算机" />
+  <meta property="article:tag" content="函数式编程" />
+  <meta property="article:tag" content="Agda" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.github.io/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.github.io/style/shared.css?h=74471d1f38c46232d571" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.github.io/main.min.css?h=2e89f7f30f1019877d14" />
+  <style>
+  :root{--bg: white; --header: #e6f4ff; color-scheme: light;}
+  :root.dark{--bg: #424242; --header: #333333; color-scheme: dark;}
+  </style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.github.io/js/linkita.min.js?h=1dd3ed42fc674277bc34"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out bg-[var(--bg)] dark:text-white">
+  <!-- Header -->
+<header class="bg-[var(--header)] fixed top-0 z-40 mx-auto min-h-[3.25rem] w-full header-icons">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8">
+        <a title="转到主页" accesskey="!"
+          href="https://rratic.github.io/" class="text-2xl font-semibold">错行</a>
+        <button type="button" title="切换颜色方案" accesskey="$"
+          onclick="window.linkita.toggleDarkMode();" ondblclick="window.linkita.resetDarkMode();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover dark:invert [background-image:var(--icon-theme-dark)] dark:[background-image:var(--icon-theme-light)]"
+        ></button>
+      </div>
+      <div title="导航" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.linkita.toggleHeaderMenu();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.linkita.toggleHeaderMenu() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral relative mx-auto min-h-[calc(100%-4rem)]
+    max-w-3xl break-words px-4 pb-12 pt-28 lg:pt-32 dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">Agda 学习（一）</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2025-11-12T00:00:00+00:00">2025-11-12</time><span
+        class="middot"></span><time
+    datetime="PT0H2M0S">2&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+<div class="block-bg mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-4" accesskey="=">
+      <span class="cursor-pointer">目录</span>
+    </summary>
+    <div class="px-2">
+      <ul>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/agda-p1/#huan-jing-pei-zhi">环境配置</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/agda-p1/#cong-bu-er-kai-shi">从布尔开始</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://rratic.github.io/posts/agda-p1/#zheng-ming">证明</a>
+        </li>
+      </ul>
+    </div>
+  </details>
+</div>
+
+  <!-- Content -->
+  <section><p>参考阅读：</p>
+<ul>
+<li><em>Verified Functional Programming in Agda</em></li>
+</ul>
+<h2 id="huan-jing-pei-zhi">环境配置</h2>
+<p>参考 <a href="https://agda.readthedocs.io/en/latest/getting-started/installation.html">https://agda.readthedocs.io/en/latest/getting-started/installation.html</a> 的指引</p>
+<p>Agda 是用 Haskell 写的，可以在<a href="/posts/haskell-p1/">安装好 Haskell</a> 后通过如下命令安装：</p>
+<pre data-lang="cmd" class="language-cmd z-code"><code class="language-cmd" data-lang="cmd"><span class="z-source z-dosbatch">cabal update
+</span><span class="z-source z-dosbatch">cabal install Agda
+</span></code></pre>
+<p>在 Windows 下，如果 Agda 程序路径没有被自动添加到 PATH 下，可手动在命令行运行（后面的路径是 Cabal 安装路径）：</p>
+<pre data-lang="cmd" class="language-cmd z-code"><code class="language-cmd" data-lang="cmd"><span class="z-source z-dosbatch"><span class="z-keyword z-command z-dosbatch">setx</span> <span class="z-keyword z-command z-dosbatch">PATH</span> <span class="z-string z-quoted z-double z-dosbatch"><span class="z-punctuation z-definition z-string z-begin z-dosbatch">&quot;</span><span class="z-variable z-other z-readwrite z-dosbatch"><span class="z-punctuation z-definition z-variable z-begin z-dosbatch">%</span>PATH<span class="z-punctuation z-definition z-variable z-end z-dosbatch">%</span></span>;D:\cabal\bin<span class="z-punctuation z-definition z-string z-end z-dosbatch">&quot;</span></span>
+</span></code></pre>
+<p>之后的步骤请参考 <a href="https://higher-order.fun/cn/2023/11/15/InstallAgda.html">https://higher-order.fun/cn/2023/11/15/InstallAgda.html</a></p>
+<h2 id="cong-bu-er-kai-shi">从布尔开始</h2>
+<p>在 2.8 标准库中，布尔类型的定义如下</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-keyword z-other z-agda">module</span> <span class="z-entity z-name z-type z-agda">Agda.Builtin.Bool</span> <span class="z-keyword z-other z-agda">where</span>
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">data</span> <span class="z-entity z-name z-type z-agda">Bool</span> <span class="z-keyword z-other z-agda">:</span> <span class="z-constant z-language z-agda">Set</span> <span class="z-keyword z-other z-agda">where</span>
+</span><span class="z-source z-agda">  false true <span class="z-keyword z-other z-agda">:</span> Bool
+</span></code></pre>
+<p>有关的定义如：</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-keyword z-other z-agda">infix</span> <span class="z-constant z-numeric z-agda">0</span> if_then_else_
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">if_then_else_</span> <span class="z-keyword z-other z-agda">:</span> Bool <span class="z-keyword z-other z-agda">→</span> A <span class="z-keyword z-other z-agda">→</span> A <span class="z-keyword z-other z-agda">→</span> A
+</span><span class="z-source z-agda">if true  then t else f <span class="z-keyword z-other z-agda">=</span> t
+</span><span class="z-source z-agda">if false then t else f <span class="z-keyword z-other z-agda">=</span> f
+</span></code></pre>
+<h2 id="zheng-ming">证明</h2>
+<p>Curry-Howard 同构的想法是：类型是命题，而实例是类型的证明。</p>
+<p><code>refl</code> 的原型如下：</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-keyword z-other z-agda">module</span> <span class="z-entity z-name z-type z-agda">Agda.Builtin.Equality</span> <span class="z-keyword z-other z-agda">where</span>
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">infix</span> <span class="z-constant z-numeric z-agda">4</span> _≡_
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">data</span> <span class="z-entity z-name z-type z-agda">_≡_</span> {a} {A <span class="z-keyword z-other z-agda">:</span> <span class="z-constant z-language z-agda">Set</span> a} (x <span class="z-keyword z-other z-agda">:</span> A) <span class="z-keyword z-other z-agda">:</span> A <span class="z-keyword z-other z-agda">→</span> <span class="z-constant z-language z-agda">Set</span> a <span class="z-keyword z-other z-agda">where</span>
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">  instance </span><span class="z-entity z-name z-agda">refl</span> <span class="z-keyword z-other z-agda">:</span> x ≡ x
+</span></code></pre>
+<p>可以以如下方式使用：</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-entity z-name z-agda">~~tt</span> <span class="z-keyword z-other z-agda">:</span> ~ ~ true ≡ true
+</span><span class="z-source z-agda">~~tt <span class="z-keyword z-other z-agda">=</span> refl{lzero}{Bool}{true}
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">~~ff</span> <span class="z-keyword z-other z-agda">:</span> ~ ~ false ≡ false
+</span><span class="z-source z-agda">~~ff <span class="z-keyword z-other z-agda">=</span> refl{lzero}{Bool}{false}
+</span></code></pre>
+<p>可以被简化为 <code>~~tt = refl</code>.</p>
+<p>一个更一般的命题及其证明如下：</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-entity z-name z-agda">~~-elim</span> <span class="z-keyword z-other z-agda">:</span> <span class="z-keyword z-other z-agda">∀</span> (b <span class="z-keyword z-other z-agda">:</span> Bool) <span class="z-keyword z-other z-agda">→</span> ~ ~ b ≡ b
+</span><span class="z-source z-agda">~~-elim true <span class="z-keyword z-other z-agda">=</span> refl
+</span><span class="z-source z-agda">~~-elim false <span class="z-keyword z-other z-agda">=</span> refl
+</span></code></pre>
+<p>或者使用</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-entity z-name z-agda">~~-elim</span> <span class="z-keyword z-other z-agda">:</span> <span class="z-keyword z-other z-agda">∀</span> (b <span class="z-keyword z-other z-agda">:</span> Bool) <span class="z-keyword z-other z-agda">→</span> ~ ~ b ≡ b
+</span><span class="z-source z-agda">~~-elim true <span class="z-keyword z-other z-agda">=</span> ~~tt
+</span><span class="z-source z-agda">~~-elim false <span class="z-keyword z-other z-agda">=</span> ~~ff
+</span></code></pre>
+<p>对于带假设的证明，可使用 <code>()</code> 表示条件不可能。</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-entity z-name z-agda">||≡ff</span> <span class="z-keyword z-other z-agda">:</span> <span class="z-keyword z-other z-agda">∀</span> {b1 b2} <span class="z-keyword z-other z-agda">→</span> b1 || b2 ≡ false <span class="z-keyword z-other z-agda">→</span> b2 ≡ false
+</span><span class="z-source z-agda">||≡ff {true} ()
+</span><span class="z-source z-agda">||≡ff {false}{true} ()
+</span><span class="z-source z-agda">||≡ff {false}{false} p <span class="z-keyword z-other z-agda">=</span> refl
+</span></code></pre>
+<p>对于等式，可以使用重写关键字 <code>rewrite</code>.</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-entity z-name z-agda">||-cong</span> <span class="z-keyword z-other z-agda">:</span> <span class="z-keyword z-other z-agda">∀</span> {b1 b2 b2&#39;} <span class="z-keyword z-other z-agda">→</span> b2 ≡ b2&#39; <span class="z-keyword z-other z-agda">→</span> b1 || b2 ≡ b1 || b2&#39;
+</span><span class="z-source z-agda">||-cong p <span class="z-keyword z-other z-agda">rewrite</span> p <span class="z-keyword z-other z-agda">=</span> refl
+</span></code></pre>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mb-1.5 mr-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mb-1.5 mr-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/计算机/">计算机</a>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/函数式编程/">函数式编程</a>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/Agda/">Agda</a>
+    
+  </div>
+</footer>
+
+  <!-- Post Nav -->
+<nav class="block-bg mt-12 flex flex-wrap rounded-lg text-lg">
+  <a
+    class="block-hover-mask flex min-w-[50%] grow items-center rounded-l-md p-6 pr-3 font-semibold no-underline"
+    href="https://rratic.github.io/posts/module-theory-p1/" accesskey=","
+    ><span class="mr-1.5">&#8249;</span><span>模论（一）</span></a>
+  <a
+    class="block-hover-mask ml-auto flex min-w-[50%] grow items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline"
+    href="https://rratic.github.io/posts/euclid-geometry-r1/" accesskey="."
+    ><span>几何学Ⅰ期中复习笔记</span><span class="ml-1.5">&#8250;</span></a>
+</nav>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/pages"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>
