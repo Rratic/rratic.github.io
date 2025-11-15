@@ -33,7 +33,7 @@ tags = ["数学", "微积分学"]
 - Lebesgue 积分
 
 ### 多元函数
-- 高维微分（方向导数 $\nabla_v(f) = \frac{\partial f}{\partial v}$，微分 $df(x_0)$）
+- 高维微分（方向导数 $\nabla_v(f) = \frac{\partial f}{\partial v}$，微分 $\mathrm{d}f(x_0)$）
 - 映射微分（Jacobi 矩阵，链式法则）
 
 ## 特殊函数论
