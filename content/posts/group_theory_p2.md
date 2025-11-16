@@ -124,8 +124,8 @@ $$h = (\overline{s_0t_0}^{-1}s_1t_1)(\overline{s_1t_1}^{-1}s_2t_2)\cdots (\overl
 
 $$
 \begin{aligned}
-\sigma \colon & G \to G/G',\\\\
-        &g \mapsto gG'
+\sigma \colon G & \to G/G',\\\\
+    g & \mapsto gG'
 \end{aligned}
 $$
 
@@ -152,8 +152,8 @@ $$
 
 $$
 \begin{aligned}
-\sigma \colon & G_{i-1} \to G_{i-1}/G_i,\\\\
-        &g \mapsto gG_i
+\sigma \colon G_{i-1} & \to G_{i-1}/G_i,\\\\
+    g & \mapsto gG_i
 \end{aligned}
 $$
 

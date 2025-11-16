@@ -31,8 +31,8 @@ tags = ["笔记", "数学", "代数", "抽象代数", "群论"]
 
 $$
 \begin{aligned}
-\varphi \colon &G \to (\Omega\to\Omega),\\\\
-        &x \mapsto (\alpha\mapsto\alpha^x)
+\varphi \colon G & \to (\Omega\to\Omega),\\\\
+    x & \mapsto (\alpha\mapsto\alpha^x)
 \end{aligned}
 $$
 
@@ -42,8 +42,8 @@ $$
 
 $$
 \begin{aligned}
-f \colon &G\times S \to S,\\\\
-        &(g, s) \mapsto g(s)
+f \colon G\times S & \to S,\\\\
+    (g, s) & \mapsto g(s)
 \end{aligned}
 $$
 

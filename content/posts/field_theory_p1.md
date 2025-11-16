@@ -156,8 +156,8 @@ Galois 理论给出了域的扩张与其自同构群的联系。
 
 $$
 \begin{aligned}
-\varphi \colon & \mathrm{Gal}(E/F) \to S(\Omega),\\\\
-        &\sigma \mapsto \sigma |_\Omega
+\varphi \colon \mathrm{Gal}(E/F) & \to S(\Omega),\\\\
+        \sigma & \mapsto \sigma |_\Omega
 \end{aligned}
 $$
 

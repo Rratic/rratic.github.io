@@ -1,5 +1,5 @@
 +++
-title = "Agda 学习（一）"
+title = "【草稿】Agda 学习（一）"
 date = 2025-11-12
 
 [extra]
