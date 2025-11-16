@@ -2,7 +2,7 @@
 title = "复分析速通指南（一）：基本概念"
 description = "复变函数基本概念的速通，从复值函数写到 Cauchy 公式及其推论。"
 date = 2025-07-27
-updated = 2025-11-06
+updated = 2025-11-16
 
 [extra]
 math = true
@@ -492,6 +492,28 @@ $f$ 是单位圆盘到自身的解析映射，且 $f(0) = 0$，则：
 
 考虑 $f$ 在 $z=0$ 处展开成的幂级数 $a_0+a_1z+\cdots$，常数项为 $0$，故 $\frac{f(z)}{z} = a_1+a_2z+\cdots$ 在单位圆盘内解析。
 
-对 $z_0$，取 $|z_0|<r<1$，由最大模原理有 $|\frac{f(z)}{z}|\leq |\frac{f(r)}|{r}< \frac{1}{r}$，令 $r\to 1$ 即有 $|f(z_0)|\leq |z_0|$.
+对 $z_0$，取 $|z_0|<r<1$，由最大模原理有 $\left|\frac{f(z)}{z}\right|\leq \left|\frac{f(r)}{r}\right|< \frac{1}{r}$，令 $r\to 1$ 即有 $|f(z_0)|\leq |z_0|$.
 
-{{ todo() }}
+---
+
+我们可以用 Schwarz 引理给出单位圆盘的解析自同胚群：因为 $f$ 与 $f'$ 均可经分式线性变换转为满足 Schwarz 引理的条件，它是保欧氏距离的，从而只能是分式线性变换，形如：
+
+$$f(z) = e^{\mathrm{i}\theta}\frac{z-z_0}{1-\bar{z_0}z}$$
+
+由于这些变换可以将单位圆盘中指定的一点变成另一指定的点，可以得到：
+
+{% admonition(type="abstract", title="更一般形式的 Schwarz 引理") %}
+$f$ 是单位圆盘到自身的解析映射，则对任意 $z_1, z_2\in D(0, 1)$ 有：
+
+$$\left|\frac{f(z_1)-f(z_2)}{1-\overline{f(z_1)}f(z_2)}\right|\leq \left|\frac{z_1-z_2}{1-\bar{z_1}z_2}\right|$$
+{% end %}
+
+其微分形式为：
+
+$$\frac{|\mathrm{d}f(z)|}{1-|f(z)|^2}\leq \frac{|\mathrm{d}z|}{1-|z|^2}$$
+
+我们在单位圆盘上定义新的弧长微元（称为 Poincaré 度量）：
+
+$$\mathrm{d}s = \frac{|\mathrm{d}z|}{1-|z|^2}$$
+
+就可定义分段光滑曲线的非欧长度，并依次定义非欧距离和测地线，此过程与一般的光滑流形上的做法相同。
