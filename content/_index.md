@@ -27,10 +27,8 @@ profile = "rratic"
 ---
 
 计算机知识相关标签：
-- 计算机理论：[函数式编程](/tags/函数式编程/)
-- 技术设计：[密码学](/tags/密码学/)
-- 系统与体系：[Haskell](/tags/Haskell/) | [Julialang 中文学习指导](https://learn.juliacn.com/)
-- 应用领域：[计算机图形学](/tags/计算机图形学/)
+- 计算机理论：[函数式编程](/tags/函数式编程/) | [算法](/tags/算法/) | [密码学](/tags/密码学/) | [计算机图形学](/tags/计算机图形学/)
+- 系统与体系：[Haskell](/tags/Haskell/) | [Julialang 中文学习指导](https://learn.juliacn.com/) | [Agda](/tags/Agda/)
 
 ---
 

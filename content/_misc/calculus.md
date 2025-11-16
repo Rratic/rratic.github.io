@@ -11,9 +11,7 @@ tags = ["数学", "微积分学"]
 
 参考阅读
 * 于品的数学分析讲义
-
-或许可参考阅读
-* [谢彦桐的 notes](https://darkoxie.github.io/)
+* [谢彦桐的 notes](https://darkoxie.github.io/) 适用于非数学专业
 
 建议同步学习
 * [点集拓扑](/_misc/topology/)

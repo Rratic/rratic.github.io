@@ -154,7 +154,9 @@ $$\int_{\partial\Omega} f(z)\mathrm{d}z = 2\pi\mathrm{i}\sum_{i=1}^n\mathrm{Res}
 
 可从 Cauchy 公式推出。
 
-一种补充情况是，若 $f$ 在 $\bar{\mathbb{C}}$ 内除 $z_1, z_2, \cdots, z_n$ 外解析，则 $\sum_{i=1}^n\mathrm{Res}_{z=z_k}f(z) + \mathrm{Res}_{z=\infty}f(z) = 0$.
+一种补充情况是，若 $f$ 在 $\bar{\mathbb{C}}$ 内除 $z_1, z_2, \cdots, z_n$ 外解析，则
+
+$$\sum_{i=1}^n\mathrm{Res}_ {z=z_k}f(z) + \mathrm{Res}_ {z=\infty}f(z) = 0$$
 
 ### 辐角原理
 {{ todo() }}
