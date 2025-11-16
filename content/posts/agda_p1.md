@@ -13,6 +13,9 @@ categories = ["知识"]
 tags = ["笔记", "计算机", "函数式编程", "Agda"]
 +++
 
+前置知识
+- [Haskell](/posts/haskell-p1/)
+
 参考阅读：
 - *Verified Functional Programming in Agda*
 
@@ -49,6 +52,8 @@ if_then_else_ : Bool → A → A → A
 if true  then t else f = t
 if false then t else f = f
 ```
+
+这些语法与 Haskell 非常相似。
 
 ## 证明
 Curry-Howard 同构的想法是：类型是命题，而实例是类型的证明。
