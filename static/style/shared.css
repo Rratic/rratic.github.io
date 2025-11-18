@@ -7,6 +7,11 @@ article {
 	overflow-x: hidden;
 }
 
+p:has(.katex-display) {
+	overflow-x: auto;
+	scrollbar-gutter: stable;
+}
+
 .pl-4 {
 	padding-left: 1rem;
 	padding-right: 1rem;
