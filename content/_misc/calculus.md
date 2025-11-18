@@ -24,7 +24,8 @@ tags = ["数学", "微积分学"]
 - 等价性（闭区间套定理，有限覆盖定理，Bolzano-Weierstrass 定理，Cauchy 收敛准则）
 
 ### 一元函数
-- 极限（左右极限，无穷小代换，连续性 $C(U)$，间断点）
+- 极限（左右极限，无穷小代换）
+- 连续性（连续 $C(U)$，间断点，一致连续，Lipschitz 连续，Hölder 连续）
 - 可导性（导数 $f'$，Dini 导数，Schwarz 型导数，导数连续性 $C^k(U)$，光滑性 $C^{\infty}(U)$，中值定理）
 - 求导（L’Hôpital 法则，Taylor 定理，解析性 $C^{\omega}(U)$）
 - Riemann 积分（积分 $\int_a^b f(x) dx$，Riemann 和，Darboux 上下和，Newton–Leibniz 公式，Riemann 可积性，反常积分）

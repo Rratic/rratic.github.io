@@ -79,4 +79,8 @@ $$\gamma '(t_ 0) = \mathrm{d}\gamma \left(\left.\frac{\mathrm{d}}{\mathrm{d}t}\r
 
 ---
 
-现在我们来定义微分形式：
+为了定义微分形式，让我们先回顾张量的定义：
+
+首先，定义 $V_1\otimes\cdots\otimes V_k = \mathcal{F}(V_1\times\cdots\times V_k)/\mathcal{R}$，其中 $\mathcal{F}(S)$ 是指集合 $S$ 上的自由向量空间，$\mathcal{R}$ 是由形如 $(v_1\cdots av_i\cdots v_k)-a(v_1\cdots v_i\cdots v_k)$ 与 $(v_1\cdots v_i+v_i'\cdots v_k) - (v_1\cdots v_i\cdots v_k) - (v_1\cdots v_i'\cdots v_k)$ 的元素生成的子空间。
+
+实际上我们有 $V_1^\ast\otimes\cdots\otimes V_k^\ast \cong L(V_1,\cdots,V_k;\mathbb{R})$.
