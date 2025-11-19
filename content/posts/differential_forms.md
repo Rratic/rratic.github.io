@@ -1,6 +1,7 @@
 +++
-title = "【草稿】微分与微分形式"
-date = 2025-11-17
+title = "微分与微分形式"
+description = "关于 ∂/∂x, df, dx, d 等记号本质上/在一般的流形上是什么。"
+date = 2025-11-19
 
 [extra]
 math = true
@@ -32,11 +33,13 @@ $$D(fg)=f(p)D(g)+g(p)D(f)$$
 
 $p$ 处 $C^\infty (M)$ 的全体导子构成 $M$ 在 $p$ 处的**切空间**，记作 $T_pM$.
 
-作为一个简单的例子，我们来证明 $T_p\mathbb{R}^n$ 是由多元微积分意义下的 $\frac{\partial}{\partial x_ i}|_ p$（即 $\frac{\partial f}{\partial x_ i}|_ p$ 是指方向导数 $\nabla_ {e_ i} f|_ p$）张成的空间：
+作为一个简单的例子，我们来证明 $T_p\mathbb{R}^n$ 是由多元微积分意义下的 $\frac{\partial}{\partial x_ i}|_ p$（即把  $\frac{\partial}{\partial x_ i}$ 看作 $e_i$，$\frac{\partial f}{\partial x_ i}|_ p$ 是指方向导数 $\nabla_ {\frac{\partial}{\partial x_ i}} f|_ p$）张成的空间：
 1. 使用 Leibniz 律知 $D(\mathbf{1}) = 0$，故常值函数对应到 $0$.
 2. 考虑 $f(x) = f(p) + \sum (x_i-p_i)g_i(x)$，其中 $g_i(x) = \int_0^1 \frac{\partial f}{\partial x_i} (p+t(x-p)) \mathrm{d}t$ 是光滑的。我们将值看作常值函数，$x_i$ 看作投射函数，然后让 $D$ 作用在该式上。
 
 使用此可进一步证明：若 $M$ 是 n 维光滑流形，则任一 $T_pM$ 都是 n 维向量空间，此结论甚至可以推广到带边光滑流形的边界上。
+
+因此，我们也会说把这个向量空间里的一个向量*作用*到一个函数上，如 $\frac{\partial f}{\partial x_ i} = \frac{\partial}{\partial x_ i}(f)$.
 
 ---
 
@@ -79,8 +82,79 @@ $$\gamma '(t_ 0) = \mathrm{d}\gamma \left(\left.\frac{\mathrm{d}}{\mathrm{d}t}\r
 
 ---
 
-为了定义微分形式，让我们先回顾张量的定义：
+为了定义微分形式，让我们先回顾张量的定义（注：在讨论张量时，会把一些下标写成上标来便于阅读，由于不会出现幂次，一般不会产生歧义）：
 
 首先，定义 $V_1\otimes\cdots\otimes V_k = \mathcal{F}(V_1\times\cdots\times V_k)/\mathcal{R}$，其中 $\mathcal{F}(S)$ 是指集合 $S$ 上的自由向量空间，$\mathcal{R}$ 是由形如 $(v_1\cdots av_i\cdots v_k)-a(v_1\cdots v_i\cdots v_k)$ 与 $(v_1\cdots v_i+v_i'\cdots v_k) - (v_1\cdots v_i\cdots v_k) - (v_1\cdots v_i'\cdots v_k)$ 的元素生成的子空间。
 
 实际上我们有 $V_1^\ast\otimes\cdots\otimes V_k^\ast \cong L(V_1,\cdots,V_k;\mathbb{R})$.
+
+我们称 $V$ 上的**协变** k-张量是指 $\underbrace{V^\ast\otimes\cdots\otimes V^\ast}_k$，其全体记作 $T^k(V^\ast)$；称 $V$ 上的**反变** k-张量是指 $\underbrace{V\otimes\cdots\otimes V}_k$，其全体记作 $T^k(V)$；称 $(k, l)$-型混合张量是指 $\underbrace{V\otimes\cdots\otimes V}_k \otimes \underbrace{V^\ast\otimes\cdots\otimes V^\ast}_l$，其全体记作 $T^{(k, l)}(V)$.
+
+一个协变 k-张量 $\alpha$ 被称为是**对称**的，如果 $\alpha(\cdots v_i\cdots v_j \cdots) = \alpha(\cdots v_j\cdots v_i \cdots)$，其全体称为 $\Sigma^k(V^\ast)$；我们有一个投射 $\mathrm{Sym}: T^k(V^\ast) \to \Sigma^k(V^\ast)$，它是：
+
+$$(\operatorname{Sym} \alpha)(v_1,\cdots,v_k) = \frac{1}{k!}\sum_{\sigma\in S_k} \alpha(v_{\sigma(1)},\cdots,v_{\sigma(k)})$$
+
+对 $\alpha, \beta \in \Sigma^k(V^\ast)$，可以定义其对称积 $\alpha\beta = \mathrm{Sym}(\alpha\otimes\beta)$.
+
+一个协变 k-张量 $\alpha$ 被称为是**交错/反对称**的，如果 $\alpha(\cdots v_i\cdots v_j \cdots) = -\alpha(\cdots v_j\cdots v_i \cdots)$，其全体称为 $\Lambda^k(V^\ast)$；我们有一个投射 $\mathrm{Alt}: T^k(V^\ast) \to \Lambda^k(V^\ast)$，它是：
+
+$$(\operatorname{Alt} \alpha)(v_1,\cdots,v_k) = \frac{1}{k!}\sum_{\sigma\in S_k} (\operatorname{sgn} \sigma) \alpha(v_{\sigma(1)},\cdots,v_{\sigma(k)})$$
+
+实际上我们可以找到 $\Lambda^k(V^\ast)$ 的一组基。对 $I=(i_1,\cdots,i_k)$，我们定义 $\varepsilon^I$ 是指：
+
+$$
+\varepsilon^I(v_1,\cdots,v_k) = \det \begin{pmatrix}
+v_1^{i_1} & \cdots & v_k^{i_1} \\\\
+\vdots & \ddots & \vdots \\\\
+v_1^{i_k} & \cdots & v_k^{i_k} 
+\end{pmatrix}
+$$
+
+那么对 $\dim V = n, n\geq k$，所有 $I$ 为递增指标的 $\binom{n}{k}$ 个 $\varepsilon^I$ 构成一组基。
+
+我们定义**楔积/外积**是：
+
+$$\omega\wedge\eta = \frac{(k+l)!}{k!l!}\mathrm{Alt}(\omega\otimes\eta)$$
+
+它具有有趣的性质：
+* 双线性性
+* 结合律 $\omega\wedge(\eta\wedge\xi) = (\omega\wedge\eta)\wedge\xi$
+* 反对称性 $\omega\wedge\eta=(-1)^{kl}\eta\wedge\omega$
+* $\varepsilon^I\wedge\varepsilon^J = \varepsilon^{IJ}$，其中 $IJ$ 是拼接
+* $\omega^1\wedge\cdots\wedge\omega^k(v_1,\cdots,v_k) = \det (\omega^j(v_i))$
+
+---
+
+回到流形上来，我们定义
+
+$$T^{(k, l)}TM = \bigsqcup_{p\in M}T^{(k, l)}(T_pM)$$
+
+就有对 $\Gamma(T^{(k, l)}TM)$（其中 $\Gamma$ 指所有光滑截面构成的空间）的元素 $A$，它将形如
+
+$$A = A_{j_1\cdots j_l}^{i_1\cdots i_k} \frac{\partial}{\partial x^{i_1}}\otimes\cdots\otimes\frac{\partial}{\partial x^{i_k}}\otimes\mathrm{d}x^{j_1}\otimes\cdots\otimes\mathrm{d}x^{j_l}$$
+
+我们称**微分 k-形式**是指：
+
+$$\Lambda^kT^\ast M = \bigsqcup_{p\in M}\Lambda^k(T_p^\ast M)$$
+
+的截面，记 $\Omega^k(M) = \Gamma (\Lambda^kT^\ast M)$.
+
+作为一个有关 1-形式与 2-形式的例子，我们考虑 $\mathrm{d}x\wedge \mathrm{d}y = \mathrm{d}(r\cos\theta)\wedge\mathrm{d}(r\sin\theta) = (\cos\theta\mathrm{d}r-r\sin\theta\mathrm{d}\theta)\wedge (\sin\theta\mathrm{d}r+r\cos\theta\mathrm{d}\theta) = r\mathrm{d}r\wedge\mathrm{d}\theta$.
+
+一个 k-形式 $\omega$ 可以被分解为 $\sum_I \omega_I \mathrm{d}x^I$，其中 $\mathrm{d}x^I$ 是 $\mathrm{d}x^{i_1}\wedge\cdots\wedge\mathrm{d}x^{i_1}$.
+
+---
+
+我们有时会遇到这样的记号：
+
+$$\frac{\mathrm{d}^2 f}{\mathrm{d} x^2} = \frac{\mathrm{d}\left(\frac{\mathrm{d} f}{\mathrm{d} x}\right)}{\mathrm{d} x}$$
+
+其中的 $\mathrm{d}$ 可以被看成**外微分** $\mathrm{d}: \Omega^k(M)\to\Omega^{k+1}(M)$，定义为在每个光滑坐标卡上是：
+
+$$\mathrm{d}\left(\sum_J \omega_J \mathrm{d}x^J\right) = \sum_J \omega_J\wedge\mathrm{d}x^J$$
+
+它满足：
+1. 在 $\mathbb{R}$ 上线性
+2. 对 $\omega\in\Omega^k(M)$ 及 $\eta\in\Omega^l(M)$，有 $\mathrm{d}(\omega\wedge\eta) = \mathrm{d}\omega\wedge\eta+(-1)^k\omega\wedge\mathrm{d}\eta$
+3. $\mathrm{d}\circ\mathrm{d}=0$
+4. 对 $f\in\Omega^0(M)=C^\infty(M)$，有 $\mathrm{d}f$ 是 $f$ 的微分
