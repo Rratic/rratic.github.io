@@ -119,9 +119,10 @@ $$Y = \lambda f. (\lambda x. f(x x))(\lambda x. f(x x))$$
 称为 Y 组合子（`Y combinator`）。不难验证
 
 ```txt
-Y f = (λx. f(x x)) (λx. f(x x))
-    = f ((λx. f(x x)) (λx. f(x x)))
-    = f (Y f)
+  Y f
+= (λx. f(x x)) (λx. f(x x))
+= f ((λx. f(x x)) (λx. f(x x)))
+= f (Y f)
 ```
 
 ### 递归 {#recursive-functions}
@@ -132,20 +133,22 @@ $$f = \lambda fact. (\lambda n. \begin{cases} 1, & \text {if $n$ < 2} \\\\ n\tim
 
 那么，若使用正则次序，可得到正确的结果。
 ```txt
-Y f 2 = (λx. f(x x))(λx. f(x x)) 2
-      = f((λx. f(x x))(λx. f(x x)) 2)
-      = 2 * (λx. f(x x))(λx. f(x x))(1)
-      = 2 * f((λx. f(x x))(λx. f(x x)) 1)
-      = 2 * 1
+  Y f 2
+= (λx. f(x x))(λx. f(x x)) 2
+= f((λx. f(x x))(λx. f(x x)) 2)
+= 2 * (λx. f(x x))(λx. f(x x))(1)
+= 2 * f((λx. f(x x))(λx. f(x x)) 1)
+= 2 * 1
 ```
 
 但使用应用次序，则会造成无限递归。
 ```txt
-Y f 2 = (λx. f(x x))(λx. f(x x)) 2
-      = f((λx. f(x x))(λx. f(x x)) 2)
-      = f(f((λx. f(x x))(λx. f(x x))) 2)
-      = f(f(f((λx. f(x x))(λx. f(x x)))) 2)
-      = ...
+  Y f 2
+= (λx. f(x x))(λx. f(x x)) 2
+= f((λx. f(x x))(λx. f(x x)) 2)
+= f(f((λx. f(x x))(λx. f(x x))) 2)
+= f(f(f((λx. f(x x))(λx. f(x x)))) 2)
+= ...
 ```
 
 此时需改用 Z 组合子，将参数改造成延迟求值的。
@@ -153,12 +156,13 @@ Y f 2 = (λx. f(x x))(λx. f(x x)) 2
 $$Z = \lambda f. (\lambda x. f(\lambda y. (x x) y))(\lambda x. f(\lambda y. (x x) y))$$
 
 ```txt
-Z f 2 = (λx. f(λy. (x x) y)) (λx. f(λy. (x x) y)) 2
-      = f((λy. (λx. f(λy. (x x) y)) (λx. f(λy. (x x) y)) y) 2)
-      = 2 * (λy. (λx. f(λy. (x x) y)) (λx. f(λy. (x x) y)) y) 1
-      = 2 * (λx. f(λy. (x x) y)) (λx. f(λy. (x x) y)) 1
-      = ...
-      = 2 * 1
+  Z f 2
+= (λx. f(λy. (x x) y)) (λx. f(λy. (x x) y)) 2
+= f((λy. (λx. f(λy. (x x) y)) (λx. f(λy. (x x) y)) y) 2)
+= 2 * (λy. (λx. f(λy. (x x) y)) (λx. f(λy. (x x) y)) y) 1
+= 2 * (λx. f(λy. (x x) y)) (λx. f(λy. (x x) y)) 1
+= ...
+= 2 * 1
 ```
 
 ## 类型模拟 {#simulate-types}
@@ -189,33 +193,36 @@ $$mult\ n_1\ n_2 = n_1\ (add\ n_2)\ 0$$
 
 举个例子。
 ```txt
-add 0 = (λn1. λn2. n1 succ n2) 0
-      = λn2. 0 succ n2
-      = λn2. n2
-      = λx. x
+  add 0
+= (λn1. λn2. n1 succ n2) 0
+= λn2. 0 succ n2
+= λn2. n2
+= λx. x
 ```
 
 又如。
 ```txt
-add 1 1 = 1 succ 1
-        = succ 1
-        = λf. λs. f (f s)
-        = 2
+  add 1 1
+= 1 succ 1
+= succ 1
+= λf. λs. f (f s)
+= 2
 ```
 
 又如。
 ```txt
-mult 2 2 = 2 (add 2) 0
-         = (add 2) ((add 2) 0)
-         = 2 succ (2 succ 0)
-         = succ (succ (succ (succ 0)))
-         = succ (succ (succ (λf. λs. f (0 f s))))
-         = succ (succ (succ (λf. λs. f s)))
-         = succ (succ (λg. λy. g ((λf. λs. f s) g y)))
-         = succ (succ (λg. λy. g (g y)))
-         = ...
-         = λg. λy. g (g (g (g y)))
-         = 4
+  mult 2 2
+= 2 (add 2) 0
+= (add 2) ((add 2) 0)
+= 2 succ (2 succ 0)
+= succ (succ (succ (succ 0)))
+= succ (succ (succ (λf. λs. f (0 f s))))
+= succ (succ (succ (λf. λs. f s)))
+= succ (succ (λg. λy. g ((λf. λs. f s) g y)))
+= succ (succ (λg. λy. g (g y)))
+= ...
+= λg. λy. g (g (g (g y)))
+= 4
 ```
 
 ### 列表 {#datatype-list}

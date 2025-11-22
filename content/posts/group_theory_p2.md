@@ -60,8 +60,8 @@ $$G\leq Z_3^8\times S_8 \times Z_2^{12}\times S_{12}$$
 
 $$
 \varphi: \begin{cases}
-  e \mapsto (g \mapsto g) \\\\
-  a \mapsto (g \mapsto g^{-1})
+	e \mapsto (g \mapsto g) \\\\
+	a \mapsto (g \mapsto g^{-1})
 \end{cases}
 $$
 
@@ -125,7 +125,7 @@ $$h = (\overline{s_0t_0}^{-1}s_1t_1)(\overline{s_1t_1}^{-1}s_2t_2)\cdots (\overl
 $$
 \begin{aligned}
 \sigma \colon G & \to G/G',\\\\
-    g & \mapsto gG'
+	g & \mapsto gG'
 \end{aligned}
 $$
 
@@ -153,7 +153,7 @@ $$
 $$
 \begin{aligned}
 \sigma \colon G_{i-1} & \to G_{i-1}/G_i,\\\\
-    g & \mapsto gG_i
+	g & \mapsto gG_i
 \end{aligned}
 $$
 
