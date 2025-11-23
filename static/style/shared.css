@@ -7,7 +7,7 @@ article {
 	overflow-x: hidden;
 }
 
-p:has(.katex-display) {
+section>p:has(.katex-display) {
 	overflow-x: auto;
 	scrollbar-gutter: stable;
 }

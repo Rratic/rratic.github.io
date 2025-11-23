@@ -83,9 +83,13 @@ $$\mathrm{d}f = \mathrm{d}u + \mathrm{i}\cdot\mathrm{d}v = \frac{\partial f}{\pa
 2. 定义 $z_n = \sum_{k=0}^n \frac{z^k}{k!}, e^z = \lim_{n\to\infty} z_n$，由于 $z_n$ 是 Cauchy 列，它是收敛的
 3. 定义它是满足 $f'(z)=f(z)$ 及 $f(0)=1$ 的微分方程的解，我们知道解存在且唯一
 
-易知它们是等价的，其中 (3) 可以推出 $e^{z+w}=e^z\cdot e^w$，因为有 $(e^z\cdot e^{a-z})' = e^z\cdot e^{a-z}+e^z\cdot (-e^{a-z}) = 0$
+易知它们是等价的，其中 (2) 与 (3) 均可以推出 $e^{z+w}=e^z\cdot e^w$，分别是因为
 
-我们可以进一步定义 $\cos z = \frac{e^{iz}+e^{-iz}}{2}, \sin z = \frac{e^{iz}-e^{-iz}}{2i}$
+$$\left(\sum_{k=0}^\infty \frac{z^k}{k!}\right)\left(\sum_{k=0}^\infty \frac{w^k}{k!}\right) = \sum_{k=0}^\infty \frac{1}{k!} \sum_{i+j=k}\frac{k!}{i!j!}z^iw^j = \sum_{k=0}^\infty \frac{1}{k!} (z+w)^k$$
+
+$$(e^z\cdot e^{a-z})' = e^z\cdot e^{a-z}+e^z\cdot (-e^{a-z}) = 0$$
+
+我们可以进一步定义 $\cos z = \frac{e^{iz}+e^{-iz}}{2}$ 与 $\sin z = \frac{e^{iz}-e^{-iz}}{2i}$ 为对应的复值函数。
 
 ### 调和函数
 我们称满足 $\Delta u = 0$ 的函数 $u$ 为**调和函数**。
@@ -179,13 +183,11 @@ $f$ 为区域 $D$ 上的处处非 0 全纯函数，则存在 $g^n = f$
 
 ## 复平面
 ### 扩充复平面
-扩充复平面是指 $\bar{\mathbb{C}} = \mathbb{C}\cup \\{\infty\\}$
+扩充复平面是指 $\bar{\mathbb{C}} = \mathbb{C}\cup \\{\infty\\}$，定义 $D(\infty, \varepsilon) = \\{z\in\bar{\mathbb{C}} \mid |z|>\frac{1}{\varepsilon}\\}$.
 
-可以通过球极投影建立它与二维球面 $\mathbb{S}^2$ 的一一映射，使它们的拓扑是一样。
+可以通过球极投影建立它与二维球面 $\mathbb{S}^2$ 的一一映射，使它们的拓扑是一样。从而，可以在球面中看到扩充复平面的极限定义，并看到扩充复平面是 $\mathbb{C}$ 的一个紧致化。
 
-从而，可以在球面中看到扩充复平面的极限定义。
-
-扩充复平面是 $\mathbb{C}$ 的一个紧致化。
+同时，可以将它看作复射影直线 $\mathbb{C}\mathrm{P}^1$，其中 $z = \frac{z_1}{z_2}$ 写作 $\begin{pmatrix}z_1\\\\ z_2\end{pmatrix}$，这体现了它的射影性质。
 
 ### 分式线性变换
 分式线性变换是重要的解析函数例子，指
@@ -194,23 +196,21 @@ $$z\mapsto \frac{az+b}{cz+d}$$
 
 又称 Möbius 变换。有时我们也会考虑共轭分式线性变换 $z\mapsto \frac{a\bar{z}+b}{c\bar{z}+d}$，它们均可将扩充复平面映到自身。
 
-若将 $z$ 视作 $\frac{z_1}{z_2}$（或视作齐次坐标），并写为 $z = \begin{pmatrix}z_1\\\\ z_2\end{pmatrix}$ 则前者为：
+以 $\mathbb{C}\mathrm{P}^1$ 视角看作：
 
 $$
 z\mapsto \begin{pmatrix}a&b\\\\ c&d\end{pmatrix} z
 $$
 
-可由典型变换平移、位似、伊朗式反演复合得到。
+是一个射影变换，可由典型变换平移、位似、伊朗式反演复合得到。
 
-{% admonition(type="abstract", title="唯一确定") %}
-对不同的三点 $z_i$ 及不同的三点 $w_i$，恰存在一个分式线性变换使 $f(z_i) = w_i$
+{% admonition(type="abstract", title="存在且唯一") %}
+对不同的三点 $z_i$ 及不同的三点 $w_i$，恰存在一个分式线性变换使 $f(z_i) = w_i$ 均成立。
 {% end %}
 
-因为可以做到将 $1, 0, \infty$ 映到任意不同的 $z_1,z_2,z_3$
+因为可以将 $1, 0, \infty$ 映到任意指定的不同 $z_1, z_2, z_3$，且分式线性变换可逆。
 
-对扩充平面上三个不同的点 $z_2, z_3, z_4$，将它们变成 $1, 0, \infty$ 的变换将 $z_1$ 映到**交比** $(z_1, z_2, z_3, z_4)$
-
-交比满足：线性变换 $S$ 使得 $(S(z_1), S(z_2), S(z_3), S(z_4)) = (z_1, z_2, z_3, z_4)$
+对扩充平面上三个不同的点 $z_2, z_3, z_4$，将它们变成 $1, 0, \infty$ 的变换将 $z_1$ 映到其交比 $(z_1, z_2, z_3, z_4)$，它是射影不变量。
 
 ---
 
@@ -225,7 +225,7 @@ $$
 ### 路径积分
 在一个实区间上的定积分可以直接由实积分推广得到。
 
-对给定的连续曲线 $\gamma$，作 Riemann 和，极限可取到时记为路径积分 $\int_{\gamma} f(z) \mathrm{d}z$
+对给定的连续曲线 $\gamma$，作 Riemann 和，极限可取到时即为路径积分的值。
 
 或者，设 $\gamma: [a, b]\to \mathbb{C}$，让
 
@@ -235,15 +235,15 @@ $$\int_{\gamma} f(z) dz = \int_{[a, b]} f(\gamma(z)) \mathrm{d}\gamma(z) = \int_
 
 $$\int_{\gamma} (u+\mathrm{i}v)(\mathrm{d}x+\mathrm{i}\cdot\mathrm{d}y) = \int_{\gamma} (u\mathrm{d}x-v\mathrm{d}y) + \mathrm{i}\int_{\gamma} (u\mathrm{d}y+v\mathrm{d}x)$$
 
-现在给一些具体的例子，
+现在给一些具体的例子：
 
 对闭曲线 $\gamma$ 和 $n\neq -1$，有
 
 $$\oint_{\gamma}z^n \mathrm{d}z = \int_{\gamma}\frac{1}{n+1} \mathrm{d}z^{n+1} = 0$$
 
-$n = -1$ 时考虑曲线 $\gamma: [0, 2\pi]\to\mathbb{C}, \theta\mapsto re^{\mathrm{i}\theta}$，换元知积分结果 $2\pi\mathrm{i}$；若原点不在曲线内部，则化为 $\oint \mathrm{d}\ \mathrm{Ln}z = 0$；通过曲线加减法可以推知，对所有把 0 包含在内部的闭曲线，积分结果均为 $2\pi\mathrm{i}$
+$n = -1$ 时考虑曲线 $\gamma: [0, 2\pi]\to\mathbb{C}, \theta\mapsto re^{\mathrm{i}\theta}$，换元知积分结果 $2\pi\mathrm{i}$；若原点不在曲线内部，则化为 $\oint \mathrm{d}\ \mathrm{Ln}z = 0$；通过曲线加减法可以推知，对所有把 0 包含在内部的闭曲线，积分结果均为 $2\pi\mathrm{i}$.
 
-我们来说明一个更一般的结论
+我们来说明一个更一般的结论。
 
 {% admonition(type="abstract", title="Cauchy 定理") %}
 有界区域 $\Omega$ 以有限段光滑曲线为边界，对 $f$ 在 $\bar{\Omega}$ 上连续，在 $\Omega$ 内解析，则有
@@ -256,7 +256,7 @@ $$\int_{\partial \Omega} f(z)\mathrm{d}z = 0$$
 证明的大致思想是说，可以把一个三角形上的路径积分转化为它按中点分割成的四个三角形上的路径积分之和。
 
 {% admonition(type="abstract", title="Cauchy 公式") %}
-有界区域 $\Omega$ 以有限段光滑曲线为边界，对 $f$ 在 $\bar{\Omega}$ 上连续，在 $\Omega$ 内解析，则对 $z\in\Omega$
+有界区域 $\Omega$ 以有限段光滑曲线为边界，对 $f$ 在 $\bar{\Omega}$ 上连续，在 $\Omega$ 内解析及 $z\in\Omega$ 有
 
 $$f(z) = \frac{1}{2\pi\mathrm{i}}\int_{\partial \Omega}\frac{f(w)}{w-z}\mathrm{d}w$$
 {% end %}
