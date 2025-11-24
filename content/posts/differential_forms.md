@@ -1,7 +1,8 @@
 +++
 title = "微分与微分形式"
-description = "关于 ∂/∂x, df, dx, d 等记号本质上/在一般的流形上是什么。"
+description = "关于 ∂/∂x, df, dx, d, df/dx 等记号本质上/在一般的流形上是什么。"
 date = 2025-11-19
+updated = 2025-11-24
 
 [extra]
 math = true
@@ -53,6 +54,12 @@ $$
 $$
 
 如果我们选取一个指定的坐标卡，继续把 $x_i$ 看作投射函数，那么 $\mathrm{d}x_i|_ p$ 就是指对应的 $\mathrm{d}\pi_i|_ p$，其中 $\pi_i(x_1,\cdots,x_n)= x_i$.
+
+作为一个例子，对 $\mathrm{d}f|_ p: T_p\mathbb{R}^n \to T_p\mathbb{R}^m$，考虑 $T_p\mathbb{R}^k \cong \mathbb{R}^k$ 可以将它表示成 **Jacobi 矩阵**：
+
+$$\mathrm{Jac}(f) = \left(\frac{\partial f_j}{\partial x_i}\right)_{1\leq i\leq n, 1\leq j\leq m}$$
+
+---
 
 我们称 $M$ 的**切丛**是指
 
@@ -123,6 +130,10 @@ $$\omega\wedge\eta = \frac{(k+l)!}{k!l!}\mathrm{Alt}(\omega\otimes\eta)$$
 * $\varepsilon^I\wedge\varepsilon^J = \varepsilon^{IJ}$，其中 $IJ$ 是拼接
 * $\omega^1\wedge\cdots\wedge\omega^k(v_1,\cdots,v_k) = \det (\omega^j(v_i))$
 
+作为一个例子，在 $\mathbb{R}^2$ 上有：
+
+$$(\mathrm{d}x\wedge \mathrm{d}y)(v, w) = (\mathrm{d}x\otimes \mathrm{d}y)(v, w) - (\mathrm{d}x\otimes \mathrm{d}y)(w, v) = \mathrm{d}x(v)\mathrm{d}y(w) - \mathrm{d}x(w)\mathrm{d}y(v) = v_1w_2 - v_2w_1$$
+
 ---
 
 回到流形上来，我们定义
@@ -158,3 +169,17 @@ $$\mathrm{d}\left(\sum_J \omega_J \mathrm{d}x^J\right) = \sum_J \omega_J\wedge\m
 2. 对 $\omega\in\Omega^k(M)$ 及 $\eta\in\Omega^l(M)$，有 $\mathrm{d}(\omega\wedge\eta) = \mathrm{d}\omega\wedge\eta+(-1)^k\omega\wedge\mathrm{d}\eta$
 3. $\mathrm{d}\circ\mathrm{d}=0$
 4. 对 $f\in\Omega^0(M)=C^\infty(M)$，有 $\mathrm{d}f$ 是 $f$ 的微分
+
+我们称一个 $\omega \in \Omega^k(M)$ 是**闭**的，如果 $\mathrm{d}\omega = 0$，称它是 exact [^translation-exact] 的，如果存在 $\eta \in \Omega^{(k-1)}(M)$ 使 $\omega = \mathrm{d}\eta$，有 exact 的形式一定是闭的。
+
+---
+
+另外，$\frac{\mathrm{d} f}{\mathrm{d} x}$ 被看成是一个 0-形式。
+
+在一维情形下，可以被定义为切映射的商。一般不会考虑多维情形的 $\frac{\mathrm{d} f}{\mathrm{d} x_i}$，有时它会定义为 Fréchet 导数，结果是 $m\times n$ 的矩阵。
+
+也可以把 $\frac{\mathrm{d} f}{\mathrm{d} x}$ 看成缩并 $\iota_X(\mathrm{d}f)$ 或李导数 $\mathcal{L}_X f$.
+
+---
+
+[^translation-exact]: 可译为“恰当”，此处不是指正合。
