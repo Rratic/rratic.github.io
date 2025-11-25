@@ -20,16 +20,18 @@ tags = ["笔记", "物理", "经典力学"]
 
 参考的是[《初识经典力学》](https://chaoli.club/index.php/10248)，这是一个创新性的，跳过拉格朗日力学直接从哈密顿力学开始的经典力学讲义。本笔记略过了该讲义的最后几章。
 
+类同于物理的一贯特色，我们总是假设事物有*足够好*的性质。
+
 ## 状态与演化
 我们假定系统默认指封闭系统，观察者对系统的观察和测量不会干扰系统本身。
 
 称一个经典力学系统所有可能的状态构成的空间为**状态空间/相空间**，记作 $\Gamma$，其中一个状态（空间中一个点）记作 $X$，本文中记我们讨论的系统在 $t$ 时刻的状态为 $X_t$，这个符号也表示整个函数 $X_t: \mathrm{Time}\to \Gamma$，按照上下文判断含义。
 
-经典力学系统满足决定论（时间上严格的因果关系），即形式上我们认为存在 $f: \Gamma \to \Gamma$ 使得：
+经典力学系统满足决定论（时间上严格的因果关系），即形式上我们认为存在 $f$ 把一个状态映到一个切矢，使得：
 
 $$\frac{\mathrm{d}X_t}{\mathrm{d}t} = f(X_t) \tag{1.1}$$
 
-飞矢不动悖论指出，我们不能只用位置这一个变量来刻画粒子的状态。在现代物理中，我们额外引入动量（忘记它和速度的关系）。
+我们不能只用位置这一个变量来刻画粒子的状态，在现代物理中，额外引入动量（请忘记它和所谓速度 $\dot{x_i}$ 的关系）。
 
 为了量化位置 $x_i$ 和动量 $p_i$，我们选取一个参照物并构建坐标系，合称**参考系**，记作 $K$.
 
@@ -75,9 +77,9 @@ $$H = \sum_{i=1}^N T_i(p_i^2) + V(x_1, x_2 \cdots x_N)  \tag{3.1}$$
 
 从 $n=1$ 情形开始，有
 
-$$\left(\frac{\mathrm{d}x}{\mathrm{d}t}, \frac{\mathrm{d}p}{\mathrm{d}t}\right) = k(x, p)\left(\frac{\partial H}{\partial p}, -\frac{\partial H}{\partial x}\right)  \tag{3.3}$$
+$$\left(\frac{\mathrm{d}x}{\mathrm{d}t}, \frac{\mathrm{d}p}{\mathrm{d}t}\right) = k(x, p)\left(\frac{\partial H}{\partial p}, -\frac{\partial H}{\partial x}\right) \tag{3.2}$$
 
-我们自然地将它推广成 $n$ 自由度的哈密顿正则方程：
+我们自然地将它推广成 $n$ 自由度的**哈密顿正则方程**：
 
 $$\frac{\mathrm{d}x^\mu}{\mathrm{d}t} = \frac{\partial H}{\partial p_\mu},\ \frac{\mathrm{d}p_\mu}{\mathrm{d}t} = -\frac{\partial H}{\partial x^\mu} \tag{3.3}$$
 

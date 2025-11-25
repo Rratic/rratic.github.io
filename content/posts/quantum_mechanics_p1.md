@@ -42,18 +42,7 @@ $$\omega_{mn} = 2\pi Rc \left(\frac{1}{m^2}-\frac{1}{n^2}\right) \tag{1.2}$$
 * 跃迁假设：电子从第 n 个定态跃迁到第 m 个定态，辐射出频率 $\omega_{mn}$ 的电磁波
 * 轨道角动量量子化假设：第 n 个定态上电子的角动量 $J = rp = n\hbar$
 
-令精细结构常数 $\alpha = \frac{e^2}{4\pi\epsilon_0\hbar c}\approx \frac{1}{137}$
-
-可推导
-
-$$
-\left\\{\begin{matrix}
-m_e\frac{v^2}{r} = \frac{e^2}{4\pi\epsilon_0 r^2} \\\\
-rm_ev = n\hbar
-\end{matrix}\right.
-$$
-
-有
+令精细结构常数 $\alpha = \frac{e^2}{4\pi\epsilon_0\hbar c}\approx \frac{1}{137}$，并使用条件 $m_e\frac{v^2}{r} = \frac{e^2}{4\pi\epsilon_0 r^2}$ 及 $rm_ev = n\hbar$ 可推导得：
 
 $$E_n = -\frac{1}{2n^2}m_e\alpha^2 c^2 \tag{1.3}$$
 
