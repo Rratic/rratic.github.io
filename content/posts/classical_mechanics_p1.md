@@ -2,6 +2,7 @@
 title = "《初识经典力学》笔记"
 description = "一般形式的哈密顿量和常见定律的导出。"
 date = 2025-10-04
+updated = 2025-11-25
 
 [extra]
 math = true
@@ -60,30 +61,35 @@ $$\frac{\mathrm{d}H(X_t)}{\mathrm{d}t} = 0 \tag{2.1}$$
 
 ## 对称性
 哈密顿量需要满足以下对称性
-* 时间平移不变性，哈密顿量并不显式依赖于 $t$
-* 空间平移不变性，$\sum_{i=1}^N\frac{\partial H}{\partial x_i} = 0$
-* 空间旋转对称性，$H$ 将形如 $x_i\cdot x_j, x_i\cdot p_j, p_i\cdot p_j$ 的组合。
-* 另外还有时间反演对称性（反演是指 $t\mapsto -t$）和空间反演对称性。
+* 时间、空间平移对称性
+* 空间旋转对称性
+* 时间、空间反演对称性（时间反演是指 $t\mapsto -t$）
 
-从上述对称性可推出，对单个粒子，存在 $H=T(p^2)$，称 $T$ 为该粒子的动能。
+其中时间平移对称性意味着哈密顿量并不显式依赖于 $t$，空间平移对称性意味着 $\sum_{i=1}^N\frac{\partial H}{\partial x_i} = 0$，而空间旋转、反演对称性意味着 $H$ 将形如 $x_i\cdot x_j, x_i\cdot p_j, p_i\cdot p_j$ 的组合。
+
+因此，对单个粒子，存在 $H=T(p^2)$，称 $T$ 为该粒子的动能。
 
 多粒子系统的哈密顿量有一般形式（如果我们假定相互作用与动量无关，有关的情况并非不存在）
 
-$$H = \sum_{i=1}^N T_i(p_i^2) + V(x_1, x_2 \cdots x_N)  \tag{3.1}$$
+$$H = \sum_{i=1}^N T_i(p_i^2) + V(x_1, x_2 \cdots x_N) \tag{3.1}$$
 
 为了确定 $V$ 的形式，需要考虑另一种对称性，即伽利略相对性原理，这将涉及伽利略变换（狭义相对论下是 Lorentz 变换）。
 
-现在我们猜测演化定律，即 (1.1) 中 $f$ 的形式
+现在我们猜测演化定律，即 (1.1) 中 $f$ 的形式。从单自由度情形开始，考虑：
 
-从 $n=1$ 情形开始，有
+$$0 = \frac{\mathrm{d}H(X_t)}{\mathrm{d}t} = \sum_{\text{particles}} \left[\frac{\partial H}{\partial x}\frac{\mathrm{d}x}{\mathrm{d}t} + \frac{\partial H}{\partial p}\frac{\mathrm{d}p}{\mathrm{d}t}\right] \tag{3.2}$$
 
-$$\left(\frac{\mathrm{d}x}{\mathrm{d}t}, \frac{\mathrm{d}p}{\mathrm{d}t}\right) = k(x, p)\left(\frac{\partial H}{\partial p}, -\frac{\partial H}{\partial x}\right) \tag{3.2}$$
+我们合理地猜测有下式：
 
-我们自然地将它推广成 $n$ 自由度的**哈密顿正则方程**：
+$$\left(\frac{\mathrm{d}x}{\mathrm{d}t}, \frac{\mathrm{d}p}{\mathrm{d}t}\right) = k(x, p)\left(\frac{\partial H}{\partial p}, -\frac{\partial H}{\partial x}\right) \tag{3.3}$$
 
-$$\frac{\mathrm{d}x^\mu}{\mathrm{d}t} = \frac{\partial H}{\partial p_\mu},\ \frac{\mathrm{d}p_\mu}{\mathrm{d}t} = -\frac{\partial H}{\partial x^\mu} \tag{3.3}$$
+通过重新标度时间我们可以消去 $k$，然后我们自然地将它推广成 $n$ 自由度的**哈密顿正则方程**：
+
+$$\frac{\mathrm{d}x^\mu}{\mathrm{d}t} = \frac{\partial H}{\partial p_\mu},\ \frac{\mathrm{d}p_\mu}{\mathrm{d}t} = -\frac{\partial H}{\partial x^\mu} \tag{3.4}$$
 
 这里位置的分量用上标表示，是一种物理的传统记法。
+
+这个过程有很多猜测成分，但幸运的是迄今为止的实验都验证了哈密顿正则方程的成立。
 
 我们把相空间*看作一个空间*，$X_t$ 是以时间为参数的曲线。由微分方程解的唯一性，过一点恰有一条曲线，因此不同曲线不相交。
 
@@ -108,7 +114,7 @@ $$F_i = -\frac{\partial V}{\partial x_i} \tag{4.2}$$
 
 从而 $\frac{\mathrm{d}p_i}{\mathrm{d}t} = F_i$，这几乎是牛顿第二定律。
 
-由空间平移对称性，$\sum_{i=1}^N = 0$，若把系统分为两部分，就得到牛顿第三定律。
+由空间平移对称性，$\sum_{i=1}^N F_i = 0$，若把系统分为两部分，就得到牛顿第三定律。
 
 我们定义粒子相对原点的力矩为 $M_i = x_i \times F_i$，有 $\frac{\mathrm{d}L_i}{\mathrm{d}t} = M_i$
 
