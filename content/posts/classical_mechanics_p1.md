@@ -18,23 +18,20 @@ tags = ["笔记", "物理", "经典力学"]
 前置知识
 - 数学分析（多元微分即可）
 
-参考阅读
-- [《初识经典力学》](https://chaoli.club/index.php/10248)，是一个创新性的，直接从哈密顿力学开始的经典力学讲义，且没有涉及拉格朗日力学
-
-本笔记掠过了该讲义的最后几章。
+参考的是[《初识经典力学》](https://chaoli.club/index.php/10248)，这是一个创新性的，跳过拉格朗日力学直接从哈密顿力学开始的经典力学讲义。本笔记略过了该讲义的最后几章。
 
 ## 状态与演化
 我们假定系统默认指封闭系统，观察者对系统的观察和测量不会干扰系统本身。
 
-称一个经典力学系统所有可能的状态构成的空间为**状态空间/相空间**，记作 $\Gamma$，其中一个状态一般记作 $X_t$
+称一个经典力学系统所有可能的状态构成的空间为**状态空间/相空间**，记作 $\Gamma$，其中一个状态（空间中一个点）记作 $X$，本文中记我们讨论的系统在 $t$ 时刻的状态为 $X_t$，这个符号也表示整个函数 $X_t: \mathrm{Time}\to \Gamma$，按照上下文判断含义。
 
-经典力学系统满足决定论（时间上严格的因果关系），形式上我们认为
+经典力学系统满足决定论（时间上严格的因果关系），即形式上我们认为存在 $f: \Gamma \to \Gamma$ 使得：
 
-$$\frac{\mathrm{d}X_t}{\mathrm{d}t} = f(X_t)$$
+$$\frac{\mathrm{d}X_t}{\mathrm{d}t} = f(X_t) \tag{1.1}$$
 
 飞矢不动悖论指出，我们不能只用位置这一个变量来刻画粒子的状态。在现代物理中，我们额外引入动量（忘记它和速度的关系）。
 
-为了量化位置 $x_i$ 和动量 $p_i$，我们选取一个参照物并构建坐标系，合称**参考系**，记作 $K$
+为了量化位置 $x_i$ 和动量 $p_i$，我们选取一个参照物并构建坐标系，合称**参考系**，记作 $K$.
 
 在普通的 $\mathbb{E}^3$ 空间中，我们希望建立的是笛卡尔坐标系，此时 $\dim \Gamma = 2n = 6N$，其中有 $N$ 个粒子，称 $n=3N$ 为其自由度数目。
 
@@ -49,7 +46,7 @@ $$\frac{\mathrm{d}X_t}{\mathrm{d}t} = f(X_t)$$
 
 我们知道
 
-$$\frac{\mathrm{d}H(X_t)}{\mathrm{d}t} = 0$$
+$$\frac{\mathrm{d}H(X_t)}{\mathrm{d}t} = 0 \tag{2.1}$$
 
 这是很强的条件。
 
@@ -70,19 +67,19 @@ $$\frac{\mathrm{d}H(X_t)}{\mathrm{d}t} = 0$$
 
 多粒子系统的哈密顿量有一般形式（如果我们假定相互作用与动量无关，有关的情况并非不存在）
 
-$$H = \sum_{i=1}^N T_i(p_i^2) + V(x_1, x_2 \cdots x_N) \tag{0}$$
+$$H = \sum_{i=1}^N T_i(p_i^2) + V(x_1, x_2 \cdots x_N)  \tag{3.1}$$
 
 为了确定 $V$ 的形式，需要考虑另一种对称性，即伽利略相对性原理，这将涉及伽利略变换（狭义相对论下是 Lorentz 变换）。
 
-现在我们猜测演化定律，即 $f: \Gamma \to \Gamma$ 的形式
+现在我们猜测演化定律，即 (1.1) 中 $f$ 的形式
 
 从 $n=1$ 情形开始，有
 
-$$\left(\frac{\mathrm{d}x}{\mathrm{d}t}, \frac{\mathrm{d}p}{\mathrm{d}t}\right) = k(x, p)\left(\frac{\partial H}{\partial p}, -\frac{\partial H}{\partial x}\right)$$
+$$\left(\frac{\mathrm{d}x}{\mathrm{d}t}, \frac{\mathrm{d}p}{\mathrm{d}t}\right) = k(x, p)\left(\frac{\partial H}{\partial p}, -\frac{\partial H}{\partial x}\right)  \tag{3.3}$$
 
 我们自然地将它推广成 $n$ 自由度的哈密顿正则方程：
 
-$$\frac{\mathrm{d}x^\mu}{\mathrm{d}t} = \frac{\partial H}{\partial p_\mu},\ \frac{\mathrm{d}p_\mu}{\mathrm{d}t} = -\frac{\partial H}{\partial x^\mu} \tag{1}$$
+$$\frac{\mathrm{d}x^\mu}{\mathrm{d}t} = \frac{\partial H}{\partial p_\mu},\ \frac{\mathrm{d}p_\mu}{\mathrm{d}t} = -\frac{\partial H}{\partial x^\mu} \tag{3.3}$$
 
 这里位置的分量用上标表示，是一种物理的传统记法。
 
@@ -99,13 +96,13 @@ $$\frac{\mathrm{d}x^\mu}{\mathrm{d}t} = \frac{\partial H}{\partial p_\mu},\ \fra
 ## 导出
 对单个粒子，$H=T(p^2)$，有
 
-$$\frac{\mathrm{d}x}{\mathrm{d}t} = 2T'(p^2)p,\ \frac{\mathrm{d}p}{\mathrm{d}t} = 0$$
+$$\frac{\mathrm{d}x}{\mathrm{d}t} = 2T'(p^2)p,\ \frac{\mathrm{d}p}{\mathrm{d}t} = 0 \tag{4.1}$$
 
 从而速度 $v = \frac{\mathrm{d}x}{\mathrm{d}t}$ 为常矢量，得到惯性定律/牛顿第一定律。
 
-物体运动的原因是 (0) 中的 $V$ 项。我们称第 i 个粒子受到的其它粒子的作用力为
+物体运动的原因是式 (3.1) 中的 $V$ 项。我们称第 $i$ 个粒子受到的其它粒子的作用力为
 
-$$F_i = -\frac{\partial V}{\partial x_i}$$
+$$F_i = -\frac{\partial V}{\partial x_i} \tag{4.2}$$
 
 从而 $\frac{\mathrm{d}p_i}{\mathrm{d}t} = F_i$，这几乎是牛顿第二定律。
 
@@ -118,11 +115,11 @@ $$F_i = -\frac{\partial V}{\partial x_i}$$
 我们来看一些两体相互作用势：
 - 核外电子绕原子核运动，存在自旋轨道耦合项，依赖于粒子自旋
 - Lennard-Jones 势，即电中性原子/分子间势的模型
-	$$V_{LJ} = 4\epsilon [(\frac{\delta}{r})^{12}-(\frac{\delta}{r})^{6}]$$
+	$$V_{LJ} = 4\epsilon \left[\left(\frac{\delta}{r}\right)^{12} - \left(\frac{\delta}{r}\right)^{6}\right]$$
 - 正-反两个夸克间的相互作用势
 	$$V_{q\bar{q}}(r) = -\frac{\alpha_s}{r}+\sigma r$$
 此处第一项是库伦势，第二项是禁闭势（距离越远相互作用势越大）
 
 对非封闭系统，可以将其看成大的封闭系统的子系统。可以导出功能原理、动量定理。
 
-此外，有伽利略变换。
+此外，可以导出伽利略变换。
