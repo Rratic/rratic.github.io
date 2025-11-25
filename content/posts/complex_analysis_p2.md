@@ -60,7 +60,7 @@ $$f(z) = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = R'}\frac{f(w)}{w-z}\mathrm{d}w 
 4. $f(z)$ 在 $z_0$ 的 Laurent 展式的主部为 $0$.
 {% end %}
 
-我们来证明不平凡的 (3) => (4) 如下：
+我们来证明不平凡的 (3) 推 (4) 如下：
 
 设展式为 $f(z) = \sum_{-\infty}^{+\infty} a_n (z-z_0)^n$，取 $\varepsilon$ 则
 
@@ -78,7 +78,7 @@ $$a_n = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = \varepsilon}\frac{f(w)}{(w-z_0)^
 4. $f(z)$ 在 $z_0$ 的 Laurent 展式的主部有且仅有有限项非 $0$.
 {% end %}
 
-证明不平凡的 (3) => (4) 如下：
+证明不平凡的 (3) 推 (4) 如下：
 
 设 $z_0$ 是 $\frac{1}{f(z)}$ 的 $m$ 阶零点，在邻域内展为 $(z-z_0)^m g(z)$，再由 $\frac{1}{g(z)}$ 解析即可。
 
@@ -91,7 +91,7 @@ $$a_n = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = \varepsilon}\frac{f(w)}{(w-z_0)^
 
 这是根据前两个结论得到的。
 
-在 <https://complex-analysis.com/content/classification_of_singularities.html> 你可以看到很多与奇点有关的函数的彩色绘制，你也可以阅读 [着色器（二）](/posts/shader-p2/) 中对应的内容。
+在 [Classification of Singularities](https://complex-analysis.com/content/classification_of_singularities.html) 你可以看到很多与奇点有关的函数的彩色绘制；也可阅读 [着色器（二）](/posts/shader-p2/) 中对应的内容。
 
 {% admonition(type="abstract", title="Weierstrass 定理") %}
 若 $z_0$ 是 $f$ 的一个本性奇点，则对任意 $\varepsilon>0$，$f(\mathring{D}(z_0, \varepsilon))$ 在 $\mathbb{C}$ 中稠密。
@@ -129,6 +129,16 @@ $f:\mathbb{C}\to\mathbb{C}$ 是全纯自同胚当且仅当它形如 $az+b\ (a\ne
 
 一个区域上的亚纯函数全体构成一个域，记作 $m(\Omega)$.
 
+{% admonition(type="abstract", title="Mittag-Leffler 问题的 $\mathbb{C}$ 版本") %}
+设 $\\{z_n\\}$ 是无重复项的点列，且 $\lim_{n\to+\infty}z_n = \infty$，每个 $n$ 对应一个
+
+$$L_n(z) = \frac{a_{n_1}}{z-z_n} + \frac{a_{n_2}}{(z-z_n)^2} + \cdots + \frac{a_{n_{m_n}}}{(z-z_n)^{m_n}}$$
+
+则存在 $\mathbb{C}$ 上亚纯函数 $f$，使极点集为 $\\{z_n\\}$，且在 $z_n$ 处的 Laurent 展式的主部为 $L_n(z)$.
+{% end %}
+
+不妨设 $z_n \in D(0, n, n+1)$，取序列
+
 {{ todo() }}
 
 ## 留数
@@ -162,4 +172,18 @@ $$\int_{\partial\Omega} f(z)\mathrm{d}z = 2\pi\mathrm{i}\sum_{i=1}^n\mathrm{Res}
 $$\sum_{i=1}^n\mathrm{Res}_ {z=z_k}f(z) + \mathrm{Res}_ {z=\infty}f(z) = 0$$
 
 ### 辐角原理
+{% admonition(type="abstract", title="辐角原理") %}
+$f$ 在区域 $D$ 内亚纯，$\Gamma = \partial \Omega$ 是可求长简单闭曲线，且 $f$ 在 $\Gamma$ 上没有零点和极点，则
+
+$$\frac{1}{2\pi\mathrm{i}}\int_\Gamma \frac{f'(z)}{f(z)} \mathrm{d}z$$
+
+等于 $f$ 在 $\Gamma$ 内的零点个数减去极点个数。
+{% end %}
+
+{{ todo() }}
+
+### 定积分计算
+{{ todo() }}
+
+## 调和函数
 {{ todo() }}

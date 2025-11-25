@@ -173,7 +173,7 @@ $f$ 为区域 $D$ 上的处处非 0 全纯函数，则存在 $g^n = f$
 ### 多值函数
 多值函数 $F: \Omega \to \mathbb{C}$ 中的值 $F(z)$ 可以看作复数构成的集合。
 
-例如，因为复数上的 $\exp$ 不是单的，它的反函数形如 $\mathrm{Ln} (r\cdot e^{\mathrm{i}\theta}) = \mathrm{Ln} r + \mathrm{i}\theta$
+例如，因为复数上的 $\exp$ 不是单的，它的反函数形如 $\mathrm{Ln} (r\cdot e^{\mathrm{i}\theta}) = \mathrm{Ln} (r) + \mathrm{i}\theta$
 
 一般来说，我们希望找到它的一个单值分支 $f$，即在 $\Omega$ 上有 $f(z)\in F(z)$ 且它是解析的。
 
