@@ -2,7 +2,7 @@
 title = "《初识经典力学》笔记"
 description = "一般形式的哈密顿量和常见定律的导出。"
 date = 2025-10-04
-updated = 2025-11-25
+updated = 2025-11-26
 
 [extra]
 math = true
@@ -19,7 +19,7 @@ tags = ["笔记", "物理", "经典力学"]
 前置知识
 - 数学分析（多元微分即可）
 
-参考的是[《初识经典力学》](https://chaoli.club/index.php/10248)，这是一个创新性的，跳过拉格朗日力学直接从哈密顿力学开始的经典力学讲义。本笔记略过了该讲义的最后几章。
+参考的是[《初识经典力学》](https://chaoli.club/index.php/10248)，这是一个创新性的，跳过拉格朗日力学直接从哈密顿力学开始的经典力学讲义。
 
 类同于物理的一贯特色，我们总是假设事物有*足够好*的性质。
 
@@ -99,7 +99,7 @@ $$\frac{\mathrm{d}x^\mu}{\mathrm{d}t} = \frac{\partial H}{\partial p_\mu},\ \fra
 
 我们暂时不去讨论它，而是仅限于一些例子。
 - 令总动量 $P = \sum_{i=1}^N p_i$，由空间平移不变性及 (1) 知 $\frac{\mathrm{d}P}{\mathrm{d}t} = 0$
-- 在 $\mathbb{E}^3$ 中，可以使用叉积来表达，然后我们可以取一阶小量。令总角动量 $P = \sum_{i=1}^N (x_i\times p_i)$，有 $\frac{\mathrm{d}L}{\mathrm{d}t} = 0$
+- 在 $\mathbb{E}^3$ 中，可以使用叉积来表达，然后我们可以取一阶小量。令总角动量 $L = \sum_{i=1}^N (x_i\times p_i)$，有 $\frac{\mathrm{d}L}{\mathrm{d}t} = 0$
 
 ## 导出
 对单个粒子，$H=T(p^2)$，有
@@ -131,3 +131,38 @@ $$F_i = -\frac{\partial V}{\partial x_i} \tag{4.2}$$
 对非封闭系统，可以将其看成大的封闭系统的子系统。可以导出功能原理、动量定理。
 
 此外，可以导出伽利略变换。
+
+## 相空间路径
+### 位力定理
+如果力学系统的相互作用势能函数是各粒子位置矢量的齐次函数，那么变换 $x_i \to \alpha x_i$ 对应的相空间路径将具有力学相似性。
+
+当力学系统作周期运动或有限运动时，对任意物理量 $A(t)$，定义时间平均值 $\bar{A}$，对周期为 $T$ 的周期运动，是指
+
+$$\frac{1}{T}\int_0^T A(t)\mathrm{d}t \tag{5.1}$$
+
+对有限运动，定义为上式对 $T$ 取极限。
+
+考察 $\sigma(t) = \frac{\mathrm{d}}{\mathrm{d}t} \sum p_\mu x^\mu$，有 $\bar{\sigma} = 0$，从而推出**位力定理**：
+
+$$\overline{\sum x^\mu \frac{\partial H}{\partial x^\mu}} = \overline{\sum p_\mu \frac{\partial H}{\partial p_\mu}} \tag{5.2}$$
+
+如果可以按 (3.1) 式将 $H$ 分解为动能与势能之和 $T + V$，并且 $V$ 是齐次度为 $\lambda$ 的齐次函数，就有
+
+$$\bar{T} = \frac{n}{n+2} E,\ \bar{V} = \frac{2}{n+2} E \tag{5.3}$$
+
+这给出的一个结论是，在万有引力情形下，系统作有限运动必须系统总能量 $E$ 为负。
+
+### 相流
+作为相空间坐标，$x$ 与 $p$ 的地位是平等的，不妨记 $X^1=x, X^2=p$，则哈密顿正则方程可以写成：
+
+$$\left(\frac{\mathrm{d}X^1}{\mathrm{d}t}, \frac{\mathrm{d}X^2}{\mathrm{d}t}\right) = \left(\frac{\partial H}{\partial X^2}(X), -\frac{\partial H}{\partial X^1}(X)\right) \tag{6.1}$$
+
+我们定义相空间速度是：
+
+$$V^\alpha = \frac{\mathrm{d}X^\alpha}{\mathrm{d}t} \tag{6.2}$$
+
+现在整个相空间上有一个速度场 $V_\alpha(X)$，它是不依赖于时间的。人们把它看作一种稳定流动的相空间流体，称作**相流**。
+
+刘维尔定理指出，这种流体是不可压缩的，即一个区域 $D_0$ 演化到 $D_t$ 后仍有：
+
+$$\mathrm{Vol}(D_0) = \mathrm{Vol}(D_t) \tag{6.3}$$
