@@ -28,9 +28,16 @@ tags = ["笔记", "数学", "代数", "抽象代数", "群论"]
 称 $G$ 的子群 $H$ 为它的**特征子群**，如果 $\sigma(H)\subseteq H, \forall \sigma\in\mathrm{Aut}(G)$
 {% end %}
 
-我们可以仿照它把正规子群的定义重写为 $\sigma(H)\subseteq H, \forall \sigma\in\mathrm{Inn}(G)$
+我们可以仿照它把正规子群的定义重写为 $\sigma(H)\subseteq H, \forall \sigma\in\mathrm{Inn}(G)$.
 
-群 $G$ 的导群是其特征子群，因为对 $\sigma\in\mathrm{Aut}(G)$，有 $\sigma([a, b]) = [\sigma(a), \sigma(b)]$.
+对群 $G$ 有以下典型的特征子群：
+- 其中心 $Z(G)$
+- 其导群 $[G, G]$，因为对 $\sigma\in\mathrm{Aut}(G)$，有 $\sigma([a, b]) = [\sigma(a), \sigma(b)]$
+- Frattini 子群
+- Fitting 子群
+- 幂子群
+- 挠子群
+- Omega 子群
 
 ## Hall 定理
 {% admonition(type="abstract", title="Hall 定理") %}
