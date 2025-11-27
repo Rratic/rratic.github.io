@@ -1,8 +1,8 @@
 +++
 title = "【草稿】Agda 学习（一）"
-description = "类型论的实践。"
+description = "类型论的实践：函数式程序推理与演算。"
 date = 2025-11-12
-updated = 2025-11-21
+updated = 2025-11-27
 
 [extra]
 toc = true
@@ -37,13 +37,13 @@ cabal install Agda
 setx PATH "%PATH%;D:\cabal\bin"
 ```
 
-接下来需要安装标准库，步骤请参考 <https://higher-order.fun/cn/2023/11/15/InstallAgda.html>
+接下来需要安装标准库，步骤请参考 [配置 Agda 开发环境（2023）](https://higher-order.fun/cn/2023/11/15/InstallAgda.html)，本文是基于 2.8.0 版本的标准库。
 
 在 VSCode 的 `agda-mode` 插件中，打开一个 Agda 文件，按 `Ctrl + C` 再按 `Ctrl + L` 来加载它。
 
 ## 概览
 ### 布尔类型
-在 2.8 标准库中，布尔类型的定义如下
+布尔类型的定义如下
 ```agda
 module Agda.Builtin.Bool where
 
@@ -202,17 +202,10 @@ is-odd zero = false
 is-odd (suc x) = is-even x
 ```
 
-### 列表
-定义如下：
-```agda
-infixr 5 _∷_
-data List {a} (A : Set a) : Set a where
-  []  : List A
-  _∷_ : (x : A) (xs : List A) → List A
-```
-
 ### 例子
 现在来看一个大例子：自然数乘法交换律的证明。
+
+其中少量使用了 `cong`，其定义将在之后等式理论节中说明。
 ```agda
 module Main where
 
@@ -255,4 +248,182 @@ open Eq.≡-Reasoning using (begin_; step-≡-⟩; step-≡-⟨; step-≡-∣; _
 *-comm : (x y : ℕ) → x * y ≡ y * x
 *-comm zero y rewrite *0 y = refl
 *-comm (suc x) y rewrite *-comm x y = *-mylemma x y
+```
+
+## 列表
+### 列表类型
+列表类型的定义如下：
+```agda
+infixr 5 _∷_
+data List {a} (A : Set a) : Set a where
+  []  : List A
+  _∷_ : (x : A) (xs : List A) → List A
+```
+
+这里用的 `∷` 是单个字符。
+
+常见函数也以类似 Haskell 中的方式归纳定义。
+
+使用 `postulate` 关键字可以不加证明地给出结论。
+```agda
+postulate
+  ≤-trans : {x y z : Nat} →
+    x ≤ y ≡ true → y ≤ z ≡ true → x ≤ z ≡ true
+  ≤-suc : (x : Nat) → x ≤ suc x ≡ true
+```
+
+### `Maybe` 类型
+```agda
+data Maybe {a} (A : Set a) : Set a where
+  just : A → Maybe A
+  nothing : Maybe A
+```
+
+### `with` 与 `keep`
+`with` 关键字可以提供更丰富的类型匹配，例如：
+
+```agda
+length-filter : {a} {A : Set a} (p : A → B)(l : List A) →
+  length (filter p l) ≤ length l ≡ true
+length-filter p [] = refl
+length-filter p (x ∷ l) with p x
+length-filter p (x ∷ l) | true = ?
+length-filter p (x ∷ l) | false = ?
+```
+
+`keep` 函数可以同时给出一个结果值和证明，如下例中得到的是 `(true, p x ≡ true)` 或 `(false, p x ≡ false)`.
+```agda
+filter-idem : {a} {A : Set a} (p : A → Bool) (l : List A) →
+  (filter p (filter p l)) ≡ (filter p l)
+filter-idem p [] = refl
+filter-idem p (x ∷ l) with keep (p x)
+filter-idem p (x ∷ l) | true , p'
+  rewrite p' | p' | filter-idem p l = refl
+filter-idem p (x ∷ l) | false , p'
+  rewrite p' = filter-idem p l
+```
+
+## Internal Verification
+Internal Verification 的想法是，值附带着命题。
+
+### 向量类型
+向量类型的定义如下：
+```agda
+infixr 5 _∷_
+
+data Vec (A : Set a) : ℕ → Set a where
+  []  : Vec A zero
+  _∷_ : ∀ (x : A) (xs : Vec A n) → Vec A (suc n)
+```
+
+这给出了一种定长数组。
+
+### 关系
+Relation 相关部分代码如下：
+```agda
+REL : Set a → Set b → (ℓ : Level) → Set (a ⊔ b ⊔ suc ℓ)
+REL A B ℓ = A → B → Set ℓ
+
+Rel : Set a → (ℓ : Level) → Set (a ⊔ suc ℓ)
+Rel A ℓ = REL A A ℓ
+
+Reflexive : Rel A ℓ → Set _
+Reflexive _∼_ = ∀ {x} → x ∼ x
+
+Transitive : Rel A ℓ → Set _
+Transitive _∼_ = Trans _∼_ _∼_ _∼_
+```
+
+### Dependent Sum
+Σ-类型是一种笛卡尔积的泛化，不同的是第二个元素的类型依赖于第一个元素。
+
+其定义如下：
+```agda
+record Σ {a b} (A : Set a) (B : A → Set b) : Set (a ⊔ b) where
+  constructor _,_
+  field
+    fst : A
+    snd : B fst
+
+open Σ public
+
+infixr 4 _,_
+```
+
+这可以给出一种定义正整数的方法（这里使用了 `λ` 生成匿名函数）：
+```agda
+ℕ⁺ : Set
+ℕ⁺ = Σ ℕ (λ n → iszero n ≡ false)
+
+suc⁺ : ℕ⁺ → ℕ⁺ 
+suc⁺ (x , p) = (suc x , refl)
+
+_+⁺_ : ℕ⁺ → ℕ⁺ → ℕ⁺
+(x , p) +⁺ (y , q) = x + y , iszerosum2 x y p
+
+_*⁺_ : ℕ⁺ → ℕ⁺ → ℕ⁺
+(x , p) *⁺ (y , q) = (x * y , iszeromult x y p q)
+```
+
+## 等式理论
+### 等式理论
+有许多定理有助于我们进行 `rewrite`，一些常见内容如下：
+```agda
+sym : Symmetric {A = A} _≡_
+sym refl = refl
+
+trans : Transitive {A = A} _≡_
+trans refl eq = eq
+
+subst : Substitutive {A = A} _≡_ ℓ
+subst P refl p = p
+
+cong : ∀ (f : A → B) {x y} → x ≡ y → f x ≡ f y
+cong f refl = refl
+
+cong-app : ∀ {A : Set a} {B : A → Set b} {f g : (x : A) → B x} →
+           f ≡ g → (x : A) → f x ≡ g x
+cong-app refl x = refl
+```
+
+### 等式推理
+等式推理相关设施的简化版定义如下：
+```agda
+infix 1 begin_
+infixr 2 _≡⟨⟩_ _≡⟨_⟩_
+infix 3 _∎
+
+begin_ : ∀ {x y : A}
+  → x ≡ y
+  → x ≡ y
+begin x≡y = x≡y
+
+_≡⟨⟩_ : ∀ (x : A) {y : A}
+  → x ≡ y
+  → x ≡ y
+x ≡⟨⟩ x≡y = x≡y
+
+_≡⟨_⟩_ : ∀ (x : A) {y z : A}
+  → x ≡ y
+  → y ≡ z
+  → x ≡ z
+x ≡⟨ x≡y ⟩ y≡z = trans x≡y y≡z
+
+_∎ : ∀ (x : A)
+  → x ≡ x
+x ∎ = refl
+```
+
+一个用例如下：
+```agda
++-suc : (m n : ℕ) → m + suc n ≡ suc (m + n)
++-suc zero n = refl
++-suc (suc m) n =
+  begin
+    (suc m) + suc n
+  ≡⟨ refl ⟩
+    suc (m + suc n)
+  ≡⟨ cong suc (+-suc m n) ⟩
+    suc (suc (m + n))
+  ∎
 ```
