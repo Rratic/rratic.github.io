@@ -39,7 +39,7 @@ $$\binom{\alpha}{\beta} = \alpha\ |0\rangle + \beta\ |1\rangle = |\psi\rangle \t
 
 对单位复数 $c$，$|\psi\rangle$ 与 $c |\psi\rangle$ 是无法区分的，我们称其为 global phase，但我们能够区分 relative phase.
 
-### 量子门与测量
+### 量子门与观测
 我们把一些小的酉变换称为“门”，例如：
 
 $$
@@ -158,4 +158,15 @@ $$\rho = \sum_i p_i |\psi_i\rangle \langle\psi_i| \tag{4.1}$$
 作用酉变换 $U$ 将意味着把 $\rho$ 变为 $U\rho U^\dagger$.
 
 ### Bloch 球面
+Bloch 球面如图，其上相反的向量是正交的。在球面上的是纯状态，球内的是混合状态。
 ![](/images/quantum/bloch_sphere.png)
+
+图中有：
+
+$$|\psi\rangle = \cos \frac{\theta}{2} |0\rangle + e^{i\varphi} \sin \frac{\theta}{2} |1\rangle \tag{5.1}$$
+
+此时，$X, Y, Z, H$ 门分别是绕着 $|+\rangle, |i\rangle, |0\rangle, (|0\rangle+|+\rangle)/(2\cos \pi/8)$ 对应轴旋转 $\pi$.
+
+不可复制定理说，不存在一个门 $U$ 将 $|\psi\rangle, |0\rangle$ 变作 $|\psi\rangle, |\psi\rangle$，这可以通过写出表达式说明不是线性的；$\mathrm{CNOT}$ 门可以复制 $|0\rangle, |1\rangle$，经典信息本来就可以复制。
+
+换一个角度来说明这件事情：若 $U(|\psi\rangle \otimes |0\rangle) = (|\psi\rangle, |\psi\rangle)$，考虑酉变换的保内积性，只能 $|\psi\rangle$ 为 $|0\rangle$ 或 $|1\rangle$.

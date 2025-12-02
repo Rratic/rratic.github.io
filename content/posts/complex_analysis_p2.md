@@ -2,7 +2,7 @@
 title = "【草稿】复分析速通指南（二）"
 description = "计划写到 Riemann 单值化定理。"
 date = 2025-10-16
-updated = 2025-10-25
+updated = 2025-12-02
 
 [extra]
 math = true
@@ -15,6 +15,8 @@ priority = "0.8"
 categories = ["知识"]
 tags = ["笔记", "数学", "分析", "复分析"]
 +++
+
+> 一般认为 Cauchy 积分理论、Weierstrass 级数理论和共形映射理论是单复变函数理论中的三个最重要的组成部分。
 
 参考阅读
 - 《复变函数简明教程》
@@ -137,9 +139,35 @@ $$L_n(z) = \frac{a_{n_1}}{z-z_n} + \frac{a_{n_2}}{(z-z_n)^2} + \cdots + \frac{a_
 则存在 $\mathbb{C}$ 上亚纯函数 $f$，使极点集为 $\\{z_n\\}$，且在 $z_n$ 处的 Laurent 展式的主部为 $L_n(z)$.
 {% end %}
 
-不妨设 $z_n \in D(0, n, n+1)$，取序列
+不妨设 $z_n \in D(0, n, n+1)$，取序列 $\\{a_n\\}$ 使 $a_n > 0$ 且和收敛，设对 $z_1, \cdots , z_{n-1}$ 已取到 $P_1(z), \cdots , P_{n-1}(z)$，使
 
-{{ todo() }}
+$$\max_{z\in\overline{D(0, k)}} \\{|L_k(z)-P_k(z)|\\} \lt a_k,\ k=1,2,\cdots,n-1$$
+
+有 $L_n(z)$ 在 $\overline{D(0, n)}$ 的邻域上解析，从而它在 $z=0$ 展开的幂级数在 $\overline{D(0, n)}$ 上一致收敛于它，可用多项式一致逼近，从而可取出 $P_n(z)$.
+
+令 $f(z) = \sum_{k=1}^{+\infty} [L_k(z) - P_k(z)]$，它即是所求。
+
+{% admonition(type="abstract", title="有理函数") %}
+$\bar{\mathbb{C}}$ 上的亚纯函数都是有理函数。
+{% end %}
+
+设亚纯函数 $f$，有极点 $z_1, \cdots , z_l, \infty$，且对应的 Laurent 展式主部：
+
+$$L_k(z) = \frac{a_{k_1}}{z-z_k} + \frac{a_{k_2}}{(z-z_k)^2} + \cdots + \frac{a_{k_{m_k}}}{(z-z_k)^{m_k}}$$
+
+$$L_\infty(z) = b_1z + b_2z^2 + \cdots + b_mz^m$$
+
+则 $f(z) - \sum_{k=1}^l L_k(z) - L_\infty(z)$ 是 $\bar{\mathbb{C}}$ 上的全纯函数，因而是常数。从而 $f$ 是有理函数。
+
+利用此可以说明 $\bar{\mathbb{C}}$ 到 $\bar{\mathbb{C}}$ 的全纯自同胚只能是分式线性变换，这是因为考虑 $P(z)/Q(z)$，一一映射要求 $P$ 与 $Q$ 都是一次的。
+
+{% admonition(type="abstract", title="Cousin 问题 2 的 $\mathbb{C}$ 版本") %}
+$\\{z_n\\}$ 是无重复项的点列，且 $\lim_{n\to+\infty}z_n = \infty$，又正整数列 $\\{m_n\\}$，则存在解析函数 $f$，使 $f$ 所有零点是 $\\{z_n\\}$，且在 $z_n$ 处零点的阶数是 $m_n$.
+{% end %}
+
+证明过程用到无穷乘积，此处略过。
+
+它的一个推论是：对 $\bar{\mathbb{C}}$ 上亚纯函数 $f$，存在解析函数 $g$ 与 $h$ 使得 $f(z) = \frac{g(z)}{h(z)}$.
 
 ## 留数
 ### 基本概念
@@ -183,7 +211,12 @@ $$\frac{1}{2\pi\mathrm{i}}\int_\Gamma \frac{f'(z)}{f(z)} \mathrm{d}z$$
 {{ todo() }}
 
 ### 定积分计算
+许多 $\mathbb{R}$ 上难以处理的定积分问题可以放到 $\mathbb{C}$ 上来算。
+
 {{ todo() }}
 
 ## 调和函数
+### 性质
 {{ todo() }}
+
+### Dirichlet 问题
