@@ -1,8 +1,8 @@
 +++
-title = "【草稿】Agda 学习（一）"
-description = "类型论的实践：函数式程序推理与演算。"
+title = "Agda 学习（一）"
+description = "类型论的实践：函数式程序推理与演算。Agda 中的证明、归纳、列表、Internal Verification 和等式理论。"
 date = 2025-11-12
-updated = 2025-11-27
+updated = 2025-12-03
 
 [extra]
 toc = true
@@ -279,7 +279,7 @@ data Maybe {a} (A : Set a) : Set a where
   nothing : Maybe A
 ```
 
-### `with` 与 `keep`
+### `with` 与 `in`
 `with` 关键字可以提供更丰富的类型匹配，例如：
 
 ```agda
@@ -291,7 +291,13 @@ length-filter p (x ∷ l) | true = ?
 length-filter p (x ∷ l) | false = ?
 ```
 
-`keep` 函数可以同时给出一个结果值和证明，如下例中得到的是 `(true, p x ≡ true)` 或 `(false, p x ≡ false)`.
+`keep` 函数可以同时给出一个结果值和证明，定义为：
+```agda
+keep : {a} → {A : Set a} → (x : A) → Σ A (x ≡_)
+keep x = x , refl
+```
+
+如下例中得到的是 `(true, p x ≡ true)` 或 `(false, p x ≡ false)`.
 ```agda
 filter-idem : {a} {A : Set a} (p : A → Bool) (l : List A) →
   (filter p (filter p l)) ≡ (filter p l)
@@ -301,6 +307,16 @@ filter-idem p (x ∷ l) | true , p'
   rewrite p' | p' | filter-idem p l = refl
 filter-idem p (x ∷ l) | false , p'
   rewrite p' = filter-idem p l
+```
+
+在现在的版本中可以改为使用 `in` 关键字：
+```agda
+filter-idem : {a} {A : Set a} (p : A → Bool) (l : List A) →
+  (filter p (filter p l)) ≡ (filter p l)
+filter-idem p [] = refl
+filter-idem p (x ∷ xs) with p x in p'
+filter-idem p (x ∷ xs) | true rewrite p' | filter-idem p xs = refl
+filter-idem p (x ∷ xs) | false = filter-idem p xs
 ```
 
 ## Internal Verification
