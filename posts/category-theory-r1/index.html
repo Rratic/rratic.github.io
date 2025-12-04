@@ -1,0 +1,312 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>范畴论练习（一） | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="范畴论练习（一）" />
+  <meta name="description" content="选做一些 Mac Lane 书上的习题。" />
+  <meta property="og:description" content="选做一些 Mac Lane 书上的习题。" />
+  <meta property="og:url" content="https://rratic.github.io/posts/category-theory-r1/" />
+  <link rel="canonical" href="https://rratic.github.io/posts/category-theory-r1/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2025-12-05T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="范畴论" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.github.io/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.github.io/style/shared.css?h=0ae36a1553ac899cfaa8" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.github.io/main.min.css?h=2e89f7f30f1019877d14" />
+  <style>
+  :root{--bg: white; --header: #e6f4ff; color-scheme: light;}
+  :root.dark{--bg: #424242; --header: #333333; color-scheme: dark;}
+  </style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.github.io/js/linkita.min.js?h=1dd3ed42fc674277bc34"></script>
+  <link rel="stylesheet" href="https://rratic.github.io/katex/katex.min.css?h=19095127357ed6d29fe0" />
+  <script defer src="https://rratic.github.io/katex/katex.min.js?h=e8d885505949f3a5f4ab"></script>
+  <script defer src="https://rratic.github.io/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.linkita.initKatex);</script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out bg-[var(--bg)] dark:text-white">
+  <!-- Header -->
+<header class="bg-[var(--header)] fixed top-0 z-40 mx-auto min-h-[3.25rem] w-full header-icons">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8">
+        <a title="转到主页" accesskey="!"
+          href="https://rratic.github.io/" class="text-2xl font-semibold">错行</a>
+        <button type="button" title="切换颜色方案" accesskey="$"
+          onclick="window.linkita.toggleDarkMode();" ondblclick="window.linkita.resetDarkMode();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover dark:invert [background-image:var(--icon-theme-dark)] dark:[background-image:var(--icon-theme-light)]"
+        ></button>
+      </div>
+      <div title="导航" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.linkita.toggleHeaderMenu();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.linkita.toggleHeaderMenu() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral relative mx-auto min-h-[calc(100%-4rem)]
+    max-w-3xl break-words px-4 pb-12 pt-28 lg:pt-32 dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">范畴论练习（一）</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2025-12-05T00:00:00+00:00">2025-12-05</time><span
+        class="middot"></span><time
+    datetime="PT0H5M0S">5&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+
+  <!-- Content -->
+  <section><p>感觉之前并没有学明白，需要做一些习题。</p>
+<p>采取的是 Saunders Mac Lane 的 <em>Categories for the Working Mathmatician</em> 第二版。此书包含许多不废话的习题。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-[var(--admonition-bg)]"
+  style="--admonition-bg: rgba(100, 221, 23, 0.1);"
+>
+  <div class="flex items-center rounded-t-lg bg-[var(--admonition-bg)] p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(./icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>II 1-3 2</strong></span>
+  </div>
+  <div class="pl-4"><p>Show that the product of two preorders is a preorder.</p>
+</div>
+</div>
+<p>一个预序 preorder 是指一个范畴，两个对象之间最多一个箭头，并且我们称 $p\leq p'$ 若有箭头 $p\to p'$，此时函子就是保序映射。</p>
+<p>对预序 $P$ 与 $Q$，考虑 $R$ 以 $(p, q)$ 为对象，$(p, q)\leq (p', q')$ 如果 $p\leq_P p'$ 且 $q\leq_Q q'$，此时两个投射函子可由 $\pi_P((p, q))= p$ 与 $\pi_Q((p, q)) = q$ 自然地诱导出。$R$ 是一个预序。</p>
+<p>若 $S$ 也有两个投射函子 $\varphi_P$ 与 $\varphi_Q$，那么 $\phi(s) = (\varphi_P(s), \varphi_Q(s))$ 自然地诱导出的函子使图表交换，使图表交换的条件推出它是唯一的。故 $R$ 确实是积。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-[var(--admonition-bg)]"
+  style="--admonition-bg: rgba(100, 221, 23, 0.1);"
+>
+  <div class="flex items-center rounded-t-lg bg-[var(--admonition-bg)] p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(./icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>II 1-3 5</strong></span>
+  </div>
+  <div class="pl-4"><p>Show that the ring of continuous real-valued functions on a topological space is the object function of a contravariant functor on $\mathbf{Top}$ to $\mathbf{Rng}$.</p>
+</div>
+</div>
+<p>$\mathbf{Top}$ 是以 $\mathcal{U}$-小的拓扑空间为对象，以连续映射为态射的范畴；$\mathbf{Rng}$ 是以 $\mathcal{U}$-小的环为对象，以环同态（保幺元的）为态射的范畴。</p>
+<p>首先它（记作 $F$）确实把拓扑空间映到环。现在看反变函子的 arrow function 部分是什么：</p>
+<p>对连续映射 $\psi: T_1 \to T_2$ 及 $T_2$ 上的连续实值函数 $f: T_2 \to \mathbb{R}$，我们选取的环同态将 $f$ 对应到 $f\circ\psi$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-[var(--admonition-bg)]"
+  style="--admonition-bg: rgba(100, 221, 23, 0.1);"
+>
+  <div class="flex items-center rounded-t-lg bg-[var(--admonition-bg)] p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(./icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>II 4 1</strong></span>
+  </div>
+  <div class="pl-4"><p>For $R$ a ring, describe $R-\mathbf{Mod}$ as a full subcategory of the functor category $\mathbf{Ab}^R$.</p>
+</div>
+</div>
+<p>这里 $R-\mathbf{Mod}$ 是 $R$ 上的 $\mathcal{U}$-小的左模与同态（线性映射）构成的范畴，$\mathbf{Ab}$ 是 $\mathcal{U}$-小的交换群与同态构成的范畴，全子范畴 <a href="https://ncatlab.org/nlab/show/full+subcategory">full subcategory</a> 是指若某两对象在子范畴中，则它们的所有箭头也在子范畴中。</p>
+<p>把环看作范畴是：只有一个对象 $\ast$，环的元素都是 $\ast$ 到自身的箭头，乘法对应到复合。</p>
+<p>设 $R \to \mathbf{Ab}$ 的函子 $f$ 将 $\ast$ 映到 $M$，则 $M$ 与 $f$ 的 arrow function 部分除了不满足环那一侧的线性性外构成左模；反之是可以取出的。</p>
+<p>现在验证它是 full 的。对 $f$ 与 $g$ 是左模对应的函子和 $f \stackrel{\bullet}{\to} g$ 的自然变换，这个自然变换对 $\ast$ 给出一个 $M$ 到 $N$ 的群同态 $\phi$，成立环元素 $r$ 对应的图表交换式 $\phi \circ f(r) = g(r) \circ \phi$，从而确实是模同态。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-[var(--admonition-bg)]"
+  style="--admonition-bg: rgba(100, 221, 23, 0.1);"
+>
+  <div class="flex items-center rounded-t-lg bg-[var(--admonition-bg)] p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(./icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>II 4 3</strong></span>
+  </div>
+  <div class="pl-4"><p>Let $\mathbf{N}$ be the discrete category of natural numbers. Describe the functor category $\mathbf{Ab^N}$ (commonly known as the category of graded abelian groups).</p>
+</div>
+</div>
+<p>看 $\mathbf{N} \to \mathbf{Ab}$ 的函子是什么。每个 $n$ 对应到一个交换群，且 $n$ 到自己的箭头对应到那个交换群的平凡自同构。验证和 <a href="https://stacks.math.columbia.edu/tag/09MF">Graded</a> 所说相符。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-[var(--admonition-bg)]"
+  style="--admonition-bg: rgba(100, 221, 23, 0.1);"
+>
+  <div class="flex items-center rounded-t-lg bg-[var(--admonition-bg)] p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(./icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>II 4 7</strong></span>
+  </div>
+  <div class="pl-4"><p>Given categories $B$, $C$, and the functor category $B^\mathbf{2}$, show that each functor $H: C \to B^\mathbf{2}$ determines two functors $S, T: C \to B$ and a natural transformation $\tau: S \stackrel{\bullet}{\to} T$, and show this assignment $H\mapsto \langle S, T, \tau \rangle$ is a bijection.</p>
+</div>
+</div>
+<p>这里 $\mathbf{2}$ 是指 $\bullet \to \bullet$，那么发现 $B^\mathbf{2}$ 可以看成是 the category of arrows of $B$.</p>
+<p>我们把 $H$ 对应到 $S(c) = \operatorname{dom} H(c)$，$T(c) = \operatorname{cod} H(c)$ 及 $\tau(c) = H(c)$ 即可。</p>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mb-1.5 mr-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mb-1.5 mr-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/范畴论/">范畴论</a>
+    
+  </div>
+</footer>
+
+  <!-- Post Nav -->
+<nav class="block-bg mt-12 flex flex-wrap rounded-lg text-lg">
+  <a
+    class="block-hover-mask ml-auto flex min-w-[50%] grow items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline"
+    href="https://rratic.github.io/posts/quantum-computing-p1/" accesskey="."
+    ><span>【草稿】量子计算（一）</span><span class="ml-1.5">&#8250;</span></a>
+</nav>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/pages"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>
