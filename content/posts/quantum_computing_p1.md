@@ -64,13 +64,13 @@ $$
 
 电路记号如下：
 
-![](/images/quantum/circuit_demo_1.png)
+![Circuit Demo 1](/images/quantum/circuit_demo_1.png)
 
 上图中左侧有两个 qubit 都被初始化成 $|0\rangle$，然后它们经过一个门 $U$，然后上面的 qubit 再经过一个 Hadamard 门，最终它们在标准基下被观测。
 
 各种门及对应的符号如下：
 
-![](/images/quantum/table_gates.png)
+![Table of Gates](/images/quantum/table_gates.png)
 
 在上图 $\mathrm{CNOT}$ 门中，用实心点 $\bullet$ 表示控制的 qubit，用 $\oplus$ 表示被控制的 qubit；在 $\mathrm{CPHASE}$ 门中，会在被控制的 qubit 观测到 $|1\rangle$ 时对被控制的 qubit 使用 $Z$ 门。
 
@@ -159,7 +159,7 @@ $$\rho = \sum_i p_i |\psi_i\rangle \langle\psi_i| \tag{4.1}$$
 
 ### Bloch 球面
 Bloch 球面如图，其上相反的向量是正交的。在球面上的是纯状态，球内的是混合状态。
-![](/images/quantum/bloch_sphere.png)
+![Bloch Sphere](/images/quantum/bloch_sphere.png)
 
 图中有：
 
