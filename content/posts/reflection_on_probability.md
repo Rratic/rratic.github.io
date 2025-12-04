@@ -247,12 +247,12 @@ I. J. Good 说明了如何逆向使用概率论来测量我们的信念。
 许多分布会趋近于 $\varphi(x) = \frac{1}{\sqrt{2\pi}}\exp (-\frac{x^2}{2})$，我们称为中心/高斯/正态分布。
 
 $$
-\left(\int e^{-\frac{t^2}{2}} \rm{d}t \right) =
-\iint e^{-\frac{x^2+y^2}{2}} \rm{d}x\rm{d}y \overset{(x, y)\to(r, \theta)}{=}
-\iint e^{-\frac{r^2}{2}} \rm{d}r\rm{d}\theta
+\left(\int e^{-\frac{t^2}{2}} \mathrm{d}t \right) =
+\iint e^{-\frac{x^2+y^2}{2}} \mathrm{d}x\mathrm{d}y \overset{(x, y)\to(r, \theta)}{=}
+\iint e^{-\frac{r^2}{2}} \mathrm{d}r\mathrm{d}\theta
 $$
 
-定义累积高斯分布 $\Phi(x)=\int_{-\infty}^x \varphi(t) \rm{d}t$
+定义累积高斯分布 $\Phi(x)=\int_{-\infty}^x \varphi(t) \mathrm{d}t$
 
 John Herschel 研究恒星位置出现误差的二维概率分布时导出了高斯分布，基于假设
 * 正交方向上的误差概率独立

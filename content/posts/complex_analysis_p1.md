@@ -124,7 +124,7 @@ $$
 
 有 $\mathrm{d}\omega = \left(\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2}\right)\mathrm{d}x\wedge \mathrm{d}y = 0$（我们会在之后给出路径积分的定义）
 
-对区域 $D\subset \Omega$，有 $\int_{\partial D} \omega = \int_{D}\rm{d}\omega = 0$
+对区域 $D\subset \Omega$，有 $\int_{\partial D} \omega = \int_{D}\mathrm{d}\omega = 0$
 
 取 $v(x, y) = \int_{(x_0, y_0)}^{(x, y)}\omega$ 即可（差一个常数下）。
 

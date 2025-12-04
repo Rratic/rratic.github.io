@@ -57,21 +57,21 @@ $$\sum_{i=1}^n l_i\otimes \theta _i \in \mathbb{R}\otimes _\mathbb{Z} \mathbb{R}
 
 两个向量空间 $V,W$ 的张量积 $V\otimes W$ 是一个向量空间，由形如
 
-$$(v, w), v\in V, w\in W$$
+$$(v, w) \in V \times W$$
 
-的元素张成，且满足双线性关系。
+的元素张成，并商掉一族等价关系，是如下的双线性关系：
 
 $$(a_1v_1 + a_2v_2, w) = a_1(v_1, w) + a_2(v_2, w)$$
 $$(v, a_1w_1 + a_2w_2) = a_1(v, w_1) + a_2(v, w_2)$$
 
-前文中 $\otimes _\mathbb{Z}$ 是指这里 $a\in \mathbb{Z}$，在无歧义时可省略。且易证明 $\mathbb{R}\otimes _\mathbb{Z} \mathbb{R}/\pi\mathbb{Z} = \mathbb{R}\otimes _\mathbb{Q} \mathbb{R}/\pi\mathbb{Q}$。
+前文中 $\otimes _\mathbb{Z}$ 是指这里 $a\in \mathbb{Z}$，在无歧义时可省略。且易证明 $\mathbb{R}\otimes _\mathbb{Z} \mathbb{R}/\pi\mathbb{Z} = \mathbb{R}\otimes _\mathbb{Q} \mathbb{R}/\pi\mathbb{Q}$.
 
 张量积使得 $V\times W$ 上的双线性函数可以等价地看成 $V\otimes W$ 上的线性函数。
 
 ### 回答 {#answer}
-棱长为 1 的正四面体的 Dehn 不变量为 $(6, 2\arctan\frac{\sqrt{2}}{2})$​，这不能化约成 0[^not-zero]。而任意长方体的 Dehn 不变量都为 0。
+棱长为 1 的正四面体的 Dehn 不变量为 $(6, 2\arctan\frac{\sqrt{2}}{2})$​，这不能化约成 $0$.[^not-zero]
 
-因此取体积与正四面体相等的长方体即为反例。
+而任意长方体的 Dehn 不变量都为 $0$，因此取体积与正四面体相等的长方体即为反例。
 
 ## 后续 {#advancement}
 Jean-Pierre Sydler 于 1965 年证明体积与 Dehn 不变量都相同的多面体一定可通过互相剪拼得到。[^paper-sydler]

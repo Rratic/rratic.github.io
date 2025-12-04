@@ -27,36 +27,34 @@ E = x           // variables
 ```
 
 上面的 $E$ 称为 λ-表达式（`λ-terms`），它的值有三种形式：
-* 变量。
-* 函数声明或抽象。函数**有且仅有**一个参数。在 $\lambda x.\ E$ 中，$x$ 是参数，$E$ 是函数体。
-* 函数应用。即函数调用。
+* 变量，如 $x$
+* 函数声明或抽象：函数**有且仅有**一个参数，在 $\lambda x.\ E$ 中，$x$ 是参数，$E$ 是函数体，即一般语境所说的 $x\mapsto E$
+* 函数应用：在 $f\ x$ 中，是把 $f$ 作用于 $x$，即一般语境所说的 $f(x)$
 
 一些简单的例子：
 * 恒等函数 $\lambda x.\ x$
-* 返回恒等函数的函数 $\lambda y.\ (\lambda x.\ x)$ 这里的 $y$ 参数被忽略了。引入参数而不使用它是被允许的。
+* 返回恒等函数的函数 $\lambda y.\ (\lambda x.\ x)$ 这里的 $y$ 参数被忽略了，引入参数而不使用它是被允许的
 * 表示复合的函数 $\circ = \lambda g.\ \lambda f.\ \lambda x.\ g\ (f\ x)$
 
 在书写时，常常省略括号。对此的惯例是：
 * 函数声明时，函数体尽可能向右扩展。
 * 函数应用时，从左到右结合（即“左结合”）。
 
-例如，$\lambda x.\ x\ \lambda y.\ x\ y\ z$ 应被理解为 $\lambda x.\ (x\ \lambda y.\ ((x\ y)\ z))$
+例如，$\lambda x.\ x\ \lambda y.\ x\ y\ z$ 应被理解为 $\lambda x.\ (x\ \lambda y.\ ((x\ y)\ z))$.
 
 ### Currying
 尽管在定义中，函数必须恰有一个参数，多个参数的函数仍然可以通过 `currying` 技术间接地表示。
 
-例如 $f(x, y)=x+y$ 可以被表达为 $f=\lambda x.\ (\lambda y.\ x+y)$
+作为一个例子，一般语境所说的 $f(x, y) = x+y$ 应被表达为 $f = \lambda x.\ (\lambda y.\ x+y)$.
 
-对上述 $f$，你可以传入少于全部参数个数的参数。
-
-例如代入 $g = f\ 1$，得到的 $g = \lambda y.\ 1+y$ 也是一个可用的函数。
+对上述 $f$，你可以传入少于全部参数个数的参数。例如代入 $g = f\ 1$ 将得到 $g = \lambda y.\ 1+y$，这也是一个可用的函数。
 
 ## 求值 {#lambda-evaluation}
 ### 求值规则 {#evaluation-rules}
 求值规则包括：
-* $\alpha$-重命名，可任意改变变量名。如有歧义的 $\lambda x.\ x(\lambda x.\ x)$ 可改为 $\lambda x.\ x(\lambda y.\ y)$
-* $\beta$-归约（`reduction`），在应用时将声明展开。例如 $(\lambda x.\ x)(\lambda y.\ y)$ 被展开为 $\lambda y.\ y$
-* $\eta$-等价，形如 $\lambda x.\ f(x)$ 的表达式可改为 $f$，这一般来说只是提前省略了一步 β-归约
+* $\alpha$-重命名，可任意改变变量名。如有歧义的 $\lambda x.\ x\ (\lambda x.\ x)$ 可改为 $\lambda x.\ x\ (\lambda y.\ y)$
+* $\beta$-归约（`reduction`），在应用时将声明展开。例如对 $(\lambda x.\ x)\ (\lambda y.\ y)$，将 $\lambda y.\ y$ 代入 $x$ 得到 $\lambda y.\ y$
+* $\eta$-等价，形如 $\lambda x.\ f\ x$ 的表达式可改为 $f$，这一般来说只是提前省略了一步 β-归约
 
 这三者均可称为归约（`conversion`）。
 
@@ -65,10 +63,16 @@ E = x           // variables
 {% admonition(type="example", title="SKI 演算") %}
 我们定义
 * $I=\lambda x.\ x$
-* $K=\lambda x\ \lambda y.\ x$
-* $S=\lambda x\ \lambda y\ \lambda z.\ x\ z\ (y\ z)$
+* $K=\lambda x.\ \lambda y.\ x$
+* $S=\lambda x.\ \lambda y.\ \lambda z.\ x\ z\ (y\ z)$
 
-读者可自行验证 $I=S\ K\ K$
+读者可自行验证以下推导：
+```txt
+  S K K
+= λz. K z (K z)
+= λz. z
+= I
+```
 
 通过 $\lambda x.\ A\ B = S\ (\lambda x.\ A)\ (\lambda x.\ B)$，可找到一般的用这些组合子表达 Lambda 表达式的方法。
 {% end %}
@@ -81,9 +85,9 @@ E = x           // variables
 {% end %}
 
 ### 求值顺序 {#evaluation-order}
-考虑函数应用 $(\lambda y.\ (\lambda x.\ x)\ y) E$。它有两种计算方法：
-* 先求内层，得到 $(\lambda y.\ y) E$，然后得到 $E$
-* 先求外层，得到 $(\lambda x.\ x) E$，然后得到 $E$
+考虑函数应用 $(\lambda y.\ (\lambda x.\ x)\ y)\ E$。它有两种计算方法：
+* 先求内层，得到 $(\lambda y.\ y)\ E$，然后得到 $E$
+* 先求外层，得到 $(\lambda x.\ x)\ E$，然后得到 $E$
 
 根据 Church–Rosser 定理（其证明会在[之后](#church-rosser-theorem)提供），这两种方法是等价的，最终会得到相等的结果。
 
@@ -106,15 +110,13 @@ E = x           // variables
 
 可以参阅[此文章的启发式推导](https://zhuanlan.zhihu.com/p/547191928)。大意如下：
 
-我们希望有一个一般的方法找到 $p$ 使得 $p = f(p)$，让 $p=Y(f)$，即 $Y(f)=f(Y(f))$
+我们希望有一个一般的方法找到 $p$ 使得 $p = f\ p$，让 $p = Y\ f$，即 $Y\ f = f\ (Y\ f)$.
 
-可以看出 $p=Y(f)$ *形如* $f\ f\ f\ f\cdots$，不妨将该无穷列看成两段 $G\ G$
+可以看出 $p = Y\ f$ *形如* $f\ f\ f\ f\cdots$，不妨将该无穷列看成两段 $G\ G$，有 $G\ G = f\ (G\ G)$，可以看出一个构造 $G = \lambda x.\ f(x\ x)$.
 
-有 $G\ G = f\ (G\ G)$，可以看出一个构造 $G = \lambda x.\ f(x\ x)$
+从而我们找到了：
 
-从而我们找到了
-
-$$Y = \lambda f. (\lambda x. f(x x))(\lambda x. f(x x))$$
+$$Y = \lambda f.\ (\lambda x. f(x\ x))\ (\lambda x.\ f(x\ x))$$
 
 称为 Y 组合子（`Y combinator`）。不难验证
 
@@ -128,8 +130,8 @@ $$Y = \lambda f. (\lambda x. f(x x))(\lambda x. f(x x))$$
 ### 递归 {#recursive-functions}
 Y 组合子可以用于实现递归。
 
-如果我们希望定义一个递归函数。
-$$f = \lambda fact. (\lambda n. \begin{cases} 1, & \text {if $n$ < 2} \\\\ n\times fact(n-1), & \text{else} \end{cases})$$
+如果我们希望定义一个递归函数：
+$$f = \lambda \mathrm{fact}.\ \lambda n.\ \begin{cases} 1, & \text {if $n$ < 2} \\\\ n\times \mathrm{fact}(n-1), & \text{else} \end{cases}$$
 
 那么，若使用正则次序，可得到正确的结果。
 ```txt
@@ -153,7 +155,7 @@ $$f = \lambda fact. (\lambda n. \begin{cases} 1, & \text {if $n$ < 2} \\\\ n\tim
 
 此时需改用 Z 组合子，将参数改造成延迟求值的。
 
-$$Z = \lambda f. (\lambda x. f(\lambda y. (x x) y))(\lambda x. f(\lambda y. (x x) y))$$
+$$Z = \lambda f.\ (\lambda x.\ f(\lambda y.\ (x\ x)\ y))\ (\lambda x.\ f(\lambda y.\ (x\ x)\ y))$$
 
 ```txt
   Z f 2
@@ -171,25 +173,25 @@ $$Z = \lambda f. (\lambda x. f(\lambda y. (x x) y))(\lambda x. f(\lambda y. (x x
 ### 布尔值 {#datatype-boolean}
 布尔值支持二元逻辑运算，但其最重要的意义是实现条件判断。
 
-简单地定义 `true` 为 $\lambda x.\ \lambda y.\ x$，`false` 为 $\lambda x.\ \lambda y.\ y$
+简单地定义 `true` 为 $\lambda x.\ \lambda y.\ x$，`false` 为 $\lambda x.\ \lambda y.\ y$.
 
-这样，`if e then u else v` 就可被重写为 $e\ u\ v$。
+这样，`if e then u else v` 就可被重写为 $e\ u\ v$.
 
 ### 自然数 {#datatype-number}
 自然数可以被 Peano 公理所描述。其核心是，存在起点 0，并且每个自然数都有其后继。
 
-在 Lambda 演算中，我们可以这样定义。
+在 Lambda 演算中，我们可以这样定义：
 
-$$iszero\ n = n\ (\lambda b.\ false)\ true$$
+$$\mathrm{iszero}\ n = n\ (\lambda b.\ \mathrm{false})\ \mathrm{true}$$
 $$0=\lambda f.\ \lambda s.\ s$$
 $$1=\lambda f.\ \lambda s.\ f\ s$$
 $$2=\lambda f.\ \lambda s.\ f\ (f\ s)$$
 
 ……诸如此类。自然数的信息被表现在 $f$ 的层叠数目上，对其计算只需用 $s$ 给出的接口添加层叠数即可。
 
-$$succ\ n = \lambda f.\ \lambda s.\ f\ (n\ f\ s)$$
-$$add\ n_1\ n_2 = n_1\ succ\ n_2$$
-$$mult\ n_1\ n_2 = n_1\ (add\ n_2)\ 0$$
+$$\mathrm{succ}\ n = \lambda f.\ \lambda s.\ f\ (n\ f\ s)$$
+$$\mathrm{add}\ n_1\ n_2 = n_1\ \mathrm{succ}\ n_2$$
+$$\mathrm{mult}\ n_1\ n_2 = n_1\ (\mathrm{add}\ n_2)\ 0$$
 
 举个例子。
 ```txt
@@ -245,7 +247,7 @@ cons 1 (cons 2 (cons 3 nil)) // 构造列表示例
 在此之上，**重写系统**是由一个表达式的集合和表达式到表达式之间的重写关系组成的结构，类似于有向图。
 
 ### 记号 {#rewriting-notation}
-因此，所有资料为：表达式的集合 $E$ 与重写关系 $(\to ) \subset E\times E$
+因此，所有资料为：表达式的集合 $E$ 与重写关系 $(\to ) \subset E\times E$.
 
 记 $\stackrel{*}{\to}$ 表示将 $\to$ 应用任意自然数次。
 
@@ -270,17 +272,17 @@ Church–Rosser 定理说，λ 演算具有合流性。
 
 以下将对证明思路进行摘要。
 
-首先，α-等价关系的刻画是易完成的。只需考虑 β-归约，全体的合法 Lambda 表达式记作 $\omega = \omega^{\*}/\sim _\alpha$。
+首先，α-等价关系的刻画是易完成的。只需考虑 β-归约，全体的合法 Lambda 表达式记作 $\omega = \omega^{\*}/\sim _\alpha$.
 
 一步 β-归约是之前定义的 $(\lambda x.\ a)\ b\to a[b/x]$。多步归约就是之前定义的 $\stackrel{\*}{\to}$，我们重新记作 $\twoheadrightarrow$，它也可看作一步 β-归约的自反传递闭包。
 
 证明中最大的难题是归约时，内部的可归约式结构可能被破坏。
 
-为此，我们定义并行归约（parallel reduction），使用符号 $\Longrightarrow$ 标记，满足。
+为此，我们定义并行归约（parallel reduction），使用符号 $\Longrightarrow$ 标记，满足：
 - $x\Longrightarrow x$
 - 若 $M\Longrightarrow M'$ 则 $\lambda x.\ M\Longrightarrow \lambda x.\ M'$
-- 若 $M\Longrightarrow M', N\Longrightarrow N'$ 则 $M\ N\Longrightarrow M'\ N'$
-- 若 $M\Longrightarrow M', N\Longrightarrow N'$ 则 $(\lambda x.\ M)N\Longrightarrow M'[N'/x]$
+- 若 $M\Longrightarrow M'$ 且 $N\Longrightarrow N'$ 则 $M\ N\Longrightarrow M'\ N'$
+- 若 $M\Longrightarrow M'$ 且 $N\Longrightarrow N'$ 则 $(\lambda x.\ M)\ N\Longrightarrow M'[N'/x]$
 
 容易证明并行归约是合流的。
 
