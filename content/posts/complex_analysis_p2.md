@@ -1,5 +1,5 @@
 +++
-title = "【草稿】复分析（二）：间章：Laurent 级数、留数与调和函数"
+title = "复分析（二）：间章：Laurent 级数、留数与调和函数"
 description = "关于 Laurent 级数、留数与调和函数。"
 date = 2025-10-16
 updated = 2025-12-04
@@ -265,7 +265,57 @@ $$\int_{-R}^{R} f(z)\mathrm{d}z + \int_\gamma f(z)\mathrm{d}z = 2\pi\mathrm{i}\c
 ### 性质
 我们回忆实函数 $u(x, y)$ 是调和的，如果 $\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = 0$.
 
-{{ todo() }}
+回顾这个结论：
+
+{% admonition(type="abstract", title="存在共轭调和") %}
+单连通区域 $D$ 上调和函数 $u$ 存在共轭调和函数 $v$，即 $v$ 使得：
+
+$$\frac{\partial v}{\partial x} = - \frac{\partial u}{\partial y},\ \frac{\partial v}{\partial y} = \frac{\partial u}{\partial x}$$
+{% end %}
+
+取定 $z_0 \in D$，考虑：
+
+$$\int_{z_0}^z - \frac{\partial u}{\partial y}\mathrm{d}x + \frac{\partial u}{\partial x}\mathrm{d}y$$
+
+那么存在：
+
+$$\mathrm{d}v = - \frac{\partial u}{\partial y}\mathrm{d}x + \frac{\partial u}{\partial x}\mathrm{d}y$$
+
+即是所求。共轭调和函数使得 $f = u + \mathrm{i}v$ 在 $D$ 内解析。
+
+{% admonition(type="abstract", title="平均值定理") %}
+$u$ 在圆盘 $|z-z_0| < R$ 内调和，则对 $0 \leq r < R$ 有：
+
+$$u(z_0) = \frac{1}{2\pi} \int_0^{2\pi} u(z_0 + re^{\mathrm{i}\theta}) \mathrm{d}\theta$$
+{% end %}
+
+取解析函数 $f = u + \mathrm{i}v$，由 Cauchy 公式有：
+
+$$u(z_0) = \operatorname{Re} \frac{1}{2\pi\mathrm{i}} \int_{|z-z_0|=r} \frac{u(z)+\mathrm{i}v(z)}{z-z_0} \mathrm{d}z = \operatorname{Re} \frac{1}{2\pi\mathrm{i}} \int_0^{2\pi} u(z_0 + re^{\mathrm{i}\theta})\mathrm{i} \mathrm{d}\theta - v(z_0 + re^{\mathrm{i}\theta}) \mathrm{d}\theta$$
+
+{% admonition(type="abstract", title="最大、最小值原理") %}
+$u$ 在区域 $\Omega$ 内调和且非常数，则它在 $\Omega$ 内取不到最大值和最小值。
+{% end %}
+
+令 $M = \sup_{z\in \Omega} u(z)$，不妨设 $M < +\infty$ 且在 $\Omega$ 内的 $z_0$ 处取到。
+
+则考虑 $D(z_0, R) \subseteq \Omega$，由平均值定理知该圆盘内 $u$ 的值恒为 $0$，然后我们可以选取新的中心的圆盘，这样做可以触及所有的点（因为可以连一路径然后使用有限覆盖定理）。
 
 ### Dirichlet 问题
-{{ todo() }}
+作为平均值公式的推广，我们证明：
+
+{% admonition(type="abstract", title="Poisson 公式") %}
+$u$ 在圆盘 $|z-z_0| < R$ 内调和，则对 $0 < r < R$ 及 $|z| < r$ 有：
+
+$$u(z) = \frac{1}{2\pi} \int_0^{2\pi} \frac{r^2-|z|^2}{|re^{\mathrm{i}\theta}-z|^2} u(re^{\mathrm{i}\theta}) \mathrm{d}\theta$$
+{% end %}
+
+使用 Cauchy 公式及 Cauchy 定理证明。
+
+其中 $1/2\pi \cdot (r^2-|z|^2)/|re^{\mathrm{i}\theta}-z|^2 > 0$ 称为 **Poisson 核**。
+
+**Dirichlet 问题**是说：对一个区域 $D$ 及它边界上定义的实连续函数 $u$，是否可给出一个 $\bar{D}$ 上的调和函数，使其在边界上是 $u$.
+
+对单位圆盘，可以由以下 Poisson 积分解决：
+
+$$u(z) = \frac{1}{2\pi} \int_0^{2\pi} \frac{1-|z|^2}{|e^{\mathrm{i}\theta}-z|^2} u(e^{\mathrm{i}\theta}) \mathrm{d}\theta$$
