@@ -1,6 +1,6 @@
 +++
-title = "【草稿】复分析速通指南（二）"
-description = "计划写到 Riemann 单值化定理。"
+title = "【草稿】复分析（二）：间章：Laurent 级数、留数与调和函数"
+description = "关于 Laurent 级数、留数与调和函数。"
 date = 2025-10-16
 updated = 2025-12-04
 
