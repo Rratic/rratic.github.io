@@ -2,7 +2,7 @@
 title = "【草稿】复分析速通指南（二）"
 description = "计划写到 Riemann 单值化定理。"
 date = 2025-10-16
-updated = 2025-12-02
+updated = 2025-12-04
 
 [extra]
 math = true
@@ -201,22 +201,71 @@ $$\sum_{i=1}^n\mathrm{Res}_ {z=z_k}f(z) + \mathrm{Res}_ {z=\infty}f(z) = 0$$
 
 ### 辐角原理
 {% admonition(type="abstract", title="辐角原理") %}
-$f$ 在区域 $D$ 内亚纯，$\Gamma = \partial \Omega$ 是可求长简单闭曲线，且 $f$ 在 $\Gamma$ 上没有零点和极点，则
+$f$ 在区域 $D$ 内亚纯，$\Gamma = \partial \Omega, \Omega\subseteq D$ 是可求长简单闭曲线，且 $f$ 在 $\Gamma$ 上没有零点和极点，则
 
 $$\frac{1}{2\pi\mathrm{i}}\int_\Gamma \frac{f'(z)}{f(z)} \mathrm{d}z$$
 
-等于 $f$ 在 $\Gamma$ 内的零点个数减去极点个数。
+等于 $f$ 在 $\Gamma$ 内的零点个数减去极点个数（记重数）。
 {% end %}
 
-{{ todo() }}
+由 $f$ 在 $\Gamma$ 上没有零点和极点，在 $\Omega$ 内只有有限个零点和极点，设零点 $z_1, \cdots , z_n$，极点 $w_1, \cdots , w_k$，取充分小的 $r$ 使所有的 $D(z_i, r)$ 及 $D(w_j, r)$ 两两不交即可。
+
+实际上此定理说的是这个值等于 $w$ 沿着 $\gamma = f(\Gamma)$ 前进的辐角改变量 $\Delta_\gamma \operatorname{Arg} w$ 除以 $2\pi$.
+
+它的常用推论如下：
+
+{% admonition(type="abstract", title="Rouché 定理") %}
+$f$ 与 $g$ 在区域 $D$ 内解析，$\Gamma = \partial \Omega,\ \Omega\subseteq D$ 是可求长简单闭曲线，且在 $\Gamma$ 上 $|g(z)|<|f(z)|$，则 $f$ 与 $f+g$ 在 $\Gamma$ 内的零点个数（记重数）相同。
+{% end %}
+
+因为 $h=f+g$ 的零点个数减去 $f$ 的零点个数为：
+
+$$\frac{1}{2\pi\mathrm{i}}\int_\Gamma \left[\frac{h'(z)}{h(z)}-\frac{f'(z)}{f(z)}\right] \mathrm{d}z = \frac{1}{2\pi\mathrm{i}}\int_\Gamma \frac{(h/f)'(z)}{(h/f)(z)} \mathrm{d}z = \frac{1}{2\pi} \Delta_\Gamma \operatorname{Arg} \frac{h}{f} = 0$$
+
+{% admonition(type="abstract", title="分歧覆盖定理") %}
+$f$ 在区域 $D$ 内解析，$z_0\in D$ 的像是 $w_0$，$z_0$ 是 $f(z)-w_0$ 的 $m$ 阶零点，则存在 $\rho, \delta > 0$，对任意 $w\in \mathring{D}(w_0, \rho)$ 有 $f(z)-w$ 在 $\mathring{D}(z_0, \delta)$ 内恰有 $m$ 个一阶零点。
+{% end %}
+
+由零点孤立性，可取出 $\delta$ 使 $\mathring{D}(z_0, \delta)$ 上 $f(z)-w_0$ 与 $f'(z)$ 无零点，再取 $\rho = \min_{|z-z_0|=\delta} |f(z)-w_0| > 0$.
+
+有 $|z-z_0|=\delta$ 时，
+
+$$|(f(z)-w) - (f(z)-w_0)| < |f(z)-w_0|$$
+
+使用 Rouché 定理即可。
+
+这意味着，$f(z)-w_0$ 在 $z_0$ 附近的性质与 $z^m$ 在 $0$ 附近的性质近似。
 
 ### 定积分计算
 许多 $\mathbb{R}$ 上难以处理的定积分问题可以放到 $\mathbb{C}$ 上来算。
 
-{{ todo() }}
+一个直接的例子是：
+
+$$\int_0^{2\pi} \frac{\mathrm{d}\theta}{a+b\cos\theta} = \frac{2}{\mathrm{i}}\int_{|z|=1} \frac{\mathrm{d}z}{bz^2+2az+b} = 4\pi \mathrm{Res}_{z=(-a+\sqrt{a^2-b^2})/b} \left(\frac{\mathrm{d}z}{bz^2+2az+b}\right) = \frac{2\pi}{\sqrt{a^2-b^2}}$$
+
+---
+
+对 $f(z) = \frac{1}{(1+z^2)^{n+1}}$，计算 $\int_0^{+\infty} f(x)\mathrm{d}x$ 需要手动建立回路。令 $\gamma$ 是从 $R$ 顺时针转到 $-R$ 的路径，则：
+
+$$\int_{-R}^{R} f(z)\mathrm{d}z + \int_\gamma f(z)\mathrm{d}z = 2\pi\mathrm{i}\cdot\mathrm{Res}_{z=\mathrm{i}} f(z)\mathrm{d}z = \frac{1}{2\mathrm{i}}\cdot\frac{(2n-1)!!}{(2n)!!}$$
+
+令 $R\to+\infty$，则 $\left|\int_\gamma f(z)\mathrm{d}z\right|\to 0$，故结果为 $\frac{(2n-1)!!}{2(2n)!!} \pi$.
+
+---
+
+对 $\int_0^{+\infty} \frac{\sin x}{x} \mathrm{d}x$，我们选取的回路是：
+
+![Residue Half Ring](/images/complex/res_half_ring.svg)
+
+对 $\int_0^{+\infty} \frac{x^{p-1}}{1+x} \mathrm{d}x,\ 0 < p < 1$，我们选取的回路是：
+
+![Residue Key Hole](/images/complex/res_keyhole.svg)
 
 ## 调和函数
 ### 性质
+我们回忆实函数 $u(x, y)$ 是调和的，如果 $\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = 0$.
+
 {{ todo() }}
 
 ### Dirichlet 问题
+{{ todo() }}
