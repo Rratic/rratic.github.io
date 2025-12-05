@@ -63,3 +63,35 @@ Given categories $B$, $C$, and the functor category $B^\mathbf{2}$, show that ea
 这里 $\mathbf{2}$ 是指 $\bullet \to \bullet$，那么发现 $B^\mathbf{2}$ 可以看成是 the category of arrows of $B$.
 
 我们把 $H$ 对应到 $S(c) = \operatorname{dom} H(c)$，$T(c) = \operatorname{cod} H(c)$ 及 $\tau(c) = H(c)$ 即可。
+
+{% admonition(type="question", title="II 5 1") %}
+For small categories $A$, $B$, and $C$ establish a bijection
+
+$$\mathbf{Cat}(A\times B, C) \cong \mathbf{Cat}(A, C^B)$$
+
+and show it natural in $A$, $B$, and $C$. Hence show that $-\times B: \mathbf{Cat} \to \mathbf{Cat}$ has a right adjoint (see Chapter IX).
+{% end %}
+
+这里 $\mathbf{Cat}(X, Y)$ 是指以 $\mathcal{U}$-小范畴的范畴 $\mathbf{Cat}$ 中的对象 $X$，$Y$ 间的态射为对象的范畴，含义与 $Y^X$ 一样。
+
+我们回顾对范畴 $A, B$，其积可以显示地表达为以 $\langle a, b\rangle$ 为对象，以 $\langle a\to a', b\to b'\rangle$ 为态射的范畴。那么对 $A\times B \to C$ 的函子 $f$ 满足，考虑 $g$ 把 $a$ 映到 $b\mapsto f(a, b)$ 是对应的函子。自然变换也是相对应的。
+
+现在验证右伴随 [right adjoint](https://ncatlab.org/nlab/show/right+adjoint) 的定义，对 $F: \mathcal{C} \to \mathcal{D}$ 及 $G: \mathcal{D} \to \mathcal{C}$，称 $G$ 是 $F$ 的右伴随 $F \dashv G$，如果存在自然同构：
+
+$$\Phi: \mathcal{D}(F(-), -) \stackrel{\cong}{\to} \mathcal{C}(-, G(-))$$
+
+那么 $-^B$ 是 $-\times B$ 的右伴随。
+
+{% admonition(type="question", title="II 5 5") %}
+(Hilton-Eckmann). Let $S$ be a set with two (everywhere defined) binary operations $\cdot: S\times S\to S$, $\circ: S\times S\to S$ which both have the same (two-sided) unit element $e$ and which satisfy the interchange identity $(\tau'\cdot\sigma')\circ(\tau\cdot\sigma) = (\tau'\cdot\tau)\circ(\sigma'\cdot\sigma)$. Prove that $\cdot$ and $\sigma$ are equal, and that each is commutative.
+{% end %}
+
+取 $\sigma = \sigma' = e$ 就有 $\cdot \equiv \circ$，交换性也易知。
+
+{% admonition(type="question", title="II 5 6") %}
+Combine Exercise 4 and 5 to prove that the fundamental group of a topological group is abelian.
+{% end %}
+
+在 (4) 中 $\circ$ 是指路径的粘合，$\cdot$ 是指 pointwise product 逐点乘积，即 $(\tau\cdot\sigma)(t) = \tau(t)\sigma(t)$，因为拓扑群是有乘法的。
+
+它们将满足 (5) 条件，从而 $\circ$ 是交换的，从而基本群是交换的。
