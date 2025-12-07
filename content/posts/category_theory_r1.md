@@ -2,6 +2,7 @@
 title = "范畴论练习（一）"
 description = "选做一些 Mac Lane 书上的习题。"
 date = 2025-12-05
+updated = 2025-12-07
 
 [extra]
 math = true
@@ -18,7 +19,9 @@ tags = ["笔记", "数学", "范畴论"]
 
 采取的是 Saunders Mac Lane 的 *Categories for the Working Mathmatician* 第二版。此书包含许多不废话的习题。
 
-{% admonition(type="question", title="II 1-3 2") %}
+交换图表图片是用 [Quiver](https://q.uiver.app/) 绘制的。
+
+{% admonition(type="question", title="Ⅱ 3.2") %}
 Show that the product of two preorders is a preorder.
 {% end %}
 
@@ -28,7 +31,7 @@ Show that the product of two preorders is a preorder.
 
 若 $S$ 也有两个投射函子 $\varphi_P$ 与 $\varphi_Q$，那么 $\phi(s) = (\varphi_P(s), \varphi_Q(s))$ 自然地诱导出的函子使图表交换，使图表交换的条件推出它是唯一的。故 $R$ 确实是积。
 
-{% admonition(type="question", title="II 1-3 5") %}
+{% admonition(type="question", title="Ⅱ 3.5") %}
 Show that the ring of continuous real-valued functions on a topological space is the object function of a contravariant functor on $\mathbf{Top}$ to $\mathbf{Rng}$.
 {% end %}
 
@@ -38,7 +41,7 @@ $\mathbf{Top}$ 是以 $\mathcal{U}$-小的拓扑空间为对象，以连续映�
 
 对连续映射 $\psi: T_1 \to T_2$ 及 $T_2$ 上的连续实值函数 $f: T_2 \to \mathbb{R}$，我们选取的环同态将 $f$ 对应到 $f\circ\psi$.
 
-{% admonition(type="question", title="II 4 1") %}
+{% admonition(type="question", title="Ⅱ 4.1") %}
 For $R$ a ring, describe $R-\mathbf{Mod}$ as a full subcategory of the functor category $\mathbf{Ab}^R$.
 {% end %}
 
@@ -50,13 +53,13 @@ For $R$ a ring, describe $R-\mathbf{Mod}$ as a full subcategory of the functor c
 
 现在验证它是 full 的。对 $f$ 与 $g$ 是左模对应的函子和 $f \stackrel{\bullet}{\to} g$ 的自然变换，这个自然变换对 $\ast$ 给出一个 $M$ 到 $N$ 的群同态 $\phi$，成立环元素 $r$ 对应的图表交换式 $\phi \circ f(r) = g(r) \circ \phi$，从而确实是模同态。
 
-{% admonition(type="question", title="II 4 3") %}
+{% admonition(type="question", title="Ⅱ 4.3") %}
 Let $\mathbf{N}$ be the discrete category of natural numbers. Describe the functor category $\mathbf{Ab^N}$ (commonly known as the category of graded abelian groups).
 {% end %}
 
 看 $\mathbf{N} \to \mathbf{Ab}$ 的函子是什么。每个 $n$ 对应到一个交换群，且 $n$ 到自己的箭头对应到那个交换群的平凡自同构。验证和 [Graded](https://stacks.math.columbia.edu/tag/09MF) 所说相符。
 
-{% admonition(type="question", title="II 4 7") %}
+{% admonition(type="question", title="Ⅱ 4.7") %}
 Given categories $B$, $C$, and the functor category $B^\mathbf{2}$, show that each functor $H: C \to B^\mathbf{2}$ determines two functors $S, T: C \to B$ and a natural transformation $\tau: S \stackrel{\bullet}{\to} T$, and show this assignment $H\mapsto \langle S, T, \tau \rangle$ is a bijection.
 {% end %}
 
@@ -64,7 +67,7 @@ Given categories $B$, $C$, and the functor category $B^\mathbf{2}$, show that ea
 
 我们把 $H$ 对应到 $S(c) = \operatorname{dom} H(c)$，$T(c) = \operatorname{cod} H(c)$ 及 $\tau(c) = H(c)$ 即可。
 
-{% admonition(type="question", title="II 5 1") %}
+{% admonition(type="question", title="Ⅱ 5.1") %}
 For small categories $A$, $B$, and $C$ establish a bijection
 
 $$\mathbf{Cat}(A\times B, C) \cong \mathbf{Cat}(A, C^B)$$
@@ -82,16 +85,103 @@ $$\Phi: \mathcal{D}(F(-), -) \stackrel{\cong}{\to} \mathcal{C}(-, G(-))$$
 
 那么 $-^B$ 是 $-\times B$ 的右伴随。
 
-{% admonition(type="question", title="II 5 5") %}
+{% admonition(type="question", title="Ⅱ 5.5") %}
 (Hilton-Eckmann). Let $S$ be a set with two (everywhere defined) binary operations $\cdot: S\times S\to S$, $\circ: S\times S\to S$ which both have the same (two-sided) unit element $e$ and which satisfy the interchange identity $(\tau'\cdot\sigma')\circ(\tau\cdot\sigma) = (\tau'\cdot\tau)\circ(\sigma'\cdot\sigma)$. Prove that $\cdot$ and $\sigma$ are equal, and that each is commutative.
 {% end %}
 
 取 $\sigma = \sigma' = e$ 就有 $\cdot \equiv \circ$，交换性也易知。
 
-{% admonition(type="question", title="II 5 6") %}
+{% admonition(type="question", title="Ⅱ 5.6") %}
 Combine Exercise 4 and 5 to prove that the fundamental group of a topological group is abelian.
 {% end %}
 
 在 (4) 中 $\circ$ 是指路径的粘合，$\cdot$ 是指 pointwise product 逐点乘积，即 $(\tau\cdot\sigma)(t) = \tau(t)\sigma(t)$，因为拓扑群是有乘法的。
 
 它们将满足 (5) 条件，从而 $\circ$ 是交换的，从而基本群是交换的。
+
+{% admonition(type="question", title="Ⅱ 6.2") %}
+If $t$ is a terminal object in $C$, prove that $(C\downarrow t)$ is isomorphic to $C$.
+{% end %}
+
+由于是终对象，每一个 $C$ 中的对象 $c$ 唯一对应到 $(C\downarrow t)$ 中的对象 $c\to t$.
+
+{% admonition(type="question", title="Ⅱ 6.5") %}
+Given any commutative diagram of categories and functors
+
+![逗号范畴-别](/images/diagram/comma_category_another.png)
+
+(bottom row as in
+
+![逗号范畴](/images/diagram/comma_category.png)
+
+![逗号范畴-解释](/images/diagram/comma_category_expl.png)
+
+), prove that there is a unique functor $L: X \to (T\downarrow S)$ for which $P'=PL$, $Q'=QL$ and $R'=RL$. (This describes $(T\downarrow S)$ as a "pull-back", cf. §Ⅲ.4.)
+{% end %}
+
+对 $x\in \mathrm{Ob}(X)$，取 $e$ 是 $P'(x)$，取 $d$ 是 $Q'(x)$，取 $f$ 是通过使得 $R\circ L = R'$，然后验证。
+
+{% admonition(type="question", title="Ⅱ 7.2") %}
+Show that every finite ordinal number is a free category.
+{% end %}
+
+这里有限序数是指把自然数 $n$ 看作 $\\{0, 1, \cdots, n-1\\}$，即集合论中无穷公理给的那个构造，并令 $i \to j$ 若 $i \leq j$.
+
+易见它是由图 $0 \to 1 \to \cdots \to n-1$ 生成的自由范畴。
+
+{% admonition(type="question", title="Ⅲ 1.1") %}
+Show how each of the following familiar constructions can be interpreted as a universal arrow:
+1. The integral group ring of a group (better, of a monoid).
+2. The tensor algebra of a vector space.
+3. The exterior algebra of a vector space.
+{% end %}
+
+回忆一个幺半群上的整群环 integral group ring $\mathbb{Z}[M]$ 是指：取元素为形式有限和 $\sum_{g\in G} a_g g$，其中 $a_g\in\mathbb{Z}$，并令加法是按分量，乘法是：
+
+$$\left(\sum_{g\in G} a_g g\right)\left(\sum_{h\in G} b_h h\right) = \sum_{g, h\in G} (a_gb_h) (gh)$$
+
+考虑把环映到乘法幺半群的遗忘函子 $U: \mathbf{Ring} \to \mathbf{Mon}$，有：
+
+![整群环的泛态射表述](/images/diagram/universal_integral_group_ring.png)
+
+---
+
+回忆 $F$-向量空间 $V$ 上的张量代数是指：
+
+$$TV = \bigoplus_{p=0}^\infty V^{\otimes n}$$
+
+其中：
+
+$$V^{\otimes n} = \underbrace{V \otimes\cdots \otimes V}_n$$
+
+在 $n = 0$ 时定义为 $F$.
+
+取乘法是类似于多项式乘法地进行 $\otimes: V^{\otimes n}\times V^{\otimes m} \to V^{\otimes (n+m)}$，这给出了分级的 $F$-代数/结合代数。
+
+考虑忘却 $F$-代数的结构的遗忘函子 $U: \mathbf{Alg}_F \to \mathbf{Vect}_F$，有：
+
+![张量代数的泛态射表述](/images/diagram/universal_tensor_algebra.png)
+
+这是因为对 $v\in V$，有 $f'((0, (v), \cdots)) = f(v)$，而 $TV$ 中的元素均可由所有 $(0, (v), \cdots)$ 经乘法与加法生成，这保证了唯一性。而张量代数不引入额外的等同关系，保证了存在性。
+
+---
+
+回忆 $F$-向量空间 $V$ 上的外代数是指：对张量代数商去所有形如 $v\otimes v$ 的元素生成的双边理想。
+
+类似于 (2) 的 $\mathbf{Alg}_F$，讨论的是忘却反交换 $F$-代数的结构的遗忘函子 $U: \mathbf{AltAlg}_F \to \mathbf{Vect}_F$.
+
+{% admonition(type="question", title="Ⅲ 1.2") %}
+Find a universal element for the contravariant power set function $\mathscr{P}: \mathbf{Set}^\mathrm{op} \to \mathbf{Set}$.
+{% end %}
+
+这里 $\mathscr{P}$ 将 $X$ 映到 $\\{S | S \subseteq X\\}$，将 $f^\mathrm{op}: Y \to X$ 映到 $S \mapsto f^{-1}[S]$.
+
+我们取 $r = \\{a\\}$ 及 $e = \\{a\\}$ 即可。此时 $f$ 的选取方式是，若在 $x$ 中则映到 $a$，否则映到 $b$.
+
+![反变幂集函子的泛元素](/images/diagram/universal_power_set.png)
+
+{% admonition(type="question", title="Ⅲ 1.4") %}
+Use only universality (of projections) to prove the following isomorphisms of group theory:
+1. For normal subgroups $M$, $N$ of $G$ with $M \subset N$, $(G/M)/(N/M) \cong (G/M)$.
+2. For subgroups $S$ and $N$ of $G$, $N$ normal, with join $SN$, $SN/N \cong S/S\cap N$.
+{% end %}
