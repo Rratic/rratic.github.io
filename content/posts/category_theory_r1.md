@@ -185,3 +185,15 @@ Use only universality (of projections) to prove the following isomorphisms of gr
 1. For normal subgroups $M$, $N$ of $G$ with $M \subset N$, $(G/M)/(N/M) \cong (G/M)$.
 2. For subgroups $S$ and $N$ of $G$, $N$ normal, with join $SN$, $SN/N \cong S/S\cap N$.
 {% end %}
+
+先来考虑商群的泛性质是什么。对 $p: G \to G/N$，对 $N\subseteq \ker \varphi$，有：
+
+![商群的泛性质](/images/diagram/universal_quotient_group.png)
+
+对 (1) 来说，考虑下图。如果我没有搞错的话，它是不言自明的。然后使用一般的技术（分别放到 $H$ 的位置上）就可说明同构。
+
+![第二同构定理](/images/diagram/group_second_isomorphism.png)
+
+对 (2) 来说，考虑下图。其中 $\tau$ 是自然的嵌入。
+
+![第三同构定理](/images/diagram/group_third_isomorphism.png)
