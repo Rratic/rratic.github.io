@@ -1,8 +1,8 @@
 +++
 title = "范畴论练习（一）"
-description = "选做一些 Mac Lane 书上的习题。"
+description = "选做一些 Mac Lane 书上的习题（到 Ⅲ. Universals and Limits 的 1. Universal Arrows）。"
 date = 2025-12-05
-updated = 2025-12-07
+updated = 2025-12-08
 
 [extra]
 math = true
