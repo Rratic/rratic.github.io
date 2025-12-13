@@ -1,6 +1,6 @@
 +++
 title = "微分与微分形式"
-description = "关于 ∂/∂x, df, dx, d, df/dx 等记号本质上/在一般的流形上是什么。"
+description = "关于 ∂/∂x, df, dx, d, df/dx 等记号本质上/在一般的流形上是什么（并没有到层论视角）。"
 date = 2025-11-19
 updated = 2025-11-24
 

@@ -2,7 +2,7 @@
 title = "Agda 学习（一）"
 description = "类型论的实践：函数式程序推理与演算。Agda 中的证明、归纳、列表、Internal Verification 和等式理论。"
 date = 2025-11-12
-updated = 2025-12-03
+updated = 2025-12-13
 
 [extra]
 toc = true
@@ -442,4 +442,34 @@ x ∎ = refl
   ≡⟨ cong suc (+-suc m n) ⟩
     suc (suc (m + n))
   ∎
+```
+
+有时 `cong` 的第一个参数很难用 `a +_` 之类的方式表达，就可使用 `λ` 生成匿名函数，如 `λ h → map (foldl _⊙_ o) ([] ∷ h)`.
+
+## 拾遗
+### Record
+可以用 `record` 关键字把一组对象的某些性质聚合起来，在使用时可用 `.fieldname` 调用。
+
+下面的例子相当于是说在自然数类型下 `+` 构成半群的二元运算，`(0, +)` 构成幺半群的幺元和二元运算。
+```agda
+open import Data.Nat using (_+_)
+
+record IsSemigroup {A : Set} (_⊕_ : A → A → A) : Set where
+  field assoc : ∀ x y z → (x ⊕ y) ⊕ z ≡ x ⊕ (y ⊕ z)
+
+open import Data.Nat.Properties using (+-assoc)
+ℕ-add-is-semigroup : IsSemigroup _+_
+ℕ-add-is-semigroup .assoc = +-assoc
+
+record IsMonoid {A : Set} (e : A) (_⊕_ : A → A → A) : Set where
+  field
+    is-semigroup : IsSemigroup _⊕_
+    identityˡ : ∀ x → e ⊕ x ≡ x
+    identityʳ : ∀ x → x ⊕ e ≡ x
+
+open import Data.Nat.Properties using (+-identityˡ; +-identityʳ)
+ℕ-add-is-monoid : IsMonoid 0 _+_
+ℕ-add-is-monoid .is-semigroup = ℕ-add-is-semigroup
+ℕ-add-is-monoid .identityˡ = +-identityˡ
+ℕ-add-is-monoid .identityʳ = +-identityʳ
 ```
