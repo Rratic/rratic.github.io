@@ -153,19 +153,17 @@ $f$ 为区域 $D$ 上的处处非 0 全纯函数，则存在 $g^n = f$
 若多项式 $P$ 的零点均在某个半平面 $H$ 内，则 $P'$ 的零点也在 $H$ 内。从而，$P'$ 的零点在 $P$ 的零点组成的凸包内。
 {% end %}
 
-我们在之后证明代数基本定理。
+我们先假设代数基本定理是对的（这会在之后证明）。
 
-设 $P(z) = k\prod_{i=1}^n (z-z_i)$，则 $\frac{P'(z)}{P(z)} = \sum_{i=1}^n \frac{1}{z-z_i}$
+设 $P(z) = k\prod_{i=1}^n (z-z_i)$，则有 $\frac{P'(z)}{P(z)} = \sum_{i=1}^n \frac{1}{z-z_i}$.
 
-记半平面 $H\colon \operatorname{Im} \frac{z-a}{b}<0$
-
-分析 $\operatorname{Im} \frac{bP'(z)}{P(z)} = \sum_{i=1}^n \operatorname{Im} \frac{b}{z-z_i}$ 即可。
+考虑半平面 $H\colon \operatorname{Im} \frac{z-a}{b}<0$，分析 $\operatorname{Im} \frac{bP'(z)}{P(z)} = \sum_{i=1}^n \operatorname{Im} \frac{b}{z-z_i}$ 即可。
 
 {% admonition(type="abstract", title="幂级数的收敛圆") %}
 对幂级数 $a_0+a_1z+a_2z^2+\cdots$，存在扩展实数 $0\leq r\leq \infty$ 满足
-1. 对 $|z|<r$ 级数收敛
-2. 对 $|z|>r$ 级数发散
-3. 在 $|z|<r$ 内级数的和是解析函数，导数可由逐项微分得到，对应的收敛半径相同。
+1. 对 $|z| < r$，级数收敛
+2. 对 $|z| > r$，级数发散
+3. 在 $|z| < r$，内级数的和是解析函数，导数可由逐项微分得到，对应的收敛半径相同。
 {% end %}
 
 取 $\frac{1}{r} = \lim_{n \to \infty}\sup\sqrt[n]{|a_n|}$.
@@ -187,7 +185,7 @@ $f$ 为区域 $D$ 上的处处非 0 全纯函数，则存在 $g^n = f$
 
 可以通过球极投影建立它与二维球面 $\mathbb{S}^2$ 的一一映射，使它们的拓扑是一样。从而，可以在球面中看到扩充复平面的极限定义，并看到扩充复平面是 $\mathbb{C}$ 的一个紧致化。
 
-同时，可以将它看作复射影直线 $\mathbb{C}\mathrm{P}^1$，其中 $z = \frac{z_1}{z_2}$ 写作 $\begin{pmatrix}z_1\\\\ z_2\end{pmatrix}$，这体现了它的射影性质。
+同时，可以将它看作复射影直线 $\mathbb{C}\mathrm{P}^1$，其中 $z = \frac{z_1}{z_2}$ 写作 $\binom{z_1}{z_2}$，这体现了它的射影性质。
 
 ### 分式线性变换
 分式线性变换是重要的解析函数例子，指

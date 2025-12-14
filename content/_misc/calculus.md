@@ -26,9 +26,12 @@ tags = ["数学", "微积分学"]
 ### 一元函数
 - 极限（左右极限，无穷小代换）
 - 连续性（连续 $C(U)$，间断点，一致连续，Lipschitz 连续，Hölder 连续）
-- 可导性（导数 $f'$，Dini 导数，Schwarz 型导数，导数连续性 $C^k(U)$，光滑性 $C^{\infty}(U)$，中值定理）
-- 求导（L’Hôpital 法则，Taylor 定理，解析性 $C^{\omega}(U)$）
-- Riemann 积分（积分 $\int_a^b f(x) dx$，Riemann 和，Darboux 上下和，Newton–Leibniz 公式，Riemann 可积性，反常积分）
+- 导数与微分（导数 $f'$，Dini 导数，Schwarz 型导数，微分 $\mathrm{d}x$，导数连续性 $C^k(U)$，导数存在性 $D^k(U)$，光滑性 $C^{\infty}(U)$）
+- 中值定理（Rolle 中值定理，Lagrange 中值定理，Cauchy 中值定理）
+- L’Hôpital 法则
+- Taylor 展开式（Peano 余项，Lagrange 余项）
+- Riemann 积分（积分 $\int_a^b f(x) \mathrm{d}x$，Riemann 和，Darboux 上下和，Newton–Leibniz 公式，Riemann 可积性，反常积分）
+- 解析性 $C^{\omega}(U)$
 - Lebesgue 积分
 
 ### 多元函数
