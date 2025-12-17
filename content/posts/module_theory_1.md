@@ -1,6 +1,6 @@
 +++
 title = "【草稿】模论（一）"
-date = 2025-11-15
+draft = true
 
 [extra]
 math = true

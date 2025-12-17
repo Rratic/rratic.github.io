@@ -1,7 +1,8 @@
 +++
 title = "文章列表"
+template = "archive.html"
 
-paginate_by = 8
-sort_by = "date"
-page_template = "page.html"
+[extra]
+section = "_index.md"
+date_format = "%m-%d"
 +++

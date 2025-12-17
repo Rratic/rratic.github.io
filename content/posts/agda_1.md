@@ -1,5 +1,5 @@
 +++
-title = "Agda 学习（一）"
+title = "Agda 学习（一）：完成简单证明的一切"
 description = "类型论的实践：函数式程序推理与演算。Agda 中的证明、归纳、列表、Internal Verification 和等式理论。"
 date = 2025-11-12
 updated = 2025-12-13

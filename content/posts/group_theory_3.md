@@ -1,8 +1,7 @@
 +++
 title = "【草稿】群论（三）：特征子群与 Hall 定理"
 description = "（外）自同构，内自同构，特征子群，特征单群与 Hall 定理。"
-date = 2025-08-08
-updated = 2025-09-29
+draft = true
 
 [extra]
 math = true

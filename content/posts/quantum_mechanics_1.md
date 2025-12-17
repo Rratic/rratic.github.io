@@ -1,8 +1,7 @@
 +++
 title = "【草稿】《初识量子力学》笔记"
 description = "《初识量子力学》是一个理顺量子力学理论的尝试。"
-date = 2025-10-05
-updated = 2025-10-27
+draft = true
 
 [extra]
 math = true

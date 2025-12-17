@@ -16,6 +16,7 @@ tags = ["说明"]
 - 将 Linkita 更新到 v4
 - 修改了大量的路径，如 `category-theory-p1` 改为 `category-theory-1`；`category-theory-r1` 改为 `category-theory-exercise-1`
 - 新增了新的 `admonition` 类型并替换一些原有的使用
+- 改为以 `archive` 模板展示文章列表
 - 对此次更新之后**完成**的文章，参数 `date` 将由完成时间而非大纲产出时间而定，在此之前考虑使用参数 `draft = true`
 {% end %}
 
