@@ -15,6 +15,13 @@ categories = ["知识"]
 tags = ["笔记", "数学", "范畴论"]
 +++
 
+<style>
+	img:where(.dark,.dark *) {
+        --tw-invert:invert(100%);
+        filter: var(--tw-blur,)var(--tw-brightness,)var(--tw-contrast,)var(--tw-grayscale,)var(--tw-hue-rotate,)var(--tw-invert,)var(--tw-saturate,)var(--tw-sepia,)var(--tw-drop-shadow,)
+    }
+</style>
+
 感觉之前并没有学明白，需要做一些习题。
 
 采取的是 Saunders Mac Lane 的 *Categories for the Working Mathmatician* 第二版。此书包含许多不废话的习题。

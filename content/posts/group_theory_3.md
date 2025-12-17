@@ -24,7 +24,7 @@ tags = ["笔记", "数学", "代数", "抽象代数", "群论"]
 内自同构群 $\mathrm{Inn}(G)$ 为全体内自同构 $\sigma: a\mapsto g^{-1}ag$ 构成的群。
 
 ## 特征子群
-{% admonition(type="abstract", title="特征子群") %}
+{% admonition(type="definition", title="特征子群") %}
 称 $G$ 的子群 $H$ 为它的**特征子群**，如果 $\sigma(H)\subseteq H, \forall \sigma\in\mathrm{Aut}(G)$
 {% end %}
 
@@ -40,7 +40,7 @@ tags = ["笔记", "数学", "代数", "抽象代数", "群论"]
 - Omega 子群
 
 ## Hall 定理
-{% admonition(type="abstract", title="Hall 定理") %}
+{% admonition(type="theorem", title="Hall 定理") %}
 若 $G$ 是 $mn$ 阶可解群，其中 $(n,m)=1$，则它
 1. 存在 $m$ 阶子群
 2. 任意两个 $m$ 阶子群共轭

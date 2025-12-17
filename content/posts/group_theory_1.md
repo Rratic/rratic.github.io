@@ -58,7 +58,7 @@ $$
 ## Pólya 计数法
 使用 Pólya 计数法是为了解决这样的问题：我们对所有的可能计数，并且将具有特定对称性的视作同一种（见下面的例子）。
 
-{% admonition(type="abstract", title="Burnside 引理") %}
+{% admonition(type="theorem", title="Burnside 引理") %}
 $\varphi$ 对应的轨道数为 $\frac{1}{|G|} \sum_{g\in G}|X(g)|$，其中 $X(g) = \\{x\mid x^g = x\\}$
 {% end %}
 
@@ -114,7 +114,7 @@ $$|G| = |Z(G)| + \sum |G\colon C_G(y_i)|$$
 
 可以参考证明的[启发式推导过程](https://zhuanlan.zhihu.com/p/358852225)。
 
-{% admonition(type="abstract", title="第一 Sylow 定理") %}
+{% admonition(type="theorem", title="第一 Sylow 定理") %}
 对有限群 $G$ 和素数 $p$ 使 $p^k\mid |G|$，$G$ 存在 $p^k$ 阶子群。
 {% end %}
 
@@ -126,7 +126,7 @@ $$|G| = |Z(G)| + \sum |G\colon C_G(y_i)|$$
 - 若 $p\mid Z(G)$，由于它是交换的，有 p 阶子群。考察它和对应的商群，使用归纳假设。
 - 若 $p\nmid Z(G)$，由类方程，存在一个 $p\nmid \mathrm{Orb}(y_i)$，有 $p^l\parallel C_G(y_i)$，使用归纳假设。
 
-{% admonition(type="abstract", title="第二 Sylow 定理") %}
+{% admonition(type="theorem", title="第二 Sylow 定理") %}
 对 $p^k\mid |G|$，Sylow p 子群 $P$，$p^k$ 阶子群必为 $P$ 的某个共轭的子群。
 {% end %}
 
@@ -140,7 +140,7 @@ $$|G| = |Z(G)| + \sum |G\colon C_G(y_i)|$$
 
 对应 $h\in aPa^{-1}$ 即 $H\subseteq aPa^{-1}$
 
-{% admonition(type="abstract", title="第三 Sylow 定理") %}
+{% admonition(type="theorem", title="第三 Sylow 定理") %}
 对 $p^l\parallel |G|, |G|=p^lm$，Sylow p 子群个数 $r$，则 $r\equiv 1\pmod{p}, r\mid m$
 {% end %}
 
@@ -158,8 +158,8 @@ $$|G| = |Z(G)| + \sum |G\colon C_G(y_i)|$$
 
 由第二定理知 $G$ 在 $\Omega$ 上的共轭作用使 $\Omega$ 成为轨道，$r=|\Omega|\big| |G|$，即 $r\mid m$
 
-{% admonition(type="abstract", title="p·q 阶群分类") %}
-对素数 $p<q$，$pq$ 阶群在 $q\not\equiv 1\pmod{p}$ 时只有循环群。
+{% admonition(type="theorem", title="p·q 阶群分类") %}
+对素数 $p < q$，$pq$ 阶群在 $q\not\equiv 1\pmod{p}$ 时只有循环群。
 {% end %}
 
 取 Sylow p 子群及 Sylow q 子群，由第三定理知个数均为 1，从而分别是正规的

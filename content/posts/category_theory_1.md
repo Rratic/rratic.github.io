@@ -38,7 +38,7 @@ tags = ["笔记", "数学", "范畴论"]
 
 这些定义实际上体现了两种不同的泛性质。
 
-{% admonition(type="abstract", title="积") %}
+{% admonition(type="definition", title="积") %}
 对范畴 $\mathcal{C}$，称 $P$ 是一族 $\\{X_i\\}_{i\in I}$ 的**积**，如果存在一族态射 $\pi_i\colon P\to X_i$ 使任一族态射 $\varphi_i\colon Y\to X_i$，存在唯一的 $\phi: Y\to P$ 使 $\pi_i\circ\phi=\varphi_i$.
 {% end %}
 
@@ -49,7 +49,7 @@ tags = ["笔记", "数学", "范畴论"]
 ---
 
 积的对偶是**余积**（或称**上积**，上的译法可能来自画图时的方向；或称**和**），即：
-{% admonition(type="abstract", title="余积") %}
+{% admonition(type="definition", title="余积") %}
 称 $P$ 是一族 $\\{X_i\\}_{i\in I}$ 的余积，如果存在一族态射 $\iota_i\colon X_i\to P$ 使任一族态射 $\varphi_i\colon X_i\to Y$，存在唯一的 $\phi: P\to Y$ 使 $\phi\circ\iota_i=\varphi_i$.
 {% end %}
 
@@ -74,13 +74,13 @@ $I=\emptyset$ 时定义空积为始对象。
 
 纤维积对应的是拉回。
 
-{% admonition(type="abstract", title="拉回") %}
+{% admonition(type="definition", title="拉回") %}
 对于对象 $B, C, D$ 与态射 $B\to D, C\to D$，它们的**拉回**是对象 $A$ 及态射 $A\to B, A\to C$，满足泛性质：对另一组对象 $A'$ 及态射 $A'\to B, A'\to C$，存在唯一的态射 $A'\to A$ 使图表交换。
 {% end %}
 
 拉回可以由积和等化子确定。
 
-{% admonition(type="abstract", title="等化子") %}
+{% admonition(type="definition", title="等化子") %}
 对 $A\overset{\quad f\quad}{\underset{g}{\rightrightarrows}} B$，称对象 $E$ 及态射 $e:E\to A$ 为它们的**等化子**，如果对任意 $z:Z\to A$ 有唯一的态射 $Z\to E$ 使图表交换。
 {% end %}
 
@@ -90,7 +90,7 @@ $I=\emptyset$ 时定义空积为始对象。
 
 使用拉回可以定义一般的核 $\ker f$ 概念。
 
-{% admonition(type="abstract", title="核") %}
+{% admonition(type="definition", title="核") %}
 对范畴 $\mathcal{C}$ 及零对象 $0$，态射 $f: X\to Y$，$f$ 的**核**为 $f$ 与 $u:0\to Y$ 的拉回。
 {% end %}
 

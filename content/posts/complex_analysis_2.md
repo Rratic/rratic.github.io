@@ -44,7 +44,7 @@ $$f(z) = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = R'}\frac{f(w)}{w-z}\mathrm{d}w 
 
 例如，对 $f(z) = \frac{1}{\sin \frac{1}{z}}$，有 $\frac{1}{k\pi}$ 与 $\infty$ 是它的孤立奇点，但 $0$ 不是。
 
-{% admonition(type="abstract", title="孤立奇点分类") %}
+{% admonition(type="definition", title="孤立奇点分类") %}
 如果存在 $g$ 补上 $z_0$ 处的值，使得它在 $z_0$ 的邻域上解析，则称 $f$ 可以解析开拓到 $z_0$，且 $z_0$ 称为它的**可去奇点**。
 
 否则，若 $\frac{1}{f(z)}$ 可解析开拓到 $z_0$，则称 $z_0$ 为它的**极点**。
@@ -54,7 +54,7 @@ $$f(z) = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = R'}\frac{f(w)}{w-z}\mathrm{d}w 
 
 我们有以下结论：
 
-{% admonition(type="info", title="孤立奇点") %}
+{% admonition(type="theorem", title="孤立奇点") %}
 以下条件等价：
 1. $z_0$ 是可去奇点。
 2. $\lim_{z\to z_0} f(z)$ 在 $\mathbb{C}$ 上存在。
@@ -72,7 +72,7 @@ $$a_n = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = \varepsilon}\frac{f(w)}{(w-z_0)^
 
 令 $\varepsilon\to 0$ 知主部为 $0$.
 
-{% admonition(type="info", title="极点") %}
+{% admonition(type="theorem", title="极点") %}
 以下条件等价：
 1. $z_0$ 是极点。
 2. $z_0$ 是 $\frac{1}{f(z)}$ 的零点。
@@ -84,7 +84,7 @@ $$a_n = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = \varepsilon}\frac{f(w)}{(w-z_0)^
 
 设 $z_0$ 是 $\frac{1}{f(z)}$ 的 $m$ 阶零点，在邻域内展为 $(z-z_0)^m g(z)$，再由 $\frac{1}{g(z)}$ 解析即可。
 
-{% admonition(type="info", title="本性奇点") %}
+{% admonition(type="theorem", title="本性奇点") %}
 以下条件等价：
 1. $z_0$ 是本性奇点。
 2. $\lim_{z\to z_0} f(z)$ 在 $\bar{\mathbb{C}}$ 中不存在。
@@ -95,7 +95,7 @@ $$a_n = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = \varepsilon}\frac{f(w)}{(w-z_0)^
 
 在 [Classification of Singularities](https://complex-analysis.com/content/classification_of_singularities.html) 你可以看到很多与奇点有关的函数的彩色绘制；也可阅读 [着色器（二）](/posts/shader-2/) 中对应的内容。
 
-{% admonition(type="abstract", title="Weierstrass 定理") %}
+{% admonition(type="theorem", title="Weierstrass 定理") %}
 若 $z_0$ 是 $f$ 的一个本性奇点，则对任意 $\varepsilon>0$，$f(\mathring{D}(z_0, \varepsilon))$ 在 $\mathbb{C}$ 中稠密。
 {% end %}
 
@@ -104,19 +104,19 @@ $$a_n = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = \varepsilon}\frac{f(w)}{(w-z_0)^
 令 $g(z) = \frac{1}{f(z)-z^\star}$，有 $|g(z)|\leq \frac{1}{\delta}$，从而 $z_0$ 是 $g$ 的可去奇点，只能是 $f$ 的可去奇点或极点，与条件矛盾。
 
 更进一步，我们有 Picard 大定理：
-{% admonition(type="abstract", title="Picard 大定理") %}
+{% admonition(type="theorem", title="Picard 大定理") %}
 $z_0$ 是 $f$ 的一个本性奇点，且 $f$ 在 $\mathring{D}(z_0, \varepsilon)$ 上解析，则对任意 $0<\varepsilon<R$，集合 $\mathbb{C}-f(\mathring{D}(z_0, \varepsilon))$ 至多包含一个点。
 {% end %}
 
 甚至还有更强的结论 Julia 定理。
 
-{% admonition(type="abstract", title="Julia 定理") %}
+{% admonition(type="theorem", title="Julia 定理") %}
 $z_0$ 是 $f$ 的一个本性奇点，则存在 $\theta\in [0, 2\pi)$，对任意 $\epsilon>0$ 及 $\omega\in\mathbb{C}$（至多存在一个例外），在 $|\arg (z-z_0) - \theta| < \epsilon$ 中 $f(z)=\omega$ 有无穷多解。
 {% end %}
 
 此证明将略过。
 
-{% admonition(type="abstract", title="全纯自同胚") %}
+{% admonition(type="theorem", title="全纯自同胚") %}
 $f:\mathbb{C}\to\mathbb{C}$ 是全纯自同胚当且仅当它形如 $az+b\ (a\neq 0)$.
 {% end %}
 
@@ -131,7 +131,7 @@ $f:\mathbb{C}\to\mathbb{C}$ 是全纯自同胚当且仅当它形如 $az+b\ (a\ne
 
 一个区域上的亚纯函数全体构成一个域，记作 $m(\Omega)$.
 
-{% admonition(type="abstract", title="Mittag-Leffler 问题的 $\mathbb{C}$ 版本") %}
+{% admonition(type="theorem", title="Mittag-Leffler 问题的 $\mathbb{C}$ 版本") %}
 设 $\\{z_n\\}$ 是无重复项的点列，且 $\lim_{n\to+\infty}z_n = \infty$，每个 $n$ 对应一个
 
 $$L_n(z) = \frac{a_{n_1}}{z-z_n} + \frac{a_{n_2}}{(z-z_n)^2} + \cdots + \frac{a_{n_{m_n}}}{(z-z_n)^{m_n}}$$
@@ -147,7 +147,7 @@ $$\max_{z\in\overline{D(0, k)}} \\{|L_k(z)-P_k(z)|\\} \lt a_k,\ k=1,2,\cdots,n-1
 
 令 $f(z) = \sum_{k=1}^{+\infty} [L_k(z) - P_k(z)]$，它即是所求。
 
-{% admonition(type="abstract", title="有理函数") %}
+{% admonition(type="theorem", title="有理函数") %}
 $\bar{\mathbb{C}}$ 上的亚纯函数都是有理函数。
 {% end %}
 
@@ -161,7 +161,7 @@ $$L_\infty(z) = b_1z + b_2z^2 + \cdots + b_mz^m$$
 
 利用此可以说明 $\bar{\mathbb{C}}$ 到 $\bar{\mathbb{C}}$ 的全纯自同胚只能是分式线性变换，这是因为考虑 $P(z)/Q(z)$，一一映射要求 $P$ 与 $Q$ 都是一次的。
 
-{% admonition(type="abstract", title="Cousin 问题 2 的 $\mathbb{C}$ 版本") %}
+{% admonition(type="theorem", title="Cousin 问题 2 的 $\mathbb{C}$ 版本") %}
 $\\{z_n\\}$ 是无重复项的点列，且 $\lim_{n\to+\infty}z_n = \infty$，又正整数列 $\\{m_n\\}$，则存在解析函数 $f$，使 $f$ 所有零点是 $\\{z_n\\}$，且在 $z_n$ 处零点的阶数是 $m_n$.
 {% end %}
 
@@ -187,7 +187,7 @@ $$\frac{1}{2\pi\mathrm{i}}\int_{|z-z_0|=\rho} f(z)\mathrm{d}z = a_{-1}$$
 
 在 $z_0$ 为 $m$ 阶零点时，其邻域内有 $f(z) = \frac{1}{(z-z_0)^m}g(z)$，设 $g$ 在 $z_0$ 处的 Taylor 展开式为 $\sum_{n=0}^{+\infty}\frac{1}{n!}g^{(n)}(z_0)(z-z_0)^n$，就有 $\mathrm{Res}_{z=z_0} f(z)\mathrm{d}z = \frac{1}{(m-1)!}g^{(m-1)}(z_0)$.
 
-{% admonition(type="abstract", title="留数定理") %}
+{% admonition(type="theorem", title="留数定理") %}
 $\Omega$ 是 $\bar{\mathbb{C}}$ 中以有限条逐段光滑曲线为边界的区域且 $\infty\notin\partial\Omega$，其内部有点 $z_1, z_2, \cdots ,z_n$，设 $f$ 在 $\Omega$ 中除这些点之外解析，在 $\bar{\Omega}$ 中除这些点之外连续，则：
 
 $$\int_{\partial\Omega} f(z)\mathrm{d}z = 2\pi\mathrm{i}\sum_{i=1}^n\mathrm{Res}_{z=z_k}f(z)$$
@@ -200,7 +200,7 @@ $$\int_{\partial\Omega} f(z)\mathrm{d}z = 2\pi\mathrm{i}\sum_{i=1}^n\mathrm{Res}
 $$\sum_{i=1}^n\mathrm{Res}_ {z=z_k}f(z) + \mathrm{Res}_ {z=\infty}f(z) = 0$$
 
 ### 辐角原理
-{% admonition(type="abstract", title="辐角原理") %}
+{% admonition(type="theorem", title="辐角原理") %}
 $f$ 在区域 $D$ 内亚纯，$\Gamma = \partial \Omega, \Omega\subseteq D$ 是可求长简单闭曲线，且 $f$ 在 $\Gamma$ 上没有零点和极点，则
 
 $$\frac{1}{2\pi\mathrm{i}}\int_\Gamma \frac{f'(z)}{f(z)} \mathrm{d}z$$
@@ -214,7 +214,7 @@ $$\frac{1}{2\pi\mathrm{i}}\int_\Gamma \frac{f'(z)}{f(z)} \mathrm{d}z$$
 
 它的常用推论如下：
 
-{% admonition(type="abstract", title="Rouché 定理") %}
+{% admonition(type="theorem", title="Rouché 定理") %}
 $f$ 与 $g$ 在区域 $D$ 内解析，$\Gamma = \partial \Omega,\ \Omega\subseteq D$ 是可求长简单闭曲线，且在 $\Gamma$ 上 $|g(z)|<|f(z)|$，则 $f$ 与 $f+g$ 在 $\Gamma$ 内的零点个数（记重数）相同。
 {% end %}
 
@@ -222,7 +222,7 @@ $f$ 与 $g$ 在区域 $D$ 内解析，$\Gamma = \partial \Omega,\ \Omega\subsete
 
 $$\frac{1}{2\pi\mathrm{i}}\int_\Gamma \left[\frac{h'(z)}{h(z)}-\frac{f'(z)}{f(z)}\right] \mathrm{d}z = \frac{1}{2\pi\mathrm{i}}\int_\Gamma \frac{(h/f)'(z)}{(h/f)(z)} \mathrm{d}z = \frac{1}{2\pi} \Delta_\Gamma \operatorname{Arg} \frac{h}{f} = 0$$
 
-{% admonition(type="abstract", title="分歧覆盖定理") %}
+{% admonition(type="theorem", title="分歧覆盖定理") %}
 $f$ 在区域 $D$ 内解析，$z_0\in D$ 的像是 $w_0$，$z_0$ 是 $f(z)-w_0$ 的 $m$ 阶零点，则存在 $\rho, \delta > 0$，对任意 $w\in \mathring{D}(w_0, \rho)$ 有 $f(z)-w$ 在 $\mathring{D}(z_0, \delta)$ 内恰有 $m$ 个一阶零点。
 {% end %}
 
@@ -267,7 +267,7 @@ $$\int_{-R}^{R} f(z)\mathrm{d}z + \int_\gamma f(z)\mathrm{d}z = 2\pi\mathrm{i}\c
 
 回顾这个结论：
 
-{% admonition(type="abstract", title="存在共轭调和") %}
+{% admonition(type="theorem", title="存在共轭调和") %}
 单连通区域 $D$ 上调和函数 $u$ 存在共轭调和函数 $v$，即 $v$ 使得：
 
 $$\frac{\partial v}{\partial x} = - \frac{\partial u}{\partial y},\ \frac{\partial v}{\partial y} = \frac{\partial u}{\partial x}$$
@@ -283,7 +283,7 @@ $$\mathrm{d}v = - \frac{\partial u}{\partial y}\mathrm{d}x + \frac{\partial u}{\
 
 即是所求。共轭调和函数使得 $f = u + \mathrm{i}v$ 在 $D$ 内解析。
 
-{% admonition(type="abstract", title="平均值定理") %}
+{% admonition(type="theorem", title="平均值定理") %}
 $u$ 在圆盘 $|z-z_0| < R$ 内调和，则对 $0 \leq r < R$ 有：
 
 $$u(z_0) = \frac{1}{2\pi} \int_0^{2\pi} u(z_0 + re^{\mathrm{i}\theta}) \mathrm{d}\theta$$
@@ -293,7 +293,7 @@ $$u(z_0) = \frac{1}{2\pi} \int_0^{2\pi} u(z_0 + re^{\mathrm{i}\theta}) \mathrm{d
 
 $$u(z_0) = \operatorname{Re} \frac{1}{2\pi\mathrm{i}} \int_{|z-z_0|=r} \frac{u(z)+\mathrm{i}v(z)}{z-z_0} \mathrm{d}z = \operatorname{Re} \frac{1}{2\pi\mathrm{i}} \int_0^{2\pi} u(z_0 + re^{\mathrm{i}\theta})\mathrm{i} \mathrm{d}\theta - v(z_0 + re^{\mathrm{i}\theta}) \mathrm{d}\theta$$
 
-{% admonition(type="abstract", title="最大、最小值原理") %}
+{% admonition(type="theorem", title="最大、最小值原理") %}
 $u$ 在区域 $\Omega$ 内调和且非常数，则它在 $\Omega$ 内取不到最大值和最小值。
 {% end %}
 
@@ -304,7 +304,7 @@ $u$ 在区域 $\Omega$ 内调和且非常数，则它在 $\Omega$ 内取不到�
 ### Dirichlet 问题
 作为平均值公式的推广，我们证明：
 
-{% admonition(type="abstract", title="Poisson 公式") %}
+{% admonition(type="theorem", title="Poisson 公式") %}
 $u$ 在圆盘 $|z-z_0| < R$ 内调和，则对 $0 < r < R$ 及 $|z| < r$ 有：
 
 $$u(z) = \frac{1}{2\pi} \int_0^{2\pi} \frac{r^2-|z|^2}{|re^{\mathrm{i}\theta}-z|^2} u(re^{\mathrm{i}\theta}) \mathrm{d}\theta$$

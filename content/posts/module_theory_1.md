@@ -55,7 +55,7 @@ $$M = \bigoplus_{x\in S} xR$$
 
 存在以下结论：
 
-{% admonition(type="info", title="秩") %}
+{% admonition(type="definition", title="秩") %}
 设 $R$ 是交换幺环，$M$ 是有限生成的自由 R-模，则它任意一族基的元素个数相等。称这个基的势为 $M$ 的**秩**，记作 $\mathrm{rank}_R(M)$.
 {% end %}
 
@@ -69,7 +69,7 @@ $$M = \bigoplus_{x\in S} xR$$
 ### 扭
 对整环 $R$ 和 R-模 $M$ 及 $x\in M$，如果存在 $R$ 中非零元素 $a$ 使 $xa=0$，则称 $x$ 为**扭元素**，否则称为**自由元素**。所有元素都是扭元素的称为**扭模**，所有非零元素都是自由元素的称为**无扭模**。
 
-{% admonition(type="abstract", title="自由与无扭") %}
+{% admonition(type="theorem", title="自由与无扭") %}
 主理想整环上的有限生成模是自由的当且仅当它是无扭的。
 {% end %}
 
@@ -82,7 +82,7 @@ $$M = \bigoplus_{x\in S} xR$$
 ### 分解
 我们先证明：
 
-{% admonition(type="abstract", title="有限生成自由模的子模") %}
+{% admonition(type="theorem", title="有限生成自由模的子模") %}
 主理想整环上的有限生成自由模的子模仍为有限生成自由模。
 {% end %}
 

@@ -168,7 +168,7 @@ $$P\left(\bigcup\limits_{n=1}^{+\infty} A_n\right) = \sum_{n=1}^{+\infty} P(A_n)
 ### 无放回抽样
 由于信息的不完全性，我们暂且不能假设分配的概率与实验事实间的关系。
 
-{% admonition(type="abstract", title="重新考虑 Pólya 坛子模型") %}
+{% admonition(type="question", title="重新考虑 Pólya 坛子模型") %}
 考虑这个模型：
 - $B\equiv$ 一个坛子中有 $M$ 个红球，$N-M$ 个白球，每次从中随机抽取一个球，记录其颜色并放在一边；重复 $n\leq N$ 次
 - $R_i\equiv$ 第 $i$ 次取出红球

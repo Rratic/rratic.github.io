@@ -56,21 +56,21 @@ $$
 
 有以下重要仿射特征：
 
-{% admonition(type="info", title="中心") %}
-一个点 $(x_0, y_0)$ 称为二次曲线的**中心**，如果 $Ax_0+By_0+D=0, Bx_0+Cy_0+E=0$.
+{% admonition(type="definition", title="中心") %}
+一个点 $(x_0, y_0)$ 称为二次曲线的**中心**，如果 $Ax_0+By_0+D=0$ 且 $Bx_0+Cy_0+E=0$.
 {% end %}
 
 中心是对称中心。
 
 只有椭圆型、双曲型曲线有中心。
 
-{% admonition(type="info", title="渐进方向") %}
+{% admonition(type="definition", title="渐进方向") %}
 一个向量 $(x_0, y_0)$ 对应的直线方向为二次曲线的**渐进方向**，如果 $Ax_0^2+2Bx_0y_0+Cy_0^2=0$.
 {% end %}
 
 我们定义**渐近线**是距离在无穷远处趋向于 $0$ 的直线[^asymptote]，那么渐近线如果存在，可由中心和渐进方向算得。
 
-{% admonition(type="info", title="共轭直径") %}
+{% admonition(type="definition", title="共轭直径") %}
 一个方向对应的**共轭直径**是所有与它平行的弦的中点的连线。
 
 方程为 $(Ax_0+By_0)x + (Bx_0+Cy_0)y + Dx_0 + Ey_0 = 0$.
@@ -152,11 +152,11 @@ $$
 
 来看一些结论：
 
-{% admonition(type="abstract", title="变积系数") %}
+{% admonition(type="definition", title="变积系数") %}
 仿射变换将图形映到图形，面积比是一致的。
 {% end %}
 
-{% admonition(type="abstract", title="特征值") %}
+{% admonition(type="theorem", title="特征值") %}
 实对称矩阵的特征值都是实的。
 {% end %}
 
@@ -164,7 +164,7 @@ $$
 
 则 $v^\dagger Av = \lambda \\|v\\|^2$，又 $(v^\dagger Av)^\dagger = v^\dagger Av$ 知它是实数，有 $\lambda$ 是实数。
 
-{% admonition(type="abstract", title="仿射变换分解") %}
+{% admonition(type="theorem", title="仿射变换分解") %}
 一个仿射变换可以分解成一个保距变换复合上一族两两正交的正压缩。
 {% end %}
 

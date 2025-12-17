@@ -29,7 +29,7 @@ tags = ["笔记", "数学", "代数", "域论", "Galois 理论"]
 
 ## 背景
 ### 代数基本定理
-{% admonition(type="abstract", title="代数基本定理") %}
+{% admonition(type="theorem", title="代数基本定理") %}
 一个复系数 $n$ 次多项式 $P(z)$ 恰有 $n$ 个复根（计入重数）。
 {% end %}
 
@@ -124,7 +124,7 @@ $\mathbb{Q}$ 由 p-进绝对值完备化为 $\mathbb{Q}_p$
 
 **Galois 扩张**是指正规且可分的扩张。
 
-{% admonition(type="abstract", title="0 特征域的扩张可分") %}
+{% admonition(type="theorem", title="0 特征域的扩张可分") %}
 对 0 特征域 $F$，每个扩张 $E/F$ 都可分。
 {% end %}
 
@@ -138,7 +138,7 @@ Galois 理论给出了域的扩张与其自同构群的联系。
 
 以下讨论 $n$ 次首一多项式 $f\in F[x]$ 在 $E/F$ 中分裂，所有根 $\Omega = \\{z_i\\}$ 有序且 $E=F(\Omega)$
 
-{% admonition(type="abstract", title="命题") %}
+{% admonition(type="theorem", title="是置换") %}
 对 $\sigma\in \mathrm{Aut}(E)$ 保持 $F$，它在 $\Omega$ 上是一个置换。
 {% end %}
 
@@ -168,7 +168,7 @@ $$
 
 对域 $F$ 和非常数多项式 $f\in F[x]$，对应正规扩张 $E$，如果存在一列扩张 $F=K_0\subset K_1\subset \cdots K_t$ 满足 $K_{i+1} = K_i(u)$，其中 $u^k\in K_i, k\in\mathbb{Z}^+$，且 $E\subseteq K_t$，则称 $f$ 根式可解。
 
-{% admonition(type="abstract", title="命题") %}
+{% admonition(type="theorem", title="性质") %}
 对 $F\subset K\subset E$，其中 $K/F, E/F$ 是正规扩张，则对任意 $\sigma\in \mathrm{Gal}(E/F)$，有
 - $\sigma\ K = K$
 - $\mathrm{Gal}(E/K)\triangleleft \mathrm{Gal}(E/F)$
@@ -186,7 +186,7 @@ $$
 
 给出结论二、三。
 
-{% admonition(type="abstract", title="根式扩张导出 Galois 群的次正规群列") %}
+{% admonition(type="theorem", title="根式扩张导出 Galois 群的次正规群列") %}
 对一列扩张 $F=K_0\subset K_1\subset \cdots K_t$ 满足 $K_{i+1} = K_i(u)$，其中 $u^{p_i}\in K_i, p\in\mathbb{P}$，且 $K_t/F$ 正规，$F$ 包含所有 $p_i$ 阶单位根。
 
 则有子群列 $\\{e\\} = G_t \subset \cdots G_1\subset G_0 = \mathrm{Gal}(K_t/F)$，其中 $G_{i+1}\triangleleft G_i$，$G_i/G_{i+1}$ 为 $\\{e\\}$ 或 $p_{i+1}$ 阶循环群。
@@ -198,13 +198,13 @@ $$
 
 我们给出
 
-{% admonition(type="abstract", title="n 次方程可解性问题") %}
+{% admonition(type="theorem", title="n 次方程可解性问题") %}
 域 $F$ 和非常数多项式 $f\in F[x]$，正规扩张 $E$，若 $f$ 根式可解，则 $\mathrm{Gal}(E/F)$ 为可解群。
 {% end %}
 
 特别地，
 
-{% admonition(type="abstract", title="Abel-Ruffini 定理") %}
+{% admonition(type="theorem", title="Abel-Ruffini 定理") %}
 五次方程不存在通用根式解。
 {% end %}
 

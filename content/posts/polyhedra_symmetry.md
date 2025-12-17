@@ -1,5 +1,5 @@
 +++
-title = "群论（一）应用（一）：多面体对称性"
+title = "多面体对称性"
 description = "关于 R^3 上的旋转与多面体：包括正多面体及其凹版本，半正多面体及其对偶，正多边形面组成的凸多面体。"
 date = 2025-06-12
 updated = 2025-06-23
@@ -44,7 +44,7 @@ tags = ["笔记", "数学", "代数", "抽象代数", "群论", "含模拟", "�
 旋转是不满足交换律的。
 
 ### 旋转轴
-{% admonition(type="abstract", title="旋转轴") %}
+{% admonition(type="theorem", title="旋转轴") %}
 非平凡的旋转一定有旋转轴。
 {% end %}
 
@@ -88,7 +88,7 @@ tags = ["笔记", "数学", "代数", "抽象代数", "群论", "含模拟", "�
 ![正十二面体嵌入正方体](/images/polyhedra/dodecahedron_and_cube.svg)
 
 ### 对称
-{% admonition(type="abstract", title="正多面体数量") %}
+{% admonition(type="theorem", title="正多面体数量") %}
 正多面体只有五种。
 {% end %}
 

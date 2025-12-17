@@ -45,7 +45,7 @@ tags = ["笔记", "数学", "分析", "复分析"]
 ### 微分
 在复数域 $\mathbb{C}$ 上，极限的表述可以参照数学分析中的表述。
 
-{% admonition(type="abstract", title="极限") %}
+{% admonition(type="definition", title="极限") %}
 称 $\lim_{z \to z_0} f(z) = w$，如果对任意 $\omega > 0$，存在 $\delta > 0$，对任意 $0<|z-z_0|<\delta$ 有 $|f(z)-w|<\omega$.
 {% end %}
 
@@ -116,7 +116,7 @@ $$
 \end{matrix}\right.
 $$
 
-{% admonition(type="abstract", title="共轭调和函数") %}
+{% admonition(type="theorem", title="共轭调和函数") %}
 单连通区域 $\Omega$，对任意调和函数 $u$，存在函数 $v$ 为它的共轭调和，且 $v$ 在差一个常数下是唯一的。
 {% end %}
 
@@ -132,24 +132,24 @@ $$
 
 这个结论有一些有趣的推论，如：
 
-{% admonition(type="abstract", title="存在 $\ln f$") %}
+{% admonition(type="theorem", title="存在 $\ln f$") %}
 $f$ 为区域 $\Omega$ 上的处处非 0 全纯函数，则存在 $e^g = f$
 {% end %}
 
 令 $u = \ln |f|$，然后取 $v$ 为它的共轭调和。
 
-{% admonition(type="abstract", title="存在 $\sqrt[n]{m}$") %}
+{% admonition(type="theorem", title="存在 $\sqrt[n]{m}$") %}
 $f$ 为区域 $D$ 上的处处非 0 全纯函数，则存在 $g^n = f$
 {% end %}
 
 取 $\exp(\frac{1}{n}\ln(f))$ 即可。
 
-{% admonition(type="abstract", title="保角性") %}
+{% admonition(type="theorem", title="保角性") %}
 全纯函数是保角的，也就是说 $z_1(t)$ 与 $z_2(t)$ 的夹角等于 $f(z_1(t))$ 与 $f(z_2(t))$ 的夹角。
 {% end %}
 
 ### 幂级数
-{% admonition(type="abstract", title="Lucas 定理") %}
+{% admonition(type="theorem", title="Lucas 定理") %}
 若多项式 $P$ 的零点均在某个半平面 $H$ 内，则 $P'$ 的零点也在 $H$ 内。从而，$P'$ 的零点在 $P$ 的零点组成的凸包内。
 {% end %}
 
@@ -159,7 +159,7 @@ $f$ 为区域 $D$ 上的处处非 0 全纯函数，则存在 $g^n = f$
 
 考虑半平面 $H\colon \operatorname{Im} \frac{z-a}{b}<0$，分析 $\operatorname{Im} \frac{bP'(z)}{P(z)} = \sum_{i=1}^n \operatorname{Im} \frac{b}{z-z_i}$ 即可。
 
-{% admonition(type="abstract", title="幂级数的收敛圆") %}
+{% admonition(type="theorem", title="幂级数的收敛圆") %}
 对幂级数 $a_0+a_1z+a_2z^2+\cdots$，存在扩展实数 $0\leq r\leq \infty$ 满足
 1. 对 $|z| < r$，级数收敛
 2. 对 $|z| > r$，级数发散
@@ -202,7 +202,7 @@ $$
 
 是一个射影变换，可由典型变换平移、位似、伊朗式反演复合得到。
 
-{% admonition(type="abstract", title="存在且唯一") %}
+{% admonition(type="theorem", title="存在且唯一") %}
 对不同的三点 $z_i$ 及不同的三点 $w_i$，恰存在一个分式线性变换使 $f(z_i) = w_i$ 均成立。
 {% end %}
 
@@ -243,7 +243,7 @@ $n = -1$ 时考虑曲线 $\gamma: [0, 2\pi]\to\mathbb{C}, \theta\mapsto re^{\mat
 
 我们来说明一个更一般的结论。
 
-{% admonition(type="abstract", title="Cauchy 定理") %}
+{% admonition(type="theorem", title="Cauchy 定理") %}
 有界区域 $\Omega$ 以有限段光滑曲线为边界，对 $f$ 在 $\bar{\Omega}$ 上连续，在 $\Omega$ 内解析，则有
 
 $$\int_{\partial \Omega} f(z)\mathrm{d}z = 0$$
@@ -253,7 +253,7 @@ $$\int_{\partial \Omega} f(z)\mathrm{d}z = 0$$
 
 证明的大致思想是说，可以把一个三角形上的路径积分转化为它按中点分割成的四个三角形上的路径积分之和。
 
-{% admonition(type="abstract", title="Cauchy 公式") %}
+{% admonition(type="theorem", title="Cauchy 公式") %}
 有界区域 $\Omega$ 以有限段光滑曲线为边界，对 $f$ 在 $\bar{\Omega}$ 上连续，在 $\Omega$ 内解析及 $z\in\Omega$ 有
 
 $$f(z) = \frac{1}{2\pi\mathrm{i}}\int_{\partial \Omega}\frac{f(w)}{w-z}\mathrm{d}w$$
@@ -288,7 +288,7 @@ $$f(z) = \sum_{n=0}^{+\infty} \frac{1}{2\pi\mathrm{i}}(z-z_0)^n\int_{|w-z_0| = r
 
 进一步地，若 $f$ 是全纯的，则 $u, v$ 都是实解析的。
 
-{% admonition(type="abstract", title="Morera 定理") %}
+{% admonition(type="theorem", title="Morera 定理") %}
 对区域 $\Omega$ 与其上的连续函数 $f$，一下两个条件等价
 1. $f$ 在 $\Omega$ 内解析
 2. 对 $\Omega$ 内任意逐段光滑曲线围成的有界区域 $D$ 使 $\bar{D}\subset\Omega$，有 $\int_{\partial D}f(w)\mathrm{d}w = 0$
@@ -304,7 +304,7 @@ $$f(z) = \sum_{n=0}^{+\infty} \frac{1}{2\pi\mathrm{i}}(z-z_0)^n\int_{|w-z_0| = r
 
 其中的一部分结论整理如下：
 
-{% admonition(type="abstract", title="存在原函数") %}
+{% admonition(type="theorem", title="存在原函数") %}
 对单连通区域 $D$ 和它上的解析函数 $f$，则存在它上的函数 $F$ 使 $F'=f$
 {% end %}
 
@@ -329,7 +329,7 @@ $$f(z) = \sum_{n=0}^{+\infty} \frac{1}{2\pi\mathrm{i}}(z-z_0)^n\int_{|w-z_0| = r
 
 这将给出如下结论：
 
-{% admonition(type="abstract", title="零点孤立性") %}
+{% admonition(type="theorem", title="零点孤立性") %}
 对区域 $\Omega$ 上的非常值解析函数 $f$，其零点是孤立的。
 {% end %}
 
@@ -339,7 +339,7 @@ $$f(z) = \sum_{n=0}^{+\infty} \frac{1}{2\pi\mathrm{i}}(z-z_0)^n\int_{|w-z_0| = r
 
 进而，我们有：
 
-{% admonition(type="abstract", title="解析函数的刚性/唯一性定理") %}
+{% admonition(type="theorem", title="解析函数的刚性/唯一性定理") %}
 区域 $\Omega$ 上的解析函数 $f, g$，若存在点列 $\\{z_n\\}$ 且它有 $\Omega$ 内的极限点，则 $\Omega$ 上 $f\equiv g$.
 {% end %}
 
@@ -355,7 +355,7 @@ $$f(z) = \sum_{n=0}^{+\infty} \frac{1}{2\pi\mathrm{i}}(z-z_0)^n\int_{|w-z_0| = r
 
 令 $\varphi(z) = (z-z_0) h(z)$，则 $\varphi'(z_0) = h(z_0)\neq 0$，故存在 $z_0$ 的邻域及 $\varphi(z_0) = 0$ 的邻域使 $\varphi$ 为解析同胚。
 
-{% admonition(type="abstract", title="开映射定理") %}
+{% admonition(type="theorem", title="开映射定理") %}
 区域 $\Omega$ 上的非常值解析函数 $f$，将 $\Omega$ 中开集映到开集。
 {% end %}
 
@@ -366,13 +366,13 @@ $$f(z) = \sum_{n=0}^{+\infty} \frac{1}{2\pi\mathrm{i}}(z-z_0)^n\int_{|w-z_0| = r
 ### 代数基本定理
 我们来使用开映射定理：
 
-{% admonition(type="abstract", title="最大模原理") %}
+{% admonition(type="theorem", title="最大模原理") %}
 对区域 $\Omega$ 上的非常值解析函数 $f$，$|f(z)|$ 在 $\Omega$ 内无最大值点。
 {% end %}
 
 因为 $f(z_0)$ 是 $f(D(z_0, \varepsilon))$ 的内点。
 
-{% admonition(type="abstract", title="代数基本定理") %}
+{% admonition(type="theorem", title="代数基本定理") %}
 $n$ 次多项式 $P(z) = a_nz^n+\cdots+a_0$ 在 $\mathbb{C}$ 中有零点。
 {% end %}
 
@@ -387,13 +387,13 @@ $n$ 次多项式 $P(z) = a_nz^n+\cdots+a_0$ 在 $\mathbb{C}$ 中有零点。
 > 其不为常数，故 $P(\bar{\mathbb{C}})$ 为开集，而 $\bar{\mathbb{C}}$ 是紧的，故 $P(\bar{\mathbb{C}})$ 为闭集。从而值域是 $\bar{\mathbb{C}}$
 
 ### 积分工具
-{% admonition(type="abstract", title="Cauchy 不等式") %}
+{% admonition(type="theorem", title="Cauchy 不等式") %}
 区域 $\Omega$ 上的解析函数 $|f|\leq M$，则 $\forall z_0\in\Omega, 0<r\leq \mathrm{dist}(z_0, \partial\Omega)$ 有
 
 $$|f^{(n)}(z_0)|\leq \frac{n!M}{r^n}$$
 {% end %}
 
-对 $0<r<\mathrm{dist}(z_0, \partial\Omega)$，由
+对 $0 < r < \mathrm{dist}(z_0, \partial\Omega)$，由
 
 $$f^{(n)}(z_0) = \frac{n!}{2\pi\mathrm{i}}\int_{|w-z_0| = r}\frac{f(w)}{(w-z_0)^{n+1}}\mathrm{d}w$$
 
@@ -405,7 +405,7 @@ $$|f^{(n)}(z_0)| = \frac{n!}{2\pi\mathrm{i}}\int_{|w-z_0| = r}\left|\frac{f(w)}{
 
 这表明，我们可以用 $|f(z)|$ 在区域内的最大值控制任意的 $|f^{(n)}(z)|$.
 
-{% admonition(type="abstract", title="Liouville 定理") %}
+{% admonition(type="theorem", title="Liouville 定理") %}
 解析函数 $f$ 在 $\mathbb{C}$ 上有界，则必为常数。
 {% end %}
 
@@ -417,7 +417,7 @@ $$|f^{(n)}(z_0)| = \frac{n!}{2\pi\mathrm{i}}\int_{|w-z_0| = r}\left|\frac{f(w)}{
 
 可以给出 Liouville 定理的推广如下：
 
-{% admonition(type="abstract", title="Weierstrass 定理") %}
+{% admonition(type="theorem", title="Weierstrass 定理") %}
 对非常值的整函数 $f$，有 $f(\mathbb{C})$ 在 $\mathbb{C}$ 中稠密。
 {% end %}
 
@@ -427,7 +427,7 @@ $$|f^{(n)}(z_0)| = \frac{n!}{2\pi\mathrm{i}}\int_{|w-z_0| = r}\left|\frac{f(w)}{
 
 我们期待对于定义在 $\mathbb{C}$ 上的超越整函数，能够如多项式一样证明它的值域是 $\mathbb{C}$；而事实上我们有相当接近的结论：
 
-{% admonition(type="abstract", title="Picard 小定理") %}
+{% admonition(type="theorem", title="Picard 小定理") %}
 对 $\mathbb{C}$ 上的超越整函数 $f$，有 $\mathbb{C}-f(\mathbb{C})$ 至多包含一个点。
 {% end %}
 
@@ -435,8 +435,8 @@ $$|f^{(n)}(z_0)| = \frac{n!}{2\pi\mathrm{i}}\int_{|w-z_0| = r}\left|\frac{f(w)}{
 
 ---
 
-{% admonition(type="abstract", title="平均值定理") %}
-区域 $\Omega$ 上的解析函数 $f$，对任意 $z_0\in\Omega, 0<r<\mathrm{dist}(z_0, \partial \Omega)$，有：
+{% admonition(type="theorem", title="平均值定理") %}
+区域 $\Omega$ 上的解析函数 $f$，对任意 $z_0 \in \Omega, 0 < r < \mathrm{dist}(z_0, \partial \Omega)$，有：
 
 $$f(z_0) = \frac{1}{2\pi}\int_0^{2\pi} f(z_0+re^{i\theta})\mathrm{d}\theta$$
 {% end %}
@@ -482,7 +482,7 @@ $$f(z) \sim \sum_{n=1}^\infty (f, \varphi_n)\varphi_n(z)$$
 称为 $f$ 关于 $\\{\varphi_n\\}$ 的 Fourier 级数。它均方收敛且内闭收敛于 $f$.
 
 ### 非欧几何
-{% admonition(type="abstract", title="Schwarz 引理") %}
+{% admonition(type="theorem", title="Schwarz 引理") %}
 $f$ 是单位圆盘到自身的解析映射，且 $f(0) = 0$，则：
 1. 对圆盘内任一点，有 $|f(z)|\leq |z|$，这会使得 $|f'(0)|\leq 1$
 2. 存在 $z_0\neq 0$ 使 $|f(z_0)| = |z_0|$ 或 $|f'(0)| = 1$ 的充要条件是 $f(z)=e^{\mathrm{i}\theta}z$
@@ -490,7 +490,7 @@ $f$ 是单位圆盘到自身的解析映射，且 $f(0) = 0$，则：
 
 考虑 $f$ 在 $z=0$ 处展开成的幂级数 $a_0+a_1z+\cdots$，常数项为 $0$，故 $\frac{f(z)}{z} = a_1+a_2z+\cdots$ 在单位圆盘内解析。
 
-对 $z_0$，取 $|z_0|<r<1$，由最大模原理有 $\left|\frac{f(z)}{z}\right|\leq \left|\frac{f(r)}{r}\right|< \frac{1}{r}$，令 $r\to 1$ 即有 $|f(z_0)|\leq |z_0|$.
+对 $z_0$，取 $|z_0| < r < 1$，由最大模原理有 $\left|\frac{f(z)}{z}\right| \leq \left|\frac{f(r)}{r}\right| < \frac{1}{r}$，令 $r\to 1$ 即有 $|f(z_0)|\leq |z_0|$.
 
 ---
 
@@ -500,7 +500,7 @@ $$f(z) = e^{\mathrm{i}\theta}\frac{z-z_0}{1-\bar{z_0}z}$$
 
 由于这些变换可以将单位圆盘中指定的一点变成另一指定的点，可以得到：
 
-{% admonition(type="abstract", title="更一般形式的 Schwarz 引理") %}
+{% admonition(type="theorem", title="更一般形式的 Schwarz 引理") %}
 $f$ 是单位圆盘到自身的解析映射，则对任意 $z_1, z_2\in D(0, 1)$ 有：
 
 $$\left|\frac{f(z_1)-f(z_2)}{1-\overline{f(z_1)}f(z_2)}\right|\leq \left|\frac{z_1-z_2}{1-\bar{z_1}z_2}\right|$$

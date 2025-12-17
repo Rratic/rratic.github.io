@@ -127,7 +127,7 @@ second
 
 ### 函数 {#denoting-functions}
 {% admonition(type="info", title="说明") %}
-  从这里开始的内容并非原始的定义。你将在[求值](#evaluation)中看到它们如何起作用。
+从这里开始的内容并非原始的定义。你将在[求值](#evaluation)中看到它们如何起作用。
 {% end %}
 
 函数表示为 `(lambda (p1 ... pn) e)`，其中 $p_i$ 是原子，称为参数，$e$ 是表达式。

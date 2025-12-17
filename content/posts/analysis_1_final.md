@@ -56,13 +56,13 @@ $$\mathrm{d}^n (u \cdot v) = \sum_{k=0}^n \binom{n}{k} \mathrm{d}^{n-k}u \cdot \
 复合函数的高阶导数有 Faà di Bruno 法则，但是应该不至于用到。
 
 ### 微分中值定理
-{% admonition(type="abstract", title="Fermat 引理") %}
+{% admonition(type="theorem", title="Fermat 引理") %}
 $f$ 在 $x_0$ 处可导且它为极值点，则 $f'(x_0) = 0$.
 {% end %}
 
 使用左右导数证明。称 $f'(x) = 0$ 的点为**驻点**。
 
-{% admonition(type="abstract", title="Rolle 中值定理") %}
+{% admonition(type="theorem", title="Rolle 中值定理") %}
 $f \in C[a, b] \cap D(a, b)$ 满足 $f(a)=f(b)$，则存在 $\xi \in (a, b)$ 使得 $f'(\xi) = 0$.
 {% end %}
 
@@ -74,7 +74,7 @@ $f \in C[a, b] \cap D(a, b)$ 满足 $f(a)=f(b)$，则存在 $\xi \in (a, b)$ 使
 
 $$(f \cdot e^g)' = (f' + f \cdot g') \cdot e^g$$
 
-{% admonition(type="abstract", title="Lagrange 中值定理") %}
+{% admonition(type="theorem", title="Lagrange 中值定理") %}
 对 $f \in C[a, b] \cap D(a, b)$ 存在 $\xi \in (a, b)$ 使得 $f(b) - f(a) = f'(\xi) (b - a)$.
 {% end %}
 
@@ -82,7 +82,7 @@ $$(f \cdot e^g)' = (f' + f \cdot g') \cdot e^g$$
 
 它的有用推论是：若 $f'(x) = 0$ 则 $f(x) \equiv c$，这用其它方法没有那么方便证明。
 
-{% admonition(type="abstract", title="Cauchy 中值定理") %}
+{% admonition(type="theorem", title="Cauchy 中值定理") %}
 对 $f, g \in C[a, b] \cap D(a, b)$ 存在 $\xi \in (a, b)$ 使得 $(f(a)-f(b))g'(\xi) = (g(a)-g(b))f'(\xi)$.
 {% end %}
 
@@ -92,14 +92,14 @@ $$\frac{k_2}{k_1} = \frac{f(b)-f(a)}{g(b)-g(a)}$$
 
 ⭐这种构造方法在做题时很常见。
 
-{% admonition(type="abstract", title="Darboux 介值定理") %}
+{% admonition(type="theorem", title="Darboux 介值定理") %}
 $f \in D[a, b]$ 且 $f'(a) < f'(b)$，则对任意 $\lambda \in (f'(a), f'(b))$ 存在 $\xi \in (a, b)$ 使得 $f'(\xi) = \lambda$.
 {% end %}
 
 考虑 $h(x) = f(x) - \lambda x$ 的最小值点。
 
 ### L’Hôpital 法则
-{% admonition(type="abstract", title="L’Hôpital 法则Ⅰ") %}
+{% admonition(type="theorem", title="L’Hôpital 法则Ⅰ") %}
 $f, g \in D(a, b)$ 且 $g'$ 在 $(a, b)$ 非零，如果：
 1. $\lim_{x\to a^+} f(x) = \lim_{x\to a^+} g(x) = 0$
 2. $\lim_{x\to a^+} \frac{f'(x)}{g'(x)}$ 在扩展实数系中存在
@@ -113,7 +113,7 @@ $$\lim_{x\to a^+} \frac{f(x)}{g(x)} = \lim_{x\to a^+} \frac{f'(x)}{g'(x)}$$
 
 ⭐可以反复使用 L’Hôpital 法则同时适当进行无穷小代换。
 
-{% admonition(type="abstract", title="导数极限定理") %}
+{% admonition(type="theorem", title="导数极限定理") %}
 $f$ 在 $x_0$ 的邻域内连续，在 $x_0$ 的去心邻域内可导，且 $\lim_{x \to x_0} f'(x)$ 存在，则：
 
 $$f'(x_0) = \lim_{x \to x_0} f'(x)$$
@@ -121,7 +121,7 @@ $$f'(x_0) = \lim_{x \to x_0} f'(x)$$
 
 使用 Lagrange 中值定理即可。
 
-{% admonition(type="abstract", title="L’Hôpital 法则Ⅱ") %}
+{% admonition(type="theorem", title="L’Hôpital 法则Ⅱ") %}
 $f, g \in D(a, b)$ 且 $g'$ 在 $(a, b)$ 非零，如果：
 1. $\lim_{x\to a^+} g(x) = \infty$
 2. $\lim_{x\to a^+} \frac{f'(x)}{g'(x)}$ 在扩展实数系中存在
@@ -134,7 +134,7 @@ $$\lim_{x\to a^+} \frac{f(x)}{g(x)} = \lim_{x\to a^+} \frac{f'(x)}{g'(x)}$$
 使用 Cauchy 中值定理即可。容易把单侧改为双侧的结果。
 
 ### Taylor 展开式
-{% admonition(type="abstract", title="带 Peano 余项的 Taylor 公式") %}
+{% admonition(type="theorem", title="带 Peano 余项的 Taylor 公式") %}
 $f$ 在 $x_0$ 处 $n$ 阶可导，则：
 
 $$f(x) = \sum_{k=0}^n \frac{f^{(k)}(x_0)}{k!} (x-x_0)^k + o((x-x_0)^n) \quad (x\to x_0)$$
@@ -160,7 +160,7 @@ $\tan x$，$\arcsin x$ 等较为复杂且写了也记不住，不再列举。
 
 ⭐有时可以从表达式先提取出一个 $x^\alpha$，把剩下部分写成带 Peano 余项的 Taylor 公式。可以参考 Puiseux 级数相关。
 
-{% admonition(type="abstract", title="带 Lagrange 余项的 Taylor 公式") %}
+{% admonition(type="theorem", title="带 Lagrange 余项的 Taylor 公式") %}
 $f$ 在 $(a, b)$ 上 $n+1$ 阶可导，则对 $x, x_0 \in (a, b)$ 存在介于期间的 $\xi$ 使得：
 
 $$f(x) = \sum_{k=0}^n \frac{f^{(k)}(x_0)}{k!} (x-x_0)^k + \frac{f^{(n+1)}(\xi)}{(n+1)!}(x-x_0)^{n+1}$$
@@ -195,7 +195,7 @@ $$\int |\sin x - \cos x| \mathrm{d}x = (\sin x + \cos x)\ \mathrm{sgn}(\cos x - 
 ### 讲义阅读
 来自于品的数学分析一讲义。该讲义内容相当丰富。
 
-{% admonition(type="abstract", title="Riemann 重排定理") %}
+{% admonition(type="theorem", title="Riemann 重排定理") %}
 若 $\sum_{n=1}^\infty a_n$ 收敛但不绝对收敛，则可以将它重新排列，使之收敛到预先指定的扩展实数系中的 $\alpha$.
 {% end %}
 
@@ -205,13 +205,13 @@ $$\int |\sin x - \cos x| \mathrm{d}x = (\sin x + \cos x)\ \mathrm{sgn}(\cos x - 
 
 对 $\alpha=+\infty$，我们，$\alpha=-\infty$ 的方法类似。
 
-{% admonition(type="abstract", title=" Émile Borel 引理") %}
+{% admonition(type="theorem", title=" Émile Borel 引理") %}
 对任意给定数列 $\\{a_n\\}_{n\geq 0}$，存在光滑函数 $f$ 使得 $f^{(n)}=a_n$.
 {% end %}
 
 {{ todo() }}
 
-{% admonition(type="abstract", title="Baire 纲定理") %}
+{% admonition(type="theorem", title="Baire 纲定理") %}
 $U_n$ 是完备的度量空间 $(X, d)$ 中稠密的开集，则 $U_\infty = \bigcap_{n=1}^{\infty} U_n$ 稠密。
 {% end %}
 
