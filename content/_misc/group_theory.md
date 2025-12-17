@@ -18,13 +18,13 @@ tags = ["数学", "代数", "抽象代数", "群论"]
 ## 群的性质
 - 自由群表示（自由群，万有性质，自由积）
 - 群在集合上的作用（轨道 $\rm{Orb}$，稳定子群 $\rm{Stab}$，Pólya 计数法，共轭作用，Sylow 定理）
-	- 可阅读 [**群论（一）**](/posts/group-theory-p1/)
-	- 可阅读 [**群论（一）应用（一）**](/posts/group-theory-p1-2/) 关于多面体对称性
+	- 可阅读 [**群论（一）**](/posts/group-theory-1/)
+	- 可阅读 [**群论（一）应用（一）**](/posts/polyhedra-symmetry/) 关于多面体对称性
 	- TODO: 点群
 - 次正规群列（换位子 $[a, b]$，半直积 $\rtimes$，Schreier 子群引理，可解群，导群 $G'$，合成群列，Schreier 定理，Jordan-Hölder 定理）
-	- 可阅读 [**群论（二）**](/posts/group-theory-p2/)
+	- 可阅读 [**群论（二）**](/posts/group-theory-2/)
 - 特征（内自同构 $\rm{Inn}$，（外）自同构 $\rm{Aut}$，特征子群 $\rm{char}$，特征单群）
-	- 尚不可阅读 [**群论（三）**](/posts/group-theory-p3/)
+	- 尚不可阅读 [**群论（三）**](/posts/group-theory-3/)
 
 ## 群表示论
 

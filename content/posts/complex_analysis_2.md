@@ -93,7 +93,7 @@ $$a_n = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = \varepsilon}\frac{f(w)}{(w-z_0)^
 
 这是根据前两个结论得到的。
 
-在 [Classification of Singularities](https://complex-analysis.com/content/classification_of_singularities.html) 你可以看到很多与奇点有关的函数的彩色绘制；也可阅读 [着色器（二）](/posts/shader-p2/) 中对应的内容。
+在 [Classification of Singularities](https://complex-analysis.com/content/classification_of_singularities.html) 你可以看到很多与奇点有关的函数的彩色绘制；也可阅读 [着色器（二）](/posts/shader-2/) 中对应的内容。
 
 {% admonition(type="abstract", title="Weierstrass 定理") %}
 若 $z_0$ 是 $f$ 的一个本性奇点，则对任意 $\varepsilon>0$，$f(\mathring{D}(z_0, \varepsilon))$ 在 $\mathbb{C}$ 中稠密。

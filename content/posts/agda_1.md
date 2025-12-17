@@ -16,7 +16,7 @@ tags = ["笔记", "计算机", "函数式编程", "Agda"]
 +++
 
 前置知识
-- [Haskell](/posts/haskell-p1/)
+- [Haskell](/posts/haskell-1/)
 
 参考的是[北京大学 - 计算概论A实验班 函数式程序设计 2025秋](https://zhenjiang888.github.io/FP/2025/)下半学期讲义。
 
@@ -26,7 +26,7 @@ tags = ["笔记", "计算机", "函数式编程", "Agda"]
 ## 环境配置
 参考 <https://agda.readthedocs.io/en/latest/getting-started/installation.html> 的指引
 
-Agda 是用 Haskell 写的，可以在[安装好 Haskell](/posts/haskell-p1/) 后通过如下命令安装：
+Agda 是用 Haskell 写的，可以在[安装好 Haskell](/posts/haskell-1/) 后通过如下命令安装：
 ```cmd
 cabal update
 cabal install Agda

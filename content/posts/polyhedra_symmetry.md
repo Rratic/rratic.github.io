@@ -20,7 +20,7 @@ tags = ["笔记", "数学", "代数", "抽象代数", "群论", "含模拟", "�
 
 前置知识
 - 线性代数
-- [群论（一）](/posts/group-theory-p1/)
+- [群论（一）](/posts/group-theory-1/)
 
 在线
 - 可运行：[多面体展示](/playground/polyhedra.html)，包含正多面体和半正多面体 [^1]

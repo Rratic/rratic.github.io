@@ -32,9 +32,9 @@ tags = ["数学", "范畴论"]
 - 忘性函子，对角函子
 - 自然变换（$F\Longrightarrow G$，横，纵合成）
 - 泛性质的始对象表述（始对象 $0$，终对象 $1$）
-- 可阅读 [**范畴论练习（一）**](/posts/category-theory-r1/)
+- 可阅读 [**范畴论练习（一）**](/posts/category-theory-exercise-1/)
 
 ### 极限
 - 余积（$\oplus, \coprod$），拉回，推出，等化子，余等化子
-	- 可阅读 [**范畴论（一）**](/posts/category-theory-p1/)
+	- 可阅读 [**范畴论（一）**](/posts/category-theory-1/)
 - 极限，余极限

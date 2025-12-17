@@ -25,7 +25,7 @@ tags = ["笔记", "数学", "计算机", "函数式编程", "Haskell"]
 
 前置知识
 - 一般的抽象代数基础
-- [Haskell 学习（一）](/posts/haskell-p1/)
+- [Haskell 学习（一）](/posts/haskell-1/)
 - 一般的范畴论基础
 
 关于 Haskell 有一句广泛流传的话

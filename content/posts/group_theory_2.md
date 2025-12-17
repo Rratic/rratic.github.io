@@ -161,7 +161,7 @@ $$
 
 ---
 
-进一步地，可解群的合成因子均为交换的单群，从而是素数阶循环群（利用了[交换群一定可以分解为循环群的直积](/posts/group-theory-p1/#footnotes)）。
+进一步地，可解群的合成因子均为交换的单群，从而是素数阶循环群（利用了[交换群一定可以分解为循环群的直积](/posts/group-theory-1/#footnotes)）。
 
 {% admonition(type="abstract", title="Jordan-Hölder 定理") %}
 两个合成群列

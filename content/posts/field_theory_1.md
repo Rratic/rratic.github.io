@@ -25,7 +25,7 @@ tags = ["笔记", "数学", "代数", "域论", "Galois 理论"]
 
 前置知识
 - 线性代数
-- [群论（二）](/posts/group-theory-p2/)
+- [群论（二）](/posts/group-theory-2/)
 
 ## 背景
 ### 代数基本定理
@@ -194,7 +194,7 @@ $$
 
 令 $G_i = \mathrm{Gal}(K_t/F)$
 
-再由[群论（二）](/posts/group-theory-p2/)知上述为次正规群列。
+再由[群论（二）](/posts/group-theory-2/)知上述为次正规群列。
 
 我们给出
 

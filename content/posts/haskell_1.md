@@ -97,7 +97,7 @@ ghci> isUpper "abc"
 
 这个函数接受一个 `Char` 类型参数，返回一个 `Bool` 类型的值。
 
-Haskell 中实际上存在元组，对应的泛性质是[积](/posts/category-theory-p1/#product-and-coproduct)。
+Haskell 中实际上存在元组，对应的泛性质是[积](/posts/category-theory-1/#product-and-coproduct)。
 
 用括号表示元组
 ```hs
