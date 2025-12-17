@@ -1,7 +1,7 @@
 +++
 title = "FAQs"
 date = 2025-04-06
-updated = 2025-08-28
+updated = 2025-12-17
 
 [extra]
 toc = true
@@ -11,10 +11,22 @@ categories = ["项目"]
 tags = ["说明"]
 +++
 
-## 变更 {#changes}
-{% shell(text = "相比于旧的站点（已下线），有哪些变化？") %}
-- 移除了没有阅读价值的文章。
-- 更换了索引方式。
+## CHANGELOG
+{% shell(text = "2025/12/17 大更改") %}
+- 将 Linkita 更新到 v4
+- 修改了大量的路径，如 `category-theory-p1` 改为 `category-theory-1`；`category-theory-r1` 改为 `category-theory-exercise-1`
+- 对此次更新之后**完成**的文章，参数 `date` 将由完成时间而非大纲产出时间而定，在此之前考虑使用参数 `draft = true`
+{% end %}
+
+{% shell(text = "2025/09/30 新域名") %}
+- 从阿里云获取的域名生效，现在 `https://rratic.github.io` 会重定向至 `https://rratic.top`
+{% end %}
+
+{% shell(text = "2025/04/06 建站") %}
+相比旧的站点（已下线）：
+- 使用现成框架 Zola 及主题 Linkita
+- 移除了没有阅读价值的文章
+- 更换了索引方式
 {% end %}
 
 ## 命名 {#naming}
