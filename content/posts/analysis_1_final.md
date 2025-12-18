@@ -203,11 +203,24 @@ $$\int |\sin x - \cos x| \mathrm{d}x = (\sin x + \cos x)\ \mathrm{sgn}(\cos x - 
 
 对 $\alpha\in\mathbb{R}$，我们这样构造新序列：先按顺序填入非负项直到 $\geq \alpha$，再按顺序填入负项直到 $\leq \alpha$，重复进行此操作。
 
-对 $\alpha=+\infty$，我们，$\alpha=-\infty$ 的方法类似。
+对 $\alpha=+\infty$，我们先按顺序填入非负项直到 $\geq 1$，然后填入一个负项，再按顺序填入非负项直到 $\geq 2$，依此类推[^infinite-ball-problem]；$\alpha=-\infty$ 的方法类似。
 
 {% admonition(type="theorem", title=" Émile Borel 引理") %}
 对任意给定数列 $\\{a_n\\}_{n\geq 0}$，存在光滑函数 $f$ 使得 $f^{(n)}=a_n$.
 {% end %}
+
+考虑函数：
+
+$$
+\phi(x) = \begin{cases}
+e^{-\frac{1}{x^2}} & x > 0 \\\\
+0 & x \leq 0
+\end{cases}
+$$
+
+$$\chi(x) = \frac{\phi(2-|x|)}{\phi(2-|x|) + \phi(|x|-1)}$$
+
+$\chi(x)$ 在 $|x| \leq 1$ 取值是 $1$，在 $|x| \geq 2$ 取值是 $0$，⭐且是光滑的。
 
 {{ todo() }}
 
@@ -226,3 +239,7 @@ $U_n$ 是完备的度量空间 $(X, d)$ 中稠密的开集，则 $U_\infty = \bi
 - $2\varepsilon_{n+1} < \varepsilon_n$
 
 现在由 $\\{x _n\\} _{n\geq 0}$ 是 Cauchy 列及 $X$ 完备，存在极限 $\lim _{n\to\infty} x _n = x _\infty$ 即为所求。
+
+---
+
+[^infinite-ball-problem]: 这让我想到一个佯谬：房间里有一个罐子，第 $k$ 次往里面放入 $m > 1$ 个有编号（编号为 $(k-1)m+1, \cdots , km$）的小球，然后取出编号为 $k$ 的小球。假设第一次用时 $t$，之后每次用时是上一次的一半，则经过 $2t$ 时间后的结果是什么？一方面，从数量上看应该罐子中有无穷多个小球；与此同时，任何一个有编号的小球都应该在某一刻被取出了。对此的解释是，数学上根本无法定义无穷多次查找的结果；相应地，物理上就应该不容许这种行为成立。

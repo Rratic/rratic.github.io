@@ -14,10 +14,10 @@ categories = ["知识"]
 tags = ["笔记", "计算机", "算法"]
 +++
 
-本文参考的是 `1.90.0-nightly` 版本。
-
 参考阅读
 - Steven S. Skiena 的 *The Algorithm Design Manual* 第三版
+
+本文参考的 Rust 版本是 `1.90.0-nightly`.
 
 ## Hash
 哈希的想法是：把任何对象编码到一个有限位的数字。

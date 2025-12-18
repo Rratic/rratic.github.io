@@ -19,7 +19,7 @@ categories = ["知识"]
 tags = ["笔记", "数学", "计算机", "函数式编程", "Haskell"]
 +++
 
-封面图为 Monad 类型类的声明，使用字体 JetBrains Mono.
+封面图为 `Monad` 类型类的声明，使用字体 JetBrains Mono.
 
 ---
 
@@ -157,9 +157,9 @@ GT
 
 如果我们需要讨论 `Functor` 等高级特性，还需要注意两个 Haskell 语言特性带来的影响。
 
-Functor 和 Monad 是 $\mathbf{Hask}$-enriched 的（参考 [enriched category theory in nLab](https://ncatlab.org/nlab/show/enriched+category+theory) 页面），这意味着它们所定义的那些操作本身就是 Haskell 中的态射，只不过是高阶函数。
+`Functor` 和 `Monad` 是 $\mathbf{Hask}$-enriched 的（参考 [enriched category theory in nLab](https://ncatlab.org/nlab/show/enriched+category+theory) 页面），这意味着它们所定义的那些操作本身就是 Haskell 中的态射，只不过是高阶函数。
 
-Functor 和 Monad 是自带 strength 的。
+`Functor` 和 `Monad` 是自带 strength 的。
 
 ### 函子
 我们来考虑前述 $\mathbf{Hask}$ 范畴上的自函子。
@@ -244,7 +244,7 @@ instance Applicative Option where
   _        <*> (None)   = None
 ```
 
-从而
+从而：
 ```hs
 ghci> import Data.Char
 ghci> (Some isUpper) <*> (Some 'a')
@@ -290,7 +290,7 @@ do a <- ma
   mb a
 ```
 
-因此我们可以写
+因此我们可以写：
 ```hs
 ghci> [1,2,3] >>= (\x -> [x,0])
 [1,0,2,0,3,0]
@@ -306,7 +306,7 @@ Hello, World!
 
 我们发现它确实构成一个 $\mathbf{Hask}$ 范畴上的自函子范畴上的幺半群。
 
-让我们继续定义
+让我们继续定义：
 ```hs
 instance Monad Option where
   (Some x) >>= f = f x
@@ -319,7 +319,7 @@ safeDiv xm ym = xm >>= (\x ->
                             else return (x `div` y)))
 ```
 
-`safeDiv` 的定义也可以使用 `do` 语法糖
+`safeDiv` 的定义也可以使用 `do` 语法糖：
 ```hs
 safeDiv xm ym = do
            x <- xm

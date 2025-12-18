@@ -27,7 +27,7 @@ HSV 是一种比较好的适用于人类视觉的颜色模型。
 * 饱和度（Saturation）的范围是 0% ~ 100%
 * 亮度（Value）的范围是 0% ~ 100%
 
-在以下讨论中，我们都归一到范围 0 ~ 1
+在后文中，我们都归一到范围 0 ~ 1 去处理。
 
 GLSL 中参数是 RGB 的，因此需要将 HSV 转为 RGB，可参考 Sam Hocevar 的代码。（可以在 <https://github.com/hughsk/glsl-hsv2rgb> 找到它的一个 npm package）
 ```glsl
@@ -39,9 +39,7 @@ vec3 hsv2rgb(vec3 c) {
 ```
 
 ### 色板生成算法
-[Ant Design 的色板互动页面](https://ant.design/docs/spec/colors-cn)
-
-参考这个帖子：[Ant Design 色板生成算法演进之路](https://zhuanlan.zhihu.com/p/32422584)。
+参考这个帖子：[Ant Design 色板生成算法演进之路](https://zhuanlan.zhihu.com/p/32422584)，可以在 [Ant Design 的色板互动页面](https://ant.design/docs/spec/colors-cn) 体验其效果。
 
 将其中的 Javascript 代码翻译为 GLSL 如下：
 ```glsl
@@ -124,18 +122,16 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
 ### 变换
 图形的基础变换（平移、旋转、缩放）是容易完成的。
 
-一个好的例子是 [Oblivion radar](https://www.shadertoy.com/view/4s2SRt)
+一个好的例子是 [Oblivion radar](https://www.shadertoy.com/view/4s2SRt). 这里包含了一些技巧：
 
-这里包含了一些技巧
-
-对 2D 场景来说，不重合的图形可以直接不断使用加
+对 2D 场景来说，不重合的图形可以直接不断叠加颜色值。
 ```glsl
 vec3 finalColor;
 finalColor += ...
 finalColor += ...
 ```
 
-指针的曳尾效果部分代码整理为
+指针的曳尾效果部分代码整理为：
 ```glsl
 float movingLine(vec2 d, float radius) {
     float theta0 = -1.2 * iTime;
@@ -157,7 +153,7 @@ float movingLine(vec2 d, float radius) {
 ```
 
 ### 复函数
-参考 <https://complex-analysis.com/content/domain_coloring.html>，可以用色相来表示值的辐角，用亮度表示值的模长。
+参考 Elias Wegert 的 *Visual Complex Functions* 的想法（可以在 [Domain coloring](https://complex-analysis.com/content/domain_coloring.html) 看到大量函数绘制结果），可以用色相来表示值的辐角，用亮度表示值的模长。
 
 渲染 $z\mapsto e^{\frac{1}{z}}$ 的代码如下：
 ```glsl
