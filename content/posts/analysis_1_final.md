@@ -170,6 +170,11 @@ $$f(x) = \sum_{k=0}^n \frac{f^{(k)}(x_0)}{k!} (x-x_0)^k + \frac{f^{(n+1)}(\xi)}{
 
 感觉 Cauchy 型余项之类的东西没什么用。
 
+### 利用导数研究函数
+凸是指下凸，定义为对不同的 $a, b \in I$ 及 $0 < t < 1$ 有 $f(ta+(1-t)b) \leq tf(a) + (1-t)f(b)$. 开区间上凸函数条件可以推出连续。
+
+拐点是指凹凸性发生改变的点。若 $f''(x)$ 在该点处存在则其值为 $0$.
+
 ### 不定积分
 一个需补充记忆的结论：
 
@@ -185,12 +190,97 @@ $$\int |\sin x - \cos x| \mathrm{d}x = (\sin x + \cos x)\ \mathrm{sgn}(\cos x - 
 
 ## 附加
 ### 往年题
-{{ todo() }}
+{% admonition(type="question", title="2019 P3") %}
+设 $f(x) = (\arcsin x)^2$，求 $f^{(n)}(0)$.
+{% end %}
+
+首先推导出 $(1-x^2)f''(x) - xf'(x) = 2$，对于 $n > 3$，对它求 $n-2$ 阶到得到：
+
+$$\sum_{k=0}^{n-2} \binom{n-2}{k} [(1-x^2)]^{(k)} [f''(x)]^{(n-2-k)} - \sum_{k=0}^{n-2} \binom{n-2}{k} [x]^{(k)} [f'(x)]^{(n-2-k)} = 0$$
+
+这给出：
+
+$$f^{(n)}(0) = (n-2)^2 f^{(n-2)}(0)$$
+
+{% admonition(type="question", title="2019 P8") %}
+计算：
+
+$$\int \frac{x^3 \arcsin x}{\sqrt{1-x^2}} \mathrm{d}x$$
+{% end %}
+
+$$
+\int \frac{x^3 \arcsin x}{\sqrt{1-x^2}} \mathrm{d}x =
+\int \arcsin x \cdot \mathrm{d}\left(-\sqrt{1-x^2} + \frac{1}{3}(1-x^2)\sqrt{1-x^2}\right) =
+\arcsin x \left(-\sqrt{1-x^2} + \frac{1}{3}(1-x^2)\sqrt{1-x^2}\right) - \int \left[-\sqrt{1-x^2} + \frac{1}{3}(1-x^2)\sqrt{1-x^2}\right] \mathrm{d}(\arcsin x)
+$$
+
+{% admonition(type="question", title="2023 P9") %}
+$f \in C_{[-1, 1]}^\infty$ 且总有 $f^{(n)}(0) = 0$，且存在常数 $C$ 使得对任意自然数 $n$ 有：
+
+$$\sup_{-1 \leq x \leq 1} |f^{(n)}(x)| \leq n! C^n$$
+
+证明：在 $[-1, 1]$ 上 $f(x) \equiv 0$.
+{% end %}
+
+{% admonition(type="question", title="2023 P10 (1)") %}
+求不定积分：
+
+$$\int \frac{x^2}{(x\sin x + \cos x)^2} \mathrm{d}x$$
+{% end %}
+
+{% admonition(type="question", title="2023 P10 (2)") %}
+求极限：
+
+$$\lim_{n \to +\infty} \prod_{k=1}^n \cos \frac{k}{n^{3/2}}$$
+{% end %}
 
 ### 习题课
-记录一些整个学期习题课中出现的不显然的结论。
+记录一些整个学期习题课中出现的不显然或需要技巧的结论（这包括了上半学期）。
 
-{{ todo() }}
+{% admonition(type="question", title="W3 1") %}
+若 $f(x)$ 在 $(0, +\infty)$ 上有定义，证：若 $\frac{f(x)}{x}$ 单调下降，则 $f(a+b) \leq f(a)+f(b)$.
+{% end %}
+
+这是通过⭐配系数：
+
+$$\frac{f(a+b)}{a+b} = \frac{a}{a+b} \frac{f(a+b)}{a+b} + \frac{b}{a+b} \frac{f(a+b)}{a+b} \leq \frac{a}{a+b} \frac{f(a)}{a} + \frac{b}{a+b} \frac{f(b)}{b} = \frac{f(a)+f(b)}{a+b}$$
+
+{% admonition(type="question", title="W3 6") %}
+设 $\lim_{n\to\infty} a_n = a$，正项数列 $\\{p_n\\}$ 满足 $\lim_{n\to\infty} p_n / (p_1 + \cdots + p_n) = 0$，证：
+
+$$\lim_{n\to\infty} \frac{p_1a_n + p_2a_{n-1} + p_na_1}{p_1 + \cdots + p_n} = a$$
+{% end %}
+
+不妨 $a=0$. 对 $\epsilon > 0$ 取 $N$ 使 $n > N$ 时 $|a_n| < \epsilon$，则考虑：
+
+$$\lim_{n\to\infty} \frac{p_1a_n + p_2a_{n-1} + p_na_1}{p_1 + \cdots + p_n} = \frac{p_1a_n + p_2a_{n-1} + p_{n-N}a_{N+1}}{p_1 + \cdots + p_n} + \frac{p_{n-N+1}}{p_1 + \cdots + p_n}a_N + \cdots + \frac{p_n}{p_1 + \cdots + p_n}a_1$$
+
+⭐固定 $N$，然后取充分大的 $n$ 放右侧即可。
+
+{% admonition(type="question", title="W9 6") %}
+$f$ 在 $(0, +\infty)$ 上连续，且对任意 $a > 0$ 有 $\lim_{n\to\infty} f(na) = 0$，证：
+
+$$\lim_{x\to+\infty} f(x) = 0$$
+{% end %}
+
+{% admonition(type="question", title="W9 9") %}
+考虑 $[0, 1]$ 到自身的保定向自同胚构成的集合：
+
+$$\mathrm{Hom}^+ [0, 1] = \\{f: [0, 1] \stackrel{1:1}{\to} [0, 1], f \in C[0, 1], f(0)=0, f(1)=1 \\}$$
+
+设 $f, g \in \mathrm{Hom}^+ [0, 1]$ 满足对任意 $0 < x < 1$ 有 $f(x), g(x) > x$，证存在 $h \in \mathrm{Hom}^+ [0, 1]$ 使得 $h^{-1} \circ f \circ h = g$.
+{% end %}
+
+任给 $a \in (0, 1)$，有函数迭代 $\\{f^n(a)\\}$ 与 $\\{g^n(a)\\}$ 为严格增序列，且 $n\to+\infty$ 与 $n\to-\infty$ 时极限为 $1$ 与 $0$.
+
+取定线性双射 $l: [a, f(a)] \to [a, g(a)]$，则 $h$ 可以表为：
+
+$$
+h(x) = \begin{cases}
+x & x = 0, 1 \\\\
+f^n(l(g^{-n}(x))) & x \in [g^n(a), g^{n+1}(a)]
+\end{cases}
+$$
 
 ### 讲义阅读
 来自于品的数学分析一讲义。该讲义内容相当丰富。

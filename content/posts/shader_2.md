@@ -89,6 +89,11 @@ vec3 palette (vec3 col, float i) {
 }
 ```
 
+### 光照
+使用 HSV 可以给[上一篇提及的 Raymarching](@/posts/shader_1.md#Raymarching) 渲染的曲面添加光照效果。
+
+一个简单的方法是将光照方向与曲面在该点处的法方向的余弦值赋予给亮度。
+
 ## 数学绘制
 ### 示例
 以下代码绘制的是 Poincaré 圆盘模型中，上半平面模型的格线的对应。
