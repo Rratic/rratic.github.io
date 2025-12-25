@@ -15,6 +15,8 @@ categories = ["知识"]
 tags = ["笔记", "计算机", "函数式编程", "Agda"]
 +++
 
+{{ ref_index(to = "functional-programming") }}
+
 前置知识
 - [Haskell](/posts/haskell-1/)
 
@@ -40,6 +42,8 @@ setx PATH "%PATH%;D:\cabal\bin"
 接下来需要安装标准库，步骤请参考 [配置 Agda 开发环境（2023）](https://higher-order.fun/cn/2023/11/15/InstallAgda.html)，本文是基于 2.8.0 版本的标准库。
 
 在 VSCode 的 `agda-mode` 插件中，打开一个 Agda 文件，按 `Ctrl + C` 再按 `Ctrl + L` 来加载它。
+
+或者直接在命令行中使用 `agda filename.agda` 编译它。
 
 ## 概览
 ### 布尔类型

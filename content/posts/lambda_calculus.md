@@ -16,6 +16,8 @@ categories = ["知识"]
 tags = ["笔记", "数学", "计算机", "函数式编程"]
 +++
 
+{{ ref_index(to = "functional-programming") }}
+
 本节讨论的是 Alonzo Church 发明的 `Lambda Calculus`，即**无类型 λ 演算**。[^paper-invention]
 
 ## 语法 {#grammar}

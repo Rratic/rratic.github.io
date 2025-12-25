@@ -15,9 +15,6 @@ tags = ["发布", "说明", "展示", "计算机", "含模拟", "在线", "Lua"]
 <style>
 	table code {
 		color: orange !important;
-		border: 1px grey solid;
-		padding: 4px;
-		border-radius: 4px;
 	}
 </style>
 
@@ -25,9 +22,7 @@ tags = ["发布", "说明", "展示", "计算机", "含模拟", "在线", "Lua"]
 
 ---
 
-本文章对应的在线项目见于 [函数式混沌](/playground/chaos.html)
-
-一个基于此想法但 API 不同的项目见于 [Milfoil](https://github.com/FoamWorld/milfoil).
+本文章对应的在线项目见于[函数式混沌](/playground/chaos.html)。一个基于此想法但 API 不同的项目见于 [Milfoil](https://github.com/FoamWorld/milfoil).
 
 ## 介绍
 一直以来都有一个横亘在我们眼前的难题，即如何弥合现实（这里指现实的离散、抽象部分）与模拟之间的鸿沟。
@@ -52,11 +47,11 @@ tags = ["发布", "说明", "展示", "计算机", "含模拟", "在线", "Lua"]
 使用了 [fengari-web](https://github.com/fengari-lua/fengari-web) 直接加载嵌入在页面中的代码，它是基于 Lua 虚拟环境 [Fengari](https://fengari.io/) 和额外的 js 和 DOM 接口 [fengari-interop](https://github.com/fengari-lua/fengari-interop)。其支持的版本是 [Lua 5.3](https://www.lua.org/manual/5.3/manual.html)。
 
 ## 陈设
-可以通过命令栏在虚拟环境中运行 Lua 代码。虚拟环境提供的唯一模块接口是 `commands`。
+可以通过命令栏在虚拟环境中运行 Lua 代码。虚拟环境提供的唯一模块接口是 `commands`.
 
 特别地，使用 `/preload` 注册的代码会在完整的环境（即 `_ENV`）中运行。
 
-以 `/` 开头的命令，如 `/help`，会被自动替换为 `commands.help:run()`。
+以 `/` 开头的命令，如 `/help`，会被自动替换为 `commands.help:run()`.
 
 此外，提供了快捷键和亮暗色模式（跟随整个站点的设置 `localStorage["linkita-color-scheme"]`）。
 
@@ -75,9 +70,9 @@ tags = ["发布", "说明", "展示", "计算机", "含模拟", "在线", "Lua"]
 | `Nodes.jump(dest: array<string>)` | 跳转到结点，若长为 1 则在当前结点下跳转，否则视作完整的路径 |
 
 ### 消息队列 Queue
-每一条消息都有一个整数的重要性指标，存储在 HTML 标签的 `dataset["l"]`。
+每一条消息都有一个整数的重要性指标，存储在 HTML 标签的 `dataset["l"]`.
 
-`Queue.clear(level: integer, level_decrease: integer)` 会遍历所有消息，直接移除重要性指标小于 `level` 的，并将所有重要性指标减去 `level_decrease`
+`Queue.clear(level: integer, level_decrease: integer)` 会遍历所有消息，直接移除重要性指标小于 `level` 的，并将所有重要性指标减去 `level_decrease`.
 
 | 方法 | 效果 | 重要性指标 |
 | :-: | :-: | :-: |
@@ -87,7 +82,7 @@ tags = ["发布", "说明", "展示", "计算机", "含模拟", "在线", "Lua"]
 | `Queue.push_warning(message: string)` | 增加一行“警告”消息 | 3 |
 | `Queue.push_error(message: string)` | 增加一行“错误”消息 | 4 |
 
-`Queue.push_choices(list: array<dictionary>)` 可以添加一组选项，每个选项有以下字段
+`Queue.push_choices(list: array<dictionary>)` 可以添加一组选项，每个选项有以下字段：
 
 | 字段 | 用于 | 默认 |
 | :-: | :-: | :-: |

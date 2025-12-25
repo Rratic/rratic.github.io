@@ -43,9 +43,9 @@ Lisp 似乎受到了 Lambda 演算与 Kleene 的递归论的影响，但不完�
 在 Lisp 中，合法的表达式有值（value），求值往往是默认进行的。[^evaluate]
 
 ### 原始操作符 {#primitive-operators}
-只有七个原始操作符：`quote`，`atom`，`eq`，`car`，`cdr`，`cons` 和 `cond`。
+只有七个原始操作符：`quote`，`atom`，`eq`，`car`，`cdr`，`cons` 和 `cond`.
 
-`(quote x)` 会返回未求值的 `x`，整个 `(quote x)` 也被简记为 `'x`。
+`(quote x)` 会返回未求值的 `x`，整个 `(quote x)` 也被简记为 `'x`.
 ```lisp
 > (quote a)
 a
@@ -55,7 +55,7 @@ a
 (a b c)
 ```
 
-`(atom x)` 会在 $x$ 是原子或空表时返回原子 `t`，否则返回 `()`。
+`(atom x)` 会在 $x$ 是原子或空表时返回原子 `t`，否则返回 `()`.
 按惯例用原子 `t` 表示真，用空表表示假。
 ```lisp
 > (atom 'a)
@@ -78,7 +78,7 @@ t
 
 `quote` 的作用即是**引用**，这一奇怪特性来自于 Lisp 最与众不同的特征：代码和数据由相同的结构构成。[^feature]
 
-`(eq x y)` 会在 $x$ 和 $y$ 的值是同一个原子或都是空表时返回 `t`，否则返回 `()`。
+`(eq x y)` 会在 $x$ 和 $y$ 的值是同一个原子或都是空表时返回 `t`，否则返回 `()`.
 ```lisp
 > (eq 'a 'a)
 t
@@ -119,7 +119,7 @@ a
 second
 ```
 
-易发现 `(cond (x y) ('t z))` 即为一些语言中的 `if x then y else z`。
+易发现 `(cond (x y) ('t z))` 即为一些语言中的 `if x then y else z`.
 
 [^evaluate]: 当表达式以七个原始操作符中 `quote`，`cond` 以外的表达式进行时，它的自变量总是要求值的。其中 `cond` 不被触及的表达式可以不被求值。
 
@@ -157,7 +157,7 @@ second
 ### 递归记号 {#mark-for-recursive-functions}
 理论上说，引入新的记号是可以通过[组合子](/posts/lambda-calculus/#recursive-functions)避免的。
 
-不管是为了降低复杂性还是组合子提出太晚，让我们引入记号 `label`。
+不管是为了降低复杂性还是组合子提出太晚，让我们引入记号 `label`.
 
 用 `(label f (lambda (p1 ... pn) e))` 表示形如 `(lambda (p1 ... pn) e)` 的函数，并允许表达式 $e$ 中的原子 $f$ 对应整个函数 $f$。
 
@@ -189,7 +189,7 @@ second
 
 假定我们定义了运算符号，那么可以看到 S-表达式实际上使用了波兰标记法。
 
-如 $a\times b+c^d$ 被表达为 `(+ (* a b) (^ c d))`。
+如 $a\times b+c^d$ 被表达为 `(+ (* a b) (^ c d))`.
 
 ### 一些函数 {#some-functions}
 让我们定义一些新的函数。
@@ -204,7 +204,7 @@ e
 (b)
 ```
 
-再用 `(list e1 ... en)` 代替 `(cons e1 ... (cons en '()) ... )`。
+再用 `(list e1 ... en)` 代替 `(cons e1 ... (cons en '()) ... )`.
 ```lisp
 > (cons 'a (cons 'b (cons 'c '())))
 (a b c)
@@ -248,7 +248,7 @@ t
        ('t (cons (car x) (append (cdr x) y)))))
 ```
 
-`(pair x y)` 将表 `(x y z)` 和 `(a b c)` 变为 `((x a) (y b) (z c))`。
+`(pair x y)` 将表 `(x y z)` 和 `(a b c)` 变为 `((x a) (y b) (z c))`.
 ```lisp
 (defun pair (x y)
  (cond ((and (null x) (null y)) '())
@@ -335,7 +335,7 @@ list
 
 最后一个部分是函数调用。先把原子替换成对应的值（含 `label` 或 `function` 的表达式），再调用自身。
 
-如 `(eval '(f '(b c)) '((f (lambda (x) (cons 'a x)))))` 变为 `(eval '((lambda (x) (cons 'a x)) '(b c)) '( ... ))`，然后得到 `(a b c)`。
+如 `(eval '(f '(b c)) '((f (lambda (x) (cons 'a x)))))` 变为 `(eval '((lambda (x) (cons 'a x)) '(b c)) '( ... ))`，然后得到 `(a b c)`.
 
 第三个分支处理 `label` 函数调用。这会用内部 `lambda` 表达式替代，并将这一标签置于「环境」中。如，
 ```lisp
@@ -359,9 +359,9 @@ list
         (y ((a b) (c d)))))
 ```
 
-最终返回 `a`。
+最终返回 `a`.
 
-最后一个分支处理 `lambda` 函数调用。对形如 `((lambda (p1 ... pn) e) a1 ... an)` 的表达式，`a1 ... an` 的值会置于「环境」中，对应 `p1 ... pn`。
+最后一个分支处理 `lambda` 函数调用。对形如 `((lambda (p1 ... pn) e) a1 ... an)` 的表达式，`a1 ... an` 的值会置于「环境」中，对应 `p1 ... pn`.
 ```lisp
 (eval '((lambda (x y) (cons x (cdr y)))
         'a
@@ -375,7 +375,7 @@ list
       '((x a) (y (b c d))))
 ```
 
-最终返回 `(a c d)`。
+最终返回 `(a c d)`.
 
 ---
 
@@ -389,8 +389,6 @@ McCarthy 的想法仍是今日的 Lisp 的语义的核心。Lisp 本质上并非
 ## 引入副作用 {#introduce-side-effects}
 ### 概述 {#conclusion}
 如果想要阅读如何构建一个有 `side-effect` 的解释器并且完成一些任务，可以阅读 `AI Memo No. 543`。[^3]这篇文章里充满了技术细节。
-
-如果想要在纯编程理论的方向继续前进，可以看看 Scheme。
 
 这里我们讨论解决更现实的问题。不如看看 Common Lisp 是如何设计的。这参阅了 [Common Lisp 教程](https://lisp.fullstack.org.cn/learn/getting-started/) 中的内容。
 
@@ -440,30 +438,8 @@ NIL
 
 可见相对于简洁的 Lisp 作出了很大的让步。
 
-### LISP 方言 {#lisp-dialects}
-现今有一席之地的 Lisp 方言包括 `Common Lisp`，`Clojure`，`Scheme` 和 `Emacs Lisp`。
-
-它们为不同的目的而设计了不同的特性，允许安全或不安全的宏。
-
-它们的类型系统都是动态的。
-
-{% admonition(type="warning", title="警告") %}
-	本表格基于 DeepSeek 的生成，不保证真实性。
-{% end %}
-
-| 特性 | Common Lisp | Clojure | Scheme | Emacs Lisp |
-|---|---|---|---|---|
-| **设计目标** | 通用、多范式 | 函数式、并发 | 极简、教学导向 | 编辑器扩展 |
-| **主要运行方式** | 编译/JIT | JVM/JS/.NET | 解释/编译 | 解释 |
-| **典型应用领域** | AI、复杂系统 | 分布式系统、数据 | 教学、语言研究 | 编辑器定制、自动化 |
-
-### 相关内容 {#related-items}
-可以看看其它的函数式语言。典型的如 Haskell。也可以看看 Prolog。
-
 ## 困境 {#dilemma}
-{% admonition(type="warning", title="警告") %}
-	此段未完全经过验证。
-{% end %}
+现今有一席之地的 Lisp 方言包括 `Common Lisp`，`Clojure`，`Scheme` 和 `Emacs Lisp`. 它们为不同的目的而设计了不同的特性，允许安全或不安全的宏。
 
 我们已经从纯理论与实践两个角度讨论了 Lisp。从表面上看，这种精巧的语言应该被广为接受才对。
 
@@ -492,8 +468,6 @@ display(f(8))
 ```
 
 另一个明显的问题是性能。在编译器不够强大时，使用汇编进行底层操作，使用 C 模式进行指针操作是十分必要的。但函数式语言难以与这种优化产生联系。此外，动态类型具有较大的空间、时间开销。
-
-可以看看新近的 [Exo 2](https://news.mit.edu/2025/high-performance-computing-with-much-less-code-0313)。
 
 ### 复杂性 {#complexity}
 在 The Mythical Man-Month 等诸多著作中都有一个认识，复杂性来自于**本质复杂性**（问题本身的复杂性）和**偶然复杂性**（语言、工具或方法带来的复杂性）这两类。在纯粹模型之外，Lisp 降低的复杂性没有那么大。
@@ -592,7 +566,7 @@ Richard P. Gabriel 提出了[^6]两种设计理念的不同。
 [^only-seven]: 原文如此，但不借助 `lambda` 等记号完成 `eval` 的递归特性似乎是不可能的。
 [^elegant]: 尽管早有大量图灵完备的模型存在，先前并无具备足够抽象性的语言。而这是发明 Lisp 的目标之一。
 [^3]: Guy Lewis Steele, Jr. and Gerald Jay Sussman, ”The Art of the Interpreter, or the Modularity Complex (Parts Zero, One, and Two),” MIT AI Lab Memo 453, May 1978.
-[^lisp-count]: 可能是指 Common Lisp。取决于具体的统计方式。
+[^lisp-count]: 可能是指 Common Lisp. 取决于具体的统计方式。
 [^5]: No Silver Bullet—Essence and Accident in Software Engineering
 [^6]: <https://www.dreamsongs.com/WorseIsBetter.html>
 [^maplist]: > Present day Lisp programmers would use `mapcar` instead of `maplist` here. This example

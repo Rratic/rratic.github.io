@@ -22,6 +22,8 @@ tags = ["笔记", "计算机", "函数式编程", "Haskell"]
 
 ---
 
+{{ ref_index(to = "functional-programming") }}
+
 前置知识
 - 一般的编程基础
 - [无类型 λ 演算](/posts/lambda-calculus/)

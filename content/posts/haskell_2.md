@@ -23,6 +23,8 @@ tags = ["笔记", "数学", "计算机", "函数式编程", "Haskell"]
 
 ---
 
+{{ ref_index(to = "functional-programming") }}
+
 前置知识
 - 一般的抽象代数基础
 - [Haskell 学习（一）](/posts/haskell-1/)
