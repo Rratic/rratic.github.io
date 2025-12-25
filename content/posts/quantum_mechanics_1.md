@@ -64,7 +64,7 @@ $$x_{mn} = x_{0_{mn}} e^{-i\omega_{mn}t} \tag{1.5}$$
 为了遍历所有的正整数 $(m, n)$，规定 $\omega_{mn}=-\omega_{nm}, \omega_{nn}=0$，我们有包含所有 $x_{mn}$ 的无穷大表格（尽管海森堡当时还不知道矩阵）。
 
 {% admonition(type="definition", title="Hermitian 矩阵") %}
-我们称 Hermitian 共轭（有时被音译为厄米/埃尔米特共轭）是指 $A^\dagger = \left(A^T\right)^* $，其中 $A^T$ 是矩阵转置，$A^*$ 是（按分量）复共轭。
+我们称 Hermitian 共轭（有时被音译为厄米/埃尔米特共轭）是指 $A^\dagger = \left(A^T\right)^\ast$，其中 $A^T$ 是矩阵转置，$A^\ast$ 是（按分量）复共轭。
 
 一个矩阵是 Hermitian 矩阵，若 $A = A^\dagger$.
 {% end %}
@@ -130,11 +130,11 @@ $$[X_a, P_b] = i\hbar\delta_{ab}, [X_a, X_b] = 0, [P_a, P_b] = 0 \tag{1.10}$$
 在原书中，作者还对一维谐振子作了具体的计算，此文中略过。
 
 ### 新记号
-最后，让我们换一个写法，记
+最后，让我们换一个写法，记：
 
 $$A_{mn} = \langle m|\hat{A}|n\rangle \tag{1.11}$$
 
-那么就有 $\langle m|\hat{A}^\dagger|n\rangle = \langle m|\hat{A}|n\rangle^*$ 及 $\langle m|n \rangle = \langle m|\mathbf{1}|n \rangle =\delta_{mn}$.
+那么就有 $\langle m|\hat{A}^\dagger|n\rangle = \langle m|\hat{A}|n\rangle^\ast$ 及 $\langle m|n \rangle = \langle m|\mathbf{1}|n \rangle =\delta_{mn}$.
 
 不严格地说，可以把左态矢 $\langle m|$ 看作行向量，把右态矢 $|n \rangle$ 看作列向量。
 

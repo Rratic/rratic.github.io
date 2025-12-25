@@ -473,3 +473,27 @@ open import Data.Nat.Properties using (+-identityˡ; +-identityʳ)
 ℕ-add-is-monoid .identityˡ = +-identityˡ
 ℕ-add-is-monoid .identityʳ = +-identityʳ
 ```
+
+### 否定
+有时我们希望证明某个东西的否定 `¬ x`，这定义为 `x → ⊥`，其中 `⊥` 代表 falsity 是一个空类型。
+
+两个东西不等价 `expr1 ≢  expr2` 就是 `¬ (expr1 ≡ expr2)`.
+
+它们的证法参考：
+```agda
+init-is-not-homomorphism : ∀ {_⊗_} (m : IsSemigroup _⊗_)
+  → ¬ IsHomomorphism NList-++′-is-semigroup m (init {ℕ})
+init-is-not-homomorphism {_⊗_} m H = ¬K K
+  where
+    ¬K : [ 0 ] ++ [ 1 ] ≢  [ 0 ] ++ [ 2 ]
+    ¬K ()
+    K : [ 0 ] ++ [ 1 ] ≡ [ 0 ] ++ [ 2 ]
+    K =
+      begin
+        [ 0 ] ++ [ 1 ]
+      ≡⟨ ? ⟩ -- 一定量的证明
+        [ 0 ] ++ [ 2 ]
+      ∎
+```
+
+我们使用 absurd pattern 定义出了函数 `¬K`，使得 `¬K K` 结果为 `⊥`.
