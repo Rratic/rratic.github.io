@@ -6,9 +6,9 @@ tags = ["计算机"]
 +++
 
 ## 学习方法
-- 善用 AI
-- 学会提问
-	- 避免 [X-Y 问题](https://coolshell.cn/articles/10804.html)
+善用 AI.
+
+学会提问。参考经典文章[提问的艺术](https://blog.csdn.net/weixin_30587025/article/details/96616932)与[X-Y Problem](https://coolshell.cn/articles/10804.html).
 
 ## 资源
 - [CS 自学指南](https://csdiy.wiki/)

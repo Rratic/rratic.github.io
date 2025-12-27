@@ -17,7 +17,7 @@ tags = ["笔记", "数学", "几何", "Euclid 几何"]
 
 > 几何学是研究图形/对象在变换群作用下不变性质的学问。[^coinci]
 
-主要包括射影几何 $(\mathbb{R}P^2, \mathrm{PGL}(3, \mathbb{R}))$、反演几何 $(\hat{\mathbb{C}}, M_2(\hat{\mathbb{C}}))$ 与双曲几何 $(\mathbb{H}^2, \mathrm{Isom}(\mathbb{H}^2))$.
+主要包括射影几何 $(\mathbb{R}P^2, \mathrm{PGL}(3, \mathbb{R}))$、反演几何 $(\hat{\mathbb{C}}, M_2(\hat{\mathbb{C}}))$ 与双曲几何 $(\mathbb{H}^2, \mathrm{Isom}(\mathbb{H}^2))$. 额外讲了少量的拓扑与痕量的流形。
 
 ---
 
