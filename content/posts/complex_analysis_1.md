@@ -1,5 +1,5 @@
 +++
-title = "复分析（一）：基本概念与 Cauchy 积分理论的速通指南"
+title = "复分析（一）：基本概念与 Cauchy 积分理论"
 description = "复变函数基本概念的速通，从复值函数写到 Cauchy 公式及其推论。"
 date = 2025-07-27
 updated = 2025-11-16

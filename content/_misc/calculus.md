@@ -14,7 +14,7 @@ tags = ["数学", "微积分学"]
 * [谢彦桐的 notes](https://darkoxie.github.io/) 适用于非数学专业
 
 建议同步学习
-* [点集拓扑](/_misc/topology/)
+* [点集拓扑](@/_misc/topology.md)
 
 ## 数学分析
 ### 基本概念

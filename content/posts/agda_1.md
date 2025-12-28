@@ -26,7 +26,7 @@ tags = ["笔记", "计算机", "函数式编程", "Agda"]
 - *Verified Functional Programming in Agda*
 
 ## 环境配置
-参考 <https://agda.readthedocs.io/en/latest/getting-started/installation.html> 的指引
+可参考 <https://agda.readthedocs.io/en/latest/getting-started/installation.html> 的指引。
 
 Agda 是用 Haskell 写的，可以在[安装好 Haskell](/posts/haskell-1/) 后通过如下命令安装：
 ```cmd

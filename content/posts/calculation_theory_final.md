@@ -15,6 +15,8 @@ categories = ["知识"]
 tags = ["笔记", "计算机", "函数式编程"]
 +++
 
+{{ ref_index(to = "functional-programming") }}
+
 这是本课程的最后一个部分，同时可能是在上半学期和下半学期前部的铺垫下真正想讲的东西。其中函数式编程的想法提供了无副作用的函数和高阶函数的例子，从而能够被我们讨论；定理证明器则允许我们验证推导的正确性。
 
 课程主页在 <https://zhenjiang888.github.io/FP/2025/>.
@@ -142,7 +144,7 @@ $$p\triangleleft = +\\!\\!+/ \cdot (p \to [\mathrm{id}]^o, []^o)\ast$$
 
 我们希望定义 $\uparrow _f$，使得 $x \uparrow _f y$ 的值是 $x, y$ 之一，且 $f\ (x \uparrow _f y) = f\ x \uparrow f\ y$. 例如，可以让 $\uparrow _{\\#}$ 是取两个列表中更长的那一个（长度相等时为保证一致可按字典序比较）。
 
-我们规定 $\omega = \uparrow _{\\#}/ []$，有 $\\#\omega = -\infty$. 它是一个 zero. 这里我们称一个 $\omega$ 是 left zero 如果对任意 $a$ 都有 $\omega \oplus a = \omega$.
+我们规定 $\omega = \uparrow _{\\#}/ []$，有 $\\#\omega = -\infty$. 它是 $+\\!\\!+$ 的一个 zero. 这里我们称一个 $\omega$ 是 left zero 如果对任意 $a$ 都有 $\omega \oplus a = \omega$.
 
 ### 推导示例
 {% admonition(type="question", title="Longest Segment Problem") %}
