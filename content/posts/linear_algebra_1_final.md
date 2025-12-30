@@ -1,7 +1,8 @@
 +++
 title = "高等代数Ⅰ期末复习笔记"
-description = "往年题选做和可能有用的知识扩充。"
+description = "往年题选做和可能有用的知识扩充 & 考后总结。"
 date = 2025-12-29
+updated = 2025-12-30
 
 [extra]
 math = true
@@ -72,9 +73,9 @@ $A \in \mathbb{Z}^{n\times n}$ 满足 $|\det A| = 2$，证存在 $Z \in \mathbb{
 
 ---
 
-先证对 $A$ 可找到 $|\det P|, |\det Q| = 1$ 的整系数矩阵使得 $PAQ$ 是对角阵。首先，通过初等行变换（注意对应矩阵都有特征值为 $1$）进行辗转相除、交换两行可以得到一个行阶梯阵。可以通过初等列变换得到对角阵。
+先证对 $A$ 可找到 $|\det P|, |\det Q| = 1$ 的整系数矩阵使得 $PAQ$ 是对角阵。首先，通过初等行变换（注意对应矩阵都有行列式为 $1$）进行辗转相除、交换两行可以得到一个行阶梯阵。可以通过初等列变换得到对角阵。
 
-此时 $AX = Y$ 有解即于 $(PA)(QX) = PY$ 有解，易见。
+此时 $AX = Y$ 有解即 $(PA)(QX) = PY$ 有解，易见。
 
 {% admonition(type="question", title="2022 P7") %}
 设 $V$ 为实线性空间 $\mathbb{R}^{2022}$，求正整数 $r$ 的最小值，使得存在 $L \in M^r(V)$，当 $T \in L(V)$ 满足 $L(T\alpha_1, \cdots, T\alpha_r) = L(\alpha_1, \cdots, \alpha_r)$ 时总有 $\det T = 1$.
@@ -141,9 +142,9 @@ $n = 2024$，$\alpha = (x_1, \cdots, x_n) \in \mathbb{Z}^n$ 为非零向量且 $
 
 ---
 
-另一个想法是，结论等价于说构造一个第一行是 $x_1, \cdots, x_n$ 的特征值为 $\pm 1$ 的矩阵。
+另一个想法是，结论等价于说构造一个第一行是 $x_1, \cdots, x_n$ 的行列式为 $\pm 1$ 的矩阵。
 
-假设我们现在有一个特征值非零的矩阵特征值有素因子 $p$，则 $F_p$ 下它是线性相关的，设有 $k_1v_1 + \cdots + k_mv_m = 0$，在 $\mathbb{Z}$ 下是 $k_1v_1 + \cdots + k_mv_m = pw$，现在将某个不是 $\alpha$ 的 $v_i$ 换成 $w$，特征值将减小。
+假设我们现在有一个行列式非零的矩阵行列式有素因子 $p$，则 $F_p$ 下它是线性相关的，设有 $k_1v_1 + \cdots + k_mv_m = 0$，在 $\mathbb{Z}$ 下是 $k_1v_1 + \cdots + k_mv_m = pw$，现在将某个不是 $\alpha$ 的 $v_i$ 换成 $w$，行列式将减小。
 
 ---
 
@@ -190,7 +191,7 @@ $n = 2024$，任意域 $F$，令 $V = \\{h \in F[x] | \deg h < n \\}$，设 $f, 
 
 考虑 $F$ 的代数闭包 $\bar{F}$，分解 $f(x) = (x-\alpha_1)\cdots(x-\alpha_n), g(x) = (x-\beta_1)\cdots(x-\beta_n)$.
 
-在基 $1, x-\beta_1, (x-\beta_1)(x-\beta_2), \cdots, (x-\beta_1)\cdots(x-\beta_{n-1})$ 中考虑 $T_1$ 对应的矩阵，是一个上三角阵，特征值为 $f(\beta_1)\cdots f(\beta_n) = \prod (\beta_i - \alpha_j)$. $T_2$ 同理，使用 $n$ 是偶数。
+在基 $1, x-\beta_1, (x-\beta_1)(x-\beta_2), \cdots, (x-\beta_1)\cdots(x-\beta_{n-1})$ 中考虑 $T_1$ 对应的矩阵，是一个上三角阵，行列式为 $f(\beta_1)\cdots f(\beta_n) = \prod (\beta_i - \alpha_j)$. $T_2$ 同理，使用 $n$ 是偶数。
 
 ## 内容扩充
 同学推荐了往年的一个习题课。在知乎上找到讲义如下：
@@ -199,7 +200,7 @@ $n = 2024$，任意域 $F$，令 $V = \\{h \in F[x] | \deg h < n \\}$，设 $f, 
 
 [2021.09.14](https://zhuanlan.zhihu.com/p/415730532)
 
-在最后提供了一个使用 mod p 约化证明 $x^5 + 4x + 2$ 的 Galois 群是 $\mathbb{S}_5$ 的例子。
+在最后提供了一个使用 mod p 约化证明 $x^5 + 4x + 2$ 的 Galois 群是 $S_5$ 的例子。
 
 ---
 
@@ -262,6 +263,10 @@ A = \begin{pmatrix}
 & & & 1 & -a_{n-1}
 \end{pmatrix}
 $$
+
+华罗庚恒等式给出：
+
+$$(I - BA)^{-1} = I + B(I-AB)^{-1}A$$
 
 有一个打洞技巧：
 
@@ -363,3 +368,46 @@ $$\sum_{\sigma\in\Omega} \operatorname{sgn}(\sigma) a_{\sigma(1)\sigma(2)}a_{\si
 介绍了结式，用于判断 $f, g$ 在 $\bar{F}$ 中是否有公共根。
 
 定义判别式 $\mathrm{Disc}(f) = a^{2n-2} \prod_{i < j} (c_i - c_j)^2$. 有 $\mathrm{Res}(f, f') = (-1)^{n(n-1)/2}a \mathrm{Disc}(f)$.
+
+## 考后总结
+还是炸了。填空题没什么可说的，第三题错估了条件的强度做了太久。
+
+{% admonition(type="question", title="2025 P1 (3)") %}
+记 $\Lambda_d = \\{(x, y, z) \in \mathbb{Z}^3 \mid x+y+z \equiv 0 \mod d\\}$，求数集 $\\{\det T | T \in L(\mathbb{R}^3), T(\Lambda_3) \subseteq \Lambda_5\\}$.
+{% end %}
+
+是 $\frac{5}{3} \mathbb{Z}$. 因为可以 $(x, y, z) \to (x, y, x+y+z)$ 然后 $(x, y, 3k) \to (x, y, 5k)$ 然后 $(x, y, t) \to (x, 4x+y, 4y+t)$.
+
+{% admonition(type="question", title="2025 P4") %}
+复矩阵 $A \in \mathbb{C}^{2n\times 2n}$ 满足 $A^2 = -3I_{2n}$，将它表示为分块矩阵（$A_{ij} \in \mathbb{C}^{n\times n}$）：
+
+$$
+A = \begin{pmatrix}
+A_{11} & A_{12} \\\\
+A_{21} & A_{22}
+\end{pmatrix}
+$$
+
+证明：
+
+$$\det (I_n + A_{11})^3 = \det (I_n - A_{22})^3$$
+{% end %}
+
+首先注意到 $(I_{2n}+A)^3 = -8I_{2n}$.
+
+另一方面 $(I_{2n}+A)(I_{2n}-A) = 4I_{2n}$，有：
+
+$$
+(I_{2n}+A) \begin{pmatrix}
+I_n & -A_{12} \\\\
+0 & I_n-A_{22}
+\end{pmatrix} =
+\begin{pmatrix}
+I_n + A_{11} & 0 \\\\
+A_{21} & 4I_n
+\end{pmatrix}
+$$
+
+---
+
+还看到有对角化的做法，这个明年再说吧。
