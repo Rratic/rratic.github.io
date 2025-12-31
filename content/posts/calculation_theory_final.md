@@ -46,13 +46,13 @@ $$(f\cdot)\cdot(g\cdot) = ((f\cdot g)\cdot)$$
 - 结构 bag 是在列表基础上忽略顺序，结构 set 是进一步忽略重复
 - 熟知的 `map` 写作 $f \ast [a_1, \cdots, a_n] = [f\ a_1, \cdots, f\ a_n]$
 - reduce 是指 $\oplus / [a_1, \cdots, a_n] = a_1 \oplus \cdots \oplus a_n$，现在就有 `maximum` 是 $\uparrow/$，其中 $a\uparrow b$ 结果是两者较大值
-- `foldr` 即 left to right reduce 是 $\oplus \rightarrow\\!\\!\\!\\!\\!\\!/_e [a_1, \cdots, a_n] = ((e \oplus a_1) \oplus \cdots) \oplus a_n$，右下角不写 $e$ 则是把 $e$ 当作单位元的结果；相应地 `foldl` 即 right to left reduce 是 $\oplus \leftarrow\\!\\!\\!\\!\\!\\!/_e [a_1, \cdots, a_n] = a_1 \oplus (\cdots (a_n \oplus e))$
+- `foldl` 即 left to right reduce 是 $\oplus \rightarrow\\!\\!\\!\\!\\!\\!/_e [a_1, \cdots, a_n] = ((e \oplus a_1) \oplus \cdots) \oplus a_n$，右下角不写 $e$ 则是把 $e$ 当作单位元的结果；相应地 `foldr` 即 right to left reduce 是 $\oplus \leftarrow\\!\\!\\!\\!\\!\\!/_e [a_1, \cdots, a_n] = a_1 \oplus (\cdots (a_n \oplus e))$
 
-我们定义 `scanr` 即 left-accumulate 是：
+我们定义 `scanl` 即 left-accumulate 是：
 
 $$\oplus \rightarrow\\!\\!\\!\\!\\!\\!\\!/\\!\\!/_e [a_1, \cdots, a_n] = [e, e \oplus a_1, \cdots, ((e \oplus a_1) \oplus \cdots) \oplus a_n]$$
 
-相应地 `scanl` 即 right-accumulate 是：
+相应地 `scanr` 即 right-accumulate 是：
 
 $$\oplus \leftarrow\\!\\!\\!\\!\\!\\!\\!/\\!\\!/_e [a_1, \cdots, a_n] = [a_1 \oplus (\cdots (a_n \oplus e)), \cdots, a_n \oplus e, e]$$
 
@@ -81,7 +81,7 @@ $$
 & \mathrm{mss} \\\\
 = & \uparrow/ \cdot +/\ast \cdot \operatorname{segs} \\\\
 = & \uparrow/ \cdot +/\ast \cdot +\\!\\!+ / \cdot \mathrm{tails} \ast \cdot \operatorname{inits} \\\\
-= & \uparrow/ \cdot (\uparrow/ \cdot +/\ast \cdot \operatorname{tails}) \cdot \operatorname{inits} \\\\
+= & \uparrow/ \cdot (\uparrow/ \cdot +/\ast \cdot \operatorname{tails})\ast \cdot \operatorname{inits} \\\\
 = & \uparrow/ \cdot \odot \rightarrow\\!\\!\\!\\!\\!\\!/ _{\ 0} \ast \cdot \operatorname{inits} \\\\
 = & \uparrow/ \cdot \odot \rightarrow\\!\\!\\!\\!\\!\\!\\!/\\!\\!/ _{\ 0}
 \end{align*}
