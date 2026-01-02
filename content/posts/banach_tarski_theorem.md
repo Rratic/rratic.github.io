@@ -97,8 +97,8 @@ $$
 
 另有一个使用 Ping-Pong Lemma 的证法，来自 [That trick where you embed the free group into a Lie group](https://sbseminar.wordpress.com/2007/09/17/that-trick-where-you-embed-the-free-group-into-a-lie-group/).
 
-{% admonition(type="theorem", title="Ping-Pong Lemma") %}
-$G$ 可由 $a, b$ 生成，有在 $X$ 上的作用。若存在 $X$ 的不交的非空子集 $A, B$，若对任意非零整数 $n$ 都有 $a^nB \subseteq A, b^nA \subseteq B$，则 $G = \langle a, b \rangle$ 是自由的。
+{% admonition(type="theorem", title="二元版 Ping-Pong Lemma") %}
+$G$ 可由 $a, b$ 生成，有在 $X$ 上的作用。若存在 $X$ 的不交的非空子集 $A^+, B^+$ 及非空子集 $A^-, B^-$，使得 $a(X\setminus A^-) \subseteq A^+, b(X\setminus B^-) \subseteq B^+, a^{-1}(X\setminus A^+) \subseteq A^-, b^{-1}(X\setminus B^+) \subseteq B^-$，则 $G = \langle a, b \rangle$ 是自由的。
 {% end %}
 
 这是显然的。
@@ -116,9 +116,9 @@ b = \begin{pmatrix}
 \end{pmatrix}
 $$
 
-则 $a(\Delta \setminus V_3) = V_1, b(\Delta \setminus V_4) = V_2$.
+则 $a(\Delta \setminus V_3) = V_1, b(\Delta \setminus V_4) = V_2, a(\Delta \setminus V_1) = V_3, b(\Delta \setminus V_2) = V_4$.
 
-这可以被做成 $\mathrm{SO}(3)$ 上的。
+这可以被做成 $\mathrm{SO}(3, \mathbb{Q}_5)$ 上的，进而做成 $\mathrm{SO}(3)$ 上的。
 
 ---
 

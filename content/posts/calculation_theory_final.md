@@ -111,7 +111,9 @@ $$h\ v = h\ x \wedge h\ w = h\ y \implies h\ (v +\\!\\!+ w) = h\ (x +\\!\\!+ y)$
 
 从同态推下式是通过 $h = \odot/ \cdot f\ast$.
 
-从下式推同态是因为存在 $g$ 使 $h = h \cdot g \cdot h$，令 $t \odot u = h\ (g\ t +\\!\\!+ g\ u)$，从而 $h\ (x +\\!\\!+ y) = h\ x \odot h\ y$.
+从下式推同态是因为存在 $g$ 使 $h = h \cdot g \cdot h$. 存在性可用集合论方法说明。
+
+令 $t \odot u = h\ (g\ t +\\!\\!+ g\ u)$，从而 $h\ (x +\\!\\!+ y) = h\ x \odot h\ y$. 由条件知，与 $g$ 的具体取值无关，是良定义的。
 
 ---
 
@@ -209,6 +211,8 @@ $$f = [\\![ (e_1, \cdots, e_n), (\oplus_1, \cdots, \oplus_n) ]\\!]$$
 通过 Existence Lemma 证明，两边分别用 right-to-left reduction 与 left-to-right reduction 的性质。
 
 ### 构造方法
+我们回顾 Existence Lemma 的证明方法，定义：
+
 {% admonition(type="definition", title="Weak (Right) Inverse") %}
 称 $g$ 是 $f$ 的 weak (right) inverse 如果对 $y \in \operatorname{Im} f$，有：
 
@@ -308,7 +312,7 @@ Metamorphism 是在 fold 之后 unfold. 定义如下：
 
 $$\mathrm{meta}\ (p,f,g)\ (\oplus, e) = \mathrm{unfold}\ p\ f\ g \cdot \mathrm{foldr}\ (\oplus)\ e$$
 
-这适合用于表示一种数据表达方式到另一种的转化。
+这适合用于表示一种数据表达方式到另一种的转换。
 
 ---
 
