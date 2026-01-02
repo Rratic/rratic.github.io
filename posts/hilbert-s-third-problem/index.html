@@ -1,0 +1,318 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>希尔伯特第三问题：多面体剪接的 Dehn 不变量 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="希尔伯特第三问题：多面体剪接的 Dehn 不变量" />
+  <meta name="description" content="关于问题“给定两个体积相等的多面体，是否总能将一个切成有限个多面体，通过平移、旋转组合成另一个？”使用 Dehn 不变量的否定。" />
+  <meta property="og:description" content="关于问题“给定两个体积相等的多面体，是否总能将一个切成有限个多面体，通过平移、旋转组合成另一个？”使用 Dehn 不变量的否定。" />
+  <meta property="og:url" content="https://rratic.github.io/posts/hilbert-s-third-problem/" />
+  <link rel="canonical" href="https://rratic.github.io/posts/hilbert-s-third-problem/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2025-04-09T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2025-04-20T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="几何" />
+  <meta property="article:tag" content="Euclid 几何" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.github.io/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.github.io/style/shared.css?h=63eca58df589815f6747" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.github.io/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.github.io/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.github.io/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.github.io/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">希尔伯特第三问题：多面体剪接的 Dehn 不变量</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2025-04-09T00:00:00+00:00">2025-04-09</time><span
+        class="middot"></span><time
+    datetime="PT0H5M0S">5&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#about">介绍</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#background">背景</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#background-plane">平面情形</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#original-question">原问题</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#dehn-invariant">Dehn 不变量</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#tensor-product">张量积</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#answer">回答</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#advancement">后续</a>
+      </li>
+    </ul>
+  </details>
+</nav>
+
+  <!-- Content -->
+  <section><h2 id="about">介绍</h2>
+<p>希尔伯特第三问题是 1900 年希尔伯特《数学问题》演讲<sup class="footnote-reference"><a href="#hilbert23reprinted">1</a></sup>提出的 23 个问题中最早得到解决的。</p>
+<p>在英文重制文本中，可以看到这样一段描述。</p>
+<blockquote>
+<p>Gauss mentions in particular the theorem of Euclid, that triangular pyramids of equal altitudes are to each other as their bases.</p>
+</blockquote>
+<p>这个问题某种程度上等价于：
+
+<link rel="stylesheet" href="https://rratic.github.io/admonition.css?h=78eb69fa9d4a0eea7f15" type="text/css">
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>希尔伯特第三问题</strong></span>
+  </div>
+  <div class="pl-4"><p>给定两个体积相等的多面体，是否总能将一个切成有限个多面体，通过平移、旋转组合成另一个？</p>
+</div>
+</div>
+</p>
+<p>该问题由 Max Dehn 在 1901 年 9 月使用不变量解决。<sup class="footnote-reference"><a href="#paper-dehn">2</a></sup></p>
+<h2 id="background">背景</h2>
+<h3 id="background-plane">平面情形</h3>
+<p>在平面中，类似问题的回答是肯定的，这是 Wallace–Bolyai–Gerwien 定理。</p>
+<p>只需证明，多边形可以通过剪切拼接变为面积相等的正方形。这可以通过如下操作完成：</p>
+<ol>
+<li>将多边形剪成三角形。</li>
+<li>三角形可以沿中位线剪，然后接平行四边形。</li>
+<li>平行四边形可以剪接成矩形。</li>
+<li>矩形可以剪接成正方形（通过把它变为一边长为 $\sqrt{ab}$ 的平行四边形）。</li>
+<li>两个正方形可以剪接成大正方形（将正方形并排放置，割出两个斜边 $\sqrt{a^2+b^2}$ 的直角三角形）。</li>
+</ol>
+<h2 id="original-question">原问题</h2>
+<h3 id="dehn-invariant">Dehn 不变量</h3>
+<p>对一个多面体，其 $n$ 个棱长为 $l_1, l_2, \cdots l_n$，对应的二面角为 $\theta _1, \theta _2, \cdots \theta _n$，则该不变量被定义为：</p>
+<p>$$\sum_{i=1}^n l_i\otimes \theta _i \in \mathbb{R}\otimes _\mathbb{Z} \mathbb{R}/\pi\mathbb{Z}$$</p>
+<p>这一二元组允许两个过程：</p>
+<ul>
+<li>$(l_1 + l_2, \theta) = (l_1, \theta) + (l_2, \theta)$ 在棱上剪/接。</li>
+<li>$(l, \theta _1 + \theta _2) = (l, \theta _1) + (l, \theta _2)$ 在角上剪/接。</li>
+</ul>
+<p>有些文章中会采取 $\sum_{i=1}^n l_i \theta _i$，这足以完成证明，但会导致无法区分形如“边长为 π”的多面体。</p>
+<h3 id="tensor-product">张量积</h3>
+<p>这里解释一下张量积 $\otimes$ 的严格定义。</p>
+<p>两个向量空间 $V,W$ 的张量积 $V\otimes W$ 是一个向量空间，由形如</p>
+<p>$$(v, w) \in V \times W$$</p>
+<p>的元素张成，并商掉一族等价关系，是如下的双线性关系：</p>
+<p>$$(a_1v_1 + a_2v_2, w) = a_1(v_1, w) + a_2(v_2, w)$$
+$$(v, a_1w_1 + a_2w_2) = a_1(v, w_1) + a_2(v, w_2)$$</p>
+<p>前文中 $\otimes _\mathbb{Z}$ 是指这里 $a\in \mathbb{Z}$，在无歧义时可省略。且易证明 $\mathbb{R}\otimes _\mathbb{Z} \mathbb{R}/\pi\mathbb{Z} = \mathbb{R}\otimes _\mathbb{Q} \mathbb{R}/\pi\mathbb{Q}$.</p>
+<p>张量积使得 $V\times W$ 上的双线性函数可以等价地看成 $V\otimes W$ 上的线性函数。</p>
+<h3 id="answer">回答</h3>
+<p>棱长为 1 的正四面体的 Dehn 不变量为 $(6, 2\arctan\frac{\sqrt{2}}{2})$​，这不能化约成 $0$.<sup class="footnote-reference"><a href="#not-zero">3</a></sup></p>
+<p>而任意长方体的 Dehn 不变量都为 $0$，因此取体积与正四面体相等的长方体即为反例。</p>
+<h2 id="advancement">后续</h2>
+<p>Jean-Pierre Sydler 于 1965 年证明体积与 Dehn 不变量都相同的多面体一定可通过互相剪拼得到。<sup class="footnote-reference"><a href="#paper-sydler">4</a></sup></p>
+<div class="footnote-definition" id="hilbert23reprinted"><sup class="footnote-definition-label">1</sup>
+<p>一个英文重制文本见于 <a href="https://people.tamu.edu/~rojas//hilbert23reprinted.pdf">https://people.tamu.edu/~rojas//hilbert23reprinted.pdf</a>。</p>
+</div>
+<div class="footnote-definition" id="paper-dehn"><sup class="footnote-definition-label">2</sup>
+<p><a href="https://link.springer.com/article/10.1007/BF01448001">https://link.springer.com/article/10.1007/BF01448001</a></p>
+</div>
+<div class="footnote-definition" id="not-zero"><sup class="footnote-definition-label">3</sup>
+<p>否则存在 $\frac{a}{b}\in\mathbb{Q}$ 使得 $\tan(\frac{a}{b}\pi)=\frac{\sqrt{2}}{2}$。一方面设 $y=e^{i\frac{a}{b}\pi}$ 则这等于 $-i\frac{y^2-1}{y^2+1}$，满足 $2(y^2-1)^2+(y^2+1)^2=0$。另一方面 $y$ 为单位根，极小多项式是分圆多项式，枚举知不成立。</p>
+</div>
+<div class="footnote-definition" id="paper-sydler"><sup class="footnote-definition-label">4</sup>
+<p><a href="https://link.springer.com/article/10.1007/BF02564364">https://link.springer.com/article/10.1007/BF02564364</a></p>
+</div>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/几何/">几何</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/Euclid 几何/">Euclid 几何</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/pages"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <link rel="stylesheet" href="https://rratic.github.io/katex/katex.min.css?h=e189fd0238811989c364" />
+  <script defer src="https://rratic.github.io/katex/katex.min.js?h=6b909443e6c8f6e5d24c"></script>
+  <script defer src="https://rratic.github.io/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

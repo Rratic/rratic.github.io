@@ -1,0 +1,326 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>Banach–Tarski 分球定理的证明细节 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="Banach–Tarski 分球定理的证明细节" />
+  <meta name="description" content="Banach–Tarski 分球定理的用到的想法和细节处理。" />
+  <meta property="og:description" content="Banach–Tarski 分球定理的用到的想法和细节处理。" />
+  <meta property="og:url" content="https://rratic.github.io/posts/banach-tarski-theorem/" />
+  <link rel="canonical" href="https://rratic.github.io/posts/banach-tarski-theorem/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-01-01T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="代数" />
+  <meta property="article:tag" content="群论" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.github.io/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.github.io/style/shared.css?h=63eca58df589815f6747" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.github.io/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.github.io/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.github.io/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.github.io/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">Banach–Tarski 分球定理的证明细节</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2026-01-01T00:00:00+00:00">2026-01-01</time><span
+        class="middot"></span><time
+    datetime="PT0H7M0S">7&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+
+  <!-- Content -->
+  <section><p>之前设计文创的时候看过大致的证明，但是没有验证细节。</p>
+<p>Banach–Tarski 分球佯谬说的是，可以把 $\mathbb{R}^3$ 中的单位球分成有限个（可以做到 5 个）点集的无交并，经过旋转、平移得到两份单位球。如果忽略只允许旋转、平移的条件的话，从纯集合论角度是合理的，但整个结论是反直觉的。</p>
+<h2 id="zhao-dao-zi-you-qun">找到自由群</h2>
+<p>我们先在 $\mathrm{SO}(3)$ 中找到由两个元素生成的自由群。</p>
+<hr />
+<p>以下证明参考了 <a href="https://math.stackexchange.com/questions/1492799/there-is-a-free-group-f-2-in-so3">proof writing - There is a free group F2 in SO(3)</a>.</p>
+<p>取元素 $a$ 为绕 $x$ 轴转 $\arccos(\frac{1}{3})$，即：</p>
+<p>$$
+a = \begin{pmatrix}
+1 &amp; 0 &amp; 0 \\
+0 &amp; \frac{1}{3} &amp; -\frac{2\sqrt{2}}{3} \\
+0 &amp; \frac{2\sqrt{2}}{3} &amp; \frac{1}{3}
+\end{pmatrix}
+$$</p>
+<p>取 $b$ 为绕 $z$ 轴转 $\arccos(\frac{1}{3})$，即：</p>
+<p>$$
+b = \begin{pmatrix}
+\frac{1}{3} &amp; -\frac{2\sqrt{2}}{3} &amp; 0 \\
+\frac{2\sqrt{2}}{3} &amp; \frac{1}{3} &amp; 0 \\
+0 &amp; 0 &amp; 1
+\end{pmatrix}
+$$</p>
+<p>则 $3a, 3b$ 均属于：</p>
+<p>$$
+\begin{pmatrix}
+\mathbb{Z} &amp; \sqrt{2}\mathbb{Z} &amp; \mathbb{Z} \\
+\sqrt{2}\mathbb{Z} &amp; \mathbb{Z} &amp; \sqrt{2}\mathbb{Z} \\
+\mathbb{Z} &amp; \sqrt{2}\mathbb{Z} &amp; \mathbb{Z}
+\end{pmatrix}
+$$</p>
+<p>其在乘法下封闭。</p>
+<p>考虑各个整数系数在 $\mod 3$ 下的等价类，记（都省略了 $\sqrt{2}$ 及等价类符号）：</p>
+<p>$$
+A = [3a] = \begin{pmatrix}
+0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 1 \\
+0 &amp; -1 &amp; 1
+\end{pmatrix}, \quad
+B = \begin{pmatrix}
+0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 1 \\
+0 &amp; 1 &amp; -1
+\end{pmatrix}, \quad
+C = \begin{pmatrix}
+0 &amp; 1 &amp; -1 \\
+0 &amp; 1 &amp; 1 \\
+0 &amp; 0 &amp; 0
+\end{pmatrix}, \quad
+D = \begin{pmatrix}
+0 &amp; -1 &amp; 1 \\
+0 &amp; 1 &amp; 1 \\
+0 &amp; 0 &amp; 0
+\end{pmatrix}
+$$</p>
+<p>则有（左乘上）：</p>
+<table><thead><tr><th style="text-align: center">$\times$</th><th style="text-align: center">$A$</th><th style="text-align: center">$B$</th><th style="text-align: center">$C$</th><th style="text-align: center">$D$</th></tr></thead><tbody>
+<tr><td style="text-align: center">$A = [3a]$</td><td style="text-align: center">$-A$</td><td style="text-align: center">$\mathbf{0}$</td><td style="text-align: center">$A$</td><td style="text-align: center">$A$</td></tr>
+<tr><td style="text-align: center">$[3a^{-1}]$</td><td style="text-align: center">$\mathbf{0}$</td><td style="text-align: center">$-B$</td><td style="text-align: center">$B$</td><td style="text-align: center">$B$</td></tr>
+<tr><td style="text-align: center">$[3b]$</td><td style="text-align: center">$C$</td><td style="text-align: center">$C$</td><td style="text-align: center">$-C$</td><td style="text-align: center">$\mathbf{0}$</td></tr>
+<tr><td style="text-align: center">$[3b^{-1}]$</td><td style="text-align: center">$D$</td><td style="text-align: center">$D$</td><td style="text-align: center">$\mathbf{0}$</td><td style="text-align: center">$-D$</td></tr>
+</tbody></table>
+<p>讨论知一个词是 $\mathbf{0}$ 只能是将 $[3a]$ 与 $[3a^{-1}]$ 对着消除掉。</p>
+<hr />
+<p>另有一个使用 Ping-Pong Lemma 的证法，来自 <a href="https://sbseminar.wordpress.com/2007/09/17/that-trick-where-you-embed-the-free-group-into-a-lie-group/">That trick where you embed the free group into a Lie group</a>.</p>
+
+<link rel="stylesheet" href="https://rratic.github.io/admonition.css?h=78eb69fa9d4a0eea7f15" type="text/css">
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>二元版 Ping-Pong Lemma</strong></span>
+  </div>
+  <div class="pl-4"><p>$G$ 可由 $a, b$ 生成，有在 $X$ 上的作用。若存在 $X$ 的不交的非空子集 $A^+, B^+$ 及非空子集 $A^-, B^-$，使得 $a(X\setminus A^-) \subseteq A^+, b(X\setminus B^-) \subseteq B^+, a^{-1}(X\setminus A^+) \subseteq A^-, b^{-1}(X\setminus B^+) \subseteq B^-$，则 $G = \langle a, b \rangle$ 是自由的。</p>
+</div>
+</div>
+<p>这是显然的。</p>
+<p>为了使用 Ping-Pong Lemma, 考虑 $\mathrm{PGL}(2, \mathbb{R})$ 的情形。记 $\Delta$ 为上半平面，四个圆心在 x 轴上的半圆在 x 轴上截出 $(-3, 3), (-3, -1), (-1, 1), (1, 3)$，记内部为 $U, V_2, V_3, V_4$，令 $V_1$ 为 $\Delta \setminus U$ 的内部，考虑：</p>
+<p>$$
+a = \begin{pmatrix}
+\sqrt{3} &amp; 0 \\
+0 &amp; \frac{1}{\sqrt{3}}
+\end{pmatrix}, \quad
+b = \begin{pmatrix}
+2 &amp; -3 \\
+-1 &amp; 2
+\end{pmatrix}
+$$</p>
+<p>则 $a(\Delta \setminus V_3) = V_1, b(\Delta \setminus V_4) = V_2, a(\Delta \setminus V_1) = V_3, b(\Delta \setminus V_2) = V_4$.</p>
+<p>这可以被做成 $\mathrm{SO}(3, \mathbb{Q}_5)$ 上的，进而做成 $\mathrm{SO}(3)$ 上的。</p>
+<hr />
+<p>另记一个有趣的事实，两个元素生成的自由群有子群为三个元素生成的自由群（取 $a^2, ab, b^2$ 为生成元即可）。</p>
+<h2 id="hua-fen-qiu-mian">划分球面</h2>
+<p>将上述自由群作用在球面上，考虑轨道。</p>
+<p>一个轨道是有限的，那么必然是因为对其中的一个点 $x$，有至少一个有限的非平凡词 $\psi$ 使 $\psi x = x$. 这样的点至多可数个，最后再处理。</p>
+<p>对无限的轨道，使用选择公理在每个轨道中选择一个代表元，记这些代表元构成集合为 $M$.</p>
+<p>将自由群 $\langle a, b \rangle$ 的元素分成五类，令 $S(a)$ 代表约化后 $a$ 开头的词，并令：</p>
+<p>$$B = \bigcup_{n \geq 1} a^{-n} M$$</p>
+<p>现在可将球面分成：</p>
+<ul>
+<li>$A_1 = S(a)M \cup M \cup B$</li>
+<li>$A_2 = S(a^{-1})M \setminus B$</li>
+<li>$A_3 = S(b)M$</li>
+<li>$A_4 = S(b^{-1})M$</li>
+</ul>
+<p>我们得到 $aA_2 = A_2 \cup A_3 \cup A_4$ 及 $bA_4 = A_1 \cup A_2 \cup A_4$. 那么 $A_1, aA_2, A_3, bA_4$ 构成两份 $A_1, A_2, A_3, A_4$.</p>
+<h2 id="xi-jie-chu-li">细节处理</h2>
+<p>将球沿半径划分成一族球面，作上述划分球面的步骤（实际上对于不同半径处的球面把对应的 $A_i$ 合在一起，所以总共只划分成有限个集合）。</p>
+<p>那么现在剩下的未处理的点是球心和那些在有限轨道上的点。</p>
+<p>考虑这个事实：</p>
+<p>$$g^{-1}(\{x, gx, g^2x, \cdots\}) = \{x, gx, g^2x, \cdots\} \cup \{g^{-1}x\}$$</p>
+<p>其中集合 $\{x, gx, g^2x, \cdots\}$ 可以取自已经成功处理的点集。多出的一个点可以平移到圆心，因此圆心总是可以被处理的。</p>
+<p>设某个球面上那些轨道有限的点构成集合 $D$. 我们可以取出一个对称轴和一个角度，使得这个旋转 $g$ 在 $D$ 上没有不动点。现在仍然可以使用前述事实，对应的集合 $\bigcup_{n \geq 1} g^n (D)$ 是已经成功处理的。</p>
+<p>这样一来，我们只划分了有限个集合（应当是 24 个）完成了复制。通过一些代数手段可以减少到 5 个。</p>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/代数/">代数</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/群论/">群论</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/pages"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <link rel="stylesheet" href="https://rratic.github.io/katex/katex.min.css?h=e189fd0238811989c364" />
+  <script defer src="https://rratic.github.io/katex/katex.min.js?h=6b909443e6c8f6e5d24c"></script>
+  <script defer src="https://rratic.github.io/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

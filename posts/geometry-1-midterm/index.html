@@ -1,0 +1,455 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>几何学Ⅰ期中复习笔记 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="几何学Ⅰ期中复习笔记" />
+  <meta name="description" content="需要特别记忆的定义和结论 &amp; 考后总结。" />
+  <meta property="og:description" content="需要特别记忆的定义和结论 &amp; 考后总结。" />
+  <meta property="og:url" content="https://rratic.github.io/posts/geometry-1-midterm/" />
+  <link rel="canonical" href="https://rratic.github.io/posts/geometry-1-midterm/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2025-10-31T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2025-11-05T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="几何" />
+  <meta property="article:tag" content="Euclid 几何" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.github.io/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.github.io/style/shared.css?h=63eca58df589815f6747" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.github.io/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.github.io/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.github.io/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.github.io/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">几何学Ⅰ期中复习笔记</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2025-10-31T00:00:00+00:00">2025-10-31</time><span
+        class="middot"></span><time
+    datetime="PT0H9M0S">9&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+
+  <!-- Content -->
+  <section><p>本文用于准备几何学I（实验班）2025秋的期中考试。</p>
+<p>几何是一个关联很多数学分支的分支，因此本文中可能涉及<em>不那么几何</em>的结论。</p>
+<h2 id="xiang-liang-dai-shu">向量代数</h2>
+<p>需要记住 Lagrange 定理（远交近攻）：</p>
+<p>$$(\alpha\times\beta)\times\gamma = (\alpha\cdot\gamma)\beta - (\beta\cdot\gamma)\alpha$$</p>
+<p>可用这种方式现推：由 $(\alpha\times\beta)\times\gamma$ 在 $\alpha$ 与 $\beta$ 张成的平面里，设为 $\lambda\alpha+\mu\beta$，有 $(\lambda\alpha+\mu\beta)\cdot\gamma = 0$，即 $\lambda(\alpha\cdot\gamma)+\mu(\beta\cdot\gamma) = 0$.</p>
+<p>另有公式：</p>
+<p>$$(a\times b)\cdot(c\times d) = \begin{vmatrix} a\cdot c &amp; b\cdot c\\ a\cdot d &amp; b\cdot d\end{vmatrix}$$</p>
+<p>可由前式推得。它的转置相等在仿射空间上没有较好的几何解释。</p>
+<h2 id="er-ci-qu-xian">二次曲线</h2>
+<p>把方程的一般形式记作 $Ax^2+2Bxy+Cy^2+2Dx+2Ey+F=0$，也即：</p>
+<p>$$
+\begin{pmatrix}
+x &amp; y &amp; 1
+\end{pmatrix}
+\begin{pmatrix}
+A &amp; B &amp; D \\
+B &amp; C &amp; E \\
+D &amp; E &amp; F
+\end{pmatrix}
+\begin{pmatrix}
+x \\ y \\ 1
+\end{pmatrix}
+= 0
+$$</p>
+<p>可以用 $I_2 = \det \begin{pmatrix}A &amp; B\\ B &amp; C\end{pmatrix}$ 来判断曲线的类型。在移轴、转轴变换下 $I_2$ 及 $I_1 = A + C$ 与 $I_3 = \det \begin{pmatrix}A &amp; B &amp; D\\ B &amp; C &amp; E\\ D &amp; E &amp; F\end{pmatrix}$ 不变。</p>
+<hr />
+<p>有以下重要仿射特征：</p>
+
+<link rel="stylesheet" href="https://rratic.github.io/admonition.css?h=78eb69fa9d4a0eea7f15" type="text/css">
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>中心</strong></span>
+  </div>
+  <div class="pl-4"><p>一个点 $(x_0, y_0)$ 称为二次曲线的<strong>中心</strong>，如果 $Ax_0+By_0+D=0$ 且 $Bx_0+Cy_0+E=0$.</p>
+</div>
+</div>
+<p>中心是对称中心。</p>
+<p>只有椭圆型、双曲型曲线有中心。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>渐进方向</strong></span>
+  </div>
+  <div class="pl-4"><p>一个向量 $(x_0, y_0)$ 对应的直线方向为二次曲线的<strong>渐进方向</strong>，如果 $Ax_0^2+2Bx_0y_0+Cy_0^2=0$.</p>
+</div>
+</div>
+<p>我们定义<strong>渐近线</strong>是距离在无穷远处趋向于 $0$ 的直线<sup class="footnote-reference"><a href="#asymptote">1</a></sup>，那么渐近线如果存在，可由中心和渐进方向算得。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>共轭直径</strong></span>
+  </div>
+  <div class="pl-4"><p>一个方向对应的<strong>共轭直径</strong>是所有与它平行的弦的中点的连线。</p>
+<p>方程为 $(Ax_0+By_0)x + (Bx_0+Cy_0)y + Dx_0 + Ey_0 = 0$.</p>
+</div>
+</div>
+<p>两个直线方向共轭，如果 $\begin{pmatrix}x_0' &amp; y_0'\end{pmatrix}\begin{pmatrix}A &amp; B\\ B &amp; C\end{pmatrix}\begin{pmatrix}x_0 \\ y_0\end{pmatrix}$，也就是一个是另一个的共轭直径的直线方向。</p>
+<hr />
+<p>另有一个重要的度量特征<strong>对称轴</strong>，非退化椭圆与双曲线都有两条对称轴，可以通过它们的方向共轭且垂直（与共轭方向垂直的方向称为<strong>主方向</strong>）算得。</p>
+<h2 id="er-ci-qu-mian">二次曲面</h2>
+<p>几乎就是抄书。</p>
+<p>直线除标准方程、一般方程外，还可用一般方程表示（即两平面的交）：</p>
+<p>$$
+\left\{\begin{matrix}
+A_1x+B_1y+C_1z+D_1=0 \\
+A_2x+B_2y+C_2z+D_2=0
+\end{matrix}\right.
+$$</p>
+<p>该表示方法给出直线与平面平行或在其上的条件是：</p>
+<p>$$
+\begin{pmatrix}
+A_1 &amp; B_1 &amp; C_1 \\
+A_2 &amp; B_2 &amp; C_2 \\
+A &amp; B &amp; C
+\end{pmatrix}
+= 0
+$$</p>
+<p>异面直线的距离可转化为点到平面的距离。</p>
+<hr />
+<p>一个<strong>旋转面</strong>由曲线 $\Gamma$ 绕轴 $l$ 得到，则称 $\Gamma$ 为<strong>母线</strong>，直线 $l$ 为<strong>轴线</strong>。</p>
+<p>若一条曲线与一柱面/锥面的每条直母线相交，则称该曲线为<strong>准线</strong>。</p>
+<p>二次曲面分类：通过移轴、转轴，非空二次曲面可化为以下 $14$ 种可能之一：</p>
+<ul>
+<li>椭球型
+<ol>
+<li>椭球面 $\frac{x^2}{a^2}+\frac{y^2}{b^2}+\frac{z^2}{c^2} = 1$</li>
+<li>单点 $\frac{x^2}{a^2}+\frac{y^2}{b^2}+\frac{z^2}{c^2} = 0$</li>
+</ol>
+</li>
+<li>双曲型
+<ol>
+<li>单叶双曲面 $\frac{x^2}{a^2}+\frac{y^2}{b^2}-\frac{z^2}{c^2} = 1$</li>
+<li>双叶双曲面 $\frac{x^2}{a^2}+\frac{y^2}{b^2}-\frac{z^2}{c^2} = -1$</li>
+<li>椭圆锥面 $\frac{x^2}{a^2}+\frac{y^2}{b^2}-\frac{z^2}{c^2} = 0$</li>
+</ol>
+</li>
+<li>椭球抛物型
+<ol>
+<li>椭圆抛物面 $\frac{x^2}{a^2}+\frac{y^2}{b^2} = 2z$</li>
+<li>椭圆柱面 $\frac{x^2}{a^2}+\frac{y^2}{b^2} = 1$</li>
+<li>单直线 $\frac{x^2}{a^2}+\frac{y^2}{b^2} = 0$</li>
+</ol>
+</li>
+<li>双曲抛物型
+<ol>
+<li>双曲抛物面 $\frac{x^2}{a^2}-\frac{y^2}{b^2} = 2z$</li>
+<li>双曲柱面 $\frac{x^2}{a^2}+\frac{y^2}{b^2} = 1$</li>
+<li>两个相交平面 $\frac{x^2}{a^2}+\frac{y^2}{b^2} = 0$</li>
+</ol>
+</li>
+<li>抛物柱型
+<ol>
+<li>抛物柱面 $x^2=2py$</li>
+<li>单平面 $x^2=a^2$</li>
+<li>两平行平面 $x^2=0$</li>
+</ol>
+</li>
+</ul>
+<p>在非平凡的五种二次曲面（椭球面，单叶双曲面，双叶双曲面，椭圆抛物面，双曲抛物面）中有直纹性的是：</p>
+<ol>
+<li>双曲抛物面（马鞍面），满足同族的直母线彼此异面，平行于同一平面。</li>
+<li>单叶双曲面，满足同族的直母线彼此异面，异族的两条直母线一定共面。</li>
+</ol>
+<h2 id="bian-huan">变换</h2>
+<p><strong>仿射变换</strong>是指保直线的双射，有 $\mathrm{Aff}(\mathbb{E}^n) = \mathrm{Transl}(\mathbb{E}^n) \rtimes \mathrm{GL}(n, \mathbb{R})$.</p>
+<p>对<strong>保距变换</strong>，有 $\mathrm{Isom}(\mathbb{E}^n) = \mathrm{Transl}(\mathbb{E}^n) \rtimes \mathrm{O}(n, \mathbb{R})$.</p>
+<p>平面上的一些变换定义如下：</p>
+<ul>
+<li><strong>反射</strong>：关于一条直线对称</li>
+<li><strong>正压缩</strong>：在垂直于一个直线的方向压缩</li>
+<li><strong>滑反射</strong>：关于一条直线对称再沿它的方向平移</li>
+<li><strong>错切</strong>：关于一条直线平行移动，移动距离与点到直线距离成正比</li>
+<li><strong>斜压缩</strong>：沿着一个向量方向移动，使点到指定直线距离按比例放缩</li>
+</ul>
+<p>来看一些结论：</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>变积系数</strong></span>
+  </div>
+  <div class="pl-4"><p>仿射变换将图形映到图形，面积比是一致的。</p>
+</div>
+</div>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>特征值</strong></span>
+  </div>
+  <div class="pl-4"><p>实对称矩阵的特征值都是实的。</p>
+</div>
+</div>
+<p>设 $A\in \mathbb{R}^{n\times n}, A^T=A$，有 $A\mathbf{v} = \lambda\mathbf{v}$，定义 $\mathbb{C}$ 上内积 $\langle x, y\rangle = y^\dagger x = \sum \overline{y_i}x_i$.</p>
+<p>则 $v^\dagger Av = \lambda \|v\|^2$，又 $(v^\dagger Av)^\dagger = v^\dagger Av$ 知它是实数，有 $\lambda$ 是实数。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>仿射变换分解</strong></span>
+  </div>
+  <div class="pl-4"><p>一个仿射变换可以分解成一个保距变换复合上一族两两正交的正压缩。</p>
+</div>
+</div>
+<p>考虑单位球的像，它必然为椭球体，因为方程仍然是二次的，可使用 Sylvester 惯性定理或保同伦群说明。</p>
+<p>考虑椭球体的轴（它们是两两垂直的，满足 $v_i + \lambda v_j$ 在椭球上只有 $\lambda = 0$），由线性性可以说明对应的原像也是两两垂直的轴。这个对应可以唯一地决定仿射变换。</p>
+<h2 id="kao-hou-zong-jie">考后总结</h2>
+<p>一个证明题只得了部分分。场上采取了闭集套的证明，但我写的闭集并不相互嵌套。题面如下：</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2025 P6</strong></span>
+  </div>
+  <div class="pl-4"><p>平面上给定平行四边形 $ABCD$（以线段 $AC, BD$ 为对角线）。设椭圆 $\Gamma$ 外接于三角形 $ABC$，椭圆 $\Gamma'$ 内切于三角形 $ACD$，平面仿射变换 $\phi$ 将 $\Gamma$（作为平面点集）变成 $\Gamma'$，问： $\phi$ 是否一定有不动点？</p>
+</div>
+</div>
+<p>个人认为最好的做法是看成椭圆旋转复合上旋转位似变换。</p>
+<hr />
+<div class="footnote-definition" id="asymptote"><sup class="footnote-definition-label">1</sup>
+<p>没有在教材中找到定义，此定义来自 Wikipedia.</p>
+</div>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/几何/">几何</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/Euclid 几何/">Euclid 几何</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/pages"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <link rel="stylesheet" href="https://rratic.github.io/katex/katex.min.css?h=e189fd0238811989c364" />
+  <script defer src="https://rratic.github.io/katex/katex.min.js?h=6b909443e6c8f6e5d24c"></script>
+  <script defer src="https://rratic.github.io/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>
