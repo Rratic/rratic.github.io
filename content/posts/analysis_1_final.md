@@ -1,7 +1,7 @@
 +++
 title = "数学分析Ⅰ期末复习笔记"
 description = "需要记忆的结论与 trick."
-date = 2025-12-17
+draft = true
 
 [extra]
 math = true

@@ -92,7 +92,7 @@ $$
 这是一个线性的算法。在 Agda 中的实现与证明从略。
 
 ## 同态理论
-半群到半群、幺半群到幺半群的同态即是数学上的定义。易见 $f^\ast$ 与 $\oplus/$ 是同态。
+半群到半群、幺半群到幺半群的同态即是数学上的定义。易见 $f\ast$ 与 $\oplus/$ 是同态。
 
 ### 性质
 {% admonition(type="theorem", title="Promotion Lemma") %}

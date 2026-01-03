@@ -1,7 +1,7 @@
 +++
 title = "Banach–Tarski 分球定理的证明细节"
 description = "Banach–Tarski 分球定理的用到的想法和细节处理。"
-date = "2026-01-01"
+date = 2026-01-01
 
 [extra]
 math = true
