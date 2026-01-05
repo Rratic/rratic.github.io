@@ -156,6 +156,8 @@ $$\lim_{x\to x_0} \frac{R(x)}{(x-x_0)^n} = \cdots = \frac{1}{n!} R^{(n)}(x_0) = 
 
 $\tan x$，$\arcsin x$ 等较为复杂且写了也记不住，不再列举。
 
+$\arctan x$ 导一次后变成 $\frac{1}{1+x^2}$，这是好展开的。
+
 ⭐可以直接用带 Peano 余项的 Taylor 公式来写加减法、乘法、除法（有时）、函数复合的结果。
 
 ⭐有时可以从表达式先提取出一个 $x^\alpha$，把剩下部分写成带 Peano 余项的 Taylor 公式。可以参考 Puiseux 级数相关。
@@ -173,20 +175,41 @@ $$f(x) = \sum_{k=0}^n \frac{f^{(k)}(x_0)}{k!} (x-x_0)^k + \frac{f^{(n+1)}(\xi)}{
 ### 利用导数研究函数
 凸是指下凸，定义为对不同的 $a, b \in I$ 及 $0 < t < 1$ 有 $f(ta+(1-t)b) \leq tf(a) + (1-t)f(b)$. 开区间上凸函数条件可以推出连续。
 
-拐点是指凹凸性发生改变的点。若 $f''(x)$ 在该点处存在则其值为 $0$.
+{% admonition(type="definition", title="拐点") %}
+$f(x)$ 在 $U(x_0, \delta)$ 连续，且在 $(x_0 - \delta, x_0)$ 与 $(x_0, x_0 + \delta)$ 有相异的严格凸性，则称 $x_0$ 为 $f(x)$ 的拐点。
+{% end %}
+
+若 $f''(x)$ 在该点处存在则其值为 $0$.
 
 ### 不定积分
 一个需补充记忆的结论：
 
-$$\int \frac{1}{\sqrt{1+x^2}} = \ln \left(x+\sqrt{1+x^2}\right) + C$$
+$$\int \frac{1}{\sqrt{1+x^2}} \mathrm{d}x = \ln \left(x+\sqrt{1+x^2}\right) + C$$
 
-这将给出：
+如果忘记了，考虑换元 $x = \frac{e^t - e^{-t}}{2}$，有：
 
-$$\int \sqrt{1+x^2} = \frac{1}{2} \left(x\sqrt{x^2+1} + \ln \left(x+\sqrt{1+x^2}\right)\right) + C$$
+$$\int \frac{1}{\sqrt{1+x^2}} \mathrm{d}x = \int \frac{2}{e^t + e^{-t}} \mathrm{d}\left(\frac{e^t - e^{-t}}{2}\right) = t + C$$
 
-又，⭐带绝对值的积分可以用 $\mathrm{sgn}$ 处理：
+这个结论将给出：
 
-$$\int |\sin x - \cos x| \mathrm{d}x = (\sin x + \cos x)\ \mathrm{sgn}(\cos x - \sin x)$$
+$$\int \sqrt{1+x^2} \mathrm{d}x = \frac{1}{2} \left(x\sqrt{x^2+1} + \ln \left(x+\sqrt{1+x^2}\right)\right) + C$$
+
+又，带绝对值的积分得到的可能是分段函数，如 $\int |\cos (x)| \mathrm{d}x$，不能直接写成 $\sin (x) \mathrm{sgn}(\cos x) + C$.
+
+积分有大量的技巧……如下：
+
+{% admonition(type="question", title="例题") %}
+求 $I = \int \frac{\cos x}{a\cos x + b\sin x} \mathrm{d}x$ 与 $J = \int \frac{\sin x}{a\cos x + b\sin x} \mathrm{d}x$.
+{% end %}
+
+使用：
+
+$$
+\left\\{\begin{align*}
+& aI + bJ = x + C \\\\
+& bI - aJ = \ln |a\cos x + b\sin x| + C
+\end{align*}\right.
+$$
 
 ## 附加
 ### 往年题
@@ -208,11 +231,17 @@ $$f^{(n)}(0) = (n-2)^2 f^{(n-2)}(0)$$
 $$\int \frac{x^3 \arcsin x}{\sqrt{1-x^2}} \mathrm{d}x$$
 {% end %}
 
+标答做法是：
+
 $$
 \int \frac{x^3 \arcsin x}{\sqrt{1-x^2}} \mathrm{d}x =
 \int \arcsin x \cdot \mathrm{d}\left(-\sqrt{1-x^2} + \frac{1}{3}(1-x^2)\sqrt{1-x^2}\right) =
 \arcsin x \left(-\sqrt{1-x^2} + \frac{1}{3}(1-x^2)\sqrt{1-x^2}\right) - \int \left[-\sqrt{1-x^2} + \frac{1}{3}(1-x^2)\sqrt{1-x^2}\right] \mathrm{d}(\arcsin x)
 $$
+
+考虑换元 $x = \sin \theta$ 也可：
+
+$$\int \frac{x^3 \arcsin x}{\sqrt{1-x^2}} \mathrm{d}x = \int \sin^3 \theta \mathrm{d}\theta$$
 
 {% admonition(type="question", title="2023 P9") %}
 $f \in C_{[-1, 1]}^\infty$ 且总有 $f^{(n)}(0) = 0$，且存在常数 $C$ 使得对任意自然数 $n$ 有：
@@ -228,11 +257,17 @@ $$\sup_{-1 \leq x \leq 1} |f^{(n)}(x)| \leq n! C^n$$
 $$\int \frac{x^2}{(x\sin x + \cos x)^2} \mathrm{d}x$$
 {% end %}
 
+猜测结果的分母，然后凑出结果（没有找到别的做法）：
+
+$$\frac{-x\cos x + \sin x}{x\sin x + \cos x}$$
+
 {% admonition(type="question", title="2023 P10 (2)") %}
 求极限：
 
 $$\lim_{n \to +\infty} \prod_{k=1}^n \cos \frac{k}{n^{3/2}}$$
 {% end %}
+
+泰勒展开到足够的项数即可。
 
 ### 习题课
 记录一些整个学期习题课中出现的不显然或需要技巧的结论（这包括了上半学期）。
