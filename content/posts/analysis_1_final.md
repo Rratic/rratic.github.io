@@ -1,10 +1,11 @@
 +++
 title = "数学分析Ⅰ期末复习笔记"
 description = "需要记忆的结论与 trick."
-draft = true
+date = 2026-01-06
 
 [extra]
 math = true
+toc = true
 
 [extra.sitemap]
 priority = "0.8"
@@ -149,7 +150,7 @@ $$\lim_{x\to x_0} \frac{R(x)}{(x-x_0)^n} = \cdots = \frac{1}{n!} R^{(n)}(x_0) = 
 | 函数 | 多项式 |
 | :-: | :-: |
 | $e^x$ | $1+x+\frac{1}{2}x^2+\cdots+\frac{1}{n!}x^n$ |
-| $\sin x$ | $x-\frac{1}{3}x^3+\frac{1}{120}x^5+\cdots+(-1)^{n-1}\frac{x^{2n-1}}{(2n-1)!}$ |
+| $\sin x$ | $x-\frac{1}{6}x^3+\frac{1}{120}x^5+\cdots+(-1)^{n-1}\frac{x^{2n-1}}{(2n-1)!}$ |
 | $\cos x$ | $1-\frac{1}{2}x^2+\frac{1}{24}x^4+\cdots+(-1)^{n}\frac{x^{2n}}{(2n)!}$ |
 | $\ln (1+x)$ | $x-\frac{1}{2}x^2+\frac{1}{3}x^3+\cdots+(-1)^{n-1}\frac{x^n}{n}$ |
 | $(1+x)^\alpha$ | $1+\alpha x+\frac{\alpha(\alpha-1)}{2}x^2+\cdots+\frac{\alpha(\alpha-1)\cdots(\alpha-n+1)}{n!}x^n$ |
@@ -186,7 +187,7 @@ $f(x)$ 在 $U(x_0, \delta)$ 连续，且在 $(x_0 - \delta, x_0)$ 与 $(x_0, x_0
 
 $$\int \frac{1}{\sqrt{1+x^2}} \mathrm{d}x = \ln \left(x+\sqrt{1+x^2}\right) + C$$
 
-如果忘记了，考虑换元 $x = \frac{e^t - e^{-t}}{2}$，有：
+如果忘记了，考虑换元 $x = \frac{e^t - e^{-t}}{2}$（在其它情形下换元 $x = \tan x$ 可能更好）有：
 
 $$\int \frac{1}{\sqrt{1+x^2}} \mathrm{d}x = \int \frac{2}{e^t + e^{-t}} \mathrm{d}\left(\frac{e^t - e^{-t}}{2}\right) = t + C$$
 
@@ -211,6 +212,33 @@ $$
 \end{align*}\right.
 $$
 
+此外，对 $\int \frac{1}{a\cos x + b\sin x} \mathrm{d}x$ 可考虑 $a\cos x + b\sin x = \sqrt{a^2 + b^2} \cos (x + \phi)$.
+
+{% admonition(type="question", title="例题") %}
+计算 $I_n = \int \frac{1}{(x^2 + 1)^n} \mathrm{d}x$.
+{% end %}
+
+$$
+I_n = \int \frac{1}{(x^2 + 1)^n} \mathrm{d}x =
+\frac{x}{(x^2 + 1)^n} - \int x \cdot \mathrm{d}\left(\frac{1}{(x^2 + 1)^n}\right) =
+\frac{x}{(x^2 + 1)^n} + 2n \int \frac{x^2}{(x^2 + 1)^{n+1}} \mathrm{d}x =
+\frac{x}{(x^2 + 1)^n} + 2n I_n - 2n I_{n+1}
+$$
+
+有：
+
+$$I_{n+1} = \frac{x}{2n(x^2+1)^n} + \frac{2n-1}{2n} I_n$$
+
+特别地，$I_1 = \arctan x + C$.
+
+{% admonition(type="question", title="例题") %}
+$y$ 是由 $y^2(x-y) = x^2$ 确定的隐函数，计算 $\int \frac{1}{y^2} \mathrm{d}x$.
+{% end %}
+
+⭐令 $y = tx$，则有 $x = \frac{1}{t^2(1-t)}$ 与 $y = \frac{1}{t(1-t)}$，可以算得 $3t - 2\ln |t| + C = \frac{3y}{x} - 2\ln |\frac{y}{x}| + C$.
+
+类似地，对 $y = \sqrt{ax^2 + bx + c}$，我们会考虑第一类 Euler 替换 $y = t - \sqrt{a}x$ 与第二类 Euler 替换 $y = xt + \sqrt{c}$.
+
 ## 附加
 ### 往年题
 {% admonition(type="question", title="2019 P3") %}
@@ -231,17 +259,37 @@ $$f^{(n)}(0) = (n-2)^2 f^{(n-2)}(0)$$
 $$\int \frac{x^3 \arcsin x}{\sqrt{1-x^2}} \mathrm{d}x$$
 {% end %}
 
-标答做法是：
+首先积：
+
+$$
+\int \frac{x^3}{\sqrt{1-x^2}} \mathrm{d}x =
+\frac{1}{2} \int \frac{x^2}{\sqrt{1-x^2}} \mathrm{d}(x^2) =
+-\sqrt{1-x^2} + \frac{1}{3}(1-x^2)\sqrt{1-x^2} + C
+$$
+
+然后进行：
 
 $$
 \int \frac{x^3 \arcsin x}{\sqrt{1-x^2}} \mathrm{d}x =
 \int \arcsin x \cdot \mathrm{d}\left(-\sqrt{1-x^2} + \frac{1}{3}(1-x^2)\sqrt{1-x^2}\right) =
-\arcsin x \left(-\sqrt{1-x^2} + \frac{1}{3}(1-x^2)\sqrt{1-x^2}\right) - \int \left[-\sqrt{1-x^2} + \frac{1}{3}(1-x^2)\sqrt{1-x^2}\right] \mathrm{d}(\arcsin x)
+\arcsin x \left(-\sqrt{1-x^2} + \frac{1}{3}(1-x^2)\sqrt{1-x^2}\right) - \int \left[-\sqrt{1-x^2} + \frac{1}{3}(1-x^2)\sqrt{1-x^2}\right] \mathrm{d}(\arcsin x) =
+\arcsin x \left(-\sqrt{1-x^2} + \frac{1}{3}(1-x^2)\sqrt{1-x^2}\right) + \frac{2x}{3} + \frac{x^3}{9} + C
 $$
 
-考虑换元 $x = \sin \theta$ 也可：
+{% admonition(type="question", title="2021 P4") %}
+计算：
 
-$$\int \frac{x^3 \arcsin x}{\sqrt{1-x^2}} \mathrm{d}x = \int \sin^3 \theta \mathrm{d}\theta$$
+$$\int \frac{1 - \sin x}{1 + \sin x} \mathrm{d}x$$
+{% end %}
+
+考虑万能公式代换 $x = 2\arctan t$ 得：
+
+$$
+\int \frac{1 - \sin x}{1 + \sin x} \mathrm{d}x =
+2\int \frac{2}{(t+1)^2} - \frac{1}{t^2+1} \mathrm{d}t =
+-\frac{4}{t+1} - 2\arctan t =
+-\frac{4}{1+\tan \frac{x}{2}} - x
+$$
 
 {% admonition(type="question", title="2023 P9") %}
 $f \in C_{[-1, 1]}^\infty$ 且总有 $f^{(n)}(0) = 0$，且存在常数 $C$ 使得对任意自然数 $n$ 有：
@@ -250,6 +298,8 @@ $$\sup_{-1 \leq x \leq 1} |f^{(n)}(x)| \leq n! C^n$$
 
 证明：在 $[-1, 1]$ 上 $f(x) \equiv 0$.
 {% end %}
+
+作业题常见的方法。如果不恒为 $0$，取一个 $f(\lambda) = q \neq 0$ 使 $\frac{1}{|\lambda|} > C$，然后考虑带 Lagrange 余项的 Taylor 公式。
 
 {% admonition(type="question", title="2023 P10 (1)") %}
 求不定积分：
@@ -298,6 +348,10 @@ $f$ 在 $(0, +\infty)$ 上连续，且对任意 $a > 0$ 有 $\lim_{n\to\infty} f
 $$\lim_{x\to+\infty} f(x) = 0$$
 {% end %}
 
+假设结论不成立，存在 $\epsilon > 0$ 使得一列递增趋向于无穷的 $x_i$ 满足 $|f(x_i)| > \epsilon$，由连续性存在一列 $[x_i-\delta_i, x_i+\delta_i]$ 使 $|f(x)|$ 在其上大于 $\epsilon/2$.
+
+现在我们希望找到无穷多个不同的 $n_i$ 对应的 $[(x_i-r_i)/n_i, (x_i+r_i)/n_i]$ 包含某个 $a$. 先把 $[x_1-\delta_1, x_1+\delta_1]$ 移到 $(0, 1)$ 中，然后对充分大的 $x_i$ 存在对应的 $n_i$ 使得 $x_i/n_i$ 在其内部；不断作此操作，得到一闭区间套，使用闭区间套定理即可。
+
 {% admonition(type="question", title="W9 9") %}
 考虑 $[0, 1]$ 到自身的保定向自同胚构成的集合：
 
@@ -317,6 +371,95 @@ f^n(l(g^{-n}(x))) & x \in [g^n(a), g^{n+1}(a)]
 \end{cases}
 $$
 
+{% admonition(type="question", title="W12 4") %}
+设 $y = (1 + \sqrt{x})^{2n+2}$，求 $y^{(n)}(1)$.
+{% end %}
+
+令 $z = (1 - \sqrt{x})^{2n+2}$，有 $z^{(n)}(1) = 0$，故而 $y^{(n)}(1) = (y + z)^{(n)}(1) = 4(n+1)(n+1)!$.
+
+{% admonition(type="question", title="W13 4") %}
+$f \in C[0, 1], D(0, 1)$ 且 $f(0) = 0, f(1) = 1$. 设 $k_1 + \cdots + k_n = 1$ 是正数，证明存在互不相同的 $t_1, \cdots, t_n \in (0, 1)$ 使得：
+
+$$\frac{k_1}{f'(t_1)} + \cdots + \frac{k_n}{f'(t_n)} = 1$$
+{% end %}
+
+由介值性，存在 $0 < x_1 < \cdots < x_{n-1} < 1$ 使得：
+
+$$f(x_1) = k_1, \cdots, f(x_{n-1}) = k_1 + \cdots + k_{n-1}$$
+
+在两两之间使用 Lagrange 中值定理即可。
+
+{% admonition(type="question", title="W13 5") %}
+$f$ 在 $[a, b]$ 上存在 $n + 1$ 阶导数，满足对 $k = 0, 1, \cdots, n$ 有 $f^{(k)}(a) = f^{(k)}(b) = 0$.
+
+证明：
+1. 存在 $\xi \in (a, b)$ 使得 $f(\xi) = f^{(n+1)}(\xi)$
+2. 假设 $b - a \leq \pi$，则存在 $\eta \in (a, b)$ 使得 $f(\eta) = -f^{(n+1)}(\eta)$
+{% end %}
+
+对第一问，⭐首先 $h(a) = h(b) = 0$ 时期间有某个 $h(\xi) = h'(\xi)$，这是因为可以对 $e^{-x}h(x)$ 使用 Rolle 中值定理。然后令 $g(x) = \sum_{i=0}^n f^{(i)}(x)$ 就有 $g(a) = g(b) = 0$，存在 $g(\xi) - g'(\xi) = f(\xi) - f^{(n+1)}(\xi) = 0$.
+
+对第二问，当 $n$ 为偶时可仿照第一问（对 $e^xh(x)$ 使用 Rolle 中值定理）。当 $n$ 为奇时，令 $\omega = e^{\mathrm{i}\frac{\pi}{n+1}}$ 及 $g(x) = \sum_{i=0}^n \omega^i f^{(i)}(x)$. 有 $g(x) - \omega g'(x) = f(x) + f^{(n+1)}(x)$.
+
+令 $h(x) = \mathrm{Re}(e^{-x/\omega }g(x))$，有：
+
+$$h'(x) = e^{-x\cos \frac{\pi}{n+1}} \cdot \cos \left(x\sin\frac{\pi}{n+1} - \frac{\pi}{n+1}\right) \cdot (f(x) + f^{(n+1)}(x))$$
+
+使用平移不变性设 $a = (-\frac{\pi}{2} + \frac{\pi}{n+1})/\sin \frac{\pi}{n+1}$ 即得结论。
+
+{% admonition(type="question", title="W13 9 Bellman-Grönwall 不等式") %}
+$f$ 在 $[a, +\infty)$ 连续，在 $(a, +\infty)$ 可导，且存在常数 $c$ 满足对任意 $x \in (a, +\infty)$ 有：
+
+$$f'(x) \leq cf(x)$$
+
+证明对任意 $x \in [a, +\infty)$ 有 $f(x) \leq f(a) e^{c(x-a)}$
+{% end %}
+
+令 $g(x) = f(a) e^{c(x-a)}$，算得 $\left(\frac{f(x)}{g(x)}\right)' \leq 0$.
+
+{% admonition(type="question", title="W14 2") %}
+证明以下命题：
+1. $f$ 在 $(0, +\infty)$ 上可导，$a > 0$，若有 $\lim_{x\to+\infty} [af(x) + f'(x)] = l$ 则 $\lim_{x\to+\infty} f(x) = l/a$
+2. $f$ 在 $(0, +\infty)$ 上二阶可导，若有 $\lim_{x\to+\infty} [f(x) + 2f'(x) + f''(x)] = l$ 则 $\lim_{x\to+\infty} f(x) = l$
+3. $f$ 在 $(0, +\infty)$ 上二阶可导，若有 $\lim_{x\to+\infty} [f(x) + xf'(x) + f''(x)] = 0$ 则 $\lim_{x\to+\infty} f(x) = \lim_{x\to+\infty} f'(x) = \lim_{x\to+\infty} f''(x) = 0$
+{% end %}
+
+对第一问，使用洛必达法则：
+
+$$\lim_{x\to+\infty} f(x) = \lim_{x\to+\infty} \frac{e^{ax}f(x)}{e^{ax}} = \lim_{x\to+\infty} \frac{e^{ax}(f'(x)+af(x))}{ae^{ax}} = \frac{l}{a}$$
+
+第二问使用第一问的结论，看成 $\lim_{x\to+\infty} [f(x) + f'(x)] + [f(x) + f'(x)]' = l$.
+
+对第三问：
+
+$$\lim_{x\to+\infty} f(x) = \lim_{x\to+\infty} \frac{e^{x^2/2}f(x)}{e^{x^2/2}} \stackrel{\text{洛}}{=} \lim_{x\to+\infty} \frac{xf(x)+f'(x)}{x} \stackrel{\text{洛}}{=} \lim_{x\to+\infty} [xf(x) + f'(x)]' = 0$$
+
+$$\lim_{x\to+\infty} xf'(x) = \lim_{x\to+\infty} \frac{e^{x^2/2}f'(x)}{e^{x^2/2}/x} \stackrel{\text{洛}}{=} \lim_{x\to+\infty} \frac{xf'(x)+f''(x)}{-\frac{1}{x^2}+1} = 0$$
+
+{% admonition(type="question", title="W14 3") %}
+$f$ 在 $[a, b]$ 上二阶可导，且 $f'(a) = f'(b) = 0$. 证明：存在 $\xi \in (a, b)$ 使得：
+
+$$|f''(\xi)| \geq \frac{4}{(b-a)^2} |f(b)-f(a)|$$
+{% end %}
+
+在 $\frac{a+b}{2}$ 处对 $a$ 与 $b$ 使用带 Lagrange 余项的 Taylor 公式。
+
+{% admonition(type="question", title="W14 5") %}
+$f$ 在 $(x_0-\delta, x_0+\delta)$ 上 $n$ 阶可导，且 $f''(x_0) = \cdots = f^{(n-1)}(x_0) = 0, f^{(n)}(x_0) \neq 0$. 当 $0 < |h| < \delta$ 时存在 $0 < \theta(h) < 1$ 使得 $f(x_0+h)-f(x_0) = hf'(x_0+\theta(h)h)$，证明：
+
+$$\lim_{h\to 0} \theta(h) = \frac{1}{n^{\frac{1}{n-1}}}$$
+{% end %}
+
+考虑 Peano 余项的 Taylor 公式：
+
+$$f'(x_0+\theta(h)h) = f'(x_0) + \frac{f^{(n)}(x_0)}{(n-1)!}(\theta(h)h)^{n-1} + o(h^{n-1})$$
+
+有：
+
+$$\frac{f'(x_0+\theta(h)h) - f'(x_0)}{h^{n-1}} = \frac{f^{(n)}(x_0)}{(n-1)!}\theta(h)^{n-1} + o(1)$$
+
+又 $h \to 0$ 时左式等于 $\frac{f^{(n)}(x_0)}{n!} + o(1)$. 即得结论。
+
 ### 讲义阅读
 来自于品的数学分析一讲义。该讲义内容相当丰富。
 
@@ -330,7 +473,15 @@ $$
 
 对 $\alpha=+\infty$，我们先按顺序填入非负项直到 $\geq 1$，然后填入一个负项，再按顺序填入非负项直到 $\geq 2$，依此类推[^infinite-ball-problem]；$\alpha=-\infty$ 的方法类似。
 
-{% admonition(type="theorem", title=" Émile Borel 引理") %}
+{% admonition(type="theorem", title="逐项求导定理") %}
+$I = [a, b]$ 是闭区间，$\\{f _k\\} _{k\geq 0}$ 是一列 $C^1(I)$ 的函数，设 $\sum _{k=0}^\infty f _k$ 在 $I$ 上逐点收敛，如果 $\sum _{k=0}^\infty f _k'(x)$ 在 $I$ 上一致收敛，那么 $f$ 可导并且 $f'(x) = \sum _{k=0}^\infty f _k'(x)$.
+{% end %}
+
+首先，一致收敛可以推出 $\sum _{k=0}^\infty \\|f _k'\\| _\infty$ 收敛（其中 $\\|f\\| _\infty = \sup _{x\in I} |f(x)|$），这可以通过一致收敛的定义与闭区间套定理得到。
+
+然后设 $g(x) = \sum _{k=0}^\infty f _k'(x)$，去讨论 $\int_x^{x_0} g(x)$. 没有找到不使用微积分基本定理的方法。
+
+{% admonition(type="theorem", title="Émile Borel 引理") %}
 对任意给定数列 $\\{a_n\\}_{n\geq 0}$，存在光滑函数 $f$ 使得 $f^{(n)}=a_n$.
 {% end %}
 
@@ -347,7 +498,37 @@ $$\chi(x) = \frac{\phi(2-|x|)}{\phi(2-|x|) + \phi(|x|-1)}$$
 
 $\chi(x)$ 在 $|x| \leq 1$ 取值是 $1$，在 $|x| \geq 2$ 取值是 $0$，⭐且是光滑的。
 
-{{ todo() }}
+现在考虑：
+
+$$f_k(x) = \frac{a_k}{k!}x^k \chi(t_kx)$$
+
+有：
+
+$$
+f_k^{(n)}(0) = \begin{cases}
+a_k & n = k \\\\
+0 & n \neq k
+\end{cases}
+$$
+
+令 $f(x) = \sum_{k=0}^\infty f_k(x)$ 即是所求，可以证明满足逐项求导定理条件，其中用到 $k \geq 2n$ 时：
+
+$$f_k^{(n)}(x) = a_k \sum_{l=0}^n \binom{n}{l} \frac{t_k^{n-l}}{(k-l)!}x^{k-l}\chi^{(n-l)}(t_kx)$$
+
+---
+
+Peano 的想法是，考虑：
+
+$$
+\left(\frac{c_kx^k}{1+b_kx^2}\right)^{(n)}(0) = \begin{cases}
+n!(-1)^jc_{n-2j}b_{n-2j}^j & k = n - 2j, j \in \mathbb{Z}_{\geq 0} \\\\
+0 & \text{else}
+\end{cases}
+$$
+
+适当选取时下式满足条件：
+
+$$f(x) = \sum_{k=0}^\infty \frac{c_kx^k}{1+b_kx^2}$$
 
 {% admonition(type="theorem", title="Baire 纲定理") %}
 $U_n$ 是完备的度量空间 $(X, d)$ 中稠密的开集，则 $U_\infty = \bigcap_{n=1}^{\infty} U_n$ 稠密。
