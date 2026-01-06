@@ -183,6 +183,10 @@ $f(x)$ 在 $U(x_0, \delta)$ 连续，且在 $(x_0 - \delta, x_0)$ 与 $(x_0, x_0
 若 $f''(x)$ 在该点处存在则其值为 $0$.
 
 ### 不定积分
+书中证明了闭区间 $I$ 上连续函数必有原函数。
+
+---
+
 一个需补充记忆的结论：
 
 $$\int \frac{1}{\sqrt{1+x^2}} \mathrm{d}x = \ln \left(x+\sqrt{1+x^2}\right) + C$$
@@ -290,6 +294,26 @@ $$
 -\frac{4}{t+1} - 2\arctan t =
 -\frac{4}{1+\tan \frac{x}{2}} - x
 $$
+
+{% admonition(type="question", title="2021 P7") %}
+设 $f(x) \in C[a, b], D(a, b)$，证明存在 $\xi, \eta \in (a, b)$ 使得：
+
+$$3(a+b)\xi^2f'(\eta) = 2(a^2+ab+b^2)\eta f'(\xi)$$
+{% end %}
+
+分别使用 Cauchy 中值定理得：
+
+$$(f(a) - f(b)) (2\eta) = (a^2 - b^2) f'(\eta)$$
+
+$$(f(a) - f(b)) (3\xi^2) = (a^3 - b^3) f'(\xi)$$
+
+{% admonition(type="question", title="2021 P8") %}
+在 $\mathbb{R}$ 上 $f(x)$ 有界且 $f'(x)$ 一致连续，证 $f'(x)$ 有界。
+{% end %}
+
+首先由一致连续定义知可取 $\epsilon, \delta$ 使得 $|x-y| < \delta$ 时 $|f'(x)-f'(y)| < \epsilon$.
+
+考虑 Lagrange 中值定理 $f(x+\delta) - f(x) = \delta f(\xi)$ 即可。
 
 {% admonition(type="question", title="2023 P9") %}
 $f \in C_{[-1, 1]}^\infty$ 且总有 $f^{(n)}(0) = 0$，且存在常数 $C$ 使得对任意自然数 $n$ 有：
@@ -459,6 +483,53 @@ $$f'(x_0+\theta(h)h) = f'(x_0) + \frac{f^{(n)}(x_0)}{(n-1)!}(\theta(h)h)^{n-1} +
 $$\frac{f'(x_0+\theta(h)h) - f'(x_0)}{h^{n-1}} = \frac{f^{(n)}(x_0)}{(n-1)!}\theta(h)^{n-1} + o(1)$$
 
 又 $h \to 0$ 时左式等于 $\frac{f^{(n)}(x_0)}{n!} + o(1)$. 即得结论。
+
+{% admonition(type="question", title="W16 6") %}
+设 $f$ 在 $\mathbb{R}$ 上可导且 $\lim_{x \to \pm \infty} \frac{f(x)}{x} = 0$. 证明：
+
+$$
+g(x) = \begin{cases}
+f'(\frac{1}{x}) & x \neq 0 \\\\
+0 & x = 0
+\end{cases}
+$$
+
+在 $\mathbb{R}$ 上有原函数。
+{% end %}
+
+考虑：
+
+$$
+h(x) = \begin{cases}
+x^2f'(\frac{1}{x}) & x \neq 0 \\\\
+0 & x = 0
+\end{cases}
+$$
+
+算得 $h'(x) = k(x) - g(x)$，其中 $k(x)$ 连续，有 $h'(x), k(x)$ 均有原函数，从而 $g(x)$ 有原函数。
+
+{% admonition(type="question", title="W16 7") %}
+定义 $[0, +\infty)$ 上的函数：
+
+$$
+f(x) = \begin{cases}
+\frac{1}{x} \sin \frac{1}{x} & x > 0 \\\\
+0 & x = 0
+\end{cases}
+$$
+
+证明 $f$ 在 $[0, +\infty)$ 上没有原函数。
+{% end %}
+
+假设有原函数 $F$，由 $F'(0) = 0$ 有 $F(x) = o(x)$.
+
+取 $x_n = \frac{1}{2n\pi+\frac{\pi}{2}}, y_n = \frac{1}{2n\pi+\frac{\pi}{4}}$，有：
+
+$$\left|\frac{F(x_n)-F(y_n)}{x_n+y_n}\right| = \left|\frac{x_n-y_n}{x_n+y_n} \frac{1}{\xi_n}\sin \frac{1}{\xi_n}\right| > \frac{\pi}{6\sqrt{2}}$$
+
+与下式矛盾：
+
+$$\left|\frac{F(x_n)-F(y_n)}{x_n+y_n}\right| \leq \left|\frac{F(x_n)}{x_n}\right| + \left|\frac{F(y_n)}{y_n}\right| = o(1) \quad (n \to +\infty)$$
 
 ### 讲义阅读
 来自于品的数学分析一讲义。该讲义内容相当丰富。
