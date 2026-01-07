@@ -412,4 +412,8 @@ $$
 
 实际上强行展开是可以做的，最终化为 $\det (-8I_n - A_{12}(3A_{21}-A_{22}A_{21})) = \det (-8I_n - (3A_{21}-A_{22}A_{21})A_{12})$.
 
-使用 Sylvester 行列式定理（$\det (I+AB) = \det (I+BA)$）。
+使用 Sylvester 行列式定理 $\det (I+AB) = \det (I+BA)$ [^sylvester-theorem] 即可。
+
+---
+
+[^sylvester-theorem]: 一般的证法是构造分块矩阵。我的想法是，在 $A$ 可逆时可直接用 $A(A^{-1} + B)$ 证明；使用连续性推广到不可逆情形。
