@@ -16,13 +16,11 @@ categories = ["知识"]
 tags = ["笔记", "计算机", "密码学", "Haskell"]
 +++
 
+{{ ref_index(to = "cryptography") }}
+
 注：曾经我使用别的语言（Julia）写过类似的内容，但没有良好的解耦。因此改用 Haskell 进行更清晰的实现，读者也可使用自己熟悉的语言实现。
 
-关于密码学一个很好的书是 *Real World Cryptography*，兼具细节和高观点。但本文不会涉及太复杂的内容。
-
-OverTheWire 提供的 [Krypton](https://overthewire.org/wargames/krypton/) 也是一个在线练习平台，但是内容过少。
-
-本文实现 [The Cryptopals Crypto Challenges](https://cryptopals.com/) 的基础练习集 Set 1
+本文实现 [The Cryptopals Crypto Challenges](https://cryptopals.com/) 的基础练习集 Set 1.
 
 ## 格式转换
 > Always operate on raw bytes, never on encoded strings. Only use hex and base64 for pretty-printing.
