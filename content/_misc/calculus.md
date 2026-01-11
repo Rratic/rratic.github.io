@@ -6,15 +6,14 @@ description = "包含：广义的数学分析及微积分有关的零散主题�
 math = true
 
 [taxonomies]
-tags = ["数学", "微积分学"]
+tags = ["数学", "分析", "微积分学"]
 +++
 
 参考阅读
 * 于品的数学分析讲义
 * [谢彦桐的 notes](https://darkoxie.github.io/) 适用于非数学专业
 
-建议同步学习
-* [点集拓扑](@/_misc/topology.md)
+建议同步学习[点集拓扑](@/_misc/topology.md)。
 
 ## 数学分析
 ### 基本概念

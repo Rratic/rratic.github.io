@@ -33,7 +33,7 @@ $$\sum_{-\infty}^{+\infty} a_n (z-z_0)^n$$
 
 在较好的情形下，Laurent 级数在一个圆环形区域 $D(z_0, r, R)$ 上收敛（两个幂级数分别收敛）。
 
-对圆环形区域上的解析函数，令 $r<r'<|z-z_0|<R'<R$，使用 Cauchy 公式，有：
+对圆环形区域上的解析函数，令 $r < r' < |z-z_0| < R' < R$，使用 Cauchy 公式，有：
 
 $$f(z) = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = R'}\frac{f(w)}{w-z}\mathrm{d}w - \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = r'}\frac{f(w)}{w-z}\mathrm{d}w$$
 
@@ -105,7 +105,7 @@ $$a_n = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = \varepsilon}\frac{f(w)}{(w-z_0)^
 
 更进一步，我们有 Picard 大定理：
 {% admonition(type="theorem", title="Picard 大定理") %}
-$z_0$ 是 $f$ 的一个本性奇点，且 $f$ 在 $\mathring{D}(z_0, \varepsilon)$ 上解析，则对任意 $0<\varepsilon<R$，集合 $\mathbb{C}-f(\mathring{D}(z_0, \varepsilon))$ 至多包含一个点。
+$z_0$ 是 $f$ 的一个本性奇点，且 $f$ 在 $\mathring{D}(z_0, \varepsilon)$ 上解析，则对任意 $0 < \varepsilon < R$，集合 $\mathbb{C} \setminus f(\mathring{D}(z_0, \varepsilon))$ 至多包含一个点。
 {% end %}
 
 甚至还有更强的结论 Julia 定理。

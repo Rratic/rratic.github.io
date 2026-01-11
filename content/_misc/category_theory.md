@@ -8,11 +8,7 @@ math = true
 tags = ["数学", "范畴论"]
 +++
 
-参考阅读
-* Tom Leinster *Basic Category Theory*
-* Steve Awodey *Category Theory*
-* *Categories for the Working Mathematician* (GTM 5)
-* 李文威《代数学方法：卷一》
+可以阅读 *Category Theory* by Steve Awodey. 在有一定的了解后转为阅读 *Categories for the Working Mathematician* (GTM 5).
 
 ## 范畴与态射
 - 基本的概念
