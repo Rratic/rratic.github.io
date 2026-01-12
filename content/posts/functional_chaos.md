@@ -1,6 +1,6 @@
 +++
 title = "基于 Lua 的模拟环境"
-description = "一个纯粹实验性、无实质内容的项目"
+description = "一个纯粹实验性、无实质内容的项目。"
 date = 2025-05-06
 updated = 2025-08-03
 
@@ -9,7 +9,7 @@ image = "/images/cover/seniorious.png"
 
 [taxonomies]
 categories = ["杂物"]
-tags = ["发布", "说明", "展示", "计算机", "含模拟", "在线", "Lua"]
+tags = ["发布", "展示", "计算机", "可运行"]
 +++
 
 <style>

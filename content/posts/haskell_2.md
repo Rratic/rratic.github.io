@@ -16,7 +16,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["笔记", "数学", "计算机", "函数式编程", "Haskell"]
+tags = ["笔记", "计算机", "函数式编程"]
 +++
 
 封面图为 `Monad` 类型类的声明，使用字体 JetBrains Mono.

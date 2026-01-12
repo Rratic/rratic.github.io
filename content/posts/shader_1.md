@@ -11,7 +11,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["笔记", "计算机", "计算机图形学"]
+tags = ["笔记", "计算机", "图形学"]
 +++
 
 参考了 [kishimisu](https://www.youtube.com/@kishimisu) 的视频教程。

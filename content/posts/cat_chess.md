@@ -9,7 +9,7 @@ image = "/images/cover/cat_chess.png"
 
 [taxonomies]
 categories = ["杂物"]
-tags = ["展示", "在线", "游戏", "含模拟"]
+tags = ["展示", "游戏", "可运行"]
 +++
 
 注：本文迁移自之前的文章集，最初设计的原因是希望做一个新奇的棋类游戏作为娱乐活动

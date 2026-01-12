@@ -16,7 +16,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["笔记", "计算机", "计算机图形学"]
+tags = ["笔记", "计算机", "图形学"]
 +++
 
 参考了 [The Book of Shaders](https://thebookofshaders.com/) 的主题 [Random](https://thebookofshaders.com/10/)，[Noise](https://thebookofshaders.com/11/)，[Cellular noise](https://thebookofshaders.com/12/) 及 [Fractional brownian motion](https://thebookofshaders.com/13/).

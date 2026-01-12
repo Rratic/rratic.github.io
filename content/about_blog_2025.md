@@ -8,7 +8,7 @@ toc = true
 
 [taxonomies]
 categories = ["项目"]
-tags = ["发布", "说明"]
+tags = ["发布"]
 +++
 
 ## 为什么要写博客 {#why-blog}

@@ -13,7 +13,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["笔记", "计算机", "密码学", "Haskell"]
+tags = ["笔记", "计算机", "密码学"]
 +++
 
 {{ ref_index(to = "cryptography") }}

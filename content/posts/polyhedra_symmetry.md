@@ -13,7 +13,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["笔记", "数学", "代数", "抽象代数", "群论", "含模拟", "在线"]
+tags = ["笔记", "数学", "代数", "群论", "可运行"]
 +++
 
 {{ ref_index(to = "group-theory") }}

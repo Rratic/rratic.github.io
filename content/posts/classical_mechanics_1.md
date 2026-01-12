@@ -13,7 +13,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["笔记", "物理", "经典力学"]
+tags = ["笔记", "物理", "经典物理"]
 +++
 
 前置知识

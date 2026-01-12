@@ -15,7 +15,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["笔记", "计算机", "函数式编程", "Haskell"]
+tags = ["笔记", "计算机", "函数式编程"]
 +++
 
 封面图为 Haskell 实现的快速排序算法，使用字体 JetBrains Mono.
