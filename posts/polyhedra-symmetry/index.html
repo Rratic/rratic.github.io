@@ -1,0 +1,433 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>多面体对称性：正多面体与更低对称性 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="多面体对称性：正多面体与更低对称性" />
+  <meta name="description" content="关于 R^3 上的旋转与多面体：包括正多面体及其凹版本，半正多面体及其对偶，正多边形面组成的凸多面体。" />
+  <meta property="og:description" content="关于 R^3 上的旋转与多面体：包括正多面体及其凹版本，半正多面体及其对偶，正多边形面组成的凸多面体。" />
+  <meta property="og:url" content="https://rratic.github.io/posts/polyhedra-symmetry/" />
+  <link rel="canonical" href="https://rratic.github.io/posts/polyhedra-symmetry/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2025-06-12T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2025-06-23T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="代数" />
+  <meta property="article:tag" content="群论" />
+  <meta property="article:tag" content="可运行" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.github.io/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.github.io/style/shared.css?h=63eca58df589815f6747" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.github.io/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.github.io/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.github.io/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.github.io/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">多面体对称性：正多面体与更低对称性</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2025-06-12T00:00:00+00:00">2025-06-12</time><span
+        class="middot"></span><time
+    datetime="PT0H15M0S">15&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#mathbb-r-3-shang-de-xuan-zhuan">$\mathbb{R}^3$ 上的旋转</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#zheng-jiao">正交</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#xuan-zhuan-zhou">旋转轴</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#plato-duo-mian-ti">Plato 多面体</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#jie-shao">介绍</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ke-di">可递</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#dui-ou">对偶</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#dui-cheng">对称</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#kepler-poinsot-duo-mian-ti">Kepler-Poinsot 多面体</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#jie-shao-1">介绍</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#dui-cheng-1">对称</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#archimedes-duo-mian-ti">Archimedes 多面体</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#jie-shao-2">介绍</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#dui-cheng-2">对称</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#dui-ou-1">对偶</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#johnson-duo-mian-ti">Johnson 多面体</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#jie-shao-3">介绍</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#zhu-shi">注释</a>
+      </li>
+    </ul>
+  </details>
+</nav>
+
+  <!-- Content -->
+  <section><nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+	<div class="select-none py-0.5 lg:py-1 pl-3.5">
+		<a href="/_misc/group-theory/" target="_blank">索引 ⟨ group-theory ⟩</a>
+	</div>
+</nav>
+<p>前置知识</p>
+<ul>
+<li>线性代数</li>
+<li><a href="/posts/group-theory-1/">群论（一）</a></li>
+</ul>
+<p>在线</p>
+<ul>
+<li>可运行：<a href="/playground/polyhedra.html">多面体展示</a>，包含正多面体和半正多面体 <sup class="footnote-reference"><a href="#1">1</a></sup></li>
+</ul>
+<h2 id="mathbb-r-3-shang-de-xuan-zhuan">$\mathbb{R}^3$ 上的旋转</h2>
+<p>本文中的旋转都是指 $\mathbb{R}^3$ 上的。</p>
+<h3 id="zheng-jiao">正交</h3>
+<p>对三维欧氏空间 $\mathbb{R}^3$ 到自身的变换，我们称保持任两点距离不变、保持原点不动的变换为<strong>正交变换</strong>。</p>
+<p>容易验证正交变换满足 $\alpha(kv)=k\alpha(v), \alpha(v+w)=\alpha(v)+\alpha(w)$，为线性变换。</p>
+<p>因而我们知道可以将 $\alpha(v)$ 看作 $\mathbf{M}_{\alpha} \begin{pmatrix} x \\ y \\ z \end{pmatrix}$</p>
+<p>其中 $\mathbf{M}_{\alpha}$ 为 3×3 实矩阵。</p>
+<p>有 $\det(\mathbf{M}_{\alpha}) = \pm 1$，取 1 时即为绕原点的旋转，取 -1 时为旋转复合上一次反射变换。</p>
+<p>实三维正交变换群记作 $O_3(\mathbb{R})$ 或 $\mathbb{O}_3$，其中行列式为 1 的那些构成的正规子群记作 $\mathbb{O}_3^+$ 或 $SO(3)$</p>
+<p>旋转是不满足交换律的。</p>
+<h3 id="xuan-zhuan-zhou">旋转轴</h3>
+
+<link rel="stylesheet" href="https://rratic.github.io/admonition.css?h=78eb69fa9d4a0eea7f15" type="text/css">
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>旋转轴</strong></span>
+  </div>
+  <div class="pl-4"><p>非平凡的旋转一定有旋转轴。</p>
+</div>
+</div>
+<p>旋转轴满足：其上任何一个向量，满足 $\mathbf{M}\cdot v = v$，也就是求其特征值 $|\lambda| = 1$ 对应特征向量，易知是存在的。</p>
+<p>或者，定义 $f(v)=\alpha(v)-v$，然后使用 Borsuk-Ulam 定理。</p>
+<p>更多内容可参阅：四元数、拓扑（三维实射影空间、三维球面）、李群。</p>
+<h2 id="plato-duo-mian-ti">Plato 多面体</h2>
+<h3 id="jie-shao">介绍</h3>
+<p>柏拉图多面体，即一般意义上的正多面体（regular polyhedra），是指面为全等的正多边形、棱上的二面角相等的凸多面体，因柏拉图（Πλατών）及其追随者对它们所作的研究而得名。</p>
+<p>柏拉图将这些多面体与元素相对应：</p>
+<ul>
+<li>正四面体：火：令人感到刺痛</li>
+<li>正六面体：土：可以被堆叠</li>
+<li>正八面体：气：流畅（？）</li>
+<li>正十二面体：代表天空，亚里士多德提出天空由以太组成</li>
+<li>正二十面体：水：可以流动，类似小球</li>
+</ul>
+<p>其后，开普勒曾提出这样的宇宙模型：水星轨道 | 正八面体 | 金星轨道 | 正二十面体 | 地球轨道 | 正十二面体 | 火星轨道 | 正四面体 | 木星轨道 | 正六面体 | 土星轨道，依次相切。</p>
+<h3 id="ke-di">可递</h3>
+<p>我们说某个东西可递，是指它在群作用下，每个元素的轨道都是整个集合。</p>
+<p>点可递/面可递是指顶点集/面集在旋转变换群的作用下可递。</p>
+<p>前述的正多面体定义等价于：是点可递且面可递的凸多面体。</p>
+<h3 id="dui-ou">对偶</h3>
+<p>如果一个正多面体可以通过将其面的中心相连得到另一个正多面体，称它们<strong>对偶</strong>，则有正四面体与自身对偶，正六、八面体；正十二、二十面体对偶。</p>
+<p>我们发现对偶的多面体有相同的旋转变换群，这是由点可递且面可递的要求所保证的。</p>
+<p>正四面体的旋转变换群是 $A_4$，这在上一节中已讨论过。</p>
+<p>正六面体的全部元素在上一节的「立方体染色Ⅱ」中亦讨论过。另一种方法看，将相对的顶点标作 $A$ 与 $A'$，$B, B'$，$C, C'$ 和 $D, D'$，则主对角线集合 $\{AA', BB', CC', DD'\}$ 在旋转下不变，有旋转变换群是 $S_4$ 的子群。旋转变换群就是 $S_4$</p>
+<p>正十二面体复杂一些。我们去找它的顶点构成的立方体：取一组对棱及每个棱最近的四个点，八个点构成立方体的顶点。这样的立方体有 5 个，集合在旋转下不变，知旋转变换群是 $S_5$ 的子群。由于 $A_5$ 是单群，旋转变换群就是 $A_5$</p>
+<p><img src="/images/polyhedra/dodecahedron_and_cube.svg" alt="正十二面体嵌入正方体" /></p>
+<h3 id="dui-cheng">对称</h3>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>正多面体数量</strong></span>
+  </div>
+  <div class="pl-4"><p>正多面体只有五种。</p>
+</div>
+</div>
+<p>可以简单地根据每个顶点处至少 2 个面、一圈的角度和小于 360° 的原则枚举「面的边数，顶点汇聚的面数」二元组。所有可能情况是 $(3, 3), (3, 4), (3, 5), (4, 3), (5, 3)$</p>
+<p>不难发现每一个合法的二元组都对应一个合法的正多面体。这其实是必然的。我们构造出一个顶点的汇聚情况后，可以沿着棱移动实现，到达一个新的顶点，此时它只有两个面。由于是凸多面体，且二面角确定，此处的汇聚情况是唯一的。</p>
+<p>不断作此操作，按照这样的原则：优先填满汇聚的面数最多的。经过有限次操作，可以得到完美拼合的正多面体。</p>
+<hr />
+<p>上述的证明使用了许多依托于直观的论断，让我们换一种方式给出严格的证明：</p>
+<p>我们来讨论 $SO(3)$ 的有限子群 $G$，设其阶为 $n$</p>
+<p>对 $G$ 中非平凡的旋转，称旋转轴与单位球的两个交点为<strong>极点</strong>，记极点集合 $P$。</p>
+<p>$G$ 中旋转作用在 $P$ 上有封闭性，因为：对 $\sigma(p)=p, \tau(p)=q$ 有 $\tau\sigma\tau^{-1}q=q$，极点被旋转到极点。</p>
+<p>考察 $G$ 在 $P$ 上的作用，设有 $k$ 个轨道 $\mathrm{Orb}(p_i)$</p>
+<p>由于 $\mathrm{Stab}(p_i)$ 是绕着 $p_i$ 对应的轴的旋转，它是循环群。</p>
+<p>考察二元组「非平凡的旋转，选择对应的极点」的数量，也就是可重的极点数量，进行算两次。</p>
+<p>对旋转计数为 $2(n-1)$，对极点计数则得到 $\sum (|\mathrm{Stab}(p_i)|-1)|\mathrm{Orb}(p_i)|=nk-\sum |\mathrm{Orb}(p_i)|$，两式相等。等式即 $2-\frac{2}{n} = k - \sum \frac{1}{|\mathrm{Stab}(p_i)|}$</p>
+<p>又因为 $|\mathrm{Stab}(p_i)|\ge 2$，对这个等式分析可以枚举得到所有 $(k; |\mathrm{Stab}(p_1)|, |\mathrm{Stab}(p_2)| \cdots |\mathrm{Stab}(p_k)|; n)$ 的情形如下。</p>
+<p>$(2; m, m; m)$，此时为 $n$ 阶循环群。</p>
+<p>$(3; 2, 2, m; 2m)$：此时为 $2m$ 阶二面体群。</p>
+<p>$(3; 2, 3, 3; 12)$：此时任一个点对应的另三点构成正三角形。为正四面体。</p>
+<p>$(3; 2, 3, 4; 24)$：轨道长分别为 12，8，6，由于轨道数各不相同，一个旋转轴上的两个极点必在同一轨道上。考察长为 6 的轨道，稳定子群为 4 阶循环群。知形如正六/八面体。</p>
+<p>$(3; 2, 3, 5; 60)$：同理可知形如正十二/二十面体。</p>
+<h2 id="kepler-poinsot-duo-mian-ti">Kepler-Poinsot 多面体</h2>
+<h3 id="jie-shao-1">介绍</h3>
+<p>让我们暂时扩展一下正多面体的定义，允许自交多边形、面之间自交，那么可以额外得到四种正星体。它们是：</p>
+<table><thead><tr><th style="text-align: center">名称</th><th style="text-align: center">面</th><th style="text-align: center">构造Ⅰ</th><th style="text-align: center">构造Ⅱ</th></tr></thead><tbody>
+<tr><td style="text-align: center">小星形十二面体</td><td style="text-align: center">12 个正五角星面</td><td style="text-align: center">对正十二面体的每个面，在该平面上将面延申成正五角星</td><td style="text-align: center">连接正二十面体顶点</td></tr>
+<tr><td style="text-align: center">大十二面体</td><td style="text-align: center">12 个正五边形面</td><td style="text-align: center">/</td><td style="text-align: center">连接正二十面体顶点</td></tr>
+<tr><td style="text-align: center">大星形十二面体</td><td style="text-align: center">12 个正五角星面</td><td style="text-align: center">进一步星形化正十二面体</td><td style="text-align: center">连接正十二面体顶点</td></tr>
+<tr><td style="text-align: center">大二十面体</td><td style="text-align: center">20 个正三角形面</td><td style="text-align: center">将正二十面体的三角形面替换为自交的星形面</td><td style="text-align: center">连接正二十面体顶点</td></tr>
+</tbody></table>
+<p><img src="/images/polyhedra/small_stellated_dodecahedron.svg" alt="小星形十二面体" /></p>
+<p>你可以在 <a href="https://dmccooey.com/polyhedra/KeplerPoinsot.html">https://dmccooey.com/polyhedra/KeplerPoinsot.html</a> 找到它们的图像。</p>
+<h3 id="dui-cheng-1">对称</h3>
+<p>我们发现这些星体仍然满足点可递、面可递。</p>
+<p>考察它的凸包（由保距，一定包含所有顶点），凸包的顶点也是可递的，因此顶点构成正多面体。</p>
+<p>其中正四、六、八面体过小（我们需要阶至少为 5 的稳定子群才有有意义的星形），只有正十二、二十面体的顶点可以构造出有意义的星体，对应上文的构造方式Ⅱ。这比构造Ⅰ要易操作且本质。</p>
+<h2 id="archimedes-duo-mian-ti">Archimedes 多面体</h2>
+<h3 id="jie-shao-2">介绍</h3>
+<p>半正多面体（uniform polyhedra）是由 Pappus 描述的，他将这一发现归功于阿基米德，但阿基米德的原手稿已遗失。值得注意的是，其中不包含 <em>Elongated Square Gyrobicupola</em>（也具有良好的美学特征，但缺乏旋转对称性），这可能暗示当时已有对称性的认识。</p>
+<p>半正多面体满足点可递而面不可递，一共有 13 种，其中 2 种（扭棱立方体和扭棱二十面体）有手性。</p>
+<h3 id="dui-cheng-2">对称</h3>
+<p>同样可以简单地说明，半正多面体有外接球且顶点的旋转变换群是 $SO(3)$ 的有限子群。</p>
+<p>我们再根据那些群进行分析，从中导出半正多面体。</p>
+<p>首先，讨论可能的面的形状有哪些。我们说明：正 $n$ 边形面（$n&gt;4$）对应 $n$ 阶或 $\frac{n}{2}$ 阶稳定子群。考察这个多边形周围一圈，由于要求点可递，要么是同种面、要么是两种面交替排布。三种及以上的面交替排布会导致顶点处汇聚角度大于 60°+90°+108°×2</p>
+<p>然后对所有有限子群枚举（其中循环群无法导出，二面体群只能导出正棱柱（prisms）及反棱柱（antiprisms））</p>
+<p>四面体群：首先找到旋转中心，然后找到旋转下不变的轴。可以找到四根射线，它们相当于正四面体中四个中心到顶点的射线。对此框架产生的正四面体进行放缩，直到与目标半正多面体有交。此时一定是与四个面重合。又，只有 3 阶稳定子群（2 阶不计），故只有正三、六边形面。这导出的是截角四面体。</p>
+<p><img src="/images/polyhedra/archimedes_td.svg" alt="四面体群导出" /></p>
+<p>六/八面体群：同理，只有三、四、六、八边形面。这导出立方八面体、截角八面体、截角立方体、小斜方截半立方体、扭棱立方体、大斜方截半立方体（有时被不当地称为截角立方八面体）。</p>
+<p><img src="/images/polyhedra/archimedes_oh.svg" alt="八面体群导出" /></p>
+<p>十二/二十面体群：同理，可能有三、四、五、六、八、十边形面。这导出截半二十面体、截角二十面体、小斜方截半二十面体、截角十二面体、扭棱二十面体、大斜方截半二十面体（有时被不当地称为截角截半二十面体）。</p>
+<p><img src="/images/polyhedra/archimedes_ih.svg" alt="二十面体群导出" /></p>
+<h3 id="dui-ou-1">对偶</h3>
+<p>Archimedes 多面体也有其对偶版本：连接各面中心，得到 Catalan 多面体，这是由卡塔兰描述的。Catalan 多面体满足面可递而点不可递，且其面不一定是正多边形。</p>
+<p>同样地，我们可以进行逆操作：找到旋转中心，然后对各个面作垂足，重新得到 Archimedes 多面体。</p>
+<h2 id="johnson-duo-mian-ti">Johnson 多面体</h2>
+<h3 id="jie-shao-3">介绍</h3>
+<p>Johnson 多面体是指正多面体、半正多面体、棱柱、反棱柱之外，所有由正多边形面组成的凸多面体。</p>
+<p>你可以在 <a href="https://www.qfbox.info/4d/johnson">The Johnson Solids</a> 看到它们的图像。</p>
+<p>理论上说，可以通过分析多面体对应的平面图来列举全部的 92 种。本文中无法展开讨论，可参阅：柯西刚性定理、Steinitz 定理等。</p>
+<h2 id="zhu-shi">注释</h2>
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>坐标数据部分来自 <a href="https://dmccooey.com/polyhedra/">https://dmccooey.com/polyhedra/</a></p>
+</div>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/代数/">代数</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/群论/">群论</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/可运行/">可运行</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/pages"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <link rel="stylesheet" href="https://rratic.github.io/katex/katex.min.css?h=e189fd0238811989c364" />
+  <script defer src="https://rratic.github.io/katex/katex.min.js?h=6b909443e6c8f6e5d24c"></script>
+  <script defer src="https://rratic.github.io/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

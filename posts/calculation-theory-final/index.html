@@ -1,0 +1,722 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>计算概论期末复习笔记（Bird Meertens 形式开始的部分） | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="计算概论期末复习笔记（Bird Meertens 形式开始的部分）" />
+  <meta name="description" content="使用 Bird Meertens Formalism 导出高效程序与进行自动并行化。" />
+  <meta property="og:description" content="使用 Bird Meertens Formalism 导出高效程序与进行自动并行化。" />
+  <meta property="og:url" content="https://rratic.github.io/posts/calculation-theory-final/" />
+  <link rel="canonical" href="https://rratic.github.io/posts/calculation-theory-final/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2025-12-27T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="计算机" />
+  <meta property="article:tag" content="函数式编程" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.github.io/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.github.io/style/shared.css?h=63eca58df589815f6747" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.github.io/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.github.io/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.github.io/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.github.io/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">计算概论期末复习笔记（Bird Meertens 形式开始的部分）</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2025-12-27T00:00:00+00:00">2025-12-27</time><span
+        class="middot"></span><time
+    datetime="PT0H14M0S">14&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#ji-ben-gai-nian">基本概念</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ji-hao">记号</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#tui-dao-shi-li">推导示例</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#tong-tai-li-lun">同态理论</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#xing-zhi">性质</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ji-hao-1">记号</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#tui-dao-shi-li-1">推导示例</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#fusion-yu-tupling">Fusion 与 Tupling</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#rong-he">融合</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#yuan-zu-hua">元组化</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#zi-dong-bing-xing-hua">自动并行化</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#di-san-tong-tai-ding-li">第三同态定理</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#gou-zao-fang-fa">构造方法</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#zai-shu-shang-zuo">在树上做</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#maximum-marking-problems">Maximum Marking Problems</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ding-yi">定义</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#tui-dao-shi-li-2">推导示例</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#yan-shen">延申</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#unfold">Unfold</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#unfold-1">unfold</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#hylomorphism">Hylomorphism</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#metamorphism">Metamorphism</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </details>
+</nav>
+
+  <!-- Content -->
+  <section><nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+	<div class="select-none py-0.5 lg:py-1 pl-3.5">
+		<a href="/_misc/functional-programming/" target="_blank">索引 ⟨ functional-programming ⟩</a>
+	</div>
+</nav>
+<p>这是本课程的最后一个部分，同时可能是在上半学期和下半学期前部的铺垫下真正想讲的东西。其中函数式编程的想法提供了无副作用的函数和高阶函数的例子，从而能够被我们讨论；定理证明器则允许我们验证推导的正确性。</p>
+<p>课程主页在 <a href="https://zhenjiang888.github.io/FP/2025/">https://zhenjiang888.github.io/FP/2025/</a>.</p>
+<h2 id="ji-ben-gai-nian">基本概念</h2>
+<p>BMF/Bird Meertens Formalism 是一套让人们从特定规范表述中导出（高效）程序的函数演算。</p>
+<h3 id="ji-hao">记号</h3>
+<p>先明确一些基础的规范：</p>
+<ul>
+<li>函数应用的优先级最高；函数是可以被 curry 化的 $(f\ a)\ b$</li>
+<li>函数复合使用 $f \cdot g$</li>
+<li>外延性：两个函数 $f$ 与 $g$ 是等价的，如果对任意可以作为参数的 $x$ 有 $f\ x = g\ x$</li>
+</ul>
+<p>现在已经可以推导出一些简单的结论，如：</p>
+<p>$$(f\cdot)\cdot(g\cdot) = ((f\cdot g)\cdot)$$</p>
+<p>我们将用 $\oplus, \otimes, \odot$ 等表示二元运算，并且：</p>
+<ul>
+<li>允许 sectioned $(a\oplus)\ b = (\oplus b)\ a = a \oplus b$</li>
+<li>用 $\mathrm{id}_\oplus$ 表示双边的单位元</li>
+</ul>
+<p>记常值函数 $K\ a\ b = a$，这和 <a href="https://rratic.github.io/posts/lambda-calculus/#evaluation-rules">SKI 演算</a>的约定相同。</p>
+<p>对列表来说：</p>
+<ul>
+<li>$[]$ 是空列表，有一个把值映到 singleton 列表的映射 $[\cdot]\ a = [a]$</li>
+<li>$+\!\!+$ 是我们熟知的拼接 concatenation</li>
+<li>结构 bag 是在列表基础上忽略顺序，结构 set 是进一步忽略重复</li>
+<li>熟知的 <code>map</code> 写作 $f \ast [a_1, \cdots, a_n] = [f\ a_1, \cdots, f\ a_n]$</li>
+<li>reduce 是指 $\oplus / [a_1, \cdots, a_n] = a_1 \oplus \cdots \oplus a_n$，现在就有 <code>maximum</code> 是 $\uparrow/$，其中 $a\uparrow b$ 结果是两者较大值</li>
+<li><code>foldl</code> 即 left to right reduce 是 $\oplus \rightarrow\!\!\!\!\!\!/_e [a_1, \cdots, a_n] = ((e \oplus a_1) \oplus \cdots) \oplus a_n$，右下角不写 $e$ 则是把 $e$ 当作单位元的结果；相应地 <code>foldr</code> 即 right to left reduce 是 $\oplus \leftarrow\!\!\!\!\!\!/_e [a_1, \cdots, a_n] = a_1 \oplus (\cdots (a_n \oplus e))$</li>
+</ul>
+<p>我们定义 <code>scanl</code> 即 left-accumulate 是：</p>
+<p>$$\oplus \rightarrow\!\!\!\!\!\!\!/\!\!/_e [a_1, \cdots, a_n] = [e, e \oplus a_1, \cdots, ((e \oplus a_1) \oplus \cdots) \oplus a_n]$$</p>
+<p>相应地 <code>scanr</code> 即 right-accumulate 是：</p>
+<p>$$\oplus \leftarrow\!\!\!\!\!\!\!/\!\!/_e [a_1, \cdots, a_n] = [a_1 \oplus (\cdots (a_n \oplus e)), \cdots, a_n \oplus e, e]$$</p>
+<h3 id="tui-dao-shi-li">推导示例</h3>
+<p>现在来看一个具体的问题：
+
+<link rel="stylesheet" href="https://rratic.github.io/admonition.css?h=78eb69fa9d4a0eea7f15" type="text/css">
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>Maximum Segment Sum Problem</strong></span>
+  </div>
+  <div class="pl-4"><p>对一个整数序列，求所有连续子段的和的最大值。</p>
+</div>
+</div>
+</p>
+<p>作为一个朴素的想法，我们定义 $\mathrm{inits} = (+\!\!+ \rightarrow\!\!\!\!\!\!\!/\!\!/ _{\ []}) \cdot [\cdot] \ast$，效果是从空列表到整个列表列出所有前缀；定义 $\mathrm{tails} = (+\!\!+ \leftarrow\!\!\!\!\!\!\!/\!\!/ _{\ []}) \cdot [\cdot] \ast$，效果是从整个列表到空列表列出所有后缀；现在 $\mathrm{segs} = +\!\!+ / \cdot \mathrm{tails} \ast \cdot \operatorname{inits}$ 给出所有连续子段。</p>
+<p>现在 $\mathrm{mss} = \uparrow/ \cdot +/\ast \cdot \operatorname{segs}$ 即是原问题的最朴素的解，只不过它的时间复杂度惨不忍睹。</p>
+<hr />
+<p>现在我们将这个算法优化成线性的。首先，Horner’s Rule 是指在分配律 $(a \oplus b) \otimes c = (a \otimes c) \oplus (b \otimes c)$ 成立时有：</p>
+<p>$$\oplus/ \cdot \otimes/\ast \cdot \operatorname{tails} = \odot \rightarrow\!\!\!\!\!\!/ _{\ \mathrm{id} _\otimes}$$</p>
+<p>其中 $a \odot b = (a \otimes b) \oplus \mathrm{id} _\otimes$.</p>
+<p>现在就可以进行推导：</p>
+<p>$$
+\begin{align*}
+&amp; \mathrm{mss} \\
+= &amp; \uparrow/ \cdot +/\ast \cdot \operatorname{segs} \\
+= &amp; \uparrow/ \cdot +/\ast \cdot +\!\!+ / \cdot \mathrm{tails} \ast \cdot \operatorname{inits} \\
+= &amp; \uparrow/ \cdot (\uparrow/ \cdot +/\ast \cdot \operatorname{tails})\ast \cdot \operatorname{inits} \\
+= &amp; \uparrow/ \cdot \odot \rightarrow\!\!\!\!\!\!/ _{\ 0} \ast \cdot \operatorname{inits} \\
+= &amp; \uparrow/ \cdot \odot \rightarrow\!\!\!\!\!\!\!/\!\!/ _{\ 0}
+\end{align*}
+$$</p>
+<p>其中 $a \odot b = (a + b) \uparrow 0$.</p>
+<p>这是一个线性的算法。在 Agda 中的实现与证明从略。</p>
+<h2 id="tong-tai-li-lun">同态理论</h2>
+<p>半群到半群、幺半群到幺半群的同态即是数学上的定义。易见 $f\ast$ 与 $\oplus/$ 是同态。</p>
+<h3 id="xing-zhi">性质</h3>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Promotion Lemma</strong></span>
+  </div>
+  <div class="pl-4"><p>$h$ 是 $(\alpha, \oplus, \mathrm{id} _\oplus)$ 到 $(\beta, \otimes, \mathrm{id} _\otimes)$ 的同态当且仅当：</p>
+<p>$$h \cdot \oplus/ = \otimes/ \cdot h\ast$$</p>
+</div>
+</div>
+<p>易见。实际上这是因为列表是自由的。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Existence Lemma</strong></span>
+  </div>
+  <div class="pl-4"><p>列表函数 $h$ 是同态当且仅当总成立：</p>
+<p>$$h\ v = h\ x \wedge h\ w = h\ y \implies h\ (v +\!\!+ w) = h\ (x +\!\!+ y)$$</p>
+</div>
+</div>
+<p>从同态推下式是通过 $h = \odot/ \cdot f\ast$.</p>
+<p>从下式推同态是因为存在 $g$ 使 $h = h \cdot g \cdot h$. 存在性可用集合论方法说明。</p>
+<p>令 $t \odot u = h\ (g\ t +\!\!+ g\ u)$，从而 $h\ (x +\!\!+ y) = h\ x \odot h\ y$. 由条件知，与 $g$ 的具体取值无关，是良定义的。</p>
+<hr />
+<p>对于列表我们有三种观点：</p>
+<ol>
+<li>列表要么是空的，要么是单的，要么是两个列表的拼接；对应计算方式是同态</li>
+<li>列表要么是空的，要么形如 $x +\!\!+ [a]$；对应计算方式是 <code>foldl</code></li>
+<li>列表要么是空的，要么形如 $[a] +\!\!+ x$；对应计算方式是 <code>foldr</code></li>
+</ol>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Specialization Lemma</strong></span>
+  </div>
+  <div class="pl-4"><p>每一个列表上的同态都可表达为 left/right reduction.</p>
+</div>
+</div>
+<p>易见。</p>
+<h3 id="ji-hao-1">记号</h3>
+<p>存在非常丰富的同态的例子：</p>
+<ul>
+<li>长度 $\# = +/ \cdot (K\ 1)\ast$</li>
+<li>排序 $\mathrm{sort} = \mathrm{merge}/ \cdot [\cdot]\ast$</li>
+<li>是否全部满足条件 $\mathrm{all}\ p = \wedge/ \cdot p\ast$；相应地 $\mathrm{some}\ p = \vee/ \cdot p\ast$</li>
+</ul>
+<hr />
+<p>我们定义记号 all applied to $[f, g, \cdots, h]^o a = [f\ a, g\ a, \cdots, h\ a]$. 定义 $h = (p \to f, g)$ 是指 $h\ x = \mathbf{if}\ p\ x\ \mathbf{then}\ f\ x\ \mathbf{else}\ g\ x$.</p>
+<p>现在就可以定义 filter 如下：</p>
+<p>$$p\triangleleft = +\!\!+/ \cdot (p \to [\mathrm{id}]^o, []^o)\ast$$</p>
+<hr />
+<p>我们希望定义 $\uparrow _f$，使得 $x \uparrow _f y$ 的值是 $x, y$ 之一，且 $f\ (x \uparrow _f y) = f\ x \uparrow f\ y$. 例如，可以让 $\uparrow _{\#}$ 是取两个列表中更长的那一个（长度相等时为保证一致可按字典序比较）。</p>
+<p>我们规定 $\omega = \uparrow _{\#}/ []$，有 $\#\omega = -\infty$. 它是 $+\!\!+$ 的一个 zero. 这里我们称一个 $\omega$ 是 left zero 如果对任意 $a$ 都有 $\omega \oplus a = \omega$.</p>
+<h3 id="tui-dao-shi-li-1">推导示例</h3>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>Longest Segment Problem</strong></span>
+  </div>
+  <div class="pl-4"><p>对一个序列，求满足性质 $p$ 的最长连续子段。</p>
+</div>
+</div>
+<p>仍然从朴素的想法出发推导：</p>
+<p>$$
+\begin{align*}
+&amp; \mathrm{lsp} \\
+= &amp; \uparrow _{\#}/ \cdot (\mathrm{all}\ p)\triangleleft \cdot \operatorname{segs} \\
+= &amp; \uparrow _{\#}/ \cdot (\uparrow _{\#}/ \cdot (\mathrm{all}\ p)\triangleleft \cdot \operatorname{tails})\ast \cdot \operatorname{inits} \\
+= &amp; \uparrow _{\#}/ \cdot (\uparrow _{\#}/ \cdot (+\!\!+/ \cdot (p \to [\mathrm{id}]^o, K\ \omega)\ast) \ast \cdot \operatorname{tails})\ast \cdot \operatorname{inits} \\
+= &amp; \uparrow _{\#}/ \cdot \odot \rightarrow\!\!\!\!\!\!/ _{\ []}\ast \cdot \operatorname{inits} \\
+= &amp; \uparrow _{\#}/ \cdot \odot \rightarrow\!\!\!\!\!\!\!/\!\!/ _{\ []}
+\end{align*}
+$$</p>
+<p>其中 $x \odot a = (x +\!\!+ (p\ a \to [a], \omega)) \uparrow _{\#} []$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>The Minimax Problem</strong></span>
+  </div>
+  <div class="pl-4"><p>优化 $\downarrow/ \cdot \uparrow/\ast$.</p>
+</div>
+</div>
+<p>把同态改为 left reduction 即可。</p>
+<h2 id="fusion-yu-tupling">Fusion 与 Tupling</h2>
+<h3 id="rong-he">融合</h3>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Foldr Fusion Lemma</strong></span>
+  </div>
+  <div class="pl-4"><p>若 $f\ (a \oplus r) = a \otimes f\ r$ 则：</p>
+<p>$$f \cdot \oplus \leftarrow\!\!\!\!\!\!/ _e = \otimes \leftarrow\!\!\!\!\!\!/ _{f\ e}$$</p>
+</div>
+</div>
+<p>其证明与应用易见。</p>
+<h3 id="yuan-zu-hua">元组化</h3>
+<p>考虑一个典型问题：找到列表中所有那些比后面的元素大的元素。在 reduction 时除结果外还需要记录最大值。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>Mutumorphism</strong></span>
+  </div>
+  <div class="pl-4"><p>称 $f_1, \cdots, f_n$ 构成 mutumorphism 如果对每个 $f_i$ 有：</p>
+<p>$$f_i\ [] = e_i$$
+$$f_i\ [a] +\!\!+ x = a \oplus_i (f_1\ x, \cdots, f_n\ x)$$</p>
+<p>此时我们将 $f\ x = (f_1\ x, \cdots, f_n\ x)$ 记作：</p>
+<p>$$f = [\![ (e_1, \cdots, e_n), (\oplus_1, \cdots, \oplus_n) ]\!]$$</p>
+</div>
+</div>
+<p>关于它有一些易见的性质，此处从略。</p>
+<h2 id="zi-dong-bing-xing-hua">自动并行化</h2>
+<p>对列表来说，我们希望能够并行化指的是能够把问题 $h\ (x +\!\!+ y)$ 分解为 $h\ x \odot h\ y$. 典型的例子包括求和 <code>sum</code>，排序 <code>sort</code>.</p>
+<h3 id="di-san-tong-tai-ding-li">第三同态定理</h3>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>第三同态定理</strong></span>
+  </div>
+  <div class="pl-4"><p>函数 $f$ 既可以被 <code>foldl</code> 又可以被 <code>foldr</code> 刻画，即：$h = \oplus \leftarrow\!\!\!\!\!\!/_e = \otimes \rightarrow\!\!\!\!\!\!/_e$，当且仅当存在 $\odot$ 使得 $h\ (x +\!\!+ y) = h\ x \odot h\ y$.</p>
+</div>
+</div>
+<p>通过 Existence Lemma 证明，两边分别用 right-to-left reduction 与 left-to-right reduction 的性质。</p>
+<h3 id="gou-zao-fang-fa">构造方法</h3>
+<p>我们回顾 Existence Lemma 的证明方法，定义：</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>Weak (Right) Inverse</strong></span>
+  </div>
+  <div class="pl-4"><p>称 $g$ 是 $f$ 的 weak (right) inverse 如果对 $y \in \operatorname{Im} f$，有：</p>
+<p>$$g\ y = x \implies f\ x = y$$</p>
+</div>
+</div>
+<p>weak inverse 总是存在，但不一定唯一。</p>
+<p>使用 weak inverse 可以给出 $f$ 的具体的并行化构造：令 $a \odot b = f\ (g\ x +\!\!+ g\ y)$. 对 <code>sum</code> 来说，取 $g\ y = [y]$ 即可。</p>
+<p>我们来考虑这个问题：</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>Maximum Prefix Sum Problem</strong></span>
+  </div>
+  <div class="pl-4"><p>对一个序列，求所有前缀和的最大值。</p>
+</div>
+</div>
+<p>我们无法对它直接使用 weak inverse 的构造，因为它本身不能用 right-to-left reduction 刻画。但把它改造成 $f = \mathrm{mps} \triangle \mathrm{sum}$ 就可以了（这里 $f\ x = (\mathrm{mps}\ x, \mathrm{sum}\ x)$）。它的 weak inverse 是 $g\ (p, s) = [p, s-p]$.</p>
+<p>我们回忆 Maximum Segment Sum Problem, 它可以与 Maximum Prefix Sum, Maximum Suffix Sum 与 <code>sum</code> 配对，现在问题变成了解（带条件）线性方程组构造 weak inverse. 这可以被 Mathematica 解决。可参见 PLDI’07. <sup class="footnote-reference"><a href="#PLDI07">1</a></sup></p>
+<h3 id="zai-shu-shang-zuo">在树上做</h3>
+<p>实际上在树上，如果可以 bottom-up 与 top-down 地进行刻画则也可以并行。可参见 POPL’09. <sup class="footnote-reference"><a href="#POPL09">2</a></sup></p>
+<h2 id="maximum-marking-problems">Maximum Marking Problems</h2>
+<h3 id="ding-yi">定义</h3>
+<p>这是一大类问题。一般的形式为：</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>Maximum Marking Problems</strong></span>
+  </div>
+  <div class="pl-4"><p>有一个列表，满足某种性质 $p$ 地标记若干个元素，求被标记元素和的最大值。</p>
+</div>
+</div>
+<p>一个朴素的想法是让：</p>
+<p>$$\mathrm{mmp}\ p = \uparrow_{\mathrm{sum}}/ \cdot p\triangleleft \cdot \mathrm{gen}$$</p>
+<p>其中 $\mathrm{gen}\ [a] = [\![ (a, \mathrm{True}), (a, \mathrm{False}) ]\!]$，$\mathrm{gen}\ x +\!\!+ y = \mathrm{gen}\ x X_{+\!\!+} \mathrm{gen}\ y$，这里 $X_\oplus$ 是叉积，取遍所有配对。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>定理</strong></span>
+  </div>
+  <div class="pl-4"><p>如果 $p = \mathrm{fst} \cdot h$，其中 $h$ 是值域有限的 right-to-left reduction, 那么可以找到一个 $O(|\operatorname{Im} h| \cdot n)$ 的算法。它形如 $\mathrm{mmp}\ p = \uparrow_{\mathrm{fst}}/ \cdot h'$，这里 $\mathrm{fst}$ 是取元组的第一个分量，$h'$ 也是 right-to-left reduction.</p>
+</div>
+</div>
+<p>相关论文见于 ICFP’00. <sup class="footnote-reference"><a href="#ICFP00">3</a></sup></p>
+<h3 id="tui-dao-shi-li-2">推导示例</h3>
+<p>我们来考虑一个问题：</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>Maximum Independent Sublist Sum Problem</strong></span>
+  </div>
+  <div class="pl-4"><p>$p$ 的要求是不能有相邻的标记。</p>
+</div>
+</div>
+<p>可以写出 $h = p \triangle (\mathrm{marked} \cdot \operatorname{head})$. 优化结果从略（大致想法其实和多个变量递推的组合题差不多）。</p>
+<h3 id="yan-shen">延申</h3>
+<p>实际上存在更强的定理<sup class="footnote-reference"><a href="#SAIG01">4</a></sup>去处理更广泛的一类问题：</p>
+<p>$$\mathrm{mmp'}\ p\ f\ k = \uparrow_{\mathrm{sum} \cdot f\ast}/ \cdot p\triangleleft \cdot \mathrm{gen}\ k$$</p>
+<h2 id="unfold">Unfold</h2>
+<h3 id="unfold-1">unfold</h3>
+<p><code>unfold</code> 是最简单有效的生成列表的计算模式。</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"><span class="z-entity z-name z-function z-haskell">unfold</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> (<span class="z-variable z-other z-generic-type z-haskell">b</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-storage z-type z-haskell">Bool</span>) <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> (<span class="z-variable z-other z-generic-type z-haskell">b</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">a</span>) <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> (<span class="z-variable z-other z-generic-type z-haskell">b</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">b</span>) <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">b</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> [<span class="z-variable z-other z-generic-type z-haskell">a</span>]
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span>unfold p f g x <span class="z-keyword z-operator z-haskell">=</span> <span class="z-keyword z-control z-haskell">if</span> p x <span class="z-keyword z-control z-haskell">then</span> <span class="z-constant z-language z-empty-list z-haskell">[]</span> <span class="z-keyword z-control z-haskell">else</span> f x <span class="z-keyword z-operator z-haskell">:</span> unfold p f g (g x)
+</span></code></pre>
+<p>举一个例子（实现 <code>upto (3, 6) = [3, 4, 5, 6]</code>）：</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell">upto (m<span class="z-punctuation z-separator z-comma z-haskell">,</span> n) <span class="z-keyword z-operator z-haskell">=</span> unfold fstGreater fst succFst (m<span class="z-punctuation z-separator z-comma z-haskell">,</span> n)
+</span><span class="z-source z-haskell">  <span class="z-keyword z-other z-haskell">where</span> fstGreater (x<span class="z-punctuation z-separator z-comma z-haskell">,</span> y) <span class="z-keyword z-operator z-haskell">=</span> x <span class="z-keyword z-operator z-haskell">&gt;</span> y
+</span><span class="z-source z-haskell">        succFst (x<span class="z-punctuation z-separator z-comma z-haskell">,</span> y) <span class="z-keyword z-operator z-haskell">=</span> (x <span class="z-keyword z-operator z-haskell">+</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">1</span><span class="z-punctuation z-separator z-comma z-haskell">,</span> y)
+</span></code></pre>
+<p>又如，<code>map</code> 可以被定义为：</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell">map f <span class="z-keyword z-operator z-haskell">=</span> unfold (<span class="z-keyword z-operator z-haskell">==</span> <span class="z-constant z-language z-empty-list z-haskell">[]</span>) (f <span class="z-keyword z-operator z-haskell">.</span> head) tail
+</span></code></pre>
+<p>有时我们希望生成无限长列表（称为 stream）：</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell">unfold_infinitely <span class="z-keyword z-operator z-haskell">=</span> unfold (const <span class="z-constant z-other z-haskell">False</span>)
+</span></code></pre>
+<h3 id="hylomorphism">Hylomorphism</h3>
+<p>Hylomorphism 是在 unfold 之后 fold. 定义如下：</p>
+<p>$$\mathrm{hylo}\ (\oplus, e)\ (p,f,g) = \mathrm{foldr}\ (\oplus)\ e \cdot \mathrm{unfold}\ p\ f\ g$$</p>
+<p>这可以被递归地写为：</p>
+<p>$$\mathrm{hylo}\ (\oplus, e)\ (p,f,g)\ x = \mathbf{if}\ p\ x\ \mathbf{then}\ e\ \mathbf{else}\ f\ x \oplus \mathrm{hylo}\ (\oplus, e)\ (p,f,g)\ (g\ x)$$</p>
+<p>其实相当于是把 $(x:xs)$ 换成了 $x \oplus xs$.</p>
+<h3 id="metamorphism">Metamorphism</h3>
+<p>Metamorphism 是在 fold 之后 unfold. 定义如下：</p>
+<p>$$\mathrm{meta}\ (p,f,g)\ (\oplus, e) = \mathrm{unfold}\ p\ f\ g \cdot \mathrm{foldr}\ (\oplus)\ e$$</p>
+<p>这适合用于表示一种数据表达方式到另一种的转换。</p>
+<hr />
+<div class="footnote-definition" id="PLDI07"><sup class="footnote-definition-label">1</sup>
+<p>会议 Programming Language Design and Implementation 2007</p>
+</div>
+<div class="footnote-definition" id="POPL09"><sup class="footnote-definition-label">2</sup>
+<p>会议 Principles of Programming Languages 2009</p>
+</div>
+<div class="footnote-definition" id="ICFP00"><sup class="footnote-definition-label">3</sup>
+<p>Isao Sasano, Zhenjiang Hu, Masato Takeichi, Mizuhito Ogawa, Make it Practical: A Generic Linear Time Algorithm for Solving Maximum Weightsum Problems, The 2000 ACM SIGPLAN International Conference on Functional Programming, (ICFP 2000), Montreal, Canada, 18-20 September 2000. ACM Press. pp. 137-149.</p>
+</div>
+<div class="footnote-definition" id="SAIG01"><sup class="footnote-definition-label">4</sup>
+<p>会议 Semantics, applications, and implementation of program generation 2001</p>
+</div>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/计算机/">计算机</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/函数式编程/">函数式编程</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/pages"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <link rel="stylesheet" href="https://rratic.github.io/katex/katex.min.css?h=e189fd0238811989c364" />
+  <script defer src="https://rratic.github.io/katex/katex.min.js?h=6b909443e6c8f6e5d24c"></script>
+  <script defer src="https://rratic.github.io/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

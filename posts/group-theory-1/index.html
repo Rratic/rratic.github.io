@@ -1,0 +1,459 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>群论（一）：群在集合上的作用相关 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="群论（一）：群在集合上的作用相关" />
+  <meta name="description" content="群在集合上的作用，Pólya 计数法，共轭作用与 Sylow 定理。" />
+  <meta property="og:description" content="群在集合上的作用，Pólya 计数法，共轭作用与 Sylow 定理。" />
+  <meta property="og:url" content="https://rratic.github.io/posts/group-theory-1/" />
+  <link rel="canonical" href="https://rratic.github.io/posts/group-theory-1/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2025-06-09T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2025-06-11T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="代数" />
+  <meta property="article:tag" content="群论" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.github.io/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.github.io/style/shared.css?h=63eca58df589815f6747" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.github.io/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.github.io/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.github.io/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.github.io/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">群论（一）：群在集合上的作用相关</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2025-06-09T00:00:00+00:00">2025-06-09</time><span
+        class="middot"></span><time
+    datetime="PT0H8M0S">8&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#qun-zai-ji-he-shang-de-zuo-yong">群在集合上的作用</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#polya-ji-shu-fa">Pólya 计数法</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#gong-e-zuo-yong">共轭作用</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#sylow-ding-li">Sylow 定理</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#footnotes">注释</a>
+      </li>
+    </ul>
+  </details>
+</nav>
+
+  <!-- Content -->
+  <section><nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+	<div class="select-none py-0.5 lg:py-1 pl-3.5">
+		<a href="/_misc/group-theory/" target="_blank">索引 ⟨ group-theory ⟩</a>
+	</div>
+</nav>
+<p>前置知识</p>
+<ul>
+<li>线性代数</li>
+<li>群论基本定义</li>
+</ul>
+<p>在历史上，首先出现的概念是具体的集合上的对称/变换群（取元素为双射，运算为复合），然后才从中抽象出了群的概念。</p>
+<p>因此，自然地，我们可以考察群到集合的对称群的同态。</p>
+<h2 id="qun-zai-ji-he-shang-de-zuo-yong">群在集合上的作用</h2>
+<p>群 $G$ 在集合 $\Omega$ 上的作用是一个映射：</p>
+<p>$$
+\begin{aligned}
+\varphi \colon G &amp; \to (\Omega\to\Omega),\\
+x &amp; \mapsto (\alpha\mapsto\alpha^x)
+\end{aligned}
+$$</p>
+<p>满足 $(\alpha^x)^y = \alpha^{xy}$，这给出单位元对应恒等映射，逆元对应逆映射。</p>
+<p>它有时被写成不同的形式，如：</p>
+<p>$$
+\begin{aligned}
+f \colon G\times S &amp; \to S,\\
+(g, s) &amp; \mapsto g(s)
+\end{aligned}
+$$</p>
+<p>但前一种更直观一些。</p>
+<p>显然有 $\varphi$ 是从 $G$ 到 $\Omega$ 上对称群的同态。</p>
+<p>记集合元素 $\alpha$ 在这一关系下的等价类 $\{\alpha^x\mid x\in G\}$ 为其<strong>轨道</strong> $\mathrm{Orb}(\alpha)$；全体不变映射 $\{x\mid\alpha^x=\alpha\}$ 为其<strong>稳定化子</strong> $\mathrm{Stab}(\alpha)$，易知 $|\mathrm{Orb}(\alpha)|=|G\colon \mathrm{Stab}(\alpha)|$.</p>
+<p>作为一个例子，对于正四面体（记顶点 $\{A,B,C,D\}$），设其旋转变换群为 $G$，则：任取一个顶点，它对应的稳定子群阶为 3，轨道为 $\{A,B,C,D\}$，故而 $G$ 是 $S_4$ 的 12 阶子群，必然是 $A_4\cong V_4\oplus Z_3\cong Z_2\oplus Z_2\oplus Z_3$.</p>
+<h2 id="polya-ji-shu-fa">Pólya 计数法</h2>
+<p>使用 Pólya 计数法是为了解决这样的问题：我们对所有的可能计数，并且将具有特定对称性的视作同一种（见下面的例子）。</p>
+
+<link rel="stylesheet" href="https://rratic.github.io/admonition.css?h=78eb69fa9d4a0eea7f15" type="text/css">
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Burnside 引理</strong></span>
+  </div>
+  <div class="pl-4"><p>$\varphi$ 对应的轨道数为 $\frac{1}{|G|} \sum_{g\in G}|X(g)|$，其中 $X(g) = \{x\mid x^g = x\}$.</p>
+</div>
+</div>
+<p>其本质是对所有满足 $x^g = x$ 的数对的算两次。</p>
+<ul>
+<li>对 $g$ 计数为 $\sum |\mathrm{Stab}(g)| = \sum\frac{|G|}{|\mathrm{Orb}(g)|} = |G|\cdot ans$</li>
+<li>对 $x$ 计数则为 $\sum_{g\in G}|X(g)|$</li>
+</ul>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>立方体染色Ⅰ</strong></span>
+  </div>
+  <div class="pl-4"><p>一个立方体六个面颜色不同，有多少种旋转下不同的染色？</p>
+</div>
+</div>
+<p>易知对称群大小 $|G| = |\mathrm{Orb}(x)|\cdot |\mathrm{Stab}(x)| = 24$.</p>
+<p>集合 $\Omega$ 是六个面的染色状态构成的集合，作用 $\varphi$ 使得 $\varphi(g)$ 是进行 $g$ 对应的旋转操作。所求即它的轨道数。</p>
+<p>$X(g)$ 只在单位元处取到 720，其余情况为空集。故所求为 30.</p>
+<p>
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>立方体染色Ⅱ</strong></span>
+  </div>
+  <div class="pl-4"><p>一个立方体，使用三种颜料染色，有多少种旋转下不同的染色？</p>
+</div>
+</div>
+
+定义同上。</p>
+<p>对 $G$ 中元素分类：</p>
+<table><thead><tr><th style="text-align: center">类型</th><th style="text-align: center">个数</th><th style="text-align: center">$X(g)$ 值</th></tr></thead><tbody>
+<tr><td style="text-align: center">不动</td><td style="text-align: center">1</td><td style="text-align: center">$3^6$</td></tr>
+<tr><td style="text-align: center">旋转 90°</td><td style="text-align: center">6</td><td style="text-align: center">$3^2\cdot 3$</td></tr>
+<tr><td style="text-align: center">旋转 180°</td><td style="text-align: center">3</td><td style="text-align: center">$3^2\cdot 3^2$</td></tr>
+<tr><td style="text-align: center">绕一对对棱中点连成的轴旋转 180°</td><td style="text-align: center">6</td><td style="text-align: center">$3^3$</td></tr>
+<tr><td style="text-align: center">绕顶点旋转 120°</td><td style="text-align: center">8</td><td style="text-align: center">$3^2$</td></tr>
+</tbody></table>
+<p>所求为 57.</p>
+<h2 id="gong-e-zuo-yong">共轭作用</h2>
+<p>共轭作用是在 $G$ 的集合上的作用：</p>
+<p>$$
+\begin{aligned}
+\varphi(g) \colon &amp; G \to G,\\
+&amp; a\mapsto gag^{-1}
+\end{aligned}
+$$</p>
+<p>记 $G$ 上 $\{x\}$ 的<strong>中心化子</strong> $C_G(x)=\{a\mid xa=ax\}$，<strong>中心</strong> $Z(G) = \{x\mid gx=xg (\forall g\in G)\}$.</p>
+<p>则 $x\in Z(G)\Leftrightarrow |\mathrm{Orb}(x)|=1$.</p>
+<p>那么我们可以写出<strong>类方程</strong>：</p>
+<p>$$|G| = |Z(G)| + \sum |G\colon C_G(y_i)|$$</p>
+<p>其中 $y_i$ 的轨道阶不为 1.</p>
+<p>例如，对 $|G|=p^l$，所有的 $C_G(y_i)$ 都是真子群，从而 $p\mid |Z(G)|$.</p>
+<h2 id="sylow-ding-li">Sylow 定理</h2>
+<p>对有限群 $G$ 和素数 $p$ 使 $p^l\parallel |G|$，$G$ 的 $p^l$ 阶子群为其 <strong>Sylow p 子群</strong>。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>第一 Sylow 定理</strong></span>
+  </div>
+  <div class="pl-4"><p>对有限群 $G$ 和素数 $p$ 使 $p^k\mid |G|$，$G$ 存在 $p^k$ 阶子群。</p>
+</div>
+</div>
+<p>可以参考证明的<a href="https://zhuanlan.zhihu.com/p/358852225">启发式推导过程</a>，这给出了另一种证明方法。</p>
+<hr />
+<p>只需讨论阶大于 $p$ 的非交换群，因为交换群一定可以分解为循环群的直积。<sup class="footnote-reference"><a href="#1">1</a></sup></p>
+<p>对 $|G|$ 归纳：</p>
+<ul>
+<li>若 $p\mid Z(G)$，由于它是交换的，有 p 阶子群；考察它和对应的商群，使用归纳假设</li>
+<li>若 $p\nmid Z(G)$，由类方程，存在一个 $p\nmid \mathrm{Orb}(y_i)$，有 $p^l\parallel C_G(y_i)$，使用归纳假设</li>
+</ul>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>第二 Sylow 定理</strong></span>
+  </div>
+  <div class="pl-4"><p>对 $p^k\mid |G|$，Sylow p 子群 $P$，$p^k$ 阶子群必为 $P$ 的某个共轭的子群。</p>
+</div>
+</div>
+<p>令 $\Omega$ 为 $P$ 的左陪集构成的集合，$|G| = p^lm$.</p>
+<p>对一个 $p^k$ 阶子群 $H$，考察 $H$ 在 $P$ 上的作用 $\varphi(h) = (aP\mapsto haP)$.</p>
+<p>有 $|\mathrm{Orb}(aP)|\big| |H|$，且 $|\Omega|=\sum |\mathrm{Orb}(aP)|\not\equiv 0\pmod{p}$.</p>
+<p>故至少一个 $|\mathrm{Orb}(aP)| = 1$. 对应 $h\in aPa^{-1}$ 即 $H\subseteq aPa^{-1}$</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>第三 Sylow 定理</strong></span>
+  </div>
+  <div class="pl-4"><p>对 $p^l\parallel |G|, |G|=p^lm$，Sylow p 子群个数 $r$，则 $r\equiv 1\pmod{p}, r\mid m$</p>
+</div>
+</div>
+<p>称 $H$ 在 $G$ 中<strong>正规化子</strong> $N_G(H) = \{G\mid gHg^{-1}=H\}$.</p>
+<p>则对 $G$ 的 Sylow p 子群 $P$，有 $P\unlhd N_G(P)\le G$.</p>
+<p>对 $G$ 的 Sylow p 子群 $Q\subseteq N_G(P)$，$P,Q$ 同为 $N_G(P)$ 的 Sylow p 子群，由第二定理知相互共轭。由 $P$ 为 $N_G(P)$ 的正规子群，$P = Q$.</p>
+<p>令 $\Omega$ 为 Sylow p 子群的集合，$P$ 在 $\Omega$ 上作用为共轭 $\varphi(g) = (Q\mapsto gQg^{-1})$.</p>
+<p>有 $|\mathrm{Orb}(Q)|=1\Leftrightarrow Q=P$，其余整除 $|P|$.</p>
+<p>故 $r=\sum |\mathrm{Orb}(Q)|\equiv 1\pmod{p}$.</p>
+<p>由第二定理知 $G$ 在 $\Omega$ 上的共轭作用使 $\Omega$ 成为轨道，$r = |\Omega|\big| |G|$，即 $r\mid m$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>p·q 阶群分类</strong></span>
+  </div>
+  <div class="pl-4"><p>对素数 $p &lt; q$，$pq$ 阶群在 $q\not\equiv 1\pmod{p}$ 时只有循环群。</p>
+</div>
+</div>
+<p>取 Sylow p 子群及 Sylow q 子群，由第三定理知个数均为 1，从而分别是正规的</p>
+<p>易知 $PQ=G$，又由 $P\cap Q=\{e\}$，可知 $G\cong P\oplus Q\cong Z_p\oplus Z_q\cong Z_{pq}$</p>
+<h2 id="footnotes">注释</h2>
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>通过以下步骤证明：</p>
+</div>
+<ul>
+<li>将 $G$ 用自由群表示法表示为 $&lt;g_1, g_2\cdots g_n\mid \text{rules}&gt;$</li>
+<li>由于是交换群，可以将一个规则（形如 $g_1 g_2^{-1} g_1^2$）任意交换顺序写成 $3x_1-x_2=0$ 的形式</li>
+<li>所有的规则写成线性方程组，表示为
+$$M \begin{pmatrix} g_1 \\ \vdots \\ g_n \end{pmatrix} = \mathbf{0}$$</li>
+<li>由于我们在整数上操作，它是 Euclid 整环，可以将矩阵 $M$ 转化为 Smith 标准型</li>
+<li>其因子给出了 $G$ 的分解</li>
+</ul>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/代数/">代数</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/群论/">群论</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/pages"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <link rel="stylesheet" href="https://rratic.github.io/katex/katex.min.css?h=e189fd0238811989c364" />
+  <script defer src="https://rratic.github.io/katex/katex.min.js?h=6b909443e6c8f6e5d24c"></script>
+  <script defer src="https://rratic.github.io/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

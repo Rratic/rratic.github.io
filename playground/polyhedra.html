@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>多面体展示</title>
+	<meta name="description" content="在线展示正多面体/半正多面体。支持旋转、缩放、生成时配置与导出。" />
+	<link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
+	<style>
+		body {
+			margin: 0;
+			overflow: hidden;
+			touch-action: none;
+		}
+
+		canvas {
+			display: block;
+			touch-action: none;
+		}
+
+		.switch-container {
+			position: absolute;
+			top: 10px;
+			left: 10px;
+		}
+
+		.operation-container {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+		}
+
+		.export-container {
+			position: absolute;
+			bottom: 10px;
+			left: 10px;
+		}
+	</style>
+	<link rel="stylesheet" href="/style/slider.css" type="text/css">
+	<link rel="stylesheet" href="/style/form.css" type="text/css">
+</head>
+
+<body>
+	<div class="switch-container form-area">
+		<div class="row">
+			<label class="switch">
+				<input type="checkbox" id="toggle-orthographic-camera">
+				<span class="slider"></span>
+			</label>
+			<span>正交相机</span>
+		</div>
+		<div class="row">
+			<label class="switch">
+				<input type="checkbox" id="toggle-debug">
+				<span class="slider"></span>
+			</label>
+			<span>启用调试</span>
+		</div>
+		<div class="row">
+			<label class="switch">
+				<input type="checkbox" id="toggle-auto-rotate">
+				<span class="slider"></span>
+			</label>
+			<span>自动旋转</span>
+		</div>
+	</div>
+
+	<div class="operation-container form-area">
+		<fieldset class="row">
+			<legend>选项</legend>
+			<select id="select-shape"></select>
+			<button type="button" id="button-add" class="confirm-btn">添加</button>
+			<button type="button" id="button-clear" class="danger-btn">清空</button>
+		</fieldset>
+		<fieldset class="row">
+			<legend>面设置</legend>
+			<select id="select-face-mode">
+				<option value="normal">不透明</option>
+				<option value="standardized">调色板</option>
+				<option value="transparent">半透明</option>
+				<option value="none">不显示</option>
+			</select>
+			<input type="color" id="select-face-color" value="#0ab08a">
+		</fieldset>
+		<fieldset class="row">
+			<legend>棱设置</legend>
+			<select id="select-edge-mode">
+				<option value="normal">显示</option>
+				<option value="none">不显示</option>
+			</select>
+			<input type="color" id="select-edge-color" value="#000000">
+		</fieldset>
+	</div>
+
+	<div class="export-container form-area"">
+		<button type=" button" id="exportSvgBtn" class="confirm-btn">导出为 SVG</button>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/renderers/Projector.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/renderers/SVGRenderer.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+	<script src="/script/polyhedra/main.js"></script>
+</body>
+
+</html>

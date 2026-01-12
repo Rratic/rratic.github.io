@@ -1,0 +1,577 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>域论（一）：高次方程与 Galois 理论 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="域论（一）：高次方程与 Galois 理论" />
+  <meta name="description" content="关于高次方程的根式解：代数基本定理，低次方程求根公式，域扩张，Galois 扩张，Galois 群，根式可解性判断与 Abel-Ruffini 定理。" />
+  <meta property="og:description" content="关于高次方程的根式解：代数基本定理，低次方程求根公式，域扩张，Galois 扩张，Galois 群，根式可解性判断与 Abel-Ruffini 定理。" />
+  <meta property="og:url" content="https://rratic.github.io/posts/field-theory-1/" />
+  <link rel="canonical" href="https://rratic.github.io/posts/field-theory-1/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2025-07-09T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2025-10-02T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="代数" />
+  <meta property="article:tag" content="域论" />
+  <meta property="article:tag" content="Galois 理论" />
+  <meta property="og:image" content="https://rratic.github.io/images/cover/galois_theory.png" />
+  <meta property="og:image:alt" content="" />
+  <meta property="og:image:width" content="720" />
+  <meta property="og:image:height" content="252" />
+  <meta property="og:image:type" content="image/png" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.github.io/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.github.io/style/shared.css?h=63eca58df589815f6747" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.github.io/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.github.io/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.github.io/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.github.io/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">域论（一）：高次方程与 Galois 理论</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2025-07-09T00:00:00+00:00">2025-07-09</time><span
+        class="middot"></span><time
+    datetime="PT0H13M0S">13&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <figure class="mt-0 mb-12">
+    <img
+      class="h-auto w-full rounded-lg"
+      src="https://rratic.github.io/images/cover/galois_theory.png"
+      width="720"
+      height="252"
+    />
+  </figure>
+  <!-- TOC -->
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#bei-jing">背景</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#dai-shu-ji-ben-ding-li">代数基本定理</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#qiu-gen-gong-shi">求根公式</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#lagrange-yu-jie-shi">Lagrange 预解式</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#ji-ben-gai-nian">基本概念</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ji-ben-ding-yi">基本定义</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#te-zheng">特征</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#duo-xiang-shi">多项式</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#galois-kuo-zhang">Galois 扩张</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#galois-li-lun">Galois 理论</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#galois-qun">Galois 群</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#gen-shi-ke-jie-xing">根式可解性</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#ji-suan-galois-qun">计算 Galois 群</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#mod-p-yue-hua">mod p 约化</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#tong-yong-fang-fa">通用方法</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#zhu-shi">注释</a>
+      </li>
+    </ul>
+  </details>
+</nav>
+
+  <!-- Content -->
+  <section><p>封面图来自知乎上阐释的一个<a href="https://www.zhihu.com/question/29316970/answer/151649630">使用拓扑 Galois 理论的证明</a>。</p>
+<hr />
+<p>前置知识</p>
+<ul>
+<li>线性代数</li>
+<li><a href="/posts/group-theory-2/">群论（二）</a></li>
+</ul>
+<h2 id="bei-jing">背景</h2>
+<h3 id="dai-shu-ji-ben-ding-li">代数基本定理</h3>
+
+<link rel="stylesheet" href="https://rratic.github.io/admonition.css?h=78eb69fa9d4a0eea7f15" type="text/css">
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>代数基本定理</strong></span>
+  </div>
+  <div class="pl-4"><p>一个复系数 $n$ 次多项式 $P(z)$ 恰有 $n$ 个复根（计入重数）。</p>
+</div>
+</div>
+<p>只需证明非常值复系数多项式有根。以下给出 Frode Terkelsen 的一个简短且较为初等的证明。</p>
+<p>由分析<sup class="footnote-reference"><a href="#continuous-mapping">1</a></sup>知 $|P(z)|$ 有最小值，若最小值非零，不妨设其为 $|P(0)| = 1$</p>
+<p>设 $P(z) = 1+az^n+z^{n+1}Q(z), a\neq 0$</p>
+<p>取 $\omega$，使 $a\omega^n &lt; 0, |\omega Q(\omega)| &lt; \frac{1}{2}|a|$，则有 $|P(\omega)|\leq 1+\frac{1}{2}|a|\omega^n&lt;1$，矛盾。</p>
+<h3 id="qiu-gen-gong-shi">求根公式</h3>
+<p>对于一、二次方程来说，求根公式（使用初等运算的复合给出所有根的公式）较为简单。</p>
+<p>Gerolamo Cardano 在 1545 年出版的著作 <em>Ars Magna</em> 中第一次给出三次方程的完整通解。考虑换元将原方程化为 $x^3+px+q=0$，令 $x=u+v$，此时只需同时满足</p>
+<p>$$\left\{\begin{matrix}
+u^3+v^3=-q \\
+3uv=-p
+\end{matrix}\right.$$</p>
+<p>如此转化成了二次方程。</p>
+<p>此后，其学生 Lodovico Ferrari 提出了四次方程的解法。换元将原方程化为 $x^4+px^2+qx+r=0$，再化为 $(x^2+p+u)^2 = (p+2u)x^2-qx+(p^2-r+u^2+2pu)$，辅助变量 $u$ 使得右边为完全平方式。$\Delta = 0$ 是一个三次方程。</p>
+<p>之后 Niels Abel 严格证明了五次方程不存在通用根式解，Évariste Galois 彻底解决了任意次方程的可解性问题。</p>
+<h3 id="lagrange-yu-jie-shi">Lagrange 预解式</h3>
+<p>Lagrange 在解方程时构造了辅助量。</p>
+<p>对三次方程的情形，$L_1 = x_1 + \omega x_2 + \omega^2 x_3, L_2 = x_1 + \omega^2 x_2 + \omega x_3$</p>
+<p>考察 $(x_1, x_2, x_3)$ 上的置换群，$L_1$ 与 $L_2$ 在 $A_3$ 下不变，</p>
+<p>而解二次方程 $Z^2-(L_1^3+L_2^3)Z+(L_1^3L_2^3)=0$ 的过程解决了对换。</p>
+<p>这已经暗含了对称性的思想。可阅读：<a href="https://www.zhihu.com/question/450445294/answer/1934019614859330183">为什么要消去二次项才能解一元三次方程？ - 酱紫君的回答 - 知乎</a>。</p>
+<p>四次方程同样可被类似的方式解决。但 Lagrange 发现使用该方法解五次方程时，需要解一个六次方程。</p>
+<h2 id="ji-ben-gai-nian">基本概念</h2>
+<h3 id="ji-ben-ding-yi">基本定义</h3>
+<p>域 $F$ 是一个配备两种运算的集合，满足：</p>
+<ul>
+<li>$(F, +)$ 是交换群，记单位元为 0</li>
+<li>$(F\setminus \{0\}, \times)$ 是交换群，记单位元为 1</li>
+<li>分配律 $a(b+c)=ab+ac$</li>
+</ul>
+<p>子域、同态的定义是平凡的。</p>
+<p>对域 $E$，子域 $F\subseteq E$，称前者是后者的扩域，$E/F$ 是<strong>域扩张</strong>。此时，$E$ 是 $F$ 上的线性空间，记次数 $[E:F] = \dim_F E$ 为维数（允许 $\infty$）。通过取一组基 $\alpha_i\beta_j$ 可以说明 $[E:F]=[E:K][K:F]$</p>
+<p>例如，$\mathbb{Q}(\sqrt{2}) = \{a+b\sqrt{2}\mid a,b\in \mathbb{Q}\}$ 是 $\mathbb{Q}$ 的次数为 2 的扩张，基为 ${1, \sqrt{2}}$，而 $\mathbb{R}/\mathbb{Q}$ 为无限扩张。</p>
+<h3 id="te-zheng">特征</h3>
+<p>域 $F$ 的<strong>特征</strong> $\mathrm{char}\ F$ 是使得 $n\cdot 1=0$ 成立的最小正整数 $n$，如果不存在，则称特征是 0</p>
+<p>易说明，若特征是 0，一定存在子域同构于 $\mathbb{Q}$，否则特征一定是素数，同构于子域 $F_p = Z/pZ$，并且由 $(x+y)^p = x^p+y^p$ 有 Frobenius 自同态 $x\mapsto x^p$</p>
+<p>最典型的特征 p 的域是 $F_p$，定义为整数在 mod p 意义下的代表类按照常规的加法、乘法构成的域。</p>
+<p>不那么平凡但重要的例子如下：</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-example);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/example.svg);"
+    >
+      example
+    </div>
+    <span><strong>p-进数域</strong></span>
+  </div>
+  <div class="pl-4"><p>对 $q=p^n \frac{a}{b}$，其中 $a$，$b$ 与 $p$ 互素，定义 p-进绝对值 $|q|_p = p^{-n}$</p>
+<p>$\mathbb{Q}$ 由 p-进绝对值完备化为 $\mathbb{Q}_p$</p>
+<p>可以看成全体有限的 p 进制小数（每一位为 $\mathbb{F}_p$）构成的域。</p>
+</div>
+</div>
+<p>其特征为 $p$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-example);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/example.svg);"
+    >
+      example
+    </div>
+    <span><strong>形式 Laurent 级数域</strong></span>
+  </div>
+  <div class="pl-4"><p>对域 $F$，$F(\!(x)\!)$ 是全体 $\sum_{n=k}^\infty a_nx^n, k\in\mathbb{Z}, a_n\in F$ 的域。</p>
+</div>
+</div>
+<p>其特征与 $F$ 一致。</p>
+<h3 id="duo-xiang-shi">多项式</h3>
+<p>对 $\alpha\in E$ 若存在非零多项式 $f\in F[x]$ 使 $f(\alpha) = 0$，则称其为<strong>代数元</strong>，否则称为<strong>超越元</strong>。</p>
+<p>一个代数元的<strong>极小多项式</strong> $m_{\alpha, F}(x)$ 是一个首一、不可约、满足 $m(\alpha) = 0$ 的多项式。</p>
+<p>对 $S\subset E$，由 $S$ 生成的域 $F$ 上的扩张 $F(S)$ 是同时包含 $F$ 和 $S$ 的最小的 $E$ 的子域。若 $S$ 为单元集，且 $E=F(S)$，称其是域 $F$ 的<strong>单扩张</strong>。考虑同态 $\varphi: F[x] \to F(\alpha), f \mapsto f(\alpha)$ 知 $[F(\alpha):F]=\deg m_{\alpha, F}$</p>
+<h3 id="galois-kuo-zhang">Galois 扩张</h3>
+<p>如果域扩张 $E/F$ 满足 $E$ 是 $F[x]$ 某个元素的分裂域（即 $f$ 可以写成 $E[x]$ 中一次式的乘积），则称其为<strong>正规扩张</strong>。</p>
+<p>如果一个不可约多项式没有重根，则称它<strong>可分</strong>。</p>
+<p>给定域扩张 $E/F$，对 $\alpha\in E$，要么是 $F$ 上的超越元，要么是代数元且极小多项式可分，则称其为<strong>可分元</strong>。若所有元素都是可分元，则称它为<strong>可分扩张</strong>。</p>
+<p><strong>Galois 扩张</strong>是指正规且可分的扩张。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>0 特征域的扩张可分</strong></span>
+  </div>
+  <div class="pl-4"><p>对 0 特征域 $F$，每个扩张 $E/F$ 都可分。</p>
+</div>
+</div>
+<p>对不可约的 $f$，由于特征为 0，$f'$ 非零，从而 $\gcd(f, f')=1$，$f$ 没有重根。</p>
+<h2 id="galois-li-lun">Galois 理论</h2>
+<h3 id="galois-qun">Galois 群</h3>
+<p>Galois 理论给出了域的扩张与其自同构群的联系。</p>
+<p>对域扩张 $E/F$，对自同构 $\mathrm{Aut}(E)$ 中的元素 $\sigma$，称其<strong>保持</strong> $F$，如果 $\sigma(a)=a, \forall a\in F$</p>
+<p>以下讨论 $n$ 次首一多项式 $f\in F[x]$ 在 $E/F$ 中分裂，所有根 $\Omega = \{z_i\}$ 有序且 $E=F(\Omega)$</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>是置换</strong></span>
+  </div>
+  <div class="pl-4"><p>对 $\sigma\in \mathrm{Aut}(E)$ 保持 $F$，它在 $\Omega$ 上是一个置换。</p>
+</div>
+</div>
+<p>因为 $f(\sigma(z_i)) = \sigma(f(z_i)) = 0, \sigma(z_i)\in\Omega$，且 $\sigma$ 是单射。</p>
+<hr />
+<p>记 Galois 群 $\mathrm{Gal}(E/F)$ 为 $\mathrm{Aut}(E)$ 中所有保持 $F$ 的元素构成的群。</p>
+<p>我们可以说明单位元对应的是 $E$ 上的单位映射：</p>
+<p>对 $n$ 归纳，$n=1$ 时 $E$ 中元素均形如 $\frac{f(z_1)}{g(z_1)}$ 知成立。又 $F(z_1, \cdots z_n) = (F(z_1))(z_2, \cdots z_n)$</p>
+<p>进一步地，$\mathrm{Gal}(E/F)$ 同构于 $S_n$ 的一个子群。考察</p>
+<p>$$
+\begin{aligned}
+\varphi \colon \mathrm{Gal}(E/F) &amp; \to S(\Omega),\\
+\sigma &amp; \mapsto \sigma |_\Omega
+\end{aligned}
+$$</p>
+<p>有 $\ker\varphi = \{e\}$，从而 $\mathrm{Gal}(E/F)\cong \mathrm{Im}(\varphi)\leq S(\Omega)$</p>
+<h3 id="gen-shi-ke-jie-xing">根式可解性</h3>
+<p>我们用代数的语言定义根式可解性。</p>
+<p>对域 $F$ 和非常数多项式 $f\in F[x]$，对应正规扩张 $E$，如果存在一列扩张 $F=K_0\subset K_1\subset \cdots K_t$ 满足 $K_{i+1} = K_i(u)$，其中 $u^k\in K_i, k\in\mathbb{Z}^+$，且 $E\subseteq K_t$，则称 $f$ 根式可解。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>性质</strong></span>
+  </div>
+  <div class="pl-4"><p>对 $F\subset K\subset E$，其中 $K/F, E/F$ 是正规扩张，则对任意 $\sigma\in \mathrm{Gal}(E/F)$，有</p>
+<ul>
+<li>$\sigma\ K = K$</li>
+<li>$\mathrm{Gal}(E/K)\triangleleft \mathrm{Gal}(E/F)$</li>
+<li>$\mathrm{Gal}(E/K)/\mathrm{Gal}(E/F)\cong \mathrm{Gal}(F/K)$</li>
+</ul>
+</div>
+</div>
+<p>第一个结论由定义易得。</p>
+<p>$$
+\begin{aligned}
+\varphi \colon &amp; \mathrm{Gal}(E/F) \to \mathrm{Gal}(K/F),\\
+&amp;\sigma \mapsto \sigma |_K
+\end{aligned}
+$$</p>
+<p>给出结论二、三。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>根式扩张导出 Galois 群的次正规群列</strong></span>
+  </div>
+  <div class="pl-4"><p>对一列扩张 $F=K_0\subset K_1\subset \cdots K_t$ 满足 $K_{i+1} = K_i(u)$，其中 $u^{p_i}\in K_i, p\in\mathbb{P}$，且 $K_t/F$ 正规，$F$ 包含所有 $p_i$ 阶单位根。</p>
+<p>则有子群列 $\{e\} = G_t \subset \cdots G_1\subset G_0 = \mathrm{Gal}(K_t/F)$，其中 $G_{i+1}\triangleleft G_i$，$G_i/G_{i+1}$ 为 $\{e\}$ 或 $p_{i+1}$ 阶循环群。</p>
+</div>
+</div>
+<p>令 $G_i = \mathrm{Gal}(K_t/F)$</p>
+<p>再由<a href="/posts/group-theory-2/">群论（二）</a>知上述为次正规群列。</p>
+<p>我们给出</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>n 次方程可解性问题</strong></span>
+  </div>
+  <div class="pl-4"><p>域 $F$ 和非常数多项式 $f\in F[x]$，正规扩张 $E$，若 $f$ 根式可解，则 $\mathrm{Gal}(E/F)$ 为可解群。</p>
+</div>
+</div>
+<p>特别地，</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Abel-Ruffini 定理</strong></span>
+  </div>
+  <div class="pl-4"><p>五次方程不存在通用根式解。</p>
+</div>
+</div>
+<p>此时对应的 $\mathrm{Gal}(E/F)\cong S_n, n\geq 5$</p>
+<p>我们知道 $S_n, n\geq 5$ 不可解，因为其子群 $A_n$ 为单群（通过说明非平凡正规子群一定包含全体三轮换），不可解。</p>
+<h2 id="ji-suan-galois-qun">计算 Galois 群</h2>
+<p>关于一到六次方程计算 Galois 群的流程图可参考：<a href="https://www.zhihu.com/question/458961859/answer/1926427500826846761">为什么课本上计算 Galois 群都是先求出根再计算的（不可解的除外）？ - 酱紫君的回答 - 知乎</a></p>
+<h3 id="mod-p-yue-hua">mod p 约化</h3>
+<p>使用 mod p 约化技巧，有时得到一些性质</p>
+<p>过程如下：<sup class="footnote-reference"><a href="#1">2</a></sup></p>
+<ol>
+<li>对多项式 $f\in \mathbb{Z}[x]$，例如 $x^4+3x^2−3x−2$，取一个素数（这里是 3）</li>
+<li>在 $F_3[x]$ 下多项式变为 $\bar{f} = x^4-2 = (x^2+x+2)(x^2+2x+2)$</li>
+<li>其分裂域为 $F_9$，$\mathrm{Gal}(\mathbb{F}_9/\bar{f}) = Z_2$，从而 $f$ 的 Galois 群中有阶为 3 的元素</li>
+<li>再 mod 7 做一次，知 Galois 群中有阶为 4 的元素，故为 $S_4$</li>
+</ol>
+<h3 id="tong-yong-fang-fa">通用方法</h3>
+<p>以下设 $f\in F[x]$ 是首一不可约可分多项式，且 $\mathrm{char}\ F\neq 2$</p>
+<p>令 $D = \prod_{1\leq i\le j\leq n}(z_i-z_j)=\begin{vmatrix} 1 &amp; 1 &amp; \cdots &amp; 1\\  z_1 &amp; z_2 &amp; \cdots &amp; z_n \\  \vdots &amp; \vdots &amp; \ddots &amp;\vdots \\ z_1^{n-1} &amp; z_2^{n-1} &amp; \cdots &amp;z_n^{n-1} \end{vmatrix}$</p>
+<p>它具有这样的性质：$\sigma$ 是偶置换当且仅当 $D(\sigma(\Omega)) = D(\Omega)$</p>
+<p>从而 $\mathrm{Gal}(f)\leq A_n \iff D\in F$</p>
+<p>又，$z_i, z_j$ 在 $F$ 上的极小多项式相同，有 $\mathrm{Gal}(f)$ 是传递子群。</p>
+<h2 id="zhu-shi">注释</h2>
+<div class="footnote-definition" id="continuous-mapping"><sup class="footnote-definition-label">1</sup>
+<p>点集拓扑告诉我们，连续映射把紧集映成紧集。因而对紧集到 $\mathbb{R}$ 的映射 $f$，像是紧集，从而是闭集，从而有最大、最小值。一般来说，可以对 $z\mapsto |f(z)|$ 使用这个定理。我们称两个度量空间间的函数 $f$ 一致连续，如果 $\forall\varepsilon&gt;0: \exists\delta&gt;0, \forall (x_1, x_2): d(x_1, x_2)&lt;\delta \implies d'(f(x_1), f(x_2))&lt;\varepsilon$，易知紧集上连续函数是一致连续的。</p>
+</div>
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">2</sup>
+<p><a href="https://math.stackexchange.com/questions/2223818/computing-a-galois-group-by-reducing-mod-p">Mathematics Stack Exchange: Computing a Galois Group by Reducing Mod P</a></p>
+</div>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/代数/">代数</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/域论/">域论</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/Galois 理论/">Galois 理论</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/pages"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <link rel="stylesheet" href="https://rratic.github.io/katex/katex.min.css?h=e189fd0238811989c364" />
+  <script defer src="https://rratic.github.io/katex/katex.min.js?h=6b909443e6c8f6e5d24c"></script>
+  <script defer src="https://rratic.github.io/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

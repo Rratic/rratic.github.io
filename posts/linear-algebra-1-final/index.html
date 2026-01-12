@@ -1,0 +1,664 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>高等代数Ⅰ期末复习笔记 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="高等代数Ⅰ期末复习笔记" />
+  <meta name="description" content="往年题选做和可能有用的知识扩充 &amp; 考后总结。" />
+  <meta property="og:description" content="往年题选做和可能有用的知识扩充 &amp; 考后总结。" />
+  <meta property="og:url" content="https://rratic.github.io/posts/linear-algebra-1-final/" />
+  <link rel="canonical" href="https://rratic.github.io/posts/linear-algebra-1-final/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2025-12-29T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2025-12-30T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="代数" />
+  <meta property="article:tag" content="线性代数" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.github.io/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.github.io/style/shared.css?h=63eca58df589815f6747" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.github.io/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.github.io/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.github.io/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.github.io/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">高等代数Ⅰ期末复习笔记</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2025-12-29T00:00:00+00:00">2025-12-29</time><span
+        class="middot"></span><time
+    datetime="PT0H18M0S">18&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+
+  <!-- Content -->
+  <section><style>
+	img:where(.dark,.dark *) {
+        --tw-invert:invert(100%);
+        filter: var(--tw-blur,)var(--tw-brightness,)var(--tw-contrast,)var(--tw-grayscale,)var(--tw-hue-rotate,)var(--tw-invert,)var(--tw-saturate,)var(--tw-sepia,)var(--tw-drop-shadow,)
+    }
+</style>
+<p>本文用于准备高等代数实验班 2025 - 2026(I) 的期末考试。</p>
+<h2 id="wang-nian-ti-xuan-zuo">往年题选做</h2>
+
+<link rel="stylesheet" href="https://rratic.github.io/admonition.css?h=78eb69fa9d4a0eea7f15" type="text/css">
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2019 P1</strong></span>
+  </div>
+  <div class="pl-4"><p>考虑实线性空间：</p>
+<p>$$V = \{f \in \mathbb{R}[x] | \deg (f) \leq 3\}$$</p>
+<p>定义 $T_1, T_2 \in L(V)$ 为：</p>
+<p>$$T_1(f) = \sum_{k=0}^3 f(k) (x-2019)^k,\ T_2(f) = \sum_{k=0}^3 (D^kf)(x-2020)^k$$</p>
+<p>求 $\det T_1$ 和 $\det T_2$.</p>
+</div>
+</div>
+<p>对 $T_1$，取基 $\{1, (x-2019), (x-2019)^2, (x-2019)^3\}$，得到的是一个 Vandermonde 行列式，我们知道可化为 $\prod_{1 \leq i &lt; j \leq n} (a_j - a_i)$.</p>
+<p>$T_2$ 同理，得到对角矩阵。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2019 P2</strong></span>
+  </div>
+  <div class="pl-4"><p>取定 $z \in \mathbb{C}$，有 $f, g \in \mathbb{Q}[x] \setminus \{0\}$ 满足 $f(z) = 0, g(z) \neq 0$，证：</p>
+<ol>
+<li>存在 $h_1 \in \mathbb{Q}[x]$ 使 $h_1(z) = g(z)^{-1}$</li>
+<li>存在 $h_2 \in \mathbb{Q}[x] \setminus \{0\}$ 使 $h_2(g(z)) = 0$</li>
+</ol>
+</div>
+</div>
+<p>(1) 是因为可以对 $f$ 与 $g$ 作辗转相除，得到 $p(z)f(z) - q(z)g(z) = 1$.</p>
+<p>(2) 是因为设 $\deg f = n$，则 $\{h(z) | h \in \mathbb{Q}[x]\} \subset \mathbb{C}$ 作为 $\mathbb{Q}$-线性空间是至多 $n$ 维的，从而 $1, g(z), \cdots, [g(z)]^n$ 线性相关。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2019 P5</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $V$ 有限维实线性空间，$W_1, \cdots, W_m \subset V$ 子空间，$\alpha_1, \cdots, \alpha_m \in V$，假设：</p>
+<p>$$\dim W_i = \dim V - 1, \quad \bigcap_{i=1}^m W_i = \{0\}, \quad \alpha_i \notin W_i$$</p>
+<p>设 $T(L(V))$ 满足如下条件：对任意 $i$ 存在 $j$ 使得 $T(\alpha_i + W_i) \subseteq \alpha_j + W_j$，证：$\det T = \pm 1$.</p>
+</div>
+</div>
+<p>我们来刻画 $W_i$，取 $f_i$ 使 $f_i(\alpha_i) = 1$ 且 $f_i|_{W_i} \equiv 0$. 由条件知 $f_1, \cdots, f_m$ 构成 $V^\ast$ 的基，记它们构成集合 $E$.</p>
+<p>考虑转置 $T^t$，我们回忆它是 $T^t(g) = g \circ T$，则对 $T(\alpha_i + \beta) = \alpha_j + \gamma$ 有 $(T^tf_j - f_i)(\alpha_i + \beta) = 0$，故有 $T^tf_j = f_i$.</p>
+<p>现在我们知道 $T^t(E) = E$，故存在某个 $(T^t|_E)^k = \mathrm{id}$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2020 P4</strong></span>
+  </div>
+  <div class="pl-4"><p>$A \in \mathbb{Z}^{n\times n}$ 满足 $|\det A| = 2$，证存在 $Z \in \mathbb{Z}^{n\times 1}$，使得对任意 $Y \in \mathbb{Z}^{n\times 1}$ 存在 $X \in \mathbb{Z}^{n\times 1}$ 使得 $AX - Y$ 为 $\mathbf{0}$ 或 $Z$.</p>
+</div>
+</div>
+<p>对 $n$ 维整列向量称 $v \sim w$ 如果 $v - w$ 是 $A$ 乘以某个 $n$ 维整列向量的值。考虑将 $\det A$ 视作体积考虑格点，知只有两个等价类。但是这不容易严格说明。</p>
+<hr />
+<p>先证对 $A$ 可找到 $|\det P|, |\det Q| = 1$ 的整系数矩阵使得 $PAQ$ 是对角阵。首先，通过初等行变换（注意对应矩阵都有行列式为 $1$）进行辗转相除、交换两行可以得到一个行阶梯阵。可以通过初等列变换得到对角阵。</p>
+<p>此时 $AX = Y$ 有解即 $(PA)(QX) = PY$ 有解，易见。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2022 P7</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $V$ 为实线性空间 $\mathbb{R}^{2022}$，求正整数 $r$ 的最小值，使得存在 $L \in M^r(V)$，当 $T \in L(V)$ 满足 $L(T\alpha_1, \cdots, T\alpha_r) = L(\alpha_1, \cdots, \alpha_r)$ 时总有 $\det T = 1$.</p>
+</div>
+</div>
+<p>$r = 1$ 时可强行分析。</p>
+<p>对于 $r = 2$，设 $V^\ast$ 的基 $f_1, \cdots, f_{2n}$，令 $L = \sum_{k=1}^n f_{2k-1} \wedge f_{2k}$，则条件即：</p>
+<p>$$\sum_{k=1}^n (T^t f_{2k-1}) \wedge (T^t f_{2k}) = \sum_{k=1}^n f_{2k-1} \wedge f_{2k}$$</p>
+<p>两边对外积取 $n$ 次幂（即 $\underbrace{e\wedge \cdots \wedge e}_n$），有：</p>
+<p>$$n! (T^t f_1)\wedge \cdots \wedge (T^t f_{2n}) = n! f_1\wedge \cdots \wedge f_{2n}$$</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2022 P8</strong></span>
+  </div>
+  <div class="pl-4"><p>考虑 $\mathbb{C}[x]$ 的子空间 $V = \mathrm{span}\{x^{k^2} | k \in \{0, 1, \cdots, 8\}\}$，求正整数 $n$ 的最小值，使得对 $\mathbb{C}$ 的任意 $n$ 元子集 $S$ 总存在 $z_1, \cdots, z_9 \in S$ 与 $f_1, \cdots, f_9 \in V$ 使得 $f_i(z_j) = \delta_{ij}$.</p>
+</div>
+</div>
+<p>记 $L_z(f) = f(z)$，则对 $|S| = 65$ 有 $\bigcap_{z \in S} \ker(L_z) = \{0\}$，从而 $\mathrm{span}\{L_z | z \in S\} = V^\ast$，存在 $L_{z_1}, \cdots, L_{z_9}$ 为基。</p>
+<p>另一方面，取 $x^{64}-1$ 的根知 $|S| = 64$ 不行。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2023 P1 (2)</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $f_1, \cdots, f_4$ 是 $\mathbb{R}^4$ 的标准基的对偶基，线性映射 $T \in L(\mathbb{R}^4)$ 满足：</p>
+<p>$$(T^t f_1) \wedge (T^t f_2) + (T^t f_3) \wedge (T^t f_4) = f_1 \wedge f_3 + f_2 \wedge f_4$$</p>
+<p>求 $\det T$ 的所有可能值。</p>
+</div>
+</div>
+<p>易见 $T$ 交换 $e_2, e_3$ 是一解。</p>
+<p>考虑自己 $\wedge$ 自己，取 $L = f_1 \wedge f_3 \wedge f_2 \wedge f_4 \in \Lambda^4(\mathbb{R}^4)$，直接使用 $\det$ 定义知 $\det T = -1$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2023 P2</strong></span>
+  </div>
+  <div class="pl-4"><p>$n = 2024$，对复线性空间 $V = \mathbb{C}^n$，求最大整数 $r$ 使得对任意线性映射 $T: V \to V^\ast$，存在 $V$ 的基 $\alpha_1, \cdots, \alpha_n$ 使得：</p>
+<p>$$T(\alpha_i) \in \{\alpha_{n-r+i}, \cdots, \alpha_n\}^0, \quad i = 1, \cdots, r$$</p>
+</div>
+</div>
+<p>将 $T$ 看成双线性形式，则易见 $r = 2024, 2023$ 不行。</p>
+<p>对 $r = 2022$ 与给定的 $T$，进行操作：</p>
+<ol>
+<li>第 $1$ 次取 $n - 1$ 维子空间 $W_1$ 及 $\alpha_1 \in V\setminus W_1$</li>
+<li>第 $k$ 次取 $n - k$ 维子空间 $W_k \subset W_{k-1} \cap \ker T(\alpha_{k-1})$ 及 $\alpha_k \in W_{k-1}\setminus W_k$</li>
+<li>第 $n$ 次取 $\alpha_n \in W_{n-1}\setminus \{0\}$</li>
+</ol>
+<hr />
+<p>考虑基 $\alpha_1, \cdots, \alpha_n$ 下的对偶 $V^\ast \to V, f \mapsto (f(\alpha_1), \cdots, f(\alpha_n))$.</p>
+<p>现在 $T$ 可被视作 $V \to V$，表示成矩阵 $A$. 换基操作 $e \to Pe$ 会把 $A$ 变为 $(P^{-1})^tA(P^{-1})$.</p>
+<p>原题即证任意矩阵可通过合同变换变为主对角线上方略短对角线上方全为 $0$ 的矩阵。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2023 P3</strong></span>
+  </div>
+  <div class="pl-4"><p>$n = 2024$，$\alpha = (x_1, \cdots, x_n) \in \mathbb{Z}^n$ 为非零向量且 $\gcd (x_1, \cdots, x_n) = 1$. 证存在含 $\alpha$ 的 $n$ 元集合 $S$ 通过整系数线性组合可以构成 $\mathbb{Z}^n$.</p>
+</div>
+</div>
+<p>一个自然的想法是归纳。</p>
+<p>假设 $\gcd(x_{n-1}, x_n) = d, x_{n-1} = du, x_n = dv$，设 $\lambda u + \mu v = 1$，则取前 $n-2$ 个向量为 $(x_1, \cdots, x_{n-2}, d)$ 对应的向量（最后一位添上 $0$），再取 $(0, \cdots, 0, \mu, -\lambda)$ 即可。</p>
+<hr />
+<p>另一个想法是，结论等价于说构造一个第一行是 $x_1, \cdots, x_n$ 的行列式为 $\pm 1$ 的矩阵。</p>
+<p>假设我们现在有一个行列式非零的矩阵行列式有素因子 $p$，则 $F_p$ 下它是线性相关的，设有 $k_1v_1 + \cdots + k_mv_m = 0$，在 $\mathbb{Z}$ 下是 $k_1v_1 + \cdots + k_mv_m = pw$，现在将某个不是 $\alpha$ 的 $v_i$ 换成 $w$，行列式将减小。</p>
+<hr />
+<p>从 Bézout 定理的形式衍生出的一种想法是：</p>
+<p>令 $\Omega = \{A \in \mathbb{Z}^{n\times n} | \det A = \pm 1\}$，则 $A^{-1} \in \mathbb{Z}$（我们回顾伴随矩阵 $\operatorname{adj} A$ 定义为 $(\operatorname{adj} A) _{ij} = (-1)^{i+j} M _{ji}$，满足 $A^{-1} = \frac{\operatorname{adj} A}{\det A}$）。</p>
+<p>现在证存在 $A \in \Omega$ 使得 $\alpha A = e_1$. 考虑 $\alpha A$ 各分量出现的最小正整数值，设为 $d$. 我们可以让某个 $\beta = \alpha A$ 的第一个分量为 $d$，其余分量在 $0$ 到 $d-1$ 间，由最小性 $\beta = de_1$，现在易知 $d=1$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2023 P4</strong></span>
+  </div>
+  <div class="pl-4"><p>矩阵 $A \in \mathbb{R}^{5\times 5}$，$A^2$ 是对角线均为 $1$ 的上三角矩阵，且：</p>
+<p>$$a_{11}=a_{12}=a_{21}=a_{55}=0 \quad a_{13}=a_{31}=a_{45}=a_{54}=1$$</p>
+<p>求 $a_{22}$ 的所有可能值。</p>
+</div>
+</div>
+<p>由条件知 $\det A = \pm 1$，考虑：</p>
+<p>$$
+\begin{pmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+a_{41} &amp; a_{42} &amp; a_{43} &amp; a_{44} &amp; 1 \\
+a_{51} &amp; a_{52} &amp; a_{53} &amp; 1 &amp; 0
+\end{pmatrix} A =
+\begin{pmatrix}
+0 &amp; 0 &amp; 1 &amp; a_{14} &amp; a_{15} \\
+0 &amp; a_{22} &amp; a_{23} &amp; a_{24} &amp; a_{25} \\
+1 &amp; a_{32} &amp; a_{33} &amp; a_{34} &amp; a_{35} \\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; \ast \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 1
+\end{pmatrix}
+$$</p>
+<p>两边求行列式，即得 $a_{22} = \pm 1$.</p>
+<p>事后来看配一个几乎是下三角矩阵的东西是有道理的，但此题还是太难。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2024 P4</strong></span>
+  </div>
+  <div class="pl-4"><p>$n = 2024$，任意域 $F$，令 $V = \{h \in F[x] | \deg h &lt; n \}$，设 $f, g$ 为首一 $n$ 次多项式，$T_1(h)$ 是 $fh$ 除以 $g$ 的余式，$T_2(h)$ 是 $gh$ 除以 $f$ 的余式。证：$\det T_1 = \det T_2$.</p>
+</div>
+</div>
+<p>考虑 $F$ 的代数闭包 $\bar{F}$，分解 $f(x) = (x-\alpha_1)\cdots(x-\alpha_n), g(x) = (x-\beta_1)\cdots(x-\beta_n)$.</p>
+<p>在基 $1, x-\beta_1, (x-\beta_1)(x-\beta_2), \cdots, (x-\beta_1)\cdots(x-\beta_{n-1})$ 中考虑 $T_1$ 对应的矩阵，是一个上三角阵，行列式为 $f(\beta_1)\cdots f(\beta_n) = \prod (\beta_i - \alpha_j)$. $T_2$ 同理，使用 $n$ 是偶数。</p>
+<h2 id="nei-rong-kuo-chong">内容扩充</h2>
+<p>同学推荐了往年的一个习题课。在知乎上找到讲义如下：</p>
+<hr />
+<p><a href="https://zhuanlan.zhihu.com/p/415730532">2021.09.14</a></p>
+<p>在最后提供了一个使用 mod p 约化证明 $x^5 + 4x + 2$ 的 Galois 群是 $S_5$ 的例子。</p>
+<hr />
+<p><a href="https://zhuanlan.zhihu.com/p/415738112">2021.09.28</a></p>
+<p>在最后提出了子空间的 $(+, \cap)$ 生成问题，给出了 3 个子空间对应的 28 节点 Hasse 图（实际上是“3 个生成元的自由模格 $M_{28}$”）。</p>
+<p>4 个子空间可以生成无穷多个子空间（考虑 $\langle e_1 \rangle, \langle e_2 \rangle, \langle e_3 \rangle, \langle e_1+e_2+e_3 \rangle$）。子空间的 $(+, \cap)$ 还可以与射影几何对应（Fano 公理）。</p>
+<hr />
+<p><a href="https://zhuanlan.zhihu.com/p/421177569">2021.10.12</a></p>
+<p>一般的基在泛函分析中称为 Hamel 基。若要讨论无限求和，Banach 空间中有 Schuder 基，Hilbert 空间有 Hilbert 基等。</p>
+<p>讲了若干集合论的事情。</p>
+<hr />
+<p><a href="https://zhuanlan.zhihu.com/p/423394766">2021.10.19</a></p>
+<p>对 $V = V_1 \oplus V_2$，分析 $U \subseteq V$ 与它们的“相对位置关系”：</p>
+<p>设 $\Omega = \{U_1 \oplus U_2 | U_1 \subseteq V_1, U_2 \subseteq V_2\}$. 则其中包含于 $U$ 的最大者 $(U\cap V_1) \oplus (U\cap V_2)$，包含 $U$ 的最小者 $((U+V_2)\cap V_1) \oplus ((U+V_1)\cap V_2) = (U+V_1) \cap (U+V_2)$.</p>
+<p>实际上存在：</p>
+<p><img src="/images/algebra/subspace_of_direct_sum_congs.png" alt="一堆同构" /></p>
+<p>介绍了直和、直积的泛性质及商空间的同构定理。</p>
+<hr />
+<p><a href="https://zhuanlan.zhihu.com/p/430522522">2021.10.26</a></p>
+<p>提供了<a href="https://rratic.github.io/posts/linear-algebra-1-midterm/">习题 2.3:6</a> 的四种证法。</p>
+<blockquote>
+<p>希望好好体会两个旗有公共基的四种证法以及对每个证法更精细的分析，这对未来学习有限李型群、李群、代数群等内容都大有益处。而 Grassmannian 的 Scuhbert 胞腔分解，在相交理论中也会扮演重要角色。</p>
+</blockquote>
+<hr />
+<p><a href="https://zhuanlan.zhihu.com/p/430532869">2021.11.02</a></p>
+<p>矩阵运算技术：</p>
+<ul>
+<li>分块运算，本质是直和分解</li>
+<li>多项式 $f(A), g(A)$ 可交换，甚至可以定义指数运算 $e^x = 1 + x + \frac{1}{2!}x^2 + \frac{1}{3!}x^3 + \cdots$</li>
+</ul>
+<p>例如，对二阶矩阵 $A = \begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix}$ 有 $A^2 - (a+d)A + (ad-bc)I_2 = 0$，求 $f(A)$ 时只需先作带余除法。</p>
+<p>幂零阵 $A^n = 0$ 可以用于计算 $(I+A)^m$.</p>
+<p>对首一多项式 $f(x) = x^n + a_{n-1}x^{n-1} + \cdots + a_0$，友阵满足 $f(A) = 0$.</p>
+<p>$$
+A = \begin{pmatrix}
+0 &amp; &amp; &amp; &amp; -a_0 \\
+1 &amp; 0 &amp; &amp; &amp; -a_1 \\
+&amp; \ddots &amp; \ddots &amp; &amp; \cdots \\
+&amp; &amp; 1 &amp; 0 &amp; -a_{n-2} \\
+&amp; &amp; &amp; 1 &amp; -a_{n-1}
+\end{pmatrix}
+$$</p>
+<p>华罗庚恒等式给出：</p>
+<p>$$(I - BA)^{-1} = I + B(I-AB)^{-1}A$$</p>
+<p>有一个打洞技巧：</p>
+<p>$$
+\begin{pmatrix}
+I &amp; \\
+-CA^{-1} &amp; I
+\end{pmatrix}
+\begin{pmatrix}
+A &amp; B \\
+C &amp; D
+\end{pmatrix}
+\begin{pmatrix}
+I &amp; -A^{-1}B \\
+&amp; I
+\end{pmatrix} =
+\begin{pmatrix}
+A &amp; O \\
+O &amp; D-CA^{-1}B
+\end{pmatrix}
+$$</p>
+<p>对任意 $n\times m$ 阵 $A$ 都存在可逆阵 $P, Q$ 使:</p>
+<p>$$
+A =
+P \begin{pmatrix}
+I_r &amp; \\
+&amp; O
+\end{pmatrix} Q
+$$</p>
+<p>对复矩阵存在更细致的广义逆 Moore-Penrose 广义逆。</p>
+<p>简单考察了 $\mathrm{SL}(2, \mathbb{Z})$.</p>
+<hr />
+<p><a href="https://zhuanlan.zhihu.com/p/431031430">2021.11.09</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/433942827">2021.11.16</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/454229103">2021.11.23</a></p>
+<p>介绍了商空间、核、像的泛性质（吐槽了 universal 在日语中译为“宇宙际”）。存在有限双积和零对象的范畴称为加法范畴。</p>
+<p>$(\bigoplus V_\alpha)^\ast \cong \bigotimes V_\alpha$，而 $(\bigotimes V_\alpha)^\ast$ 则是更大的东西。</p>
+<p>强调很多题可以通过构造双线性形式做。对双线性 $\Phi: V\times W \to F$，自然地诱导出 $L: V \to W^\ast$ 与 $R: W \to V^\ast$，有 $\operatorname{rank} L = \operatorname{rank} R$，记作 $\operatorname{rank} \Phi$.</p>
+<p>有 $L$ 单等价于 $R$ 满等价于 $\operatorname{rank} \Phi = \dim V$.</p>
+<hr />
+<p><a href="https://zhuanlan.zhihu.com/p/454233978">2021.11.30</a></p>
+<p>逆序数即是 $S_n$ 作为 Coxeter 群上的长度函数。</p>
+<p>有生成函数：</p>
+<p>$$\sum_{\sigma \in S_n} x^{l(\sigma)} = \prod_{i=1}^{n-1} (1+x+\cdots+x^i)$$</p>
+<p>介绍了 $\mathrm{GL}_n$ 的双陪集分解（Bruhat 分解）：</p>
+<p>$$\mathrm{GL} _n = \bigsqcup _{\sigma \in S _n} \mathcal{B} W _\sigma \mathcal{B}$$</p>
+<p>其中 $\mathcal{B}$ 是 Borel 子群，由所有可逆上三角阵构成，$W _\sigma$ 指对应的置换阵。</p>
+<p>讨论了计数问题。介绍了代数簇视角；$S_n$ 的标准表示。</p>
+<hr />
+<p><a href="https://zhuanlan.zhihu.com/p/454235601">2021.12.07</a></p>
+<p>讨论了大量计算行列式技巧（加边技巧，分块，拆成乘积）。</p>
+<p>介绍了 Dedekind 行列式。</p>
+<hr />
+<p><a href="https://zhuanlan.zhihu.com/p/454239621">2021.12.14</a></p>
+<p>特征多项式 $f(x) = \det (xI_n-A)$ 将 $A$ 零化（Cayley-Hamilton 定理）。</p>
+<p>介绍了实形式、共轭对合。</p>
+<p>反对称矩阵（对角线全为 $0$）的秩一定是偶数。</p>
+<p>对反对称矩阵 $A \in F^{2r\times 2r}$，Pfaffian 值定义为：</p>
+<p>$$\sum_{\sigma\in\Omega} \operatorname{sgn}(\sigma) a_{\sigma(1)\sigma(2)}a_{\sigma(3)\sigma(4)} \cdots a_{\sigma(2r-1)\sigma(2r)}$$</p>
+<hr />
+<p><a href="https://zhuanlan.zhihu.com/p/454241146">2021.12.17/18</a></p>
+<p>考察了一些具体的 F-（结合）代数同态。</p>
+<p>介绍了结式，用于判断 $f, g$ 在 $\bar{F}$ 中是否有公共根。</p>
+<p>定义判别式 $\mathrm{Disc}(f) = a^{2n-2} \prod_{i &lt; j} (c_i - c_j)^2$. 有 $\mathrm{Res}(f, f') = (-1)^{n(n-1)/2}a \mathrm{Disc}(f)$.</p>
+<h2 id="kao-hou-zong-jie">考后总结</h2>
+<p>还是炸了。填空题没什么可说的，第三题错估了条件的强度做了太久。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2025 P1 (3)</strong></span>
+  </div>
+  <div class="pl-4"><p>记 $\Lambda_d = \{(x, y, z) \in \mathbb{Z}^3 \mid x+y+z \equiv 0 \mod d\}$，求数集 $\{\det T | T \in L(\mathbb{R}^3), T(\Lambda_3) \subseteq \Lambda_5\}$.</p>
+</div>
+</div>
+<p>是 $\frac{5}{3} \mathbb{Z}$. 因为可以 $(x, y, z) \to (x, y, x+y+z)$ 然后 $(x, y, 3k) \to (x, y, 5k)$ 然后 $(x, y, t) \to (x, 4x+y, 4y+t)$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2025 P4</strong></span>
+  </div>
+  <div class="pl-4"><p>复矩阵 $A \in \mathbb{C}^{2n\times 2n}$ 满足 $A^2 = -3I_{2n}$，将它表示为分块矩阵（$A_{ij} \in \mathbb{C}^{n\times n}$）：</p>
+<p>$$
+A = \begin{pmatrix}
+A_{11} &amp; A_{12} \\
+A_{21} &amp; A_{22}
+\end{pmatrix}
+$$</p>
+<p>证明：</p>
+<p>$$\det (I_n + A_{11})^3 = \det (I_n - A_{22})^3$$</p>
+</div>
+</div>
+<p>首先注意到 $(I_{2n}+A)^3 = -8I_{2n}$.</p>
+<p>另一方面 $(I_{2n}+A)(I_{2n}-A) = 4I_{2n}$，有：</p>
+<p>$$
+(I_{2n}+A) \begin{pmatrix}
+I_n &amp; -A_{12} \\
+0 &amp; I_n-A_{22}
+\end{pmatrix} =
+\begin{pmatrix}
+I_n + A_{11} &amp; 0 \\
+A_{21} &amp; 4I_n
+\end{pmatrix}
+$$</p>
+<hr />
+<p>实际上强行展开是可以做的，最终化为 $\det (-8I_n - A_{12}(3A_{21}-A_{22}A_{21})) = \det (-8I_n - (3A_{21}-A_{22}A_{21})A_{12})$.</p>
+<p>使用 Sylvester 行列式定理 $\det (I+AB) = \det (I+BA)$ <sup class="footnote-reference"><a href="#sylvester-theorem">1</a></sup> 即可。</p>
+<hr />
+<div class="footnote-definition" id="sylvester-theorem"><sup class="footnote-definition-label">1</sup>
+<p>一般的证法是构造分块矩阵。我的想法是，在 $A$ 可逆时可直接用 $A(A^{-1} + B)$ 证明；使用连续性推广到不可逆情形。</p>
+</div>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/代数/">代数</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/线性代数/">线性代数</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/pages"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <link rel="stylesheet" href="https://rratic.github.io/katex/katex.min.css?h=e189fd0238811989c364" />
+  <script defer src="https://rratic.github.io/katex/katex.min.js?h=6b909443e6c8f6e5d24c"></script>
+  <script defer src="https://rratic.github.io/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

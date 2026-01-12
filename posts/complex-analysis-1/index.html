@@ -1,0 +1,968 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>复分析（一）：基本概念与 Cauchy 积分理论 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="复分析（一）：基本概念与 Cauchy 积分理论" />
+  <meta name="description" content="复变函数基本概念的速通，从复值函数写到 Cauchy 公式及其推论。" />
+  <meta property="og:description" content="复变函数基本概念的速通，从复值函数写到 Cauchy 公式及其推论。" />
+  <meta property="og:url" content="https://rratic.github.io/posts/complex-analysis-1/" />
+  <link rel="canonical" href="https://rratic.github.io/posts/complex-analysis-1/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2025-07-27T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2025-11-16T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="分析" />
+  <meta property="article:tag" content="复分析" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.github.io/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.github.io/style/shared.css?h=63eca58df589815f6747" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.github.io/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.github.io/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.github.io/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.github.io/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">复分析（一）：基本概念与 Cauchy 积分理论</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2025-07-27T00:00:00+00:00">2025-07-27</time><span
+        class="middot"></span><time
+    datetime="PT0H27M0S">27&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#ji-ben-ding-yi">基本定义</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ding-yi-shuo-ming">定义说明</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#wei-fen">微分</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#xing-zhi-liang-hao-han-shu">性质良好函数</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#han-shu-ding-yi">函数定义</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#diao-he-han-shu">调和函数</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#mi-ji-shu">幂级数</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#duo-zhi-han-shu">多值函数</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#fu-ping-mian">复平面</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#kuo-chong-fu-ping-mian">扩充复平面</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#fen-shi-xian-xing-bian-huan">分式线性变换</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#fu-ji-fen">复积分</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#lu-jing-ji-fen">路径积分</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#deng-jia-xing">等价性</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#mi-ji-shu-gong-ju">幂级数工具</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#dai-shu-ji-ben-ding-li">代数基本定理</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ji-fen-gong-ju">积分工具</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ping-fang-ke-ji-jie-xi-han-shu">平方可积解析函数</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#fei-ou-ji-he">非欧几何</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </details>
+</nav>
+
+  <!-- Content -->
+  <section><blockquote>
+<p>复分析会告诉你：性质好的函数性质有多好。</p>
+</blockquote>
+<p>参考阅读</p>
+<ul>
+<li>《复变函数简明教程》</li>
+<li>Lars V. Ahlfors <em>Complex Analysis</em></li>
+</ul>
+<p>前置知识</p>
+<ul>
+<li>数学分析</li>
+<li><a href="/_misc/topology/">点集拓扑</a></li>
+</ul>
+<h2 id="ji-ben-ding-yi">基本定义</h2>
+<p>复值函数是定义域为 $\mathbb{C}$ 的子集，陪域为 $\mathbb{C}$ 的函数，例如 $x+y\mathrm{i}\mapsto x^2+(x+y)\mathrm{i}$</p>
+<p>一般可以写作 $f(z) = u(z) + \mathrm{i}v(z)$，其中 $u, v$ 都是实值的。</p>
+<p>这类函数相当于是多元的实函数，并不是这里研究的主题。我们之后会看一些性质更好的函数。</p>
+<h3 id="ding-yi-shuo-ming">定义说明</h3>
+<p>我们用连续映射 $z=f(t), t\in [\alpha, \beta]$ 表示曲线。若 $z'(t)$ 存在且连续，称该弧是可微的。若再有 $z'(t)\neq 0$，称该弧是正则的（使得折线不被认为是狭义的“曲线”）。若 $f(\alpha)=f(\beta)$ 则称其为闭曲线。</p>
+<p>在复分析中，我们称<strong>区域</strong>是指 $\mathbb{C}$ 上道路连通的开集。</p>
+<p>有时我们会提到<strong>单连通</strong>，这是指：区域的内的任一条 Jordan 曲线（不自交、连续、闭合的曲线）均为某个子区域的边界。</p>
+<p>之后的许多函数性质都是在一个区域上说的。</p>
+<h3 id="wei-fen">微分</h3>
+<p>在复数域 $\mathbb{C}$ 上，极限的表述可以参照数学分析中的表述。</p>
+
+<link rel="stylesheet" href="https://rratic.github.io/admonition.css?h=78eb69fa9d4a0eea7f15" type="text/css">
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>极限</strong></span>
+  </div>
+  <div class="pl-4"><p>称 $\lim_{z \to z_0} f(z) = w$，如果对任意 $\omega &gt; 0$，存在 $\delta &gt; 0$，对任意 $0&lt;|z-z_0|&lt;\delta$ 有 $|f(z)-w|&lt;\omega$.</p>
+</div>
+</div>
+<p>以类似的方式，我们可以定义导数。</p>
+<p>易知，复值函数 $f = u + \mathrm{i}v$ 在 $x+y\mathrm{i}$ 处可导的充要条件是：$\frac{\partial u}{\partial x}, \frac{\partial u}{\partial y}, \frac{\partial v}{\partial x}, \frac{\partial v}{\partial y}$ 在 $z$ 处存在，且</p>
+<p>$$
+\left\{\begin{matrix}
+\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}\\
+\frac{\partial u}{\partial y} = -\frac{\partial v}{\partial x}
+\end{matrix}\right.
+$$</p>
+<p>后者称为 Cauchy-Riemann 条件。</p>
+<p>定义全微分是指：</p>
+<p>$$\mathrm{d}f = \mathrm{d}u + \mathrm{i}\cdot\mathrm{d}v = \frac{\partial f}{\partial x}\mathrm{d}x + \frac{\partial f}{\partial y}\mathrm{d}y$$</p>
+<h3 id="xing-zhi-liang-hao-han-shu">性质良好函数</h3>
+<p>若函数 $f$ 在区域 $D$ 内每一点都是复可导的，则称其为 $D$ 上的<strong>全纯函数</strong>。</p>
+<p>若 $f$ 在区域 $D$ 内每一点 $z_0$，都可在它的邻域上展开为 $z-z_0$ 的幂级数，则称它在 $D$ 上是<strong>解析</strong>的。</p>
+<p>我们在之后将说明，全纯函数的导数仍然是全纯的，并且全纯函数和解析函数是等价的条件。</p>
+<p>区域 $\Omega$ 上的解析函数 $f$ 称为<strong>单叶解析</strong>的，如果它在 $\Omega$ 上是单的。</p>
+<p>区域到区域的映射 $f: \Omega_1\to\Omega_2$ 称为<strong>解析同胚/共形映射</strong>，如果 $f$ 是单叶解析的，并且 $f^{-1}$ 也是解析的。</p>
+<h3 id="han-shu-ding-yi">函数定义</h3>
+<p>现在我们希望定义复数版的 $\exp: z\mapsto e^z$，有三种定义方式：</p>
+<ol>
+<li>定义 $e^{x+\mathrm{i}y} = e^x(\cos y + \mathrm{i}\sin y)$，其中使用的都是实函数</li>
+<li>定义 $z_n = \sum_{k=0}^n \frac{z^k}{k!}, e^z = \lim_{n\to\infty} z_n$，由于 $z_n$ 是 Cauchy 列，它是收敛的</li>
+<li>定义它是满足 $f'(z)=f(z)$ 及 $f(0)=1$ 的微分方程的解，我们知道解存在且唯一</li>
+</ol>
+<p>易知它们是等价的，其中 (2) 与 (3) 均可以推出 $e^{z+w}=e^z\cdot e^w$，分别是因为</p>
+<p>$$\left(\sum_{k=0}^\infty \frac{z^k}{k!}\right)\left(\sum_{k=0}^\infty \frac{w^k}{k!}\right) = \sum_{k=0}^\infty \frac{1}{k!} \sum_{i+j=k}\frac{k!}{i!j!}z^iw^j = \sum_{k=0}^\infty \frac{1}{k!} (z+w)^k$$</p>
+<p>$$(e^z\cdot e^{a-z})' = e^z\cdot e^{a-z}+e^z\cdot (-e^{a-z}) = 0$$</p>
+<p>我们可以进一步定义 $\cos z = \frac{e^{iz}+e^{-iz}}{2}$ 与 $\sin z = \frac{e^{iz}-e^{-iz}}{2i}$ 为对应的复值函数。</p>
+<h3 id="diao-he-han-shu">调和函数</h3>
+<p>我们称满足 $\Delta u = 0$ 的函数 $u$ 为<strong>调和函数</strong>。</p>
+<p>其中 $\Delta$ 是 Laplace 算子（算子特指函数空间到函数空间的映射）</p>
+<p>$$\Delta = \frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2}$$</p>
+<p>如果 $f$ 在区域 $\Omega$ 上是解析的，则（我们会在之后说明）它属于 $C^2(\Omega)$，并有</p>
+<p>$$
+\left\{\begin{matrix}
+\Delta u = \frac{\partial^2 u}{\partial x^2}+\frac{\partial^2 u}{\partial y^2} = 0\\
+\Delta v = \frac{\partial^2 v}{\partial x^2}+\frac{\partial^2 v}{\partial y^2} = 0
+\end{matrix}\right.
+$$</p>
+<p>我们称 $u, v$ 是共轭调和的，如果它们是调和的，并且</p>
+<p>$$
+\left\{\begin{matrix}
+\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}\\
+\frac{\partial u}{\partial y} = -\frac{\partial v}{\partial x}
+\end{matrix}\right.
+$$</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>共轭调和函数</strong></span>
+  </div>
+  <div class="pl-4"><p>单连通区域 $\Omega$，对任意调和函数 $u$，存在函数 $v$ 为它的共轭调和，且 $v$ 在差一个常数下是唯一的。</p>
+</div>
+</div>
+<p>定义 $\omega = \frac{\partial u}{\partial x}\mathrm{d}y - \frac{\partial u}{\partial y}\mathrm{d}x$</p>
+<p>有 $\mathrm{d}\omega = \left(\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2}\right)\mathrm{d}x\wedge \mathrm{d}y = 0$（我们会在之后给出路径积分的定义）</p>
+<p>对区域 $D\subset \Omega$，有 $\int_{\partial D} \omega = \int_{D}\mathrm{d}\omega = 0$</p>
+<p>取 $v(x, y) = \int_{(x_0, y_0)}^{(x, y)}\omega$ 即可（差一个常数下）。</p>
+<hr />
+<p>这个结论有一些有趣的推论，如：</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>存在 $\ln f$</strong></span>
+  </div>
+  <div class="pl-4"><p>$f$ 为区域 $\Omega$ 上的处处非 0 全纯函数，则存在 $e^g = f$</p>
+</div>
+</div>
+<p>令 $u = \ln |f|$，然后取 $v$ 为它的共轭调和。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>存在 $\sqrt[n]{m}$</strong></span>
+  </div>
+  <div class="pl-4"><p>$f$ 为区域 $D$ 上的处处非 0 全纯函数，则存在 $g^n = f$</p>
+</div>
+</div>
+<p>取 $\exp(\frac{1}{n}\ln(f))$ 即可。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>保角性</strong></span>
+  </div>
+  <div class="pl-4"><p>全纯函数是保角的，也就是说 $z_1(t)$ 与 $z_2(t)$ 的夹角等于 $f(z_1(t))$ 与 $f(z_2(t))$ 的夹角。</p>
+</div>
+</div>
+<h3 id="mi-ji-shu">幂级数</h3>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Lucas 定理</strong></span>
+  </div>
+  <div class="pl-4"><p>若多项式 $P$ 的零点均在某个半平面 $H$ 内，则 $P'$ 的零点也在 $H$ 内。从而，$P'$ 的零点在 $P$ 的零点组成的凸包内。</p>
+</div>
+</div>
+<p>我们先假设代数基本定理是对的（这会在之后证明）。</p>
+<p>设 $P(z) = k\prod_{i=1}^n (z-z_i)$，则有 $\frac{P'(z)}{P(z)} = \sum_{i=1}^n \frac{1}{z-z_i}$.</p>
+<p>考虑半平面 $H\colon \operatorname{Im} \frac{z-a}{b}&lt;0$，分析 $\operatorname{Im} \frac{bP'(z)}{P(z)} = \sum_{i=1}^n \operatorname{Im} \frac{b}{z-z_i}$ 即可。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>幂级数的收敛圆</strong></span>
+  </div>
+  <div class="pl-4"><p>对幂级数 $a_0+a_1z+a_2z^2+\cdots$，存在扩展实数 $0\leq r\leq \infty$ 满足</p>
+<ol>
+<li>对 $|z| &lt; r$，级数收敛</li>
+<li>对 $|z| &gt; r$，级数发散</li>
+<li>在 $|z| &lt; r$，内级数的和是解析函数，导数可由逐项微分得到，对应的收敛半径相同。</li>
+</ol>
+</div>
+</div>
+<p>取 $\frac{1}{r} = \lim_{n \to \infty}\sup\sqrt[n]{|a_n|}$.</p>
+<h3 id="duo-zhi-han-shu">多值函数</h3>
+<p>多值函数 $F: \Omega \to \mathbb{C}$ 中的值 $F(z)$ 可以看作复数构成的集合。</p>
+<p>例如，因为复数上的 $\exp$ 不是单的，它的反函数形如 $\mathrm{Ln} (r\cdot e^{\mathrm{i}\theta}) = \mathrm{Ln} (r) + \mathrm{i}\theta$</p>
+<p>一般来说，我们希望找到它的一个单值分支 $f$，即在 $\Omega$ 上有 $f(z)\in F(z)$ 且它是解析的。</p>
+<p>例如，在 $\mathbb{C}$ 去掉一个原点引出的射线这一区域上，$\mathrm{Ln}$ 是可以定义单值分支的。</p>
+<p>对特定的函数，我们可以定义它的 Riemann 曲面（是 $1$ 维的连通复流形），使函数在其上是单值的。</p>
+<h2 id="fu-ping-mian">复平面</h2>
+<h3 id="kuo-chong-fu-ping-mian">扩充复平面</h3>
+<p>扩充复平面是指 $\bar{\mathbb{C}} = \mathbb{C}\cup \{\infty\}$，定义 $D(\infty, \varepsilon) = \{z\in\bar{\mathbb{C}} \mid |z|&gt;\frac{1}{\varepsilon}\}$.</p>
+<p>可以通过球极投影建立它与二维球面 $\mathbb{S}^2$ 的一一映射，使它们的拓扑是一样。从而，可以在球面中看到扩充复平面的极限定义，并看到扩充复平面是 $\mathbb{C}$ 的一个紧致化。</p>
+<p>同时，可以将它看作复射影直线 $\mathbb{C}\mathrm{P}^1$，其中 $z = \frac{z_1}{z_2}$ 写作 $\binom{z_1}{z_2}$，这体现了它的射影性质。</p>
+<h3 id="fen-shi-xian-xing-bian-huan">分式线性变换</h3>
+<p>分式线性变换是重要的解析函数例子，指</p>
+<p>$$z\mapsto \frac{az+b}{cz+d}$$</p>
+<p>又称 Möbius 变换。有时我们也会考虑共轭分式线性变换 $z\mapsto \frac{a\bar{z}+b}{c\bar{z}+d}$，它们均可将扩充复平面映到自身。</p>
+<p>以 $\mathbb{C}\mathrm{P}^1$ 视角看作：</p>
+<p>$$
+z\mapsto \begin{pmatrix}a&amp;b\\ c&amp;d\end{pmatrix} z
+$$</p>
+<p>是一个射影变换，可由典型变换平移、位似、伊朗式反演复合得到。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>存在且唯一</strong></span>
+  </div>
+  <div class="pl-4"><p>对不同的三点 $z_i$ 及不同的三点 $w_i$，恰存在一个分式线性变换使 $f(z_i) = w_i$ 均成立。</p>
+</div>
+</div>
+<p>因为可以将 $1, 0, \infty$ 映到任意指定的不同 $z_1, z_2, z_3$，且分式线性变换可逆。</p>
+<p>对扩充平面上三个不同的点 $z_2, z_3, z_4$，将它们变成 $1, 0, \infty$ 的变换将 $z_1$ 映到其交比 $(z_1, z_2, z_3, z_4)$，它是射影不变量。</p>
+<hr />
+<p>我们可以得到</p>
+<ul>
+<li>所有单位圆盘到自身的分式线性变换是
+$$e^{i\theta}\frac{z-a}{1-\bar{a}z}$$</li>
+<li>所有上半平面到单位圆盘的分式线性变换是
+$$e^{i\theta}\frac{z-a}{z-\bar{a}}$$</li>
+<li>所有上半平面到自身的分式线性变换可取 $\mathrm{SL}(2, \mathbb{R})$</li>
+</ul>
+<h2 id="fu-ji-fen">复积分</h2>
+<h3 id="lu-jing-ji-fen">路径积分</h3>
+<p>在一个实区间上的定积分可以直接由实积分推广得到。</p>
+<p>对给定的连续曲线 $\gamma$，作 Riemann 和，极限可取到时即为路径积分的值。</p>
+<p>或者，设 $\gamma: [a, b]\to \mathbb{C}$，让</p>
+<p>$$\int_{\gamma} f(z) dz = \int_{[a, b]} f(\gamma(z)) \mathrm{d}\gamma(z) = \int_{[a, b]} f(\gamma(z))\gamma'(z) \mathrm{d}z$$</p>
+<p>或者，</p>
+<p>$$\int_{\gamma} (u+\mathrm{i}v)(\mathrm{d}x+\mathrm{i}\cdot\mathrm{d}y) = \int_{\gamma} (u\mathrm{d}x-v\mathrm{d}y) + \mathrm{i}\int_{\gamma} (u\mathrm{d}y+v\mathrm{d}x)$$</p>
+<p>现在给一些具体的例子：</p>
+<p>对闭曲线 $\gamma$ 和 $n\neq -1$，有</p>
+<p>$$\oint_{\gamma}z^n \mathrm{d}z = \int_{\gamma}\frac{1}{n+1} \mathrm{d}z^{n+1} = 0$$</p>
+<p>$n = -1$ 时考虑曲线 $\gamma: [0, 2\pi]\to\mathbb{C}, \theta\mapsto re^{\mathrm{i}\theta}$，换元知积分结果 $2\pi\mathrm{i}$；若原点不在曲线内部，则化为 $\oint \mathrm{d}\ \mathrm{Ln}z = 0$；通过曲线加减法可以推知，对所有把 0 包含在内部的闭曲线，积分结果均为 $2\pi\mathrm{i}$.</p>
+<p>我们来说明一个更一般的结论。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Cauchy 定理</strong></span>
+  </div>
+  <div class="pl-4"><p>有界区域 $\Omega$ 以有限段光滑曲线为边界，对 $f$ 在 $\bar{\Omega}$ 上连续，在 $\Omega$ 内解析，则有</p>
+<p>$$\int_{\partial \Omega} f(z)\mathrm{d}z = 0$$</p>
+<p>这将说明路径积分的值只与起点、终点有关，而与选取的路径无关。</p>
+</div>
+</div>
+<p>证明的大致思想是说，可以把一个三角形上的路径积分转化为它按中点分割成的四个三角形上的路径积分之和。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Cauchy 公式</strong></span>
+  </div>
+  <div class="pl-4"><p>有界区域 $\Omega$ 以有限段光滑曲线为边界，对 $f$ 在 $\bar{\Omega}$ 上连续，在 $\Omega$ 内解析及 $z\in\Omega$ 有</p>
+<p>$$f(z) = \frac{1}{2\pi\mathrm{i}}\int_{\partial \Omega}\frac{f(w)}{w-z}\mathrm{d}w$$</p>
+</div>
+</div>
+<p>这是因为我们可以取 $\varepsilon&gt;0$ 使 $\bar{D(z, \varepsilon)}\subset\Omega$</p>
+<p>故 $\mathrm{RHS} = \frac{1}{2\pi\mathrm{i}}\int_{|w-z|=\varepsilon}\frac{f(w)}{w-z}\mathrm{d}w$</p>
+<p>令 $f(w) = f(z) + f'(z) + \rho(w, z)(w-z)$，其中 $\lim_{w\to z}\rho(w, z) = 0$</p>
+<p>有 $\int_{|w-z|=\varepsilon}f'(z)\mathrm{d}w = 0$，而 $\int_{|w-z|=\varepsilon}\rho(w, z)\mathrm{d}w$ 是常数且随 $\varepsilon\to 0$ 趋向于 0，原式得证。</p>
+<h3 id="deng-jia-xing">等价性</h3>
+<p>我们现在可以证明全纯函数和解析函数是等价的条件了。</p>
+<p>解析推全纯是容易的，因为幂级数在收敛半径内全纯。</p>
+<p>若已知全纯，对 $z_0\in\Omega$，取充分小的 $r$ 使 $\bar{D(z_0, r)}\subset\Omega$，则由 Cauchy 公式，</p>
+<p>$$f(z) = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = r}\frac{f(w)}{w-z}\mathrm{d}w$$</p>
+<p>而由</p>
+<p>$$\frac{1}{w-z} = \frac{1}{w-z_0}\cdot\sum_{n=0}^{+\infty}\left(\frac{z-z_0}{w-z_0}\right)^n$$</p>
+<p>且该级数是一致收敛的，可写成</p>
+<p>$$f(z) = \sum_{n=0}^{+\infty} \frac{1}{2\pi\mathrm{i}}(z-z_0)^n\int_{|w-z_0| = r}\frac{f(w)}{(w-z_0)^{n+1}}\mathrm{d}w$$</p>
+<p>即所求的幂级数。可喜可贺！</p>
+<p>进一步地，若 $f$ 是全纯的，则 $u, v$ 都是实解析的。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Morera 定理</strong></span>
+  </div>
+  <div class="pl-4"><p>对区域 $\Omega$ 与其上的连续函数 $f$，一下两个条件等价</p>
+<ol>
+<li>$f$ 在 $\Omega$ 内解析</li>
+<li>对 $\Omega$ 内任意逐段光滑曲线围成的有界区域 $D$ 使 $\bar{D}\subset\Omega$，有 $\int_{\partial D}f(w)\mathrm{d}w = 0$</li>
+</ol>
+</div>
+</div>
+<p>1 推 2 是 Cauchy 定理。</p>
+<p>对于2 推 1，我们考虑任意 $z_0\in\Omega$ 及 $\varepsilon&gt;0$ 使 $D(z_0, \varepsilon)\subset\Omega$ 让 $f$ 在上面是解析的。</p>
+<p>对该邻域中的点 $z$，令 $F(z) = \int_{z_0}^z f(w)\mathrm{d}w$，它是良定义的。</p>
+<p>可证 $F$ 在该邻域内可导，且 $F'=f$，从而 $F$ 是解析的，从而 $f$ 是解析的。</p>
+<p>其中的一部分结论整理如下：</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>存在原函数</strong></span>
+  </div>
+  <div class="pl-4"><p>对单连通区域 $D$ 和它上的解析函数 $f$，则存在它上的函数 $F$ 使 $F'=f$</p>
+</div>
+</div>
+<p>对非单连通区域，有反例：$\mathbb{C}-\{0\}$ 上的 $f: z\mapsto \frac{1}{z}$</p>
+<h3 id="mi-ji-shu-gong-ju">幂级数工具</h3>
+<p>对一个指定的区域 $\Omega$ 上的解析函数 $f$，令 $S = \{z\in\Omega\mid f'(z) = f''(z) = \cdots = 0 \}$</p>
+<p>由连续性知 $\{f^{(n)}(z) = 0\}$ 为闭集，从而 $S$ 为闭集。</p>
+<p>又，对 $z_0\in S$ 有 $f$ 在其一个邻域内可展成幂级数，对应的 $D(z_0, \varepsilon)\subset S$，知 $S$ 为开集。</p>
+<p>从而，若 $S$ 非空，那么它就是整个 $\Omega$，从而 $f$ 在 $\Omega$ 上是常值的。</p>
+<p>这就给出了结论：对区域 $\Omega$ 上的非常值解析函数 $f$ 及任一点 $z_0$，存在一个自然数 $m$，使</p>
+<ul>
+<li>$f'(z_0) = \cdots = f^{(n-1)}(z_0) = 0$</li>
+<li>$f^{(n)}(z_0) \neq 0$</li>
+</ul>
+<p>此时称 $z_0$ 为 $m$ 阶零点。</p>
+<p>从而，在 $z_0$ 的某个邻域上有 $f(z) - f(z_0) = (z-z_0)^m g(z)$，其中 $g$ 解析且 $g(z_0) \neq 0$</p>
+<p>这将给出如下结论：</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>零点孤立性</strong></span>
+  </div>
+  <div class="pl-4"><p>对区域 $\Omega$ 上的非常值解析函数 $f$，其零点是孤立的。</p>
+</div>
+</div>
+<p>我们取 $\varepsilon&gt;0$ 使 $g$ 在对应的圆盘上处处不为 0.</p>
+<hr />
+<p>进而，我们有：</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>解析函数的刚性&#x2F;唯一性定理</strong></span>
+  </div>
+  <div class="pl-4"><p>区域 $\Omega$ 上的解析函数 $f, g$，若存在点列 $\{z_n\}$ 且它有 $\Omega$ 内的极限点，则 $\Omega$ 上 $f\equiv g$.</p>
+</div>
+</div>
+<p>这是因为该极限点不是 $f-g$ 的孤立零点。</p>
+<p>如果极限点不在 $\Omega$ 内，则有反例 $f: z\mapsto \sin \frac{1}{z}, g: z\mapsto 0, z_n = \frac{1}{n\pi}$</p>
+<hr />
+<p>接下来，我们将解析函数看作平面区域到平面区域的映射。</p>
+<p>由于对 $f(z)-f(z_0)$ 的 $m$ 阶零点有 $f(z) - f(z_0) = (z-z_0)^m g(z)$，我们可进一步取 $h^m = g$ 使 $f(z) - f(z_0) = ((z-z_0) h(z))^m$.</p>
+<p>令 $\varphi(z) = (z-z_0) h(z)$，则 $\varphi'(z_0) = h(z_0)\neq 0$，故存在 $z_0$ 的邻域及 $\varphi(z_0) = 0$ 的邻域使 $\varphi$ 为解析同胚。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>开映射定理</strong></span>
+  </div>
+  <div class="pl-4"><p>区域 $\Omega$ 上的非常值解析函数 $f$，将 $\Omega$ 中开集映到开集。</p>
+</div>
+</div>
+<p>只需 $f(\Omega)$ 开。对 $w_0 = f(z_0)$，其中 $z_0$ 为 $f(z)-f(z_0)$ 的 $m$ 阶零点，存在 $w_0$ 的邻域 $O$，使其中点在 $z_0$ 邻域内有 $m$ 个原像，故 $O\subset f(\Omega)$.</p>
+<p>进而我们知道对单叶解析函数 $f$，它是 $\Omega\to f(\Omega)$ 的解析同胚。</p>
+<h3 id="dai-shu-ji-ben-ding-li">代数基本定理</h3>
+<p>我们来使用开映射定理：</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>最大模原理</strong></span>
+  </div>
+  <div class="pl-4"><p>对区域 $\Omega$ 上的非常值解析函数 $f$，$|f(z)|$ 在 $\Omega$ 内无最大值点。</p>
+</div>
+</div>
+<p>因为 $f(z_0)$ 是 $f(D(z_0, \varepsilon))$ 的内点。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>代数基本定理</strong></span>
+  </div>
+  <div class="pl-4"><p>$n$ 次多项式 $P(z) = a_nz^n+\cdots+a_0$ 在 $\mathbb{C}$ 中有零点。</p>
+</div>
+</div>
+<p>法一：</p>
+<blockquote>
+<p>由 $\lim_{n\to\infty} |P(z)| = +\infty$，存在 $R$ 使 $\min \{|P(z)|\mid |z|=R\}&gt;|P(0)|$</p>
+<p>设 $z_0$ 是 $|P(z)|$ 在 $\bar{D(0, R)}$ 的最小值点，则 $P(z_0)$ 为 $P(D(0, R))$ 的内点，故 $|P(z_0)| = 0$</p>
+</blockquote>
+<p>法二：</p>
+<blockquote>
+<p>将 $P$ 视作 $\bar{\mathbb{C}}\to\bar{\mathbb{C}}$ 的连续映射。</p>
+<p>其不为常数，故 $P(\bar{\mathbb{C}})$ 为开集，而 $\bar{\mathbb{C}}$ 是紧的，故 $P(\bar{\mathbb{C}})$ 为闭集。从而值域是 $\bar{\mathbb{C}}$</p>
+</blockquote>
+<h3 id="ji-fen-gong-ju">积分工具</h3>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Cauchy 不等式</strong></span>
+  </div>
+  <div class="pl-4"><p>区域 $\Omega$ 上的解析函数 $|f|\leq M$，则 $\forall z_0\in\Omega, 0&lt;r\leq \mathrm{dist}(z_0, \partial\Omega)$ 有</p>
+<p>$$|f^{(n)}(z_0)|\leq \frac{n!M}{r^n}$$</p>
+</div>
+</div>
+<p>对 $0 &lt; r &lt; \mathrm{dist}(z_0, \partial\Omega)$，由</p>
+<p>$$f^{(n)}(z_0) = \frac{n!}{2\pi\mathrm{i}}\int_{|w-z_0| = r}\frac{f(w)}{(w-z_0)^{n+1}}\mathrm{d}w$$</p>
+<p>有</p>
+<p>$$|f^{(n)}(z_0)| = \frac{n!}{2\pi\mathrm{i}}\int_{|w-z_0| = r}\left|\frac{f(w)}{(w-z_0)^{n+1}}\right||\mathrm{d}w|\leq \frac{n!M}{r^n}$$</p>
+<p>再让 $r\to\mathrm{dist}(z_0, \partial\Omega)$ 即可。</p>
+<p>这表明，我们可以用 $|f(z)|$ 在区域内的最大值控制任意的 $|f^{(n)}(z)|$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Liouville 定理</strong></span>
+  </div>
+  <div class="pl-4"><p>解析函数 $f$ 在 $\mathbb{C}$ 上有界，则必为常数。</p>
+</div>
+</div>
+<p>因为可以取 $r\to+\infty$ 使 $|f'(z_0)|\leq 0$.</p>
+<p>这表明：在解析同胚意义下，$\mathbb{C}$ 中单连通区域恰有 $\mathbb{C}$ 和 $D(0, 1)$ 两类。</p>
+<p>我们将 $\mathbb{C}$ 上的解析函数称为<strong>整函数</strong>，其中不为多项式的称为<strong>超越整函数</strong>。</p>
+<p>可以给出 Liouville 定理的推广如下：</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Weierstrass 定理</strong></span>
+  </div>
+  <div class="pl-4"><p>对非常值的整函数 $f$，有 $f(\mathbb{C})$ 在 $\mathbb{C}$ 中稠密。</p>
+</div>
+</div>
+<p>假设结论不成立，存在 $z_0\in\mathbb{C}-\overline{f(\mathbb{C})}$ 为开集，有 $g(z)=\frac{1}{f(z)-z_0}$ 有界，矛盾。</p>
+<hr />
+<p>我们期待对于定义在 $\mathbb{C}$ 上的超越整函数，能够如多项式一样证明它的值域是 $\mathbb{C}$；而事实上我们有相当接近的结论：</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Picard 小定理</strong></span>
+  </div>
+  <div class="pl-4"><p>对 $\mathbb{C}$ 上的超越整函数 $f$，有 $\mathbb{C}-f(\mathbb{C})$ 至多包含一个点。</p>
+</div>
+</div>
+<p>此证明将略过。</p>
+<hr />
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>平均值定理</strong></span>
+  </div>
+  <div class="pl-4"><p>区域 $\Omega$ 上的解析函数 $f$，对任意 $z_0 \in \Omega, 0 &lt; r &lt; \mathrm{dist}(z_0, \partial \Omega)$，有：</p>
+<p>$$f(z_0) = \frac{1}{2\pi}\int_0^{2\pi} f(z_0+re^{i\theta})\mathrm{d}\theta$$</p>
+</div>
+</div>
+<p>这可直接由 Cauchy 公式得到。</p>
+<p>这给出<strong>平均值不等式</strong>：</p>
+<p>$$|f(z_0)| = \frac{1}{2\pi}\int_0^{2\pi} |f(z_0+re^{i\theta})|\mathrm{d}\theta$$</p>
+<p>进一步有：</p>
+<p>$$f(z_0) = \frac{1}{\pi R^2}\iint\limits_{D(z_0, R)} f(z) \mathrm{d}S$$</p>
+<h3 id="ping-fang-ke-ji-jie-xi-han-shu">平方可积解析函数</h3>
+<p>这一节中我们假定区域 $\Omega$ 以有限条逐段光滑曲线为边界。</p>
+<p>对其上的复值函数 $f$，称它为<strong>平方可积函数</strong>，若 $|f(z)^2|$ 在 $\Omega$ 上广义可积，其全体记作 $A^2(\Omega)$.</p>
+<p>若 $f, g\in A^2(\Omega)$，就有 $|f(z)+g(z)|^2\leq 2 (|f(z)|^2 + |g(z)|^2)$，即 $f+g\in A^2(\Omega)$，从而易知 $A^2(\Omega)$ 是复线性空间。</p>
+<p>我们进一步在其上定义<strong>内积</strong>如下：</p>
+<p>$$(f, g) = \iint\limits_\Omega f(z)\overline{g(z)} \mathrm{d}S$$</p>
+<p>它满足对称性 $(f, g) = \overline{(g, f)}$ 及线性性、正定性。</p>
+<p>我们有 Cauchy 不等式 $(f, g)^2 &lt; (f, f) (g, g)$.</p>
+<p>现在可以给出一个最大模原理的新证明：</p>
+<blockquote>
+<p>设 $z_0\in\Omega$ 是 $|f(z)|$ 最大值点，有
+$$\iint\limits_{D(z_0, \epsilon)} (|f(z_0)|^2 - |f(z)|^2) \mathrm{d}S\geq 0$$
+使用 Cauchy 不等式，得到 $|f(z)|^2 \equiv |f(z_0)|^2$.</p>
+</blockquote>
+<p>有了内积，我们可以进一步典范地定义范数 $\|f\| = \sqrt{(f, f)}$、度量，它是完备的。</p>
+<p>我们称两函数<strong>正交</strong>，如果 $(f, g) = 0$，<strong>单位正交函数系</strong>是指一族 $(\varphi_i, \varphi_j) = \delta_{ij}$，如果不存在函数与它的元素都正交，则进一步称为<strong>完备单位正交函数系</strong>。</p>
+<p>我们考虑函数 $f$ 对于一族完备单位正交函数系的形式级数：</p>
+<p>$$f(z) \sim \sum_{n=1}^\infty (f, \varphi_n)\varphi_n(z)$$</p>
+<p>称为 $f$ 关于 $\{\varphi_n\}$ 的 Fourier 级数。它均方收敛且内闭收敛于 $f$.</p>
+<h3 id="fei-ou-ji-he">非欧几何</h3>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Schwarz 引理</strong></span>
+  </div>
+  <div class="pl-4"><p>$f$ 是单位圆盘到自身的解析映射，且 $f(0) = 0$，则：</p>
+<ol>
+<li>对圆盘内任一点，有 $|f(z)|\leq |z|$，这会使得 $|f'(0)|\leq 1$</li>
+<li>存在 $z_0\neq 0$ 使 $|f(z_0)| = |z_0|$ 或 $|f'(0)| = 1$ 的充要条件是 $f(z)=e^{\mathrm{i}\theta}z$</li>
+</ol>
+</div>
+</div>
+<p>考虑 $f$ 在 $z=0$ 处展开成的幂级数 $a_0+a_1z+\cdots$，常数项为 $0$，故 $\frac{f(z)}{z} = a_1+a_2z+\cdots$ 在单位圆盘内解析。</p>
+<p>对 $z_0$，取 $|z_0| &lt; r &lt; 1$，由最大模原理有 $\left|\frac{f(z)}{z}\right| \leq \left|\frac{f(r)}{r}\right| &lt; \frac{1}{r}$，令 $r\to 1$ 即有 $|f(z_0)|\leq |z_0|$.</p>
+<hr />
+<p>我们可以用 Schwarz 引理给出单位圆盘的解析自同胚群：因为 $f$ 与 $f'$ 均可经分式线性变换转为满足 Schwarz 引理的条件，它是保欧氏距离的，从而只能是分式线性变换，形如：</p>
+<p>$$f(z) = e^{\mathrm{i}\theta}\frac{z-z_0}{1-\bar{z_0}z}$$</p>
+<p>由于这些变换可以将单位圆盘中指定的一点变成另一指定的点，可以得到：</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>更一般形式的 Schwarz 引理</strong></span>
+  </div>
+  <div class="pl-4"><p>$f$ 是单位圆盘到自身的解析映射，则对任意 $z_1, z_2\in D(0, 1)$ 有：</p>
+<p>$$\left|\frac{f(z_1)-f(z_2)}{1-\overline{f(z_1)}f(z_2)}\right|\leq \left|\frac{z_1-z_2}{1-\bar{z_1}z_2}\right|$$</p>
+</div>
+</div>
+<p>其微分形式为：</p>
+<p>$$\frac{|\mathrm{d}f(z)|}{1-|f(z)|^2}\leq \frac{|\mathrm{d}z|}{1-|z|^2}$$</p>
+<p>我们在单位圆盘上定义新的弧长微元（称为 Poincaré 度量）：</p>
+<p>$$\mathrm{d}s = \frac{|\mathrm{d}z|}{1-|z|^2}$$</p>
+<p>就可定义分段光滑曲线的非欧长度，并依次定义非欧距离和测地线，此过程与一般的光滑流形上的做法相同。</p>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/分析/">分析</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/复分析/">复分析</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/pages"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <link rel="stylesheet" href="https://rratic.github.io/katex/katex.min.css?h=e189fd0238811989c364" />
+  <script defer src="https://rratic.github.io/katex/katex.min.js?h=6b909443e6c8f6e5d24c"></script>
+  <script defer src="https://rratic.github.io/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

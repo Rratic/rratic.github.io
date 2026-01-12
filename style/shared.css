@@ -1,0 +1,61 @@
+/*
+	Fix bad stylesheet.
+*/
+
+article {
+	/* Ensures head bar works correctly. */
+	overflow-x: hidden;
+}
+
+section>p:has(.katex-display) {
+	overflow-x: auto;
+	scrollbar-gutter: stable;
+}
+
+section>p>img {
+	justify-self: center;
+}
+
+.pl-4 {
+	padding-left: 1rem;
+	padding-right: 1rem;
+}
+
+blockquote cite em {
+	text-decoration: 1px underline;
+}
+
+footer .block-bg:not(.block-hover) {
+	background-color: transparent;
+}
+
+code::before,
+code::after {
+	content: "" !important;
+}
+
+p>code,
+li>code {
+	padding: 1px 5px;
+	font-family: "Menlo", "Inconsolata", "Consolas", "Roboto Mono", "Ubuntu Mono", "Liberation Mono", "Courier New", monospace;
+	font-size: 0.9375em;
+	border: 1px solid #e8e8e8;
+	border-radius: 3px;
+}
+
+/*
+	For custom shortcodes.
+*/
+
+.folded {
+	display: none;
+}
+
+.folder,
+.quote-display {
+	cursor: pointer;
+}
+
+.quote-display {
+	user-select: none;
+}

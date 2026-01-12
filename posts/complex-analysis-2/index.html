@@ -1,0 +1,741 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>复分析（二）：间章：Laurent 级数、留数与调和函数 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="复分析（二）：间章：Laurent 级数、留数与调和函数" />
+  <meta name="description" content="关于 Laurent 级数、留数与调和函数。" />
+  <meta property="og:description" content="关于 Laurent 级数、留数与调和函数。" />
+  <meta property="og:url" content="https://rratic.github.io/posts/complex-analysis-2/" />
+  <link rel="canonical" href="https://rratic.github.io/posts/complex-analysis-2/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2025-10-16T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2025-12-04T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="分析" />
+  <meta property="article:tag" content="复分析" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.github.io/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.github.io/style/shared.css?h=63eca58df589815f6747" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.github.io/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.github.io/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.github.io/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.github.io/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">复分析（二）：间章：Laurent 级数、留数与调和函数</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2025-10-16T00:00:00+00:00">2025-10-16</time><span
+        class="middot"></span><time
+    datetime="PT0H18M0S">18&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#laurent-ji-shu">Laurent 级数</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ding-yi">定义</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#gu-li-qi-dian-de-fen-lei">孤立奇点的分类</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ya-chun-han-shu">亚纯函数</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#liu-shu">留数</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ji-ben-gai-nian">基本概念</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#fu-jiao-yuan-li">辐角原理</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ding-ji-fen-ji-suan">定积分计算</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#diao-he-han-shu">调和函数</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#xing-zhi">性质</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#dirichlet-wen-ti">Dirichlet 问题</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </details>
+</nav>
+
+  <!-- Content -->
+  <section><blockquote>
+<p>一般认为 Cauchy 积分理论、Weierstrass 级数理论和共形映射理论是单复变函数理论中的三个最重要的组成部分。</p>
+</blockquote>
+<p>参考阅读</p>
+<ul>
+<li>《复变函数简明教程》</li>
+</ul>
+<h2 id="laurent-ji-shu">Laurent 级数</h2>
+<h3 id="ding-yi">定义</h3>
+<p>在实际中，有些函数会有奇点，我们使用 Laurent 级数来研究奇点附近的性质。</p>
+<p>我们将它定义为</p>
+<p>$$\sum_{-\infty}^{+\infty} a_n (z-z_0)^n$$</p>
+<p>其中 $n\leq -1$ 部分称为<strong>主部</strong>，$n\geq 0$ 部分称为<strong>正则部分</strong>。</p>
+<p>在较好的情形下，Laurent 级数在一个圆环形区域 $D(z_0, r, R)$ 上收敛（两个幂级数分别收敛）。</p>
+<p>对圆环形区域上的解析函数，令 $r &lt; r' &lt; |z-z_0| &lt; R' &lt; R$，使用 Cauchy 公式，有：</p>
+<p>$$f(z) = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = R'}\frac{f(w)}{w-z}\mathrm{d}w - \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = r'}\frac{f(w)}{w-z}\mathrm{d}w$$</p>
+<p>其中减号左边部分可以写成正则部分，从而是 $D(0, R)$ 上的解析函数，右边部分则可写成主部。</p>
+<h3 id="gu-li-qi-dian-de-fen-lei">孤立奇点的分类</h3>
+<p>若 $z_0$ 使得 $f$ 在它处未定义，而在它的一个去心邻域上解析，则称 $z_0$ 是它的<strong>孤立奇点</strong>。</p>
+<p>例如，对 $f(z) = \frac{1}{\sin \frac{1}{z}}$，有 $\frac{1}{k\pi}$ 与 $\infty$ 是它的孤立奇点，但 $0$ 不是。</p>
+
+<link rel="stylesheet" href="https://rratic.github.io/admonition.css?h=78eb69fa9d4a0eea7f15" type="text/css">
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>孤立奇点分类</strong></span>
+  </div>
+  <div class="pl-4"><p>如果存在 $g$ 补上 $z_0$ 处的值，使得它在 $z_0$ 的邻域上解析，则称 $f$ 可以解析开拓到 $z_0$，且 $z_0$ 称为它的<strong>可去奇点</strong>。</p>
+<p>否则，若 $\frac{1}{f(z)}$ 可解析开拓到 $z_0$，则称 $z_0$ 为它的<strong>极点</strong>。</p>
+<p>其余情况称 $z_0$ 为<strong>本性奇点</strong>。</p>
+</div>
+</div>
+<p>我们有以下结论：</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>孤立奇点</strong></span>
+  </div>
+  <div class="pl-4"><p>以下条件等价：</p>
+<ol>
+<li>$z_0$ 是可去奇点。</li>
+<li>$\lim_{z\to z_0} f(z)$ 在 $\mathbb{C}$ 上存在。</li>
+<li>$f(z)$ 在 $z_0$ 邻域上有界。</li>
+<li>$f(z)$ 在 $z_0$ 的 Laurent 展式的主部为 $0$.</li>
+</ol>
+</div>
+</div>
+<p>我们来证明不平凡的 (3) 推 (4) 如下：</p>
+<p>设展式为 $f(z) = \sum_{-\infty}^{+\infty} a_n (z-z_0)^n$，取 $\varepsilon$ 则</p>
+<p>$$a_n = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = \varepsilon}\frac{f(w)}{(w-z_0)^{n+1}}\mathrm{d}w$$</p>
+<p>且设 $f$ 在 $z_0$ 的（去心）邻域上有界 $M$，则有 $a_{-n}\leq M\cdot\varepsilon^n$</p>
+<p>令 $\varepsilon\to 0$ 知主部为 $0$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>极点</strong></span>
+  </div>
+  <div class="pl-4"><p>以下条件等价：</p>
+<ol>
+<li>$z_0$ 是极点。</li>
+<li>$z_0$ 是 $\frac{1}{f(z)}$ 的零点。</li>
+<li>$\lim_{z\to z_0} f(z) = \infty$.</li>
+<li>$f(z)$ 在 $z_0$ 的 Laurent 展式的主部有且仅有有限项非 $0$.</li>
+</ol>
+</div>
+</div>
+<p>证明不平凡的 (3) 推 (4) 如下：</p>
+<p>设 $z_0$ 是 $\frac{1}{f(z)}$ 的 $m$ 阶零点，在邻域内展为 $(z-z_0)^m g(z)$，再由 $\frac{1}{g(z)}$ 解析即可。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>本性奇点</strong></span>
+  </div>
+  <div class="pl-4"><p>以下条件等价：</p>
+<ol>
+<li>$z_0$ 是本性奇点。</li>
+<li>$\lim_{z\to z_0} f(z)$ 在 $\bar{\mathbb{C}}$ 中不存在。</li>
+<li>$f(z)$ 在 $z_0$ 的 Laurent 展式的主部有无穷多项非 $0$.</li>
+</ol>
+</div>
+</div>
+<p>这是根据前两个结论得到的。</p>
+<p>在 <a href="https://complex-analysis.com/content/classification_of_singularities.html">Classification of Singularities</a> 你可以看到很多与奇点有关的函数的彩色绘制；也可阅读 <a href="/posts/shader-2/">着色器（二）</a> 中对应的内容。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Weierstrass 定理</strong></span>
+  </div>
+  <div class="pl-4"><p>若 $z_0$ 是 $f$ 的一个本性奇点，则对任意 $\varepsilon&gt;0$，$f(\mathring{D}(z_0, \varepsilon))$ 在 $\mathbb{C}$ 中稠密。</p>
+</div>
+</div>
+<p>我们知道 $\mathbb{C}-\overline{f(D_0(z_0, \varepsilon))}$ 是开集，若它非空，存在 $z^\star$ 及 $\delta&gt;0$ 使 $D(z^\star, \delta)$ 在其内。</p>
+<p>令 $g(z) = \frac{1}{f(z)-z^\star}$，有 $|g(z)|\leq \frac{1}{\delta}$，从而 $z_0$ 是 $g$ 的可去奇点，只能是 $f$ 的可去奇点或极点，与条件矛盾。</p>
+<p>更进一步，我们有 Picard 大定理：
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Picard 大定理</strong></span>
+  </div>
+  <div class="pl-4"><p>$z_0$ 是 $f$ 的一个本性奇点，且 $f$ 在 $\mathring{D}(z_0, \varepsilon)$ 上解析，则对任意 $0 &lt; \varepsilon &lt; R$，集合 $\mathbb{C} \setminus f(\mathring{D}(z_0, \varepsilon))$ 至多包含一个点。</p>
+</div>
+</div>
+</p>
+<p>甚至还有更强的结论 Julia 定理。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Julia 定理</strong></span>
+  </div>
+  <div class="pl-4"><p>$z_0$ 是 $f$ 的一个本性奇点，则存在 $\theta\in [0, 2\pi)$，对任意 $\epsilon&gt;0$ 及 $\omega\in\mathbb{C}$（至多存在一个例外），在 $|\arg (z-z_0) - \theta| &lt; \epsilon$ 中 $f(z)=\omega$ 有无穷多解。</p>
+</div>
+</div>
+<p>此证明将略过。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>全纯自同胚</strong></span>
+  </div>
+  <div class="pl-4"><p>$f:\mathbb{C}\to\mathbb{C}$ 是全纯自同胚当且仅当它形如 $az+b\ (a\neq 0)$.</p>
+</div>
+</div>
+<p>只需证左推右。我们知道 $f$ 是整函数，且 $\infty$ 是孤立奇点。</p>
+<p>由 $f$ 无界知 $\infty$ 不是可去奇点，又由 Weierstrass 定理知它不是本性奇点，从而是极点。</p>
+<p>从而它是多项式，由代数学基本定理知是一次的。</p>
+<h3 id="ya-chun-han-shu">亚纯函数</h3>
+<p>对 $\bar{\mathbb{C}}$ 中区域 $\Omega$ 上的函数 $f$，若除了（可能）有极点外处处解析，则称它是<strong>亚纯</strong>的。</p>
+<p>一个区域上的亚纯函数全体构成一个域，记作 $m(\Omega)$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Mittag-Leffler 问题的 $\mathbb{C}$ 版本</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $\{z_n\}$ 是无重复项的点列，且 $\lim_{n\to+\infty}z_n = \infty$，每个 $n$ 对应一个</p>
+<p>$$L_n(z) = \frac{a_{n_1}}{z-z_n} + \frac{a_{n_2}}{(z-z_n)^2} + \cdots + \frac{a_{n_{m_n}}}{(z-z_n)^{m_n}}$$</p>
+<p>则存在 $\mathbb{C}$ 上亚纯函数 $f$，使极点集为 $\{z_n\}$，且在 $z_n$ 处的 Laurent 展式的主部为 $L_n(z)$.</p>
+</div>
+</div>
+<p>不妨设 $z_n \in D(0, n, n+1)$，取序列 $\{a_n\}$ 使 $a_n &gt; 0$ 且和收敛，设对 $z_1, \cdots , z_{n-1}$ 已取到 $P_1(z), \cdots , P_{n-1}(z)$，使</p>
+<p>$$\max_{z\in\overline{D(0, k)}} \{|L_k(z)-P_k(z)|\} \lt a_k,\ k=1,2,\cdots,n-1$$</p>
+<p>有 $L_n(z)$ 在 $\overline{D(0, n)}$ 的邻域上解析，从而它在 $z=0$ 展开的幂级数在 $\overline{D(0, n)}$ 上一致收敛于它，可用多项式一致逼近，从而可取出 $P_n(z)$.</p>
+<p>令 $f(z) = \sum_{k=1}^{+\infty} [L_k(z) - P_k(z)]$，它即是所求。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>有理函数</strong></span>
+  </div>
+  <div class="pl-4"><p>$\bar{\mathbb{C}}$ 上的亚纯函数都是有理函数。</p>
+</div>
+</div>
+<p>设亚纯函数 $f$，有极点 $z_1, \cdots , z_l, \infty$，且对应的 Laurent 展式主部：</p>
+<p>$$L_k(z) = \frac{a_{k_1}}{z-z_k} + \frac{a_{k_2}}{(z-z_k)^2} + \cdots + \frac{a_{k_{m_k}}}{(z-z_k)^{m_k}}$$</p>
+<p>$$L_\infty(z) = b_1z + b_2z^2 + \cdots + b_mz^m$$</p>
+<p>则 $f(z) - \sum_{k=1}^l L_k(z) - L_\infty(z)$ 是 $\bar{\mathbb{C}}$ 上的全纯函数，因而是常数。从而 $f$ 是有理函数。</p>
+<p>利用此可以说明 $\bar{\mathbb{C}}$ 到 $\bar{\mathbb{C}}$ 的全纯自同胚只能是分式线性变换，这是因为考虑 $P(z)/Q(z)$，一一映射要求 $P$ 与 $Q$ 都是一次的。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Cousin 问题 2 的 $\mathbb{C}$ 版本</strong></span>
+  </div>
+  <div class="pl-4"><p>$\{z_n\}$ 是无重复项的点列，且 $\lim_{n\to+\infty}z_n = \infty$，又正整数列 $\{m_n\}$，则存在解析函数 $f$，使 $f$ 所有零点是 $\{z_n\}$，且在 $z_n$ 处零点的阶数是 $m_n$.</p>
+</div>
+</div>
+<p>证明过程用到无穷乘积，此处略过。</p>
+<p>它的一个推论是：对 $\bar{\mathbb{C}}$ 上亚纯函数 $f$，存在解析函数 $g$ 与 $h$ 使得 $f(z) = \frac{g(z)}{h(z)}$.</p>
+<h2 id="liu-shu">留数</h2>
+<h3 id="ji-ben-gai-nian">基本概念</h3>
+<p>我们希望把 Cauchy 定理和 Cauchy 公式推广到有孤立奇点的函数上。</p>
+<p>设 $z_0$ 为 $f$ 的孤立奇点，在 $\mathring{D}(z_0, R)$ 上解析，则对该去心圆盘中一个包含了 $z_0$ 的简单闭曲线，有 $\int_\Gamma f(z)\mathrm{d}z = \int_{|z-z_0|=\rho} f(z)\mathrm{d}z$.</p>
+<p>将 $f$ 在该去心圆盘上展成 Laurent 级数 $\sum_{n=-\infty}^{+\infty} a_n(z-z_0)^n$，由一致收敛，可以逐项积分得：</p>
+<p>$$\frac{1}{2\pi\mathrm{i}}\int_{|z-z_0|=\rho} f(z)\mathrm{d}z = a_{-1}$$</p>
+<p>定义上式为 $f$ 在 $z_0$ 处的<strong>留数</strong>，记作 $\mathrm{Res}_{z=z_0} f(z)\mathrm{d}z$.</p>
+<p>另定义无穷处的留数为 $-\frac{1}{2\pi\mathrm{i}}\int_{|z|=\rho} f(z)\mathrm{d}z$.</p>
+<p>我们是对 1-形式 $f(z)\mathrm{d}z$ 定义的，从而不依赖坐标选取。有时也省略 $\mathrm{d}z$.</p>
+<p>在 $z_0$ 为 $m$ 阶零点时，其邻域内有 $f(z) = \frac{1}{(z-z_0)^m}g(z)$，设 $g$ 在 $z_0$ 处的 Taylor 展开式为 $\sum_{n=0}^{+\infty}\frac{1}{n!}g^{(n)}(z_0)(z-z_0)^n$，就有 $\mathrm{Res}_{z=z_0} f(z)\mathrm{d}z = \frac{1}{(m-1)!}g^{(m-1)}(z_0)$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>留数定理</strong></span>
+  </div>
+  <div class="pl-4"><p>$\Omega$ 是 $\bar{\mathbb{C}}$ 中以有限条逐段光滑曲线为边界的区域且 $\infty\notin\partial\Omega$，其内部有点 $z_1, z_2, \cdots ,z_n$，设 $f$ 在 $\Omega$ 中除这些点之外解析，在 $\bar{\Omega}$ 中除这些点之外连续，则：</p>
+<p>$$\int_{\partial\Omega} f(z)\mathrm{d}z = 2\pi\mathrm{i}\sum_{i=1}^n\mathrm{Res}_{z=z_k}f(z)$$</p>
+</div>
+</div>
+<p>可从 Cauchy 公式推出。</p>
+<p>一种补充情况是，若 $f$ 在 $\bar{\mathbb{C}}$ 内除 $z_1, z_2, \cdots, z_n$ 外解析，则</p>
+<p>$$\sum_{i=1}^n\mathrm{Res}_ {z=z_k}f(z) + \mathrm{Res}_ {z=\infty}f(z) = 0$$</p>
+<h3 id="fu-jiao-yuan-li">辐角原理</h3>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>辐角原理</strong></span>
+  </div>
+  <div class="pl-4"><p>$f$ 在区域 $D$ 内亚纯，$\Gamma = \partial \Omega, \Omega\subseteq D$ 是可求长简单闭曲线，且 $f$ 在 $\Gamma$ 上没有零点和极点，则</p>
+<p>$$\frac{1}{2\pi\mathrm{i}}\int_\Gamma \frac{f'(z)}{f(z)} \mathrm{d}z$$</p>
+<p>等于 $f$ 在 $\Gamma$ 内的零点个数减去极点个数（记重数）。</p>
+</div>
+</div>
+<p>由 $f$ 在 $\Gamma$ 上没有零点和极点，在 $\Omega$ 内只有有限个零点和极点，设零点 $z_1, \cdots , z_n$，极点 $w_1, \cdots , w_k$，取充分小的 $r$ 使所有的 $D(z_i, r)$ 及 $D(w_j, r)$ 两两不交即可。</p>
+<p>实际上此定理说的是这个值等于 $w$ 沿着 $\gamma = f(\Gamma)$ 前进的辐角改变量 $\Delta_\gamma \operatorname{Arg} w$ 除以 $2\pi$.</p>
+<p>它的常用推论如下：</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Rouché 定理</strong></span>
+  </div>
+  <div class="pl-4"><p>$f$ 与 $g$ 在区域 $D$ 内解析，$\Gamma = \partial \Omega,\ \Omega\subseteq D$ 是可求长简单闭曲线，且在 $\Gamma$ 上 $|g(z)|&lt;|f(z)|$，则 $f$ 与 $f+g$ 在 $\Gamma$ 内的零点个数（记重数）相同。</p>
+</div>
+</div>
+<p>因为 $h=f+g$ 的零点个数减去 $f$ 的零点个数为：</p>
+<p>$$\frac{1}{2\pi\mathrm{i}}\int_\Gamma \left[\frac{h'(z)}{h(z)}-\frac{f'(z)}{f(z)}\right] \mathrm{d}z = \frac{1}{2\pi\mathrm{i}}\int_\Gamma \frac{(h/f)'(z)}{(h/f)(z)} \mathrm{d}z = \frac{1}{2\pi} \Delta_\Gamma \operatorname{Arg} \frac{h}{f} = 0$$</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>分歧覆盖定理</strong></span>
+  </div>
+  <div class="pl-4"><p>$f$ 在区域 $D$ 内解析，$z_0\in D$ 的像是 $w_0$，$z_0$ 是 $f(z)-w_0$ 的 $m$ 阶零点，则存在 $\rho, \delta &gt; 0$，对任意 $w\in \mathring{D}(w_0, \rho)$ 有 $f(z)-w$ 在 $\mathring{D}(z_0, \delta)$ 内恰有 $m$ 个一阶零点。</p>
+</div>
+</div>
+<p>由零点孤立性，可取出 $\delta$ 使 $\mathring{D}(z_0, \delta)$ 上 $f(z)-w_0$ 与 $f'(z)$ 无零点，再取 $\rho = \min_{|z-z_0|=\delta} |f(z)-w_0| &gt; 0$.</p>
+<p>有 $|z-z_0|=\delta$ 时，</p>
+<p>$$|(f(z)-w) - (f(z)-w_0)| &lt; |f(z)-w_0|$$</p>
+<p>使用 Rouché 定理即可。</p>
+<p>这意味着，$f(z)-w_0$ 在 $z_0$ 附近的性质与 $z^m$ 在 $0$ 附近的性质近似。</p>
+<h3 id="ding-ji-fen-ji-suan">定积分计算</h3>
+<p>许多 $\mathbb{R}$ 上难以处理的定积分问题可以放到 $\mathbb{C}$ 上来算。</p>
+<p>一个直接的例子是：</p>
+<p>$$\int_0^{2\pi} \frac{\mathrm{d}\theta}{a+b\cos\theta} = \frac{2}{\mathrm{i}}\int_{|z|=1} \frac{\mathrm{d}z}{bz^2+2az+b} = 4\pi \mathrm{Res}_{z=(-a+\sqrt{a^2-b^2})/b} \left(\frac{\mathrm{d}z}{bz^2+2az+b}\right) = \frac{2\pi}{\sqrt{a^2-b^2}}$$</p>
+<hr />
+<p>对 $f(z) = \frac{1}{(1+z^2)^{n+1}}$，计算 $\int_0^{+\infty} f(x)\mathrm{d}x$ 需要手动建立回路。令 $\gamma$ 是从 $R$ 顺时针转到 $-R$ 的路径，则：</p>
+<p>$$\int_{-R}^{R} f(z)\mathrm{d}z + \int_\gamma f(z)\mathrm{d}z = 2\pi\mathrm{i}\cdot\mathrm{Res}_{z=\mathrm{i}} f(z)\mathrm{d}z = \frac{1}{2\mathrm{i}}\cdot\frac{(2n-1)!!}{(2n)!!}$$</p>
+<p>令 $R\to+\infty$，则 $\left|\int_\gamma f(z)\mathrm{d}z\right|\to 0$，故结果为 $\frac{(2n-1)!!}{2(2n)!!} \pi$.</p>
+<hr />
+<p>对 $\int_0^{+\infty} \frac{\sin x}{x} \mathrm{d}x$，我们选取的回路是：</p>
+<p><img src="/images/complex/res_half_ring.svg" alt="Residue Half Ring" /></p>
+<p>对 $\int_0^{+\infty} \frac{x^{p-1}}{1+x} \mathrm{d}x,\ 0 &lt; p &lt; 1$，我们选取的回路是：</p>
+<p><img src="/images/complex/res_keyhole.svg" alt="Residue Key Hole" /></p>
+<h2 id="diao-he-han-shu">调和函数</h2>
+<h3 id="xing-zhi">性质</h3>
+<p>我们回忆实函数 $u(x, y)$ 是调和的，如果 $\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = 0$.</p>
+<p>回顾这个结论：</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>存在共轭调和</strong></span>
+  </div>
+  <div class="pl-4"><p>单连通区域 $D$ 上调和函数 $u$ 存在共轭调和函数 $v$，即 $v$ 使得：</p>
+<p>$$\frac{\partial v}{\partial x} = - \frac{\partial u}{\partial y},\ \frac{\partial v}{\partial y} = \frac{\partial u}{\partial x}$$</p>
+</div>
+</div>
+<p>取定 $z_0 \in D$，考虑：</p>
+<p>$$\int_{z_0}^z - \frac{\partial u}{\partial y}\mathrm{d}x + \frac{\partial u}{\partial x}\mathrm{d}y$$</p>
+<p>那么存在：</p>
+<p>$$\mathrm{d}v = - \frac{\partial u}{\partial y}\mathrm{d}x + \frac{\partial u}{\partial x}\mathrm{d}y$$</p>
+<p>即是所求。共轭调和函数使得 $f = u + \mathrm{i}v$ 在 $D$ 内解析。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>平均值定理</strong></span>
+  </div>
+  <div class="pl-4"><p>$u$ 在圆盘 $|z-z_0| &lt; R$ 内调和，则对 $0 \leq r &lt; R$ 有：</p>
+<p>$$u(z_0) = \frac{1}{2\pi} \int_0^{2\pi} u(z_0 + re^{\mathrm{i}\theta}) \mathrm{d}\theta$$</p>
+</div>
+</div>
+<p>取解析函数 $f = u + \mathrm{i}v$，由 Cauchy 公式有：</p>
+<p>$$u(z_0) = \operatorname{Re} \frac{1}{2\pi\mathrm{i}} \int_{|z-z_0|=r} \frac{u(z)+\mathrm{i}v(z)}{z-z_0} \mathrm{d}z = \operatorname{Re} \frac{1}{2\pi\mathrm{i}} \int_0^{2\pi} u(z_0 + re^{\mathrm{i}\theta})\mathrm{i} \mathrm{d}\theta - v(z_0 + re^{\mathrm{i}\theta}) \mathrm{d}\theta$$</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>最大、最小值原理</strong></span>
+  </div>
+  <div class="pl-4"><p>$u$ 在区域 $\Omega$ 内调和且非常数，则它在 $\Omega$ 内取不到最大值和最小值。</p>
+</div>
+</div>
+<p>令 $M = \sup_{z\in \Omega} u(z)$，不妨设 $M &lt; +\infty$ 且在 $\Omega$ 内的 $z_0$ 处取到。</p>
+<p>则考虑 $D(z_0, R) \subseteq \Omega$，由平均值定理知该圆盘内 $u$ 的值恒为 $0$，然后我们可以选取新的中心的圆盘，这样做可以触及所有的点<sup class="footnote-reference"><a href="#1">1</a></sup><sup class="footnote-reference"><a href="#2">2</a></sup>。</p>
+<h3 id="dirichlet-wen-ti">Dirichlet 问题</h3>
+<p>作为平均值公式的推广，我们证明：</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Poisson 公式</strong></span>
+  </div>
+  <div class="pl-4"><p>$u$ 在圆盘 $|z-z_0| &lt; R$ 内调和，则对 $0 &lt; r &lt; R$ 及 $|z| &lt; r$ 有：</p>
+<p>$$u(z) = \frac{1}{2\pi} \int_0^{2\pi} \frac{r^2-|z|^2}{|re^{\mathrm{i}\theta}-z|^2} u(re^{\mathrm{i}\theta}) \mathrm{d}\theta$$</p>
+</div>
+</div>
+<p>使用 Cauchy 公式及 Cauchy 定理证明。</p>
+<p>其中 $1/2\pi \cdot (r^2-|z|^2)/|re^{\mathrm{i}\theta}-z|^2 &gt; 0$ 称为 <strong>Poisson 核</strong>。</p>
+<p><strong>Dirichlet 问题</strong>是说：对一个区域 $D$ 及它边界上定义的实连续函数 $u$，是否可给出一个 $\bar{D}$ 上的调和函数，使其在边界上是 $u$.</p>
+<p>对单位圆盘，可以由以下 Poisson 积分解决：</p>
+<p>$$u(z) = \frac{1}{2\pi} \int_0^{2\pi} \frac{1-|z|^2}{|e^{\mathrm{i}\theta}-z|^2} u(e^{\mathrm{i}\theta}) \mathrm{d}\theta$$</p>
+<hr />
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>我舍友给出的一个证法是：取一条道路，把命题加强为从一个圆心转移到另一个圆心，每次取参数的中点看哪一半没有取到，可使用闭区间套。</p>
+</div>
+<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
+<p>另一个同学补充说可直接使用结论：对不相交的紧集和开集，它们的距离非 0.</p>
+</div>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/分析/">分析</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/复分析/">复分析</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/pages"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <link rel="stylesheet" href="https://rratic.github.io/katex/katex.min.css?h=e189fd0238811989c364" />
+  <script defer src="https://rratic.github.io/katex/katex.min.js?h=6b909443e6c8f6e5d24c"></script>
+  <script defer src="https://rratic.github.io/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

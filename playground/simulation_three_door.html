@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="utf-8">
+	<title>模拟 - 三门问题</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
+	<link rel="stylesheet" href="/style/form.css" type="text/css">
+	<script src="/script/three_door/main.js"></script>
+</head>
+
+<body>
+	<div id="three-door" class="form-area">
+		<fieldset class="row">
+			<legend>配置</legend>
+			<select id="select-repetition">
+				<option value="0">手动</option>
+				<option value="100">自动 100 轮</option>
+				<option value="10000">自动 10000 轮</option>
+				<option value="100000">自动 100000 轮</option>
+			</select>
+			<select>
+				<option>默认随机源</option>
+			</select>
+			<select id="select-scheme">
+				<option value="a">方案一</option>
+				<option value="b">方案二</option>
+			</select>
+			<button type="button" class="confirm-btn" onclick="launch()">确定</button>
+		</fieldset>
+		<fieldset id="choose-door" class="row" style="display: none;">
+			<legend>选门</legend>
+			<button type="button" class="circle-btn" onclick="chosen=0">A</button>
+			<button type="button" class="circle-btn" onclick="chosen=1">B</button>
+			<button type="button" class="circle-btn" onclick="chosen=2">C</button>
+		</fieldset>
+		<fieldset id="choose" class="row" style="display: none;">
+			<legend>选择</legend>
+			<button class="square-btn" onclick="window.change=0">换</button>
+			<button class="square-btn" onclick="window.change=1">不换</button>
+		</fieldset>
+		<fieldset class="row">
+			<legend>输出</legend>
+			<p id="output"></p>
+		</fieldset>
+	</div>
+</body>
+
+</html>

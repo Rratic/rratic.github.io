@@ -1,0 +1,282 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>基于 Lua 的模拟环境 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="基于 Lua 的模拟环境" />
+  <meta name="description" content="一个纯粹实验性、无实质内容的项目。" />
+  <meta property="og:description" content="一个纯粹实验性、无实质内容的项目。" />
+  <meta property="og:url" content="https://rratic.github.io/posts/functional-chaos/" />
+  <link rel="canonical" href="https://rratic.github.io/posts/functional-chaos/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2025-05-06T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2025-08-03T00:00:00+00:00" />
+  <meta property="article:tag" content="发布" />
+  <meta property="article:tag" content="展示" />
+  <meta property="article:tag" content="计算机" />
+  <meta property="article:tag" content="可运行" />
+  <meta property="og:image" content="https://rratic.github.io/images/cover/seniorious.png" />
+  <meta property="og:image:alt" content="" />
+  <meta property="og:image:width" content="357" />
+  <meta property="og:image:height" content="240" />
+  <meta property="og:image:type" content="image/png" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.github.io/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.github.io/style/shared.css?h=63eca58df589815f6747" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.github.io/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.github.io/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.github.io/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.github.io/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">基于 Lua 的模拟环境</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2025-05-06T00:00:00+00:00">2025-05-06</time><span
+        class="middot"></span><time
+    datetime="PT0H6M0S">6&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <figure class="mt-0 mb-12">
+    <img
+      class="h-auto w-full rounded-lg"
+      src="https://rratic.github.io/images/cover/seniorious.png"
+      width="357"
+      height="240"
+    />
+  </figure>
+  <!-- TOC -->
+
+  <!-- Content -->
+  <section><style>
+	table code {
+		color: orange !important;
+	}
+</style>
+<p>封面图为《末日时在做什么？有没有空？可以来拯救吗？》的角色珂朵莉持有的圣剑「瑟尼欧里斯」，在设定中由 41 个形如“感冒发烧时睡觉不会做噩梦”、“在喝茶时不会被茶烫到舌头”的护符组成，异稟是“将对手化为死者”。</p>
+<hr />
+<p>本文章对应的在线项目见于<a href="/playground/chaos.html">函数式混沌</a>。一个基于此想法但 API 不同的项目见于 <a href="https://github.com/FoamWorld/milfoil">Milfoil</a>.</p>
+<h2 id="jie-shao">介绍</h2>
+<p>一直以来都有一个横亘在我们眼前的难题，即如何弥合现实（这里指现实的离散、抽象部分）与模拟之间的鸿沟。</p>
+<p>曾经语言学家认为可以通过设定规则把自然语言处理（Natural Language Processing）做好，然而对比统计方法，尽显其弊端：复杂性使规则难以穷举、歧义会引入新的复杂性、成本过高（如欧盟的 Eurotra 项目）。</p>
+<p>然而我们有时还是希望确保一个模拟系统的准确性（我认为对于分而治之、菱形继承问题的处理、ECS 架构等等思想部分体现了这一点），乃至探讨引入特殊的、不同优先级规则的结果，因而我还是希望去逐步地设计一个这样的框架。</p>
+<p>这个过程必然不是一蹴而就的，而且并不是封闭的，因此它必须有足够的灵活性。</p>
+<p>我认为 <a href="https://www.lua.org/">Lua</a> 具有相当的优势：</p>
+<ul>
+<li>优雅
+<ul>
+<li>语法可以简单地讲清</li>
+<li><strong>函数是一等公民</strong></li>
+</ul>
+</li>
+<li>有足够的灵活性，主要体现在动态类型和 <code>table</code>
+<ul>
+<li>没有原生的类，但可以通过 <code>setmetatable</code> 等模拟</li>
+<li>模块化的最佳实践也使用 <code>table</code></li>
+</ul>
+</li>
+<li>LuaJIT 足够快，相比 js 来说，提供原生整数类型更易令人接受</li>
+<li>作为一个广泛存在的插件语言有足够的支持</li>
+</ul>
+<h2 id="ji-shu">技术</h2>
+<p>使用了 <a href="https://github.com/fengari-lua/fengari-web">fengari-web</a> 直接加载嵌入在页面中的代码，它是基于 Lua 虚拟环境 <a href="https://fengari.io/">Fengari</a> 和额外的 js 和 DOM 接口 <a href="https://github.com/fengari-lua/fengari-interop">fengari-interop</a>。其支持的版本是 <a href="https://www.lua.org/manual/5.3/manual.html">Lua 5.3</a>。</p>
+<h2 id="chen-she">陈设</h2>
+<p>可以通过命令栏在虚拟环境中运行 Lua 代码。虚拟环境提供的唯一模块接口是 <code>commands</code>.</p>
+<p>特别地，使用 <code>/preload</code> 注册的代码会在完整的环境（即 <code>_ENV</code>）中运行。</p>
+<p>以 <code>/</code> 开头的命令，如 <code>/help</code>，会被自动替换为 <code>commands.help:run()</code>.</p>
+<p>此外，提供了快捷键和亮暗色模式（跟随整个站点的设置 <code>localStorage["linkita-color-scheme"]</code>）。</p>
+<h2 id="api">API</h2>
+<p>只提供部分文档，希望自行阅读<a href="https://github.com/Rratic/rratic.github.io/tree/main/static/script/chaos">源代码</a>。</p>
+<p>由于进行了模块化（尽管还不够完全），你可以随意地编写 mod 带来翻天覆地的改变，然后放到 <code>preload</code> 中。</p>
+<h3 id="jie-dian-kong-zhi-nodes">节点控制 Nodes</h3>
+<p><code>Nodes</code> 是两层的字典，一个节点是第一层 <code>Nodes.map[name]</code> 的值，一个结点是第二层 <code>Nodes.map[name][subname]</code> 的值，是一个函数。</p>
+<table><thead><tr><th style="text-align: center">方法</th><th style="text-align: center">效果</th></tr></thead><tbody>
+<tr><td style="text-align: center"><code>Nodes.add(name: string, knots: dictionary&lt;function&gt;)</code></td><td style="text-align: center">添加一组节点</td></tr>
+<tr><td style="text-align: center"><code>Nodes.run(node: string, knot: string)</code></td><td style="text-align: center">运行结点</td></tr>
+<tr><td style="text-align: center"><code>Nodes.jump(dest: array&lt;string&gt;)</code></td><td style="text-align: center">跳转到结点，若长为 1 则在当前结点下跳转，否则视作完整的路径</td></tr>
+</tbody></table>
+<h3 id="xiao-xi-dui-lie-queue">消息队列 Queue</h3>
+<p>每一条消息都有一个整数的重要性指标，存储在 HTML 标签的 <code>dataset["l"]</code>.</p>
+<p><code>Queue.clear(level: integer, level_decrease: integer)</code> 会遍历所有消息，直接移除重要性指标小于 <code>level</code> 的，并将所有重要性指标减去 <code>level_decrease</code>.</p>
+<table><thead><tr><th style="text-align: center">方法</th><th style="text-align: center">效果</th><th style="text-align: center">重要性指标</th></tr></thead><tbody>
+<tr><td style="text-align: center"><code>Queue.push_line(string: string, type: string)</code></td><td style="text-align: center">增加一行消息，可选类型 <code>markdown</code>（默认），<code>plain</code>，<code>html</code></td><td style="text-align: center">1</td></tr>
+<tr><td style="text-align: center"><code>Queue.push_info(message: string)</code></td><td style="text-align: center">增加一行“信息”消息</td><td style="text-align: center">1</td></tr>
+<tr><td style="text-align: center"><code>Queue.push_success(message: string)</code></td><td style="text-align: center">增加一行“成功”消息</td><td style="text-align: center">2</td></tr>
+<tr><td style="text-align: center"><code>Queue.push_warning(message: string)</code></td><td style="text-align: center">增加一行“警告”消息</td><td style="text-align: center">3</td></tr>
+<tr><td style="text-align: center"><code>Queue.push_error(message: string)</code></td><td style="text-align: center">增加一行“错误”消息</td><td style="text-align: center">4</td></tr>
+</tbody></table>
+<p><code>Queue.push_choices(list: array&lt;dictionary&gt;)</code> 可以添加一组选项，每个选项有以下字段：</p>
+<table><thead><tr><th style="text-align: center">字段</th><th style="text-align: center">用于</th><th style="text-align: center">默认</th></tr></thead><tbody>
+<tr><td style="text-align: center"><code>on: boolean</code></td><td style="text-align: center">控制是否被使用</td><td style="text-align: center">是</td></tr>
+<tr><td style="text-align: center"><code>t: string</code></td><td style="text-align: center">文本内容</td><td style="text-align: center"><strong>必填</strong></td></tr>
+<tr><td style="text-align: center"><code>rm: boolean</code></td><td style="text-align: center">选择后是否运行 <code>Queue.clear(1, 0)</code></td><td style="text-align: center">执行</td></tr>
+<tr><td style="text-align: center"><code>w: string</code></td><td style="text-align: center">选择后显示的 Markdown 消息</td><td style="text-align: center">无显示</td></tr>
+<tr><td style="text-align: center"><code>cl: boolean</code></td><td style="text-align: center">选择后是否运行 <code>Queue.clear(2, 1)</code></td><td style="text-align: center">不执行</td></tr>
+<tr><td style="text-align: center"><code>f: function</code></td><td style="text-align: center">选择后额外调用的函数</td><td style="text-align: center">无</td></tr>
+<tr><td style="text-align: center"><code>j: array&lt;string&gt;</code></td><td style="text-align: center">选择后调用 <code>Nodes.jump(j)</code></td><td style="text-align: center">不执行</td></tr>
+</tbody></table>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/categories/杂物/">杂物</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/发布/">发布</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/展示/">展示</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/计算机/">计算机</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/可运行/">可运行</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/pages"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

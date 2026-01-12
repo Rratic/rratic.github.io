@@ -1,0 +1,686 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>Agda 学习（一）：完成简单证明的一切 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="Agda 学习（一）：完成简单证明的一切" />
+  <meta name="description" content="类型论的实践：函数式程序推理与演算。Agda 中的证明、归纳、列表、Internal Verification 和等式理论。" />
+  <meta property="og:description" content="类型论的实践：函数式程序推理与演算。Agda 中的证明、归纳、列表、Internal Verification 和等式理论。" />
+  <meta property="og:url" content="https://rratic.github.io/posts/agda-1/" />
+  <link rel="canonical" href="https://rratic.github.io/posts/agda-1/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2025-11-12T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2025-12-13T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="计算机" />
+  <meta property="article:tag" content="函数式编程" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.github.io/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.github.io/style/shared.css?h=63eca58df589815f6747" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.github.io/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.github.io/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.github.io/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.github.io/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">Agda 学习（一）：完成简单证明的一切</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2025-11-12T00:00:00+00:00">2025-11-12</time><span
+        class="middot"></span><time
+    datetime="PT0H6M0S">6&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#huan-jing-pei-zhi">环境配置</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#gai-lan">概览</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#bu-er-lei-xing">布尔类型</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#shi-yong-refl-zheng-ming">使用 refl 证明</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#gui-na">归纳</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#zi-ran-shu-lei-xing">自然数类型</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#shi-yong-hole">使用 hole</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#fu-zhu-yin-li">辅助引理</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#xiang-deng-ce-shi">相等测试</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#xiang-hu-di-gui">相互递归</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#li-zi">例子</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#lie-biao">列表</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#lie-biao-lei-xing">列表类型</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#maybe-lei-xing">Maybe 类型</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#with-yu-in">with 与 in</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#internal-verification">Internal Verification</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#xiang-liang-lei-xing">向量类型</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#guan-xi">关系</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#dependent-sum">Dependent Sum</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#deng-shi-li-lun">等式理论</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#deng-shi-li-lun-1">等式理论</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#deng-shi-tui-li">等式推理</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#shi-yi">拾遗</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#record">Record</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#fou-ding">否定</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </details>
+</nav>
+
+  <!-- Content -->
+  <section><nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+	<div class="select-none py-0.5 lg:py-1 pl-3.5">
+		<a href="/_misc/functional-programming/" target="_blank">索引 ⟨ functional-programming ⟩</a>
+	</div>
+</nav>
+<p>前置知识</p>
+<ul>
+<li><a href="/posts/haskell-1/">Haskell</a></li>
+</ul>
+<p>参考的是<a href="https://zhenjiang888.github.io/FP/2025/">北京大学 - 计算概论A实验班 函数式程序设计 2025秋</a>下半学期讲义。</p>
+<p>参考阅读：</p>
+<ul>
+<li><em>Verified Functional Programming in Agda</em></li>
+</ul>
+<h2 id="huan-jing-pei-zhi">环境配置</h2>
+<p>可参考 <a href="https://agda.readthedocs.io/en/latest/getting-started/installation.html">https://agda.readthedocs.io/en/latest/getting-started/installation.html</a> 的指引。</p>
+<p>Agda 是用 Haskell 写的，可以在<a href="/posts/haskell-1/">安装好 Haskell</a> 后通过如下命令安装：</p>
+<pre data-lang="cmd" class="language-cmd z-code"><code class="language-cmd" data-lang="cmd"><span class="z-source z-dosbatch">cabal update
+</span><span class="z-source z-dosbatch">cabal install Agda
+</span></code></pre>
+<p>在 Windows 下，如果 Agda 程序路径没有被自动添加到 PATH 下，可手动在命令行运行（后面的路径是 Cabal 安装路径）：</p>
+<pre data-lang="cmd" class="language-cmd z-code"><code class="language-cmd" data-lang="cmd"><span class="z-source z-dosbatch"><span class="z-keyword z-command z-dosbatch">setx</span> <span class="z-keyword z-command z-dosbatch">PATH</span> <span class="z-string z-quoted z-double z-dosbatch"><span class="z-punctuation z-definition z-string z-begin z-dosbatch">&quot;</span><span class="z-variable z-other z-readwrite z-dosbatch"><span class="z-punctuation z-definition z-variable z-begin z-dosbatch">%</span>PATH<span class="z-punctuation z-definition z-variable z-end z-dosbatch">%</span></span>;D:\cabal\bin<span class="z-punctuation z-definition z-string z-end z-dosbatch">&quot;</span></span>
+</span></code></pre>
+<p>接下来需要安装标准库，步骤请参考 <a href="https://higher-order.fun/cn/2023/11/15/InstallAgda.html">配置 Agda 开发环境（2023）</a>，本文是基于 2.8.0 版本的标准库。</p>
+<p>在 VSCode 的 <code>agda-mode</code> 插件中，打开一个 Agda 文件，按 <code>Ctrl + C</code> 再按 <code>Ctrl + L</code> 来加载它。</p>
+<p>或者直接在命令行中使用 <code>agda filename.agda</code> 编译它。</p>
+<h2 id="gai-lan">概览</h2>
+<h3 id="bu-er-lei-xing">布尔类型</h3>
+<p>布尔类型的定义如下</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-keyword z-other z-agda">module</span> <span class="z-entity z-name z-type z-agda">Agda.Builtin.Bool</span> <span class="z-keyword z-other z-agda">where</span>
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">data</span> <span class="z-entity z-name z-type z-agda">Bool</span> <span class="z-keyword z-other z-agda">:</span> <span class="z-constant z-language z-agda">Set</span> <span class="z-keyword z-other z-agda">where</span>
+</span><span class="z-source z-agda">  false true <span class="z-keyword z-other z-agda">:</span> Bool
+</span></code></pre>
+<p>有关的定义如：</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-keyword z-other z-agda">infix</span> <span class="z-constant z-numeric z-agda">0</span> if_then_else_
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">if_then_else_</span> <span class="z-keyword z-other z-agda">:</span> Bool <span class="z-keyword z-other z-agda">→</span> A <span class="z-keyword z-other z-agda">→</span> A <span class="z-keyword z-other z-agda">→</span> A
+</span><span class="z-source z-agda">if true  then t else f <span class="z-keyword z-other z-agda">=</span> t
+</span><span class="z-source z-agda">if false then t else f <span class="z-keyword z-other z-agda">=</span> f
+</span></code></pre>
+<p>这些语法与 Haskell 非常相似。</p>
+<h3 id="shi-yong-refl-zheng-ming">使用 <code>refl</code> 证明</h3>
+<p>Curry-Howard 同构的想法是：类型是命题，而实例是类型的证明。</p>
+<p><code>refl</code> 的原型如下：</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-keyword z-other z-agda">module</span> <span class="z-entity z-name z-type z-agda">Agda.Builtin.Equality</span> <span class="z-keyword z-other z-agda">where</span>
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">infix</span> <span class="z-constant z-numeric z-agda">4</span> _≡_
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">data</span> <span class="z-entity z-name z-type z-agda">_≡_</span> {a} {A <span class="z-keyword z-other z-agda">:</span> <span class="z-constant z-language z-agda">Set</span> a} (x <span class="z-keyword z-other z-agda">:</span> A) <span class="z-keyword z-other z-agda">:</span> A <span class="z-keyword z-other z-agda">→</span> <span class="z-constant z-language z-agda">Set</span> a <span class="z-keyword z-other z-agda">where</span>
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">  instance </span><span class="z-entity z-name z-agda">refl</span> <span class="z-keyword z-other z-agda">:</span> x ≡ x
+</span></code></pre>
+<p>这里的 <code>{}</code> 表示隐式参数，可以被自动推断；而 <code>()</code> 表示显式参数；是否加 <code>∀</code> 只是风格问题。</p>
+<p>可以以如下方式使用：</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-entity z-name z-agda">~~tt</span> <span class="z-keyword z-other z-agda">:</span> ~ ~ true ≡ true
+</span><span class="z-source z-agda">~~tt <span class="z-keyword z-other z-agda">=</span> refl{lzero}{Bool}{true}
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">~~ff</span> <span class="z-keyword z-other z-agda">:</span> ~ ~ false ≡ false
+</span><span class="z-source z-agda">~~ff <span class="z-keyword z-other z-agda">=</span> refl{lzero}{Bool}{false}
+</span></code></pre>
+<p>可以被简化为 <code>~~tt = refl</code>.</p>
+<p>一个更一般的命题及其证明如下：</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-entity z-name z-agda">~~-elim</span> <span class="z-keyword z-other z-agda">:</span> <span class="z-keyword z-other z-agda">∀</span> (b <span class="z-keyword z-other z-agda">:</span> Bool) <span class="z-keyword z-other z-agda">→</span> ~ ~ b ≡ b
+</span><span class="z-source z-agda">~~-elim true <span class="z-keyword z-other z-agda">=</span> refl
+</span><span class="z-source z-agda">~~-elim false <span class="z-keyword z-other z-agda">=</span> refl
+</span></code></pre>
+<p>或者使用</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-entity z-name z-agda">~~-elim</span> <span class="z-keyword z-other z-agda">:</span> <span class="z-keyword z-other z-agda">∀</span> (b <span class="z-keyword z-other z-agda">:</span> Bool) <span class="z-keyword z-other z-agda">→</span> ~ ~ b ≡ b
+</span><span class="z-source z-agda">~~-elim true <span class="z-keyword z-other z-agda">=</span> ~~tt
+</span><span class="z-source z-agda">~~-elim false <span class="z-keyword z-other z-agda">=</span> ~~ff
+</span></code></pre>
+<p>对于带假设的证明，可使用 <code>()</code> 表示条件不可能。</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-entity z-name z-agda">||≡ff</span> <span class="z-keyword z-other z-agda">:</span> <span class="z-keyword z-other z-agda">∀</span> {b1 b2} <span class="z-keyword z-other z-agda">→</span> b1 || b2 ≡ false <span class="z-keyword z-other z-agda">→</span> b2 ≡ false
+</span><span class="z-source z-agda">||≡ff {true} ()
+</span><span class="z-source z-agda">||≡ff {false}{true} ()
+</span><span class="z-source z-agda">||≡ff {false}{false} p <span class="z-keyword z-other z-agda">=</span> refl
+</span></code></pre>
+<p>对于等式，可以使用重写关键字 <code>rewrite</code>，其后接的是一个 <code>left ≡ right</code> 型的命题，这将会把表达式表层的 <code>left</code>（模式匹配）变为 <code>right</code>.</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-entity z-name z-agda">||-cong</span> <span class="z-keyword z-other z-agda">:</span> <span class="z-keyword z-other z-agda">∀</span> {b1 b2 b2&#39;} <span class="z-keyword z-other z-agda">→</span> b2 ≡ b2&#39; <span class="z-keyword z-other z-agda">→</span> b1 || b2 ≡ b1 || b2&#39;
+</span><span class="z-source z-agda">||-cong p <span class="z-keyword z-other z-agda">rewrite</span> p <span class="z-keyword z-other z-agda">=</span> refl
+</span></code></pre>
+<h2 id="gui-na">归纳</h2>
+<h3 id="zi-ran-shu-lei-xing">自然数类型</h3>
+<p>自然数类型的定义如下：</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-keyword z-other z-agda">data</span> <span class="z-entity z-name z-type z-agda">Nat</span> <span class="z-keyword z-other z-agda">:</span> <span class="z-constant z-language z-agda">Set</span> <span class="z-keyword z-other z-agda">where</span>
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">  </span><span class="z-entity z-name z-agda">zero</span> <span class="z-keyword z-other z-agda">:</span> Nat
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">  </span><span class="z-entity z-name z-agda">suc</span>  <span class="z-keyword z-other z-agda">:</span> (n <span class="z-keyword z-other z-agda">:</span> Nat) <span class="z-keyword z-other z-agda">→</span> Nat
+</span></code></pre>
+<p>各种运算符都是归纳定义的。</p>
+<p>我们来看加法结合律的证明：</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-entity z-name z-agda">+assoc</span> <span class="z-keyword z-other z-agda">:</span> <span class="z-keyword z-other z-agda">∀</span> (x y z <span class="z-keyword z-other z-agda">:</span> ℕ) <span class="z-keyword z-other z-agda">→</span> x + (y + z) ≡ (x + y) + z
+</span><span class="z-source z-agda">+assoc zero y z <span class="z-keyword z-other z-agda">=</span> refl
+</span><span class="z-source z-agda">+assoc (suc x) y z <span class="z-keyword z-other z-agda">rewrite</span> +assoc x y z <span class="z-keyword z-other z-agda">=</span> refl
+</span></code></pre>
+<p>我们给一个小的定理</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-entity z-name z-agda">+0</span> <span class="z-keyword z-other z-agda">:</span> <span class="z-keyword z-other z-agda">∀</span> (x <span class="z-keyword z-other z-agda">:</span> ℕ) <span class="z-keyword z-other z-agda">→</span> x + <span class="z-constant z-numeric z-agda">0</span> ≡ x
+</span><span class="z-source z-agda">+0 zero <span class="z-keyword z-other z-agda">=</span> refl
+</span><span class="z-source z-agda">+0 (suc x) <span class="z-keyword z-other z-agda">rewrite</span> +0 x <span class="z-keyword z-other z-agda">=</span> refl
+</span></code></pre>
+<h3 id="shi-yong-hole">使用 <code>hole</code></h3>
+<p>可以通过 <code>hole</code> 来交互式地得到以上证明，流程如下：</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-comment z-line z-double-dash z-agda">-- 引入 hole</span>
+</span><span class="z-source z-agda">+assoc zero y z <span class="z-keyword z-other z-agda">=</span> <span class="z-entity z-name z-tag z-agda">?</span>
+</span><span class="z-source z-agda"><span class="z-comment z-line z-double-dash z-agda">-- 按 Ctrl + C 再按 Ctrl + L</span>
+</span><span class="z-source z-agda">+assoc zero y z <span class="z-keyword z-other z-agda">=</span> <span class="z-entity z-name z-tag z-agda">{! 0!}</span>
+</span><span class="z-source z-agda"><span class="z-comment z-line z-double-dash z-agda">-- 显示 Goal: y+z ≡ y+z</span>
+</span></code></pre>
+<h3 id="fu-zhu-yin-li">辅助引理</h3>
+<p>为了证明 <code>+comm : ∀(x y : N) → x+y ≡ y+x</code>，分为两步</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda">+comm zero y <span class="z-keyword z-other z-agda">rewrite</span> +0 y <span class="z-keyword z-other z-agda">=</span> refl
+</span><span class="z-source z-agda">+comm (suc x) y <span class="z-keyword z-other z-agda">rewrite</span> +comm x y <span class="z-keyword z-other z-agda">=</span> <span class="z-entity z-name z-tag z-agda">?</span>
+</span></code></pre>
+<p>这里的 <code>hole</code> 是 <code>suc (y + x) ≡ y + suc x</code>，额外用一个引理证明它：</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-entity z-name z-agda">+suc</span> <span class="z-keyword z-other z-agda">:</span> <span class="z-keyword z-other z-agda">∀</span> (x y <span class="z-keyword z-other z-agda">:</span> N) <span class="z-keyword z-other z-agda">→</span> x + (suc y) ≡ suc (x + y) 
+</span><span class="z-source z-agda">+suc zero y <span class="z-keyword z-other z-agda">=</span> refl 
+</span><span class="z-source z-agda">+suc (suc x) y <span class="z-keyword z-other z-agda">rewrite</span> +suc x y <span class="z-keyword z-other z-agda">=</span> refl
+</span></code></pre>
+<p>现在就可用 <code>+comm (suc x) y rewrite +suc y x | +comm x y = refl</code> 来完成。</p>
+<p>对于更复杂的命题如 <code>*distribr : ∀ (x y z : N) → (x + y) * z ≡ x * z + y * z</code>，需选取合适的归纳变量。</p>
+<p>在这个结论中</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-entity z-name z-agda">&lt;-trans</span> <span class="z-keyword z-other z-agda">:</span> <span class="z-keyword z-other z-agda">∀</span> {x y z <span class="z-keyword z-other z-agda">:</span> ℕ} <span class="z-keyword z-other z-agda">→</span> x &lt; y ≡ true <span class="z-keyword z-other z-agda">→</span> y &lt; z ≡ true <span class="z-keyword z-other z-agda">→</span> x &lt; z ≡ true
+</span><span class="z-source z-agda">&lt;-trans p q <span class="z-keyword z-other z-agda">=</span> <span class="z-entity z-name z-tag z-agda">?</span>
+</span></code></pre>
+<p>加载将会显示</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda">Goal: .x &lt; .z ≡ true
+</span><span class="z-source z-agda"><span class="z-comment z-line z-double-dash z-agda">------------------------------------------------</span>
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">p</span> <span class="z-keyword z-other z-agda">:</span> .x &lt; .y ≡ true
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">q</span> <span class="z-keyword z-other z-agda">:</span> .y &lt; .z ≡ true
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">.z</span> <span class="z-keyword z-other z-agda">:</span> N
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">.y</span> <span class="z-keyword z-other z-agda">:</span> N 
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">.x</span> <span class="z-keyword z-other z-agda">:</span> N
+</span></code></pre>
+<h3 id="xiang-deng-ce-shi">相等测试</h3>
+<p>一个 <code>A → A → Bool</code> 类型的函数被称为相等测试，如果它返回 <code>true</code> 的条件是 <code>x ≡ y</code> 可证。</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-entity z-name z-agda">=ℕ_</span> <span class="z-keyword z-other z-agda">:</span> ℕ <span class="z-keyword z-other z-agda">→</span> ℕ <span class="z-keyword z-other z-agda">→</span> Bool
+</span><span class="z-source z-agda"><span class="z-constant z-numeric z-agda">0</span> =ℕ <span class="z-constant z-numeric z-agda">0</span> <span class="z-keyword z-other z-agda">=</span> true
+</span><span class="z-source z-agda">suc x =ℕ suc y <span class="z-keyword z-other z-agda">=</span> x =ℕ y
+</span><span class="z-source z-agda">_ =ℕ _ <span class="z-keyword z-other z-agda">=</span> false
+</span></code></pre>
+<h3 id="xiang-hu-di-gui">相互递归</h3>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda">is-even zero <span class="z-keyword z-other z-agda">=</span> true
+</span><span class="z-source z-agda">is-even (suc x) <span class="z-keyword z-other z-agda">=</span> is-odd x
+</span><span class="z-source z-agda">is-odd zero <span class="z-keyword z-other z-agda">=</span> false
+</span><span class="z-source z-agda">is-odd (suc x) <span class="z-keyword z-other z-agda">=</span> is-even x
+</span></code></pre>
+<h3 id="li-zi">例子</h3>
+<p>现在来看一个大例子：自然数乘法交换律的证明。</p>
+<p>其中少量使用了 <code>cong</code>，其定义将在之后等式理论节中说明。</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-keyword z-other z-agda">module</span> <span class="z-entity z-name z-type z-agda">Main</span> <span class="z-keyword z-other z-agda">where</span>
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">open import</span> <span class="z-entity z-name z-type z-agda">Data.Nat</span> <span class="z-keyword z-other z-agda">using</span> (ℕ; zero; suc; _+_; _*_)
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">open import</span> <span class="z-entity z-name z-type z-agda">Data.Bool</span> <span class="z-keyword z-other z-agda">using</span> (Bool; true; false; _∨_; if_then_else_)
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">open import</span> <span class="z-entity z-name z-type z-agda">Data.Vec</span> <span class="z-keyword z-other z-agda">using</span> (Vec; []; _∷_)
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">open import</span> <span class="z-entity z-name z-type z-agda">Data.List</span> <span class="z-keyword z-other z-agda">using</span> (List; []; _∷_)
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">import</span> <span class="z-entity z-name z-type z-agda">Relation.Binary.PropositionalEquality</span> as Eq
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">open</span> <span class="z-entity z-name z-type z-agda">Eq</span> <span class="z-keyword z-other z-agda">using</span> (_≡_; refl; sym; trans; cong; cong-app)
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">open</span> <span class="z-entity z-name z-type z-agda">Eq.≡-Reasoning</span> <span class="z-keyword z-other z-agda">using</span> (begin_; step-≡-⟩; step-≡-⟨; step-≡-∣; _∎)
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">+0</span> <span class="z-keyword z-other z-agda">:</span> (x <span class="z-keyword z-other z-agda">:</span> ℕ) <span class="z-keyword z-other z-agda">→</span> x + <span class="z-constant z-numeric z-agda">0</span> ≡ x
+</span><span class="z-source z-agda">+0 zero <span class="z-keyword z-other z-agda">=</span> refl
+</span><span class="z-source z-agda">+0 (suc x) <span class="z-keyword z-other z-agda">rewrite</span> +0 x <span class="z-keyword z-other z-agda">=</span> refl
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">+suc</span> <span class="z-keyword z-other z-agda">:</span> (x y <span class="z-keyword z-other z-agda">:</span> ℕ) <span class="z-keyword z-other z-agda">→</span> x + (suc y) ≡ suc (x + y) 
+</span><span class="z-source z-agda">+suc zero y <span class="z-keyword z-other z-agda">=</span> refl
+</span><span class="z-source z-agda">+suc (suc x) y <span class="z-keyword z-other z-agda">rewrite</span> +suc x y <span class="z-keyword z-other z-agda">=</span> refl
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">+-comm</span> <span class="z-keyword z-other z-agda">:</span> (x y <span class="z-keyword z-other z-agda">:</span> ℕ) <span class="z-keyword z-other z-agda">→</span> x + y ≡ y + x
+</span><span class="z-source z-agda">+-comm zero y <span class="z-keyword z-other z-agda">rewrite</span> +0 y <span class="z-keyword z-other z-agda">=</span> refl
+</span><span class="z-source z-agda">+-comm (suc x) y <span class="z-keyword z-other z-agda">rewrite</span> +suc y x | +-comm x y <span class="z-keyword z-other z-agda">=</span> refl
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">+-assoc</span> <span class="z-keyword z-other z-agda">:</span> (x y z <span class="z-keyword z-other z-agda">:</span> ℕ) <span class="z-keyword z-other z-agda">→</span> x + (y + z) ≡ (x + y) + z
+</span><span class="z-source z-agda">+-assoc zero y z <span class="z-keyword z-other z-agda">=</span> refl
+</span><span class="z-source z-agda">+-assoc (suc x) y z <span class="z-keyword z-other z-agda">rewrite</span> +-assoc x y z <span class="z-keyword z-other z-agda">=</span> refl
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">*0</span> <span class="z-keyword z-other z-agda">:</span> (x <span class="z-keyword z-other z-agda">:</span> ℕ) <span class="z-keyword z-other z-agda">→</span> x * <span class="z-constant z-numeric z-agda">0</span> ≡ <span class="z-constant z-numeric z-agda">0</span>
+</span><span class="z-source z-agda">*0 zero <span class="z-keyword z-other z-agda">=</span> refl
+</span><span class="z-source z-agda">*0 (suc x) <span class="z-keyword z-other z-agda">rewrite</span> *0 x <span class="z-keyword z-other z-agda">=</span> refl
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">*-mylemmalemma</span> <span class="z-keyword z-other z-agda">:</span> (x y z <span class="z-keyword z-other z-agda">:</span> ℕ) <span class="z-keyword z-other z-agda">→</span> y + (x + z) ≡ x + (y + z)
+</span><span class="z-source z-agda">*-mylemmalemma x y z <span class="z-keyword z-other z-agda">rewrite</span> +-assoc y x z | cong (_+ z) (+-comm y x) | +-assoc x y z <span class="z-keyword z-other z-agda">=</span> refl
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">*-mylemma</span> <span class="z-keyword z-other z-agda">:</span> (x y <span class="z-keyword z-other z-agda">:</span> ℕ) <span class="z-keyword z-other z-agda">→</span> y + y * x ≡ y * suc x
+</span><span class="z-source z-agda">*-mylemma x zero <span class="z-keyword z-other z-agda">=</span> refl
+</span><span class="z-source z-agda">*-mylemma x (suc y) <span class="z-keyword z-other z-agda">rewrite</span> *-mylemmalemma x y (y * x) | cong suc (cong (x +_) (*-mylemma x y)) <span class="z-keyword z-other z-agda">=</span> refl
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">*-comm</span> <span class="z-keyword z-other z-agda">:</span> (x y <span class="z-keyword z-other z-agda">:</span> ℕ) <span class="z-keyword z-other z-agda">→</span> x * y ≡ y * x
+</span><span class="z-source z-agda">*-comm zero y <span class="z-keyword z-other z-agda">rewrite</span> *0 y <span class="z-keyword z-other z-agda">=</span> refl
+</span><span class="z-source z-agda">*-comm (suc x) y <span class="z-keyword z-other z-agda">rewrite</span> *-comm x y <span class="z-keyword z-other z-agda">=</span> *-mylemma x y
+</span></code></pre>
+<h2 id="lie-biao">列表</h2>
+<h3 id="lie-biao-lei-xing">列表类型</h3>
+<p>列表类型的定义如下：</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-keyword z-other z-agda">infixr</span> <span class="z-constant z-numeric z-agda">5</span> _∷_
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">data</span> <span class="z-entity z-name z-type z-agda">List</span> {a} (A <span class="z-keyword z-other z-agda">:</span> <span class="z-constant z-language z-agda">Set</span> a) <span class="z-keyword z-other z-agda">:</span> <span class="z-constant z-language z-agda">Set</span> a <span class="z-keyword z-other z-agda">where</span>
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">  </span><span class="z-entity z-name z-agda">[]</span>  <span class="z-keyword z-other z-agda">:</span> List A
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">  </span><span class="z-entity z-name z-agda">_∷_</span> <span class="z-keyword z-other z-agda">:</span> (x <span class="z-keyword z-other z-agda">:</span> A) (xs <span class="z-keyword z-other z-agda">:</span> List A) <span class="z-keyword z-other z-agda">→</span> List A
+</span></code></pre>
+<p>这里用的 <code>∷</code> 是单个字符。</p>
+<p>常见函数也以类似 Haskell 中的方式归纳定义。</p>
+<p>使用 <code>postulate</code> 关键字可以不加证明地给出结论。</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-keyword z-other z-agda">postulate</span>
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">  </span><span class="z-entity z-name z-agda">≤-trans</span> <span class="z-keyword z-other z-agda">:</span> {x y z <span class="z-keyword z-other z-agda">:</span> Nat} <span class="z-keyword z-other z-agda">→</span>
+</span><span class="z-source z-agda">    x ≤ y ≡ true <span class="z-keyword z-other z-agda">→</span> y ≤ z ≡ true <span class="z-keyword z-other z-agda">→</span> x ≤ z ≡ true
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">  </span><span class="z-entity z-name z-agda">≤-suc</span> <span class="z-keyword z-other z-agda">:</span> (x <span class="z-keyword z-other z-agda">:</span> Nat) <span class="z-keyword z-other z-agda">→</span> x ≤ suc x ≡ true
+</span></code></pre>
+<h3 id="maybe-lei-xing"><code>Maybe</code> 类型</h3>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-keyword z-other z-agda">data</span> <span class="z-entity z-name z-type z-agda">Maybe</span> {a} (A <span class="z-keyword z-other z-agda">:</span> <span class="z-constant z-language z-agda">Set</span> a) <span class="z-keyword z-other z-agda">:</span> <span class="z-constant z-language z-agda">Set</span> a <span class="z-keyword z-other z-agda">where</span>
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">  </span><span class="z-entity z-name z-agda">just</span> <span class="z-keyword z-other z-agda">:</span> A <span class="z-keyword z-other z-agda">→</span> Maybe A
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">  </span><span class="z-entity z-name z-agda">nothing</span> <span class="z-keyword z-other z-agda">:</span> Maybe A
+</span></code></pre>
+<h3 id="with-yu-in"><code>with</code> 与 <code>in</code></h3>
+<p><code>with</code> 关键字可以提供更丰富的类型匹配，例如：</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-entity z-name z-agda">length-filter</span> <span class="z-keyword z-other z-agda">:</span> {a} {A <span class="z-keyword z-other z-agda">:</span> <span class="z-constant z-language z-agda">Set</span> a} (p <span class="z-keyword z-other z-agda">:</span> A <span class="z-keyword z-other z-agda">→</span> B)(l <span class="z-keyword z-other z-agda">:</span> List A) <span class="z-keyword z-other z-agda">→</span>
+</span><span class="z-source z-agda">  length (filter p l) ≤ length l ≡ true
+</span><span class="z-source z-agda">length-filter p [] <span class="z-keyword z-other z-agda">=</span> refl
+</span><span class="z-source z-agda">length-filter p (x ∷ l) <span class="z-keyword z-other z-agda">with</span> p x
+</span><span class="z-source z-agda">length-filter p (x ∷ l) | true <span class="z-keyword z-other z-agda">=</span> <span class="z-entity z-name z-tag z-agda">?</span>
+</span><span class="z-source z-agda">length-filter p (x ∷ l) | false <span class="z-keyword z-other z-agda">=</span> <span class="z-entity z-name z-tag z-agda">?</span>
+</span></code></pre>
+<p><code>keep</code> 函数可以同时给出一个结果值和证明，定义为：</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-entity z-name z-agda">keep</span> <span class="z-keyword z-other z-agda">:</span> {a} <span class="z-keyword z-other z-agda">→</span> {A <span class="z-keyword z-other z-agda">:</span> <span class="z-constant z-language z-agda">Set</span> a} <span class="z-keyword z-other z-agda">→</span> (x <span class="z-keyword z-other z-agda">:</span> A) <span class="z-keyword z-other z-agda">→</span> Σ A (x ≡_)
+</span><span class="z-source z-agda">keep x <span class="z-keyword z-other z-agda">=</span> x , refl
+</span></code></pre>
+<p>如下例中得到的是 <code>(true, p x ≡ true)</code> 或 <code>(false, p x ≡ false)</code>.</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-entity z-name z-agda">filter-idem</span> <span class="z-keyword z-other z-agda">:</span> {a} {A <span class="z-keyword z-other z-agda">:</span> <span class="z-constant z-language z-agda">Set</span> a} (p <span class="z-keyword z-other z-agda">:</span> A <span class="z-keyword z-other z-agda">→</span> Bool) (l <span class="z-keyword z-other z-agda">:</span> List A) <span class="z-keyword z-other z-agda">→</span>
+</span><span class="z-source z-agda">  (filter p (filter p l)) ≡ (filter p l)
+</span><span class="z-source z-agda">filter-idem p [] <span class="z-keyword z-other z-agda">=</span> refl
+</span><span class="z-source z-agda">filter-idem p (x ∷ l) <span class="z-keyword z-other z-agda">with</span> keep (p x)
+</span><span class="z-source z-agda">filter-idem p (x ∷ l) | true , p&#39;
+</span><span class="z-source z-agda">  <span class="z-keyword z-other z-agda">rewrite</span> p&#39; | p&#39; | filter-idem p l <span class="z-keyword z-other z-agda">=</span> refl
+</span><span class="z-source z-agda">filter-idem p (x ∷ l) | false , p&#39;
+</span><span class="z-source z-agda">  <span class="z-keyword z-other z-agda">rewrite</span> p&#39; <span class="z-keyword z-other z-agda">=</span> filter-idem p l
+</span></code></pre>
+<p>在现在的版本中可以改为使用 <code>in</code> 关键字：</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-entity z-name z-agda">filter-idem</span> <span class="z-keyword z-other z-agda">:</span> {a} {A <span class="z-keyword z-other z-agda">:</span> <span class="z-constant z-language z-agda">Set</span> a} (p <span class="z-keyword z-other z-agda">:</span> A <span class="z-keyword z-other z-agda">→</span> Bool) (l <span class="z-keyword z-other z-agda">:</span> List A) <span class="z-keyword z-other z-agda">→</span>
+</span><span class="z-source z-agda">  (filter p (filter p l)) ≡ (filter p l)
+</span><span class="z-source z-agda">filter-idem p [] <span class="z-keyword z-other z-agda">=</span> refl
+</span><span class="z-source z-agda">filter-idem p (x ∷ xs) <span class="z-keyword z-other z-agda">with</span> p x <span class="z-keyword z-other z-agda">in</span> p&#39;
+</span><span class="z-source z-agda">filter-idem p (x ∷ xs) | true <span class="z-keyword z-other z-agda">rewrite</span> p&#39; | filter-idem p xs <span class="z-keyword z-other z-agda">=</span> refl
+</span><span class="z-source z-agda">filter-idem p (x ∷ xs) | false <span class="z-keyword z-other z-agda">=</span> filter-idem p xs
+</span></code></pre>
+<h2 id="internal-verification">Internal Verification</h2>
+<p>Internal Verification 的想法是，值附带着命题。</p>
+<h3 id="xiang-liang-lei-xing">向量类型</h3>
+<p>向量类型的定义如下：</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-keyword z-other z-agda">infixr</span> <span class="z-constant z-numeric z-agda">5</span> _∷_
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">data</span> <span class="z-entity z-name z-type z-agda">Vec</span> (A <span class="z-keyword z-other z-agda">:</span> <span class="z-constant z-language z-agda">Set</span> a) <span class="z-keyword z-other z-agda">:</span> ℕ <span class="z-keyword z-other z-agda">→</span> <span class="z-constant z-language z-agda">Set</span> a <span class="z-keyword z-other z-agda">where</span>
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">  </span><span class="z-entity z-name z-agda">[]</span>  <span class="z-keyword z-other z-agda">:</span> Vec A zero
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">  </span><span class="z-entity z-name z-agda">_∷_</span> <span class="z-keyword z-other z-agda">:</span> <span class="z-keyword z-other z-agda">∀</span> (x <span class="z-keyword z-other z-agda">:</span> A) (xs <span class="z-keyword z-other z-agda">:</span> Vec A n) <span class="z-keyword z-other z-agda">→</span> Vec A (suc n)
+</span></code></pre>
+<p>这给出了一种定长数组。</p>
+<h3 id="guan-xi">关系</h3>
+<p>Relation 相关部分代码如下：</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-entity z-name z-agda">REL</span> <span class="z-keyword z-other z-agda">:</span> <span class="z-constant z-language z-agda">Set</span> a <span class="z-keyword z-other z-agda">→</span> <span class="z-constant z-language z-agda">Set</span> b <span class="z-keyword z-other z-agda">→</span> (ℓ <span class="z-keyword z-other z-agda">:</span> Level) <span class="z-keyword z-other z-agda">→</span> <span class="z-constant z-language z-agda">Set</span> (a ⊔ b ⊔ suc ℓ)
+</span><span class="z-source z-agda">REL A B ℓ <span class="z-keyword z-other z-agda">=</span> A <span class="z-keyword z-other z-agda">→</span> B <span class="z-keyword z-other z-agda">→</span> <span class="z-constant z-language z-agda">Set</span> ℓ
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">Rel</span> <span class="z-keyword z-other z-agda">:</span> <span class="z-constant z-language z-agda">Set</span> a <span class="z-keyword z-other z-agda">→</span> (ℓ <span class="z-keyword z-other z-agda">:</span> Level) <span class="z-keyword z-other z-agda">→</span> <span class="z-constant z-language z-agda">Set</span> (a ⊔ suc ℓ)
+</span><span class="z-source z-agda">Rel A ℓ <span class="z-keyword z-other z-agda">=</span> REL A A ℓ
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">Reflexive</span> <span class="z-keyword z-other z-agda">:</span> Rel A ℓ <span class="z-keyword z-other z-agda">→</span> <span class="z-constant z-language z-agda">Set</span> _
+</span><span class="z-source z-agda">Reflexive _∼_ <span class="z-keyword z-other z-agda">=</span> <span class="z-keyword z-other z-agda">∀</span> {x} <span class="z-keyword z-other z-agda">→</span> x ∼ x
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">Transitive</span> <span class="z-keyword z-other z-agda">:</span> Rel A ℓ <span class="z-keyword z-other z-agda">→</span> <span class="z-constant z-language z-agda">Set</span> _
+</span><span class="z-source z-agda">Transitive _∼_ <span class="z-keyword z-other z-agda">=</span> Trans _∼_ _∼_ _∼_
+</span></code></pre>
+<h3 id="dependent-sum">Dependent Sum</h3>
+<p>Σ-类型是一种笛卡尔积的泛化，不同的是第二个元素的类型依赖于第一个元素。</p>
+<p>其定义如下：</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-keyword z-other z-agda">record</span> <span class="z-entity z-name z-type z-agda">Σ</span> {a b} (A <span class="z-keyword z-other z-agda">:</span> <span class="z-constant z-language z-agda">Set</span> a) (B <span class="z-keyword z-other z-agda">:</span> A <span class="z-keyword z-other z-agda">→</span> <span class="z-constant z-language z-agda">Set</span> b) <span class="z-keyword z-other z-agda">:</span> <span class="z-constant z-language z-agda">Set</span> (a ⊔ b) <span class="z-keyword z-other z-agda">where</span>
+</span><span class="z-source z-agda">  <span class="z-keyword z-other z-agda">constructor</span> <span class="z-entity z-name z-type z-agda">_,_</span>
+</span><span class="z-source z-agda">  <span class="z-keyword z-other z-agda">field</span>
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">    </span><span class="z-entity z-name z-agda">fst</span> <span class="z-keyword z-other z-agda">:</span> A
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">    </span><span class="z-entity z-name z-agda">snd</span> <span class="z-keyword z-other z-agda">:</span> B fst
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">open</span> <span class="z-entity z-name z-type z-agda">Σ</span> <span class="z-keyword z-other z-agda">public</span>
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">infixr</span> <span class="z-constant z-numeric z-agda">4</span> _,_
+</span></code></pre>
+<p>这可以给出一种定义正整数的方法（这里使用了 <code>λ</code> 生成匿名函数）：</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-entity z-name z-agda">ℕ⁺</span> <span class="z-keyword z-other z-agda">:</span> <span class="z-constant z-language z-agda">Set</span>
+</span><span class="z-source z-agda">ℕ⁺ <span class="z-keyword z-other z-agda">=</span> Σ ℕ (<span class="z-keyword z-other z-agda">λ</span> n <span class="z-keyword z-other z-agda">→</span> iszero n ≡ false)
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">suc⁺</span> <span class="z-keyword z-other z-agda">:</span> ℕ⁺ <span class="z-keyword z-other z-agda">→</span> ℕ⁺ 
+</span><span class="z-source z-agda">suc⁺ (x , p) <span class="z-keyword z-other z-agda">=</span> (suc x , refl)
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">_+⁺_</span> <span class="z-keyword z-other z-agda">:</span> ℕ⁺ <span class="z-keyword z-other z-agda">→</span> ℕ⁺ <span class="z-keyword z-other z-agda">→</span> ℕ⁺
+</span><span class="z-source z-agda">(x , p) +⁺ (y , q) <span class="z-keyword z-other z-agda">=</span> x + y , iszerosum2 x y p
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">_*⁺_</span> <span class="z-keyword z-other z-agda">:</span> ℕ⁺ <span class="z-keyword z-other z-agda">→</span> ℕ⁺ <span class="z-keyword z-other z-agda">→</span> ℕ⁺
+</span><span class="z-source z-agda">(x , p) *⁺ (y , q) <span class="z-keyword z-other z-agda">=</span> (x * y , iszeromult x y p q)
+</span></code></pre>
+<h2 id="deng-shi-li-lun">等式理论</h2>
+<h3 id="deng-shi-li-lun-1">等式理论</h3>
+<p>有许多定理有助于我们进行 <code>rewrite</code>，一些常见内容如下：</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-entity z-name z-agda">sym</span> <span class="z-keyword z-other z-agda">:</span> Symmetric {A <span class="z-keyword z-other z-agda">=</span> A} _≡_
+</span><span class="z-source z-agda">sym refl <span class="z-keyword z-other z-agda">=</span> refl
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">trans</span> <span class="z-keyword z-other z-agda">:</span> Transitive {A <span class="z-keyword z-other z-agda">=</span> A} _≡_
+</span><span class="z-source z-agda">trans refl eq <span class="z-keyword z-other z-agda">=</span> eq
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">subst</span> <span class="z-keyword z-other z-agda">:</span> Substitutive {A <span class="z-keyword z-other z-agda">=</span> A} _≡_ ℓ
+</span><span class="z-source z-agda">subst P refl p <span class="z-keyword z-other z-agda">=</span> p
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">cong</span> <span class="z-keyword z-other z-agda">:</span> <span class="z-keyword z-other z-agda">∀</span> (f <span class="z-keyword z-other z-agda">:</span> A <span class="z-keyword z-other z-agda">→</span> B) {x y} <span class="z-keyword z-other z-agda">→</span> x ≡ y <span class="z-keyword z-other z-agda">→</span> f x ≡ f y
+</span><span class="z-source z-agda">cong f refl <span class="z-keyword z-other z-agda">=</span> refl
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">cong-app</span> <span class="z-keyword z-other z-agda">:</span> <span class="z-keyword z-other z-agda">∀</span> {A <span class="z-keyword z-other z-agda">:</span> <span class="z-constant z-language z-agda">Set</span> a} {B <span class="z-keyword z-other z-agda">:</span> A <span class="z-keyword z-other z-agda">→</span> <span class="z-constant z-language z-agda">Set</span> b} {f g <span class="z-keyword z-other z-agda">:</span> (x <span class="z-keyword z-other z-agda">:</span> A) <span class="z-keyword z-other z-agda">→</span> B x} <span class="z-keyword z-other z-agda">→</span>
+</span><span class="z-source z-agda">           f ≡ g <span class="z-keyword z-other z-agda">→</span> (x <span class="z-keyword z-other z-agda">:</span> A) <span class="z-keyword z-other z-agda">→</span> f x ≡ g x
+</span><span class="z-source z-agda">cong-app refl x <span class="z-keyword z-other z-agda">=</span> refl
+</span></code></pre>
+<h3 id="deng-shi-tui-li">等式推理</h3>
+<p>等式推理相关设施的简化版定义如下：</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-keyword z-other z-agda">infix</span> <span class="z-constant z-numeric z-agda">1</span> begin_
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">infixr</span> <span class="z-constant z-numeric z-agda">2</span> _≡⟨⟩_ _≡⟨_⟩_
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">infix</span> <span class="z-constant z-numeric z-agda">3</span> _∎
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">begin_</span> <span class="z-keyword z-other z-agda">:</span> <span class="z-keyword z-other z-agda">∀</span> {x y <span class="z-keyword z-other z-agda">:</span> A}
+</span><span class="z-source z-agda">  <span class="z-keyword z-other z-agda">→</span> x ≡ y
+</span><span class="z-source z-agda">  <span class="z-keyword z-other z-agda">→</span> x ≡ y
+</span><span class="z-source z-agda">begin x≡y <span class="z-keyword z-other z-agda">=</span> x≡y
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">_≡⟨⟩_</span> <span class="z-keyword z-other z-agda">:</span> <span class="z-keyword z-other z-agda">∀</span> (x <span class="z-keyword z-other z-agda">:</span> A) {y <span class="z-keyword z-other z-agda">:</span> A}
+</span><span class="z-source z-agda">  <span class="z-keyword z-other z-agda">→</span> x ≡ y
+</span><span class="z-source z-agda">  <span class="z-keyword z-other z-agda">→</span> x ≡ y
+</span><span class="z-source z-agda">x ≡⟨⟩ x≡y <span class="z-keyword z-other z-agda">=</span> x≡y
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">_≡⟨_⟩_</span> <span class="z-keyword z-other z-agda">:</span> <span class="z-keyword z-other z-agda">∀</span> (x <span class="z-keyword z-other z-agda">:</span> A) {y z <span class="z-keyword z-other z-agda">:</span> A}
+</span><span class="z-source z-agda">  <span class="z-keyword z-other z-agda">→</span> x ≡ y
+</span><span class="z-source z-agda">  <span class="z-keyword z-other z-agda">→</span> y ≡ z
+</span><span class="z-source z-agda">  <span class="z-keyword z-other z-agda">→</span> x ≡ z
+</span><span class="z-source z-agda">x ≡⟨ x≡y ⟩ y≡z <span class="z-keyword z-other z-agda">=</span> trans x≡y y≡z
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">_∎</span> <span class="z-keyword z-other z-agda">:</span> <span class="z-keyword z-other z-agda">∀</span> (x <span class="z-keyword z-other z-agda">:</span> A)
+</span><span class="z-source z-agda">  <span class="z-keyword z-other z-agda">→</span> x ≡ x
+</span><span class="z-source z-agda">x ∎ <span class="z-keyword z-other z-agda">=</span> refl
+</span></code></pre>
+<p>一个用例如下：</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-entity z-name z-agda">+-suc</span> <span class="z-keyword z-other z-agda">:</span> (m n <span class="z-keyword z-other z-agda">:</span> ℕ) <span class="z-keyword z-other z-agda">→</span> m + suc n ≡ suc (m + n)
+</span><span class="z-source z-agda">+-suc zero n <span class="z-keyword z-other z-agda">=</span> refl
+</span><span class="z-source z-agda">+-suc (suc m) n <span class="z-keyword z-other z-agda">=</span>
+</span><span class="z-source z-agda">  begin
+</span><span class="z-source z-agda">    (suc m) + suc n
+</span><span class="z-source z-agda">  ≡⟨ refl ⟩
+</span><span class="z-source z-agda">    suc (m + suc n)
+</span><span class="z-source z-agda">  ≡⟨ cong suc (+-suc m n) ⟩
+</span><span class="z-source z-agda">    suc (suc (m + n))
+</span><span class="z-source z-agda">  ∎
+</span></code></pre>
+<p>有时 <code>cong</code> 的第一个参数很难用 <code>a +_</code> 之类的方式表达，就可使用 <code>λ</code> 生成匿名函数，如 <code>λ h → map (foldl _⊙_ o) ([] ∷ h)</code>.</p>
+<h2 id="shi-yi">拾遗</h2>
+<h3 id="record">Record</h3>
+<p>可以用 <code>record</code> 关键字把一组对象的某些性质聚合起来，在使用时可用 <code>.fieldname</code> 调用。</p>
+<p>下面的例子相当于是说在自然数类型下 <code>+</code> 构成半群的二元运算，<code>(0, +)</code> 构成幺半群的幺元和二元运算。</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-keyword z-other z-agda">open import</span> <span class="z-entity z-name z-type z-agda">Data.Nat</span> <span class="z-keyword z-other z-agda">using</span> (_+_)
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">record</span> <span class="z-entity z-name z-type z-agda">IsSemigroup</span> {A <span class="z-keyword z-other z-agda">:</span> <span class="z-constant z-language z-agda">Set</span>} (_⊕_ <span class="z-keyword z-other z-agda">:</span> A <span class="z-keyword z-other z-agda">→</span> A <span class="z-keyword z-other z-agda">→</span> A) <span class="z-keyword z-other z-agda">:</span> <span class="z-constant z-language z-agda">Set</span> <span class="z-keyword z-other z-agda">where</span>
+</span><span class="z-source z-agda">  <span class="z-keyword z-other z-agda">field</span> assoc <span class="z-keyword z-other z-agda">:</span> <span class="z-keyword z-other z-agda">∀</span> x y z <span class="z-keyword z-other z-agda">→</span> (x ⊕ y) ⊕ z ≡ x ⊕ (y ⊕ z)
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">open import</span> <span class="z-entity z-name z-type z-agda">Data.Nat.Properties</span> <span class="z-keyword z-other z-agda">using</span> (+-assoc)
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">ℕ-add-is-semigroup</span> <span class="z-keyword z-other z-agda">:</span> IsSemigroup _+_
+</span><span class="z-source z-agda">ℕ-add-is-semigroup .assoc <span class="z-keyword z-other z-agda">=</span> +-assoc
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">record</span> <span class="z-entity z-name z-type z-agda">IsMonoid</span> {A <span class="z-keyword z-other z-agda">:</span> <span class="z-constant z-language z-agda">Set</span>} (e <span class="z-keyword z-other z-agda">:</span> A) (_⊕_ <span class="z-keyword z-other z-agda">:</span> A <span class="z-keyword z-other z-agda">→</span> A <span class="z-keyword z-other z-agda">→</span> A) <span class="z-keyword z-other z-agda">:</span> <span class="z-constant z-language z-agda">Set</span> <span class="z-keyword z-other z-agda">where</span>
+</span><span class="z-source z-agda">  <span class="z-keyword z-other z-agda">field</span>
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">    </span><span class="z-entity z-name z-agda">is-semigroup</span> <span class="z-keyword z-other z-agda">:</span> IsSemigroup _⊕_
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">    </span><span class="z-entity z-name z-agda">identityˡ</span> <span class="z-keyword z-other z-agda">:</span> <span class="z-keyword z-other z-agda">∀</span> x <span class="z-keyword z-other z-agda">→</span> e ⊕ x ≡ x
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">    </span><span class="z-entity z-name z-agda">identityʳ</span> <span class="z-keyword z-other z-agda">:</span> <span class="z-keyword z-other z-agda">∀</span> x <span class="z-keyword z-other z-agda">→</span> x ⊕ e ≡ x
+</span><span class="z-source z-agda">
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">open import</span> <span class="z-entity z-name z-type z-agda">Data.Nat.Properties</span> <span class="z-keyword z-other z-agda">using</span> (+-identityˡ; +-identityʳ)
+</span><span class="z-source z-agda"><span class="z-entity z-name z-agda">ℕ-add-is-monoid</span> <span class="z-keyword z-other z-agda">:</span> IsMonoid <span class="z-constant z-numeric z-agda">0</span> _+_
+</span><span class="z-source z-agda">ℕ-add-is-monoid .is-semigroup <span class="z-keyword z-other z-agda">=</span> ℕ-add-is-semigroup
+</span><span class="z-source z-agda">ℕ-add-is-monoid .identityˡ <span class="z-keyword z-other z-agda">=</span> +-identityˡ
+</span><span class="z-source z-agda">ℕ-add-is-monoid .identityʳ <span class="z-keyword z-other z-agda">=</span> +-identityʳ
+</span></code></pre>
+<h3 id="fou-ding">否定</h3>
+<p>有时我们希望证明某个东西的否定 <code>¬ x</code>，这定义为 <code>x → ⊥</code>，其中 <code>⊥</code> 代表 falsity 是一个空类型。</p>
+<p>两个东西不等价 <code>expr1 ≢  expr2</code> 就是 <code>¬ (expr1 ≡ expr2)</code>.</p>
+<p>它们的证法参考：</p>
+<pre data-lang="agda" class="language-agda z-code"><code class="language-agda" data-lang="agda"><span class="z-source z-agda"><span class="z-entity z-name z-agda">init-is-not-homomorphism</span> <span class="z-keyword z-other z-agda">:</span> <span class="z-keyword z-other z-agda">∀</span> {_⊗_} (m <span class="z-keyword z-other z-agda">:</span> IsSemigroup _⊗_)
+</span><span class="z-source z-agda">  <span class="z-keyword z-other z-agda">→</span> ¬ IsHomomorphism NList-++′-is-semigroup m (init {ℕ})
+</span><span class="z-source z-agda">init-is-not-homomorphism {_⊗_} m H <span class="z-keyword z-other z-agda">=</span> ¬K K
+</span><span class="z-source z-agda">  <span class="z-keyword z-other z-agda">where</span>
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">    </span><span class="z-entity z-name z-agda">¬K</span> <span class="z-keyword z-other z-agda">:</span> [ <span class="z-constant z-numeric z-agda">0</span> ] ++ [ <span class="z-constant z-numeric z-agda">1</span> ] ≢  [ <span class="z-constant z-numeric z-agda">0</span> ] ++ [ <span class="z-constant z-numeric z-agda">2</span> ]
+</span><span class="z-source z-agda">    ¬K ()
+</span><span class="z-source z-agda"><span class="z-keyword z-other z-agda">    </span><span class="z-entity z-name z-agda">K</span> <span class="z-keyword z-other z-agda">:</span> [ <span class="z-constant z-numeric z-agda">0</span> ] ++ [ <span class="z-constant z-numeric z-agda">1</span> ] ≡ [ <span class="z-constant z-numeric z-agda">0</span> ] ++ [ <span class="z-constant z-numeric z-agda">2</span> ]
+</span><span class="z-source z-agda">    K <span class="z-keyword z-other z-agda">=</span>
+</span><span class="z-source z-agda">      begin
+</span><span class="z-source z-agda">        [ <span class="z-constant z-numeric z-agda">0</span> ] ++ [ <span class="z-constant z-numeric z-agda">1</span> ]
+</span><span class="z-source z-agda">      ≡⟨ <span class="z-entity z-name z-tag z-agda">?</span> ⟩ <span class="z-comment z-line z-double-dash z-agda">-- 一定量的证明</span>
+</span><span class="z-source z-agda">        [ <span class="z-constant z-numeric z-agda">0</span> ] ++ [ <span class="z-constant z-numeric z-agda">2</span> ]
+</span><span class="z-source z-agda">      ∎
+</span></code></pre>
+<p>我们使用 absurd pattern 定义出了函数 <code>¬K</code>，使得 <code>¬K K</code> 结果为 <code>⊥</code>.</p>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/计算机/">计算机</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/函数式编程/">函数式编程</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/pages"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

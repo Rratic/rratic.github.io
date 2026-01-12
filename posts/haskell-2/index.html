@@ -1,0 +1,660 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>Haskell 学习（二）：单子与副作用 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="Haskell 学习（二）：单子与副作用" />
+  <meta name="description" content="函数式语言如何引入副作用：函子、应用函子、单子。" />
+  <meta property="og:description" content="函数式语言如何引入副作用：函子、应用函子、单子。" />
+  <meta property="og:url" content="https://rratic.github.io/posts/haskell-2/" />
+  <link rel="canonical" href="https://rratic.github.io/posts/haskell-2/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2025-08-27T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2025-10-26T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="计算机" />
+  <meta property="article:tag" content="函数式编程" />
+  <meta property="og:image" content="https://rratic.github.io/images/cover/haskell_p2.png" />
+  <meta property="og:image:alt" content="" />
+  <meta property="og:image:width" content="600" />
+  <meta property="og:image:height" content="292" />
+  <meta property="og:image:type" content="image/png" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.github.io/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.github.io/style/shared.css?h=63eca58df589815f6747" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.github.io/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.github.io/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.github.io/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.github.io/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">Haskell 学习（二）：单子与副作用</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2025-08-27T00:00:00+00:00">2025-08-27</time><span
+        class="middot"></span><time
+    datetime="PT0H9M0S">9&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <figure class="mt-0 mb-12">
+    <img
+      class="h-auto w-full rounded-lg"
+      src="https://rratic.github.io/images/cover/haskell_p2.png"
+      width="600"
+      height="292"
+    />
+  </figure>
+  <!-- TOC -->
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#fu-zuo-yong">副作用</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#chou-xiang-ceng-ci">抽象层次</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ban-qun-yu-yao-ban-qun">半群与幺半群</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#hask-fan-chou">Hask 范畴</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#han-zi">函子</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ying-yong-han-zi">应用函子</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#dan-zi">单子</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#wei-liao-fu-zuo-yong">为了副作用</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ji-ben-fu-zuo-yong">基本副作用</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#shang-xia-wen-fu-zuo-yong">上下文副作用</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#gong-ju-functor">工具 Functor</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#gao-ji-monad">高级 Monad</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </details>
+</nav>
+
+  <!-- Content -->
+  <section><p>封面图为 <code>Monad</code> 类型类的声明，使用字体 JetBrains Mono.</p>
+<hr />
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+	<div class="select-none py-0.5 lg:py-1 pl-3.5">
+		<a href="/_misc/functional-programming/" target="_blank">索引 ⟨ functional-programming ⟩</a>
+	</div>
+</nav>
+<p>前置知识</p>
+<ul>
+<li>一般的抽象代数基础</li>
+<li><a href="/posts/haskell-1/">Haskell 学习（一）</a></li>
+<li>一般的范畴论基础</li>
+</ul>
+<p>关于 Haskell 有一句广泛流传的话</p>
+<blockquote>
+<p>一个单子说白了不过就是自函子范畴上的一个幺半群而已，这有什么难以理解的？</p>
+</blockquote>
+<p>这句话有一点不负责任。现在我们来尝试理清 Haskell 中对应的概念。</p>
+<h2 id="fu-zuo-yong">副作用</h2>
+<p>在 Haskell 中，函数是没有副作用的，正如数学中的函数不会进行输出一样。</p>
+<p>而 <code>IO</code> 类则以一种方式间接的方式<em>引入</em>了副作用。</p>
+<p>我们可以把 <code>IO</code> 类型的定义视作：</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell"><span class="z-keyword z-other z-haskell">type</span> <span class="z-constant z-other z-haskell">IO</span> a <span class="z-keyword z-operator z-haskell">=</span> <span class="z-constant z-other z-haskell">World</span> <span class="z-keyword z-operator z-haskell">-&gt;</span> (a<span class="z-punctuation z-separator z-comma z-haskell">,</span> <span class="z-constant z-other z-haskell">World</span>)
+</span></code></pre>
+<p>然后可以使用相关函数进行 IO 操作：</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"><span class="z-entity z-name z-function z-haskell">getChar</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> <span class="z-storage z-type z-haskell">IO</span> <span class="z-storage z-type z-haskell">Char</span>
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span><span class="z-meta z-function z-type-declaration z-haskell"><span class="z-entity z-name z-function z-haskell">putChar</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> <span class="z-storage z-type z-haskell">Char</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-storage z-type z-haskell">IO</span> <span class="z-support z-constant z-unit z-haskell">()</span>
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span><span class="z-meta z-function z-type-declaration z-haskell"><span class="z-entity z-name z-function z-haskell">putStrLn</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> <span class="z-storage z-type z-haskell">String</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-storage z-type z-haskell">IO</span> <span class="z-support z-constant z-unit z-haskell">()</span>
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span><span class="z-meta z-function z-type-declaration z-haskell"><span class="z-entity z-name z-function z-haskell">return</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> <span class="z-variable z-other z-generic-type z-haskell">a</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-storage z-type z-haskell">IO</span> <span class="z-variable z-other z-generic-type z-haskell">a</span>
+</span></span></code></pre>
+<p>使用 <code>do</code> 语法糖，我们可以顺序地执行</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"><span class="z-entity z-name z-function z-haskell">myGetLine</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> <span class="z-storage z-type z-haskell">IO</span> <span class="z-storage z-type z-haskell">String</span>
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span>myGetLine <span class="z-keyword z-operator z-haskell">=</span> <span class="z-keyword z-control z-haskell">do</span>
+</span><span class="z-source z-haskell">  x <span class="z-keyword z-operator z-haskell">&lt;-</span> getChar
+</span><span class="z-source z-haskell">  <span class="z-keyword z-control z-haskell">if</span> x <span class="z-keyword z-operator z-haskell">==</span> <span class="z-string z-quoted z-single z-haskell"><span class="z-punctuation z-definition z-string z-begin z-haskell">&#39;</span><span class="z-constant z-character z-escape z-haskell">\n</span><span class="z-punctuation z-definition z-string z-end z-haskell">&#39;</span></span>
+</span><span class="z-source z-haskell">    <span class="z-keyword z-control z-haskell">then</span>
+</span><span class="z-source z-haskell">      return <span class="z-constant z-language z-empty-list z-haskell">[]</span>
+</span><span class="z-source z-haskell">    <span class="z-keyword z-control z-haskell">else</span> <span class="z-keyword z-control z-haskell">do</span>
+</span><span class="z-source z-haskell">      xs <span class="z-keyword z-operator z-haskell">&lt;-</span> myGetLine
+</span><span class="z-source z-haskell">      return (x <span class="z-keyword z-operator z-haskell">:</span> xs)
+</span></code></pre>
+<p>就有：</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> str <span class="z-keyword z-operator z-haskell">&lt;-</span> myGetLine
+</span><span class="z-source z-haskell"><span class="z-constant z-other z-haskell">It</span>&#39;s a red fox<span class="z-keyword z-operator z-haskell">.</span>
+</span><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> str
+</span><span class="z-source z-haskell"><span class="z-string z-quoted z-double z-haskell"><span class="z-punctuation z-definition z-string z-begin z-haskell">&quot;</span>It&#39;s a red fox.<span class="z-punctuation z-definition z-string z-end z-haskell">&quot;</span></span>
+</span></code></pre>
+<p>我们在文件中写</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell"><span class="z-meta z-declaration z-module z-haskell"><span class="z-keyword z-other z-haskell">module</span> <span class="z-support z-other z-module z-haskell">Main</span> <span class="z-keyword z-other z-haskell">where</span></span>
+</span><span class="z-source z-haskell">
+</span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"><span class="z-entity z-name z-function z-haskell">main</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> <span class="z-storage z-type z-haskell">IO</span> <span class="z-support z-constant z-unit z-haskell">()</span>
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span>main <span class="z-keyword z-operator z-haskell">=</span> <span class="z-keyword z-control z-haskell">do</span>
+</span><span class="z-source z-haskell">  putStrLn <span class="z-string z-quoted z-double z-haskell"><span class="z-punctuation z-definition z-string z-begin z-haskell">&quot;</span>Hello, Haskell!<span class="z-punctuation z-definition z-string z-end z-haskell">&quot;</span></span>
+</span><span class="z-source z-haskell">  putStrLn <span class="z-string z-quoted z-double z-haskell"><span class="z-punctuation z-definition z-string z-begin z-haskell">&quot;</span>Hello, World!<span class="z-punctuation z-definition z-string z-end z-haskell">&quot;</span></span>
+</span></code></pre>
+<p>并用 <code>:load Main</code> 加载模块就可得到效果：</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> <span class="z-keyword z-operator z-haskell">:</span>main
+</span><span class="z-source z-haskell"><span class="z-constant z-other z-haskell">Hello</span><span class="z-punctuation z-separator z-comma z-haskell">,</span> <span class="z-constant z-other z-haskell">Haskell</span><span class="z-keyword z-operator z-haskell">!</span>
+</span><span class="z-source z-haskell"><span class="z-constant z-other z-haskell">Hello</span><span class="z-punctuation z-separator z-comma z-haskell">,</span> <span class="z-constant z-other z-haskell">World</span><span class="z-keyword z-operator z-haskell">!</span>
+</span></code></pre>
+<h2 id="chou-xiang-ceng-ci">抽象层次</h2>
+<p>半群与幺半群是计算机中很容易出现的事物。</p>
+<p>如果以一串函数复合为元素，考虑复合，或以一段程序为元素，定义复合为把两段程序紧挨着拼起来，那么此种意义下它们就是半群。</p>
+<p>如果进一步允许恒等函数/空程序段，就能构成幺半群。</p>
+<p>这将意味着，如果想要良好地处理副作用，就需要研究幺半群的结构和如何保持幺半群。</p>
+<h3 id="ban-qun-yu-yao-ban-qun">半群与幺半群</h3>
+<p><code>Semigroup</code> 半群类型类的原型如下：<sup class="footnote-reference"><a href="#omit">1</a></sup></p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell"><span class="z-meta z-declaration z-class z-haskell"><span class="z-keyword z-other z-haskell">class</span> <span class="z-entity z-other z-inherited-class z-haskell">Semigroup</span> <span class="z-variable z-other z-generic-type z-haskell">a</span> <span class="z-keyword z-other z-haskell">where</span></span>
+</span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell">  <span class="z-entity z-name z-function z-haskell">(&lt;&gt;)</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> <span class="z-variable z-other z-generic-type z-haskell">a</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">a</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">a</span>
+</span></span></code></pre>
+<p>我们要求 <code>&lt;&gt;</code> 是一个满足结合律的二元运算（尽管编译器无法强制检查这一点）。</p>
+<p>易知列表类型 <code>[a]</code> 是半群。</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> [<span class="z-constant z-numeric z-integer z-decimal z-haskell">1</span><span class="z-keyword z-operator z-haskell">..</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">3</span>] <span class="z-keyword z-operator z-haskell">&lt;&gt;</span> [<span class="z-constant z-numeric z-integer z-decimal z-haskell">4</span><span class="z-keyword z-operator z-haskell">..</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">6</span>]
+</span><span class="z-source z-haskell">[<span class="z-constant z-numeric z-integer z-decimal z-haskell">1</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">2</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">3</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">4</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">5</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">6</span>]
+</span></code></pre>
+<p><code>Monoid</code> 幺半群类型类的原型如下：</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell"><span class="z-meta z-declaration z-class z-haskell"><span class="z-keyword z-other z-haskell">class</span> <span class="z-entity z-other z-inherited-class z-haskell">Semigroup</span> <span class="z-variable z-other z-generic-type z-haskell">a</span> =&gt; <span class="z-support z-class z-prelude z-haskell">Monoid</span> <span class="z-variable z-other z-generic-type z-haskell">a</span> <span class="z-keyword z-other z-haskell">where</span></span>
+</span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell">  <span class="z-entity z-name z-function z-haskell">mempty</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> <span class="z-variable z-other z-generic-type z-haskell">a</span>
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span><span class="z-meta z-function z-type-declaration z-haskell">  <span class="z-entity z-name z-function z-haskell">mappend</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> <span class="z-variable z-other z-generic-type z-haskell">a</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">a</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">a</span>
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span><span class="z-meta z-function z-type-declaration z-haskell">  <span class="z-entity z-name z-function z-haskell">mconcat</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> [<span class="z-variable z-other z-generic-type z-haskell">a</span>] <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">a</span>
+</span></span></code></pre>
+<p>其中 <code>mempty</code> 是需要定义的，对应单位元；而 <code>mappend</code> 与 <code>mconcat</code> 可由二元运算和单位元得到。</p>
+<p>列表 <code>[a]</code> 同样是幺半群。</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> [<span class="z-constant z-numeric z-integer z-decimal z-haskell">1</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">2</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">3</span>] <span class="z-keyword z-operator z-haskell">&lt;&gt;</span> [<span class="z-constant z-numeric z-integer z-decimal z-haskell">1</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">2</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">3</span>]
+</span><span class="z-source z-haskell">[<span class="z-constant z-numeric z-integer z-decimal z-haskell">1</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">2</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">3</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">1</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">2</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">3</span>]
+</span><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> mappend [<span class="z-constant z-numeric z-integer z-decimal z-haskell">1</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">2</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">3</span>] [<span class="z-constant z-numeric z-integer z-decimal z-haskell">4</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">5</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">6</span>]
+</span><span class="z-source z-haskell">[<span class="z-constant z-numeric z-integer z-decimal z-haskell">1</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">2</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">3</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">4</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">5</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">6</span>]
+</span><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> mappend [<span class="z-constant z-numeric z-integer z-decimal z-haskell">1</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">2</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">3</span>] mempty
+</span><span class="z-source z-haskell">[<span class="z-constant z-numeric z-integer z-decimal z-haskell">1</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">2</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">3</span>]
+</span><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> mconcat [[<span class="z-constant z-numeric z-integer z-decimal z-haskell">1</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">2</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">3</span>]<span class="z-punctuation z-separator z-comma z-haskell">,</span> mempty<span class="z-punctuation z-separator z-comma z-haskell">,</span> [<span class="z-constant z-numeric z-integer z-decimal z-haskell">4</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">5</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">6</span>]]
+</span><span class="z-source z-haskell">[<span class="z-constant z-numeric z-integer z-decimal z-haskell">1</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">2</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">3</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">4</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">5</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">6</span>]
+</span></code></pre>
+<p><code>Ordering</code> 类型也是幺半群，其原型为 <code>data Ordering = LT | EQ | GT</code>，可用于多个分量的数据的大小比较。</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> <span class="z-constant z-other z-haskell">LT</span> <span class="z-keyword z-operator z-haskell">&lt;&gt;</span> <span class="z-constant z-other z-haskell">GT</span> <span class="z-keyword z-operator z-haskell">&lt;&gt;</span> <span class="z-constant z-other z-haskell">EQ</span>
+</span><span class="z-source z-haskell"><span class="z-constant z-other z-haskell">LT</span>
+</span><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> <span class="z-constant z-other z-haskell">EQ</span> <span class="z-keyword z-operator z-haskell">&lt;&gt;</span> <span class="z-constant z-other z-haskell">GT</span>
+</span><span class="z-source z-haskell"><span class="z-constant z-other z-haskell">GT</span>
+</span></code></pre>
+<h3 id="hask-fan-chou">Hask 范畴</h3>
+<p>我们所说 $\mathbf{Hask}$ 范畴是指：</p>
+<ul>
+<li>以类型（如 <code>Int</code> 等）为对象</li>
+<li>以函数（如 <code>isUpper</code> 等）为态射</li>
+<li>单位态射为 <code>id</code></li>
+<li>态射复合是 <code>.</code></li>
+</ul>
+<p>不过，这个说法是不严格的，例如说：</p>
+<ul>
+<li>Haskell 的惰性求值特性会导致等式与求值策略有关</li>
+<li><code>seq</code> 与性能分析等可以区分细节</li>
+<li>存在 <code>undefined</code> 等特殊特性</li>
+</ul>
+<p>如果我们需要讨论 <code>Functor</code> 等高级特性，还需要注意两个 Haskell 语言特性带来的影响。</p>
+<p><code>Functor</code> 和 <code>Monad</code> 是 $\mathbf{Hask}$-enriched 的（参考 <a href="https://ncatlab.org/nlab/show/enriched+category+theory">enriched category theory in nLab</a> 页面），这意味着它们所定义的那些操作本身就是 Haskell 中的态射，只不过是高阶函数。</p>
+<p><code>Functor</code> 和 <code>Monad</code> 是自带 strength 的。</p>
+<h3 id="han-zi">函子</h3>
+<p>我们来考虑前述 $\mathbf{Hask}$ 范畴上的自函子。</p>
+<p><code>Functor</code> 函子类型类的原型是：</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell"><span class="z-meta z-declaration z-class z-haskell"><span class="z-keyword z-other z-haskell">class</span> <span class="z-support z-class z-prelude z-haskell">Functor</span> <span class="z-variable z-other z-generic-type z-haskell">f</span> <span class="z-keyword z-other z-haskell">where</span></span>
+</span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell">  <span class="z-entity z-name z-function z-haskell">fmap</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> (<span class="z-variable z-other z-generic-type z-haskell">a</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">b</span>) <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">f</span> <span class="z-variable z-other z-generic-type z-haskell">a</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">f</span> <span class="z-variable z-other z-generic-type z-haskell">b</span>
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span><span class="z-meta z-function z-type-declaration z-haskell">  <span class="z-entity z-name z-function z-haskell">(&lt;$)</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> <span class="z-variable z-other z-generic-type z-haskell">a</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">f</span> <span class="z-variable z-other z-generic-type z-haskell">b</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">f</span> <span class="z-variable z-other z-generic-type z-haskell">a</span>
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span>  <span class="z-entity z-name z-function z-infix z-haskell">(&lt;$)</span> <span class="z-keyword z-operator z-haskell">=</span> fmap <span class="z-keyword z-operator z-haskell">.</span> const
+</span></code></pre>
+<p>例如说，<code>IO</code> 实现了 <code>Functor</code>，其中 <code>IO</code> 本身将对象（如类型 <code>a</code>）映到对象（类型 <code>IO a</code>），函数 <code>fmap</code> 则将 <code>a -&gt; b</code> 的态射映到 <code>IO a -&gt; IO b</code> 的态射。</p>
+<p>我们希望它对应到数学上协/共变函子的定义，这给出的额外要求是：</p>
+<ul>
+<li><code>fmap id</code> 恒等于 <code>id</code></li>
+<li><code>fmap (f . g)</code> 恒等于 <code>fmap f . fmap g</code></li>
+</ul>
+<p>让我们测试这一点：</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> fmap show <span class="z-keyword z-operator z-haskell">$</span> return <span class="z-constant z-other z-haskell">True</span>
+</span><span class="z-source z-haskell"><span class="z-string z-quoted z-double z-haskell"><span class="z-punctuation z-definition z-string z-begin z-haskell">&quot;</span>True<span class="z-punctuation z-definition z-string z-end z-haskell">&quot;</span></span>
+</span></code></pre>
+<p>这是因为 <code>show</code> 的类型是 <code>Show a =&gt; a -&gt; String</code>，从而 <code>fmap</code> 把一个 <code>IO Bool</code> 映到了 <code>IO String</code>.</p>
+<p>我们可以给之前的 <code>Option</code> 实现 <code>Functor</code>.</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell"><span class="z-keyword z-other z-haskell">data</span> <span class="z-constant z-other z-haskell">Option</span> a <span class="z-keyword z-operator z-haskell">=</span> <span class="z-constant z-other z-haskell">None</span> <span class="z-keyword z-operator z-haskell">|</span> <span class="z-constant z-other z-haskell">Some</span> a <span class="z-meta z-deriving z-haskell"><span class="z-keyword z-other z-haskell">deriving</span> (<span class="z-entity z-other z-inherited-class z-haskell">Show</span>)</span>
+</span><span class="z-source z-haskell">
+</span><span class="z-source z-haskell"><span class="z-meta z-declaration z-instance z-haskell"><span class="z-keyword z-other z-haskell">instance</span> <span class="z-storage z-type z-haskell">Functor</span> <span class="z-storage z-type z-haskell">Option</span> <span class="z-keyword z-other z-haskell">where</span></span>
+</span><span class="z-source z-haskell">  fmap f (<span class="z-constant z-other z-haskell">Some</span> a) <span class="z-keyword z-operator z-haskell">=</span> <span class="z-constant z-other z-haskell">Some</span> <span class="z-keyword z-operator z-haskell">$</span> f a
+</span><span class="z-source z-haskell">  fmap f (<span class="z-constant z-other z-haskell">None</span>)   <span class="z-keyword z-operator z-haskell">=</span> <span class="z-constant z-other z-haskell">None</span>
+</span></code></pre>
+<p>有：</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> fmap (<span class="z-keyword z-operator z-haskell">+</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">1</span>) <span class="z-constant z-other z-haskell">None</span>
+</span><span class="z-source z-haskell"><span class="z-constant z-other z-haskell">None</span>
+</span><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> fmap (<span class="z-keyword z-operator z-haskell">+</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">1</span>) <span class="z-keyword z-operator z-haskell">$</span> <span class="z-constant z-other z-haskell">Some</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">2</span>
+</span><span class="z-source z-haskell"><span class="z-constant z-other z-haskell">Some</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">3</span>
+</span><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> (<span class="z-keyword z-operator z-haskell">+</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">1</span>) <span class="z-keyword z-operator z-haskell">&lt;$&gt;</span> (<span class="z-constant z-other z-haskell">Some</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">2</span>)
+</span><span class="z-source z-haskell"><span class="z-constant z-other z-haskell">Some</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">3</span>
+</span></code></pre>
+<h3 id="ying-yong-han-zi">应用函子</h3>
+<p>我们来考虑 $\mathbf{Hask}$ 范畴到自身的 lax monoidal functor（参考 <a href="https://ncatlab.org/nlab/show/monoidal+functor">monoidal functor in nLab</a> 页面，是通过特定的自然变换保持幺半结构（张量积和单位元）的函子）。</p>
+<p><code>Applicative</code> 类型类的原型如下：</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell"><span class="z-meta z-declaration z-class z-haskell"><span class="z-keyword z-other z-haskell">class</span> <span class="z-support z-class z-prelude z-haskell">Functor</span> <span class="z-variable z-other z-generic-type z-haskell">f</span> =&gt; <span class="z-support z-class z-prelude z-haskell">Applicative</span> <span class="z-variable z-other z-generic-type z-haskell">f</span> <span class="z-keyword z-other z-haskell">where</span></span>
+</span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell">  <span class="z-entity z-name z-function z-haskell">pure</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> <span class="z-variable z-other z-generic-type z-haskell">a</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">f</span> <span class="z-variable z-other z-generic-type z-haskell">a</span>
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span>  <span class="z-entity z-name z-function z-infix z-haskell">(&lt;*&gt;)</span> <span class="z-keyword z-operator z-haskell">::</span> f (a <span class="z-keyword z-operator z-haskell">-&gt;</span> b) <span class="z-keyword z-operator z-haskell">-&gt;</span> f a <span class="z-keyword z-operator z-haskell">-&gt;</span> f b
+</span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell">  <span class="z-entity z-name z-function z-haskell">liftA2</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> (<span class="z-variable z-other z-generic-type z-haskell">a</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">b</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">c</span>) <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">f</span> <span class="z-variable z-other z-generic-type z-haskell">a</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">f</span> <span class="z-variable z-other z-generic-type z-haskell">b</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">f</span> <span class="z-variable z-other z-generic-type z-haskell">c</span>
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span>  <span class="z-entity z-name z-function z-infix z-haskell">(*&gt;)</span> <span class="z-keyword z-operator z-haskell">::</span> f a <span class="z-keyword z-operator z-haskell">-&gt;</span> f b <span class="z-keyword z-operator z-haskell">-&gt;</span> f b
+</span><span class="z-source z-haskell">  <span class="z-entity z-name z-function z-infix z-haskell">(&lt;*)</span> <span class="z-keyword z-operator z-haskell">::</span> f a <span class="z-keyword z-operator z-haskell">-&gt;</span> f b <span class="z-keyword z-operator z-haskell">-&gt;</span> f a
+</span></code></pre>
+<p>其中必须实现的是 <code>pure</code>，另可选择实现 <code>&lt;*&gt;</code> 与 <code>liftA2</code> 之一。</p>
+<p>它们可以由如下方式组合出：</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"><span class="z-entity z-name z-function z-haskell">fmap0</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> <span class="z-variable z-other z-generic-type z-haskell">a</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">f</span> <span class="z-variable z-other z-generic-type z-haskell">a</span>
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span>fmap0 <span class="z-keyword z-operator z-haskell">=</span> pure
+</span><span class="z-source z-haskell">
+</span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"><span class="z-entity z-name z-function z-haskell">fmap1</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> (<span class="z-variable z-other z-generic-type z-haskell">a</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">b</span>) <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">f</span> <span class="z-variable z-other z-generic-type z-haskell">a</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">f</span> <span class="z-variable z-other z-generic-type z-haskell">b</span>
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span>fmap1 g x <span class="z-keyword z-operator z-haskell">=</span> pure g <span class="z-keyword z-operator z-haskell">&lt;</span>*<span class="z-keyword z-operator z-haskell">&gt;</span> x <span class="z-keyword z-operator z-haskell">=</span> fmap g x <span class="z-keyword z-operator z-haskell">=</span> g <span class="z-keyword z-operator z-haskell">&lt;$&gt;</span> x
+</span><span class="z-source z-haskell">
+</span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"><span class="z-entity z-name z-function z-haskell">fmap2</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> (<span class="z-variable z-other z-generic-type z-haskell">a</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">b</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">c</span>) <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">f</span> <span class="z-variable z-other z-generic-type z-haskell">a</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">f</span> <span class="z-variable z-other z-generic-type z-haskell">b</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">f</span> <span class="z-variable z-other z-generic-type z-haskell">c</span>
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span>fmap2 g x y <span class="z-keyword z-operator z-haskell">=</span> g <span class="z-keyword z-operator z-haskell">&lt;$&gt;</span> x <span class="z-keyword z-operator z-haskell">&lt;</span>*<span class="z-keyword z-operator z-haskell">&gt;</span> y
+</span><span class="z-source z-haskell">
+</span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"><span class="z-entity z-name z-function z-haskell">fmap3</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> (<span class="z-variable z-other z-generic-type z-haskell">a</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">b</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">c</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">d</span>) <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">f</span> <span class="z-variable z-other z-generic-type z-haskell">a</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">f</span> <span class="z-variable z-other z-generic-type z-haskell">b</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">f</span> <span class="z-variable z-other z-generic-type z-haskell">c</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">f</span> <span class="z-variable z-other z-generic-type z-haskell">d</span>
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span>fmap3 g x y z <span class="z-keyword z-operator z-haskell">=</span> g <span class="z-keyword z-operator z-haskell">&lt;$&gt;</span> x <span class="z-keyword z-operator z-haskell">&lt;</span>*<span class="z-keyword z-operator z-haskell">&gt;</span> y <span class="z-keyword z-operator z-haskell">&lt;</span>*<span class="z-keyword z-operator z-haskell">&gt;</span> z
+</span></code></pre>
+<p>我们可以接着定义：</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell"><span class="z-meta z-declaration z-instance z-haskell"><span class="z-keyword z-other z-haskell">instance</span> <span class="z-storage z-type z-haskell">Applicative</span> <span class="z-storage z-type z-haskell">Option</span> <span class="z-keyword z-other z-haskell">where</span></span>
+</span><span class="z-source z-haskell">  pure                  <span class="z-keyword z-operator z-haskell">=</span> <span class="z-constant z-other z-haskell">Some</span>
+</span><span class="z-source z-haskell">  (<span class="z-constant z-other z-haskell">Some</span> f) <span class="z-keyword z-operator z-haskell">&lt;</span>*<span class="z-keyword z-operator z-haskell">&gt;</span> (<span class="z-constant z-other z-haskell">Some</span> x) <span class="z-keyword z-operator z-haskell">=</span> <span class="z-constant z-other z-haskell">Some</span> <span class="z-keyword z-operator z-haskell">$</span> f x
+</span><span class="z-source z-haskell">  (<span class="z-constant z-other z-haskell">None</span>)   <span class="z-keyword z-operator z-haskell">&lt;</span>*<span class="z-keyword z-operator z-haskell">&gt;</span> _        <span class="z-keyword z-operator z-haskell">=</span> <span class="z-constant z-other z-haskell">None</span>
+</span><span class="z-source z-haskell">  _        <span class="z-keyword z-operator z-haskell">&lt;</span>*<span class="z-keyword z-operator z-haskell">&gt;</span> (<span class="z-constant z-other z-haskell">None</span>)   <span class="z-keyword z-operator z-haskell">=</span> <span class="z-constant z-other z-haskell">None</span>
+</span></code></pre>
+<p>从而：</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> <span class="z-meta z-import z-haskell"><span class="z-keyword z-other z-haskell">import</span> <span class="z-support z-other z-module z-haskell">Data.Char</span></span>
+</span><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> (<span class="z-constant z-other z-haskell">Some</span> isUpper) <span class="z-keyword z-operator z-haskell">&lt;</span>*<span class="z-keyword z-operator z-haskell">&gt;</span> (<span class="z-constant z-other z-haskell">Some</span> <span class="z-string z-quoted z-single z-haskell"><span class="z-punctuation z-definition z-string z-begin z-haskell">&#39;</span>a<span class="z-punctuation z-definition z-string z-end z-haskell">&#39;</span></span>)
+</span><span class="z-source z-haskell"><span class="z-constant z-other z-haskell">Some</span> <span class="z-constant z-other z-haskell">False</span>
+</span></code></pre>
+<p>一个神奇的例子是：</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> <span class="z-keyword z-other z-haskell">data</span> <span class="z-constant z-other z-haskell">Person</span> <span class="z-keyword z-operator z-haskell">=</span> <span class="z-constant z-other z-haskell">Person</span> <span class="z-constant z-other z-haskell">String</span> <span class="z-constant z-other z-haskell">Int</span> <span class="z-constant z-other z-haskell">Int</span> <span class="z-meta z-deriving z-haskell"><span class="z-keyword z-other z-haskell">deriving</span> (<span class="z-entity z-other z-inherited-class z-haskell">Show</span>)</span>
+</span><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> <span class="z-constant z-other z-haskell">Person</span> <span class="z-keyword z-operator z-haskell">&lt;$&gt;</span> (<span class="z-constant z-other z-haskell">Some</span> <span class="z-string z-quoted z-double z-haskell"><span class="z-punctuation z-definition z-string z-begin z-haskell">&quot;</span>Alice<span class="z-punctuation z-definition z-string z-end z-haskell">&quot;</span></span>) <span class="z-keyword z-operator z-haskell">&lt;</span>*<span class="z-keyword z-operator z-haskell">&gt;</span> (<span class="z-constant z-other z-haskell">Some</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">1</span>) <span class="z-keyword z-operator z-haskell">&lt;</span>*<span class="z-keyword z-operator z-haskell">&gt;</span> (<span class="z-constant z-other z-haskell">Some</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">2</span>)
+</span><span class="z-source z-haskell"><span class="z-constant z-other z-haskell">Some</span> (<span class="z-constant z-other z-haskell">Person</span> <span class="z-string z-quoted z-double z-haskell"><span class="z-punctuation z-definition z-string z-begin z-haskell">&quot;</span>Alice<span class="z-punctuation z-definition z-string z-end z-haskell">&quot;</span></span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">1</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">2</span>)
+</span><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> <span class="z-keyword z-operator z-haskell">:</span>t <span class="z-constant z-other z-haskell">Person</span>
+</span><span class="z-source z-haskell"><span class="z-constant z-other z-haskell">Person</span> <span class="z-keyword z-operator z-haskell">::</span> <span class="z-constant z-other z-haskell">String</span> <span class="z-keyword z-operator z-haskell">-&gt;</span> <span class="z-constant z-other z-haskell">Int</span> <span class="z-keyword z-operator z-haskell">-&gt;</span> <span class="z-constant z-other z-haskell">Int</span> <span class="z-keyword z-operator z-haskell">-&gt;</span> <span class="z-constant z-other z-haskell">Person</span>
+</span><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> <span class="z-keyword z-operator z-haskell">:</span>t <span class="z-constant z-other z-haskell">Person</span> <span class="z-keyword z-operator z-haskell">&lt;$&gt;</span> (<span class="z-constant z-other z-haskell">Some</span> <span class="z-string z-quoted z-double z-haskell"><span class="z-punctuation z-definition z-string z-begin z-haskell">&quot;</span>Alice<span class="z-punctuation z-definition z-string z-end z-haskell">&quot;</span></span>)
+</span><span class="z-source z-haskell"><span class="z-constant z-other z-haskell">Person</span> <span class="z-keyword z-operator z-haskell">&lt;$&gt;</span> (<span class="z-constant z-other z-haskell">Some</span> <span class="z-string z-quoted z-double z-haskell"><span class="z-punctuation z-definition z-string z-begin z-haskell">&quot;</span>Alice<span class="z-punctuation z-definition z-string z-end z-haskell">&quot;</span></span>) <span class="z-keyword z-operator z-haskell">::</span> <span class="z-constant z-other z-haskell">Option</span> (<span class="z-constant z-other z-haskell">Int</span> <span class="z-keyword z-operator z-haskell">-&gt;</span> <span class="z-constant z-other z-haskell">Int</span> <span class="z-keyword z-operator z-haskell">-&gt;</span> <span class="z-constant z-other z-haskell">Person</span>)
+</span><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> <span class="z-keyword z-operator z-haskell">:</span>t <span class="z-constant z-other z-haskell">Person</span> <span class="z-keyword z-operator z-haskell">&lt;$&gt;</span> (<span class="z-constant z-other z-haskell">Some</span> <span class="z-string z-quoted z-double z-haskell"><span class="z-punctuation z-definition z-string z-begin z-haskell">&quot;</span>Alice<span class="z-punctuation z-definition z-string z-end z-haskell">&quot;</span></span>) <span class="z-keyword z-operator z-haskell">&lt;</span>*<span class="z-keyword z-operator z-haskell">&gt;</span> (<span class="z-constant z-other z-haskell">Some</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">1</span>)
+</span><span class="z-source z-haskell"><span class="z-constant z-other z-haskell">Person</span> <span class="z-keyword z-operator z-haskell">&lt;$&gt;</span> (<span class="z-constant z-other z-haskell">Some</span> <span class="z-string z-quoted z-double z-haskell"><span class="z-punctuation z-definition z-string z-begin z-haskell">&quot;</span>Alice<span class="z-punctuation z-definition z-string z-end z-haskell">&quot;</span></span>) <span class="z-keyword z-operator z-haskell">&lt;</span>*<span class="z-keyword z-operator z-haskell">&gt;</span> (<span class="z-constant z-other z-haskell">Some</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">1</span>) <span class="z-keyword z-operator z-haskell">::</span> <span class="z-constant z-other z-haskell">Option</span> (<span class="z-constant z-other z-haskell">Int</span> <span class="z-keyword z-operator z-haskell">-&gt;</span> <span class="z-constant z-other z-haskell">Person</span>)
+</span><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> <span class="z-keyword z-operator z-haskell">:</span>t <span class="z-constant z-other z-haskell">Person</span> <span class="z-keyword z-operator z-haskell">&lt;$&gt;</span> (<span class="z-constant z-other z-haskell">Some</span> <span class="z-string z-quoted z-double z-haskell"><span class="z-punctuation z-definition z-string z-begin z-haskell">&quot;</span>Alice<span class="z-punctuation z-definition z-string z-end z-haskell">&quot;</span></span>) <span class="z-keyword z-operator z-haskell">&lt;</span>*<span class="z-keyword z-operator z-haskell">&gt;</span> (<span class="z-constant z-other z-haskell">Some</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">1</span>) <span class="z-keyword z-operator z-haskell">&lt;</span>*<span class="z-keyword z-operator z-haskell">&gt;</span> (<span class="z-constant z-other z-haskell">Some</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">2</span>)
+</span><span class="z-source z-haskell"><span class="z-constant z-other z-haskell">Person</span> <span class="z-keyword z-operator z-haskell">&lt;$&gt;</span> (<span class="z-constant z-other z-haskell">Some</span> <span class="z-string z-quoted z-double z-haskell"><span class="z-punctuation z-definition z-string z-begin z-haskell">&quot;</span>Alice<span class="z-punctuation z-definition z-string z-end z-haskell">&quot;</span></span>) <span class="z-keyword z-operator z-haskell">&lt;</span>*<span class="z-keyword z-operator z-haskell">&gt;</span> (<span class="z-constant z-other z-haskell">Some</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">1</span>) <span class="z-keyword z-operator z-haskell">&lt;</span>*<span class="z-keyword z-operator z-haskell">&gt;</span> (<span class="z-constant z-other z-haskell">Some</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">2</span>)
+</span><span class="z-source z-haskell">  <span class="z-keyword z-operator z-haskell">::</span> <span class="z-constant z-other z-haskell">Option</span> <span class="z-constant z-other z-haskell">Person</span>
+</span></code></pre>
+<h3 id="dan-zi">单子</h3>
+<p>现在我们可以考虑把副作用包装起来了。</p>
+<p><code>Monad</code> 单子类型类的原型是：</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell"><span class="z-meta z-declaration z-class z-haskell"><span class="z-keyword z-other z-haskell">class</span> <span class="z-support z-class z-prelude z-haskell">Applicative</span> <span class="z-variable z-other z-generic-type z-haskell">m</span> =&gt; <span class="z-support z-class z-prelude z-haskell">Monad</span> <span class="z-variable z-other z-generic-type z-haskell">m</span> <span class="z-keyword z-other z-haskell">where</span></span>
+</span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell">  <span class="z-entity z-name z-function z-haskell">(&gt;&gt;=)</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> <span class="z-variable z-other z-generic-type z-haskell">m</span> <span class="z-variable z-other z-generic-type z-haskell">a</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> (<span class="z-variable z-other z-generic-type z-haskell">a</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">m</span> <span class="z-variable z-other z-generic-type z-haskell">b</span>) <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">m</span> <span class="z-variable z-other z-generic-type z-haskell">b</span>
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell">
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span><span class="z-meta z-function z-type-declaration z-haskell">  <span class="z-entity z-name z-function z-haskell">(&gt;&gt;)</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> <span class="z-variable z-other z-generic-type z-haskell">m</span> <span class="z-variable z-other z-generic-type z-haskell">a</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">m</span> <span class="z-variable z-other z-generic-type z-haskell">b</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">m</span> <span class="z-variable z-other z-generic-type z-haskell">b</span>
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell">    <span class="z-variable z-other z-generic-type z-haskell">m</span> &gt;&gt; <span class="z-variable z-other z-generic-type z-haskell">k</span> = <span class="z-variable z-other z-generic-type z-haskell">m</span> &gt;&gt;= \_ <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">k</span>
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell">
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span><span class="z-meta z-function z-type-declaration z-haskell">  <span class="z-entity z-name z-function z-haskell">return</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> <span class="z-variable z-other z-generic-type z-haskell">a</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">m</span> <span class="z-variable z-other z-generic-type z-haskell">a</span>
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span>  return <span class="z-keyword z-operator z-haskell">=</span> pure <span class="z-comment z-line z-double-dash z-haskell"><span class="z-punctuation z-definition z-comment z-haskell">--</span> 不要更改此定义
+</span></span></code></pre>
+<p>其中必须实现的是 <code>&gt;&gt;=</code>，它表义为 <code>flatmap/bind</code>.</p>
+<p><code>ma &gt;&gt;= mb</code> 等价于：</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell"><span class="z-keyword z-control z-haskell">do</span> a <span class="z-keyword z-operator z-haskell">&lt;-</span> ma
+</span><span class="z-source z-haskell">  mb a
+</span></code></pre>
+<p>因此我们可以写：</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> [<span class="z-constant z-numeric z-integer z-decimal z-haskell">1</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">2</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">3</span>] <span class="z-keyword z-operator z-haskell">&gt;&gt;=</span> (<span class="z-keyword z-operator z-haskell">\</span>x <span class="z-keyword z-operator z-haskell">-&gt;</span> [x<span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">0</span>])
+</span><span class="z-source z-haskell">[<span class="z-constant z-numeric z-integer z-decimal z-haskell">1</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">0</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">2</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">0</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">3</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">0</span>]
+</span><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> putStrLn <span class="z-string z-quoted z-double z-haskell"><span class="z-punctuation z-definition z-string z-begin z-haskell">&quot;</span>Hello, Haskell!<span class="z-punctuation z-definition z-string z-end z-haskell">&quot;</span></span> <span class="z-keyword z-operator z-haskell">&gt;&gt;=</span> (<span class="z-keyword z-operator z-haskell">\</span>_ <span class="z-keyword z-operator z-haskell">-&gt;</span> putStrLn <span class="z-string z-quoted z-double z-haskell"><span class="z-punctuation z-definition z-string z-begin z-haskell">&quot;</span>Hello, World!<span class="z-punctuation z-definition z-string z-end z-haskell">&quot;</span></span>)
+</span><span class="z-source z-haskell"><span class="z-constant z-other z-haskell">Hello</span><span class="z-punctuation z-separator z-comma z-haskell">,</span> <span class="z-constant z-other z-haskell">Haskell</span><span class="z-keyword z-operator z-haskell">!</span>
+</span><span class="z-source z-haskell"><span class="z-constant z-other z-haskell">Hello</span><span class="z-punctuation z-separator z-comma z-haskell">,</span> <span class="z-constant z-other z-haskell">World</span><span class="z-keyword z-operator z-haskell">!</span>
+</span></code></pre>
+<p>我们的要求是:</p>
+<ul>
+<li><code>return x &gt;&gt;= f</code> 等价于 <code>f x</code></li>
+<li><code>mx &gt;&gt;= return</code> 等价于 <code>mx</code></li>
+<li><code>(mx &gt;&gt;= f) &gt;&gt;= g</code> 等价于 <code>mx &gt;&gt;= (\x -&gt; f x &gt;&gt;= g)</code></li>
+</ul>
+<p>我们发现它确实构成一个 $\mathbf{Hask}$ 范畴上的自函子范畴上的幺半群。</p>
+<p>让我们继续定义：</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell"><span class="z-meta z-declaration z-instance z-haskell"><span class="z-keyword z-other z-haskell">instance</span> <span class="z-storage z-type z-haskell">Monad</span> <span class="z-storage z-type z-haskell">Option</span> <span class="z-keyword z-other z-haskell">where</span></span>
+</span><span class="z-source z-haskell">  (<span class="z-constant z-other z-haskell">Some</span> x) <span class="z-keyword z-operator z-haskell">&gt;&gt;=</span> f <span class="z-keyword z-operator z-haskell">=</span> f x
+</span><span class="z-source z-haskell">  (<span class="z-constant z-other z-haskell">None</span>)   <span class="z-keyword z-operator z-haskell">&gt;&gt;=</span> f <span class="z-keyword z-operator z-haskell">=</span> <span class="z-constant z-other z-haskell">None</span>
+</span><span class="z-source z-haskell">
+</span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"><span class="z-entity z-name z-function z-haskell">safeDiv</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> <span class="z-storage z-type z-haskell">Option</span> <span class="z-storage z-type z-haskell">Int</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-storage z-type z-haskell">Option</span> <span class="z-storage z-type z-haskell">Int</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-storage z-type z-haskell">Option</span> <span class="z-storage z-type z-haskell">Int</span>
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span>safeDiv xm ym <span class="z-keyword z-operator z-haskell">=</span> xm <span class="z-keyword z-operator z-haskell">&gt;&gt;=</span> (<span class="z-keyword z-operator z-haskell">\</span>x <span class="z-keyword z-operator z-haskell">-&gt;</span>
+</span><span class="z-source z-haskell">                ym <span class="z-keyword z-operator z-haskell">&gt;&gt;=</span> (<span class="z-keyword z-operator z-haskell">\</span>y <span class="z-keyword z-operator z-haskell">-&gt;</span>
+</span><span class="z-source z-haskell">                  <span class="z-keyword z-control z-haskell">if</span> y <span class="z-keyword z-operator z-haskell">==</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">0</span> <span class="z-keyword z-control z-haskell">then</span> <span class="z-constant z-other z-haskell">None</span>
+</span><span class="z-source z-haskell">                            <span class="z-keyword z-control z-haskell">else</span> return (x <span class="z-keyword z-operator z-function z-infix z-haskell"><span class="z-punctuation z-definition z-entity z-haskell">`</span>div<span class="z-punctuation z-definition z-entity z-haskell">`</span></span> y)))
+</span></code></pre>
+<p><code>safeDiv</code> 的定义也可以使用 <code>do</code> 语法糖：</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell">safeDiv xm ym <span class="z-keyword z-operator z-haskell">=</span> <span class="z-keyword z-control z-haskell">do</span>
+</span><span class="z-source z-haskell">           x <span class="z-keyword z-operator z-haskell">&lt;-</span> xm
+</span><span class="z-source z-haskell">		   y <span class="z-keyword z-operator z-haskell">&lt;-</span> ym
+</span><span class="z-source z-haskell">           <span class="z-keyword z-control z-haskell">if</span> y <span class="z-keyword z-operator z-haskell">==</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">0</span> <span class="z-keyword z-control z-haskell">then</span> <span class="z-constant z-other z-haskell">None</span>
+</span><span class="z-source z-haskell">                     <span class="z-keyword z-control z-haskell">else</span> return (x <span class="z-keyword z-operator z-function z-infix z-haskell"><span class="z-punctuation z-definition z-entity z-haskell">`</span>div<span class="z-punctuation z-definition z-entity z-haskell">`</span></span> y)
+</span></code></pre>
+<p>有</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> safeDiv (<span class="z-constant z-other z-haskell">Some</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">4</span>) <span class="z-keyword z-operator z-haskell">$</span> safeDiv (<span class="z-constant z-other z-haskell">Some</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">1</span>) (<span class="z-constant z-other z-haskell">Some</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">0</span>)
+</span><span class="z-source z-haskell"><span class="z-constant z-other z-haskell">None</span>
+</span></code></pre>
+<h2 id="wei-liao-fu-zuo-yong">为了副作用</h2>
+<p>让我们从抽象的定义中抽身，看看现在究竟能做到怎样的副作用处理。</p>
+<p><code>Monad</code> 的定义使得我们可以进行顺序计算，并在计算时携带类型安全的上下文/副作用。</p>
+<h3 id="ji-ben-fu-zuo-yong">基本副作用</h3>
+<p><code>Maybe</code> 类型的原型是：</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell"><span class="z-keyword z-other z-haskell">data</span> <span class="z-constant z-other z-haskell">Maybe</span> a <span class="z-keyword z-operator z-haskell">=</span> <span class="z-constant z-other z-haskell">Nothing</span> <span class="z-keyword z-operator z-haskell">|</span> <span class="z-constant z-other z-haskell">Just</span> a
+</span></code></pre>
+<p>这将允许计算失败。</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"><span class="z-entity z-name z-function z-haskell">safeDiv</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> <span class="z-storage z-type z-haskell">Integral</span> <span class="z-variable z-other z-generic-type z-haskell">a</span> <span class="z-keyword z-other z-big-arrow z-haskell">=&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">a</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-variable z-other z-generic-type z-haskell">a</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-storage z-type z-haskell">Maybe</span> <span class="z-variable z-other z-generic-type z-haskell">a</span>
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span>safeDiv _ <span class="z-constant z-numeric z-integer z-decimal z-haskell">0</span> <span class="z-keyword z-operator z-haskell">=</span> <span class="z-constant z-other z-haskell">Nothing</span>
+</span><span class="z-source z-haskell">safeDiv x y <span class="z-keyword z-operator z-haskell">=</span> <span class="z-constant z-other z-haskell">Just</span> (x <span class="z-keyword z-operator z-function z-infix z-haskell"><span class="z-punctuation z-definition z-entity z-haskell">`</span>div<span class="z-punctuation z-definition z-entity z-haskell">`</span></span> y)
+</span><span class="z-source z-haskell">
+</span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"><span class="z-entity z-name z-function z-haskell">result</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> <span class="z-storage z-type z-haskell">Maybe</span> <span class="z-storage z-type z-haskell">Int</span>
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span>result <span class="z-keyword z-operator z-haskell">=</span> <span class="z-keyword z-control z-haskell">do</span>
+</span><span class="z-source z-haskell">  x <span class="z-keyword z-operator z-haskell">&lt;-</span> <span class="z-constant z-other z-haskell">Just</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">6</span>
+</span><span class="z-source z-haskell">  y <span class="z-keyword z-operator z-haskell">&lt;-</span> safeDiv x <span class="z-constant z-numeric z-integer z-decimal z-haskell">2</span>
+</span><span class="z-source z-haskell">  z <span class="z-keyword z-operator z-haskell">&lt;-</span> safeDiv y <span class="z-constant z-numeric z-integer z-decimal z-haskell">0</span>
+</span><span class="z-source z-haskell">  return z
+</span></code></pre>
+<hr />
+<p><code>Either</code> 类型的原型是：</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell"><span class="z-keyword z-other z-haskell">data</span> <span class="z-constant z-other z-haskell">Either</span> a b <span class="z-keyword z-operator z-haskell">=</span> <span class="z-constant z-other z-haskell">Left</span> a <span class="z-keyword z-operator z-haskell">|</span> <span class="z-constant z-other z-haskell">Right</span> b
+</span></code></pre>
+<p>它可以这样用：<code>Left</code> 与 <code>Right</code> 一边存储异常提示，一边存储返回值。</p>
+<hr />
+<p>列表作为单子，副作用语义是一个计算可能产生多个结果，我们会对所有可能性的笛卡尔积遍历。</p>
+<h3 id="shang-xia-wen-fu-zuo-yong">上下文副作用</h3>
+<p>下文中提到的 <code>Monad</code> 都需通过以下方式导入</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell"><span class="z-meta z-import z-haskell"><span class="z-keyword z-other z-haskell">import</span> <span class="z-support z-other z-module z-haskell">Control.Monad.Reader</span></span>
+</span></code></pre>
+<p>GHCi 可能会提示说它在一个隐藏的 package "mtl-2.3.1" 里，需要运行指令 <code>:set -package mtl</code> 来导入。</p>
+<p><code>Reader</code> 类型的原型是 <code>type Reader r = ReaderT r Identity</code>，为方便起见，把它视作 <code>Reader r a</code>，其含义是：<code>r</code> 是只读的环境，<code>a</code> 是你操作的值。<sup class="footnote-reference"><a href="#reader">2</a></sup></p>
+<p>一个例子如下：</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell"><span class="z-meta z-import z-haskell"><span class="z-keyword z-other z-haskell">import</span> <span class="z-support z-other z-module z-haskell">Control.Monad.Reader</span></span>
+</span><span class="z-source z-haskell">
+</span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"><span class="z-entity z-name z-function z-haskell">tom</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> <span class="z-storage z-type z-haskell">Reader</span> <span class="z-storage z-type z-haskell">String</span> <span class="z-storage z-type z-haskell">String</span>
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span>tom <span class="z-keyword z-operator z-haskell">=</span> <span class="z-keyword z-control z-haskell">do</span>
+</span><span class="z-source z-haskell">    env <span class="z-keyword z-operator z-haskell">&lt;-</span> ask <span class="z-comment z-line z-double-dash z-haskell"><span class="z-punctuation z-definition z-comment z-haskell">--</span> gives you the environment which in this case is a String
+</span></span><span class="z-source z-haskell">    return (env <span class="z-keyword z-operator z-haskell">++</span> <span class="z-string z-quoted z-double z-haskell"><span class="z-punctuation z-definition z-string z-begin z-haskell">&quot;</span> This is Tom.<span class="z-punctuation z-definition z-string z-end z-haskell">&quot;</span></span>)
+</span><span class="z-source z-haskell">
+</span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"><span class="z-entity z-name z-function z-haskell">jerry</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> <span class="z-storage z-type z-haskell">Reader</span> <span class="z-storage z-type z-haskell">String</span> <span class="z-storage z-type z-haskell">String</span>
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span>jerry <span class="z-keyword z-operator z-haskell">=</span> <span class="z-keyword z-control z-haskell">do</span>
+</span><span class="z-source z-haskell">  env <span class="z-keyword z-operator z-haskell">&lt;-</span> ask
+</span><span class="z-source z-haskell">  return (env <span class="z-keyword z-operator z-haskell">++</span> <span class="z-string z-quoted z-double z-haskell"><span class="z-punctuation z-definition z-string z-begin z-haskell">&quot;</span> This is Jerry.<span class="z-punctuation z-definition z-string z-end z-haskell">&quot;</span></span>)
+</span><span class="z-source z-haskell">
+</span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"><span class="z-entity z-name z-function z-haskell">tomAndJerry</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> <span class="z-storage z-type z-haskell">Reader</span> <span class="z-storage z-type z-haskell">String</span> <span class="z-storage z-type z-haskell">String</span>
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span>tomAndJerry <span class="z-keyword z-operator z-haskell">=</span> <span class="z-keyword z-control z-haskell">do</span>
+</span><span class="z-source z-haskell">    t <span class="z-keyword z-operator z-haskell">&lt;-</span> tom
+</span><span class="z-source z-haskell">    j <span class="z-keyword z-operator z-haskell">&lt;-</span> jerry
+</span><span class="z-source z-haskell">    return (t <span class="z-keyword z-operator z-haskell">++</span> <span class="z-string z-quoted z-double z-haskell"><span class="z-punctuation z-definition z-string z-begin z-haskell">&quot;</span><span class="z-constant z-character z-escape z-haskell">\n</span><span class="z-punctuation z-definition z-string z-end z-haskell">&quot;</span></span> <span class="z-keyword z-operator z-haskell">++</span> j)
+</span><span class="z-source z-haskell">
+</span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"><span class="z-entity z-name z-function z-haskell">runJerryRun</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> <span class="z-storage z-type z-haskell">String</span>
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span>runJerryRun <span class="z-keyword z-operator z-haskell">=</span> (runReader tomAndJerry) <span class="z-string z-quoted z-double z-haskell"><span class="z-punctuation z-definition z-string z-begin z-haskell">&quot;</span>Who is this?<span class="z-punctuation z-definition z-string z-end z-haskell">&quot;</span></span>
+</span></code></pre>
+<p>这将给出：</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> putStrLn <span class="z-keyword z-operator z-haskell">$</span> runJerryRun
+</span><span class="z-source z-haskell"><span class="z-constant z-other z-haskell">Who</span> is this<span class="z-keyword z-operator z-haskell">?</span> <span class="z-constant z-other z-haskell">This</span> is <span class="z-constant z-other z-haskell">Tom</span><span class="z-keyword z-operator z-haskell">.</span>
+</span><span class="z-source z-haskell"><span class="z-constant z-other z-haskell">Who</span> is this<span class="z-keyword z-operator z-haskell">?</span> <span class="z-constant z-other z-haskell">This</span> is <span class="z-constant z-other z-haskell">Jerry</span><span class="z-keyword z-operator z-haskell">.</span>
+</span></code></pre>
+<p>这可用于依赖注入、配置传递。</p>
+<hr />
+<p><code>Writer</code> 类型同理，可视作 <code>Monoid w =&gt; Writer w a</code>。每次计算会产生一个辅助的输出，其将被 <code>mappend</code> 到 <code>w</code> 中。</p>
+<p>这可用于日志、计数器等。</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell"><span class="z-meta z-import z-haskell"><span class="z-keyword z-other z-haskell">import</span> <span class="z-support z-other z-module z-haskell">Control.Monad.Writer</span></span>
+</span><span class="z-source z-haskell">
+</span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"><span class="z-entity z-name z-function z-haskell">compute</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> <span class="z-storage z-type z-haskell">Writer</span> [<span class="z-storage z-type z-haskell">String</span>] <span class="z-storage z-type z-haskell">Int</span>
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span>compute <span class="z-keyword z-operator z-haskell">=</span> <span class="z-keyword z-control z-haskell">do</span>
+</span><span class="z-source z-haskell">  tell [<span class="z-string z-quoted z-double z-haskell"><span class="z-punctuation z-definition z-string z-begin z-haskell">&quot;</span>Starts here ###<span class="z-punctuation z-definition z-string z-end z-haskell">&quot;</span></span>]
+</span><span class="z-source z-haskell">  <span class="z-keyword z-other z-haskell">let</span> x <span class="z-keyword z-operator z-haskell">=</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">10</span>
+</span><span class="z-source z-haskell">  tell [<span class="z-string z-quoted z-double z-haskell"><span class="z-punctuation z-definition z-string z-begin z-haskell">&quot;</span>Initial: <span class="z-punctuation z-definition z-string z-end z-haskell">&quot;</span></span> <span class="z-keyword z-operator z-haskell">++</span> show x]
+</span><span class="z-source z-haskell">  <span class="z-keyword z-other z-haskell">let</span> y <span class="z-keyword z-operator z-haskell">=</span> x * <span class="z-constant z-numeric z-integer z-decimal z-haskell">2</span>
+</span><span class="z-source z-haskell">  tell [<span class="z-string z-quoted z-double z-haskell"><span class="z-punctuation z-definition z-string z-begin z-haskell">&quot;</span>Multiply by 2: <span class="z-punctuation z-definition z-string z-end z-haskell">&quot;</span></span> <span class="z-keyword z-operator z-haskell">++</span> show y]
+</span><span class="z-source z-haskell">  
+</span><span class="z-source z-haskell">  <span class="z-keyword z-other z-haskell">let</span> z <span class="z-keyword z-operator z-haskell">=</span> y <span class="z-keyword z-operator z-haskell">+</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">5</span>
+</span><span class="z-source z-haskell">  tell [<span class="z-string z-quoted z-double z-haskell"><span class="z-punctuation z-definition z-string z-begin z-haskell">&quot;</span>Add by 5: <span class="z-punctuation z-definition z-string z-end z-haskell">&quot;</span></span> <span class="z-keyword z-operator z-haskell">++</span> show z]
+</span><span class="z-source z-haskell">  
+</span><span class="z-source z-haskell">  tell [<span class="z-string z-quoted z-double z-haskell"><span class="z-punctuation z-definition z-string z-begin z-haskell">&quot;</span>Done.<span class="z-punctuation z-definition z-string z-end z-haskell">&quot;</span></span>]
+</span><span class="z-source z-haskell">  return z
+</span><span class="z-source z-haskell">
+</span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"><span class="z-entity z-name z-function z-haskell">example</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> <span class="z-storage z-type z-haskell">IO</span> <span class="z-support z-constant z-unit z-haskell">()</span>
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span>example <span class="z-keyword z-operator z-haskell">=</span> <span class="z-keyword z-control z-haskell">do</span>
+</span><span class="z-source z-haskell">  <span class="z-keyword z-other z-haskell">let</span> (result<span class="z-punctuation z-separator z-comma z-haskell">,</span> log) <span class="z-keyword z-operator z-haskell">=</span> runWriter compute
+</span><span class="z-source z-haskell">  putStrLn <span class="z-keyword z-operator z-haskell">$</span> <span class="z-string z-quoted z-double z-haskell"><span class="z-punctuation z-definition z-string z-begin z-haskell">&quot;</span>Result: <span class="z-punctuation z-definition z-string z-end z-haskell">&quot;</span></span> <span class="z-keyword z-operator z-haskell">++</span> show result
+</span><span class="z-source z-haskell">  putStrLn <span class="z-string z-quoted z-double z-haskell"><span class="z-punctuation z-definition z-string z-begin z-haskell">&quot;</span>Log:<span class="z-punctuation z-definition z-string z-end z-haskell">&quot;</span></span>
+</span><span class="z-source z-haskell">  mapM_ putStrLn log
+</span></code></pre>
+<hr />
+<p><code>State</code> 同样可看作 <code>State s a</code>，可看作 <code>Reader</code> 与 <code>Writer</code> 的结合。</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell"><span class="z-meta z-import z-haskell"><span class="z-keyword z-other z-haskell">import</span> <span class="z-support z-other z-module z-haskell">Control.Monad.State</span></span>
+</span><span class="z-source z-haskell">
+</span><span class="z-source z-haskell"><span class="z-keyword z-other z-haskell">type</span> <span class="z-constant z-other z-haskell">Account</span> <span class="z-keyword z-operator z-haskell">=</span> <span class="z-constant z-other z-haskell">Int</span>
+</span><span class="z-source z-haskell">
+</span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"><span class="z-entity z-name z-function z-haskell">deposit</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> <span class="z-storage z-type z-haskell">Int</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-storage z-type z-haskell">State</span> <span class="z-storage z-type z-haskell">Account</span> <span class="z-support z-constant z-unit z-haskell">()</span>
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span>deposit amount <span class="z-keyword z-operator z-haskell">=</span> modify (<span class="z-keyword z-operator z-haskell">+</span> amount)
+</span><span class="z-source z-haskell">
+</span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"><span class="z-entity z-name z-function z-haskell">withdraw</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> <span class="z-storage z-type z-haskell">Int</span> <span class="z-keyword z-other z-arrow z-haskell">-&gt;</span> <span class="z-storage z-type z-haskell">State</span> <span class="z-storage z-type z-haskell">Account</span> <span class="z-storage z-type z-haskell">Bool</span>
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span>withdraw amount <span class="z-keyword z-operator z-haskell">=</span> <span class="z-keyword z-control z-haskell">do</span>
+</span><span class="z-source z-haskell">  balance <span class="z-keyword z-operator z-haskell">&lt;-</span> get
+</span><span class="z-source z-haskell">  <span class="z-keyword z-control z-haskell">if</span> amount <span class="z-keyword z-operator z-haskell">&lt;=</span> balance
+</span><span class="z-source z-haskell">    <span class="z-keyword z-control z-haskell">then</span> modify (subtract amount) <span class="z-keyword z-operator z-haskell">&gt;&gt;</span> return <span class="z-constant z-other z-haskell">True</span>
+</span><span class="z-source z-haskell">    <span class="z-keyword z-control z-haskell">else</span> return <span class="z-constant z-other z-haskell">False</span>
+</span><span class="z-source z-haskell">
+</span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"><span class="z-entity z-name z-function z-haskell">example</span> <span class="z-keyword z-other z-double-colon z-haskell">::</span> (<span class="z-storage z-type z-haskell">Bool</span>, <span class="z-storage z-type z-haskell">Account</span>)
+</span></span><span class="z-source z-haskell"><span class="z-meta z-function z-type-declaration z-haskell"></span>example <span class="z-keyword z-operator z-haskell">=</span> runState (<span class="z-keyword z-control z-haskell">do</span>
+</span><span class="z-source z-haskell">  put <span class="z-constant z-numeric z-integer z-decimal z-haskell">10</span>
+</span><span class="z-source z-haskell">  deposit <span class="z-constant z-numeric z-integer z-decimal z-haskell">100</span>
+</span><span class="z-source z-haskell">  deposit <span class="z-constant z-numeric z-integer z-decimal z-haskell">50</span>
+</span><span class="z-source z-haskell">  success <span class="z-keyword z-operator z-haskell">&lt;-</span> withdraw <span class="z-constant z-numeric z-integer z-decimal z-haskell">200</span>
+</span><span class="z-source z-haskell">  return success) <span class="z-constant z-numeric z-integer z-decimal z-haskell">1000</span>
+</span></code></pre>
+<h3 id="gong-ju-functor">工具 Functor</h3>
+<p><code>Data.Functor</code> 提供了一些工具性质的函子。</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> <span class="z-meta z-import z-haskell"><span class="z-keyword z-other z-haskell">import</span> <span class="z-support z-other z-module z-haskell">Data.Functor.Identity</span></span>
+</span><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> fmap (<span class="z-keyword z-operator z-haskell">+</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">1</span>) (<span class="z-constant z-other z-haskell">Identity</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">0</span>)
+</span><span class="z-source z-haskell"><span class="z-constant z-other z-haskell">Identity</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">1</span>
+</span><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> <span class="z-keyword z-operator z-haskell">:</span>{
+</span><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">|</span> <span class="z-keyword z-control z-haskell">do</span>
+</span><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">|</span>   x <span class="z-keyword z-operator z-haskell">&lt;-</span> <span class="z-constant z-other z-haskell">Identity</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">10</span>
+</span><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">|</span>   y <span class="z-keyword z-operator z-haskell">&lt;-</span> <span class="z-constant z-other z-haskell">Identity</span> (x <span class="z-keyword z-operator z-haskell">+</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">5</span>)
+</span><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">|</span>   pure (x <span class="z-keyword z-operator z-haskell">+</span> y)
+</span><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">|</span> <span class="z-keyword z-operator z-haskell">:</span>}
+</span><span class="z-source z-haskell"><span class="z-constant z-other z-haskell">Identity</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">25</span>
+</span><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> <span class="z-meta z-import z-haskell"><span class="z-keyword z-other z-haskell">import</span> <span class="z-support z-other z-module z-haskell">Data.Functor.Const</span></span>
+</span><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> fmap (<span class="z-keyword z-operator z-haskell">++</span> <span class="z-string z-quoted z-double z-haskell"><span class="z-punctuation z-definition z-string z-begin z-haskell">&quot;</span>World<span class="z-punctuation z-definition z-string z-end z-haskell">&quot;</span></span>) (<span class="z-constant z-other z-haskell">Const</span> <span class="z-string z-quoted z-double z-haskell"><span class="z-punctuation z-definition z-string z-begin z-haskell">&quot;</span>Hello<span class="z-punctuation z-definition z-string z-end z-haskell">&quot;</span></span>)
+</span><span class="z-source z-haskell"><span class="z-constant z-other z-haskell">Const</span> <span class="z-string z-quoted z-double z-haskell"><span class="z-punctuation z-definition z-string z-begin z-haskell">&quot;</span>Hello<span class="z-punctuation z-definition z-string z-end z-haskell">&quot;</span></span>
+</span><span class="z-source z-haskell">ghci<span class="z-keyword z-operator z-haskell">&gt;</span> <span class="z-constant z-other z-haskell">Const</span> [<span class="z-constant z-numeric z-integer z-decimal z-haskell">1</span><span class="z-punctuation z-separator z-comma z-haskell">,</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">2</span><span class="z-punctuation z-separator z-comma z-haskell">,</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">3</span>] <span class="z-keyword z-operator z-haskell">&lt;</span>*<span class="z-keyword z-operator z-haskell">&gt;</span> <span class="z-constant z-other z-haskell">Const</span> [<span class="z-constant z-numeric z-integer z-decimal z-haskell">4</span><span class="z-punctuation z-separator z-comma z-haskell">,</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">5</span><span class="z-punctuation z-separator z-comma z-haskell">,</span> <span class="z-constant z-numeric z-integer z-decimal z-haskell">6</span>]
+</span><span class="z-source z-haskell"><span class="z-constant z-other z-haskell">Const</span> [<span class="z-constant z-numeric z-integer z-decimal z-haskell">1</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">2</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">3</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">4</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">5</span><span class="z-punctuation z-separator z-comma z-haskell">,</span><span class="z-constant z-numeric z-integer z-decimal z-haskell">6</span>]
+</span></code></pre>
+<h3 id="gao-ji-monad">高级 Monad</h3>
+<p>Haskell 中还有更加强大的控制流。</p>
+<p>以下在 GHCi 中需要设置 <code>:set -package transformers</code>.</p>
+<p><code>Cont</code> 可以做 continuation-passing style 计算，可以实现任意跳转、提前返回、复杂错误处理。</p>
+<p><code>Select</code> 是 <code>Cont</code> 的一个特化版本，可解决搜索和优化问题。</p>
+<p><code>Free</code> 可以将任意 <code>Functor</code> 提升为 <code>Monad</code>.</p>
+<p>关于它们的详细内容或许会在之后的文章中讨论。</p>
+<hr />
+<p>事实上，在实际的 Haskell 开发中很少直接使用 <code>State s</code> 或 <code>Writer w</code> 等纯的单子，而是组合 Monad 变换器，形如：</p>
+<pre data-lang="hs" class="language-hs z-code"><code class="language-hs" data-lang="hs"><span class="z-source z-haskell"><span class="z-keyword z-other z-haskell">type</span> <span class="z-constant z-other z-haskell">MyApp</span> <span class="z-keyword z-operator z-haskell">=</span> <span class="z-constant z-other z-haskell">ReaderT</span> <span class="z-constant z-other z-haskell">Config</span> (<span class="z-constant z-other z-haskell">StateT</span> <span class="z-constant z-other z-haskell">AppState</span> (<span class="z-constant z-other z-haskell">ExceptT</span> <span class="z-constant z-other z-haskell">Error</span> <span class="z-constant z-other z-haskell">IO</span>))
+</span></code></pre>
+<div class="footnote-definition" id="omit"><sup class="footnote-definition-label">1</sup>
+<p>在 GHCi 中使用命令 <code>:info Semigroup</code>（可简写为 <code>:i Semigroup</code>）可以看到更详细的信息。一部分不必要的内容被省略了，下同。</p>
+</div>
+<div class="footnote-definition" id="reader"><sup class="footnote-definition-label">2</sup>
+<p>参考了 <a href="https://blog.ssanj.net/posts/2014-09-23-A-Simple-Reader-Monad-Example.html">A Simple Reader Monad Example</a> 的看法，下面的示例也来自此文。</p>
+</div>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/计算机/">计算机</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/函数式编程/">函数式编程</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/pages"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <link rel="stylesheet" href="https://rratic.github.io/katex/katex.min.css?h=e189fd0238811989c364" />
+  <script defer src="https://rratic.github.io/katex/katex.min.js?h=6b909443e6c8f6e5d24c"></script>
+  <script defer src="https://rratic.github.io/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

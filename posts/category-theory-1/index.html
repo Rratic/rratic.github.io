@@ -1,0 +1,348 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>范畴论（一）：代数上的定义对应的泛性质 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="范畴论（一）：代数上的定义对应的泛性质" />
+  <meta name="description" content="代数上的定义的范畴论观点：关于笛卡尔积，无交并，直积，直和，积空间，纤维积。" />
+  <meta property="og:description" content="代数上的定义的范畴论观点：关于笛卡尔积，无交并，直积，直和，积空间，纤维积。" />
+  <meta property="og:url" content="https://rratic.github.io/posts/category-theory-1/" />
+  <link rel="canonical" href="https://rratic.github.io/posts/category-theory-1/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2025-08-02T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2025-09-29T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="范畴论" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.github.io/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.github.io/style/shared.css?h=63eca58df589815f6747" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.github.io/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.github.io/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.github.io/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.github.io/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">范畴论（一）：代数上的定义对应的泛性质</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2025-08-02T00:00:00+00:00">2025-08-02</time><span
+        class="middot"></span><time
+    datetime="PT0H6M0S">6&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#product-and-coproduct">积与余积</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#pullback-and-pushout">拉回与推出</a>
+      </li>
+    </ul>
+  </details>
+</nav>
+
+  <!-- Content -->
+  <section><nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+	<div class="select-none py-0.5 lg:py-1 pl-3.5">
+		<a href="/_misc/category-theory/" target="_blank">索引 ⟨ category-theory ⟩</a>
+	</div>
+</nav>
+<p>前置知识</p>
+<ul>
+<li>范畴论基本概念</li>
+</ul>
+<h2 id="product-and-coproduct">积与余积</h2>
+<p>积的历史可以追溯到古代文明，随数学的发展，从自然数的积扩展到整数、有理数、实数、多项式的积，并且保持兼容性。这个过程是自然的。</p>
+<p>代数结构的积以笛卡尔积为基础。对两个集合 $A$，$B$，我们熟知 $A\times B = \{(a, b)\mid a\in A, b\in B\}$，其中 $(a, b)$ 在集合论上严格地被定义为 $\{\{a\}, \{a, b\}\}$，读者可验证我们确实可以从 $(a, b)$ 中提取出 $a$ 与 $b$ 来。</p>
+<p>除笛卡尔积之外，我们有无交并。对实际上有交的集合，无交并在技术上可以定义为 $A\sqcup B = \{(0, a)\mid a\in A\}\cup \{(1, b)\mid b\in B\}$，其中记 $0=\emptyset$ 及 $1=\{\emptyset\}$.</p>
+<p>参照集合中的情形，在类型论中，有元组 $(a:A, b:B)$ 与枚举类型 $a: A \mid b: B$，如果不严格地把类型看作值的集合，那么这其实就是笛卡尔积与无交并。</p>
+<p>同样地，抽象代数中有直积与直和，区别在于在无穷情形，直和要求只要有限个分量是非平凡的。</p>
+<p>拓扑中，一族 $(X_i, \tau_i)$ 的积空间中的拓扑是使所有投影映射 $X\to X_i$ 连续的最粗拓扑。积拓扑的基可以由所有的 $\prod U_i, U_i\in\tau_i$ 其中只有有限个 $U_i\neq X_i$ 给出。</p>
+<hr />
+<p>这些定义实际上体现了两种不同的泛性质。</p>
+
+<link rel="stylesheet" href="https://rratic.github.io/admonition.css?h=78eb69fa9d4a0eea7f15" type="text/css">
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>积</strong></span>
+  </div>
+  <div class="pl-4"><p>对范畴 $\mathcal{C}$，称 $P$ 是一族 $\{X_i\}_{i\in I}$ 的<strong>积</strong>，如果存在一族态射 $\pi_i\colon P\to X_i$ 使任一族态射 $\varphi_i\colon Y\to X_i$，存在唯一的 $\phi: Y\to P$ 使 $\pi_i\circ\phi=\varphi_i$.</p>
+</div>
+</div>
+<p>特别地，$I=\emptyset$ 时定义空积为终对象。</p>
+<p>易知积在同构意义下是唯一的。</p>
+<hr />
+<p>积的对偶是<strong>余积</strong>（或称<strong>上积</strong>，上的译法可能来自画图时的方向；或称<strong>和</strong>），即：
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>余积</strong></span>
+  </div>
+  <div class="pl-4"><p>称 $P$ 是一族 $\{X_i\}_{i\in I}$ 的余积，如果存在一族态射 $\iota_i\colon X_i\to P$ 使任一族态射 $\varphi_i\colon X_i\to Y$，存在唯一的 $\phi: P\to Y$ 使 $\phi\circ\iota_i=\varphi_i$.</p>
+</div>
+</div>
+</p>
+<p>$I=\emptyset$ 时定义空积为始对象。</p>
+<p>特别地，如果一族对象的积与余积相同，则称为双积。</p>
+<p>读者可自行验证以下对应：</p>
+<table><thead><tr><th style="text-align: center">范畴</th><th style="text-align: center">积</th><th style="text-align: center">余积</th></tr></thead><tbody>
+<tr><td style="text-align: center">集合</td><td style="text-align: center">笛卡尔积</td><td style="text-align: center">无交并</td></tr>
+<tr><td style="text-align: center">群</td><td style="text-align: center">直积</td><td style="text-align: center">直和</td></tr>
+<tr><td style="text-align: center">拓扑</td><td style="text-align: center">积空间</td><td style="text-align: center">无交并</td></tr>
+</tbody></table>
+<h2 id="pullback-and-pushout">拉回与推出</h2>
+<p>在拓扑中，对一个拓扑空间 $B$，一个 $B$ 上的空间（或称 $B$-空间）是指拓扑空间 $X$ 和连续映射 $p:X\to B$，可以将它看成一族空间 $X_b=p^{-1}(b)$（称作点 $b$ 的纤维）。两个 $B$-空间的连续 $B$-映射是满足 $p'\circ f = p$ 的连续映射 $f: X\to X'$.</p>
+<p>对两个 $D$-空间 $(B, f: B\to D)$ 与 $(C, g: C\to D)$，称它们的纤维积是：</p>
+<p>对 $d\in D$，考虑 $B_d\times C_d$，将它们拼成一个大空间，这也是一个 $D$-空间。</p>
+<p>纤维积对应的是拉回。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>拉回</strong></span>
+  </div>
+  <div class="pl-4"><p>对于对象 $B, C, D$ 与态射 $B\to D, C\to D$，它们的<strong>拉回</strong>是对象 $A$ 及态射 $A\to B, A\to C$，满足泛性质：对另一组对象 $A'$ 及态射 $A'\to B, A'\to C$，存在唯一的态射 $A'\to A$ 使图表交换。</p>
+</div>
+</div>
+<p>拉回可以由积和等化子确定。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>等化子</strong></span>
+  </div>
+  <div class="pl-4"><p>对 $A\overset{\quad f\quad}{\underset{g}{\rightrightarrows}} B$，称对象 $E$ 及态射 $e:E\to A$ 为它们的<strong>等化子</strong>，如果对任意 $z:Z\to A$ 有唯一的态射 $Z\to E$ 使图表交换。</p>
+</div>
+</div>
+<p>观察图表即可发现拉回是 $B\times C\to D$ 的等化子。</p>
+<p>通过此容易写出两个集合的拉回是 $\{(b,c)\in B\times C\mid f(b)=g(c)\}$，可以验证：一个集合的两个子集的拉回是它们的交。</p>
+<p>使用拉回可以定义一般的核 $\ker f$ 概念。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>核</strong></span>
+  </div>
+  <div class="pl-4"><p>对范畴 $\mathcal{C}$ 及零对象 $0$，态射 $f: X\to Y$，$f$ 的<strong>核</strong>为 $f$ 与 $u:0\to Y$ 的拉回。</p>
+</div>
+</div>
+<p>拉回、等化子、核的对偶是<strong>推出</strong>、<strong>余等化子</strong>、<strong>余核</strong>。</p>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/范畴论/">范畴论</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/pages"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <link rel="stylesheet" href="https://rratic.github.io/katex/katex.min.css?h=e189fd0238811989c364" />
+  <script defer src="https://rratic.github.io/katex/katex.min.js?h=6b909443e6c8f6e5d24c"></script>
+  <script defer src="https://rratic.github.io/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

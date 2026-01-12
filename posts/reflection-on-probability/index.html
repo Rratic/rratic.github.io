@@ -1,0 +1,633 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>概率论的解释：《概率论沉思录》笔记 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="概率论的解释：《概率论沉思录》笔记" />
+  <meta name="description" content="概率论原理的直观推导与应用。回答：概率论对现实的描述何以可能指导现实活动？概率论能多大程度地描述现实？建立正确的直觉。" />
+  <meta property="og:description" content="概率论原理的直观推导与应用。回答：概率论对现实的描述何以可能指导现实活动？概率论能多大程度地描述现实？建立正确的直觉。" />
+  <meta property="og:url" content="https://rratic.github.io/posts/reflection-on-probability/" />
+  <link rel="canonical" href="https://rratic.github.io/posts/reflection-on-probability/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2025-04-12T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2025-12-16T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="概率论" />
+  <meta property="article:tag" content="统计学" />
+  <meta property="article:tag" content="可运行" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.github.io/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.github.io/style/shared.css?h=63eca58df589815f6747" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.github.io/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.github.io/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.github.io/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.github.io/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">概率论的解释：《概率论沉思录》笔记</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2025-04-12T00:00:00+00:00">2025-04-12</time><span
+        class="middot"></span><time
+    datetime="PT0H27M0S">27&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#about">说明</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#zhai-yao">摘要</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#san-men-wen-ti">三门问题</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#bertrand-bei-lun">Bertrand 悖论</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#tao-lun-de-ke-neng">讨论的可能</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#bi-yao-de-ren-ke">必要的认可</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#li-xiang-hua">理想化</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#gui-ze-de-gou-jian">规则的构建</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#he-qing-tui-li-yuan-ze">合情推理原则</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ding-liang-gui-ze">定量规则</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#tian-ru-shu-zhi">填入数值</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#kolmogorov-gong-li">Kolmogorov 公理</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#chu-deng-chou-yang-lun">初等抽样论</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#wu-fang-hui-chou-yang">无放回抽样</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#xiang-guan-xing-xiao-zheng">相关性校正</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#chu-deng-jia-she-jian-yan">初等假设检验</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ding-yi">定义</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#duo-zhong-jia-she-jian-yan">多重假设检验</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#xin-nian">信念</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#xin-nian-qiang-du">信念强度</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#yi-jian-de-qu-tong-he-fen-qi">意见的趋同和分歧</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#chu-deng-can-shu-gu-ji">初等参数估计</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#chi-san-can-shu">离散参数</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#lian-xu-fen-bu">连续分布</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#zheng-tai-fen-bu">正态分布</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#tui-dao-guo-cheng">推导过程</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#zhong-yao-xing-zhi">重要性质</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </details>
+</nav>
+
+  <!-- Content -->
+  <section><p>前置知识</p>
+<ul>
+<li>一般的概率论基础</li>
+</ul>
+<h2 id="about">说明</h2>
+<h3 id="zhai-yao">摘要</h3>
+<p>在概率论（和统计）中有频率学派（Frequentist）和贝叶斯学派（Bayesian）两大流派。后者引入了先验概率和后验概率的概念，在人工智能时代获得了更多的支持。《概率论沉思录》一书的作者采取了更广阔的视角，试图解决直觉相互矛盾的问题，以及揭示先验信息的巨大影响。</p>
+<p>本文旨在探讨两个问题：</p>
+<ul>
+<li>概率论对现实的描述何以可能指导现实活动？
+<ul>
+<li>统计出的、计算出的概率为何合理？</li>
+<li>提出合理的假设何以可能？</li>
+</ul>
+</li>
+<li>概率论能多大程度地描述现实？
+<ul>
+<li>当我们掷一个骰子时，我们何时把它看作每面 1/6 概率朝下而忽略材质的不均匀、抛掷的手法、空气的流动？</li>
+<li>我们应如何掌握这种判断的“把握”？</li>
+</ul>
+</li>
+</ul>
+<p>我们希望建立正确的直觉以系统性地解决下面两个例子之类的佯谬，并展示一些实际的运作方式。</p>
+<h3 id="san-men-wen-ti">三门问题</h3>
+<p>一个典型的直觉相互矛盾的问题是三门问题，最早在美国电视节目 Let's Make a Deal 中由主持人 Monty Hall 推广。</p>
+<p>参赛者需从三扇门中选择一扇，背后可能是汽车（大奖）或山羊（安慰奖）。然后，主持人会打开一扇未被选择且藏有山羊的门，问参赛者是否要坚持原选择还是换门。</p>
+<p>该问题以各种途径传播，引起了极大的争议。</p>
+<p><a href="/playground/simulation_three_door.html">我们来做一次模拟。</a></p>
+
+	
+
+
+<script>
+	function touch_shell(id) {
+		let node = document.getElementById(id);
+		node.classList.toggle("folded");
+	}
+</script>
+
+<blockquote class="folder" onclick="touch_shell('faq-1')">
+	<p>关于模拟的配置说明。</p>
+
+</blockquote>
+<div id="faq-1" class="folded">
+	<p>随机源只支持默认随机源 <code>Math.random()</code>，其使用系统熵源，随机算法取决于具体实现，如 <a href="https://github.com/v8/v8/blob/master/src/base/utils/random-number-generator.cc">xorshift128+</a>，<code>pcg32</code> 及 <code>arc4random_buf</code></p>
+<p>两个方案中，方案一是：虚拟主持人一开始就知晓门的对应，依此选择开哪个门；方案二是：虚拟主持人一开始不知道门的对应，随机从未选的门挑，根据情况决定。</p>
+
+</div>
+<p>通过上述观察模拟（或计算），可以发现换门则胜利频率为 $\frac{2}{3}$，否则为 $\frac{1}{3}$.</p>
+<p>但是，存在一些基于直觉的不同意见：</p>
+<ul>
+<li>打开门什么都不会影响，因此不合理</li>
+<li>主持人的行为是存在约束的（即必须打开无车门），这在初始选对、选错时概率不一样，因此结果是合理的</li>
+<li>换和不换同样是在两个门中选择，因此不合理</li>
+<li>可以理解为：把两个门合并成一个，因此结果是合理的</li>
+</ul>
+<h3 id="bertrand-bei-lun">Bertrand 悖论</h3>
+<p>Bertrand 悖论提出的问题是：在单位圆内任意画一条弦，弦长超过 $\sqrt{3}$ 的概率是多少？</p>
+<p>存在以下不同的答案</p>
+<ol>
+<li>先固定一点，再取另一点，结果为 $\frac{1}{3}$</li>
+<li>先固定弦的斜率，考察弦中点的位置，结果为 $\frac{1}{2}$</li>
+<li>直接考察弦中点的位置，只能在一个小圆内，结果为 $\frac{1}{4}$</li>
+</ol>
+<h2 id="tao-lun-de-ke-neng">讨论的可能</h2>
+<p>这里的引用来自《概率论及其应用》的前几页。此书译自 William Feller 所作的经典 <em>An Introduction to Probability Theory and Its Application</em>.</p>
+<h3 id="bi-yao-de-ren-ke">必要的认可</h3>
+<p>第一个问题涉及了一个更基本的问题——认识论的问题。认识论不在本文讨论范围内。我们不希望陷入这样的问题：</p>
+<ul>
+<li>使用的逻辑体系是否一定正确？</li>
+<li>在推导过程中有多大的可能出错，而没有人发现？</li>
+<li>我是真的理解了这些内容，还是我恰好产生了对它们的自信？</li>
+</ul>
+<p>因此，希望读者认可：以某种方式，以概率论对现实的描述指导现实活动是可能的。为此，你或许可以采取以下选择：</p>
+<ul>
+<li>盲信。时代、文化的变化已经塑造了（大部分时候）足以应对生活的直观认识。
+<blockquote>
+<p>人类的集体直观能力也在进步着 … 同样，现在的学生不会体会到，当概率论还在萌芽的时候，它与某些思维方式、偏见及其他困难的斗争情形。</p>
+</blockquote>
+</li>
+<li>实用主义。概率论是一个（从经验上看/从权威上看/从自己对数学推导的认可上看）好用的模型。
+<blockquote>
+<p>我们所关心的不是归纳推理的形态，而是一种可以叫作是<em>物理概率</em>或者<em>统计概率</em>的事物 … 我们所说的判断不是关于这些的判断，而是关于一个<em>理想实验</em>的可能结果 … 大家必须先承认一个特殊理想实验的想象模型。</p>
+</blockquote>
+</li>
+<li>其它可能的论证。如果你对形而上内容的了解可以支撑。</li>
+</ul>
+<h3 id="li-xiang-hua">理想化</h3>
+<p>进行理想化是有必要的。</p>
+<blockquote>
+<p>测定原子的寿命或人的寿命而没有误差是不可能的，但是为了理论上的目的，我们不妨设想寿命是实实在在的一个数，这样问题就产生了 …… 另一方面，现行的保险业务对于人的可能寿命却不加任何上限，按照寿险死亡率表所基于的公式算出来，千年不死的人在全人类中大约只占 $10^{10^{36}}$ 分之一 …… 使用这种小概率非但没有坏处，而且还可以简化公式，再说，如果我们真地把活一千年的可能性排除掉，我们势必承认一个最大年龄限 $x$ 的存在，说人能活 $x$ 年而不能活 $x$ 年零两秒，这种说法决不会比无限寿命的说法更能讲得通些。</p>
+</blockquote>
+<p>我们将从有限的、理想化的模型开始，之后再考察无限的及不那么理想化的情形。</p>
+<h2 id="gui-ze-de-gou-jian">规则的构建</h2>
+<h3 id="he-qing-tui-li-yuan-ze">合情推理原则</h3>
+<p>假定需要开发一个推理机器人，对合情程度进行推理。我们希望满足如下条件：</p>
+<ol>
+<li>用实数表示合情程度：从直觉上说，我们需要全序和连续性</li>
+<li>定性地与常识相符，例如说我们希望可以构成（广义的）布尔代数</li>
+<li>推理是一致的，也就是：
+<ol>
+<li>不同的推理方式结果一致</li>
+<li>会考虑的是所有有关的证据</li>
+<li>在相同的情形下合情程度相同</li>
+</ol>
+</li>
+</ol>
+<h3 id="ding-liang-gui-ze">定量规则</h3>
+<p>接下来推导出一些定量的规则：</p>
+<ol>
+<li>
+<p>乘法规则<br />
+我们希望决定 $A\wedge B$ 为真有两种途径：先决定其一，在接受它的条件下接受另一个。从合情推理原则 3.2 我们可以得出 $(C\implies A\wedge B) = F((C\implies B), (B\wedge C\implies A))$，同样地对 $(D\implies A\wedge B\wedge C)$ 使用合情推理原则 3.1 可推出 $F(F(x, y), z) = F(x, F(y, z))$；此外，$F$ 应当是连续且单调的。<br />
+Aczél 在他的函数方程著作中用 11 页推导出了方程的一般解。如果我们进一步要求可微性，则证明可缩短。解被表示为 $F(x, y) = \omega^{-1}(\omega(x)\omega(y))$.</p>
+</li>
+<li>
+<p>值域<br />
+由乘法规则得出，确定性由 $\omega(Q) = 1$ 表示，进一步<strong>约定</strong> $0 \leq \omega(Q) \leq 1$.</p>
+</li>
+<li>
+<p>加法规则<br />
+考虑那些非真即假的命题，$A\wedge \bar{A}$ 总是假的。通过分析得到 $\exists m&gt;0, \omega^m(B\implies A)+\omega^m(B\implies \bar{A})$，使用代替 $p(x)\equiv\omega^m(x)$ 是符合值域条件的，没有丧失一般性。</p>
+</li>
+<li>
+<p>广义加法规则<br />
+由加法规则可进一步推导出 $p(C\implies A\vee B) = p(C\implies A) + p(C\implies B) - p(C\implies A\wedge B)$.</p>
+</li>
+</ol>
+<h3 id="tian-ru-shu-zhi">填入数值</h3>
+<p>下面将使用更简单的符号，用 $P|Q$ 表示 $Q\implies P$，用 $P+Q$ 表示 $P\vee Q$，用 $PQ$ 表示 $P\wedge Q$.</p>
+<p>实际上，我们的事实可以形如 $C\equiv (A\implies B)$，这同样可被恰当地赋值符合我们的体系。</p>
+<p>我们假设 $B\equiv \left(p(A_iA_j | B) = p(A_i | B)\delta_{i, j}\right)$，其中 $\delta$ 是 Kronecker 符号。则有 $\sum_{i=1}^n p(A_i|B) = 1$，我们需要做的是将信息转换为 $p(A_i|B)$ 的值。</p>
+<p>如果这些 $A_i$ 在交换后没有任何区别，<strong>为了满足合情推理原则 3.3，唯一的结果</strong>是 $p(A_i|B)=\frac{1}{n}$，我们称为<strong>无差别原则</strong>。</p>
+<p>需要注意这来自于合情推理原则。</p>
+<p>从现在开始，我们称那些量 $p$ 为<strong>概率</strong>，在参数是命题时，使用大写字母 $P$.</p>
+<p>考察这样一个问题：
+
+<link rel="stylesheet" href="https://rratic.github.io/admonition.css?h=78eb69fa9d4a0eea7f15" type="text/css">
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>Pólya 坛子模型</strong></span>
+  </div>
+  <div class="pl-4"><p>一个坛子中有 3 个黑球，7 个白球，它们具有相同的大小和重量。摇动坛子并随机抽取一个球，取出一个黑球的概率是多少？</p>
+</div>
+</div>
+</p>
+<p>这个问题联系了现实。我们需要对题目条件进行理想化。</p>
+<blockquote>
+<p>硬币掉下时不一定是正面朝上或反面朝上，它可能是滚掉了，也可能是笔直地站着，但是我们只承认正面和反面是扔硬币以后仅有的可能结果，这样一来，理论要简洁得多了，同时也不影响其应用，这种类型的理想化是实践中标准的处理办法。</p>
+</blockquote>
+<p>类似地，在此问题中，我们只考虑十种互斥的取出球的情况，并且出于无差别原则，它们分配的概率都是 $\frac{1}{10}$.</p>
+<p>由此，取到黑球的概率是 $\frac{3}{10}$.</p>
+<p>对于现实问题，例如“摸到黑球”，我们可以将其分解为“今天在下雨并且摸到了黑球”和“今天不在下雨并且摸到了黑球”，但是这就成为了“空洞的形式化练习”。我们应当把 $AB$ 视作两者都为真的陈述，$P(AB|C)$ 是一个基本量，不一定可解析为更基本的量（尽管可以用于计算）。</p>
+<h3 id="kolmogorov-gong-li">Kolmogorov 公理</h3>
+<p>Kolmogorov 提出了一种用集合论（和测度论）语言表达概率论的方法。</p>
+<p>回顾 Kolmogorov 的公理化定义：</p>
+<p>给定集合 $\Omega$，如果 $\mathfrak{F}\subset 2^\Omega$ 满足：</p>
+<ol>
+<li>$\Omega\in\mathfrak{F}$</li>
+<li>取逆封闭：若 $A\in\mathfrak{F}$ 则</li>
+</ol>
+<p>$$\bar{A}\in\mathfrak{F}$$</p>
+<ol start="3">
+<li>可列并封闭：若 $\{A_n\}_{n\geq 1}\subset \mathfrak{F}$ 则</li>
+</ol>
+<p>$$\bigcup\limits_{n=1}^{+\infty} A_n\in\mathfrak{F}$$</p>
+<p>则称 $\mathfrak{F}$ 为 $\Omega$ 上的 σ-代数。</p>
+<p>$\mathfrak{F}$ 上的概率 $P: 2^\Omega\to \mathbb{R}$ 满足</p>
+<ol>
+<li>非负：$P(A)\geq 0$</li>
+<li>规范性：$P(\Omega)=1$</li>
+<li>可列可加性：对 $\{A_n\}_{n\geq 1}$ 两两不交</li>
+</ol>
+<p>$$P\left(\bigcup\limits_{n=1}^{+\infty} A_n\right) = \sum_{n=1}^{+\infty} P(A_n)$$</p>
+<p>我们在技术上支持此，但不局限于集合。</p>
+<h2 id="chu-deng-chou-yang-lun">初等抽样论</h2>
+<h3 id="wu-fang-hui-chou-yang">无放回抽样</h3>
+<p>由于信息的不完全性，我们暂且不能假设分配的概率与实验事实间的关系。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>重新考虑 Pólya 坛子模型</strong></span>
+  </div>
+  <div class="pl-4"><p>考虑这个模型：</p>
+<ul>
+<li>$B\equiv$ 一个坛子中有 $M$ 个红球，$N-M$ 个白球，每次从中随机抽取一个球，记录其颜色并放在一边；重复 $n\leq N$ 次</li>
+<li>$R_i\equiv$ 第 $i$ 次取出红球</li>
+<li>$W_i\equiv$ 第 $i$ 次取出白球</li>
+</ul>
+</div>
+</div>
+<p>在取出球后，推理机器的知识状态就会发生变化。</p>
+<p>容易推得，共取出 $r\leq n$ 个红球的概率为 $h(r) = \frac{\binom{M}{r}\binom{N-M}{n-r}}{\binom{N}{n}}$，称为<strong>超几何分布</strong>。</p>
+<p>或许会有一些“反因果”的事情在其中发生。如果机器预先知道第二次抽取会取出红球，那么第一次抽取时的概率就会不同（如若 $M=1$ 则第一次不可能抽到红球）。我们不应该认为逻辑的 $\implies$ 与物理的因果一定有关。</p>
+<p>如果一个概率分布中，概率只取决于单次试验的结果的出现次数，则称它是<strong>可交换的</strong>。超几何分布是可交换的，这从物理因果角度无法解释。</p>
+<p>而从逻辑推导可以算出 $P(R_k|R_jB) = \frac{M-1}{N-1}, P(R_k|W_jB) = \frac{M}{N-1}$，等同于“搁置”了一个红/白球到后面。</p>
+<p>如果机器预先知道的是“后面至少会抽取出一个红球”，但不知道是哪一次，结果是一样的。</p>
+<p>作为练习，读者可自行考虑 Fisher-Yates 算法作为例子，参见<a href="https://www.luogu.com.cn/article/f3xefa5v">洛谷日报：随机的艺术</a>。</p>
+<hr />
+<p>现在研究超几何分布的极限形式，即确定 $f = \frac{M}{N}$ 并让 $n\to \infty$ 的结果。</p>
+<p>我们有 $h(r) = \binom{n}{r} f^r(1-f)^{n-r}$，称为<strong>二项分布</strong>。</p>
+<p>广义超几何分布（有多种颜色的球）在极限情形下会变成多项分布。</p>
+<h3 id="xiang-guan-xing-xiao-zheng">相关性校正</h3>
+<p>在现实中摇动坛子的过程，我们称为“随机化”，目的是让信息更加复杂，并且因信息过于复杂而故意丢弃。</p>
+<p>但随机化并不会让等式变得精确，可以直接应用于现实。我们将看到，小的误差会被积累。</p>
+<p>例如说，我们假设抽取并放回一个红球会略微增加下一次抽到红球的概率，反之亦然，也就是 $P(R_k|R_{k-1}C) = \frac{M}{N}+\epsilon, P(R_k|W_{k-1}C) = \frac{M}{N}-\delta$.</p>
+<p>通过使用矩阵对角化，可以算得 $P(R_k|C) = \frac{(p-\delta)-(\epsilon+\delta)^{k-1}(p\epsilon-q\delta)}{1-\epsilon-\delta}, p=\frac{M}{N}, q=1-p$.</p>
+<h2 id="chu-deng-jia-she-jian-yan">初等假设检验</h2>
+<h3 id="ding-yi">定义</h3>
+<p>康德引入了先验一词来表示独立于经验而可以知道真假的命题。但先验概率一词在今天看来是不合适的。</p>
+<p>如何将字面上的先验信息转换为数值先验是一个开放的问题，会在书的之后章节中讨论。</p>
+<p>令 $X$ 为先验信息，$H$ 为待检验的假设，$D$ 为数据，有 $P(H|DX)=P(H|X)\frac{P(D|HX)}{P(D|X)}$，等式左侧为<strong>后验概率</strong>，最后一项为<strong>似然</strong> $L(H)$.</p>
+<p>为了变得<em>无量纲</em>，定义<strong>几率</strong>是指 $O(H|DX)=\frac{P(H|DX)}{P(\bar{H}|DX)}$.</p>
+<p>我们再定义<strong>证据</strong>是指 $e(H|DX)=10\log_{10} O(H|DX)$，单位为分贝 dB，这符合 Weber-Fechner 定律指出的感知的强度与物理强度的对数有关的现象。</p>
+<p>如果 $P(D_2|D_1HX) = P(D_2|HX)$ 我们说 $D_1$ 与 $D_2$ 是<strong>独立</strong>的，独立并非是物理上的，而是逻辑上推理机器分配的概率。</p>
+<p>我们来考虑这样一个例子：先验信息 $X$ 是有 11 台可以生产零件的机器，其中 10 台会生产 $1/6$ 的坏零件，另一台会生产 $1/3$ 的坏零件。一个机器生产的零件被放到同一个盒子中。现在我们的目标是选定一个盒子，判断它是不是那个不良机器生产的。</p>
+<p>我们定义 $A\equiv$ 选择了不良机器，令 $B\equiv$ 没有选择不良机器，则初始时有 $e(A|X) = -10 \mathrm{dB}$.</p>
+<p>如果从盒子中取出一个部件，它是坏的，则 $B$ 增加的证据是 $10(\log_{10} P(\text{坏}|AX) - \log_{10} P(\text{坏}|\bar{A}X)) \mathrm{dB}$，这在第一次时会使 $A$ 的证据增加 3dB. 这以直接地方式体现了概率“朝某个方向驱动”。</p>
+<h3 id="duo-zhong-jia-she-jian-yan">多重假设检验</h3>
+<p>仍然考虑生产零件的机器的例子。如果我们发现检查了 50 个零件发现全是坏零件，则 $e(A|E)$ 的结果大约是 140dB. 但这是不符合我们的常识的。为此，需要额外引入第三个命题：$C\equiv$ 生产零件的机器出了问题，会产生 99% 的坏零件。</p>
+<h2 id="xin-nian">信念</h2>
+<h3 id="xin-nian-qiang-du">信念强度</h3>
+<p>I. J. Good 说明了如何逆向使用概率论来测量我们的信念。</p>
+<p>如果一个人总是能猜出你背着他写下的数，我们是否会因此考虑他可能有特异功能呢？</p>
+<p>对于数字范围 1~10，也许在他猜对 10 个数后我们会考虑这种可能。那就是说，初始的信念程度大约为 -100dB.</p>
+<p>不过，即使他连着猜对了 1000 个，我们也不一定会采取这个假设。因为几乎一定有其它假设的可能性更高，比如 -60dB.</p>
+<p>拉普拉斯在《关于概率的哲学论文》中提到了这种现象，即：要人们承认自然法则失效，必须提供海量证据。</p>
+<h3 id="yi-jian-de-qu-tong-he-fen-qi">意见的趋同和分歧</h3>
+<p>假设有 $A$ 和 $B$ 两人对某个命题 $S$ 有不同的看法，我们期望的是给他们足够多的新信息 $D_1, D_2, \cdots , D_n$，则随 $n$ 增大他们对 $S$ 的观点趋于一致。但是这其实并不总是成立。</p>
+<p>假设一开始 $P(S|I_A) \cong 1$ 及 $P(S|I_B) \cong 0$. 接受到数据 $D$ 后，后验概率变为：</p>
+<p>$$P(S|DI_A) = P(S|I_A) \frac{P(D|SI_A)}{P(D|I_A)}$$</p>
+<p>$$P(S|DI_B) = P(S|I_B) \frac{P(D|SI_B)}{P(D|I_B)}$$</p>
+<p>有：</p>
+<p>$$\ln \left[\frac{P(S|DI_A)}{P(S|DI_B)}\right] = \ln \left[\frac{P(S|I_A)}{P(S|I_B)}\right] + \ln \left[\frac{P(D|SI_A)P(D|I_B)}{P(D|I_A)P(D|SI_B)}\right]$$</p>
+<p>这可以用 $\ln (\text{后验}) = \ln (\text{先验}) + \ln (\text{似然})$ 来描述。</p>
+<p>如果 $-\ln (\text{后验}) &lt; \ln (\text{似然}) &lt; 0$，就有两人的观点将趋同。</p>
+<h2 id="chu-deng-can-shu-gu-ji">初等参数估计</h2>
+<h3 id="chi-san-can-shu">离散参数</h3>
+<p>我们来考虑 Pólya 坛子问题的逆：在我们取 $n$ 个球中有 $r$ 个红球的条件下，估计 $N$ 与 $R$ 的值。</p>
+<p>我们用 $I$ 表示先验信息，用 $D$ 表示数据 $(n, r)$，则有：</p>
+<p>$$P(N|DI) = P(N|I) \frac{P(D|NI)}{P(D|I)}$$</p>
+<p>直觉告诉我们（至少拉普拉斯是这么认为的）数据只会截断不可能值，而可能值的比例不变，即：</p>
+<p>$$
+P(N|DI) = \begin{cases}
+k \cdot P(N|I) &amp; \text{ if } N \geq n\\
+0 &amp; \text{ else}
+\end{cases}
+$$</p>
+<p>如果有更多的信息，则我们可以知道更多的东西。</p>
+<p>对 $R$ 来说，我们有：</p>
+<p>$$P(R|DNI) = P(R|NI) \frac{P(D|NRI)}{P(D|NI)}$$</p>
+<p>选择不同的先验概率 $P(R|NI)$ 会导致完全不同的结果。具体可参考原书。</p>
+<h3 id="lian-xu-fen-bu">连续分布</h3>
+<p>较为琐碎，请参考原书。</p>
+<h2 id="zheng-tai-fen-bu">正态分布</h2>
+<h3 id="tui-dao-guo-cheng">推导过程</h3>
+<p>在概率论中似乎有一个普遍的分布，许多分布在各种操作下会趋近于：</p>
+<p>$$\varphi(x) = \frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}$$</p>
+<p>我们称其为<strong>中心/高斯/正态分布</strong>。它的规范性（从 $-\infty$ 到 $+\infty$ 的积分结果为 $1$）可由下式说明：</p>
+<p>$$
+\left(\int e^{-\frac{t^2}{2}} \mathrm{d}t \right)^2 =
+\iint e^{-\frac{x^2+y^2}{2}} \mathrm{d}x\mathrm{d}y \overset{(x,y)=(r\cos\theta,r\sin\theta)}{=}
+\iint e^{-\frac{r^2}{2}} r\mathrm{d}r\mathrm{d}\theta \overset{q=\frac{r^2}{2}}=
+2\pi \int_0^{+\infty} e^{-q} \mathrm{d}q = 2\pi
+$$</p>
+<p>一般是用累积高斯分布 $\Phi(x)=\int_{-\infty}^x \varphi(t) \mathrm{d}t = \frac{1}{2} [1+\mathrm{erf}(x)]$ 进行计算。</p>
+<hr />
+<p>John Herschel 研究恒星位置出现误差的二维概率分布时导出了该分布，基于假设：</p>
+<ul>
+<li>正交方向上的误差概率独立</li>
+<li>概率与角度无关</li>
+</ul>
+<p>这给出的唯一二维概率密度是圆对称高斯分布。10 年后麦克斯韦给出了同一论证的三维版本。</p>
+<hr />
+<p>高斯推导的过程是这样的：我们从 $n+1$ 个观测值 $(x_0, \cdots , x_n)$ 中使用最大似然法估计位置参数 $\theta$. 如果抽样分布因子 $p(x_0\cdots x_n|\theta) = f(x_0|\theta) \cdots f(x_n|\theta)$，似然方程为：</p>
+<p>$$\sum_{i=0}^n \frac{\partial}{\partial \theta} \ln f(x_i|\theta) = 0$$</p>
+<p>我们定义 $g(u) = \ln f(x|\theta)$，考虑情形：$x_0=(n+1)u$ 且 $x_1=x_2=\cdots=x_n=0$，直觉告诉我们估计值应该是算术平均值 $\hat{\theta} = u$. 现在有 $g'(nu) = ng'(u)$，从而有 $g(u)$ 形如 $\frac{1}{2}au^2+b$，有 $f(x|\theta)$ 具有正态分布的形式。</p>
+<hr />
+<p>电气工程师兰登给出了这样的推导：假设噪声电压 $v$ 有概率分布 $p(v|\sigma)$，然后附加一个小量 $\varepsilon$，它具有独立的概率分布 $q(\varepsilon)\mathrm{d}\varepsilon$，则：</p>
+<p>$$f(v') = \int p(v'-\varepsilon|\sigma)q(\varepsilon) \mathrm{d}\varepsilon$$</p>
+<p>我们将得到的条件是<em>扩散方程</em>：</p>
+<p>$$\frac{\partial p}{\partial \sigma^2} = \frac{1}{2} \frac{\partial^2 p}{\partial v^2}$$</p>
+<p>解也是正态分布。这解释了正态分布为什么会在自然中频繁出现。</p>
+<hr />
+<p>我们在书的之后部分研究最大熵时将发现，使用正态分布表示噪声实际上是在告诉机器人：我们唯一知道的是一阶矩和二阶矩，不要作出其它假设。</p>
+<p>正态分布另外的优势将在中心极限定理中体现。</p>
+<h3 id="zhong-yao-xing-zhi">重要性质</h3>
+<p>正态分布有这样的性质：</p>
+<ol>
+<li>任何具有单一最大值的光滑函数提高到越来越高次幂将接近高斯函数</li>
+<li>两个高斯函数的乘积是高斯函数</li>
+<li>两个高斯函数的卷积是高斯函数</li>
+<li>高斯函数的傅里叶变换是高斯函数</li>
+<li>高斯分布的熵高于任何其它具有相同方差的分布的熵</li>
+</ol>
+<p>中心极限定理可以通过反复使用卷积得到。</p>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/概率论/">概率论</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/统计学/">统计学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/可运行/">可运行</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/pages"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <link rel="stylesheet" href="https://rratic.github.io/katex/katex.min.css?h=e189fd0238811989c364" />
+  <script defer src="https://rratic.github.io/katex/katex.min.js?h=6b909443e6c8f6e5d24c"></script>
+  <script defer src="https://rratic.github.io/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

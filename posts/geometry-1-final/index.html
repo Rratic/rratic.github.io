@@ -1,0 +1,501 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>几何学Ⅰ期末复习笔记 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="几何学Ⅰ期末复习笔记" />
+  <meta name="description" content="需要特别记忆的定义和结论 &amp; 考后总结。" />
+  <meta property="og:description" content="需要特别记忆的定义和结论 &amp; 考后总结。" />
+  <meta property="og:url" content="https://rratic.github.io/posts/geometry-1-final/" />
+  <link rel="canonical" href="https://rratic.github.io/posts/geometry-1-final/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-01-08T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2026-01-09T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="几何" />
+  <meta property="article:tag" content="Euclid 几何" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.github.io/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.github.io/style/shared.css?h=63eca58df589815f6747" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.github.io/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.github.io/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.github.io/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.github.io/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.github.io/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">几何学Ⅰ期末复习笔记</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2026-01-08T00:00:00+00:00">2026-01-08</time><span
+        class="middot"></span><time
+    datetime="PT0H13M0S">13&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+
+  <!-- Content -->
+  <section><p>下半学期比较好地体现了 Erlangen 纲领，即：</p>
+<blockquote>
+<p>几何学是研究图形/对象在变换群作用下不变性质的学问。<sup class="footnote-reference"><a href="#coinci">1</a></sup></p>
+</blockquote>
+<p>主要包括射影几何 $(\mathbb{R}\mathrm{P}^2, \mathrm{PGL}(3, \mathbb{R}))$、反演几何 $(\hat{\mathbb{C}}, M_2(\hat{\mathbb{C}}))$ 与双曲几何 $(\mathbb{H}^2, \mathrm{Isom}(\mathbb{H}^2))$. 额外讲了少量的拓扑与痕量的流形。</p>
+<h2 id="she-ying-ji-he">射影几何</h2>
+<p>对于线向模型，射影平面上的点是普通点和无穷远点（对应一个线向），线是普通线（原来的线加上无穷远点）及无穷远线（无穷远点集合）。</p>
+<p>线把模型中点是 $\mathbb{R}^3$ 的一维线性子空间，可以用齐次坐标 $[(x, y, z)^T]$ 表示；线是二维线性子空间，在一个给定的内积下的正交补给出一个双射对应，这导出对偶原理。使用齐次坐标时射影变换可以看成可逆矩阵（把一维子空间映到一维子空间）。</p>
+<p>射影平面上相异两线总交于唯一一点，相异两点确定唯一一线；射影变换保点线关联关系。</p>
+<p>射影平面的射影变换由一般位置 4 点的像唯一决定。</p>
+
+<link rel="stylesheet" href="https://rratic.github.io/admonition.css?h=78eb69fa9d4a0eea7f15" type="text/css">
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>交比</strong></span>
+  </div>
+  <div class="pl-4"><p>在线把模型的 $\mathbb{R}^3$ 中，四个共面的向量的<strong>交比</strong> $(\vec{a_1}, \vec{a_2}; \vec{a_3}, \vec{a_4})$ 为 $\frac{s_2t_1}{s_1t_2}$，其中 $\vec{a_3} = s_1\vec{a_1} + t_1\vec{a_2}$，$\vec{a_4} = s_2\vec{a_1} + t_2\vec{a_2}$.</p>
+</div>
+</div>
+<p>如果射影平面是通过对一个普通平面进行线面完备化得到的，那么其上有度量，共线的四点交比 $(A, B; C, D)$ 为 $\frac{(A, B; C)}{(A, B; D)} = \frac{AC/CB}{AD/DB}$. 称交比是 $-1$ 的为<strong>调和</strong>点组。</p>
+<hr />
+<p>考虑向量定义，知：如果两条直线去截一个由 $O$ 引出的线束，则两个点组的交比相同。</p>
+<p>这可以说明交比在射影变换下不变。以矩阵视角（有实特征值）知射影变换有不动点 $O$，然后对 $OA, OB, OC, OD$ 使用保点线关联。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>射影变换分解</strong></span>
+  </div>
+  <div class="pl-4"><p>射影平面的所有射影变换由：</p>
+<ol>
+<li>仿射射影变换（由仿射变换唯一地延拓）</li>
+<li>两个中心投影的复合</li>
+</ol>
+<p>两类变换生成。</p>
+</div>
+</div>
+<p>设 $AB$ 与 $CD$ 交于点 $P$，$AD$ 与 $BC$ 交于点 $Q$. 考虑将 $PQ$ 映成无穷远线的射影变换，此时 $ABCD$ 构成平行四边形。这个射影变换可以由两个中心投影的复合得到。</p>
+<p>现在只需考虑平行四边形映成平行四边形的射影变换，这是仿射射影变换。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>射影圆锥曲线</strong></span>
+  </div>
+  <div class="pl-4"><p><strong>射影圆锥曲线</strong>是线把模型上由齐次方程 $Ax^2 + 2Bxy + Cy^2 + 2Dxz + 2Eyz + Fz^2 = 0$ 决定的。</p>
+</div>
+</div>
+<p>这将会长成：仿射圆锥曲线及其渐进线向。</p>
+<p>非退化圆锥曲线在射影变换下等价。剩下的非空图形是：单点、两直线、一直线。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>唯一决定</strong></span>
+  </div>
+  <div class="pl-4"><p>一般位置 5 点决定唯一的圆锥曲线。</p>
+</div>
+</div>
+<p>先证唯一性：只需考虑圆的情形。确定圆上四点 $A_1, A_2, A_3, A_4, Q$，考虑对一动点 $P$ 对应的 $(PA_1, PA_2; PA_3, PA_4)$ 的值。通过延长后交一直线于 $B_1, B_2, B_3, B_4$ 使用 $\triangle B_iPB_j$ 的面积计算得它是 $\frac{\sin \angle A_1PA_3 \sin \angle A_2PA_4}{\sin \angle A_1PA_4 \sin \angle A_2PA_3}$，不随 $P$ 位置改变。</p>
+<p>若过这五点有另外的圆锥曲线 $\Gamma$，由于交比是射影不变量，$P$ 在 $\Gamma$ 上移动时对应的交比于在圆上移动时的交比相同，这是不可能的。</p>
+<p>再证存在性：可通过射影变换使得 $A_1A_2A_3A_4$ 是矩形，然后写出表达式。</p>
+<hr />
+<p>有一个额外的性质：6 个点共圆锥曲线等价于它们的某个顺序符合 Pascal 定理的条件。如果能够方便地说明可能的圆锥曲线的形状（及其上点的次序），或许可以用于判断是否共圆锥曲线。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>极线</strong></span>
+  </div>
+  <div class="pl-4"><p>对一圆锥曲线 $\Gamma$ 及一点 $P$，过 $P$ 作直线交 $\Gamma$ 于 $A, B$，取 $Q$ 使 $(A, B; P, Q)$ 调和。这样的 $Q$ 轨迹为一直线，称为 $P$ 的<strong>极线</strong>；反过来称 $P$ 是该直线的<strong>极点</strong>。</p>
+</div>
+</div>
+<p>点 $[(x_0, y_0, z_0)^T]$ 对应的极线为：</p>
+<p>$$Ax_0x + B(x_0y+y_0x) + Cy_0y + D(x_0z+z_0x) + E(y_0z+z_0y) + Fz_0z = 0$$</p>
+<p>配极原理说，在一个点对应的极线上任取一点，它对应的极线包含原来的点。使用定义即可证。</p>
+<hr />
+<p>任何一般位置 4 点给出给出射影平面的一个仿射标架。一般令它们是：$[(1, 0, 0)^T], [(0, 1, 0)^T], [(0, 0, 1)^T], [(1, 1, 1)^T]$.</p>
+<h2 id="fan-yan-ji-he">反演几何</h2>
+<p>反演几何的一个典型用例是 Steiner 圆族定理。考虑内含的两球间旋转对称地切了一圈球，然后作球极投影。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>反演变换</strong></span>
+  </div>
+  <div class="pl-4"><p>中心在 $O$ 半径为 $r$ 的反演变换将 $P$ 映到射线 $OP$ 上的点 $\sigma(P)$，满足 $|OP| \cdot |O\sigma(P)| = r^2$.</p>
+</div>
+</div>
+<p>反演变换把复交比变成其复共轭。这可以说明复交比等于 $0$ 等价于共圆（包括“无穷大圆”，即直线）。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>反演变换反向保角</strong></span>
+  </div>
+  <div class="pl-4"><p>反演变换保持相交圆的夹角的大小，但反转其时针方向。</p>
+</div>
+</div>
+<p>设 $P$ 是圆 $\Gamma_1$ 与 $\Gamma_2$ 的一个交点，作 $P$ 处的切线 $l_1, l_2$，取射线 $l_1^+, l_2^+$ 指向图形内部。</p>
+<p>在反演变换下 $l_1$ 与 $l_2$ 映成圆，且两个交点是 $\sigma(P)$ 与反演中心 $O$. 由对称性 $\sigma(l_i)$ 在 $O$ 的切线平行于 $l_i$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>Möbius 变换</strong></span>
+  </div>
+  <div class="pl-4"><p>扩充平面上有限个反演变换复合成的变换称为 <strong>Möbius 变换</strong>。记全体 Möbius 变换构成的群 $\mathcal{M}_2$，其中偶数个反演变换复合成的构成保向 Möbius 变换群 $\mathcal{M}_2^+$. 这里的反演变换包含“关于无穷大圆的反演变换”，即关于直线反射，无穷远点不动。</p>
+</div>
+</div>
+<p>我们作 $\bar{\mathbb{C}} \cong \mathbb{C}\mathbf{P}^1$，就有 $\mathcal{M}_2^+ \cong \mathrm{PGL}(2, \mathbb{C})$. 就有所有保向的 Möbius 变换是所有分式线性变换，所有反向的是所有共轭分式线性变换。</p>
+<p>扩充平面的 Möbius 变换由是否保向与 3 点的像唯一决定。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Möbius 变换分解</strong></span>
+  </div>
+  <div class="pl-4"><p>一个 Möbius 变换可以写成至多 4 个反演变换的复合。</p>
+</div>
+</div>
+<p>设单位圆在变换下的原像是 $\odot H$，先取反演变换将它映到单位圆。现在只需考虑单位圆内的 Möbius 变换。</p>
+<p>先取变换将中心的原像映到中心，然后只需考虑关于直径反射。</p>
+<hr />
+<p>先作 $z \mapsto w + \frac{A}{\bar{z}-\bar{w}}$ 再作 $z \mapsto t + \frac{B}{\bar{z}-\bar{t}}$ 得到：</p>
+<p>$$\frac{[(B - |t|^2) + t\bar{w}]z + (A - |w|^2)t - (B - |t|^2)w}{(\bar{w} - \bar{t})z + [(A - |w|^2) + \bar{t}w]}$$</p>
+<p>记对应矩阵 $P$，有 $\operatorname{tr} P \in \mathbb{R}$ 及 $\det P = AB \in \mathbb{R}_{&gt; 0}$. 这个结果可以用于判断一个分式线性变换是否可写成 2 个反演变换的复合。</p>
+<h2 id="shuang-qu-ji-he">双曲几何</h2>
+<p>上半平面模型与共形圆盘模型中的直线都长成与边界正交的直线或圆弧；圆都长成欧氏圆。计算 $d(z_1, z_2)$ 时考虑过两点的直线交边界于 $\xi_1, \xi_2$，就有距离为 $|\ln (z_1, z_2; \xi_1, \xi_2)|$. 这可以通过把两点移到 $0, k$，考虑上半平面模型的度规得到。</p>
+<p>上半平面模型与模形式、自守形式有关。</p>
+<p>所有上半平面到自身的分式线性变换是：</p>
+<p>$$\frac{az+b}{cz+d} \quad (a, b, c, d \in \mathbb{R}, ad - bc \neq 0)$$</p>
+<p>共形圆盘模型适合把某个点移到中心来作证明。</p>
+<p>所有单位圆盘到自身的分式线性变换是：</p>
+<p>$$e^{i\theta}\frac{z-a}{1-\bar{a}z}$$</p>
+<p>双曲三角公式的证明均可参考：</p>
+<p><img src="/images/complex/2026_01_07.jpg" alt="三角公式推导" /></p>
+<p>射影 Lorentz 模型包含 $(F, d_F)$，其中：</p>
+<ul>
+<li>$F = \{x \in \mathbb{R}^{1,2} | \|x\|^2 = 1, x_0 &gt; 0\}$</li>
+<li>$d_F(x, y) = \operatorname{arccosh} (x \odot y)$</li>
+</ul>
+<p>这里 $x \odot y = x_0y_0 - x_1y_1 - x_2y_2, \|x\|^2 = x \odot x$.</p>
+<p>这个模型对于推导三角学公式更自然。</p>
+<h2 id="za-xiang">杂项</h2>
+<p>看一些 2024 的题（不同教师）：</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2024 P4</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $A$ 是度量空间 $X$ 的闭子集，证明任意连续函数 $f: A \to \mathbb{S}^2$ 可以连续延拓到 $A$ 的一个开邻域。</p>
+</div>
+</div>
+<p>这用到一个引理 Tietze 延拓定理：此结论对于 $f: A \to \mathbb{R}$ 成立。</p>
+<p>回到 $f: A \to \mathbb{S}^2$ 的情形，把 $\mathbb{S}^2$ 嵌入 $\mathbb{R}^3$ 为单位球面，对三个分量使用 Tietze 延拓定理，考虑：</p>
+<p>$$f(a) = \frac{(f_1(a), f_2(a), f_3(a))}{\sqrt{f_1^2(a) + f_2^2(a) + f_3^2(a)}}$$</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2024 P6</strong></span>
+  </div>
+  <div class="pl-4"><p>拓扑空间 $X$ 是一列圆 $(x-\frac{1}{n})^2 + y^2 = \frac{1}{n^2}$ 的并，赋予 $\mathbb{E}^2$ 的子空间拓扑（称为“夏威夷耳环”）。记 $Y$ 是把 $\mathbb{R}$ 的所有整点粘在一起所得的商拓扑。求证：$X$ 与 $Y$ 不同胚。</p>
+</div>
+</div>
+<p>我们来证明 $X$ 是紧的，同时易知 $Y$ 不是紧的。</p>
+<p>实际上，我们来看 $X$ 中包含原点的开集，根据子空间拓扑的定义，分析发现它必然包含一系列完整的圆。</p>
+<hr />
+<p>这个题卡了：</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2025 P6</strong></span>
+  </div>
+  <div class="pl-4"><p>令 $S_1$ 为单叶双曲面 $x^2+y^2-z^2 = 1$，$S_2$ 为双叶双曲面 $x^2-y^2-z^2 = 1$，相应的仿射变换群记作 $G_1$ 与 $G_2$. 问它们是否同构。</p>
+</div>
+</div>
+<p>不妨设后者为 $x^2+y^2-z^2 = -1$.</p>
+<p>先证保原点，这是因为原点满足这样的性质：过它的直线与双曲面交于两点，原点一定是中心。现在，$G_1$ 与 $G_2$ 均保 $x^2+y^2-z^2$ 的值，知同构。</p>
+<hr />
+<div class="footnote-definition" id="coinci"><sup class="footnote-definition-label">1</sup>
+<p>发现 <code>symmetric</code> 一词包含 <code>metric</code>，不知道是不是巧合。</p>
+</div>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/几何/">几何</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.github.io/tags/Euclid 几何/">Euclid 几何</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/pages"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <link rel="stylesheet" href="https://rratic.github.io/katex/katex.min.css?h=e189fd0238811989c364" />
+  <script defer src="https://rratic.github.io/katex/katex.min.js?h=6b909443e6c8f6e5d24c"></script>
+  <script defer src="https://rratic.github.io/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>
