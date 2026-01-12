@@ -23,9 +23,9 @@ tags = ["笔记", "数学", "代数", "抽象代数", "群论"]
 ## 记号
 不妨设每个面的中心固定，令 $G$ 表示魔方的变换群。
 
-我们记六个面为上面 U，下面 D，左面 L，右面 R，前面 F 和后面 B（取首字母），以大写字母表示将该面顺时针旋转 90°
+我们记六个面为上面 U，下面 D，左面 L，右面 R，前面 F 和后面 B（取首字母），以大写字母表示将该面顺时针旋转 90°.
 
-显然所求的群是由它们生成的，即 $G=<U, R, F, D, L, B>$
+显然所求的群是由它们生成的，即 $G = < U, R, F, D, L, B >$.
 
 ## 群结构
 ### 大小
@@ -39,13 +39,13 @@ $$G\leq Z_3^8\times S_8 \times Z_2^{12}\times S_{12}$$
 
 同时，我们可以说明符合上述要求的是合法的。
 
-定义换位子 $[a, b] = aba^{-1}b^{-1}$
-
-如果 $x^{[a, b]}\neq x$，则要么 $a\notin \mathrm{Stab}(x), b\notin \mathrm{Stab}(x^a)$，要么 $b\notin \mathrm{Stab}(x), a\notin \mathrm{Stab}(x^b)$
+定义**换位子**是 $[a, b] = aba^{-1}b^{-1}$. 它将满足：如果 $x^{[a, b]}\neq x$，则要么 $a\notin \mathrm{Stab}(x), b\notin \mathrm{Stab}(x^a)$，要么 $b\notin \mathrm{Stab}(x), a\notin \mathrm{Stab}(x^b)$.
 
 例如，我们构造操作：$[[R, U], D] = RUR'U'DURU'R'D'$，这只会改变三个角块的状态。
 
-因此有 $|G| = \frac{1}{12} |Z_3^8\times S_8 \times Z_2^{12}\times S_{12}| = 43252003274489856000$
+因此有：
+
+$$|G| = \frac{1}{12} |Z_3^8\times S_8 \times Z_2^{12}\times S_{12}| = 43252003274489856000$$
 
 ### 半直积
 为更好地描述角块群与棱块群，我们定义直积的扩展。
@@ -56,7 +56,7 @@ $$G\leq Z_3^8\times S_8 \times Z_2^{12}\times S_{12}$$
 - 单位元 $(e_N, e_H)$
 - 逆元 $(n^{-h^{-1}}, h^{-1})$
 
-例如，$D_{2n} = Z_n \rtimes Z_2$，其中
+例如，$D_{2n} = Z_n \rtimes Z_2$，其中：
 
 $$
 \varphi: \begin{cases}
@@ -65,9 +65,9 @@ $$
 \end{cases}
 $$
 
-由于角块（通过操作造成的）位置变化会改变朝向，角块群形如 $(Z_3)^7 \rtimes S_8$
+由于角块（通过操作造成的）位置变化会改变朝向，角块群形如 $(Z_3)^7 \rtimes S_8$.
 
-整个魔方群是 $(Z_3^7 \rtimes S_8)\times (Z_2^{11} \rtimes S_{12}) / \sim$
+整个魔方群是 $(Z_3^7 \rtimes S_8)\times (Z_2^{11} \rtimes S_{12}) / \sim$.
 
 ## 解法
 ### 换位子
@@ -75,37 +75,37 @@ $$
 
 ### 降低群大小
 Thislethwaite Method 将群逐步化为
-- $<U, R, F^2, D, L, B^2>$
-- $<U, R^2, F^2, D, L^2, B^2>$
-- $<U^2, R^2, F^2, D^2, L^2, B^2>$
+- $< U, R, F^2, D, L, B^2 >$
+- $< U, R^2, F^2, D, L^2, B^2 >$
+- $< U^2, R^2, F^2, D^2, L^2, B^2 >$
 - $\\{e\\}$
 
-Kociemba Algorithm 则将群逐步化为
-- $<U, R^2, F^2, D, L^2, B^2>$
+Kociemba Algorithm 则将群逐步化为：
+- $< U, R^2, F^2, D, L^2, B^2 >$
 - $\\{e\\}$
 
 ## 通用解法
 以上的解法都依赖于具体的结构，这里提供一个通用方法：Schreier-Sims-Minkwits 算法。[^1]
 
-我们希望进行这样的操作：每次多固定一个集合上的元素，其稳定化子就是原变换群的真子群，如此下去可以得到一个链 $G = G_0 > G_1 > G_2 \cdots G_n = \\{e\\}$，而由于我们要写出一个操作序列，设第 $i$ 个阶段可能的操作为 $r_{i_1}, r_{i_2} \cdots$ 有 $r_{i_1}G_{i+1}, r_{i_2}G_{i+1} \cdots$ 陪集族构成 $G_i$
+我们希望进行这样的操作：每次多固定一个集合上的元素，其稳定化子就是原变换群的真子群，如此下去可以得到一个链 $G = G_0 > G_1 > G_2 \cdots G_n = \\{e\\}$，而由于我们要写出一个操作序列，设第 $i$ 个阶段可能的操作为 $r_{i_1}, r_{i_2} \cdots$ 有 $r_{i_1}G_{i+1}, r_{i_2}G_{i+1} \cdots$ 陪集族构成 $G_i$.
 
 {% admonition(type="theorem", title="Schreier 子群引理") %}
 $G$ 是一个由集合 $S$ 中元素（置换）生成的群，有子群 $H$，设（左）陪集代表元构成集合 $R$，其中元素 $g$ 对应代表元为 $\bar{g}$，则 $H$ 是由 $\\{\overline{sr}^{-1}sr \mid r\in R, s\in S\\}$ 生成的。
 {% end %}
 
-对 $H$ 的元素 $h = s_1s_2\cdots s_k$，其中 $s_i$ 为生成元，记 $t_i = \overline{s_{i+1}\cdots s_k}$，其中 $t_0 = t_k = e$，故有
+对 $H$ 的元素 $h = s_1s_2\cdots s_k$，其中 $s_i$ 为生成元，记 $t_i = \overline{s_{i+1}\cdots s_k}$，其中 $t_0 = t_k = e$，故有：
 
-$$h = (t_0^{-1}s_1t_1)(t_1^{-1}s_2t_2)\cdots (t_{k-1}^{-1}s_kt_k)\tag{1}$$
+$$h = (t_0^{-1}s_1t_1)(t_1^{-1}s_2t_2)\cdots (t_{k-1}^{-1}s_kt_k) \tag{1}$$
 
-由于 $s_it_iH = t_{i-1}H$，有 $\overline{s_it_i} = t_{i-1}$，我们可以把上式写成
+由于 $s_it_iH = t_{i-1}H$，有 $\overline{s_it_i} = t_{i-1}$，我们可以把上式写成：
 
-$$h = (\overline{s_0t_0}^{-1}s_1t_1)(\overline{s_1t_1}^{-1}s_2t_2)\cdots (\overline{s_{k-1}t_{k-1}}^{-1}s_kt_k)\tag{2}$$
+$$h = (\overline{s_0t_0}^{-1}s_1t_1)(\overline{s_1t_1}^{-1}s_2t_2)\cdots (\overline{s_{k-1}t_{k-1}}^{-1}s_kt_k) \tag{2}$$
 
-另一方面，$\overline{sr}^{-1}srH = \overline{sr}^{-1}\overline{sr}H = H$，得证
+另一方面，$\overline{sr}^{-1}srH = \overline{sr}^{-1}\overline{sr}H = H$，得证。
 
 ---
 
-上式给出了一般的找到链的方法，代码可参见 <https://oi-wiki.org/math/algebra/schreier-sims/>
+上式给出了一般的找到链的方法，代码可参见 [Schreier–Sims 算法 - OI Wiki](https://oi-wiki.org/math/algebra/schreier-sims/).
 
 ## 群列
 ### 次正规群列
@@ -120,7 +120,7 @@ $$h = (\overline{s_0t_0}^{-1}s_1t_1)(\overline{s_1t_1}^{-1}s_2t_2)\cdots (\overl
 称**导群**是一个群所有的换位子生成的群，记作 $G'=G^{(1)}$，则一个群可解等价于它的若干阶导群 $G^{(k)} = \\{e\\}$.
 {% end %}
 
-一方面，所有的 $G^{(k)}$ 给出了这个群列的构造。可以证明 $G/G'$ 交换：考虑映射
+一方面，所有的 $G^{(k)}$ 给出了这个群列的构造。可以证明 $G/G'$ 交换：考虑映射：
 
 $$
 \begin{aligned}
@@ -131,7 +131,7 @@ $$
 
 有 $\ker\sigma = G'$，即 $\sigma(xyx^{-1}y^{-1})=e$，从而 $\sigma(x)\sigma(y)=\sigma(y)\sigma(x)$，$\mathrm{Im}\\:\sigma = G/G'$ 交换。
 
-另一方面，我们可以与上类似地说明对 $H\triangleleft G$，$G/H$ 交换当且仅当 $G'\leq H$
+另一方面，我们可以与上类似地说明对 $H\triangleleft G$，$G/H$ 交换当且仅当 $G'\leq H$.
 
 {% admonition(type="theorem", title="Feit-Thompson 定理") %}
 每一个奇阶的有限群都是可解群。
