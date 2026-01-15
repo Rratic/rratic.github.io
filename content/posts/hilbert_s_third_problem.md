@@ -55,7 +55,7 @@ $$\sum_{i=1}^n l_i\otimes \theta _i \in \mathbb{R}\otimes _\mathbb{Z} \mathbb{R}
 ### 张量积 {#tensor-product}
 这里解释一下张量积 $\otimes$ 的严格定义。
 
-两个向量空间 $V,W$ 的张量积 $V\otimes W$ 是一个向量空间，由形如
+两个向量空间 $V,W$ 的张量积 $V\otimes W$ 是一个向量空间，由形如：
 
 $$(v, w) \in V \times W$$
 
@@ -69,7 +69,7 @@ $$(v, a_1w_1 + a_2w_2) = a_1(v, w_1) + a_2(v, w_2)$$
 张量积使得 $V\times W$ 上的双线性函数可以等价地看成 $V\otimes W$ 上的线性函数。
 
 ### 回答 {#answer}
-棱长为 1 的正四面体的 Dehn 不变量为 $(6, 2\arctan\frac{\sqrt{2}}{2})$​，这不能化约成 $0$.[^not-zero]
+棱长为 1 的正四面体的 Dehn 不变量为 $(6, 2\arctan\frac{\sqrt{2}}{2})$​，这不能化约成 $0$. [^not-zero]
 
 而任意长方体的 Dehn 不变量都为 $0$，因此取体积与正四面体相等的长方体即为反例。
 

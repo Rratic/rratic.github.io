@@ -24,7 +24,6 @@ tags = ["数学", "代数", "群论"]
 - 次正规群列（换位子 $[a, b]$，半直积 $\rtimes$，Schreier 子群引理，可解群，导群 $G'$，合成群列，Schreier 定理，Jordan-Hölder 定理）
 	- 可阅读 [**群论（二）**](/posts/group-theory-2/)
 - 特征（内自同构 $\rm{Inn}$，（外）自同构 $\rm{Aut}$，特征子群 $\rm{char}$，特征单群）
-	- 尚不可阅读 [**群论（三）**](/posts/group-theory-3/)
 
 ## 群表示论
 
