@@ -94,6 +94,29 @@ vec3 palette (vec3 col, float i) {
 
 一个简单的方法是将光照方向与曲面在该点处的法方向的余弦值赋予给亮度。
 
+完整示例如下：
+
+```glsl
+vec3 lightDirection = vec3(1.0, 1.0, 1.0);
+
+vec3 hsv2rgb(vec3 c) { ... }
+
+float getBallValue(float x, float y) {
+    float z = sqrt(1. - x * x - y * y);
+    return clamp(dot(lightDirection, vec3(x, y, z)) / sqrt(3.), 0., 1.);
+}
+
+void mainImage(out vec4 fragColor, in vec2 fragCoord)
+{
+    vec2 uv = (fragCoord * 2.0 - iResolution.xy) / iResolution.y;
+	float dist = length(uv);
+
+	float value = getBallValue(uv.x, uv.y);
+
+	fragColor = vec4(hsv2rgb(vec3((uv.x + 1.0) / 20.0, 1.0, value)), 1.0);
+}
+```
+
 ## 数学绘制
 ### 示例
 以下代码绘制的是 Poincaré 圆盘模型中，上半平面模型的格线的对应。
@@ -103,14 +126,14 @@ vec3 palette (vec3 col, float i) {
 void mainImage(out vec4 fragColor, in vec2 fragCoord)
 {
     vec2 uv = (fragCoord * 2.0 - iResolution.xy) / iResolution.y;
-    
+
     float l2 = uv.x * uv.x + uv.y * uv.y;
-	
+
     if (l2 > 1.0) {
         fragColor = vec4(0.0, 0.0, 0.0, 1.0);
         return;
     }
- 
+
     uv.y += 1.0;
 
     l2 = uv.x * uv.x + uv.y * uv.y;
