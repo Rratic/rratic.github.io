@@ -14,7 +14,7 @@ categories = ["知识"]
 tags = ["笔记", "计算机", "密码学"]
 +++
 
-主要参考的是 An Introduction to Mathematical Cryptography 第二、三章。
+主要参考的是 An Introduction to Mathematical Cryptography 第二、三、四章。
 
 使用的是 Rust, 读者可在 [Rust Playground](https://play.rust-lang.org/) 中运行。
 
@@ -188,10 +188,45 @@ Alice 解密过程为：
 
 其正确性易见。
 
-有一个好的地方是：对一个偶合数 $n$，在 $1 \sim n-1$ 间至少 75% 的 $a$ 选择可以成功用作 Miller–Rabin 测试。
+存在以下事实：
+1. 对一个奇合数 $n$，在 $1 \sim n-1$ 间至少 75% 的 $a$ 选择可以成功用作 Miller–Rabin 测试，因此一般人们会考虑对随机的 50 ~ 100 个数作测试来得到结论
+2. 若广义黎曼假设成立，则对每个奇合数 $n$ 都存在 $a \leq 2(\ln n)^2$ 可以成功用作 Miller–Rabin 测试
+3. 对任意 $\epsilon > 0$ 都存在一个算法在 $O((\ln n)^{6+\epsilon})$ 步中判定 $n$ 是否是素数，称为 AKS Test
+
+---
+
+现在考虑从 $N$ 分解出 $p$ 的算法。
+
+如果存在一个 $L$ 使得 $p-1 \mid L, q-1 \not\mid L$，则有 $p = \gcd(a^L-1, N)$. 依此 Pollard 的观察是：如果 $p-1$ 可以分解成小素数的乘积，那么可以考虑取 $L = n!$.
+
+{% admonition(type="tip", title="Pollard’s p − 1 Factorization Algorithm") %}
+分解整数 $N$ 的流程如下：
+1. 令 $a = 2$ 或某个好算的值
+2. 考虑 $j = 2, 3, \cdots$ 至某个特定的界，计算 $d = \gcd(a^{j!}-1, N)$，如果 $1 < d < N$ 则 $d$ 是一个因子
+
+为了增加效率，可以每次隔 $k$ 个再计算 $d$.
+{% end %}
+
+这给出的启示是：即使建立好了一个看起来很好的加密系统，也需要主要它在特殊情形下比一般更容易解决。
+
+我们称一个数 $n \mid B!$ 是一个 B-smooth number. 记 $\psi(X, B)$ 是满足 $1 < n \leq X$ 的 B-smooth number 个数。一个结论是说，对 $0 < \epsilon < \frac{1}{2}$，令 $u = \frac{\ln X}{\ln B}$，在 $(\ln X)^\epsilon < \ln B < (\ln X)^{1-\epsilon}$ 时 $\psi(X, B) = X \cdot u^{-u(1+o(1))}$.
+
+---
+
+另一个想法是：如果可以写出 $N + b^2 = a^2$，那么 $(a + b)(a - b)$ 可以用于分解。而在 $k$ 较小时，$kN + b^2 = a^2$ 也是有用的。
+
+这给出了如下现代算法：
+1. 找到若干整数 $a_1, \cdots, a_r$ 使得有 $c_i \equiv a_i^2 \mod N$ 可以被分解为小素数乘积
+2. 取一个 $c_{i_1} \cdots c_{i_s}$ 使它是平方数 $b^2$
+3. 令 $a = a_{i_1} \cdots a_{i_s}$，则 $a^2 \equiv b^2 \mod N$，故而 $\gcd(a-b, N)$ 很有可能是非平凡因子
+
+这里的第二步实际上是一个 $\mathbb{F}_2$ 上的线性方程问题，由于是稀疏的，有较好的算法。
+
+这里的第一步需要尽量有效地找到足够多满足 $a_i > \sqrt{N}$ 且对应的 $c_i$ 是 B-smooth 的算法。对 $N < 2^{350}$ 来说最有效的是二次筛法，而对 $N > 2^{450}$ 目前最有效的是数域筛法。
 
 {{ todo() }}
 
 ## 数字签名
+数字签名考虑的是一个不同的问题。现在有一个文件 $D$，而 Susan 希望创建一个额外的信息 $D^{Sus}$ 用来表达自己签字认可该文件。
 
 {{ todo() }}
