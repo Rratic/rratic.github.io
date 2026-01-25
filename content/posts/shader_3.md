@@ -227,7 +227,7 @@ float random(vec2 uv) { ... }
 
 float perlin(vec2 uv) { ... }
 
-float fbm (vec2 uv) {
+float fbm(vec2 uv) {
     float value = 0.0;
     float amplitude = .5;
     float frequency = 0.;

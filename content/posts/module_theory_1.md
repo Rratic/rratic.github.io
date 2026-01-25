@@ -49,7 +49,7 @@ tags = ["笔记", "数学", "代数", "模论"]
 
 如果这个子集还构成 $M$ 的生成元，则称它为 R-**基**，有基的模称为**自由模**。
 
-有限集 $S$ 是 $M$ 的一组 R-基实际上就是说
+有限集 $S$ 是 $M$ 的一组 R-基实际上就是说：
 
 $$M = \bigoplus_{x\in S} xR$$
 
@@ -77,7 +77,7 @@ $$M = \bigoplus_{x\in S} xR$$
 
 反之，如果是无扭的，设有一组生成元 $x_1, \cdots , x_m$，极大线性无关组 $x_1, \cdots , x_r$，设它们生成模 $N$.
 
-若 $r<m$，设 $x_1a_{j1}+\cdots+x_ra_{jr}+x_jb_j=0, j=r+1,\cdots,m$，我们令 $b=b_{r+1}\cdots b_m$，有 $Mb\subseteq N$ 为自由模，又 $\varphi: M\to Mb,\ x\mapsto xb$ 为模同构。
+若 $r < m$，设 $x_1a_{j1} + \cdots + x_ra_{jr} + x_jb_j = 0, j=r+1, \cdots, m$，我们令 $b = b_{r+1}\cdots b_m$，有 $Mb\subseteq N$ 为自由模，又 $\varphi: M\to Mb,\ x\mapsto xb$ 为模同构。
 
 ### 分解
 我们先证明：

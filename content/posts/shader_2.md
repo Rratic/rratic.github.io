@@ -44,7 +44,7 @@ vec3 hsv2rgb(vec3 c) {
 将其中的 Javascript 代码翻译为 GLSL 如下：
 ```glsl
 #define hueStep (1.0 / 180.0)
-float getHue (float h, float i) {
+float getHue(float h, float i) {
 	if (h >= 1.0 / 6.0 && h <= 2.0 / 3.0) { // 冷色调
 		// 减淡变亮 色相顺时针旋转 更暖
 		// 加深变暗 色相逆时针旋转 更冷
@@ -57,7 +57,7 @@ float getHue (float h, float i) {
 	return h - hueStep * i;
 }
 
-float getSaturation (float s, float i) {
+float getSaturation(float s, float i) {
 	// 减淡变亮 饱和度迅速降低
 	if (i <= 0.0) {
 		return s + 0.16 * i;
@@ -72,7 +72,7 @@ float getSaturation (float s, float i) {
 	return s + 0.05 * i;
 }
 
-float getValue (float v, float i) {
+float getValue(float v, float i) {
 	if (i <= 0.0) {
 		return v - 0.05 * i;
 	}
@@ -80,7 +80,7 @@ float getValue (float v, float i) {
 	return v - 0.15 * i;
 }
 
-vec3 palette (vec3 col, float i) {
+vec3 palette(vec3 col, float i) {
 	return hsv2rgb(vec3(
 		getHue(col.x, i),
 		getSaturation(col.y, i),

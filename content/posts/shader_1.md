@@ -16,14 +16,14 @@ tags = ["笔记", "计算机", "图形学"]
 
 参考了 [kishimisu](https://www.youtube.com/@kishimisu) 的视频教程。
 
-以下均采取平台 [Shadertoy](https://www.shadertoy.com/new) 的配置，使用 [GLSL](https://registry.khronos.org/OpenGL-Refpages/gl4/index.php)
+以下均采取平台 [Shadertoy](https://www.shadertoy.com/new) 的配置，使用的语言是 [GLSL](https://registry.khronos.org/OpenGL-Refpages/gl4/index.php). 完整的 GLSL 手册见于 [GLSL ES](https://registry.khronos.org/OpenGL/specs/es/3.0/GLSL_ES_Specification_3.00.pdf).
 
 ## 基本效果
-着色器的入口函数是 `mainImage`，接受参数
-* 写 `fragColor`，类型为 `vec4(r, g, b, a)`
-* 读 `fragCoord`，类型为 `vec2(x, y)`
+着色器的入口函数是 `mainImage`，接受参数包括 `vec2` 类型的 `fragCoord` 和 `vec4` 类型的 `fragColor`. 其中 `fragColor` 用 `out` 修饰，表示它的值在函数内的改变会影响到函数外（我不清楚为什么不把它改成返回值形式）。
 
-从一个简单的例子开始
+`vec2`, `vec3` 与 `vec4` 是内置的向量类型，并不存在更长的向量或可变长度向量。一个语法糖是向量下标可以用 `xyzw`, `rgba` 与 `stpq` 三套下标来访问，并可无缝衔接。例如对 `vec3` 类型的 `a`, `a.xyxy` 的结果是 `vec4` 类型的。
+
+从一个简单的例子开始（假定读者了解 C 家族语言的大致语法）：
 ```glsl
 // 颜色渐变调色板函数
 vec3 palette(float t, vec3 a, vec3 b, vec3 c, vec3 d) {
@@ -66,7 +66,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
 }
 ```
 
-可以更进一步
+可以更进一步：
 ```glsl
 void mainImage(out vec4 fragColor, in vec2 fragCoord)
 {
@@ -112,7 +112,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
 
 可以参考 [Shadertoy: Raymarching in Raymarching](https://www.shadertoy.com/view/wlSGWy) 的演示，以及这个关于[有向距离函数](https://iquilezles.org/articles/distfunctions/)的文章。
 
-从一个最简单的例子开始
+从一个最简单的例子开始：
 ```glsl
 // Sphere SDF
 float sdSphere(vec3 p, float s) {
@@ -152,7 +152,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
 }
 ```
 
-可以继续添加其它形状，并组合
+可以继续添加其它形状，并组合。组合逻辑如下：
 ```glsl
 float opUnion(float d1, float d2)
 {
@@ -172,7 +172,7 @@ float opXor(float d1, float d2)
 }
 ```
 
-以及平滑过渡等
+组合逻辑可以改为平滑过渡的版本：
 ```glsl
 float opSmoothUnion(float d1, float d2, float k)
 {
@@ -193,7 +193,7 @@ float opSmoothIntersection(float d1, float d2, float k)
 }
 ```
 
-缩放、旋转可以通过数学方法得到。
+缩放、旋转可以通过数学方法得到：
 ```glsl
 // float box = sdBox(q * 4., vec3(.75)) / 4.;
 
@@ -208,10 +208,10 @@ mat2 rot2D(float angle) {
 vec3 rot3D(vec3 p, vec3 axis, float angle) {
 	// Rodrigues' rotation formula
 	return mix(dot(axis, p) * axis, p, cos(angle))
-		+ cross(axis, p) * sin(angle;)
+		+ cross(axis, p) * sin(angle);
 }
 ```
 
-使用全局变量 `iMouse` 可以实现随鼠标旋转的效果。
-
 使用 `mod(x, 1.0) = fract(x)` 可以实现空间复制的效果。
+
+在 Shadertoy 中可以调用全局变量 `iMouse` 可以实现随鼠标旋转的效果。请参考其 GLSL 帮助。
