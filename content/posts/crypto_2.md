@@ -159,7 +159,7 @@ $$O\left(\sum S_{q_i^{k_i}} + \ln N\right)$$
 Bob 对原文 $m$ 加密过程即计算 $c \equiv m^e \mod N$.
 
 Alice 解密过程为：
-1. 计算 $d$ 使得 $ed \equiv 1 \mod (p-1)(q-1)$
+1. 计算 $d$ 使得 $de \equiv 1 \mod (p-1)(q-1)$
 2. 求 $m' \equiv c^d \mod N$ 即为结果
 {% end %}
 
@@ -207,7 +207,7 @@ Alice 解密过程为：
 为了增加效率，可以每次隔 $k$ 个再计算 $d$.
 {% end %}
 
-这给出的启示是：即使建立好了一个看起来很好的加密系统，也需要主要它在特殊情形下比一般更容易解决。
+这给出的启示是：即使建立好了一个看起来很好的加密系统，也需要注意它在特殊情形下可能很容易解决。
 
 我们称一个数 $n \mid B!$ 是一个 B-smooth number. 记 $\psi(X, B)$ 是满足 $1 < n \leq X$ 的 B-smooth number 个数。一个结论是说，对 $0 < \epsilon < \frac{1}{2}$，令 $u = \frac{\ln X}{\ln B}$，在 $(\ln X)^\epsilon < \ln B < (\ln X)^{1-\epsilon}$ 时 $\psi(X, B) = X \cdot u^{-u(1+o(1))}$.
 
@@ -227,6 +227,45 @@ Alice 解密过程为：
 {{ todo() }}
 
 ## 数字签名
-数字签名考虑的是一个不同的问题。现在有一个文件 $D$，而 Susan 希望创建一个额外的信息 $D^{Sus}$ 用来表达自己签字认可该文件。
+数字签名考虑的是一个不同的，在数字时代与 PKC 同等重要的问题。现在有一个文件 $D$，而 Susan 希望使用私钥创建一个额外的信息 $D^{Sus}$ 用来表达自己签字认可该文件，并且之后可以用一个公钥和验证算法来检验。
+
+一般来说，数字签名方案是作用于小的数据大小，如 80~100 bits. 因此对一般的文件需要先经过密码学安全的 hash. 本文中略去。关于盲签名，本文中也略去。
+
+{% admonition(type="tip", title="RSA Digital Signatures") %}
+创建公钥过程与 RSA PKC 相同。
+
+签名时，Susan 取 $d$ 使 $de \equiv 1 \mod (p-1)(q-1)$，计算 $S \equiv D^d \mod N$ 为签名。
+
+验证时只需验证 $S^e \equiv D \mod N$.
+{% end %}
+
+实际上为了增加效率 $d$ 可以只满足：
+
+$$de \equiv 1 \mod \frac{(p-1)(q-1)}{\gcd(p-1, q-1)}$$
+
+{% admonition(type="tip", title="Elgamal Digital Signature Algorithm") %}
+创建公钥过程如下：
+1. 选取一个大素数 $p$ 和整数 $g$ 在 mod $p$ 意义下有较高的阶
+2. Susan 秘密地选取整数 $a$ 并在 mod $p$ 意义下计算 $A \equiv g^a$
+3. Susan 公布 $A$
+
+Susan 对文件 $D$ 签名过程如下：
+1. 秘密地选取整数 $k$ 满足 $\gcd(k, p-1) = 1$
+2. 计算 $S_1 \equiv g^k \mod p$ 及 $S_2 \equiv (D - aS_1)k^{-1} \mod p-1$
+3. $(S_1, S_2)$ 即是签名
+
+验证时只需验证 $A^{S_1}S_1^{S_2} \equiv g^D \mod p$.
+{% end %}
+
+{% admonition(type="tip", title="The digital signature algorithm (DSA)") %}
+创建公钥过程如下：
+1. 选取一个大素数 $p, q$ 满足 $p \equiv 1 \mod q$
+2. 选取整数 $g$ 在 mod $p$ 下阶为 $q$
+3. Susan 秘密地选取整数 $a$ 并在 mod $p$ 意义下计算 $A \equiv g^a$
+4. Susan 公布 $A$
+
+Susan 对文件 $D \mod q$ 签名过程如下：
+1. 秘密地选取整数 $k$ 满足 $1 < k < q$
+{% end %}
 
 {{ todo() }}
