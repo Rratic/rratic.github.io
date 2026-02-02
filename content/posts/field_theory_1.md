@@ -46,10 +46,10 @@ tags = ["笔记", "数学", "代数", "域论", "Galois 理论"]
 
 Gerolamo Cardano 在 1545 年出版的著作 *Ars Magna* 中第一次给出三次方程的完整通解。考虑换元将原方程化为 $x^3+px+q=0$，令 $x=u+v$，此时只需同时满足
 
-$$\left\\\{\begin{matrix}
+$$\left\\\{\begin{array}{l}
 u^3+v^3=-q \\\\
 3uv=-p
-\end{matrix}\right.$$
+\end{array}\right.$$
 
 如此转化成了二次方程。
 
@@ -60,7 +60,7 @@ u^3+v^3=-q \\\\
 ### Lagrange 预解式
 Lagrange 在解方程时构造了辅助量。
 
-对三次方程的情形，$L_1 = x_1 + \omega x_2 + \omega^2 x_3, L_2 = x_1 + \omega^2 x_2 + \omega x_3$
+对三次方程的情形，$L_1 = x_1 + \omega x_2 + \omega^2 x_3, L_2 = x_1 + \omega^2 x_2 + \omega x_3$.
 
 考察 $(x_1, x_2, x_3)$ 上的置换群，$L_1$ 与 $L_2$ 在 $A_3$ 下不变，
 
@@ -75,27 +75,27 @@ Lagrange 在解方程时构造了辅助量。
 域 $F$ 是一个配备两种运算的集合，满足：
 * $(F, +)$ 是交换群，记单位元为 0
 * $(F\setminus \\{0\\}, \times)$ 是交换群，记单位元为 1
-* 分配律 $a(b+c)=ab+ac$
+* 分配律 $a(b+c) = ab+ac$
 
 子域、同态的定义是平凡的。
 
-对域 $E$，子域 $F\subseteq E$，称前者是后者的扩域，$E/F$ 是**域扩张**。此时，$E$ 是 $F$ 上的线性空间，记次数 $[E:F] = \dim_F E$ 为维数（允许 $\infty$）。通过取一组基 $\alpha_i\beta_j$ 可以说明 $[E:F]=[E:K][K:F]$
+对域 $E$，子域 $F\subseteq E$，称前者是后者的扩域，$E/F$ 是**域扩张**。此时，$E$ 是 $F$ 上的线性空间，记次数 $[E:F] = \dim_F E$ 为维数（允许 $\infty$）。通过取一组基 $\alpha_i\beta_j$ 可以说明 $[E:F]=[E:K][K:F]$.
 
 例如，$\mathbb{Q}(\sqrt{2}) = \\{a+b\sqrt{2}\mid a,b\in \mathbb{Q}\\}$ 是 $\mathbb{Q}$ 的次数为 2 的扩张，基为 $\{1, \sqrt{2}\}$，而 $\mathbb{R}/\mathbb{Q}$ 为无限扩张。
 
 ### 特征
-域 $F$ 的**特征** $\mathrm{char}\ F$ 是使得 $n\cdot 1=0$ 成立的最小正整数 $n$，如果不存在，则称特征是 0
+域 $F$ 的**特征** $\mathrm{char}\ F$ 是使得 $n\cdot 1=0$ 成立的最小正整数 $n$，如果不存在，则称特征是 0.
 
-易说明，若特征是 0，一定存在子域同构于 $\mathbb{Q}$，否则特征一定是素数，同构于子域 $F_p = Z/pZ$，并且由 $(x+y)^p = x^p+y^p$ 有 Frobenius 自同态 $x\mapsto x^p$
+易说明，若特征是 0，一定存在子域同构于 $\mathbb{Q}$，否则特征一定是素数，同构于子域 $F_p = Z/pZ$，并且由 $(x+y)^p = x^p+y^p$ 有 Frobenius 自同态 $x\mapsto x^p$.
 
 最典型的特征 p 的域是 $F_p$，定义为整数在 mod p 意义下的代表类按照常规的加法、乘法构成的域。
 
 不那么平凡但重要的例子如下：
 
 {% admonition(type="example", title="p-进数域") %}
-对 $q=p^n \frac{a}{b}$，其中 $a$，$b$ 与 $p$ 互素，定义 p-进绝对值 $|q|_p = p^{-n}$
+对 $q=p^n \frac{a}{b}$，其中 $a$，$b$ 与 $p$ 互素，定义 p-进绝对值 $|q|_p = p^{-n}$.
 
-$\mathbb{Q}$ 由 p-进绝对值完备化为 $\mathbb{Q}_p$
+$\mathbb{Q}$ 由 p-进绝对值完备化为 $\mathbb{Q}_p$.
 
 可以看成全体有限的 p 进制小数（每一位为 $\mathbb{F}_p$）构成的域。
 {% end %}
@@ -113,7 +113,7 @@ $\mathbb{Q}$ 由 p-进绝对值完备化为 $\mathbb{Q}_p$
 
 一个代数元的**极小多项式** $m_{\alpha, F}(x)$ 是一个首一、不可约、满足 $m(\alpha) = 0$ 的多项式。
 
-对 $S\subset E$，由 $S$ 生成的域 $F$ 上的扩张 $F(S)$ 是同时包含 $F$ 和 $S$ 的最小的 $E$ 的子域。若 $S$ 为单元集，且 $E=F(S)$，称其是域 $F$ 的**单扩张**。考虑同态 $\varphi: F[x] \to F(\alpha), f \mapsto f(\alpha)$ 知 $[F(\alpha):F]=\deg m_{\alpha, F}$
+对 $S\subset E$，由 $S$ 生成的域 $F$ 上的扩张 $F(S)$ 是同时包含 $F$ 和 $S$ 的最小的 $E$ 的子域。若 $S$ 为单元集，且 $E=F(S)$，称其是域 $F$ 的**单扩张**。考虑同态 $\varphi: F[x] \to F(\alpha), f \mapsto f(\alpha)$ 知 $[F(\alpha):F]=\deg m_{\alpha, F}$.
 
 ### Galois 扩张
 如果域扩张 $E/F$ 满足 $E$ 是 $F[x]$ 某个元素的分裂域（即 $f$ 可以写成 $E[x]$ 中一次式的乘积），则称其为**正规扩张**。
@@ -156,8 +156,8 @@ Galois 理论给出了域的扩张与其自同构群的联系。
 
 $$
 \begin{aligned}
-\varphi \colon \mathrm{Gal}(E/F) & \to S(\Omega),\\\\
-	\sigma & \mapsto \sigma |_\Omega
+\varphi \colon \mathrm{Gal}(E/F) & \longrightarrow S(\Omega),\\\\
+	\sigma & \longmapsto \sigma |_\Omega
 \end{aligned}
 $$
 
@@ -179,8 +179,8 @@ $$
 
 $$
 \begin{aligned}
-\varphi \colon & \mathrm{Gal}(E/F) \to \mathrm{Gal}(K/F),\\\\
-	&\sigma \mapsto \sigma |_K
+\varphi \colon \mathrm{Gal}(E/F) & \longrightarrow \mathrm{Gal}(K/F),\\\\
+	\sigma & \longmapsto \sigma |_K
 \end{aligned}
 $$
 
@@ -192,11 +192,9 @@ $$
 则有子群列 $\\{e\\} = G_t \subset \cdots G_1\subset G_0 = \mathrm{Gal}(K_t/F)$，其中 $G_{i+1}\triangleleft G_i$，$G_i/G_{i+1}$ 为 $\\{e\\}$ 或 $p_{i+1}$ 阶循环群。
 {% end %}
 
-令 $G_i = \mathrm{Gal}(K_t/F)$
+令 $G_i = \mathrm{Gal}(K_t/F)$. 再由[群论（二）](/posts/group-theory-2/)知上述为次正规群列。
 
-再由[群论（二）](/posts/group-theory-2/)知上述为次正规群列。
-
-我们给出
+我们给出：
 
 {% admonition(type="theorem", title="n 次方程可解性问题") %}
 域 $F$ 和非常数多项式 $f\in F[x]$，正规扩张 $E$，若 $f$ 根式可解，则 $\mathrm{Gal}(E/F)$ 为可解群。
@@ -208,7 +206,7 @@ $$
 五次方程不存在通用根式解。
 {% end %}
 
-此时对应的 $\mathrm{Gal}(E/F)\cong S_n, n\geq 5$
+此时对应的 $\mathrm{Gal}(E/F)\cong S_n, n\geq 5$.
 
 我们知道 $S_n, n\geq 5$ 不可解，因为其子群 $A_n$ 为单群（通过说明非平凡正规子群一定包含全体三轮换），不可解。
 
@@ -216,7 +214,7 @@ $$
 关于一到六次方程计算 Galois 群的流程图可参考：[为什么课本上计算 Galois 群都是先求出根再计算的（不可解的除外）？ - 酱紫君的回答 - 知乎](https://www.zhihu.com/question/458961859/answer/1926427500826846761)
 
 ### mod p 约化
-使用 mod p 约化技巧，有时得到一些性质
+使用 mod p 约化技巧，有时会得到一些有用的结果。
 
 过程如下：[^1]
 1. 对多项式 $f\in \mathbb{Z}[x]$，例如 $x^4+3x^2−3x−2$，取一个素数（这里是 3）
@@ -225,13 +223,13 @@ $$
 4. 再 mod 7 做一次，知 Galois 群中有阶为 4 的元素，故为 $S_4$
 
 ### 通用方法
-以下设 $f\in F[x]$ 是首一不可约可分多项式，且 $\mathrm{char}\ F\neq 2$
+以下设 $f\in F[x]$ 是首一不可约可分多项式，且 $\mathrm{char}\ F\neq 2$. 我们令：
 
-令 $D = \prod_{1\leq i\le j\leq n}(z_i-z_j)=\begin{vmatrix} 1 & 1 & \cdots & 1\\\\  z_1 & z_2 & \cdots & z_n \\\\  \vdots & \vdots & \ddots &\vdots \\\\ z_1^{n-1} & z_2^{n-1} & \cdots &z_n^{n-1} \end{vmatrix}$
+$$D = \prod_{1\leq i\le j\leq n}(z_i-z_j)=\begin{vmatrix} 1 & 1 & \cdots & 1\\\\  z_1 & z_2 & \cdots & z_n \\\\  \vdots & \vdots & \ddots &\vdots \\\\ z_1^{n-1} & z_2^{n-1} & \cdots &z_n^{n-1} \end{vmatrix}$$
 
-它具有这样的性质：$\sigma$ 是偶置换当且仅当 $D(\sigma(\Omega)) = D(\Omega)$
+它具有这样的性质：$\sigma$ 是偶置换当且仅当 $D(\sigma(\Omega)) = D(\Omega)$.
 
-从而 $\mathrm{Gal}(f)\leq A_n \iff D\in F$
+从而 $\mathrm{Gal}(f)\leq A_n \iff D\in F$.
 
 又，$z_i, z_j$ 在 $F$ 上的极小多项式相同，有 $\mathrm{Gal}(f)$ 是传递子群。
 

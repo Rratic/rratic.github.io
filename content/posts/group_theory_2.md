@@ -2,7 +2,7 @@
 title = "群论（二）：魔方与次正规群列"
 description = "换位子，半直积，Schreier 子群引理，可解群，导群，合成群列，Schreier 定理与 Jordan-Hölder 定理。"
 date = 2025-06-16
-updated = 2025-06-23
+updated = 2026-02-02
 
 [extra]
 math = true
@@ -73,8 +73,7 @@ $$
 ### 换位子
 现在人类的方法大致如此逐层复原，在后半部分使用预设的小阶数置换的公式。
 
-### 降低群大小
-Thislethwaite Method 将群逐步化为
+Thislethwaite Method 将群逐步化为：
 - $< U, R, F^2, D, L, B^2 >$
 - $< U, R^2, F^2, D, L^2, B^2 >$
 - $< U^2, R^2, F^2, D^2, L^2, B^2 >$
@@ -107,6 +106,26 @@ $$h = (\overline{s_0t_0}^{-1}s_1t_1)(\overline{s_1t_1}^{-1}s_2t_2)\cdots (\overl
 
 上式给出了一般的找到链的方法，代码可参见 [Schreier–Sims 算法 - OI Wiki](https://oi-wiki.org/math/algebra/schreier-sims/).
 
+顺带提及 [GAP](https://www.gap-system.org/)，这是一个处理用于离散代数的系统。以下是用它处理一个四面体魔方（每个面有 9 个正三角形）的示例（忽略了角块，只考虑四种大旋转）。
+
+```sh
+gap> it := Group(
+> (10,16,24)(11,15,19)(12,14,20),
+> (2,20,18)(1,21,17)(6,22,16),
+> (2,8,24)(3,7,23)(4,12,22),
+> (4,18,10)(5,13,9)(6,14,8)
+> );
+<permutation group with 4 generators>
+gap> Size(it);
+933120
+gap> f := FreeGroup("x", "y", "z", "w");
+<free group on the generators [ x, y, z, w ]>
+gap> hom := GroupHomomorphismByImages(f, it, GeneratorsOfGroup(f), GeneratorsOfGroup(it));
+[ x, y, z, w ] -> [ (10,16,24)(11,15,19)(12,14,20), (1,21,17)(2,20,18)(6,22,16), (2,8,24)(3,7,23)(4,12,22), (4,18,10)(5,13,9)(6,14,8) ]
+gap> PreImagesRepresentative(hom, (10,14)(12,24));
+x^-1*y*w^-1*y^-1*w*y^-1*x*y*x*z*y*z^-1*y^-1*x^-1*y*x*y*z*y^-1*z^-1*x^-1*w*y*w^-1*y^-1*x^-1*w*x^2*z*x^-1*z^-1*w*x*w^-2*y^-1*x^-1
+```
+
 ## 群列
 ### 次正规群列
 仍考虑前述的链 $G = G_0 > G_1 > G_2 \cdots G_n = \\{e\\}$，我们希望它的性质足够好。
@@ -124,8 +143,8 @@ $$h = (\overline{s_0t_0}^{-1}s_1t_1)(\overline{s_1t_1}^{-1}s_2t_2)\cdots (\overl
 
 $$
 \begin{aligned}
-\sigma \colon G & \to G/G',\\\\
-	g & \mapsto gG'
+\sigma \colon G & \longrightarrow G/G',\\\\
+	g & \longmapsto gG'
 \end{aligned}
 $$
 
@@ -152,8 +171,8 @@ $$
 
 $$
 \begin{aligned}
-\sigma \colon G_{i-1} & \to G_{i-1}/G_i,\\\\
-	g & \mapsto gG_i
+\sigma \colon G_{i-1} & \longrightarrow G_{i-1}/G_i,\\\\
+	g & \longmapsto gG_i
 \end{aligned}
 $$
 

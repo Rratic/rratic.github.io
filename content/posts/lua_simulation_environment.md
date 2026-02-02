@@ -12,12 +12,6 @@ categories = ["杂物"]
 tags = ["发布", "展示", "计算机", "可运行"]
 +++
 
-<style>
-	table code {
-		color: orange !important;
-	}
-</style>
-
 封面图为《末日时在做什么？有没有空？可以来拯救吗？》的角色珂朵莉持有的圣剑「瑟尼欧里斯」，在设定中由 41 个形如“感冒发烧时睡觉不会做噩梦”、“在喝茶时不会被茶烫到舌头”的护符组成，异稟是“将对手化为死者”。
 
 ---
@@ -44,7 +38,7 @@ tags = ["发布", "展示", "计算机", "可运行"]
 - 作为一个广泛存在的插件语言有足够的支持
 
 ## 技术
-使用了 [fengari-web](https://github.com/fengari-lua/fengari-web) 直接加载嵌入在页面中的代码，它是基于 Lua 虚拟环境 [Fengari](https://fengari.io/) 和额外的 js 和 DOM 接口 [fengari-interop](https://github.com/fengari-lua/fengari-interop)。其支持的版本是 [Lua 5.3](https://www.lua.org/manual/5.3/manual.html)。
+使用了 [fengari-web](https://github.com/fengari-lua/fengari-web) 直接加载嵌入在页面中的代码，它是基于 Lua 虚拟环境 [Fengari](https://fengari.io/) 和额外的 js 和 DOM 接口 [fengari-interop](https://github.com/fengari-lua/fengari-interop)。其支持的版本是 [Lua 5.3](https://www.lua.org/manual/5.3/manual.html).
 
 ## 陈设
 可以通过命令栏在虚拟环境中运行 Lua 代码。虚拟环境提供的唯一模块接口是 `commands`.

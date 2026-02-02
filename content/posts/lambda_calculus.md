@@ -18,7 +18,9 @@ tags = ["笔记", "数学", "计算机", "函数式编程"]
 
 {{ ref_index(to = "functional-programming") }}
 
-本节讨论的是 Alonzo Church 发明的 `Lambda Calculus`，即**无类型 λ 演算**。[^paper-invention]
+本节讨论的是 Alonzo Church 发明的 lambda calculus **无类型 λ 演算**。[^paper-invention]
+
+你可以在 <https://sshwy.github.io/lamcalc/playground.html> 找到一个需要手动操作的在线演绎器。另可使用[一个 Rust 写的解释器](https://github.com/tqn/rslambda)。
 
 ## 语法 {#grammar}
 Lambda 演算的语法形式极其简单。一种可理解的形式文法如下：
@@ -66,13 +68,15 @@ E = x           // variables
 
 这三者均可称为归约（`conversion`）。
 
+---
+
 现在来看一些经典的例子：
 
 {% admonition(type="example", title="SKI 演算") %}
-我们定义
-* $I=\lambda x.\ x$
-* $K=\lambda x.\ \lambda y.\ x$
-* $S=\lambda x.\ \lambda y.\ \lambda z.\ x\ z\ (y\ z)$
+我们定义：
+* $I = \lambda x.\ x$
+* $K = \lambda x.\ \lambda y.\ x$
+* $S = \lambda x.\ \lambda y.\ \lambda z.\ x\ z\ (y\ z)$
 
 读者可自行验证以下推导：
 ```txt
@@ -81,9 +85,12 @@ E = x           // variables
 = λz. z
 = I
 ```
-
-通过 $\lambda x.\ A\ B = S\ (\lambda x.\ A)\ (\lambda x.\ B)$，可找到一般的用这些组合子表达 Lambda 表达式的方法。
 {% end %}
+
+使用这些组合子可以一般地表达 Lambda 表达式，因为：
+- $\lambda x.\ x$ 可写为 $I$
+- $\lambda x.\ A$ 其中 $A$ 不含有 $x$ 可写为 $K\ A$
+- $\lambda x.\ A\ B$ 可写为 $S\ (\lambda x.\ A)\ (\lambda x.\ B)$
 
 {% admonition(type="example", title="Iota 组合子") %}
 我们定义 $\iota = \lambda f.\ ((f\ S)\ K)$，读者可自行验证：
@@ -120,18 +127,18 @@ E = x           // variables
 
 我们希望有一个一般的方法找到 $p$ 使得 $p = f\ p$，让 $p = Y\ f$，即 $Y\ f = f\ (Y\ f)$.
 
-可以看出 $p = Y\ f$ *形如* $f\ f\ f\ f\cdots$，不妨将该无穷列看成两段 $G\ G$，有 $G\ G = f\ (G\ G)$，可以看出一个构造 $G = \lambda x.\ f(x\ x)$.
+可以看出 $p = Y\ f$ 展开后为形如无穷列 $f\ f\ f\ f\cdots$，不妨将该无穷列看成两段 $G\ G$，有 $G\ G = f\ (G\ G)$，可以看出一个构造 $G = \lambda x.\ f\ (x\ x)$.
 
 从而我们找到了：
 
-$$Y = \lambda f.\ (\lambda x. f(x\ x))\ (\lambda x.\ f(x\ x))$$
+$$Y = \lambda f.\ (\lambda x.\ f\ (x\ x))\ (\lambda x.\ f\ (x\ x))$$
 
-称为 Y 组合子（`Y combinator`）。不难验证
+称为 Y 组合子（`Y combinator`）。不难验证：
 
 ```txt
   Y f
-= (λx. f(x x)) (λx. f(x x))
-= f ((λx. f(x x)) (λx. f(x x)))
+= (λx. f (x x)) (λx. f (x x))
+= f ((λx. f (x x)) (λx. f (x x)))
 = f (Y f)
 ```
 
@@ -144,35 +151,43 @@ $$f = \lambda \mathrm{fact}.\ \lambda n.\ \begin{cases} 1, & \text {if $n$ < 2} 
 那么，若使用正则次序，可得到正确的结果。
 ```txt
   Y f 2
-= (λx. f(x x))(λx. f(x x)) 2
-= f((λx. f(x x))(λx. f(x x)) 2)
-= 2 * (λx. f(x x))(λx. f(x x))(1)
-= 2 * f((λx. f(x x))(λx. f(x x)) 1)
-= 2 * 1
+= f (Y f) 2
+= 2 × (Y f 1)
+= 2 × (f (Y f) 1)
+= 2 × 1
 ```
 
 但使用应用次序，则会造成无限递归。
 ```txt
   Y f 2
-= (λx. f(x x))(λx. f(x x)) 2
-= f((λx. f(x x))(λx. f(x x)) 2)
-= f(f((λx. f(x x))(λx. f(x x))) 2)
-= f(f(f((λx. f(x x))(λx. f(x x)))) 2)
+= f (Y f) 2
+= f (f (Y f)) 2
+= f (f (f (Y f))) 2
 = ...
 ```
 
 此时需改用 Z 组合子，将参数改造成延迟求值的。
 
-$$Z = \lambda f.\ (\lambda x.\ f(\lambda y.\ (x\ x)\ y))\ (\lambda x.\ f(\lambda y.\ (x\ x)\ y))$$
+$$Z = \lambda f.\ (\lambda x.\ f\ (\lambda y.\ (x\ x)\ y))\ (\lambda x.\ f\ (\lambda y.\ (x\ x)\ y))$$
+
+这是因为在应用次序中有：
+
+```txt
+  Z f
+= (λx. f (λy. (x x) y)) (λx. f (λy. (x x) y))
+= f (λy. ((λx. f (λy. (x x) y)) (λx. f (λy. (x x) y))) y)
+= f (λy. (Z f) y)
+```
+
+从而：
 
 ```txt
   Z f 2
-= (λx. f(λy. (x x) y)) (λx. f(λy. (x x) y)) 2
-= f((λy. (λx. f(λy. (x x) y)) (λx. f(λy. (x x) y)) y) 2)
-= 2 * (λy. (λx. f(λy. (x x) y)) (λx. f(λy. (x x) y)) y) 1
-= 2 * (λx. f(λy. (x x) y)) (λx. f(λy. (x x) y)) 1
-= ...
-= 2 * 1
+= f (λy. (Z f) y) 2
+= 2 × (λy. (Z f) y 1)
+= 2 × (Z f 1)
+= 2 × (f (λy. (Z f) y) 1)
+= 2 × 1
 ```
 
 ## 类型模拟 {#simulate-types}
@@ -204,9 +219,9 @@ $$\mathrm{mult}\ n_1\ n_2 = n_1\ (\mathrm{add}\ n_2)\ 0$$
 举个例子。
 ```txt
   add 0
-= (λn1. λn2. n1 succ n2) 0
-= λn2. 0 succ n2
-= λn2. n2
+= (λn₁. λn₂. n₁ succ n₂) 0
+= λn₂. 0 succ n₂
+= λn₂. n₂
 = λx. x
 ```
 
@@ -245,9 +260,6 @@ cons 1 (cons 2 (cons 3 nil)) // 构造列表示例
 // = λc. λn. c 1 (λc. λn. c 2 (λc. λn. c 3 (λc. λn. n)))
 ```
 
-## 解释器 {#interpreter}
-在 [Part 1](https://tejqunair.com/posts/lambda-part-1/) 与 [Part 2](https://tejqunair.com/posts/lambda-part-2/) 阅读如何使用 Rust 完成 Lambda 演算解释器。你可以在[这里](https://sshwy.github.io/lamcalc/playground.html)找到一个在线演绎器，但它需要手动操作。
-
 ## 重写系统 {#rewriting-systems}
 ### 术语 {#jargon}
 **重写**是将表达式的一部分替换为其它表达式的过程，可以看作一种关系或者一组规则，在这里，规则包括 $\alpha, \beta, \eta$ 三种归约。
@@ -269,7 +281,7 @@ cons 1 (cons 2 (cons 3 nil)) // 构造列表示例
 若重写系统中任意表达式都能通过任意顺序重写为正规形式，那么该重写系统是**强正规/强停机**的。
 
 ### 合流性 {#confluence}
-若对于重写系统 $E$ 和任意 $a,b,c\in E$ 一旦 $b\stackrel{\*}{\gets} a \stackrel{\*}{\to} c$ 就存在 $d$ 使得 $b\stackrel{\*}{\to} d \stackrel{\*}{\gets} c$，那么 $E$ 是合流的。
+若对于重写系统 $E$ 和任意 $a, b, c\in E$，一旦成立 $b\stackrel{\*}{\gets} a \stackrel{\*}{\to} c$，就存在 $d$ 使得 $b\stackrel{\*}{\to} d \stackrel{\*}{\gets} c$，那么 $E$ 是合流的。
 
 Church–Rosser 定理说，λ 演算具有合流性。
 

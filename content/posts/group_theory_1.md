@@ -31,8 +31,8 @@ tags = ["笔记", "数学", "代数", "群论"]
 
 $$
 \begin{aligned}
-\varphi \colon G & \to (\Omega\to\Omega),\\\\
-    x & \mapsto (\alpha\mapsto\alpha^x)
+\varphi \colon G & \longrightarrow (\Omega \longrightarrow \Omega),\\\\
+    x & \longmapsto (\alpha \longmapsto \alpha^x)
 \end{aligned}
 $$
 
@@ -42,8 +42,8 @@ $$
 
 $$
 \begin{aligned}
-f \colon G\times S & \to S,\\\\
-    (g, s) & \mapsto g(s)
+f \colon G\times S & \longrightarrow S,\\\\
+    (g, s) & \longmapsto g(s)
 \end{aligned}
 $$
 
@@ -97,8 +97,8 @@ $X(g)$ 只在单位元处取到 720，其余情况为空集。故所求为 30.
 
 $$
 \begin{aligned}
-\varphi(g) \colon & G \to G,\\\\
-& a\mapsto gag^{-1}
+\varphi(g) \colon G & \longrightarrow G,\\\\
+    a & \longmapsto gag^{-1}
 \end{aligned}
 $$
 
