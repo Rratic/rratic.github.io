@@ -88,10 +88,10 @@ $$
 直线除标准方程、一般方程外，还可用一般方程表示（即两平面的交）：
 
 $$
-\left\\{\begin{matrix}
+\begin{cases}
 A_1x+B_1y+C_1z+D_1=0 \\\\
 A_2x+B_2y+C_2z+D_2=0
-\end{matrix}\right.
+\end{cases}
 $$
 
 该表示方法给出直线与平面平行或在其上的条件是：

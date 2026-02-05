@@ -54,10 +54,10 @@ tags = ["笔记", "数学", "分析", "复分析"]
 易知，复值函数 $f = u + \mathrm{i}v$ 在 $x+y\mathrm{i}$ 处可导的充要条件是：$\frac{\partial u}{\partial x}, \frac{\partial u}{\partial y}, \frac{\partial v}{\partial x}, \frac{\partial v}{\partial y}$ 在 $z$ 处存在，且
 
 $$
-\left\\{\begin{matrix}
+\begin{cases}
 \frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}\\\\
 \frac{\partial u}{\partial y} = -\frac{\partial v}{\partial x}
-\end{matrix}\right.
+\end{cases}
 $$
 
 后者称为 Cauchy-Riemann 条件。
@@ -98,22 +98,22 @@ $$(e^z\cdot e^{a-z})' = e^z\cdot e^{a-z}+e^z\cdot (-e^{a-z}) = 0$$
 
 $$\Delta = \frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2}$$
 
-如果 $f$ 在区域 $\Omega$ 上是解析的，则（我们会在之后说明）它属于 $C^2(\Omega)$，并有
+如果 $f$ 在区域 $\Omega$ 上是解析的，则（我们会在之后说明）它属于 $C^2(\Omega)$，并有：
 
 $$
-\left\\{\begin{matrix}
+\begin{cases}
 \Delta u = \frac{\partial^2 u}{\partial x^2}+\frac{\partial^2 u}{\partial y^2} = 0\\\\
 \Delta v = \frac{\partial^2 v}{\partial x^2}+\frac{\partial^2 v}{\partial y^2} = 0
-\end{matrix}\right.
+\end{cases}
 $$
 
-我们称 $u, v$ 是共轭调和的，如果它们是调和的，并且
+我们称 $u, v$ 是共轭调和的，如果它们是调和的，并且：
 
 $$
-\left\\{\begin{matrix}
+\begin{cases}
 \frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}\\\\
 \frac{\partial u}{\partial y} = -\frac{\partial v}{\partial x}
-\end{matrix}\right.
+\end{cases}
 $$
 
 {% admonition(type="theorem", title="共轭调和函数") %}

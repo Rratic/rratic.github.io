@@ -46,10 +46,12 @@ tags = ["笔记", "数学", "代数", "域论", "Galois 理论"]
 
 Gerolamo Cardano 在 1545 年出版的著作 *Ars Magna* 中第一次给出三次方程的完整通解。考虑换元将原方程化为 $x^3+px+q=0$，令 $x=u+v$，此时只需同时满足
 
-$$\left\\\{\begin{array}{l}
+$$
+\begin{cases}
 u^3+v^3=-q \\\\
 3uv=-p
-\end{array}\right.$$
+\end{cases}
+$$
 
 如此转化成了二次方程。
 

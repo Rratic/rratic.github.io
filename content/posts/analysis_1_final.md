@@ -211,10 +211,10 @@ $$\int \sqrt{1+x^2} \mathrm{d}x = \frac{1}{2} \left(x\sqrt{x^2+1} + \ln \left(x+
 使用：
 
 $$
-\left\\{\begin{align*}
-& aI + bJ = x + C \\\\
-& bI - aJ = \ln |a\cos x + b\sin x| + C
-\end{align*}\right.
+\begin{cases}
+aI + bJ = x + C \\\\
+bI - aJ = \ln |a\cos x + b\sin x| + C
+\end{cases}
 $$
 
 此外，对 $\int \frac{1}{a\cos x + b\sin x} \mathrm{d}x$ 可考虑 $a\cos x + b\sin x = \sqrt{a^2 + b^2} \cos (x + \phi)$.
