@@ -50,7 +50,7 @@ impl<T: Reflect> MyTrait for T {}
 
 这个代码会生成一个名为 `ReflectMyTrait` 的类型，如果类型 `T` 实现了 `MyTrait` 这个 trait, 那么存在某种方式从 `T` 类型实例获取到 `ReflectMyTrait` 实例，从而调用对应的方法。这套东西就丑陋很多，并且我怀疑存在不必要的性能开销。
 
-当然对整个 Rust（以及一些别的静态类型语言）来说一个很诱人的特性是所谓零成本抽象。这意味着我在它允许的范围内无论进行多少层抽象，做很多中间件，最终的效率和完全摊平成函数调用是一样的（我不清楚产生的二进制文件体积是否会偏大）。这样一来就可以在不追求底层优化的条件下只关心顶层的东西。对 Rust 来说写一个很长的 `#[derive(Copy, Clone, Eq, PartialEq, ...)]` 确实不舒服，而使用泛型，使用 `one(), is_zero()` 这种函数[^num-crate]倒是优雅且放心。
+当然对整个 Rust（以及一些别的静态类型语言）来说一个很诱人的特性是所谓零成本抽象。这意味着我在它允许的范围内无论进行多少层抽象，做很多中间件，最终的效率和完全摊平成函数调用是一样的（我不清楚产生的二进制文件体积是否会偏大）。这样一来就可以在不追求底层优化的条件下只关心顶层的东西。对 Rust 来说写一个很长的 `#[derive(Copy, Clone, Eq, PartialEq, ...)]` 确实不舒服，而使用泛型，使用 `one()`, `is_zero()` 这种函数[^num-crate]倒是优雅且放心。
 
 最近看到说 Reflection for C++26 给 C++ 添加了零成本的反射能力。[^cpp26-reflection]我怀疑本质上和 bevy_reflect 库的原理是一样的。举一个最简单的例子：
 
@@ -74,7 +74,7 @@ int main() {
 }
 ```
 
-又比如说，把 OOP (Object-Oriented Programming) 思想的 AoS (Array of Structures) 布局改为 DOD (Data-Oriented Design) SoA 布局，有利于向量化（SIMD）和提升缓存效率。也许 DOD 能够整理出一套比 OOP 更符合直觉的体系，但在十年内，恐怕还是两种思想同时存在的局面（就好像 C++ 中有人用 `int` 那一套，有人用 `size_t` 那一套，有人用 `WORD` 那一套）。
+又比如说，把 OOP (Object-Oriented Programming) 思想的 AoS (Array of Structures) 布局改为 DOD (Data-Oriented Design) 思想的 SoA 布局，有利于向量化（SIMD）和提升缓存效率。也许 DOD 能够整理出一套比 OOP 更符合直觉的体系，但在十年内，恐怕还是两种思想同时存在的局面（就好像 C++ 中有人用 `int` 那一套，有人用 `size_t` 那一套，有人用 `WORD` 那一套）。
 
 在 C 题 AI 给我的回答[^ai-era]中我看到了这样的用法：
 
@@ -82,7 +82,7 @@ int main() {
 struct alignas(64) MyStruct {
     double field_1;
 	// ...
-}; // 或者使用 `;`
+};
 ```
 
 这是在 C++ 11 引入的指定[对齐要求](https://cppreference.cn/w/cpp/language/object#Alignment)的说明符，这里的作用是把不足 64 字节的结构体强行填充到 64 字节。如果缓存行大小为 64 字节而结构体大小为 32 字节，一个缓存行中同时有两个结构体，使用多核加速时可能导致伪共享 false sharing, 不同 CPU 核心频繁修改缓存行中的不同变量，引发缓存同步开销。
