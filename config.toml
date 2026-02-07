@@ -1,4 +1,4 @@
-base_url = "https://rratic.github.io"
+base_url = "https://rratic.top"
 theme = "linkita"
 
 author = "Rratic"
@@ -51,7 +51,7 @@ license_url = "https://creativecommons.org/licenses/by-sa/4.0/"
 copyright = "&copy; $YEAR Rratic &vert; [CC BY-SA 4.0]($LICENSE_URL)"
 
 [extra.giscus]
-repo = "Rratic/pages"
+repo = "Rratic/rratic.github.io"
 repo_id = "MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
 category = "General"
 category_id = "DIC_kwDOE65r6s4CoFkL"
