@@ -373,7 +373,7 @@ $$\sum_{\sigma\in\Omega} \operatorname{sgn}(\sigma) a_{\sigma(1)\sigma(2)}a_{\si
 还是炸了。填空题没什么可说的，第三题错估了条件的强度做了太久。
 
 {% admonition(type="question", title="2025 P1 (3)") %}
-记 $\Lambda_d = \\{(x, y, z) \in \mathbb{Z}^3 \mid x+y+z \equiv 0 \mod d\\}$，求数集 $\\{\det T | T \in L(\mathbb{R}^3), T(\Lambda_3) \subseteq \Lambda_5\\}$.
+记 $\Lambda_d = \\{(x, y, z) \in \mathbb{Z}^3 \mid x+y+z \equiv 0 \pmod d\\}$，求数集 $\\{\det T | T \in L(\mathbb{R}^3), T(\Lambda_3) \subseteq \Lambda_5\\}$.
 {% end %}
 
 是 $\frac{5}{3} \mathbb{Z}$. 因为可以 $(x, y, z) \to (x, y, x+y+z)$ 然后 $(x, y, 3k) \to (x, y, 5k)$ 然后 $(x, y, t) \to (x, 4x+y, 4y+t)$.

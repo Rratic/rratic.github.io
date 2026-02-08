@@ -1,6 +1,6 @@
 +++
 title = "密码学（二）：经典数论算法"
-draft = true
+date = 2026-02-06
 
 [extra]
 toc = true
@@ -20,7 +20,7 @@ tags = ["笔记", "计算机", "密码学"]
 
 ## 离散对数
 {% admonition(type="question", title="离散对数问题") %}
-已知素数 $p$ 与与之互素的整数 $g, h$，已知存在 $g^x \equiv h \mod p$，求 $x$.
+已知素数 $p$ 与与之互素的整数 $g, h$，已知存在 $g^x \equiv h \pmod p$，求 $x$.
 {% end %}
 
 当前解决一般的离散对数问题的最优算法是 $O(\sqrt{p})$ 的。
@@ -147,7 +147,7 @@ $$O\left(\sum S_{q_i^{k_i}} + \ln N\right)$$
 的算法如下：
 1. 对每个 $i$ 计算 $g_i = g^{N/q_i^{k_i}}, h_i = h^{N/q_i^{k_i}}$
 2. 调用 `oracle` 解 $g_i^{y_i} = h_i$
-3. 使用中国剩余定理解 $x \equiv y_i \mod q_i^{k_i}$
+3. 使用中国剩余定理解 $x \equiv y_i \pmod {q_i^{k_i}}$
 {% end %}
 
 ## 整数分解
@@ -156,11 +156,11 @@ $$O\left(\sum S_{q_i^{k_i}} + \ln N\right)$$
 1. Alice 秘密地选取大素数 $p, q$ 及整数 $e$ 满足 $\gcd(e, (p-1)(q-1)) = 1$
 2. Alice 公布 $N = pq$ 与 $e$
 
-Bob 对原文 $m$ 加密过程即计算 $c \equiv m^e \mod N$.
+Bob 对原文 $m$ 加密过程即计算 $c \equiv m^e \pmod N$.
 
 Alice 解密过程为：
-1. 计算 $d$ 使得 $de \equiv 1 \mod (p-1)(q-1)$
-2. 求 $m' \equiv c^d \mod N$ 即为结果
+1. 计算 $d$ 使得 $de \equiv 1 \pmod {(p-1)(q-1)}$
+2. 求 $m' \equiv c^d \pmod N$ 即为结果
 {% end %}
 
 容易说明根据 $N$ 找到 $(p-1)(q-1)$ 的难度与找到 $N$ 的分解的难度是相同的。
@@ -177,13 +177,13 @@ Alice 解密过程为：
 
 为了进行 RSA PKC，实际上我们还需要能够判断一个大数是否是素数。
 
-一个想法是考虑是否对所有 $a$ 都成立 $a^n \equiv a \mod n$. 但实际上这样的 $n$ 不一定是素数，反例如 561.
+一个想法是考虑是否对所有 $a$ 都成立 $a^n \equiv a \pmod n$. 但实际上这样的 $n$ 不一定是素数，反例如 561.
 
 {% admonition(type="tip", title="Miller–Rabin Test") %}
 对整数 $n$ 使用 $a$ 作素性测试过程如下：
 1. 排除 $n$ 偶，及 $1 < \gcd(a, n) < n$ 的平凡情况
 2. 写成 $n - 1 = 2^kq$，其中 $q$ 为奇
-3. 如果 $a^q \not \equiv 1 \mod n$，且对 $0 \leq i < k$ 皆有 $a^{2^i\cdot q} \not\equiv -1 \mod n$，则 $n$ 是合数
+3. 如果 $a^q \not \equiv 1 \pmod n$，且对 $0 \leq i < k$ 皆有 $a^{2^i\cdot q} \not\equiv -1 \pmod n$，则 $n$ 是合数
 {% end %}
 
 其正确性易见。
@@ -216,9 +216,9 @@ Alice 解密过程为：
 另一个想法是：如果可以写出 $N + b^2 = a^2$，那么 $(a + b)(a - b)$ 可以用于分解。而在 $k$ 较小时，$kN + b^2 = a^2$ 也是有用的。
 
 这给出了如下现代算法：
-1. 找到若干整数 $a_1, \cdots, a_r$ 使得有 $c_i \equiv a_i^2 \mod N$ 可以被分解为小素数乘积
+1. 找到若干整数 $a_1, \cdots, a_r$ 使得有 $c_i \equiv a_i^2 \pmod N$ 可以被分解为小素数乘积
 2. 取一个 $c_{i_1} \cdots c_{i_s}$ 使它是平方数 $b^2$
-3. 令 $a = a_{i_1} \cdots a_{i_s}$，则 $a^2 \equiv b^2 \mod N$，故而 $\gcd(a-b, N)$ 很有可能是非平凡因子
+3. 令 $a = a_{i_1} \cdots a_{i_s}$，则 $a^2 \equiv b^2 \pmod N$，故而 $\gcd(a-b, N)$ 很有可能是非平凡因子
 
 这里的第二步实际上是一个 $\mathbb{F}_2$ 上的线性方程问题，由于是稀疏的，有较好的算法。
 
@@ -234,14 +234,14 @@ Alice 解密过程为：
 {% admonition(type="tip", title="RSA Digital Signatures") %}
 创建公钥过程与 RSA PKC 相同。
 
-签名时，Susan 取 $d$ 使 $de \equiv 1 \mod (p-1)(q-1)$，计算 $S \equiv D^d \mod N$ 为签名。
+签名时，Susan 取 $d$ 使 $de \equiv 1 \pmod {(p-1)(q-1)}$，计算 $S \equiv D^d \pmod N$ 为签名。
 
-验证时只需验证 $S^e \equiv D \mod N$.
+验证时只需验证 $S^e \equiv D \pmod N$.
 {% end %}
 
 实际上为了增加效率 $d$ 可以只满足：
 
-$$de \equiv 1 \mod \frac{(p-1)(q-1)}{\gcd(p-1, q-1)}$$
+$$de \equiv 1 \pmod {\frac{(p-1)(q-1)}{\gcd(p-1, q-1)}}$$
 
 {% admonition(type="tip", title="Elgamal Digital Signature Algorithm") %}
 创建公钥过程如下：
@@ -251,21 +251,25 @@ $$de \equiv 1 \mod \frac{(p-1)(q-1)}{\gcd(p-1, q-1)}$$
 
 Susan 对文件 $D$ 签名过程如下：
 1. 秘密地选取整数 $k$ 满足 $\gcd(k, p-1) = 1$
-2. 计算 $S_1 \equiv g^k \mod p$ 及 $S_2 \equiv (D - aS_1)k^{-1} \mod p-1$
+2. 计算 $S_1 \equiv g^k \pmod p$ 及 $S_2 \equiv (D - aS_1)k^{-1} \pmod {p-1}$
 3. $(S_1, S_2)$ 即是签名
 
-验证时只需验证 $A^{S_1}S_1^{S_2} \equiv g^D \mod p$.
+验证时只需验证 $A^{S_1}S_1^{S_2} \equiv g^D \pmod p$.
 {% end %}
 
 {% admonition(type="tip", title="The digital signature algorithm (DSA)") %}
 创建公钥过程如下：
-1. 选取一个大素数 $p, q$ 满足 $p \equiv 1 \mod q$
+1. 选取一个大素数 $p, q$ 满足 $p \equiv 1 \pmod q$
 2. 选取整数 $g$ 在 mod $p$ 下阶为 $q$
 3. Susan 秘密地选取整数 $a$ 并在 mod $p$ 意义下计算 $A \equiv g^a$
 4. Susan 公布 $A$
 
-Susan 对文件 $D \mod q$ 签名过程如下：
+Susan 对文件 $D \pmod q$ 签名过程如下：
 1. 秘密地选取整数 $k$ 满足 $1 < k < q$
-{% end %}
+2. 计算 $S_1 \equiv (g^k \pmod p) \pmod q$ 及 $S_2 \equiv (D + aS_1)k^{-1} \pmod q$
+3. $(S_1, S_2)$ 即是签名
 
-{{ todo() }}
+验证过程如下：
+1. 计算 $V_1 \equiv DS_2^{-1} \pmod q$ 及 $V_2 \equiv S_1S_2^{-1} \pmod q$
+2. 验证 $(g^{V_1}A^{V_2} \pmod p) \pmod q = S_1$
+{% end %}
