@@ -1,6 +1,6 @@
 +++
-title = "密码学（二）：经典数论算法"
-date = 2026-02-06
+title = "密码学（二）：经典数论算法：基于有限域上离散对数/整数分解/二次剩余"
+date = 2026-02-12
 
 [extra]
 toc = true
@@ -15,6 +15,8 @@ tags = ["笔记", "计算机", "密码学"]
 +++
 
 主要参考的是 An Introduction to Mathematical Cryptography 第二、三、四章。
+
+<!-- more -->
 
 使用的是 Rust, 读者可在 [Rust Playground](https://play.rust-lang.org/) 中运行。
 
@@ -163,6 +165,8 @@ Alice 解密过程为：
 2. 求 $m' \equiv c^d \pmod N$ 即为结果
 {% end %}
 
+这是一个使用广泛的标准（标准文档是 RFC 8017, 标题为 PKCS #1: RSA Cryptography Specifications Version 2.2），如 2018 以前互联网使用的 TLS 1.2 是用 RSA 来交换用于生成 AES 密钥的密钥。当前推荐使用的最低要求是 RSA-2048, 即使用 2048 位密钥（可参考 RSA Factoring Challenge 的状态）。尽管现在已逐步推荐向椭圆曲线密码迁移。
+
 容易说明根据 $N$ 找到 $(p-1)(q-1)$ 的难度与找到 $N$ 的分解的难度是相同的。
 
 ---
@@ -197,7 +201,7 @@ Alice 解密过程为：
 
 现在考虑从 $N$ 分解出 $p$ 的算法。
 
-如果存在一个 $L$ 使得 $p-1 \mid L, q-1 \not\mid L$，则有 $p = \gcd(a^L-1, N)$. 依此 Pollard 的观察是：如果 $p-1$ 可以分解成小素数的乘积，那么可以考虑取 $L = n!$.
+如果存在一个 $L$ 使得 $p-1 \mid L, q-1 \nmid L$，则有 $p = \gcd(a^L-1, N)$. 依此 Pollard 的观察是：如果 $p-1$ 可以分解成小素数的乘积，那么可以考虑取 $L = n!$.
 
 {% admonition(type="tip", title="Pollard’s p − 1 Factorization Algorithm") %}
 分解整数 $N$ 的流程如下：
@@ -209,7 +213,7 @@ Alice 解密过程为：
 
 这给出的启示是：即使建立好了一个看起来很好的加密系统，也需要注意它在特殊情形下可能很容易解决。
 
-我们称一个数 $n \mid B!$ 是一个 B-smooth number. 记 $\psi(X, B)$ 是满足 $1 < n \leq X$ 的 B-smooth number 个数。一个结论是说，对 $0 < \epsilon < \frac{1}{2}$，令 $u = \frac{\ln X}{\ln B}$，在 $(\ln X)^\epsilon < \ln B < (\ln X)^{1-\epsilon}$ 时 $\psi(X, B) = X \cdot u^{-u(1+o(1))}$.
+我们称一个数 $n \mid B!$ 是一个 $B$-smooth number. 记 $\psi(X, B)$ 是满足 $1 < n \leq X$ 的 $B$-smooth number 个数。一个结论是说，对 $0 < \epsilon < \frac{1}{2}$，令 $u = \frac{\ln X}{\ln B}$，在 $(\ln X)^\epsilon < \ln B < (\ln X)^{1-\epsilon}$ 时 $\psi(X, B) = X \cdot u^{-u(1+o(1))}$.
 
 ---
 
@@ -222,12 +226,95 @@ Alice 解密过程为：
 
 这里的第二步实际上是一个 $\mathbb{F}_2$ 上的线性方程问题，由于是稀疏的，有较好的算法。
 
-这里的第一步需要尽量有效地找到足够多满足 $a_i > \sqrt{N}$ 且对应的 $c_i$ 是 B-smooth 的算法。对 $N < 2^{350}$ 来说最有效的是二次筛法，而对 $N > 2^{450}$ 目前最有效的是数域筛法。
+这里的第一步需要尽量有效地找到足够多满足 $a_i > \sqrt{N}$ 且对应的 $c_i$ 是 $B$-smooth 的算法。对 $N < 2^{350}$ 来说最有效的是二次筛法，而对 $N > 2^{450}$ 目前最有效的是数域筛法。
 
-{{ todo() }}
+---
+
+我们希望找到接近 $\sqrt{kN}$ 的分数 $\frac{a}{b}$, 这可以用连分数来完成
+
+这里给出 Pomerance 的二次筛法的简单版本：
+
+先找到许多小于某个界 $X$ 的 $B$-smooth number. 我们可以改造 Eratosthenes 筛，改为每次作除法，看最后哪些值变为 1. 实际上需要的是找到其中形如 $a^2 \pmod N$ 的那些。因此考虑多项式 $F(T) = T^2 - N$ 并取 $a = \lfloor \sqrt{n} \rfloor + 1$, 对一列数 $F(a), F(a+1), \cdots, F(b)$ 使用前述筛法。
+
+---
+
+现在介绍数域筛法的大致思路：
+
+我们先找到非零整数 $m$ 与首一的不可约整系数多项式 $f$ 满足 $f(m) \equiv 0 \pmod N$. 例如对 $N = 2^{2^9} + 1$ 考虑 $m = 2^{103}, f(x) = x^5 + 8$. 记 $\beta$ 是一个根，之后的工作将在 $\mathbb{Z}[\beta] \simeq \mathbb{Z}[x] / (f(x))$ 上进行。
+
+接下来是希望找大量的整数对 $(a_1, b_1), \cdots, (a_k, b_k)$ 满足：
+
+$$\prod_{i=1}^k (a_i - b_im) = A^2,\quad \exists A \in \mathbb{Z}$$
+
+$$\prod_{i=1}^k (a_i - b_i\beta) = \alpha^2,\quad \exists \alpha \in \mathbb{Z}[\beta]$$
+
+设 $\alpha = c_0 + c_1\beta + \cdots c_{d-1}\beta^{d-1}$. 由于 $m \equiv \beta \pmod N$ 我们有 $A^2 \equiv \alpha^2 \pmod N$. 另一方面 $\alpha \equiv (B := c_0 + c_1m + \cdots c_{d-1}m^{d-1}) \pmod N$, $\gcd(A - B, N)$ 很有可能是非平凡因子。
+
+---
+
+对于 $\mathbb{F}_p$ 上的离散对数问题，有一个算法 Index Calculus 是这样的：
+
+选择一个数 $B$, 转而求解 $g^x \equiv l \pmod p, \ \forall l \leq B, l \in \mathbb{P}$. 这样以后，依次对 $k = 1, 2, \cdots$ 枚举 $h \cdot g^{-k} \pmod p$ 直到找到一个 $B$-smooth 的，我们有：
+
+$$h \cdot g^{-k} \equiv \prod_{l \leq B} l^{e_l} \pmod p$$
+
+这样一来可以把离散对数的结果写成：
+
+$$\log_g(h) \equiv k + \sum_{l\leq B} e_l \cdot \log_g(l) \pmod {p-1}$$
+
+现在回看对于小素数 $l$ 如何找到 $\log_g(l)$. 我们随机取一些 $0 < g_i < p$ 计算 $g_i \equiv g^i \pmod p$, 舍弃其中不 $B$-smooth 的。对 $B$-smooth 的 $g_i$ 有：
+
+$$g_i = \prod_{l\leq B} l^{u_l(i)}$$
+
+$$i \equiv \sum_{l\leq B} u_l(i) \cdot \log_g(l) \pmod {p-1}$$
+
+这样一来就可以用线性代数方法解决。
+
+---
+
+现在考虑二次剩余。假定读者已知晓对应的初等数论内容：记 Legendre 符号：
+
+$$
+\left(\frac{a}{p}\right) = \begin{cases}
+0 & p\mid a \\\\
+1 & a \equiv c^2 \pmod p \\\\
+-1 & \text{else}
+\end{cases}
+$$
+
+从中定义 Jacobi 符号：
+
+$$\left(\frac{a}{p_1^{e_1} \cdots p_t^{e_t}}\right) = \left(\frac{a}{p_1}\right)^{e_1} \cdots \left(\frac{a}{p_t}\right)^{e_t}$$
+
+除基本性质外，对奇素数 $a, b$ 成立：
+
+$$\left(\frac{-1}{b}\right) = \begin{cases} 1 & b \equiv 1 \pmod 4 \\\\ -1 & b \equiv 3 \pmod 4 \end{cases}$$
+
+$$\left(\frac{2}{b}\right) = \begin{cases} 1 & b \equiv 1, 7 \pmod 8 \\\\ -1 & b \equiv 3, 5 \pmod 8 \end{cases}$$
+
+$$\left(\frac{a}{b}\right)\left(\frac{b}{a}\right) = \begin{cases} 1 & \text{else} \\\\ -1 & a, b \equiv 3 \pmod 4 \end{cases}$$
+
+这样一来我们可以对任意两整数使用辗转相除求值。
+
+使用二次剩余可以给出：
+
+{% admonition(type="tip", title="Goldwasser–Micali Probabilistic Public Key Cryptosystem") %}
+创建公钥过程如下：
+1. Alice 秘密地选取大素数 $p, q$ 及整数 $a$ 满足 $(\frac{a}{p}) = (\frac{a}{q}) = -1$
+2. Alice 公布 $N = pq$ 与 $a$
+
+Bob 对原文 $m \in \\{0, 1\\}$ 加密过程如下：
+1. 随机取 $1 < r < N$
+2. 若 $m = 0$ 计算 $c \equiv r^2 \pmod N$, 否则计算 $c \equiv ar^2 \pmod N$
+3. 将 $c$ 发给 Alice
+
+Alice 解密过程即计算 $(\frac{c}{p})$.
+{% end %}
+
+这个算法并不实用，因为会导致信息大小的大约 $\log_2(N)$, 至少千倍的膨胀。
 
 ## 数字签名
-数字签名考虑的是一个不同的，在数字时代与 PKC 同等重要的问题。现在有一个文件 $D$，而 Susan 希望使用私钥创建一个额外的信息 $D^{Sus}$ 用来表达自己签字认可该文件，并且之后可以用一个公钥和验证算法来检验。
+数字签名考虑的是一个不同的，在数字时代与 PKC 同等重要的问题。现在有一个文件 $D$，而 Susan 希望使用私钥创建一个额外的信息 $D^\text{Sus}$ 用来表达自己签字认可该文件，并且之后可以用一个公钥和验证算法来检验。
 
 一般来说，数字签名方案是作用于小的数据大小，如 80~100 bits. 因此对一般的文件需要先经过密码学安全的 hash. 本文中略去。关于盲签名，本文中也略去。
 
@@ -256,6 +343,8 @@ Susan 对文件 $D$ 签名过程如下：
 
 验证时只需验证 $A^{S_1}S_1^{S_2} \equiv g^D \pmod p$.
 {% end %}
+
+这里 $S_1$ 与 $S_2$ 是对不同的数取模，但 $S_2$ 是基于一个确定的 $S_1$ 值，读者可验证正确性。
 
 {% admonition(type="tip", title="The digital signature algorithm (DSA)") %}
 创建公钥过程如下：
