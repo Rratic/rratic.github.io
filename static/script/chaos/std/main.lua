@@ -1,5 +1,5 @@
 Project = {
-	title = "函数式混沌",
+	title = "混沌",
 	version = "0.2.2",
 	platform = "web",
 }

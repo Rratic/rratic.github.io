@@ -1,8 +1,7 @@
 +++
 title = "基于 Lua 的模拟环境"
-description = "一个纯粹实验性、无实质内容的项目。"
 date = 2025-05-06
-updated = 2025-08-03
+updated = 2026-02-21
 
 [extra.cover]
 image = "/images/cover/seniorious.png"
@@ -12,40 +11,35 @@ categories = ["杂物"]
 tags = ["发布", "展示", "计算机", "可运行"]
 +++
 
-封面图为《末日时在做什么？有没有空？可以来拯救吗？》的角色珂朵莉持有的圣剑「瑟尼欧里斯」，在设定中由 41 个形如“感冒发烧时睡觉不会做噩梦”、“在喝茶时不会被茶烫到舌头”的护符组成，异稟是“将对手化为死者”。
+封面图为《末日时在做什么？有没有空？可以来拯救吗？》的角色珂朵莉持有的圣剑「瑟尼欧里斯」，在设定中由 41 个形如“感冒发烧时睡觉不会做噩梦”、“在喝茶时不会被茶烫到舌头”的护符组成，异稟是“将对手化为死者”。本文的想法也类似于此。
 
----
+<!-- more -->
 
-本文章对应的在线项目见于[函数式混沌](/playground/chaos.html)。一个基于此想法但 API 不同的项目见于 [Milfoil](https://github.com/FoamWorld/milfoil).
+对应的在线项目见于[混沌](/playground/chaos.html)。一个基于此想法但 API 不同的项目见于 [Milfoil](https://github.com/FoamWorld/milfoil).
 
 ## 介绍
 一直以来都有一个横亘在我们眼前的难题，即如何弥合现实（这里指现实的离散、抽象部分）与模拟之间的鸿沟。
 
 曾经语言学家认为可以通过设定规则把自然语言处理（Natural Language Processing）做好，然而对比统计方法，尽显其弊端：复杂性使规则难以穷举、歧义会引入新的复杂性、成本过高（如欧盟的 Eurotra 项目）。
 
-然而我们有时还是希望确保一个模拟系统的准确性（我认为对于分而治之、菱形继承问题的处理、ECS 架构等等思想部分体现了这一点），乃至探讨引入特殊的、不同优先级规则的结果，因而我还是希望去逐步地设计一个这样的框架。
+然而我们有时还是希望确保一个模拟系统的准确性，乃至探讨引入特殊的、不同优先级规则（所谓“机制”）的结果，因而我还是希望去逐步地设计一个这样的框架。
 
 这个过程必然不是一蹴而就的，而且并不是封闭的，因此它必须有足够的灵活性。
 
 我认为 [Lua](https://www.lua.org/) 具有相当的优势：
-- 优雅
-	- 语法可以简单地讲清
-	- **函数是一等公民**
-- 有足够的灵活性，主要体现在动态类型和 `table`
-	- 没有原生的类，但可以通过 `setmetatable` 等模拟
-	- 模块化的最佳实践也使用 `table`
-- LuaJIT 足够快，相比 js 来说，提供原生整数类型更易令人接受
+- 语法规则少
+- 函数是一等公民
 - 作为一个广泛存在的插件语言有足够的支持
 
+此外，Lua 的动态类型和 `table` 提供了足够的灵活性。Lua 并没有原生的类，但可以通过在 `table` 中使用 `setmetatable` 功能，模拟类型系统。虽然可能带来额外的开销，但也允许了手动修改类型之类的操作。
+
 ## 技术
-使用了 [fengari-web](https://github.com/fengari-lua/fengari-web) 直接加载嵌入在页面中的代码，它是基于 Lua 虚拟环境 [Fengari](https://fengari.io/) 和额外的 js 和 DOM 接口 [fengari-interop](https://github.com/fengari-lua/fengari-interop)。其支持的版本是 [Lua 5.3](https://www.lua.org/manual/5.3/manual.html).
+使用了 [fengari-web](https://github.com/fengari-lua/fengari-web) 直接加载嵌入在页面中的代码，它是基于 Lua 虚拟环境 [Fengari](https://fengari.io/) 和额外的 js 和 DOM 接口 [fengari-interop](https://github.com/fengari-lua/fengari-interop). 其支持的版本是 [Lua 5.3](https://www.lua.org/manual/5.3/manual.html).
 
 ## 陈设
-可以通过命令栏在虚拟环境中运行 Lua 代码。虚拟环境提供的唯一模块接口是 `commands`.
+可以通过命令栏在虚拟环境中运行 Lua 代码。虚拟环境对用户提供的唯一模块接口是 `commands`. 为方便起见，以 `/` 开头的字符串 `/string` 会被自动变为 `commands.{{ string }}:run()`.
 
 特别地，使用 `/preload` 注册的代码会在完整的环境（即 `_ENV`）中运行。
-
-以 `/` 开头的命令，如 `/help`，会被自动替换为 `commands.help:run()`.
 
 此外，提供了快捷键和亮暗色模式（跟随整个站点的设置 `localStorage["linkita-color-scheme"]`）。
 
