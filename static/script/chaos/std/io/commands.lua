@@ -32,8 +32,7 @@ function Command:run()
 end
 
 local function explain_function(table)
-	local desc = i18n.description(table)
-	Queue.push_line("`" .. table.abnf .. "`\n\n" .. i18n.locale(desc))
+	Queue.push_line("`" .. table.abnf .. "`\n\n" .. i18n.decide_description(table))
 end
 
 local help = Command:new("help", function(self)
@@ -47,7 +46,7 @@ local help = Command:new("help", function(self)
 		list = list .. "\n* `" .. key .. "`"
 	end
 
-	local str = string.gsub(i18n.locale(self.introduction), "{c}", list)
+	local str = string.gsub(i18n.read_safe(self.introduction), "{c}", list)
 	Queue.push_line(str)
 end)
 help.introduction = [[
@@ -86,8 +85,8 @@ register({
 	description = "根据 `title` 和 `description` 等字段描述 `table` 内容",
 	f = function(self)
 		local table = self.args[1]
-		local title = i18n.title(table)
-		local description = i18n.description(table)
+		local title = i18n.decide_title(table)
+		local description = i18n.decide_description(table)
 		if title == "???" and description == "???" then
 			Queue.push_warning("无法完成描述")
 		else

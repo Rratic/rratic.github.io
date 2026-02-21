@@ -1,11 +1,6 @@
-Configs = {}
-
-local function insert(key, info)
-	Configs[key] = info
-	if info.read then
-		info:read()
-	end
-end
+local module = {
+	storage = {},
+}
 
 local Commands = require("std/io/commands")
 Commands.register({
@@ -13,12 +8,8 @@ Commands.register({
 	abnf = "commands.config(key: string, value: any)",
 	description = "设置配置项的值",
 	f = function(self)
-		local key = self.args[1]
-		Configs[key].data = self.args[2]
-		if Configs[key].write then
-			Configs[key]:write()
-		end
+		module.storage[self.args[1]] = self.args[2]
 	end
 })
 
-return { insert = insert }
+return module

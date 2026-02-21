@@ -85,7 +85,7 @@ local function reach_room(x, y)
 		local xd, yd = table.unpack(MOVE_TABLE[d])
 		list[d] = reach_room_value(x + xd, y + yd) ~= 0
 		if list[d] then
-			str = str .. i18n.locale(MOVE_WORDS_TABLE[d]) .. "，"
+			str = str .. i18n.read_safe(MOVE_WORDS_TABLE[d]) .. "，"
 		end
 	end
 	Queue.push_line("有" .. str:gsub("，$", "") .. "方向的门。")
