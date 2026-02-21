@@ -8,6 +8,7 @@ require("std/interop")
 local Command = {
 	type = "command",
 	args = {},
+	description = "A command.",
 	__call = function(mytable, ...)
 		-- Does not jump over `nil`.
 		local args = table.pack(...)
@@ -85,7 +86,14 @@ register({
 	description = "根据 `title` 和 `description` 等字段描述 `table` 内容",
 	f = function(self)
 		local table = self.args[1]
-		Queue.push_info(i18n.title(table) .. "\n" .. i18n.description(table))
+		local title = i18n.title(table)
+		local description = i18n.description(table)
+		if title == "???" and description == "???" then
+			Queue.push_warning("无法完成描述")
+		else
+			Queue.push_info(title .. "\n" .. description)
+		end
+		
 	end
 })
 

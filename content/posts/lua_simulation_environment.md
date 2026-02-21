@@ -37,7 +37,7 @@ tags = ["发布", "展示", "计算机", "可运行"]
 使用了 [fengari-web](https://github.com/fengari-lua/fengari-web) 直接加载嵌入在页面中的代码，它是基于 Lua 虚拟环境 [Fengari](https://fengari.io/) 和额外的 js 和 DOM 接口 [fengari-interop](https://github.com/fengari-lua/fengari-interop). 其支持的版本是 [Lua 5.3](https://www.lua.org/manual/5.3/manual.html).
 
 ## 陈设
-可以通过命令栏在虚拟环境中运行 Lua 代码。虚拟环境对用户提供的唯一模块接口是 `commands`. 为方便起见，以 `/` 开头的字符串 `/string` 会被自动变为 `commands.{{ string }}:run()`.
+可以通过命令栏在虚拟环境中运行 Lua 代码。虚拟环境对用户提供的模块接口是 `commands` 及标准库 `math`, `string`, `table`, `utf8`. 为方便起见，以 `/` 开头的字符串 `/string` 会被自动变为 `commands.{{ string }}:run()`.
 
 特别地，使用 `/preload` 注册的代码会在完整的环境（即 `_ENV`）中运行。
 

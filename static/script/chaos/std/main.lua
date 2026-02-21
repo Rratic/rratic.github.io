@@ -1,6 +1,6 @@
 Project = {
 	title = "混沌",
-	version = "0.2.2",
+	version = "0.2.3",
 	platform = "web",
 }
 
@@ -30,7 +30,7 @@ local info = [[
 
 Nodes:add("menu", {
 	entrance = function()
-		Queue.push_title(i18n.title(Project))
+		Queue.push_title(i18n.title(Project) .. " v" .. Project.version .. " (" .. Project.platform .. ")")
 		Nodes:jump({ "menu" })
 	end,
 	menu = function()
