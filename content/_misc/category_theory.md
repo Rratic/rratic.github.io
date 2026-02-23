@@ -10,6 +10,8 @@ tags = ["数学", "范畴论"]
 
 可以阅读 *Category Theory* by Steve Awodey. 在有一定的了解后转为阅读 *Categories for the Working Mathematician* (GTM 5).
 
+可以参考的字典是 [nLab](https://ncatlab.org/nlab/show/HomePage).
+
 ## 范畴与态射
 - 基本的概念
 	- 定义（范畴，对象 $\operatorname{Ob}(\mathcal{C})$，态射 $\operatorname{Mor}(\mathcal{C}), \operatorname{Hom}_{\mathcal{C}}(X, Y), X\xrightarrow{f}Y$，来源/域 $s, \operatorname{dom}$，目标/陪域 $t, \operatorname{cod}$，复合 $\circ$，恒等态射 $1_A$）
