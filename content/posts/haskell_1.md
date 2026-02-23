@@ -1,5 +1,5 @@
 +++
-title = "Haskell 学习（一）：基础内容"
+title = "【Haskell 语言】基础概念与语法"
 description = "函数式语言的基础特性概览：列表、类型与高阶函数。"
 date = 2025-08-26
 updated = 2025-08-27

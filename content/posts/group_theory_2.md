@@ -1,5 +1,5 @@
 +++
-title = "群论（二）：魔方与次正规群列"
+title = "【群论】魔方与次正规群列"
 description = "换位子，半直积，Schreier 子群引理，可解群，导群，合成群列，Schreier 定理与 Jordan-Hölder 定理。"
 date = 2025-06-16
 updated = 2026-02-02

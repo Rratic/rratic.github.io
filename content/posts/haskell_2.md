@@ -1,5 +1,5 @@
 +++
-title = "Haskell 学习（二）：单子与副作用"
+title = "【Haskell 语言】单子与副作用"
 description = "函数式语言如何引入副作用：函子、应用函子、单子。"
 date = 2025-08-27
 updated = 2025-10-26

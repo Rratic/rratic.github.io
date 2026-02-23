@@ -1,5 +1,5 @@
 +++
-title = "域论（一）：高次方程与 Galois 理论"
+title = "【域论】高次方程与 Galois 理论"
 description = "关于高次方程的根式解：代数基本定理，低次方程求根公式，域扩张，Galois 扩张，Galois 群，根式可解性判断与 Abel-Ruffini 定理。"
 date = 2025-07-09
 updated = 2025-10-02
@@ -35,16 +35,14 @@ tags = ["笔记", "数学", "代数", "域论", "Galois 理论"]
 
 只需证明非常值复系数多项式有根。以下给出 Frode Terkelsen 的一个简短且较为初等的证明。
 
-由分析[^continuous-mapping]知 $|P(z)|$ 有最小值，若最小值非零，不妨设其为 $|P(0)| = 1$
-
-设 $P(z) = 1+az^n+z^{n+1}Q(z), a\neq 0$
+由分析学[^continuous-mapping]知 $|P(z)|$ 有最小值，若最小值非零，不妨设其为 $|P(0)| = 1$. 不妨设 $P(z) = 1+az^n+z^{n+1}Q(z)$, 其中 $a\neq 0$.
 
 取 $\omega$，使 $a\omega^n < 0, |\omega Q(\omega)| < \frac{1}{2}|a|$，则有 $|P(\omega)|\leq 1+\frac{1}{2}|a|\omega^n<1$，矛盾。
 
 ### 求根公式
 对于一、二次方程来说，求根公式（使用初等运算的复合给出所有根的公式）较为简单。
 
-Gerolamo Cardano 在 1545 年出版的著作 *Ars Magna* 中第一次给出三次方程的完整通解。考虑换元将原方程化为 $x^3+px+q=0$，令 $x=u+v$，此时只需同时满足
+Gerolamo Cardano 在 1545 年出版的著作 *Ars Magna* 中第一次给出三次方程的完整通解。考虑换元将原方程化为 $x^3+px+q=0$，令 $x=u+v$，此时只需同时满足：
 
 $$
 \begin{cases}

@@ -1,5 +1,5 @@
 +++
-title = "复分析（二）：间章：Laurent 级数、留数与调和函数"
+title = "【复分析】间章：Laurent 级数、留数与调和函数"
 description = "关于 Laurent 级数、留数与调和函数。"
 date = 2025-10-16
 updated = 2025-12-04

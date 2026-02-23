@@ -1,6 +1,5 @@
 +++
 title = "高等代数Ⅰ期末复习笔记"
-description = ""
 date = 2025-12-29
 updated = 2025-12-30
 
@@ -17,8 +16,7 @@ tags = ["笔记", "数学", "代数", "线性代数"]
 
 <style>
 	img:where(.dark,.dark *) {
-        --tw-invert:invert(100%);
-        filter: var(--tw-blur,)var(--tw-brightness,)var(--tw-contrast,)var(--tw-grayscale,)var(--tw-hue-rotate,)var(--tw-invert,)var(--tw-saturate,)var(--tw-sepia,)var(--tw-drop-shadow,)
+        filter: invert(100%);
     }
 </style>
 

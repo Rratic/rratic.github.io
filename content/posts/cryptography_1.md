@@ -1,5 +1,5 @@
 +++
-title = "密码学（一）：异或密码与 AES"
+title = "【密码学】异或密码与 AES"
 description = "使用 Haskell 完成的 The Cryptopals Crypto Challenges - Set 1"
 date = 2025-09-22
 updated = 2025-10-30
