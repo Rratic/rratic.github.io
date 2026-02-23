@@ -34,12 +34,12 @@ $$\omega_{mn} = \omega_{ml} + \omega_{ln} \tag{1.1}$$
 
 $$\omega_{mn} = 2\pi Rc \left(\frac{1}{m^2}-\frac{1}{n^2}\right) \tag{1.2}$$
 
-其中 R 是 Rydberg 常数。
+其中 $R$ 是 Rydberg 常数，约 $1.097 \times 10^7\ \text{m}^{-1}$.
 
 对于氢原子光谱，玻尔提出了三条假设：
 * **定态**假设：核外电子绕核运动只能取某些特定的轨道，此时不辐射电磁波损失能量，有恒定能量 $E_n$
-* 跃迁假设：电子从第 n 个定态跃迁到第 m 个定态，辐射出频率 $\omega_{mn}$ 的电磁波
-* 轨道角动量量子化假设：第 n 个定态上电子的角动量 $J = rp = n\hbar$
+* 跃迁假设：电子从第 $n$ 个定态跃迁到第 $m$ 个定态，辐射出频率 $\omega_{mn}$ 的电磁波
+* 轨道角动量量子化假设：第 $n$ 个定态上电子的角动量 $J = rp = n\hbar$
 
 令精细结构常数 $\alpha = \frac{e^2}{4\pi\epsilon_0\hbar c}\approx \frac{1}{137}$，并使用条件 $m_e\frac{v^2}{r} = \frac{e^2}{4\pi\epsilon_0 r^2}$ 及 $rm_ev = n\hbar$ 可推导得：
 

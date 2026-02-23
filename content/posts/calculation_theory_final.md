@@ -1,6 +1,5 @@
 +++
 title = "计算概论期末复习笔记（Bird Meertens 形式开始的部分）"
-description = "使用 Bird Meertens Formalism 导出高效程序与进行自动并行化。"
 date = 2025-12-27
 
 [extra]
@@ -17,7 +16,11 @@ tags = ["笔记", "计算机", "函数式编程"]
 
 {{ ref_index(to = "functional-programming") }}
 
+主要包含使用 Bird Meertens Formalism 导出高效程序与进行自动并行化。
+
 这是本课程的最后一个部分，同时可能是在上半学期和下半学期前部的铺垫下真正想讲的东西。其中函数式编程的想法提供了无副作用的函数和高阶函数的例子，从而能够被我们讨论；定理证明器则允许我们验证推导的正确性。
+
+<!-- more -->
 
 课程主页在 <https://zhenjiang888.github.io/FP/2025/>.
 
