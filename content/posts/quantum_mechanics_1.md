@@ -17,7 +17,7 @@ tags = ["笔记", "物理", "量子物理"]
 
 前置知识
 - 线性代数（矩阵运算即可）
-- 一般的经典力学基础
+- 一般的经典力学基础，参考[初识经典力学](@/posts/classical_mechanics_1.md)
 
 参考阅读
 - [《初识量子力学》](https://chaoli.club/index.php/10485)
@@ -111,9 +111,11 @@ $$i\hbar \frac{\mathrm{d}A}{\mathrm{d}t} = [A, H] \tag{1.7}$$
 
 $$H = \frac{P^2}{2m_e} + V(X) \tag{1.8}$$
 
-其中 $V(X)$ 使用 $V(x)$ 展开成幂级数的形式（为什么是合理的？）
+其中 $V(X)$ 使用 $V(x)$ 展开成幂级数的形式，就有 $[X, X^n] = X[X, X^{n-1}] + X[X, X^{n-1}]X = \cdots = 0$，故 $[X, V(X)] = 0$.
 
-有 $[X, X^n] = X[X, X^{n-1}] + X[X, X^{n-1}]X = \cdots = 0$，故 $[X, V(X)] = 0$
+{% admonition(type="note", title="为什么是合理的？") %}
+我同学的回答是，物理就是这样的。
+{% end %}
 
 如果我们要求量子系统与相应的经典系统相对应，即将哈密顿正则方程改造为：
 
@@ -140,5 +142,55 @@ $$A_{mn} = \langle m|\hat{A}|n\rangle \tag{1.11}$$
 
 ## 量子力学基本原理
 我们现在讨论一般的可能性集（而非氢原子电子的定态）。
+
+让我们考虑 Feynman 改编的 Stern-Gerlach 实验。让一束非极化原子（每个原子总角动量取向完全随机）沿水平方向（记作 $y$ 方向）通过一个非均匀指向 $z$ 方向，且梯度也沿 $z$ 方向的磁场，它将分裂为分立的三束。
+
+对此的解释是：原子角动量的 $z$ 分量 $J_z$ 有三种量子化的可能，不妨记作 $+\hbar, 0, -\hbar$. 我们称它们构成一个可确定区分可能性完备集，其中完备意为它们占据全部可能性。
+
+考虑带挡板的装置 $S$ 将 $0$ 与 $-\hbar$ 都挡住，成为只允许 $+\hbar$ 可能通过的过滤器。那么从这个装置通出的原子继续通出一个相同装置的概率是百分之百。可以把这个结果记作：
+
+$$\langle +S | +S \rangle = \langle +S | \mathbf{1} | +S \rangle = 1 \tag{2.1}$$
+
+另外的挡板情况也同理，即：
+
+$$\langle iS | jS \rangle = \delta_{ij} \tag{2.2}$$
+
+现在让原子通过 $+S$ 过滤器后再通过一个 $S$ 旋转了适当角度的版本，记作 $T$. 考虑不同的挡板装法 $+T, 0T, -T$, 实验发现 $\langle +T | +S \rangle, \langle 0T | +S \rangle, \langle -T | +S \rangle$ 均不为零。进一步地，实验归纳出 Born 定则：
+
+$$P(iS \to jT) = |\langle jT | iS \rangle|^2 \tag{2.3}$$
+
+一个问题是，如果我们让一束原子先通过 $+S$, 再通过 $0T$, 是否就可以同时确定射出粒子的 $S$ 可能性与 $T$ 可能性了呢？答案是否定的。尽管 $T$ 可能性一定是 $0T$, 原子再通过 $+S, 0S, -S$ 后通出的可能性均非零。也就是说，一旦跃迁到 $0T$ 可能性，原来 $+S$ 可能性的信息就丢失了。
+
+不仅如此，我们还无法区分原子是处于三种 $S$ 可能性之一还是三种 $T$ 可能性之一。为了区分处于哪种可能性，我们需要让原子通过某个过滤器，但是由此判断出的状态可能是由另一种跃迁过来的。
+
+{% admonition(type="note", title="想法") %}
+或许这个性质就是对应到[量子信息](@/posts/quantum_information_1.md)中的在特定的基下观测？
+{% end %}
+
+推广到一般情形，一个量子系统的两个不同的可确定区分可能性完备集是指标集 $\mathcal{I}, \mathcal{J}$ 满足存在 $(m) \in \mathcal{I}, (n') \in \mathcal{J}$ 使得 $\langle n' | m \rangle \neq 0, 1$.
+
+---
+
+我们继续这个实验，在过滤器 $S$, 无挡板的装置 $T$ 之后添加一个另外转过某个角度的过滤器 $R$. 实验发现中间的 $T$ 装置对结果没有影响，也即：
+
+$$\langle jR | iS \rangle = \sum_k \langle jR | kT \rangle \langle kT | iS \rangle \tag{2.4}$$
+
+我们记左侧 $\psi = \langle jR | iS \rangle$, 右侧三项分别为 $\phi_+, \phi_0, \phi_-$, 将发现：
+
+$$P(iS \to jR) = |\phi_+ + \phi_0 + \phi_-|^2 > |\phi_+|^2 + |\phi_0|^2 + |\phi_-|^2 \tag{2.5}$$
+
+这是量子物理不同于经典物理的地方。并不能说：要么经过中间可能性 $+T$, 要么经过 $0T$, 要么经过 $-T$. 我们并没有对中间可能性进行观测。
+
+如果我们在装置 $T$ 中对于分立的每一束都添加探测器，使得每通过一个原子有且仅有一盏灯会亮，情况就变得不同。此时确实满足 $P(iS \to jR) = |\phi_+|^2 + |\phi_0|^2 + |\phi_-|^2$.
+
+{% admonition(type="note", title="性质推导") %}
+考虑式子 $1 = \langle i | i \rangle = \sum_{j' \in \mathcal{J}} \langle i | j' \rangle \langle j' | i \rangle$ 及 $1 = \sum_{j' \in \mathcal{J}} |\langle j' | i \rangle|^2 = \sum_{j' \in \mathcal{J}} \langle j' | i \rangle^\ast \langle j' | i \rangle$. 它们同时成立的最简单条件是：
+
+$$\langle i | j' \rangle = \langle j' | i \rangle^\ast$$
+{% end %}
+
+从式 (2.4) 的形式易见和矩阵乘法是一致的。我们可以让 $T$ 是任意的装置 $A$, 记作 $\langle jR | \hat{A} | iS \rangle$, 就有：
+
+$$\langle jR | \hat{A}\hat{B} | iS \rangle = \sum_k \langle jR | \hat{A} | k \rangle \langle k | \hat{B} | iS \rangle \tag{2.6}$$
 
 {{ todo() }}
