@@ -18,8 +18,6 @@ tags = ["笔记", "计算机", "密码学"]
 
 <!-- more -->
 
-使用的是 Rust, 读者可在 [Rust Playground](https://play.rust-lang.org/) 中运行。
-
 ## 离散对数
 {% admonition(type="question", title="离散对数问题") %}
 已知素数 $p$ 与与之互素的整数 $g, h$，已知存在 $g^x \equiv h \pmod p$，求 $x$.
@@ -41,7 +39,7 @@ Diffie–Hellman Key Exchange 用于解决这样的困境：Alice 与 Bob 两人
 4. 现在他们共有一个密钥 $K \equiv g^{ab}$
 {% end %}
 
-其中只用到最基础的 $O(\ln p)$ 快速幂算法：
+其中只用到最基础的 $O(\ln p)$ 快速幂算法（使用 Rust, 读者可在 [Rust Playground](https://play.rust-lang.org/) 中运行）：
 
 ```rs
 use num::traits::{One, Zero};

@@ -22,7 +22,7 @@ tags = ["笔记", "物理", "量子物理"]
 参考阅读
 - [《初识量子力学》](https://chaoli.club/index.php/10485)
 
-## 矩阵革命
+## 氢原子光谱
 ### 矩阵引入与运动方程
 人们发现原子光谱中谱线角频率总是可以被一组正整数表示成 $\omega_{mn}$，且满足里兹组合规则：
 
@@ -140,7 +140,8 @@ $$A_{mn} = \langle m|\hat{A}|n\rangle \tag{1.11}$$
 
 不严格地说，可以把左态矢 $\langle m|$ 看作行向量，把右态矢 $|n \rangle$ 看作列向量。
 
-## 量子力学基本原理
+## Stern-Gerlach 实验
+### 量子力学基本原理
 我们现在讨论一般的可能性集（而非氢原子电子的定态）。
 
 让我们考虑 Feynman 改编的 Stern-Gerlach 实验。让一束非极化原子（每个原子总角动量取向完全随机）沿水平方向（记作 $y$ 方向）通过一个非均匀指向 $z$ 方向，且梯度也沿 $z$ 方向的磁场，它将分裂为分立的三束。
@@ -193,4 +194,97 @@ $$\langle i | j' \rangle = \langle j' | i \rangle^\ast$$
 
 $$\langle jR | \hat{A}\hat{B} | iS \rangle = \sum_k \langle jR | \hat{A} | k \rangle \langle k | \hat{B} | iS \rangle \tag{2.6}$$
 
-{{ todo() }}
+对一个可确定区分可能性完备集，人们常常把 $\langle j | \hat{A} | i \rangle$ 排成：
+
+$$
+\begin{bmatrix}
+\langle 1 | \hat{A} | 1 \rangle & \langle 1 | \hat{A} | 2 \rangle & \cdots \\\\
+\langle 2 | \hat{A} | 1 \rangle & \langle 2 | \hat{A} | 2 \rangle & \cdots \\\\
+\vdots & \vdots & \ddots
+\end{bmatrix} \tag{2.7}
+$$
+
+这时候称可能性完备集 $\mathcal{L}$ 为 $\mathcal{L}$ 表象，上述矩阵为物理量 $A$ 在 $\mathcal{L}$ 表象中的矩阵表示。
+
+能量表象存在一定的特殊性：哈密顿量在其中的表示矩阵为对角矩阵，即：
+
+$$\langle E_m | \hat{H} | E_n \rangle = \delta_{mn}E_n \tag{2.8}$$
+
+推广的海森堡运动方程是：
+
+$$\langle j' | i\hbar \frac{\mathrm{d}\hat{A}}{\mathrm{d}t} | i \rangle = \langle j' | [\hat{A}, \hat{H}] | i \rangle \tag{2.9}$$
+
+### 态和算符
+考虑进一步简化的 Stern-Gerlach 实验，假设原子只分成两束（角动量由），在磁场指向 $z$ 轴时两种可能记作 $S = \\{\uparrow, \downarrow\\}$, 指向 $x$ 轴时两种可能记作 $T = \\{\rightarrow, \leftarrow\\}$. 实验测得 $|\langle \rightarrow | \uparrow \rangle|^2 = |\langle \leftarrow | \uparrow \rangle|^2 = |\langle \rightarrow | \downarrow \rangle|^2 = |\langle \leftarrow | \downarrow \rangle|^2 = \frac{1}{2}$. 反之亦然。
+
+不妨选取为：
+
+$$
+\begin{bmatrix}
+\langle \uparrow | \rightarrow \rangle & \langle \uparrow | \leftarrow \rangle \\\\
+\langle \downarrow | \rightarrow \rangle & \langle \downarrow | \leftarrow \rangle
+\end{bmatrix}
+= \frac{1}{\sqrt{2}}
+\begin{bmatrix}
+1 & 1 \\\\
+1 & -1
+\end{bmatrix}
+\tag{2.10}
+$$
+
+我们会得到 $\langle \cdots | \uparrow \rangle = \frac{1}{\sqrt{2}} \langle \cdots | \rightarrow \rangle + \frac{1}{\sqrt{2}} \langle \cdots | \leftarrow \rangle$. 一个自然的想法是写成 $| \uparrow \rangle = \frac{1}{\sqrt{2}} | \rightarrow \rangle + \frac{1}{\sqrt{2}} | \leftarrow \rangle$. 这可以解读成引入了某种**叠加原理**。
+
+这种可以线性叠加的东西就是矢量，称为**态矢量**。构成的矢量空间称为希尔伯特空间（因为支持内积），一般来说可以是任意维的，甚至无穷维的。一个量子态对应的是希尔伯特空间中的一条复直线。
+
+作为可确定区分性的要求，有：
+
+$$\langle \psi | \psi \rangle = 1 \tag{2.11}$$
+
+称为归一化条件。
+
+容易推导出一些结论，如对一个初态可能性 $| \psi \rangle = \sum_i a_i | i \rangle$ 其中 $a_i = \langle i | \psi \rangle$, 若将它作为一个末态可能性则有 $\langle \psi | = \sum_i \langle \psi | i \rangle \langle i | = \sum_i a_i^\ast \langle i |$. 从 $\psi$ 到 $\phi $ 的跃迁幅是一种乘法，即内积 $\langle \phi | \psi \rangle$.
+
+如果两个态矢量满足 $\langle \phi | \psi \rangle = 0$ 则称它们**正交**。可确定区分可能性完备集 $\mathcal{L}$ 需要满足的就是 $\langle i | j \rangle = \delta_{ij}$ **正交归一性**。
+
+---
+
+考察初态可能性 $\psi$ 经物理量 $A$ 作用的结果，由于 $\langle \cdots | A | \psi \rangle$ 可以等效地由 $\langle \cdots | \phi \rangle$ 给出，可以写方程 $| A | \psi \rangle = | \phi \rangle$. 所以我们说量子力学中每一个物理量对应一个**线性算符**。
+
+式子 $| u \rangle \langle v |$ 可以视作一个算符（其运算规则是自然的）。
+
+### 绘景
+我们回顾海森堡运动方程是 (1.7) 式，量子力学基本对易关系是 $[X, P] = i\hbar$. 运动方程有一个形式上的通解：
+
+$$A(t) = e^{iHt/\hbar} A_0 e^{-iHt/\hbar} \tag{2.12}$$
+
+其中算符放在指数上是指：
+
+$$e^B = 1 + \frac{1}{1!}B + \frac{1}{2!}B^2 + \frac{1}{3!}B^3 + \cdots \tag{2.13}$$
+
+读者可自行验证 $e^Be^{-B} = 1$ 及 $i\hbar \frac{\mathrm{d}A}{\mathrm{d}t} = [A, H]$.
+
+到现在为止我们都认为量子态不随时间演化（随时间演化的是代表物理量的算符），这种观点称为海森堡绘景；一种等价的观点是物理量算符不随时间演化，而量子态随时间演化，称为薛定谔绘景。从海森堡绘景过渡到薛定谔绘景可通过：
+
+$$\langle \phi | A(t) | \psi \rangle = \langle \phi | e^{iHt/\hbar} A_0 e^{-iHt/\hbar} | \psi \rangle = \langle \phi(t) | A_0 | \psi(t) \rangle \tag{2.14}$$
+
+其中 $| \psi(t) \rangle = e^{-iHt/\hbar} | \psi \rangle, | \phi(t) \rangle = e^{-iHt/\hbar} | \phi \rangle$. 注意 $(e^{-iHt/\hbar})^\dagger = e^{iHt/\hbar}$. 对此式对时间求导得到薛定谔方程：
+
+$$i\hbar \frac{\mathrm{d}}{\mathrm{d}t} | \psi(t) \rangle = H | \psi(t) \rangle \tag{2.15}$$
+
+在薛定谔绘景中，量子力学基本对易关系是 $[X_0, P_0] = i\hbar$.
+
+---
+
+此处省略一些与[量子信息笔记](@/posts/quantum_information_1.md)中重复的内容。
+
+---
+
+如果一个态矢量 $| u_n \rangle$ 满足 $A | u_n \rangle = \lambda_n | u_n \rangle$ 则称它是算符 $A$ 的本征值，这个方程是算符 $A$ 的本征方程。
+
+哈密顿方程的本征方程叫做定态薛定谔方程，之后会看到其本征态就是能量有确定值的定态，因此定态薛定谔方程可以写成：
+
+$$H | E_n \rangle = E_n | E_n \rangle \tag{2.16}$$
+
+### 电子自旋
+
+## 波动方程与路径积分
