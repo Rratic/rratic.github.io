@@ -1,7 +1,7 @@
 +++
-title = "【草稿】《初识量子力学》笔记"
+title = "《初识量子力学》笔记（上）：海森堡绘景到薛定谔绘景"
 description = "《初识量子力学》是一个理顺量子力学理论的尝试。"
-draft = true
+date = 2026-03-06
 
 [extra]
 math = true
@@ -16,11 +16,10 @@ tags = ["笔记", "物理", "量子物理"]
 +++
 
 前置知识
-- 线性代数（矩阵运算即可）
-- 一般的经典力学基础，参考[初识经典力学](@/posts/classical_mechanics_1.md)
+- 线性代数
+- 一般的经典力学基础，参考[《初识经典力学》笔记](@/posts/classical_mechanics_1.md)
 
-参考阅读
-- [《初识量子力学》](https://chaoli.club/index.php/10485)
+参考的是[《初识量子力学》](https://chaoli.club/index.php/10485)前三章。
 
 ## 氢原子光谱
 ### 矩阵引入与运动方程
@@ -285,6 +284,10 @@ $$i\hbar \frac{\mathrm{d}}{\mathrm{d}t} | \psi(t) \rangle = H | \psi(t) \rangle 
 
 $$H | E_n \rangle = E_n | E_n \rangle \tag{2.16}$$
 
-### 电子自旋
+易见厄米算符的本征值必为实数。又 $\lambda_j \langle i | j \rangle = \lambda_i^\ast \langle i | j \rangle$ 推出 $\lambda_i \neq \lambda_j$ 时两个本征态正交。而 $\lambda_i = \lambda_j$ 时，称两个本征态**简并**。我们可以考虑所有本征态张成的子空间，然后从中选取正交的基。最终可以使得所有的本征态两两正交。如果加上归一化条件，就有：
 
-## 波动方程与路径积分
+$$\langle i | j \rangle = \delta_{ij} \tag{2.17}$$
+
+对一个厄米算符 $A$, 相应的可能性完备集是可确定区分的，这些可能性称为 $A$ 的**本征可能性**。
+
+可以证明两个物理量 $A, B$ 的值可以同时确定，当且仅当两个算符可对易。
