@@ -16,6 +16,8 @@ tags = ["笔记", "数学", "类型论"]
 
 发现到时候不一定要读数院的研，考虑可以做逻辑学或者是 AI for math. 仔细阅读本书 [Homotopy Type Theory: Univalent Foundations of Mathematics](https://homotopytypetheory.org/book/). 这是上学期计概老师推荐的，但当时看得太粗略了。本文包含该书的前言和第一章内容。
 
+<!-- more -->
+
 开始写本文时还没有发现 [∞-type Café 暑期学校 2023](https://infinity-type-cafe.github.io/ntype-cafe-summer-school/) 的存在。
 
 假定读者有简单类型论的基础。
