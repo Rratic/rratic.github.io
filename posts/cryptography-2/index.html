@@ -1,0 +1,675 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>【密码学】经典数论算法：基于有限域上离散对数/整数分解/二次剩余 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="【密码学】经典数论算法：基于有限域上离散对数/整数分解/二次剩余" />
+  <meta name="description" content="主要参考的是 An Introduction to Mathematical Cryptography 第二、三、四章。" />
+  <meta property="og:description" content="主要参考的是 An Introduction to Mathematical Cryptography 第二、三、四章。" />
+  <meta property="og:url" content="https://rratic.top/posts/cryptography-2/" />
+  <link rel="canonical" href="https://rratic.top/posts/cryptography-2/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-02-12T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="计算机" />
+  <meta property="article:tag" content="密码学" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.top/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.top/style/shared.css?h=63eca58df589815f6747" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">【密码学】经典数论算法：基于有限域上离散对数&#x2F;整数分解&#x2F;二次剩余</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2026-02-12T00:00:00+00:00">2026-02-12</time><span
+        class="middot"></span><time
+    datetime="PT0H18M0S">18&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#chi-san-dui-shu">离散对数</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#zheng-shu-fen-jie">整数分解</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#shu-zi-qian-ming">数字签名</a>
+      </li>
+    </ul>
+  </details>
+</nav>
+
+  <!-- Content -->
+  <section><p>主要参考的是 An Introduction to Mathematical Cryptography 第二、三、四章。</p>
+<span id="continue-reading"></span><h2 id="chi-san-dui-shu">离散对数</h2>
+
+<link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" type="text/css">
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>离散对数问题</strong></span>
+  </div>
+  <div class="pl-4"><p>已知素数 $p$ 与与之互素的整数 $g, h$，已知存在 $g^x \equiv h \pmod p$，求 $x$.</p>
+</div>
+</div>
+<p>当前解决一般的离散对数问题的最优算法是 $O(\sqrt{p})$ 的。</p>
+<p>更广义的离散对数问题是在一般的群上考虑这个问题（这里是 $\mathbb{F}_p^\times$）。</p>
+<hr />
+<p>Diffie–Hellman Key Exchange 用于解决这样的困境：Alice 与 Bob 两人希望共有一个用于对称加密的密钥，但是他们间的交流方式是不安全的。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-tip);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/tip.svg);"
+    >
+      tip
+    </div>
+    <span><strong>Diffie–Hellman Key Exchange</strong></span>
+  </div>
+  <div class="pl-4"><p>流程如下：</p>
+<ol>
+<li>选取一个大素数 $p$ 和整数 $g$ 在 mod $p$ 意义下有较高的阶</li>
+<li>Alice 与 Bob 分别秘密地选取整数 $a, b$ 并在 mod $p$ 意义下计算 $A \equiv g^a, B \equiv g^b$</li>
+<li>Alice 与 Bob 分别告知对方 $B, A$ 的值</li>
+<li>现在他们共有一个密钥 $K \equiv g^{ab}$</li>
+</ol>
+</div>
+</div>
+<p>其中只用到最基础的 $O(\ln p)$ 快速幂算法（使用 Rust, 读者可在 <a href="https://play.rust-lang.org/">Rust Playground</a> 中运行）：</p>
+<pre data-lang="rs" class="language-rs z-code"><code class="language-rs" data-lang="rs"><span class="z-source z-rust"><span class="z-keyword z-other z-rust">use</span> <span class="z-meta z-path z-rust">num<span class="z-punctuation z-accessor z-rust">::</span></span><span class="z-meta z-path z-rust">traits<span class="z-punctuation z-accessor z-rust">::</span></span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>One<span class="z-punctuation z-separator z-rust">,</span> Zero</span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+</span><span class="z-source z-rust"><span class="z-keyword z-other z-rust">use</span> <span class="z-meta z-path z-rust">std<span class="z-punctuation z-accessor z-rust">::</span></span><span class="z-meta z-path z-rust">ops<span class="z-punctuation z-accessor z-rust">::</span></span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>BitAnd<span class="z-punctuation z-separator z-rust">,</span> Mul<span class="z-punctuation z-separator z-rust">,</span> Rem<span class="z-punctuation z-separator z-rust">,</span> ShrAssign</span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+</span><span class="z-source z-rust">
+</span><span class="z-source z-rust"><span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> does not do `n %= (p-1)`, assume n &gt;= 0
+</span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust"><span class="z-meta z-function z-rust"><span class="z-storage z-type z-function z-rust">fn</span> </span><span class="z-entity z-name z-function z-rust">mod_pow</span></span><span class="z-meta z-generic z-rust"><span class="z-punctuation z-definition z-generic z-begin z-rust">&lt;</span>T, E<span class="z-punctuation z-definition z-generic z-end z-rust">&gt;</span></span><span class="z-meta z-function z-rust"><span class="z-meta z-function z-parameters z-rust"><span class="z-punctuation z-section z-parameters z-begin z-rust">(</span><span class="z-variable z-parameter z-rust">a</span><span class="z-punctuation z-separator z-rust">:</span> T, <span class="z-storage z-modifier z-rust">mut</span> <span class="z-variable z-parameter z-rust">n</span><span class="z-punctuation z-separator z-rust">:</span> E, <span class="z-variable z-parameter z-rust">p</span><span class="z-punctuation z-separator z-rust">:</span> T</span><span class="z-meta z-function z-rust"><span class="z-meta z-function z-parameters z-rust"><span class="z-punctuation z-section z-parameters z-end z-rust">)</span></span></span></span><span class="z-meta z-function z-rust"> <span class="z-meta z-function z-return-type z-rust"><span class="z-punctuation z-separator z-rust">-&gt;</span> T
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust"><span class="z-meta z-function z-return-type z-rust"></span></span><span class="z-meta z-function z-rust"><span class="z-keyword z-other z-rust">where</span>
+</span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust">    T<span class="z-punctuation z-separator z-rust">:</span> Copy + One + <span class="z-meta z-generic z-rust">Mul<span class="z-punctuation z-definition z-generic z-begin z-rust">&lt;</span>Output = T<span class="z-punctuation z-definition z-generic z-end z-rust">&gt;</span></span> + <span class="z-meta z-generic z-rust">Rem<span class="z-punctuation z-definition z-generic z-begin z-rust">&lt;</span>Output = T<span class="z-punctuation z-definition z-generic z-end z-rust">&gt;</span></span>,
+</span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust">    E<span class="z-punctuation z-separator z-rust">:</span> Copy + Zero + One + <span class="z-meta z-generic z-rust">ShrAssign<span class="z-punctuation z-definition z-generic z-begin z-rust">&lt;</span><span class="z-storage z-type z-rust">u8</span><span class="z-punctuation z-definition z-generic z-end z-rust">&gt;</span></span> + <span class="z-meta z-generic z-rust">BitAnd<span class="z-punctuation z-definition z-generic z-begin z-rust">&lt;</span>Output = E<span class="z-punctuation z-definition z-generic z-end z-rust">&gt;</span></span> + PartialEq,
+</span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust"></span><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust">    <span class="z-storage z-type z-rust">let</span> <span class="z-storage z-modifier z-rust">mut</span> result <span class="z-keyword z-operator z-assignment z-rust">=</span> <span class="z-meta z-path z-rust">T<span class="z-punctuation z-accessor z-rust">::</span></span>one<span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust">    <span class="z-storage z-type z-rust">let</span> <span class="z-storage z-modifier z-rust">mut</span> base <span class="z-keyword z-operator z-assignment z-rust">=</span> a <span class="z-keyword z-operator z-arithmetic z-rust">%</span> p<span class="z-punctuation z-terminator z-rust">;</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust">
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust">    <span class="z-storage z-type z-rust">let</span> one <span class="z-keyword z-operator z-assignment z-rust">=</span> <span class="z-meta z-path z-rust">E<span class="z-punctuation z-accessor z-rust">::</span></span>one<span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust">
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust">    <span class="z-keyword z-control z-rust">while</span> <span class="z-keyword z-operator z-logical z-rust">!</span><span class="z-meta z-path z-rust">E<span class="z-punctuation z-accessor z-rust">::</span></span>is_zero<span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span><span class="z-keyword z-operator z-bitwise z-rust">&amp;</span>n</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span> <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+</span></span></span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-block z-rust">        <span class="z-keyword z-control z-rust">if</span> <span class="z-meta z-path z-rust">E<span class="z-punctuation z-accessor z-rust">::</span></span>is_one<span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span><span class="z-keyword z-operator z-bitwise z-rust">&amp;</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>n <span class="z-keyword z-operator z-bitwise z-rust">&amp;</span> one</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span> <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+</span></span></span></span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-block z-rust">            result <span class="z-keyword z-operator z-assignment z-rust">=</span> <span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>result <span class="z-keyword z-operator z-arithmetic z-rust">*</span> base</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span> <span class="z-keyword z-operator z-arithmetic z-rust">%</span> p<span class="z-punctuation z-terminator z-rust">;</span>
+</span></span></span></span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-block z-rust">        </span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span>
+</span></span></span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-block z-rust">        n <span class="z-keyword z-operator z-comparison z-rust">&gt;</span><span class="z-keyword z-operator z-comparison z-rust">&gt;=</span> <span class="z-constant z-numeric z-integer z-decimal z-rust">1</span><span class="z-punctuation z-terminator z-rust">;</span>
+</span></span></span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-block z-rust">        base <span class="z-keyword z-operator z-assignment z-rust">=</span> <span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>base <span class="z-keyword z-operator z-arithmetic z-rust">*</span> base</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span> <span class="z-keyword z-operator z-arithmetic z-rust">%</span> p<span class="z-punctuation z-terminator z-rust">;</span>
+</span></span></span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-block z-rust">    </span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust">
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust">    result
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust"></span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span></span>
+</span></code></pre>
+<hr />
+<p>Diffie–Hellman Key Exchange 算法并不是一个完整的公钥密码体系。紧随此的最自然的密码体系是 Elgamal Public Key Cryptosystem.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-tip);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/tip.svg);"
+    >
+      tip
+    </div>
+    <span><strong>Elgamal Public Key Cryptosystem</strong></span>
+  </div>
+  <div class="pl-4"><p>创建公钥过程如下：</p>
+<ol>
+<li>选取一个大素数 $p$ 和整数 $g$ 在 mod $p$ 意义下有较高的阶</li>
+<li>Alice 秘密地选取整数 $a$ 并在 mod $p$ 意义下计算 $A \equiv g^a$</li>
+<li>Alice 公布 $A$</li>
+</ol>
+<p>Bob 对原文 $m$ 加密过程如下：</p>
+<ol>
+<li>秘密地选取整数 $k$</li>
+<li>在 mod $p$ 意义下计算 $c_1 \equiv g^k, c_2 \equiv mA^k$</li>
+<li>将 $(c_1, c_2)$ 发给 Alice</li>
+</ol>
+<p>Alice 解密过程即在 mod $p$ 意义下计算 $(c_1^a)^{-1} \cdot c_2$.</p>
+</div>
+</div>
+<p>这里涉及 mod $p$ 意义下求逆，这并没有什么特别良好的算法，可以考虑计算 $a^{p-2}$ 或使用扩展 Euclid 算法。</p>
+<p>扩展 Euclid 算法如下：</p>
+<pre data-lang="rs" class="language-rs z-code"><code class="language-rs" data-lang="rs"><span class="z-source z-rust"><span class="z-keyword z-other z-rust">use</span> <span class="z-meta z-path z-rust">num<span class="z-punctuation z-accessor z-rust">::</span></span><span class="z-meta z-path z-rust">traits<span class="z-punctuation z-accessor z-rust">::</span></span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>One<span class="z-punctuation z-separator z-rust">,</span> Zero</span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+</span><span class="z-source z-rust"><span class="z-keyword z-other z-rust">use</span> <span class="z-meta z-path z-rust">std<span class="z-punctuation z-accessor z-rust">::</span></span><span class="z-meta z-path z-rust">ops<span class="z-punctuation z-accessor z-rust">::</span></span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>Div<span class="z-punctuation z-separator z-rust">,</span> Mul<span class="z-punctuation z-separator z-rust">,</span> Rem<span class="z-punctuation z-separator z-rust">,</span> Sub</span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+</span><span class="z-source z-rust">
+</span><span class="z-source z-rust"><span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> ext_gcd(a, b) = (d, x, y) where ax + by = d
+</span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust"><span class="z-meta z-function z-rust"><span class="z-storage z-type z-function z-rust">fn</span> </span><span class="z-entity z-name z-function z-rust">ext_gcd</span></span><span class="z-meta z-generic z-rust"><span class="z-punctuation z-definition z-generic z-begin z-rust">&lt;</span>T<span class="z-punctuation z-definition z-generic z-end z-rust">&gt;</span></span><span class="z-meta z-function z-rust"><span class="z-meta z-function z-parameters z-rust"><span class="z-punctuation z-section z-parameters z-begin z-rust">(</span><span class="z-variable z-parameter z-rust">a</span><span class="z-punctuation z-separator z-rust">:</span> T, <span class="z-variable z-parameter z-rust">b</span><span class="z-punctuation z-separator z-rust">:</span> T</span><span class="z-meta z-function z-rust"><span class="z-meta z-function z-parameters z-rust"><span class="z-punctuation z-section z-parameters z-end z-rust">)</span></span></span></span><span class="z-meta z-function z-rust"> <span class="z-meta z-function z-return-type z-rust"><span class="z-punctuation z-separator z-rust">-&gt;</span> <span class="z-punctuation z-section z-group z-begin z-rust">(</span>T, T, T<span class="z-punctuation z-section z-group z-end z-rust">)</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust"><span class="z-meta z-function z-return-type z-rust"></span></span><span class="z-meta z-function z-rust"><span class="z-keyword z-other z-rust">where</span>
+</span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust">    T<span class="z-punctuation z-separator z-rust">:</span> Copy
+</span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust">        + Zero
+</span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust">        + One
+</span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust">        + <span class="z-meta z-generic z-rust">Rem<span class="z-punctuation z-definition z-generic z-begin z-rust">&lt;</span>Output = T<span class="z-punctuation z-definition z-generic z-end z-rust">&gt;</span></span>
+</span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust">        + <span class="z-meta z-generic z-rust">Div<span class="z-punctuation z-definition z-generic z-begin z-rust">&lt;</span>Output = T<span class="z-punctuation z-definition z-generic z-end z-rust">&gt;</span></span>
+</span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust">        + <span class="z-meta z-generic z-rust">Sub<span class="z-punctuation z-definition z-generic z-begin z-rust">&lt;</span>Output = T<span class="z-punctuation z-definition z-generic z-end z-rust">&gt;</span></span>
+</span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust">        + <span class="z-meta z-generic z-rust">Mul<span class="z-punctuation z-definition z-generic z-begin z-rust">&lt;</span>Output = T<span class="z-punctuation z-definition z-generic z-end z-rust">&gt;</span></span>
+</span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust">        + PartialEq,
+</span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust"></span><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust">    <span class="z-keyword z-control z-rust">if</span> <span class="z-meta z-path z-rust">T<span class="z-punctuation z-accessor z-rust">::</span></span>is_zero<span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span><span class="z-keyword z-operator z-bitwise z-rust">&amp;</span>b</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span> <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+</span></span></span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-block z-rust">        <span class="z-keyword z-control z-rust">return</span> <span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>a<span class="z-punctuation z-separator z-rust">,</span> <span class="z-meta z-path z-rust">T<span class="z-punctuation z-accessor z-rust">::</span></span>one<span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-separator z-rust">,</span> <span class="z-meta z-path z-rust">T<span class="z-punctuation z-accessor z-rust">::</span></span>zero<span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+</span></span></span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-block z-rust">    </span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust">
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust">    <span class="z-storage z-type z-rust">let</span> <span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>res<span class="z-punctuation z-separator z-rust">,</span> x1<span class="z-punctuation z-separator z-rust">,</span> y1</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span> <span class="z-keyword z-operator z-assignment z-rust">=</span> <span class="z-support z-function z-rust">ext_gcd</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>b<span class="z-punctuation z-separator z-rust">,</span> a <span class="z-keyword z-operator z-arithmetic z-rust">%</span> b</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust">
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust">    <span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>res<span class="z-punctuation z-separator z-rust">,</span> y1<span class="z-punctuation z-separator z-rust">,</span> x1 <span class="z-keyword z-operator z-arithmetic z-rust">-</span> <span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>a <span class="z-keyword z-operator z-arithmetic z-rust">/</span> b</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span> <span class="z-keyword z-operator z-arithmetic z-rust">*</span> y1</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust"></span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span></span>
+</span></code></pre>
+<p>对固定的 $g$ 与 $p$, 若 Diffie–Hellman 问题可被某种算法攻破，则 Elgamal PKC 亦可；反之亦然。这一点读者自证不难。</p>
+<hr />
+<p>现在来看一些处理离散对数问题的算法：</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-tip);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/tip.svg);"
+    >
+      tip
+    </div>
+    <span><strong>Babystep–Giantstep Algorithm</strong></span>
+  </div>
+  <div class="pl-4"><p>对群 $G$ 中阶为 $N$ 的元素 $g$ 和另一元素 $h$，可用以下方法求得 $g^x = h$ 的解：</p>
+<ol>
+<li>取 $n$ 满足 $n &gt; \sqrt{N}$</li>
+<li>建立列表 $e, g, g^2, \cdots, g^n$ 与 $h, hg^{-n}, \cdots, hg^{-n^2}$</li>
+<li>找到其中相等的 $g^i = hg^{-jn}$，就有 $x = i + jn$</li>
+</ol>
+<p>其时间复杂度 $O(\sqrt{N} \cdot \ln N)$，空间复杂度 $O(\sqrt{N})$.</p>
+</div>
+</div>
+<p>读者易证其正确性。时间复杂度是来源于找到相等的项，这可以通过排序实现。</p>
+<p>对 $G = \mathbb{F}_p^\times$，由 Lagrange 定理知 $N \mid p-1$，这可以用于推断 $N$ 的值。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-tip);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/tip.svg);"
+    >
+      tip
+    </div>
+    <span><strong>Pohlig–Hellman Algorithm</strong></span>
+  </div>
+  <div class="pl-4"><p>对群 $G$ 若我们有一个算法 <code>oracle</code> 使得对阶是 $q^k, q \in \mathbb{P}$ 的元素可以以 $O(S_{q^k})$ 解决离散对数问题，则对一般的元素 $g$ 满足阶为：</p>
+<p>$$N = q_1^{k_1} \cdots q_t^{k_t}$$</p>
+<p>存在时间复杂度为：</p>
+<p>$$O\left(\sum S_{q_i^{k_i}} + \ln N\right)$$</p>
+<p>的算法如下：</p>
+<ol>
+<li>对每个 $i$ 计算 $g_i = g^{N/q_i^{k_i}}, h_i = h^{N/q_i^{k_i}}$</li>
+<li>调用 <code>oracle</code> 解 $g_i^{y_i} = h_i$</li>
+<li>使用中国剩余定理解 $x \equiv y_i \pmod {q_i^{k_i}}$</li>
+</ol>
+</div>
+</div>
+<h2 id="zheng-shu-fen-jie">整数分解</h2>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-tip);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/tip.svg);"
+    >
+      tip
+    </div>
+    <span><strong>RSA Public Key Cryptosystem</strong></span>
+  </div>
+  <div class="pl-4"><p>创建公钥过程如下：</p>
+<ol>
+<li>Alice 秘密地选取大素数 $p, q$ 及整数 $e$ 满足 $\gcd(e, (p-1)(q-1)) = 1$</li>
+<li>Alice 公布 $N = pq$ 与 $e$</li>
+</ol>
+<p>Bob 对原文 $m$ 加密过程即计算 $c \equiv m^e \pmod N$.</p>
+<p>Alice 解密过程为：</p>
+<ol>
+<li>计算 $d$ 使得 $de \equiv 1 \pmod {(p-1)(q-1)}$</li>
+<li>求 $m' \equiv c^d \pmod N$ 即为结果</li>
+</ol>
+</div>
+</div>
+<p>这是一个使用广泛的标准（标准文档是 RFC 8017, 标题为 PKCS #1: RSA Cryptography Specifications Version 2.2），如 2018 以前互联网使用的 TLS 1.2 是用 RSA 来交换用于生成 AES 密钥的密钥。当前推荐使用的最低要求是 RSA-2048, 即使用 2048 位密钥（可参考 RSA Factoring Challenge 的状态）。尽管现在已逐步推荐向椭圆曲线密码迁移。</p>
+<p>容易说明根据 $N$ 找到 $(p-1)(q-1)$ 的难度与找到 $N$ 的分解的难度是相同的。</p>
+<hr />
+<p>现在来考虑中间人攻击。对 Diffie–Hellman Key Exchange 来说，中间人攻击是这样的：在 Alice 与 Bob 通过信道告知对方 $B, A$ 的值时，Eve 在中间将消息篡改成一个自己知道的 $g^e$. 这样一来，后续的消息可以被窃取到（如果仍然可以篡改消息，则这一行为不会被发现）。</p>
+<p>对 RSA PKC 来说，会出现这样的情况：</p>
+<ol>
+<li>若 Bob 发送了密文 $c$，则 Eve 考虑一个随机的 $k$ 计算 $c' \equiv k^e \cdot c$，然后要求 Alice 给出其解（理由可能是通过解一个随机的密文来证明身份）。给出的解 $m' \equiv (k^e \cdot c)^d \equiv k \cdot m$ 可推断出原文 $m$.</li>
+<li>Alice 对同一个 $N$ 创建了多个 $e$，如 $e_1, \cdots, e_r$，并且 Bob 均使用了它们，发送 $c_i \equiv m^{e_i}$. 若 $\gcd(e_1, \cdots, e_r) = 1$，则 Eve 可直接计算出 $m$.</li>
+</ol>
+<hr />
+<p>为了进行 RSA PKC，实际上我们还需要能够判断一个大数是否是素数。</p>
+<p>一个想法是考虑是否对所有 $a$ 都成立 $a^n \equiv a \pmod n$. 但实际上这样的 $n$ 不一定是素数，反例如 561.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-tip);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/tip.svg);"
+    >
+      tip
+    </div>
+    <span><strong>Miller–Rabin Test</strong></span>
+  </div>
+  <div class="pl-4"><p>对整数 $n$ 使用 $a$ 作素性测试过程如下：</p>
+<ol>
+<li>排除 $n$ 偶，及 $1 &lt; \gcd(a, n) &lt; n$ 的平凡情况</li>
+<li>写成 $n - 1 = 2^kq$，其中 $q$ 为奇</li>
+<li>如果 $a^q \not \equiv 1 \pmod n$，且对 $0 \leq i &lt; k$ 皆有 $a^{2^i\cdot q} \not\equiv -1 \pmod n$，则 $n$ 是合数</li>
+</ol>
+</div>
+</div>
+<p>其正确性易见。</p>
+<p>存在以下事实：</p>
+<ol>
+<li>对一个奇合数 $n$，在 $1 \sim n-1$ 间至少 75% 的 $a$ 选择可以成功用作 Miller–Rabin 测试，因此一般人们会考虑对随机的 50 ~ 100 个数作测试来得到结论</li>
+<li>若广义黎曼假设成立，则对每个奇合数 $n$ 都存在 $a \leq 2(\ln n)^2$ 可以成功用作 Miller–Rabin 测试</li>
+<li>对任意 $\epsilon &gt; 0$ 都存在一个算法在 $O((\ln n)^{6+\epsilon})$ 步中判定 $n$ 是否是素数，称为 AKS Test</li>
+</ol>
+<hr />
+<p>现在考虑从 $N$ 分解出 $p$ 的算法。</p>
+<p>如果存在一个 $L$ 使得 $p-1 \mid L, q-1 \nmid L$，则有 $p = \gcd(a^L-1, N)$. 依此 Pollard 的观察是：如果 $p-1$ 可以分解成小素数的乘积，那么可以考虑取 $L = n!$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-tip);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/tip.svg);"
+    >
+      tip
+    </div>
+    <span><strong>Pollard’s p − 1 Factorization Algorithm</strong></span>
+  </div>
+  <div class="pl-4"><p>分解整数 $N$ 的流程如下：</p>
+<ol>
+<li>令 $a = 2$ 或某个好算的值</li>
+<li>考虑 $j = 2, 3, \cdots$ 至某个特定的界，计算 $d = \gcd(a^{j!}-1, N)$，如果 $1 &lt; d &lt; N$ 则 $d$ 是一个因子</li>
+</ol>
+<p>为了增加效率，可以每次隔 $k$ 个再计算 $d$.</p>
+</div>
+</div>
+<p>这给出的启示是：即使建立好了一个看起来很好的加密系统，也需要注意它在特殊情形下可能很容易解决。</p>
+<p>我们称一个数 $n \mid B!$ 是一个 $B$-smooth number. 记 $\psi(X, B)$ 是满足 $1 &lt; n \leq X$ 的 $B$-smooth number 个数。一个结论是说，对 $0 &lt; \epsilon &lt; \frac{1}{2}$，令 $u = \frac{\ln X}{\ln B}$，在 $(\ln X)^\epsilon &lt; \ln B &lt; (\ln X)^{1-\epsilon}$ 时 $\psi(X, B) = X \cdot u^{-u(1+o(1))}$.</p>
+<hr />
+<p>另一个想法是：如果可以写出 $N + b^2 = a^2$，那么 $(a + b)(a - b)$ 可以用于分解。而在 $k$ 较小时，$kN + b^2 = a^2$ 也是有用的。</p>
+<p>这给出了如下现代算法：</p>
+<ol>
+<li>找到若干整数 $a_1, \cdots, a_r$ 使得有 $c_i \equiv a_i^2 \pmod N$ 可以被分解为小素数乘积</li>
+<li>取一个 $c_{i_1} \cdots c_{i_s}$ 使它是平方数 $b^2$</li>
+<li>令 $a = a_{i_1} \cdots a_{i_s}$，则 $a^2 \equiv b^2 \pmod N$，故而 $\gcd(a-b, N)$ 很有可能是非平凡因子</li>
+</ol>
+<p>这里的第二步实际上是一个 $\mathbb{F}_2$ 上的线性方程问题，由于是稀疏的，有较好的算法。</p>
+<p>这里的第一步需要尽量有效地找到足够多满足 $a_i &gt; \sqrt{N}$ 且对应的 $c_i$ 是 $B$-smooth 的算法。对 $N &lt; 2^{350}$ 来说最有效的是二次筛法，而对 $N &gt; 2^{450}$ 目前最有效的是数域筛法。</p>
+<hr />
+<p>我们希望找到接近 $\sqrt{kN}$ 的分数 $\frac{a}{b}$, 这可以用连分数来完成</p>
+<p>这里给出 Pomerance 的二次筛法的简单版本：</p>
+<p>先找到许多小于某个界 $X$ 的 $B$-smooth number. 我们可以改造 Eratosthenes 筛，改为每次作除法，看最后哪些值变为 1. 实际上需要的是找到其中形如 $a^2 \pmod N$ 的那些。因此考虑多项式 $F(T) = T^2 - N$ 并取 $a = \lfloor \sqrt{n} \rfloor + 1$, 对一列数 $F(a), F(a+1), \cdots, F(b)$ 使用前述筛法。</p>
+<hr />
+<p>现在介绍数域筛法的大致思路：</p>
+<p>我们先找到非零整数 $m$ 与首一的不可约整系数多项式 $f$ 满足 $f(m) \equiv 0 \pmod N$. 例如对 $N = 2^{2^9} + 1$ 考虑 $m = 2^{103}, f(x) = x^5 + 8$. 记 $\beta$ 是一个根，之后的工作将在 $\mathbb{Z}[\beta] \simeq \mathbb{Z}[x] / (f(x))$ 上进行。</p>
+<p>接下来是希望找大量的整数对 $(a_1, b_1), \cdots, (a_k, b_k)$ 满足：</p>
+<p>$$\prod_{i=1}^k (a_i - b_im) = A^2,\quad \exists A \in \mathbb{Z}$$</p>
+<p>$$\prod_{i=1}^k (a_i - b_i\beta) = \alpha^2,\quad \exists \alpha \in \mathbb{Z}[\beta]$$</p>
+<p>设 $\alpha = c_0 + c_1\beta + \cdots c_{d-1}\beta^{d-1}$. 由于 $m \equiv \beta \pmod N$ 我们有 $A^2 \equiv \alpha^2 \pmod N$. 另一方面 $\alpha \equiv (B := c_0 + c_1m + \cdots c_{d-1}m^{d-1}) \pmod N$, $\gcd(A - B, N)$ 很有可能是非平凡因子。</p>
+<hr />
+<p>对于 $\mathbb{F}_p$ 上的离散对数问题，有一个算法 Index Calculus 是这样的：</p>
+<p>选择一个数 $B$, 转而求解 $g^x \equiv l \pmod p, \ \forall l \leq B, l \in \mathbb{P}$. 这样以后，依次对 $k = 1, 2, \cdots$ 枚举 $h \cdot g^{-k} \pmod p$ 直到找到一个 $B$-smooth 的，我们有：</p>
+<p>$$h \cdot g^{-k} \equiv \prod_{l \leq B} l^{e_l} \pmod p$$</p>
+<p>这样一来可以把离散对数的结果写成：</p>
+<p>$$\log_g(h) \equiv k + \sum_{l\leq B} e_l \cdot \log_g(l) \pmod {p-1}$$</p>
+<p>现在回看对于小素数 $l$ 如何找到 $\log_g(l)$. 我们随机取一些 $0 &lt; g_i &lt; p$ 计算 $g_i \equiv g^i \pmod p$, 舍弃其中不 $B$-smooth 的。对 $B$-smooth 的 $g_i$ 有：</p>
+<p>$$g_i = \prod_{l\leq B} l^{u_l(i)}$$</p>
+<p>$$i \equiv \sum_{l\leq B} u_l(i) \cdot \log_g(l) \pmod {p-1}$$</p>
+<p>这样一来就可以用线性代数方法解决。</p>
+<hr />
+<p>现在考虑二次剩余。假定读者已知晓对应的初等数论内容：记 Legendre 符号：</p>
+<p>$$
+\left(\frac{a}{p}\right) = \begin{cases}
+0 &amp; p\mid a \\
+1 &amp; a \equiv c^2 \pmod p \\
+-1 &amp; \text{else}
+\end{cases}
+$$</p>
+<p>从中定义 Jacobi 符号：</p>
+<p>$$\left(\frac{a}{p_1^{e_1} \cdots p_t^{e_t}}\right) = \left(\frac{a}{p_1}\right)^{e_1} \cdots \left(\frac{a}{p_t}\right)^{e_t}$$</p>
+<p>除基本性质外，对奇素数 $a, b$ 成立：</p>
+<p>$$\left(\frac{-1}{b}\right) = \begin{cases} 1 &amp; b \equiv 1 \pmod 4 \\ -1 &amp; b \equiv 3 \pmod 4 \end{cases}$$</p>
+<p>$$\left(\frac{2}{b}\right) = \begin{cases} 1 &amp; b \equiv 1, 7 \pmod 8 \\ -1 &amp; b \equiv 3, 5 \pmod 8 \end{cases}$$</p>
+<p>$$\left(\frac{a}{b}\right)\left(\frac{b}{a}\right) = \begin{cases} 1 &amp; \text{else} \\ -1 &amp; a, b \equiv 3 \pmod 4 \end{cases}$$</p>
+<p>这样一来我们可以对任意两整数使用辗转相除求值。</p>
+<p>使用二次剩余可以给出：</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-tip);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/tip.svg);"
+    >
+      tip
+    </div>
+    <span><strong>Goldwasser–Micali Probabilistic Public Key Cryptosystem</strong></span>
+  </div>
+  <div class="pl-4"><p>创建公钥过程如下：</p>
+<ol>
+<li>Alice 秘密地选取大素数 $p, q$ 及整数 $a$ 满足 $(\frac{a}{p}) = (\frac{a}{q}) = -1$</li>
+<li>Alice 公布 $N = pq$ 与 $a$</li>
+</ol>
+<p>Bob 对原文 $m \in \{0, 1\}$ 加密过程如下：</p>
+<ol>
+<li>随机取 $1 &lt; r &lt; N$</li>
+<li>若 $m = 0$ 计算 $c \equiv r^2 \pmod N$, 否则计算 $c \equiv ar^2 \pmod N$</li>
+<li>将 $c$ 发给 Alice</li>
+</ol>
+<p>Alice 解密过程即计算 $(\frac{c}{p})$.</p>
+</div>
+</div>
+<p>这个算法并不实用，因为会导致信息大小的大约 $\log_2(N)$, 至少千倍的膨胀。</p>
+<h2 id="shu-zi-qian-ming">数字签名</h2>
+<p>数字签名考虑的是一个不同的，在数字时代与 PKC 同等重要的问题。现在有一个文件 $D$，而 Susan 希望使用私钥创建一个额外的信息 $D^\text{Sus}$ 用来表达自己签字认可该文件，并且之后可以用一个公钥和验证算法来检验。</p>
+<p>一般来说，数字签名方案是作用于小的数据大小，如 80~100 bits. 因此对一般的文件需要先经过密码学安全的 hash. 本文中略去。关于盲签名，本文中也略去。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-tip);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/tip.svg);"
+    >
+      tip
+    </div>
+    <span><strong>RSA Digital Signatures</strong></span>
+  </div>
+  <div class="pl-4"><p>创建公钥过程与 RSA PKC 相同。</p>
+<p>签名时，Susan 取 $d$ 使 $de \equiv 1 \pmod {(p-1)(q-1)}$，计算 $S \equiv D^d \pmod N$ 为签名。</p>
+<p>验证时只需验证 $S^e \equiv D \pmod N$.</p>
+</div>
+</div>
+<p>实际上为了增加效率 $d$ 可以只满足：</p>
+<p>$$de \equiv 1 \pmod {\frac{(p-1)(q-1)}{\gcd(p-1, q-1)}}$$</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-tip);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/tip.svg);"
+    >
+      tip
+    </div>
+    <span><strong>Elgamal Digital Signature Algorithm</strong></span>
+  </div>
+  <div class="pl-4"><p>创建公钥过程如下：</p>
+<ol>
+<li>选取一个大素数 $p$ 和整数 $g$ 在 mod $p$ 意义下有较高的阶</li>
+<li>Susan 秘密地选取整数 $a$ 并在 mod $p$ 意义下计算 $A \equiv g^a$</li>
+<li>Susan 公布 $A$</li>
+</ol>
+<p>Susan 对文件 $D$ 签名过程如下：</p>
+<ol>
+<li>秘密地选取整数 $k$ 满足 $\gcd(k, p-1) = 1$</li>
+<li>计算 $S_1 \equiv g^k \pmod p$ 及 $S_2 \equiv (D - aS_1)k^{-1} \pmod {p-1}$</li>
+<li>$(S_1, S_2)$ 即是签名</li>
+</ol>
+<p>验证时只需验证 $A^{S_1}S_1^{S_2} \equiv g^D \pmod p$.</p>
+</div>
+</div>
+<p>这里 $S_1$ 与 $S_2$ 是对不同的数取模，但 $S_2$ 是基于一个确定的 $S_1$ 值，读者可验证正确性。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-tip);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/tip.svg);"
+    >
+      tip
+    </div>
+    <span><strong>The digital signature algorithm (DSA)</strong></span>
+  </div>
+  <div class="pl-4"><p>创建公钥过程如下：</p>
+<ol>
+<li>选取一个大素数 $p, q$ 满足 $p \equiv 1 \pmod q$</li>
+<li>选取整数 $g$ 在 mod $p$ 下阶为 $q$</li>
+<li>Susan 秘密地选取整数 $a$ 并在 mod $p$ 意义下计算 $A \equiv g^a$</li>
+<li>Susan 公布 $A$</li>
+</ol>
+<p>Susan 对文件 $D \pmod q$ 签名过程如下：</p>
+<ol>
+<li>秘密地选取整数 $k$ 满足 $1 &lt; k &lt; q$</li>
+<li>计算 $S_1 \equiv (g^k \pmod p) \pmod q$ 及 $S_2 \equiv (D + aS_1)k^{-1} \pmod q$</li>
+<li>$(S_1, S_2)$ 即是签名</li>
+</ol>
+<p>验证过程如下：</p>
+<ol>
+<li>计算 $V_1 \equiv DS_2^{-1} \pmod q$ 及 $V_2 \equiv S_1S_2^{-1} \pmod q$</li>
+<li>验证 $(g^{V_1}A^{V_2} \pmod p) \pmod q = S_1$</li>
+</ol>
+</div>
+</div>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/计算机/">计算机</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/密码学/">密码学</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <link rel="stylesheet" href="https://rratic.top/katex/katex.min.css?h=e189fd0238811989c364" />
+  <script defer src="https://rratic.top/katex/katex.min.js?h=6b909443e6c8f6e5d24c"></script>
+  <script defer src="https://rratic.top/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>
