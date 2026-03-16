@@ -1,5 +1,5 @@
 +++
-title = "【类型论】同伦类型论啃书：综述，基础与 path induction"
+title = "【类型论】同伦类型论综述与 Martin-Löf 类型论"
 date = 2026-03-09
 
 [extra]

@@ -10,7 +10,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["笔记", "数学", "类型论"]
+tags = ["笔记", "数学", "逻辑学"]
 +++
 
 选了哲学系开的Ⅲ类通识课“逻辑导论”。此文主要是做习题（之后大概也会如此），因此先快速掠过定义：
@@ -47,7 +47,7 @@ $$\mathcal{M} \models \text{All } X \text{ are } Y \iff I(X) \subseteq I(Y)$$
 
 如果 $\mathcal{M} \models \varphi$ 则称 $\varphi$ 在 $\mathcal{M}$ 上真，或 $\mathcal{M}$ 满足 $\varphi$. 此处我们默认公式非真即假，定义符号 $\mathcal{M} \nvDash \varphi$.
 
-如果对任意模型 $\mathcal{M}$ 只要 $M \models \Gamma$ 就有 $M \models \varphi$ 则称 $\varphi$ 是 $\Gamma$ 的**语义后承**，记作 $\Gamma \models \varphi$. 前提集为空时简记为 $\models \varphi$, 此时称 $\varphi$ 是有效的 `valid`.
+如果对任意模型 $\mathcal{M}$ 只要 $M \models \Gamma$ 就有 $M \models \varphi$ 则称 $\varphi$ 是 $\Gamma$ 的**语义后承** `semantic consequence`, 记作 $\Gamma \models \varphi$. 前提集为空时简记为 $\models \varphi$, 此时称 $\varphi$ 是有效的 `valid`.
 
 ---
 
