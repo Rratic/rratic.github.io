@@ -63,7 +63,7 @@ $$x_{mn} = x_{0_{mn}} e^{-i\omega_{mn}t} \tag{1.5}$$
 为了遍历所有的正整数 $(m, n)$，规定 $\omega_{mn}=-\omega_{nm}, \omega_{nn}=0$，我们有包含所有 $x_{mn}$ 的无穷大表格（尽管海森堡当时还不知道矩阵）。
 
 {% admonition(type="definition", title="Hermitian 矩阵") %}
-我们称 Hermitian 共轭（有时被音译为厄米/埃尔米特共轭）是指 $A^\dagger = \left(A^T\right)^\ast$，其中 $A^T$ 是矩阵转置，$A^\ast$ 是（按分量）复共轭。
+我们称 Hermitian 共轭（有时被音译为厄米/埃尔米特共轭）是指 $A^\dagger = \left(A^\top\right)^\ast$，其中 $A^\top$ 是矩阵转置，$A^\ast$ 是（按分量）复共轭。
 
 一个矩阵是 Hermitian 矩阵，若 $A = A^\dagger$.
 {% end %}

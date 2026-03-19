@@ -128,7 +128,7 @@ $W_1+W_2 = W_2+W_3 = W_3+W_1 = \mathbb{R}^{2023-k}, \dim W_1\cap W_2\cap W_3 = 0
 
 设 $V = \\{M\mid \sum s_{ij}m_{ij} = 0\\}, W = \\{M\mid \sum t_{ij}m_{ij} = 0\\}$，则 $AB\in W\iff \sum t_{ij}(\sum_k a_{ik}b_{kj}) = 0$，也即 $\sum b_{ij}(\sum_k a_{ki}t_{kj}) = 0$.
 
-只需 $A^TT = S$ 或 $A^TT = \mathbf{0}$，分类即可。
+只需 $A^\top T = S$ 或 $A^\top T = \mathbf{0}$，分类即可。
 
 {% admonition(type="question", title="2024 P4") %}
 是否存在 $\mathbb{R}^{2024}$ 的有限个二维子空间 $W_1,\cdots,W_k$，使对任意二维子空间 $M$ 有

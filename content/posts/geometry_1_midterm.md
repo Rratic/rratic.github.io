@@ -161,7 +161,7 @@ $$
 实对称矩阵的特征值都是实的。
 {% end %}
 
-设 $A\in \mathbb{R}^{n\times n}, A^T=A$，有 $A\mathbf{v} = \lambda\mathbf{v}$，定义 $\mathbb{C}$ 上内积 $\langle x, y\rangle = y^\dagger x = \sum \overline{y_i}x_i$.
+设 $A\in \mathbb{R}^{n\times n}, A^\top=A$，有 $A\mathbf{v} = \lambda\mathbf{v}$，定义 $\mathbb{C}$ 上内积 $\langle x, y\rangle = y^\dagger x = \sum \overline{y_i}x_i$.
 
 则 $v^\dagger Av = \lambda \\|v\\|^2$，又 $(v^\dagger Av)^\dagger = v^\dagger Av$ 知它是实数，有 $\lambda$ 是实数。
 
