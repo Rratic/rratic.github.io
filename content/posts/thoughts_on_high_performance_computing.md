@@ -52,7 +52,7 @@ impl<T: Reflect> MyTrait for T {}
 
 当然对整个 Rust（以及一些别的静态类型语言）来说一个很诱人的特性是所谓零成本抽象。这意味着我在它允许的范围内无论进行多少层抽象，做很多中间件，最终的效率和完全摊平成函数调用是一样的（我不清楚产生的二进制文件体积是否会偏大）。这样一来就可以在不追求底层优化的条件下只关心顶层的东西。对 Rust 来说写一个很长的 `#[derive(Copy, Clone, Eq, PartialEq, ...)]` 确实不舒服，而使用泛型，使用 `one()`, `is_zero()` 这种函数[^num-crate]倒是优雅且放心。
 
-最近看到说 Reflection for C++26 给 C++ 添加了零成本的反射能力。[^cpp26-reflection]我怀疑本质上和 bevy_reflect 库的原理是一样的。举一个最简单的例子：
+最近看到说 Reflection for C++26 给 C++ 添加了零成本的反射[^reflection]能力。[^cpp26-reflection]我怀疑本质上和 bevy_reflect 库的原理是一样的。举一个最简单的例子：
 
 ```cpp
 constexpr auto r = ^^int; // 类型是 std::meta::info
@@ -110,6 +110,7 @@ struct alignas(64) MyStruct {
 [^union]: 实际上还有 `Union{A, B}`, `UnionAll` 类型这种细节，此处略去。
 [^type-theory-argue]: 类型论认为一个类型的类型是自身会导致一些问题，因而引入了层级 level 的概念，但是我不是很明白在实际使用中到底有什么问题。
 [^num-crate]: 这是 num 库里的，需要 use `num::traits::{One, Zero}`.
+[^reflection]: 实际上 reflection 可能翻译成自省更好（这个词确实有这个含义）。参考 [Trebor: 一些随机的事实](https://zhuanlan.zhihu.com/p/586475885)。
 [^cpp26-reflection]: 看到的是知乎文章 [reflection for C++26 如期而至](https://zhuanlan.zhihu.com/p/1919860255870948496)。
 [^ai-era]: 感到大模型会比我想象地深刻很多地改变这个世界…… 我不希望未来的一切建立在不确定上，但过往的一切同样是不确定的（硬件的原始物理错误率存在，只是整个系统的错误率以各种方式降低了，这里一个好的结果是 Shannon 的噪声信道编码定理），无话可说……
 [^linked-nodes]: 这里看的是一个关于链表的知乎回答 <https://www.zhihu.com/question/1997631452192466334/answer/1999052955018629727>.
