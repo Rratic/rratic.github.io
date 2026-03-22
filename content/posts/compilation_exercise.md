@@ -19,9 +19,9 @@ tags = ["概述", "计算机"]
 - How to implement dependent type theory [I](https://math.andrej.com/2012/11/08/how-to-implement-dependent-type-theory-i/) [II](https://math.andrej.com/2012/11/11/how-to-implement-dependent-type-theory-ii/) [III](https://math.andrej.com/2012/11/29/how-to-implement-dependent-type-theory-iii/)
 - [如何把模式匹配编译为归纳子](https://zhuanlan.zhihu.com/p/97737374)
 
-代码仓库在 [Rratic/my-mltt](https://github.com/Rratic/my-mltt).
+代码仓库在 [Rratic/my-mltt](https://github.com/Rratic/my-mltt). 它的一个副产品是 [my-lam](https://github.com/Rratic/my-lam).
 
 处理一个程序的主要流程包括：
 - 词法分析器 Lexer: 将原始字符串读取为 Token 流，原理就是单纯的读字符作匹配，只需注意最大匹配原则
 - 语法解析器 Parser: 将 Token 流解析为表面语法的抽象语法树，只需写出设计的语法的 BNF 范式然后翻译成代码
-- 转为核心语法
+- 繁饰器 Elaborator: 转为核心语法

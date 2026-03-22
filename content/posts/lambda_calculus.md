@@ -13,14 +13,14 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["笔记", "数学", "计算机", "函数式编程"]
+tags = ["笔记", "数学", "计算机", "函数式编程", "可运行"]
 +++
 
 {{ ref_index(to = "functional-programming") }}
 
 本节讨论的是 Alonzo Church 发明的 lambda calculus **无类型 λ 演算**。[^paper-invention]
 
-你可以在 <https://sshwy.github.io/lamcalc/playground.html> 找到一个需要手动操作的在线演绎器。另可使用[一个 Rust 写的解释器](https://github.com/tqn/rslambda)。
+本站提供了一个[在线演绎器](/playground/lambda_calculus.html)。
 
 ## 语法 {#grammar}
 Lambda 演算的语法形式极其简单。一种可理解的形式文法如下：
