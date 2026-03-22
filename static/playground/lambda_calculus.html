@@ -13,23 +13,23 @@
 <body>
 	<div id="terminal">
 		<div class="output stream"></div>
-		<div class="line input"><span id="to-click" class="prompt">>>> </span><span id="to-input" class="command" contenteditable="true">// ===== Standard Library =====
-// SK Pack
+		<div class="line input"><span id="to-click" class="prompt">>>> </span><span id="to-input" class="command" contenteditable="true"># ===== Standard Library =====
+# SK Pack
 S = λx. λy. λz. x z (y z)
 K = λx. λy. x
 I = S K K
 ι = λf. (f S) K
 
-// Boolean Pack
+# Boolean Pack
 T = λx. λy. x
 F = λx. λy. y
 IfThenElse = λe. λu. λv.e u v
 
-// List Pack
+# List Pack
 Nil = λc. λn. n
 Cons = λh. λt. λc. λn. c h (t c n)
 
-// Natural Number Pack
+# Natural Number Pack
 0 = λf. λs. s
 1 = λf. λs. f s
 2 = λf. λs. f (f s)
@@ -37,21 +37,22 @@ Cons = λh. λt. λc. λn. c h (t c n)
 
 IsZero = λn. n (λx. F) T
 Succ = λn. λf. λs. f (n f s)
-Plus = λn. λm. λf. λx. n f (m f x)
-Mul = λn. λm. λf. λx. n (m f) x
+Plus = λn. λm. n Succ m
+Mul = λn. λm. n (Plus m) 0
 
-// High Order Functions
-// TODO
+Prev = λn. λf. λx. n (λg. λh. h (g f)) (λu. x) λu. u
 
-// Recursion
+# High Order Functions
+# TODO
+
+# Recursion
 Ω = λx. x x
 Y = λf. (λx. f (x x)) λx. f (x x)
 Z = λf. (λx. f (λy. (x x) y)) (λx. f (λy. (x x) y))
 
-P = λn. λf. λx. n (λg. λh. h (g f)) (λu. x) λu. u
-Fact = λf. λn. IsZero n 1 (Mul n (f (P n)))
+Fact = λf. λn. IfThenElse (IsZero n) 1 (Mul n (f (Prev n)))
 
-// ===== Test =====
+# ===== Test =====
 @eval write_your_expr_here</span>
 		</div>
 	</div>
@@ -82,7 +83,10 @@ Fact = λf. λn. IsZero n 1 (Mul n (f (P n)))
 				else {
 					let span = document.createElement("span");
 					span.innerText = token;
-					if (token == "λ") {
+					if (token[0] == "#") {
+						span.style.color = "green";
+					}
+					else if (token == "λ") {
 						span.style.color = "purple";
 					}
 					else if (token == "@") {
