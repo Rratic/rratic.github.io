@@ -137,7 +137,7 @@ $$
 \frac{
 	\begin{matrix} [\neg \varphi] \\\\ D \\\\ \psi \end{matrix} \quad
 	\begin{matrix} [\neg \varphi] \\\\ D' \\\\ \neg\psi \end{matrix}
-}{\varphi} (\neg \text{I})
+}{\varphi} (\text{RAA})
 $$
 
 直觉主义逻辑自然演绎系统中没有这一条规则。关于直觉主义逻辑何以有用可参考我之前写的[类型论笔记](@/posts/type_theory_1.md)。

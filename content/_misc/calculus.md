@@ -30,7 +30,7 @@ tags = ["数学", "分析", "微积分学"]
 - L’Hôpital 法则
 - Taylor 展开式（Peano 余项，Lagrange 余项）
 - 不定积分（代换，分部积分，有理积分）
-- Riemann 积分（积分 $\int_a^b f(x) \mathrm{d}x$，Riemann 和，Darboux 上下和，Newton–Leibniz 公式，Lebesgue 定理，反常积分）
+- Riemann 积分（积分 $\int_a^b f(x) \mathrm{d}x$，Riemann 和，Darboux 上下和，Newton–Leibniz 公式，Lebesgue 定理，广义积分，瑕积分）
 - 解析性 $C^{\omega}(U)$
 - Lebesgue 积分
 
