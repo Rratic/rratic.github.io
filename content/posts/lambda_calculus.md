@@ -20,7 +20,7 @@ tags = ["笔记", "数学", "计算机", "函数式编程", "可运行"]
 
 本节讨论的是 Alonzo Church 发明的 lambda calculus **无类型 λ 演算**。[^paper-invention]
 
-本站提供了一个[在线演绎器](/playground/lambda_calculus.html)，其中使用 `@eval` 命令做正则次序的求值并尝试简化，输出使用 de Brujin 无名表示（`#i` 表示从里到外第 $i$ 层函数声明对应的参数）。想要自行编写解释器的读者可参考其仓库 [Rratic/my-lam](https://github.com/Rratic/my-lam).
+本站提供了一个[在线演绎器](/playground/lambda_calculus.html)，其中使用 `@eval` 命令会使用 [beta-reduction](#evaluation-rules) 按[正则次序](#evaluation-order)进行求值，使用 `@simp` 会额外尝试使用 [eta-等价](#evaluation-rules)进行简化，输出使用 de Brujin 无名表示（`#i` 表示从里到外第 $i$ 层函数声明对应的参数）。想要自行编写解释器的读者可参考其仓库 [Rratic/my-lam](https://github.com/Rratic/my-lam).
 
 ## 语法 {#grammar}
 Lambda 演算的语法形式极其简单。一种可理解的形式文法如下：
