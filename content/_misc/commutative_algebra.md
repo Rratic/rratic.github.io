@@ -1,5 +1,6 @@
 +++
 title = "#交换代数"
+description = "交换代数研究交换环及其上的模，是代数几何与代数数论共同的语言基础。"
 
 [extra]
 math = true

@@ -1,12 +1,15 @@
 +++
 title = "推荐一个 Markdown 转 PDF 的流程"
 date = 2026-02-23
+updated = 2026-04-08
 
 [taxonomies]
 categories = ["杂物"]
 +++
 
 有时我们想要排版出一份数学/物理试卷或者 cheatsheet, 可能涉及到数学公式、代码块，并以 PDF 形式给出，但是不希望使用麻烦的 PDF 编辑器或者 Word, 也不希望使用一整套 [pdftex](https://tug.org/applications/pdftex/). 此时可用此流程，只需用到 [VSCode](https://code.visualstudio.com/) 与一个浏览器。
+
+或者在 AI 时代也可使用基于 VSCode 开发的 [Cursor](https://cursor.com/), 下文提及的样式可以交给 AI 定制（建议在提示词中指明使用的 Markdown 插件）。
 
 <!-- more -->
 
@@ -72,6 +75,26 @@ categories = ["杂物"]
 </div>
 ```
 
+有时我们会希望有合适大小，每列宽度合适的表格，可以参考（在开头的 `<style></style>` 中添上）：
+
+```css
+table {
+	table-layout: fixed;
+	width: 100%;
+	border-collapse: collapse;
+}
+
+table td:first-child,
+table th:first-child {
+	width: 2%;
+}
+
+table td:not(:first-child),
+table th:not(:first-child) {
+	width: 3%;
+}
+```
+
 甚至于因为是用浏览器打开的，读者可以嵌入可运行的 [Javascript](https://docs.net9.org/frontend/web_foundation/javascript/) 脚本来编辑内容。
 
 ## 打印控制
@@ -99,6 +122,8 @@ categories = ["杂物"]
     }
 }
 ```
+
+也可以使用 [`@page`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Guides/Media_queries/Printing) 确定打印页面的大小、页边距等。
 
 ## 目录控制
 对于更长一些的文章（甚至是书）来说，可以使用创建目录 Table of Contents 的功能。在单独的一行写 `[toc]`, 将会在该处插入一个使用嵌套列表展示的目录。

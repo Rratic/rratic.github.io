@@ -1,5 +1,6 @@
 +++
 title = "#范畴论"
+description = "范畴论以高度抽象的方式统一数学结构，揭示不同数学领域之间的深层联系。"
 
 [extra]
 math = true
