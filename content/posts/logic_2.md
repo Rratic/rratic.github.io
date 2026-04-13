@@ -1,6 +1,7 @@
 +++
 title = "【逻辑学】经典命题逻辑及其强可靠性、强完全性"
 date = 2026-03-25
+updated = 2026-04-13
 
 [extra]
 math = true
@@ -17,6 +18,12 @@ tags = ["笔记", "数学", "基石", "逻辑学"]
 这一节主要讨论的是经典命题逻辑（不同于它的均称为“非经典”），重点在于其强完全性的证明。
 
 <!-- more -->
+
+<style>
+	.dark img {
+        filter: invert(100%);
+    }
+</style>
 
 ## 形式语言
 命题逻辑的形式语言使用符号包括：
@@ -154,6 +161,16 @@ $$
 }{\varphi} (\vee \text{E})
 $$
 
+---
+
+{% admonition(type="question", title="习题") %}
+把如下推演补成正确的推演：
+
+![P7](/images/misc/2026_04_13.png)
+{% end %}
+
+左上那个推演是再引入一个条件 $[\neg \varphi]^2$, 由 $(\neg I)$ 规则得到 $\neg \varphi$, 进而得到 $\varphi \vee \neg \varphi$.
+
 ### 语形后承
 仿照上一节中的定义，我们记 $\varphi$ 是 $\Gamma$ 在自然演绎系统中的语形后承 `syntactic consequence (in natural deduction)` 为 $\Gamma \vdash^\text{ND} \varphi$.
 
@@ -221,7 +238,8 @@ $$
 
 将公式用自然数编号，依次考虑是否加入。
 
-## 希尔伯特式证明系统
+## 杂项
+### 希尔伯特式证明系统
 希尔伯特式证明系统是经典命题逻辑的另一个证明系统。
 
 公理包括：
@@ -234,6 +252,11 @@ $$
 读者可在 [P. 1 of Theorem List - Metamath Proof Explorer](https://us.metamath.org/mpeuni/mmtheorems1.html) 看到使用它们推导出一些基本结论的过程。
 
 为了证明公理三独立于公理一、二和分离规则，我们考虑赋值 $f$ 使得对任意公式 $\varphi$ 有 $f(\neg \varphi) = F$, 且对任意公式 $\varphi, \psi$ 有 $f((\varphi \to \psi)) = T$ 当且仅当 $f(\varphi) = F$ 或 $f(\psi) = T$. 这称为否定恒假赋值。
+
+### 命题逻辑的应用
+关于自然语言的命题逻辑分析、基于命题逻辑的形式化等从略。这些我们在数学里已经比较熟悉了。
+
+值得一提的是，工业上常将问题归约为 SAT 问题（可满足性问题），使用 SAT 求解器解决。但是 SAT 问题在最坏情况下极其困难，Cook 证明了任何 NP 问题可以在多项式时间内变换成一个等价的 SAT 问题。
 
 ---
 
