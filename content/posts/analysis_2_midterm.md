@@ -1,6 +1,7 @@
 +++
 title = "数学分析Ⅱ期中复习笔记"
 date = 2026-04-12
+updated = 2026-04-13
 
 [extra]
 math = true
@@ -382,9 +383,12 @@ $$
 $f$ 在 $[1, +\infty)$ 上单调下降趋于 $0$ 且 $a_n = f(n)$, 则 $\sum_{n=1}^{+\infty} a_n$ 与 $\int_1^{+\infty} f(x) \mathrm{d}x$ 敛散性相同。
 {% end %}
 
----
+{% admonition(type="theorem", title="Abel-Dini 定理") %}
+1. $\sum a_n$ 收敛，则 $\sum a_n/T_n^{1+\alpha}$ 收敛的充要条件是 $\alpha < 0$, 其中 $T_n$ 是余式和 $a_n + \cdots$
+2. $\sum a_n$ 发散，则 $\sum a_n/S_n^{1+\alpha}$ 收敛的充要条件是 $\alpha > 0$, 其中 $S_n$ 是部分和
+{% end %}
 
-Abel-Dini 定理讲义上没写，从略。
+考试考了 (2). 一侧用积分判别法，一侧用 Cauchy 准则。
 
 ### 任意项级数
 Leibniz 判别法从略。Dirichlet 与 Abel 判别法类似无穷积分的结论。Abel 判别法推论也成立。
