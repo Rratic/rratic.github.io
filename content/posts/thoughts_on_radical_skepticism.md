@@ -35,21 +35,33 @@ tags = ["哲学"]
 像 1 + 1 = 2 这种东西，是我们能够确定的知识，不是吗？
 {% end %}
 
-首先，我们说 1 + 1 = 2 的时候是基于某种东西，比如说认为它是具有 Peano 公理的形式系统的一部分，或者更大地认为它带着一整个集合论/别的什么东西，或者更小地认为 1 + 1 = 2 本身就是公理。此时我们是说，
+首先，我们说 1 + 1 = 2 的时候是基于某种东西，比如说认为它是具有 Peano 公理的形式系统的一部分，或者更大地认为它带着一整个集合论/别的什么东西，或者更小地认为 1 + 1 = 2 本身就是公理。此时我们是说，在这个系统中我们根据规则的推演是正确的。
+
+此正确性是*可以被接受*的，但是如果审慎地想，在我们认为 1 + 1 = 2 是确定的知识之前，我们先认同了“规则”与“推演”是如何运作的，但是为什么这样
+
+为何能够评判这一“规则-推演”体系是能够的呢？
 
 此外，我们如何确保整个过程中我们的神经系统没有出错呢？即使我们可以对照他人的结果，又如何确保
 
-{% admonition(type="question", title="可能的反驳") %}
-实用
+{% admonition(type="question", title="Pragmatism") %}
+考虑实用主义，
 {% end %}
 
 {% admonition(type="question", title="可能的反驳") %}
 你的论述本身
 {% end %}
 
+{% admonition(type="question", title="可能的反驳") %}
+那强怀疑论本身不是你能确定的知识吗？
+{% end %}
+
 ---
 
 如果本文就此结束的话并没有什么写的意义
+
+https://en.wikipedia.org/wiki/Philosophical_skepticism
+
+Everyone from Pyrrho to Robert Audi has a solution.
 
 https://philosophy.stackexchange.com/questions/134884/how-to-avoid-radical-skepticism
 

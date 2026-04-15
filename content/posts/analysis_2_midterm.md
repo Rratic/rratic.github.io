@@ -373,8 +373,8 @@ $$
 比较判别法、比值判别法、根式判别法从略。
 
 {% admonition(type="theorem", title="Rabbe 判别法") %}
-1. 若 $\underline{\lim}\ n(\frac{a_n}{a_{n+1}}-1) > 1$ 则 $\sum a_n$ 收敛
-2. 若 $\overline{\lim}\ n(\frac{a_n}{a_{n+1}}-1) < 1$ 则 $\sum a_n$ 发散
+1. 若 $\varliminf n(\frac{a_n}{a_{n+1}}-1) > 1$ 则 $\sum a_n$ 收敛
+2. 若 $\varlimsup n(\frac{a_n}{a_{n+1}}-1) < 1$ 则 $\sum a_n$ 发散
 {% end %}
 
 采用 $\frac{1}{n^p}$ 为对标级数，使用比较判别法。若希望更精细，对标级数也可选取 $\frac{1}{n\ln^p n}$, $\frac{1}{n\ln n (\ln \ln n)^p}$ 等。
