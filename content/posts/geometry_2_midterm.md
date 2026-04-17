@@ -16,6 +16,8 @@ tags = ["笔记", "数学", "几何"]
 
 本文用于准备几何学Ⅱ的期中考试。这半学期的主要内容是古典微分几何，嵌入 $\mathbb{E}^3$ 看的曲线论与曲面论。
 
+<!-- more -->
+
 ## 曲线论
 空间曲线被定义为光滑映射 $\gamma: J \to \mathbb{E}^3$. 如果懒得讨论端点，可以取 $J$ 为一个开区间。
 
@@ -27,10 +29,46 @@ $$\mathrm{Length}_\gamma([a, b]) = \int_a^b \lVert \gamma'(t) \rVert \mathrm{d}t
 
 $$\lVert \gamma'(t) \rVert = 1$$
 
-### 曲率与挠率
-在弧长参数下，定义：
-
 ### Frenet 标架
+在弧长参数下，由 $(\gamma'(s) \cdot \gamma'(s))' = 0$ 知 $\gamma'(s)$ 与 $\gamma''(s)$ 垂直。我们定义**切向** $\mathbf{t}(s) = \gamma'(s)$, **主法向** $\mathbf{n}(s) = \frac{\gamma''(s)}{\lVert \gamma''(s) \rVert}$, 次法向 $\mathbf{b}(s) = \mathbf{t}(s) \times \mathbf{n}(s)$.
+
+称 $(\gamma(s); \mathbf{t}(s), \mathbf{n}(s), \mathbf{b}(s))$ 是 $\gamma$ 的 Frenet 标架场，并称 $\mathbf{t}(s)$ 和 $\mathbf{n}(s)$ 张成**密切平面**，称 $\mathbf{b}(s)$ 和 $\mathbf{t}(s)$ 张成从切平面，称 $\mathbf{n}(s)$ 和 $\mathbf{b}(s)$ 张成法平面。
+
+定义衡量弯曲程度的**曲率**为弧长参数下 $\kappa = \lVert \gamma''(s) \rVert$, 在一般正则参数下即是：
+
+$$\frac{\lVert \gamma''(s) \times \gamma'(s) \rVert}{\lVert \gamma'(s) \rVert^3}$$
+
+衡量偏出密切平面趋势的**挠率**为（注意实际上 $\dot{\mathbf{b}}$ 与 $\mathbf{n}$ 是共线的）：
+
+$$\tau = -\mathbf{b}'(s) \cdot \mathbf{n}(s)$$
+
+这里的负号是采取的人为约定；反参数定向不会改变挠率的符号。
+
+它在一般正则参数下是：
+
+$$\frac{(\dot\gamma(s) \times \ddot\gamma(s)) \cdot \dddot\gamma(s))}{\lVert \dot\gamma(s) \times \ddot\gamma(s) \rVert^2}$$
+
+一个有用的结论是：
+
+$$
+\frac{\mathrm{d}}{\mathrm{d}s} (\mathbf{t}, \mathbf{n}, \mathbf{b}) = (\mathbf{t}, \mathbf{n}, \mathbf{b})
+\begin{pmatrix}
+	0 & -\kappa & 0 \\\\
+	\kappa & 0 & -\tau \\\\
+	0 & \tau & 0
+\end{pmatrix}
+$$
+
+此矩阵的反对称性和对角元素为 $0$ 可由 Frenet 标架右手单位正交推得。
+
+### 曲面论基本定理
+{% admonition(type="theorem", title="曲面论基本定理") %}
+假设 $\kappa, \tau$ 是开区间 $J$ 上的光滑函数，且 $\kappa$ 恒正，那么：
+1. 存在弧长参数曲线段 $\gamma: J \to \mathbb{E}^3$，使得曲率、挠率与 $\kappa, \tau$ 相对应
+2. 这样的曲线段在差一个刚体运动下唯一
+{% end %}
+
+这是通过 ODE 证明的。
 
 ## 曲面论
 局部正则参数曲面片记为：
@@ -114,3 +152,52 @@ $$\begin{pmatrix} E & F \\\\ F & G \end{pmatrix}^{-1} \begin{pmatrix} L & M \\\\
 称 $\kappa_1 = \kappa_2$ 的点为脐点，切向量处处为主方向的曲线为**曲率线**；法曲率处处为零的曲线称为渐近曲线；测地曲率处处为零的曲线称为测地线。
 
 ### 曲面论基本方程
+我们考虑：
+
+$$\begin{pmatrix} \phi_s \\\\ \phi_t \\\\ \mathbf{n} \end{pmatrix} \cdot \begin{pmatrix} \phi_s & \phi_t & \mathbf{n} \end{pmatrix} _{st} = \begin{pmatrix} \phi_s \\\\ \phi_t \\\\ \mathbf{n} \end{pmatrix} \cdot \begin{pmatrix} \phi_s & \phi_t & \mathbf{n} \end{pmatrix} _{ts}$$
+
+### 保长对应
+设 $\phi: U \to \mathbb{E}^3, \tilde{\phi}: \tilde{U} \to \mathbb{E}^3$ 是局部正则的参数曲面片。设 $\tau: \tilde{U} \to U$ 是光滑同胚。令 Jacobi 矩阵：
+
+$$
+J = \begin{pmatrix}
+	\frac{\partial s}{\partial \tilde{s}} & \frac{\partial s}{\partial \tilde{t}} \\\\
+	\frac{\partial t}{\partial \tilde{s}} & \frac{\partial t}{\partial \tilde{t}}
+\end{pmatrix}
+$$
+
+通过看 $\tilde{U} \to \mathbb{E}^3$ 及使用多元微积分，得：
+
+{% admonition(type="theorem", title="保长对应") %}
+$\tau$ 保长当且仅当：
+
+$$
+J^\top \begin{pmatrix}
+	E \circ \tau & F \circ \tau \\\\
+	F \circ \tau & G \circ \tau
+\end{pmatrix} J = \begin{pmatrix}
+	\tilde{E} & \tilde{F} \\\\
+	\tilde{F} & \tilde{G}
+\end{pmatrix}
+$$
+{% end %}
+
+{% admonition(type="theorem", title="保角对应") %}
+$\tau$ 保角当且仅当存在恒正 $\rho: \tilde{U} \to \mathbb{R}$ 使得：
+
+$$
+J^\top \begin{pmatrix}
+	E \circ \tau & F \circ \tau \\\\
+	F \circ \tau & G \circ \tau
+\end{pmatrix} J = \rho \cdot \begin{pmatrix}
+	\tilde{E} & \tilde{F} \\\\
+	\tilde{F} & \tilde{G}
+\end{pmatrix}
+$$
+{% end %}
+
+{% admonition(type="theorem", title="保积对应") %}
+$\tau$ 保积当且仅当：
+
+$$\sqrt{(EG-F^2) \circ \tau} \cdot |\det J| = \sqrt{\tilde{E}\tilde{G}-\tilde{F}^2}$$
+{% end %}
