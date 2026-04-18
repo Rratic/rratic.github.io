@@ -1,6 +1,6 @@
 +++
 title = "几何学Ⅱ期中复习笔记"
-draft = true
+date = 2026-04-18
 
 [extra]
 math = true
@@ -61,8 +61,8 @@ $$
 
 此矩阵的反对称性和对角元素为 $0$ 可由 Frenet 标架右手单位正交推得。
 
-### 曲面论基本定理
-{% admonition(type="theorem", title="曲面论基本定理") %}
+### 曲线论基本定理
+{% admonition(type="theorem", title="曲线论基本定理") %}
 假设 $\kappa, \tau$ 是开区间 $J$ 上的光滑函数，且 $\kappa$ 恒正，那么：
 1. 存在弧长参数曲线段 $\gamma: J \to \mathbb{E}^3$，使得曲率、挠率与 $\kappa, \tau$ 相对应
 2. 这样的曲线段在差一个刚体运动下唯一
@@ -77,12 +77,20 @@ $$\varphi: U \to \mathbb{E}^3$$
 
 其中 $U \subseteq \mathbb{R}$ 中的点记作 $u = (s, t)$. 我们用下标 $s, t$ 分别表示对 $s, t$ 求偏导。
 
+求面积即是：
+
+$$\iint_R \lVert \phi_s(u) \times \phi_t(u) \rVert \mathrm{d}s\mathrm{d}t$$
+
 ### 基本形式
 我们定义 $E(u) = \phi_s(u) \cdot \phi_s(u), F(u) = \phi_s(u) \cdot \phi_t(u), G(u) = \phi_t(u) \cdot \phi_t(u)$. 记**第一基本形式**：
 
 $$g = E\mathrm{d}s^2 + 2F\mathrm{d}s\mathrm{d}t + G\mathrm{d}t^2$$
 
+这是一个内禀量，代表曲面作为二维黎曼流形的全部度量信息。
+
 正交参数是指 $F = 0$, 等温参数是指正交且 $E = G$.
+
+---
 
 我们记单位法向量：
 
@@ -125,7 +133,7 @@ $$\ddot\gamma = (\dot s^2 \phi_{ss} + 2\dot s \dot t \phi_{st} + \dot t^2 \phi_{
 对两式均进行两边同乘 $\mathbf{n}$, 即得 $\kappa_n = L\dot s^2 + 2M\dot s \dot t + N\dot t^2$.
 
 {% admonition(type="note", title="理解") %}
-如果 $\phi$ 在某处的第一基本形式为 $\mathrm{d}s^2 + \mathrm{d}t^2$（总可以选取适当参数达到），那么 $\kappa_1, \kappa_2$ 是 $\kappa_n$ 的两个极值。对应线向就是主方向。
+我们可以选取适当参数，使 $\phi$ 在该处的第一基本形式为 $\mathrm{d}s^2 + \mathrm{d}t^2$. 此时可推出 $\kappa_1, \kappa_2$ 是 $\kappa_n$ 的两个极值。对应线向就是主方向。
 {% end %}
 
 {% end %}
@@ -155,6 +163,36 @@ $$\begin{pmatrix} E & F \\\\ F & G \end{pmatrix}^{-1} \begin{pmatrix} L & M \\\\
 我们考虑：
 
 $$\begin{pmatrix} \phi_s \\\\ \phi_t \\\\ \mathbf{n} \end{pmatrix} \cdot \begin{pmatrix} \phi_s & \phi_t & \mathbf{n} \end{pmatrix} _{st} = \begin{pmatrix} \phi_s \\\\ \phi_t \\\\ \mathbf{n} \end{pmatrix} \cdot \begin{pmatrix} \phi_s & \phi_t & \mathbf{n} \end{pmatrix} _{ts}$$
+
+得到的矩阵首行中间列就是 Gauss 方程，前两行最右列就是 Codazzi 方程。
+
+{% admonition(type="theorem", title="Gauss 绝妙定理") %}
+空间曲面的第一基本形式完全决定 Gauss 曲率。
+{% end %}
+
+即证 $LN - M^2$ 可以由 $E, F, G$ 完全表示。
+
+计算非常琐碎，我们可以定义：
+
+$$
+P = \begin{pmatrix} \phi_s \\\\ \phi_t \\\\ \mathbf{n} \end{pmatrix} \cdot \begin{pmatrix} \phi_s & \phi_t & \mathbf{n} \end{pmatrix}
+= \begin{pmatrix} E & F & 0 \\\\ F & G & 0 \\\\ 0 & 0 & 1 \end{pmatrix}
+$$
+
+$$\begin{pmatrix} \phi_s & \phi_t & \mathbf{n} \end{pmatrix}_s = \begin{pmatrix} \phi_s & \phi_t & \mathbf{n} \end{pmatrix} A$$
+
+$$\begin{pmatrix} \phi_s & \phi_t & \mathbf{n} \end{pmatrix}_t = \begin{pmatrix} \phi_s & \phi_t & \mathbf{n} \end{pmatrix} B$$
+
+特别地，当 $F = 0$ 时可以使用 $(\phi_s, \phi_t, \mathbf{n})$ 构成正交标架来简化计算。
+
+### 曲面论基本定理
+{% admonition(type="theorem", title="曲面论基本定理") %}
+若 $D \subset \mathbb{R}^2$ 上 $g, h$ 相容（即满足 Gauss-Codazzi 方程），则实现的曲面片局部存在，且在刚体运动下唯一。
+{% end %}
+
+使用一些 PDE 之类的东西。
+
+整体解不一定存在，是因为转一圈后可能出问题。
 
 ### 保长对应
 设 $\phi: U \to \mathbb{E}^3, \tilde{\phi}: \tilde{U} \to \mathbb{E}^3$ 是局部正则的参数曲面片。设 $\tau: \tilde{U} \to U$ 是光滑同胚。令 Jacobi 矩阵：
@@ -201,3 +239,52 @@ $\tau$ 保积当且仅当：
 
 $$\sqrt{(EG-F^2) \circ \tau} \cdot |\det J| = \sqrt{\tilde{E}\tilde{G}-\tilde{F}^2}$$
 {% end %}
+
+## 往年题
+{% admonition(type="question", title="2022 P3") %}
+给定空间曲面 $S_1: x^2+y^2+z^2 = 9$ 和 $S^2: x^2−2y = 0$，记 $c = S_1 \cap S_2$ 为它们的交线。求：点 $P(2, 2, 1)$ 处 $c$ 关于 $S_1$ 的法曲率。
+{% end %}
+
+设 $c$ 的弧长参数方程 $\gamma(s)$ 满足 $\gamma(0) = (2, 2, 1), x'(0) > 0$. 通过对 $S_1$ 求两次导及弧长参数知：
+
+$$2x''(0) + 2y''(0) + z''(0) = -1$$
+
+又法向量 $(\frac{2}{3}, \frac{2}{3}, \frac{1}{3})$ 知法曲率 $\gamma''(0) \cdot \mathbf{n} = -\frac{1}{3}$.
+
+{% admonition(type="question", title="2022 P4") %}
+求证：如果空间正则曲面 $S \subset \mathbb{E}^3$ 包含一条直线 $l \subset S$，那么 $S$ 在 $l$ 上任意点的 Gauss 曲率都小于或等于 $0$.
+{% end %}
+
+因为主曲率将满足 $\kappa_1 \leq 0 \leq \kappa_2$.
+
+{% admonition(type="question", title="2022 P5") %}
+假设 $\Omega$ 是 $\mathbb{E}^3$ 中的区域，包含于单位球内部，且边界 $S = \partial \Omega$ 是正则曲面。求证：存在 $S$ 上某点，Gauss 曲率大于或等于 $1$.
+{% end %}
+
+注意到单位球上 Gauss 曲率为 $1$.
+
+我们取与原点距离最远的点 $p$, 设主方向对应法截线 $\gamma(s)$ 满足 $\gamma(0) = p$.
+
+$$\gamma(s) = \gamma(0) + s\gamma'(0) + \frac{1}{2}s^2\gamma''(0) + o(s^2)$$
+
+由极大性知 $\gamma(0) \bot \gamma'(0)$, 由弧长参数的特性 $\gamma'(0) \bot \gamma''(0)$, 进而：
+
+$$\lVert \gamma(s) \rVert^2 = \lVert \gamma(0) \rVert^2 + s^2 + s^2 \gamma(0) \cdot \gamma''(0) + o(s^2)$$
+
+从而：
+
+$$1 + \gamma(0) \cdot \gamma''(0) + o(1) \leq 0$$
+
+从而：
+
+$$\lVert \gamma''(0) \rVert \geq 1$$
+
+{% admonition(type="question", title="2023 P6") %}
+设 $\phi: \mathbb{R}^2 \to \mathbb{E}^3$ 是正则（浸入）参数曲面片，且假设 $\phi(s, t) = \phi(s+1, t) = \phi(s, t+1)$ 对所有 $(s, t) \in \mathbb{R}^2$ 成立。问：$\phi$ 的 Gauss 映射是否一定满射单位球面？加以论证。
+{% end %}
+
+否，例子大约是：
+
+$$\mid 8$$
+
+这里“8”绕着轴转一圈，通过定向说明法向量只能在正向上、正向下中取其一。
