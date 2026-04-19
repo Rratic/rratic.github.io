@@ -146,7 +146,7 @@ $$Y = \lambda f.\ (\lambda x.\ f\ (x\ x))\ (\lambda x.\ f\ (x\ x))$$
 Y 组合子可以用于实现递归。
 
 如果我们希望定义一个递归函数：
-$$f = \lambda \mathrm{fact}.\ \lambda n.\ \begin{cases} 1, & \text {if $n$ < 2} \\\\ n\times \mathrm{fact}(n-1), & \text{else} \end{cases}$$
+$$f = \lambda \mathrm{fact}.\ \lambda n.\ \begin{cases} 1, & \text {if $n$ < 2} \cr n\times \mathrm{fact}(n-1), & \text{else} \end{cases}$$
 
 那么，若使用正则次序，可得到正确的结果。
 ```txt

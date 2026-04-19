@@ -31,7 +31,7 @@ tags = ["笔记", "数学", "代数", "群论"]
 
 $$
 \begin{aligned}
-\varphi \colon G & \longrightarrow (\Omega \longrightarrow \Omega),\\\\
+\varphi \colon G & \longrightarrow (\Omega \longrightarrow \Omega) \cr
     x & \longmapsto (\alpha \longmapsto \alpha^x)
 \end{aligned}
 $$
@@ -42,7 +42,7 @@ $$
 
 $$
 \begin{aligned}
-f \colon G\times S & \longrightarrow S,\\\\
+f \colon G\times S & \longrightarrow S \cr
     (g, s) & \longmapsto g(s)
 \end{aligned}
 $$
@@ -51,15 +51,15 @@ $$
 
 显然有 $\varphi$ 是从 $G$ 到 $\Omega$ 上对称群的同态。
 
-记集合元素 $\alpha$ 在这一关系下的等价类 $\\{\alpha^x\mid x\in G\\}$ 为其**轨道** $\mathrm{Orb}(\alpha)$；全体不变映射 $\\{x\mid\alpha^x=\alpha\\}$ 为其**稳定化子** $\mathrm{Stab}(\alpha)$，易知 $|\mathrm{Orb}(\alpha)|=|G\colon \mathrm{Stab}(\alpha)|$.
+记集合元素 $\alpha$ 在这一关系下的等价类 $\set{\alpha^x | x\in G}$ 为其**轨道** $\mathrm{Orb}(\alpha)$；全体不变映射 $\set{x | \alpha^x=\alpha}$ 为其**稳定化子** $\mathrm{Stab}(\alpha)$，易知 $|\mathrm{Orb}(\alpha)|=|G\colon \mathrm{Stab}(\alpha)|$.
 
-作为一个例子，对于正四面体（记顶点 $\\{A,B,C,D\\}$），设其旋转变换群为 $G$，则：任取一个顶点，它对应的稳定子群阶为 3，轨道为 $\\{A,B,C,D\\}$，故而 $G$ 是 $S_4$ 的 12 阶子群，必然是 $A_4\cong V_4\oplus Z_3\cong Z_2\oplus Z_2\oplus Z_3$.
+作为一个例子，对于正四面体（记顶点 $\set{A,B,C,D}$），设其旋转变换群为 $G$，则：任取一个顶点，它对应的稳定子群阶为 3，轨道为 $\set{A,B,C,D}$，故而 $G$ 是 $S_4$ 的 12 阶子群，必然是 $A_4\cong V_4\oplus Z_3\cong Z_2\oplus Z_2\oplus Z_3$.
 
 ## Pólya 计数法
 使用 Pólya 计数法是为了解决这样的问题：我们对所有的可能计数，并且将具有特定对称性的视作同一种（见下面的例子）。
 
 {% admonition(type="theorem", title="Burnside 引理") %}
-$\varphi$ 对应的轨道数为 $\frac{1}{|G|} \sum_{g\in G}|X(g)|$，其中 $X(g) = \\{x\mid x^g = x\\}$.
+$\varphi$ 对应的轨道数为 $\frac{1}{|G|} \sum_{g\in G}|X(g)|$，其中 $X(g) = \set{x | x^g = x}$.
 {% end %}
 
 其本质是对所有满足 $x^g = x$ 的数对的算两次。
@@ -97,12 +97,12 @@ $X(g)$ 只在单位元处取到 720，其余情况为空集。故所求为 30.
 
 $$
 \begin{aligned}
-\varphi(g) \colon G & \longrightarrow G,\\\\
+\varphi(g) \colon G & \longrightarrow G \cr
     a & \longmapsto gag^{-1}
 \end{aligned}
 $$
 
-记 $G$ 上 $\\{x\\}$ 的**中心化子** $C_G(x)=\\{a\mid xa=ax\\}$，**中心** $Z(G) = \\{x\mid gx=xg (\forall g\in G)\\}$.
+记 $G$ 上 $\\{x\\}$ 的**中心化子** $C_G(x)=\set{a | xa=ax}$，**中心** $Z(G) = \set{x | gx=xg (\forall g\in G)}$.
 
 则 $x\in Z(G)\Leftrightarrow |\mathrm{Orb}(x)|=1$.
 
@@ -147,7 +147,7 @@ $$|G| = |Z(G)| + \sum |G\colon C_G(y_i)|$$
 对 $p^l\parallel |G|, |G|=p^lm$，Sylow p 子群个数 $r$，则 $r\equiv 1\pmod{p}, r\mid m$
 {% end %}
 
-称 $H$ 在 $G$ 中**正规化子** $N_G(H) = \\{G\mid gHg^{-1}=H\\}$.
+称 $H$ 在 $G$ 中**正规化子** $N_G(H) = \set{G | gHg^{-1}=H}$.
 
 则对 $G$ 的 Sylow p 子群 $P$，有 $P\unlhd N_G(P)\le G$.
 
@@ -174,6 +174,6 @@ $$|G| = |Z(G)| + \sum |G\colon C_G(y_i)|$$
 * 将 $G$ 用自由群表示法表示为 $<g_1, g_2\cdots g_n\mid \text{rules}>$
 * 由于是交换群，可以将一个规则（形如 $g_1 g_2^{-1} g_1^2$）任意交换顺序写成 $3x_1-x_2=0$ 的形式
 * 所有的规则写成线性方程组，表示为
-$$M \begin{pmatrix} g_1 \\\\ \vdots \\\\ g_n \end{pmatrix} = \mathbf{0}$$
+$$M \begin{pmatrix} g_1 \cr \vdots \cr g_n \end{pmatrix} = \mathbf{0}$$
 * 由于我们在整数上操作，它是 Euclid 整环，可以将矩阵 $M$ 转化为 Smith 标准型
 * 其因子给出了 $G$ 的分解

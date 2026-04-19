@@ -213,7 +213,7 @@ $$\int \sqrt{1+x^2} \mathrm{d}x = \frac{1}{2} \left(x\sqrt{x^2+1} + \ln \left(x+
 
 $$
 \begin{cases}
-aI + bJ = x + C \\\\
+aI + bJ = x + C \cr
 bI - aJ = \ln |a\cos x + b\sin x| + C
 \end{cases}
 $$
@@ -310,7 +310,7 @@ $$(f(a) - f(b)) (2\eta) = (a^2 - b^2) f'(\eta)$$
 $$(f(a) - f(b)) (3\xi^2) = (a^3 - b^3) f'(\xi)$$
 
 {% admonition(type="question", title="2021 P8") %}
-在 $\mathbb{R}$ 上 $f(x)$ 有界且 $f'(x)$ 一致连续，证 $f'(x)$ 有界。
+在 $\R$ 上 $f(x)$ 有界且 $f'(x)$ 一致连续，证 $f'(x)$ 有界。
 {% end %}
 
 首先由一致连续定义知可取 $\epsilon, \delta$ 使得 $|x-y| < \delta$ 时 $|f'(x)-f'(y)| < \epsilon$.
@@ -381,7 +381,7 @@ $$\lim_{x\to+\infty} f(x) = 0$$
 {% admonition(type="question", title="W9 9") %}
 考虑 $[0, 1]$ 到自身的保定向自同胚构成的集合：
 
-$$\mathrm{Hom}^+ [0, 1] = \\{f: [0, 1] \stackrel{1:1}{\to} [0, 1], f \in C[0, 1], f(0)=0, f(1)=1 \\}$$
+$$\mathrm{Hom}^+ [0, 1] = \set{f: [0, 1] \stackrel{1:1}{\to} [0, 1] | f \in C[0, 1], f(0)=0, f(1)=1}$$
 
 设 $f, g \in \mathrm{Hom}^+ [0, 1]$ 满足对任意 $0 < x < 1$ 有 $f(x), g(x) > x$，证存在 $h \in \mathrm{Hom}^+ [0, 1]$ 使得 $h^{-1} \circ f \circ h = g$.
 {% end %}
@@ -392,7 +392,7 @@ $$\mathrm{Hom}^+ [0, 1] = \\{f: [0, 1] \stackrel{1:1}{\to} [0, 1], f \in C[0, 1]
 
 $$
 h(x) = \begin{cases}
-x & x = 0, 1 \\\\
+x & x = 0, 1 \cr
 f^n(l(g^{-n}(x))) & x \in [g^n(a), g^{n+1}(a)]
 \end{cases}
 $$
@@ -487,23 +487,23 @@ $$\frac{f'(x_0+\theta(h)h) - f'(x_0)}{h^{n-1}} = \frac{f^{(n)}(x_0)}{(n-1)!}\the
 又 $h \to 0$ 时左式等于 $\frac{f^{(n)}(x_0)}{n!} + o(1)$. 即得结论。
 
 {% admonition(type="question", title="W16 6") %}
-设 $f$ 在 $\mathbb{R}$ 上可导且 $\lim_{x \to \pm \infty} \frac{f(x)}{x} = 0$. 证明：
+设 $f$ 在 $\R$ 上可导且 $\lim_{x \to \pm \infty} \frac{f(x)}{x} = 0$. 证明：
 
 $$
 g(x) = \begin{cases}
-f'(\frac{1}{x}) & x \neq 0 \\\\
+f'(\frac{1}{x}) & x \neq 0 \cr
 0 & x = 0
 \end{cases}
 $$
 
-在 $\mathbb{R}$ 上有原函数。
+在 $\R$ 上有原函数。
 {% end %}
 
 考虑：
 
 $$
 h(x) = \begin{cases}
-x^2f'(\frac{1}{x}) & x \neq 0 \\\\
+x^2f'(\frac{1}{x}) & x \neq 0 \cr
 0 & x = 0
 \end{cases}
 $$
@@ -515,7 +515,7 @@ $$
 
 $$
 f(x) = \begin{cases}
-\frac{1}{x} \sin \frac{1}{x} & x > 0 \\\\
+\frac{1}{x} \sin \frac{1}{x} & x > 0 \cr
 0 & x = 0
 \end{cases}
 $$
@@ -542,7 +542,7 @@ $$\left|\frac{F(x_n)-F(y_n)}{x_n+y_n}\right| \leq \left|\frac{F(x_n)}{x_n}\right
 
 令非负项按顺序排列是 $\\{x_n\\}$，负项按顺序排列是 $\\{y_n\\}$，则有 $\lim_{n\to\infty} x_n = \lim_{n\to\infty} y_n = 0$ 及 $\sum_{n=1}^\infty x_n = +\infty$，$\sum_{n=1}^\infty y_n = -\infty$.
 
-对 $\alpha\in\mathbb{R}$，我们这样构造新序列：先按顺序填入非负项直到 $\geq \alpha$，再按顺序填入负项直到 $\leq \alpha$，重复进行此操作。
+对 $\alpha\in\R$，我们这样构造新序列：先按顺序填入非负项直到 $\geq \alpha$，再按顺序填入负项直到 $\leq \alpha$，重复进行此操作。
 
 对 $\alpha=+\infty$，我们先按顺序填入非负项直到 $\geq 1$，然后填入一个负项，再按顺序填入非负项直到 $\geq 2$，依此类推[^infinite-ball-problem]；$\alpha=-\infty$ 的方法类似。
 
@@ -562,7 +562,7 @@ $I = [a, b]$ 是闭区间，$\\{f _k\\} _{k\geq 0}$ 是一列 $C^1(I)$ 的函数
 
 $$
 \phi(x) = \begin{cases}
-e^{-\frac{1}{x^2}} & x > 0 \\\\
+e^{-\frac{1}{x^2}} & x > 0 \cr
 0 & x \leq 0
 \end{cases}
 $$
@@ -579,7 +579,7 @@ $$f_k(x) = \frac{a_k}{k!}x^k \chi(t_kx)$$
 
 $$
 f_k^{(n)}(0) = \begin{cases}
-a_k & n = k \\\\
+a_k & n = k \cr
 0 & n \neq k
 \end{cases}
 $$
@@ -594,7 +594,7 @@ Peano 的想法是，考虑：
 
 $$
 \left(\frac{c_kx^k}{1+b_kx^2}\right)^{(n)}(0) = \begin{cases}
-n!(-1)^jc_{n-2j}b_{n-2j}^j & k = n - 2j, j \in \mathbb{Z}_{\geq 0} \\\\
+n!(-1)^jc_{n-2j}b_{n-2j}^j & k = n - 2j, j \in \Z_{\geq 0} \cr
 0 & \text{else}
 \end{cases}
 $$
@@ -626,7 +626,7 @@ $U_n$ 是完备的度量空间 $(X, d)$ 中稠密的开集，则 $U_\infty = \bi
 设 $f(x) \in C[0, +\infty)$，且对任意 $x \geq 0, \delta > 0$ 存在 $y \in (x, x+\delta)$ 使得 $f(x) \leq f(y)$. 证明 $f(x)$ 单调不减。
 {% end %}
 
-假设存在 $a < b, f(a) > f(b)$，设 $M = \max_{x \in [a, b]} f(x)$ 并令 $c = \sup \\{x | f(x) = M\\}$ 上确界可以取到。在 $c < b$ 点处使用条件，与上确界矛盾。
+假设存在 $a < b, f(a) > f(b)$，设 $M = \max_{x \in [a, b]} f(x)$ 并令 $c = \sup \set{x | f(x) = M}$ 上确界可以取到。在 $c < b$ 点处使用条件，与上确界矛盾。
 
 {% admonition(type="question", title="2025 P11") %}
 设 $f(x) \in C[a, b]$，且对任意 $x \in (a, b)$ 有 $g(x) = \lim_{t\to 0} \frac{f(x+t)-f(x-t)}{2t}$ 存在。证明：若 $f(a)=f(b)$，则存在两点 $\xi, \eta \in (a, b)$ 使得 $g(\xi) \leq 0 \leq g(\eta)$.

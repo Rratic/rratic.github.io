@@ -44,7 +44,7 @@ tags = ["笔记", "数学", "几何", "Euclid 几何"]
 ### Dehn 不变量 {#dehn-invariant}
 对一个多面体，其 $n$ 个棱长为 $l_1, l_2, \cdots l_n$，对应的二面角为 $\theta _1, \theta _2, \cdots \theta _n$，则该不变量被定义为：
 
-$$\sum_{i=1}^n l_i\otimes \theta _i \in \mathbb{R}\otimes _\mathbb{Z} \mathbb{R}/\pi\mathbb{Z}$$
+$$\sum_{i=1}^n l_i\otimes \theta _i \in \R\otimes _\Z \R/\pi\Z$$
 
 这一二元组允许两个过程：
 - $(l_1 + l_2, \theta) = (l_1, \theta) + (l_2, \theta)$ 在棱上剪/接。
@@ -64,7 +64,7 @@ $$(v, w) \in V \times W$$
 $$(a_1v_1 + a_2v_2, w) = a_1(v_1, w) + a_2(v_2, w)$$
 $$(v, a_1w_1 + a_2w_2) = a_1(v, w_1) + a_2(v, w_2)$$
 
-前文中 $\otimes _\mathbb{Z}$ 是指这里 $a\in \mathbb{Z}$，在无歧义时可省略。且易证明 $\mathbb{R}\otimes _\mathbb{Z} \mathbb{R}/\pi\mathbb{Z} = \mathbb{R}\otimes _\mathbb{Q} \mathbb{R}/\pi\mathbb{Q}$.
+前文中 $\otimes _\Z$ 是指这里 $a\in \Z$，在无歧义时可省略。且易证明 $\R\otimes _\Z \R/\pi\Z = \R\otimes _\mathbb{Q} \R/\pi\mathbb{Q}$.
 
 张量积使得 $V\times W$ 上的双线性函数可以等价地看成 $V\otimes W$ 上的线性函数。
 

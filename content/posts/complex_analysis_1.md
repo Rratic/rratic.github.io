@@ -27,7 +27,7 @@ tags = ["笔记", "数学", "分析", "复分析"]
 - [点集拓扑](/_misc/topology/)
 
 ## 基本定义
-复值函数是定义域为 $\mathbb{C}$ 的子集，陪域为 $\mathbb{C}$ 的函数，例如 $x+y\mathrm{i}\mapsto x^2+(x+y)\mathrm{i}$
+复值函数是定义域为 $\Complex$ 的子集，陪域为 $\Complex$ 的函数，例如 $x+y\mathrm{i}\mapsto x^2+(x+y)\mathrm{i}$
 
 一般可以写作 $f(z) = u(z) + \mathrm{i}v(z)$，其中 $u, v$ 都是实值的。
 
@@ -36,14 +36,14 @@ tags = ["笔记", "数学", "分析", "复分析"]
 ### 定义说明
 我们用连续映射 $z=f(t), t\in [\alpha, \beta]$ 表示曲线。若 $z'(t)$ 存在且连续，称该弧是可微的。若再有 $z'(t)\neq 0$，称该弧是正则的（使得折线不被认为是狭义的“曲线”）。若 $f(\alpha)=f(\beta)$ 则称其为闭曲线。
 
-在复分析中，我们称**区域**是指 $\mathbb{C}$ 上道路连通的开集。
+在复分析中，我们称**区域**是指 $\Complex$ 上道路连通的开集。
 
 有时我们会提到**单连通**，这是指：区域的内的任一条 Jordan 曲线（不自交、连续、闭合的曲线）均为某个子区域的边界。
 
 之后的许多函数性质都是在一个区域上说的。
 
 ### 微分
-在复数域 $\mathbb{C}$ 上，极限的表述可以参照数学分析中的表述。
+在复数域 $\Complex$ 上，极限的表述可以参照数学分析中的表述。
 
 {% admonition(type="definition", title="极限") %}
 称 $\lim_{z \to z_0} f(z) = w$，如果对任意 $\omega > 0$，存在 $\delta > 0$，对任意 $0<|z-z_0|<\delta$ 有 $|f(z)-w|<\omega$.
@@ -55,7 +55,7 @@ tags = ["笔记", "数学", "分析", "复分析"]
 
 $$
 \begin{cases}
-\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}\\\\
+\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}\cr
 \frac{\partial u}{\partial y} = -\frac{\partial v}{\partial x}
 \end{cases}
 $$
@@ -102,7 +102,7 @@ $$\Delta = \frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2}$$
 
 $$
 \begin{cases}
-\Delta u = \frac{\partial^2 u}{\partial x^2}+\frac{\partial^2 u}{\partial y^2} = 0\\\\
+\Delta u = \frac{\partial^2 u}{\partial x^2}+\frac{\partial^2 u}{\partial y^2} = 0\cr
 \Delta v = \frac{\partial^2 v}{\partial x^2}+\frac{\partial^2 v}{\partial y^2} = 0
 \end{cases}
 $$
@@ -111,7 +111,7 @@ $$
 
 $$
 \begin{cases}
-\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}\\\\
+\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}\cr
 \frac{\partial u}{\partial y} = -\frac{\partial v}{\partial x}
 \end{cases}
 $$
@@ -169,23 +169,23 @@ $f$ 为区域 $D$ 上的处处非 0 全纯函数，则存在 $g^n = f$
 取 $\frac{1}{r} = \lim_{n \to \infty}\sup\sqrt[n]{|a_n|}$.
 
 ### 多值函数
-多值函数 $F: \Omega \to \mathbb{C}$ 中的值 $F(z)$ 可以看作复数构成的集合。
+多值函数 $F: \Omega \to \Complex$ 中的值 $F(z)$ 可以看作复数构成的集合。
 
 例如，因为复数上的 $\exp$ 不是单的，它的反函数形如 $\mathrm{Ln} (r\cdot e^{\mathrm{i}\theta}) = \mathrm{Ln} (r) + \mathrm{i}\theta$
 
 一般来说，我们希望找到它的一个单值分支 $f$，即在 $\Omega$ 上有 $f(z)\in F(z)$ 且它是解析的。
 
-例如，在 $\mathbb{C}$ 去掉一个原点引出的射线这一区域上，$\mathrm{Ln}$ 是可以定义单值分支的。
+例如，在 $\Complex$ 去掉一个原点引出的射线这一区域上，$\mathrm{Ln}$ 是可以定义单值分支的。
 
 对特定的函数，我们可以定义它的 Riemann 曲面（是 $1$ 维的连通复流形），使函数在其上是单值的。
 
 ## 复平面
 ### 扩充复平面
-扩充复平面是指 $\bar{\mathbb{C}} = \mathbb{C}\cup \\{\infty\\}$，定义 $D(\infty, \varepsilon) = \\{z\in\bar{\mathbb{C}} \mid |z|>\frac{1}{\varepsilon}\\}$.
+扩充复平面是指 $\bar{\Complex} = \Complex \cup \set{\infty}$，定义 $D(\infty, \varepsilon) = \set{z\in\bar{\Complex} | \lvert z \rvert > \frac{1}{\varepsilon}}$.
 
-可以通过球极投影建立它与二维球面 $\mathbb{S}^2$ 的一一映射，使它们的拓扑是一样。从而，可以在球面中看到扩充复平面的极限定义，并看到扩充复平面是 $\mathbb{C}$ 的一个紧致化。
+可以通过球极投影建立它与二维球面 $\mathbb{S}^2$ 的一一映射，使它们的拓扑是一样。从而，可以在球面中看到扩充复平面的极限定义，并看到扩充复平面是 $\Complex$ 的一个紧致化。
 
-同时，可以将它看作复射影直线 $\mathbb{C}\mathrm{P}^1$，其中 $z = \frac{z_1}{z_2}$ 写作 $\binom{z_1}{z_2}$，这体现了它的射影性质。
+同时，可以将它看作复射影直线 $\Complex\mathrm{P}^1$，其中 $z = \frac{z_1}{z_2}$ 写作 $\binom{z_1}{z_2}$，这体现了它的射影性质。
 
 ### 分式线性变换
 分式线性变换是重要的解析函数例子，指
@@ -194,10 +194,10 @@ $$z\mapsto \frac{az+b}{cz+d}$$
 
 又称 Möbius 变换。有时我们也会考虑共轭分式线性变换 $z\mapsto \frac{a\bar{z}+b}{c\bar{z}+d}$，它们均可将扩充复平面映到自身。
 
-以 $\mathbb{C}\mathrm{P}^1$ 视角看作：
+以 $\Complex\mathrm{P}^1$ 视角看作：
 
 $$
-z\mapsto \begin{pmatrix}a&b\\\\ c&d\end{pmatrix} z
+z\mapsto \begin{pmatrix}a&b\cr c&d\end{pmatrix} z
 $$
 
 是一个射影变换，可由典型变换平移、位似、伊朗式反演复合得到。
@@ -217,7 +217,7 @@ $$
 	$$e^{i\theta}\frac{z-a}{1-\bar{a}z}$$
 * 所有上半平面到单位圆盘的分式线性变换是
 	$$e^{i\theta}\frac{z-a}{z-\bar{a}}$$
-* 所有上半平面到自身的分式线性变换可取 $\mathrm{SL}(2, \mathbb{R})$
+* 所有上半平面到自身的分式线性变换可取 $\mathrm{SL}(2, \R)$
 
 ## 复积分
 ### 路径积分
@@ -225,7 +225,7 @@ $$
 
 对给定的连续曲线 $\gamma$，作 Riemann 和，极限可取到时即为路径积分的值。
 
-或者，设 $\gamma: [a, b]\to \mathbb{C}$，让
+或者，设 $\gamma: [a, b]\to \Complex$，让
 
 $$\int_{\gamma} f(z) dz = \int_{[a, b]} f(\gamma(z)) \mathrm{d}\gamma(z) = \int_{[a, b]} f(\gamma(z))\gamma'(z) \mathrm{d}z$$
 
@@ -239,7 +239,7 @@ $$\int_{\gamma} (u+\mathrm{i}v)(\mathrm{d}x+\mathrm{i}\cdot\mathrm{d}y) = \int_{
 
 $$\oint_{\gamma}z^n \mathrm{d}z = \int_{\gamma}\frac{1}{n+1} \mathrm{d}z^{n+1} = 0$$
 
-$n = -1$ 时考虑曲线 $\gamma: [0, 2\pi]\to\mathbb{C}, \theta\mapsto re^{\mathrm{i}\theta}$，换元知积分结果 $2\pi\mathrm{i}$；若原点不在曲线内部，则化为 $\oint \mathrm{d}\ \mathrm{Ln}z = 0$；通过曲线加减法可以推知，对所有把 0 包含在内部的闭曲线，积分结果均为 $2\pi\mathrm{i}$.
+$n = -1$ 时考虑曲线 $\gamma: [0, 2\pi]\to\Complex, \theta\mapsto re^{\mathrm{i}\theta}$，换元知积分结果 $2\pi\mathrm{i}$；若原点不在曲线内部，则化为 $\oint \mathrm{d}\ \mathrm{Ln}z = 0$；通过曲线加减法可以推知，对所有把 0 包含在内部的闭曲线，积分结果均为 $2\pi\mathrm{i}$.
 
 我们来说明一个更一般的结论。
 
@@ -308,12 +308,12 @@ $$f(z) = \sum_{n=0}^{+\infty} \frac{1}{2\pi\mathrm{i}}(z-z_0)^n\int_{|w-z_0| = r
 对单连通区域 $D$ 和它上的解析函数 $f$，则存在它上的函数 $F$ 使 $F'=f$
 {% end %}
 
-对非单连通区域，有反例：$\mathbb{C}-\\{0\\}$ 上的 $f: z\mapsto \frac{1}{z}$
+对非单连通区域，有反例：$\Complex \setminus \set{0}$ 上的 $f: z\mapsto \frac{1}{z}$
 
 ### 幂级数工具
-对一个指定的区域 $\Omega$ 上的解析函数 $f$，令 $S = \\{z\in\Omega\mid f'(z) = f''(z) = \cdots = 0 \\}$
+对一个指定的区域 $\Omega$ 上的解析函数 $f$，令 $S = \set{z \in \Omega | f'(z) = f''(z) = \cdots = 0}$
 
-由连续性知 $\\{f^{(n)}(z) = 0\\}$ 为闭集，从而 $S$ 为闭集。
+由连续性知 $\set{f^{(n)}(z) = 0}$ 为闭集，从而 $S$ 为闭集。
 
 又，对 $z_0\in S$ 有 $f$ 在其一个邻域内可展成幂级数，对应的 $D(z_0, \varepsilon)\subset S$，知 $S$ 为开集。
 
@@ -373,18 +373,18 @@ $$f(z) = \sum_{n=0}^{+\infty} \frac{1}{2\pi\mathrm{i}}(z-z_0)^n\int_{|w-z_0| = r
 因为 $f(z_0)$ 是 $f(D(z_0, \varepsilon))$ 的内点。
 
 {% admonition(type="theorem", title="代数基本定理") %}
-$n$ 次多项式 $P(z) = a_nz^n+\cdots+a_0$ 在 $\mathbb{C}$ 中有零点。
+$n$ 次多项式 $P(z) = a_nz^n+\cdots+a_0$ 在 $\Complex$ 中有零点。
 {% end %}
 
 法一：
-> 由 $\lim_{n\to\infty} |P(z)| = +\infty$，存在 $R$ 使 $\min \\{|P(z)|\mid |z|=R\\}>|P(0)|$
+> 由 $\lim_{n\to\infty} |P(z)| = +\infty$，存在 $R$ 使 $\min \set{\lvert P(z) \rvert | \lvert z \rvert = R} > |P(0)|$
 >
-> 设 $z_0$ 是 $|P(z)|$ 在 $\bar{D(0, R)}$ 的最小值点，则 $P(z_0)$ 为 $P(D(0, R))$ 的内点，故 $|P(z_0)| = 0$
+> 设 $z_0$ 是 $|P(z)|$ 在 $\overline{D(0, R)}$ 的最小值点，则 $P(z_0)$ 为 $P(D(0, R))$ 的内点，故 $|P(z_0)| = 0$
 
 法二：
-> 将 $P$ 视作 $\bar{\mathbb{C}}\to\bar{\mathbb{C}}$ 的连续映射。
+> 将 $P$ 视作 $\bar{\Complex}\to\bar{\Complex}$ 的连续映射。
 >
-> 其不为常数，故 $P(\bar{\mathbb{C}})$ 为开集，而 $\bar{\mathbb{C}}$ 是紧的，故 $P(\bar{\mathbb{C}})$ 为闭集。从而值域是 $\bar{\mathbb{C}}$
+> 其不为常数，故 $P(\bar{\Complex})$ 为开集，而 $\bar{\Complex}$ 是紧的，故 $P(\bar{\Complex})$ 为闭集。从而值域是 $\bar{\Complex}$
 
 ### 积分工具
 {% admonition(type="theorem", title="Cauchy 不等式") %}
@@ -406,29 +406,29 @@ $$|f^{(n)}(z_0)| = \frac{n!}{2\pi\mathrm{i}}\int_{|w-z_0| = r}\left|\frac{f(w)}{
 这表明，我们可以用 $|f(z)|$ 在区域内的最大值控制任意的 $|f^{(n)}(z)|$.
 
 {% admonition(type="theorem", title="Liouville 定理") %}
-解析函数 $f$ 在 $\mathbb{C}$ 上有界，则必为常数。
+解析函数 $f$ 在 $\Complex$ 上有界，则必为常数。
 {% end %}
 
 因为可以取 $r\to+\infty$ 使 $|f'(z_0)|\leq 0$.
 
-这表明：在解析同胚意义下，$\mathbb{C}$ 中单连通区域恰有 $\mathbb{C}$ 和 $D(0, 1)$ 两类。
+这表明：在解析同胚意义下，$\Complex$ 中单连通区域恰有 $\Complex$ 和 $D(0, 1)$ 两类。
 
-我们将 $\mathbb{C}$ 上的解析函数称为**整函数**，其中不为多项式的称为**超越整函数**。
+我们将 $\Complex$ 上的解析函数称为**整函数**，其中不为多项式的称为**超越整函数**。
 
 可以给出 Liouville 定理的推广如下：
 
 {% admonition(type="theorem", title="Weierstrass 定理") %}
-对非常值的整函数 $f$，有 $f(\mathbb{C})$ 在 $\mathbb{C}$ 中稠密。
+对非常值的整函数 $f$，有 $f(\Complex)$ 在 $\Complex$ 中稠密。
 {% end %}
 
-假设结论不成立，存在 $z_0\in\mathbb{C}-\overline{f(\mathbb{C})}$ 为开集，有 $g(z)=\frac{1}{f(z)-z_0}$ 有界，矛盾。
+假设结论不成立，存在 $z_0\in\Complex-\overline{f(\Complex)}$ 为开集，有 $g(z)=\frac{1}{f(z)-z_0}$ 有界，矛盾。
 
 ---
 
-我们期待对于定义在 $\mathbb{C}$ 上的超越整函数，能够如多项式一样证明它的值域是 $\mathbb{C}$；而事实上我们有相当接近的结论：
+我们期待对于定义在 $\Complex$ 上的超越整函数，能够如多项式一样证明它的值域是 $\Complex$；而事实上我们有相当接近的结论：
 
 {% admonition(type="theorem", title="Picard 小定理") %}
-对 $\mathbb{C}$ 上的超越整函数 $f$，有 $\mathbb{C}-f(\mathbb{C})$ 至多包含一个点。
+对 $\Complex$ 上的超越整函数 $f$，有 $\Complex-f(\Complex)$ 至多包含一个点。
 {% end %}
 
 此证明将略过。

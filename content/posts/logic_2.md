@@ -66,7 +66,7 @@ tags = ["笔记", "数学", "基石", "逻辑学"]
 ## 形式系统
 现在考察**命题逻辑自然演绎系统** `Natrual Deduction System of Propositional Logic`. 自然演绎系统的核心是**推演** `derivation`. 我们使用记号：
 
-$$D \\\\ \varphi$$
+$$D \cr \varphi$$
 
 表示一个结论为 $\varphi$ 的推演，用 $h(D)$ 表示 $D$ 的高度。
 
@@ -79,12 +79,12 @@ $$\frac\varphi\varphi (\text{A})$$
 
 ---
 
-规则 $(\wedge \text{I})$ 是关于 $\wedge$ 的规则（这里 $I$ 表示引入规则），如下：如果 $\varphi, \psi$ 是公式，且 $\begin{matrix} D_1 \\\\ \varphi \end{matrix}$ 和 $\begin{matrix} D_2 \\\\ \psi \end{matrix}$ 都是推演，则有推演：
+规则 $(\wedge \text{I})$ 是关于 $\wedge$ 的规则（这里 $I$ 表示引入规则），如下：如果 $\varphi, \psi$ 是公式，且 $\begin{matrix} D_1 \cr \varphi \end{matrix}$ 和 $\begin{matrix} D_2 \cr \psi \end{matrix}$ 都是推演，则有推演：
 
 $$
 \frac{
-	\begin{matrix} D_1 \\\\ \varphi \end{matrix} \quad
-	\begin{matrix} D_2 \\\\ \psi \end{matrix}
+	\begin{matrix} D_1 \cr \varphi \end{matrix} \quad
+	\begin{matrix} D_2 \cr \psi \end{matrix}
 }{(\varphi \wedge \psi)} (\wedge \text{I})
 $$
 
@@ -94,10 +94,10 @@ $$
 
 $$
 \frac{
-	\begin{matrix} D \\\\ (\varphi \wedge \psi) \end{matrix}
+	\begin{matrix} D \cr (\varphi \wedge \psi) \end{matrix}
 }{\varphi} (\wedge \text{E}) \quad
 \frac{
-	\begin{matrix} D \\\\ (\varphi \wedge \psi) \end{matrix}
+	\begin{matrix} D \cr (\varphi \wedge \psi) \end{matrix}
 }{\psi} (\wedge \text{E})
 $$
 
@@ -107,13 +107,13 @@ $$
 
 规则 $(\to \text{I})$ 涉及到假设。
 
-我们用方括号表示假设，用 $\begin{matrix} [\varphi] \\\\ D \\\\ \psi \end{matrix}$ 表示将 $\begin{matrix} D \\\\ \psi \end{matrix}$ 中所有由规则 $(\text{A})$ 引入的 $\varphi$ 换成 $[\varphi]$ 的结果。
+我们用方括号表示假设，用 $\begin{matrix} [\varphi] \cr D \cr \psi \end{matrix}$ 表示将 $\begin{matrix} D \cr \psi \end{matrix}$ 中所有由规则 $(\text{A})$ 引入的 $\varphi$ 换成 $[\varphi]$ 的结果。
 
 规则 $(\to \text{I})$ 及另外三条规则（$(\neg \text{I})$, $(\text{RAA})$, $(\vee \text{E})$）可以把“借来”的假设“还”回去。借的假设一定要还。
 
 $$
 \frac{
-	\begin{matrix} [\varphi] \\\\ D \\\\ \psi \end{matrix}
+	\begin{matrix} [\varphi] \cr D \cr \psi \end{matrix}
 }{(\varphi \to \psi)} (\to \text{I})
 $$
 
@@ -131,8 +131,8 @@ $$
 
 $$
 \frac{
-	\begin{matrix} [\varphi] \\\\ D \\\\ \psi \end{matrix} \quad
-	\begin{matrix} [\varphi] \\\\ D' \\\\ \neg\psi \end{matrix}
+	\begin{matrix} [\varphi] \cr D \cr \psi \end{matrix} \quad
+	\begin{matrix} [\varphi] \cr D' \cr \neg\psi \end{matrix}
 }{\neg \varphi} (\neg \text{I})
 $$
 
@@ -142,8 +142,8 @@ $$
 
 $$
 \frac{
-	\begin{matrix} [\neg \varphi] \\\\ D \\\\ \psi \end{matrix} \quad
-	\begin{matrix} [\neg \varphi] \\\\ D' \\\\ \neg\psi \end{matrix}
+	\begin{matrix} [\neg \varphi] \cr D \cr \psi \end{matrix} \quad
+	\begin{matrix} [\neg \varphi] \cr D' \cr \neg\psi \end{matrix}
 }{\varphi} (\text{RAA})
 $$
 
@@ -155,9 +155,9 @@ $$
 
 $$
 \frac{
-	\begin{matrix} ~ \\\\ D_1 \\\\ (\varphi \vee \psi) \end{matrix} \quad
-	\begin{matrix} [\varphi] \\\\ D_2 \\\\ \chi \end{matrix} \quad
-	\begin{matrix} [\varphi] \\\\ D_3 \\\\ \chi \end{matrix}
+	\begin{matrix} ~ \cr D_1 \cr (\varphi \vee \psi) \end{matrix} \quad
+	\begin{matrix} [\varphi] \cr D_2 \cr \chi \end{matrix} \quad
+	\begin{matrix} [\varphi] \cr D_3 \cr \chi \end{matrix}
 }{\varphi} (\vee \text{E})
 $$
 
@@ -197,7 +197,7 @@ $$
 
 $$
 \varphi^V = \begin{cases}
-\varphi & \text{if } V(\varphi) = T \\\\
+\varphi & \text{if } V(\varphi) = T \cr
 \neg \varphi & \text{if } V(\varphi) = F
 \end{cases}
 $$
@@ -222,7 +222,7 @@ $$
 
 $$
 V^\Delta(\varphi) = \begin{cases}
-	T & \text{if } \varphi \in \Delta \\\\
+	T & \text{if } \varphi \in \Delta \cr
 	F & \text{if } \varphi \notin \Delta
 \end{cases}
 $$

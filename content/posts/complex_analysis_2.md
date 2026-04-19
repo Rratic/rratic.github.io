@@ -57,7 +57,7 @@ $$f(z) = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = R'}\frac{f(w)}{w-z}\mathrm{d}w 
 {% admonition(type="theorem", title="孤立奇点") %}
 以下条件等价：
 1. $z_0$ 是可去奇点。
-2. $\lim_{z\to z_0} f(z)$ 在 $\mathbb{C}$ 上存在。
+2. $\lim_{z\to z_0} f(z)$ 在 $\Complex$ 上存在。
 3. $f(z)$ 在 $z_0$ 邻域上有界。
 4. $f(z)$ 在 $z_0$ 的 Laurent 展式的主部为 $0$.
 {% end %}
@@ -87,7 +87,7 @@ $$a_n = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = \varepsilon}\frac{f(w)}{(w-z_0)^
 {% admonition(type="theorem", title="本性奇点") %}
 以下条件等价：
 1. $z_0$ 是本性奇点。
-2. $\lim_{z\to z_0} f(z)$ 在 $\bar{\mathbb{C}}$ 中不存在。
+2. $\lim_{z\to z_0} f(z)$ 在 $\bar{\Complex}$ 中不存在。
 3. $f(z)$ 在 $z_0$ 的 Laurent 展式的主部有无穷多项非 $0$.
 {% end %}
 
@@ -96,28 +96,28 @@ $$a_n = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = \varepsilon}\frac{f(w)}{(w-z_0)^
 在 [Classification of Singularities](https://complex-analysis.com/content/classification_of_singularities.html) 你可以看到很多与奇点有关的函数的彩色绘制；也可阅读 [着色器（二）](/posts/shader-2/) 中对应的内容。
 
 {% admonition(type="theorem", title="Weierstrass 定理") %}
-若 $z_0$ 是 $f$ 的一个本性奇点，则对任意 $\varepsilon>0$，$f(\mathring{D}(z_0, \varepsilon))$ 在 $\mathbb{C}$ 中稠密。
+若 $z_0$ 是 $f$ 的一个本性奇点，则对任意 $\varepsilon>0$，$f(\mathring{D}(z_0, \varepsilon))$ 在 $\Complex$ 中稠密。
 {% end %}
 
-我们知道 $\mathbb{C}-\overline{f(D_0(z_0, \varepsilon))}$ 是开集，若它非空，存在 $z^\star$ 及 $\delta>0$ 使 $D(z^\star, \delta)$ 在其内。
+我们知道 $\Complex-\overline{f(D_0(z_0, \varepsilon))}$ 是开集，若它非空，存在 $z^\star$ 及 $\delta>0$ 使 $D(z^\star, \delta)$ 在其内。
 
 令 $g(z) = \frac{1}{f(z)-z^\star}$，有 $|g(z)|\leq \frac{1}{\delta}$，从而 $z_0$ 是 $g$ 的可去奇点，只能是 $f$ 的可去奇点或极点，与条件矛盾。
 
 更进一步，我们有 Picard 大定理：
 {% admonition(type="theorem", title="Picard 大定理") %}
-$z_0$ 是 $f$ 的一个本性奇点，且 $f$ 在 $\mathring{D}(z_0, \varepsilon)$ 上解析，则对任意 $0 < \varepsilon < R$，集合 $\mathbb{C} \setminus f(\mathring{D}(z_0, \varepsilon))$ 至多包含一个点。
+$z_0$ 是 $f$ 的一个本性奇点，且 $f$ 在 $\mathring{D}(z_0, \varepsilon)$ 上解析，则对任意 $0 < \varepsilon < R$，集合 $\Complex \setminus f(\mathring{D}(z_0, \varepsilon))$ 至多包含一个点。
 {% end %}
 
 甚至还有更强的结论 Julia 定理。
 
 {% admonition(type="theorem", title="Julia 定理") %}
-$z_0$ 是 $f$ 的一个本性奇点，则存在 $\theta\in [0, 2\pi)$，对任意 $\epsilon>0$ 及 $\omega\in\mathbb{C}$（至多存在一个例外），在 $|\arg (z-z_0) - \theta| < \epsilon$ 中 $f(z)=\omega$ 有无穷多解。
+$z_0$ 是 $f$ 的一个本性奇点，则存在 $\theta\in [0, 2\pi)$，对任意 $\epsilon>0$ 及 $\omega\in\Complex$（至多存在一个例外），在 $|\arg (z-z_0) - \theta| < \epsilon$ 中 $f(z)=\omega$ 有无穷多解。
 {% end %}
 
 此证明将略过。
 
 {% admonition(type="theorem", title="全纯自同胚") %}
-$f:\mathbb{C}\to\mathbb{C}$ 是全纯自同胚当且仅当它形如 $az+b\ (a\neq 0)$.
+$f:\Complex\to\Complex$ 是全纯自同胚当且仅当它形如 $az+b\ (a\neq 0)$.
 {% end %}
 
 只需证左推右。我们知道 $f$ 是整函数，且 $\infty$ 是孤立奇点。
@@ -127,16 +127,16 @@ $f:\mathbb{C}\to\mathbb{C}$ 是全纯自同胚当且仅当它形如 $az+b\ (a\ne
 从而它是多项式，由代数学基本定理知是一次的。
 
 ### 亚纯函数
-对 $\bar{\mathbb{C}}$ 中区域 $\Omega$ 上的函数 $f$，若除了（可能）有极点外处处解析，则称它是**亚纯**的。
+对 $\bar{\Complex}$ 中区域 $\Omega$ 上的函数 $f$，若除了（可能）有极点外处处解析，则称它是**亚纯**的。
 
 一个区域上的亚纯函数全体构成一个域，记作 $m(\Omega)$.
 
-{% admonition(type="theorem", title="Mittag-Leffler 问题的 $\mathbb{C}$ 版本") %}
+{% admonition(type="theorem", title="Mittag-Leffler 问题的 $\Complex$ 版本") %}
 设 $\\{z_n\\}$ 是无重复项的点列，且 $\lim_{n\to+\infty}z_n = \infty$，每个 $n$ 对应一个
 
 $$L_n(z) = \frac{a_{n_1}}{z-z_n} + \frac{a_{n_2}}{(z-z_n)^2} + \cdots + \frac{a_{n_{m_n}}}{(z-z_n)^{m_n}}$$
 
-则存在 $\mathbb{C}$ 上亚纯函数 $f$，使极点集为 $\\{z_n\\}$，且在 $z_n$ 处的 Laurent 展式的主部为 $L_n(z)$.
+则存在 $\Complex$ 上亚纯函数 $f$，使极点集为 $\\{z_n\\}$，且在 $z_n$ 处的 Laurent 展式的主部为 $L_n(z)$.
 {% end %}
 
 不妨设 $z_n \in D(0, n, n+1)$，取序列 $\\{a_n\\}$ 使 $a_n > 0$ 且和收敛，设对 $z_1, \cdots , z_{n-1}$ 已取到 $P_1(z), \cdots , P_{n-1}(z)$，使
@@ -148,7 +148,7 @@ $$\max_{z\in\overline{D(0, k)}} \\{|L_k(z)-P_k(z)|\\} \lt a_k,\ k=1,2,\cdots,n-1
 令 $f(z) = \sum_{k=1}^{+\infty} [L_k(z) - P_k(z)]$，它即是所求。
 
 {% admonition(type="theorem", title="有理函数") %}
-$\bar{\mathbb{C}}$ 上的亚纯函数都是有理函数。
+$\bar{\Complex}$ 上的亚纯函数都是有理函数。
 {% end %}
 
 设亚纯函数 $f$，有极点 $z_1, \cdots , z_l, \infty$，且对应的 Laurent 展式主部：
@@ -157,17 +157,17 @@ $$L_k(z) = \frac{a_{k_1}}{z-z_k} + \frac{a_{k_2}}{(z-z_k)^2} + \cdots + \frac{a_
 
 $$L_\infty(z) = b_1z + b_2z^2 + \cdots + b_mz^m$$
 
-则 $f(z) - \sum_{k=1}^l L_k(z) - L_\infty(z)$ 是 $\bar{\mathbb{C}}$ 上的全纯函数，因而是常数。从而 $f$ 是有理函数。
+则 $f(z) - \sum_{k=1}^l L_k(z) - L_\infty(z)$ 是 $\bar{\Complex}$ 上的全纯函数，因而是常数。从而 $f$ 是有理函数。
 
-利用此可以说明 $\bar{\mathbb{C}}$ 到 $\bar{\mathbb{C}}$ 的全纯自同胚只能是分式线性变换，这是因为考虑 $P(z)/Q(z)$，一一映射要求 $P$ 与 $Q$ 都是一次的。
+利用此可以说明 $\bar{\Complex}$ 到 $\bar{\Complex}$ 的全纯自同胚只能是分式线性变换，这是因为考虑 $P(z)/Q(z)$，一一映射要求 $P$ 与 $Q$ 都是一次的。
 
-{% admonition(type="theorem", title="Cousin 问题 2 的 $\mathbb{C}$ 版本") %}
+{% admonition(type="theorem", title="Cousin 问题 2 的 $\Complex$ 版本") %}
 $\\{z_n\\}$ 是无重复项的点列，且 $\lim_{n\to+\infty}z_n = \infty$，又正整数列 $\\{m_n\\}$，则存在解析函数 $f$，使 $f$ 所有零点是 $\\{z_n\\}$，且在 $z_n$ 处零点的阶数是 $m_n$.
 {% end %}
 
 证明过程用到无穷乘积，此处略过。
 
-它的一个推论是：对 $\bar{\mathbb{C}}$ 上亚纯函数 $f$，存在解析函数 $g$ 与 $h$ 使得 $f(z) = \frac{g(z)}{h(z)}$.
+它的一个推论是：对 $\bar{\Complex}$ 上亚纯函数 $f$，存在解析函数 $g$ 与 $h$ 使得 $f(z) = \frac{g(z)}{h(z)}$.
 
 ## 留数
 ### 基本概念
@@ -188,14 +188,14 @@ $$\frac{1}{2\pi\mathrm{i}}\int_{|z-z_0|=\rho} f(z)\mathrm{d}z = a_{-1}$$
 在 $z_0$ 为 $m$ 阶零点时，其邻域内有 $f(z) = \frac{1}{(z-z_0)^m}g(z)$，设 $g$ 在 $z_0$ 处的 Taylor 展开式为 $\sum_{n=0}^{+\infty}\frac{1}{n!}g^{(n)}(z_0)(z-z_0)^n$，就有 $\mathrm{Res}_{z=z_0} f(z)\mathrm{d}z = \frac{1}{(m-1)!}g^{(m-1)}(z_0)$.
 
 {% admonition(type="theorem", title="留数定理") %}
-$\Omega$ 是 $\bar{\mathbb{C}}$ 中以有限条逐段光滑曲线为边界的区域且 $\infty\notin\partial\Omega$，其内部有点 $z_1, z_2, \cdots ,z_n$，设 $f$ 在 $\Omega$ 中除这些点之外解析，在 $\bar{\Omega}$ 中除这些点之外连续，则：
+$\Omega$ 是 $\bar{\Complex}$ 中以有限条逐段光滑曲线为边界的区域且 $\infty\notin\partial\Omega$，其内部有点 $z_1, z_2, \cdots ,z_n$，设 $f$ 在 $\Omega$ 中除这些点之外解析，在 $\bar{\Omega}$ 中除这些点之外连续，则：
 
 $$\int_{\partial\Omega} f(z)\mathrm{d}z = 2\pi\mathrm{i}\sum_{i=1}^n\mathrm{Res}_{z=z_k}f(z)$$
 {% end %}
 
 可从 Cauchy 公式推出。
 
-一种补充情况是，若 $f$ 在 $\bar{\mathbb{C}}$ 内除 $z_1, z_2, \cdots, z_n$ 外解析，则
+一种补充情况是，若 $f$ 在 $\bar{\Complex}$ 内除 $z_1, z_2, \cdots, z_n$ 外解析，则
 
 $$\sum_{i=1}^n\mathrm{Res}_ {z=z_k}f(z) + \mathrm{Res}_ {z=\infty}f(z) = 0$$
 
@@ -237,7 +237,7 @@ $$|(f(z)-w) - (f(z)-w_0)| < |f(z)-w_0|$$
 这意味着，$f(z)-w_0$ 在 $z_0$ 附近的性质与 $z^m$ 在 $0$ 附近的性质近似。
 
 ### 定积分计算
-许多 $\mathbb{R}$ 上难以处理的定积分问题可以放到 $\mathbb{C}$ 上来算。
+许多 $\R$ 上难以处理的定积分问题可以放到 $\Complex$ 上来算。
 
 一个直接的例子是：
 

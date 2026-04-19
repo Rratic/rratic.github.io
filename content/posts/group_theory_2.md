@@ -60,7 +60,7 @@ $$|G| = \frac{1}{12} |Z_3^8\times S_8 \times Z_2^{12}\times S_{12}| = 4325200327
 
 $$
 \varphi: \begin{cases}
-	e \mapsto (g \mapsto g) \\\\
+	e \mapsto (g \mapsto g) \cr
 	a \mapsto (g \mapsto g^{-1})
 \end{cases}
 $$
@@ -89,7 +89,7 @@ Kociemba Algorithm 则将群逐步化为：
 我们希望进行这样的操作：每次多固定一个集合上的元素，其稳定化子就是原变换群的真子群，如此下去可以得到一个链 $G = G_0 > G_1 > G_2 \cdots G_n = \\{e\\}$，而由于我们要写出一个操作序列，设第 $i$ 个阶段可能的操作为 $r_{i_1}, r_{i_2} \cdots$ 有 $r_{i_1}G_{i+1}, r_{i_2}G_{i+1} \cdots$ 陪集族构成 $G_i$.
 
 {% admonition(type="theorem", title="Schreier 子群引理") %}
-$G$ 是一个由集合 $S$ 中元素（置换）生成的群，有子群 $H$，设（左）陪集代表元构成集合 $R$，其中元素 $g$ 对应代表元为 $\bar{g}$，则 $H$ 是由 $\\{\overline{sr}^{-1}sr \mid r\in R, s\in S\\}$ 生成的。
+$G$ 是一个由集合 $S$ 中元素（置换）生成的群，有子群 $H$，设（左）陪集代表元构成集合 $R$，其中元素 $g$ 对应代表元为 $\bar{g}$，则 $H$ 是由 $\set{\overline{sr}^{-1}sr | r\in R, s\in S}$ 生成的。
 {% end %}
 
 对 $H$ 的元素 $h = s_1s_2\cdots s_k$，其中 $s_i$ 为生成元，记 $t_i = \overline{s_{i+1}\cdots s_k}$，其中 $t_0 = t_k = e$，故有：
@@ -143,7 +143,7 @@ x^-1*y*w^-1*y^-1*w*y^-1*x*y*x*z*y*z^-1*y^-1*x^-1*y*x*y*z*y^-1*z^-1*x^-1*w*y*w^-1
 
 $$
 \begin{aligned}
-\sigma \colon G & \longrightarrow G/G',\\\\
+\sigma \colon G & \longrightarrow G/G' \cr
 	g & \longmapsto gG'
 \end{aligned}
 $$
@@ -171,7 +171,7 @@ $$
 
 $$
 \begin{aligned}
-\sigma \colon G_{i-1} & \longrightarrow G_{i-1}/G_i,\\\\
+\sigma \colon G_{i-1} & \longrightarrow G_{i-1}/G_i \cr
 	g & \longmapsto gG_i
 \end{aligned}
 $$

@@ -20,7 +20,7 @@ tags = ["笔记", "数学", "代数", "线性代数"]
 
 ## 作业及延申
 {% admonition(type="question", title="Steinitz 替换引理") %}
-若 $S = \\{\alpha_1,\cdots,\alpha_s\\}$ 线性无关，可由 $T = \\{\beta_1,\cdots,\beta_t\\}$ 线性表出，则可用 $S$ 替换 $T$ 中的 $s$ 个向量，使新的向量组与 $S$ 等价。
+若 $S = \set{\alpha_1, \cdots, \alpha_s}$ 线性无关，可由 $T = \set{\beta_1, \cdots, \beta_t}$ 线性表出，则可用 $S$ 替换 $T$ 中的 $s$ 个向量，使新的向量组与 $S$ 等价。
 {% end %}
 
 我们维护一个向量组，初始是 $T$，每次取出某个 $\alpha_i$，放入后整体变得线性相关，此时总是可以弹出一个 $\beta_j$.
@@ -75,14 +75,14 @@ $$\dim\ker (T_1T_2)\leq \dim\ker (T_1) + \dim\ker (T_2)\leq 2\dim\ker (T_2T_1)$$
 又有 $\dim\ker (T_2) = n - \dim\mathrm{Im} (T_2) \leq n - \dim\mathrm{Im} (T_2T_1) = \dim\ker (T_2T_1)$.
 
 {% admonition(type="question", title="2019 P1") %}
-实矩阵 $A=\begin{pmatrix} 1 & 1 & 1 \\\\ 0 & 1 & 1 \\\\ 0 & 0 & 1 \end{pmatrix}$，令 $V_n = \mathrm{span}(A^n, A^{n+1})$.
+实矩阵 $A = \begin{pmatrix} 1 & 1 & 1 \cr 0 & 1 & 1 \cr 0 & 0 & 1 \end{pmatrix}$，令 $V_n = \mathrm{span}(A^n, A^{n+1})$.
 1. 求 $\dim V_6$.
 2. 求 $\dim (V_6\cup V_8)$.
 {% end %}
 
 只需考虑到结论
 
-$$\mathrm{rank}(A)+\mathrm{rank}(B)-n\leq \mathrm{rank}(AB)\leq \min \\{\mathrm{rank}(A), \mathrm{rank}(B)\\}$$
+$$\mathrm{rank}(A)+\mathrm{rank}(B)-n\leq \mathrm{rank}(AB)\leq \min \set{\mathrm{rank}(A), \mathrm{rank}(B)}$$
 
 就有 $A^n$ 是可逆的（或者直接取逆为 $(A^{-1})^n$），从而有 $A^nf(A)=A^ng(A)\iff f(A)=g(A)$.
 
@@ -109,12 +109,12 @@ $$\dim(\ker T_1+\mathrm{Im} (T_2)) = \dim(\ker T_2+\mathrm{Im} (T_1))$$
 只需 $\ker T_1\cap\mathrm{Im} (T_2) = \ker T_1\circ T_2 = \ker T_2\circ T_1 = \ker T_2\cap\mathrm{Im} (T_1)$.
 
 {% admonition(type="question", title="2023 P4") %}
-$\mathbb{R}^{2023}$ 有子空间 $W_1+W_2 = W_2+W_3 = W_3+W_1 = \mathbb{R}^{2023}$，求 $\dim (W_1\cap W_2 + W_2\cap W_3 + W_3\cap W_1)$ 的所有可能值。
+$\R^{2023}$ 有子空间 $W_1+W_2 = W_2+W_3 = W_3+W_1 = \R^{2023}$，求 $\dim (W_1\cap W_2 + W_2\cap W_3 + W_3\cap W_1)$ 的所有可能值。
 {% end %}
 
-记 $\dim W_1\cap W_2\cap W_3 = k$，然后考虑 $\mathbb{R}^{2023}/(W_1\cap W_2\cap W_3)$（或者说，不妨填成前 $k$ 个分量）。将题目转化为：
+记 $\dim W_1\cap W_2\cap W_3 = k$，然后考虑 $\R^{2023}/(W_1\cap W_2\cap W_3)$（或者说，不妨填成前 $k$ 个分量）。将题目转化为：
 
-$W_1+W_2 = W_2+W_3 = W_3+W_1 = \mathbb{R}^{2023-k}, \dim W_1\cap W_2\cap W_3 = 0$，求 $\dim (W_1\cap W_2 + W_2\cap W_3 + W_3\cap W_1) + k$ 的所有可能值。
+$W_1+W_2 = W_2+W_3 = W_3+W_1 = \R^{2023-k}, \dim W_1\cap W_2\cap W_3 = 0$，求 $\dim (W_1\cap W_2 + W_2\cap W_3 + W_3\cap W_1) + k$ 的所有可能值。
 
 有 $\dim (W_1\cap W_2 + W_2\cap W_3 + W_3\cap W_1) = \dim (W_1\cap W_2) + \dim (W_2\cap W_3) + \dim (W_3\cap W_1) = 2 (\dim W_1 + \dim W_2 + \dim W_3) - 3\times (2023-k)$，故取值为 $[1, 2023]$ 的奇数。
 
@@ -126,12 +126,12 @@ $W_1+W_2 = W_2+W_3 = W_3+W_1 = \mathbb{R}^{2023-k}, \dim W_1\cap W_2\cap W_3 = 0
 
 以下记 $A = (a_{ij})_{1\leq i,j\leq n}$.
 
-设 $V = \\{M\mid \sum s_{ij}m_{ij} = 0\\}, W = \\{M\mid \sum t_{ij}m_{ij} = 0\\}$，则 $AB\in W\iff \sum t_{ij}(\sum_k a_{ik}b_{kj}) = 0$，也即 $\sum b_{ij}(\sum_k a_{ki}t_{kj}) = 0$.
+设 $V = \set{M | \sum s_{ij}m_{ij} = 0}, W = \set{M | \sum t_{ij}m_{ij} = 0}$，则 $AB\in W\iff \sum t_{ij}(\sum_k a_{ik}b_{kj}) = 0$，也即 $\sum b_{ij}(\sum_k a_{ki}t_{kj}) = 0$.
 
 只需 $A^\top T = S$ 或 $A^\top T = \mathbf{0}$，分类即可。
 
 {% admonition(type="question", title="2024 P4") %}
-是否存在 $\mathbb{R}^{2024}$ 的有限个二维子空间 $W_1,\cdots,W_k$，使对任意二维子空间 $M$ 有
+是否存在 $\R^{2024}$ 的有限个二维子空间 $W_1, \cdots, W_k$，使对任意二维子空间 $M$ 有
 
 $$M = \bigcap_{i=1}^k (W_i+M)$$
 
@@ -144,7 +144,7 @@ $$M = \bigcap_{i=1}^k (W_i+M)$$
 错了一道填空题，内容为：
 
 {% admonition(type="question", title="2025 P1 (4)") %}
-对 $\Omega = \mathbb{Z}\times\mathbb{Z}$，是否存在 $T\in L(\mathbb{R}^2)$，使 $T(\Omega+(\frac15, 0)) = \Omega+(\frac25, 0)$.
+对 $\Omega = \Z\times\Z$，是否存在 $T\in L(\R^2)$，使 $T(\Omega+(\frac15, 0)) = \Omega+(\frac25, 0)$.
 {% end %}
 
 存在，取 $T: (x, y)\mapsto (2x+y, 5x+2y)$.

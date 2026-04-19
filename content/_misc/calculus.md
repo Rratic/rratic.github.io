@@ -17,7 +17,7 @@ tags = ["数学", "分析", "微积分学"]
 
 ## 数学分析
 ### 基本概念
-- 实数（实数集 $\mathbb{R}$，Archimedes 性，上界，下界，上确界 $\sup$，下确界 $\inf$）
+- 实数（实数集 $\R$，Archimedes 性，上界，下界，上确界 $\sup$，下确界 $\inf$）
 	- 可阅读 [文献综述：实数的不下二十种定义方法](https://projecteuclid.org/journals/rocky-mountain-journal-of-mathematics/volume-45/issue-3/Survey-Article-The-real-numbersA-survey-of-constructions/10.1216/RMJ-2015-45-3-737.full?tab=ArticleLink)
 - 极限（级数，数列极限 $\lim_{x\to \infty}$，Stolz 定理，上下极限，Fubini 定理，Riemann 重排定理）
 - 等价性（闭区间套定理，有限覆盖定理，Bolzano-Weierstrass 定理，Cauchy 收敛准则）

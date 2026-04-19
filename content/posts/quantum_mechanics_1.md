@@ -88,9 +88,9 @@ $$x_{mn} = x_{0_{mn}} e^{-i\omega_{mn}t} \tag{1.5}$$
 
 $$
 H = \begin{bmatrix}
-E_1 & 0   & 0 & \cdots \\\\
-0   & E_2 & 0 & \cdots \\\\
-0   & 0 & E_3 & \cdots \\\\
+E_1 & 0   & 0 & \cdots \cr
+0   & E_2 & 0 & \cdots \cr
+0   & 0 & E_3 & \cdots \cr
 \vdots & \vdots & \vdots & \ddots
 \end{bmatrix} \tag{1.6}
 $$
@@ -133,11 +133,11 @@ $$[X_a, P_b] = i\hbar\delta_{ab}, [X_a, X_b] = 0, [P_a, P_b] = 0 \tag{1.10}$$
 ### 新记号
 最后，让我们换一个写法，记：
 
-$$A_{mn} = \langle m|\hat{A}|n\rangle \tag{1.11}$$
+$$A_{mn} = \braket{m | \hat{A} | n} \tag{1.11}$$
 
-那么就有 $\langle m|\hat{A}^\dagger|n\rangle = \langle m|\hat{A}|n\rangle^\ast$ 及 $\langle m|n \rangle = \langle m|\mathbf{1}|n \rangle =\delta_{mn}$.
+那么就有 $\braket{m | \hat{A}^\dagger | n} = \braket{m | \hat{A} | n}^\ast$ 及 $\braket{m | n} = \braket{m | \mathbf{1} | n} = \delta_{mn}$.
 
-不严格地说，可以把左态矢 $\langle m|$ 看作行向量，把右态矢 $|n \rangle$ 看作列向量。
+不严格地说，可以把左态矢 $\bra{m}$ 看作行向量，把右态矢 $\ket{n}$ 看作列向量。
 
 ## Stern-Gerlach 实验
 ### 量子力学基本原理
@@ -149,15 +149,15 @@ $$A_{mn} = \langle m|\hat{A}|n\rangle \tag{1.11}$$
 
 考虑带挡板的装置 $S$ 将 $0$ 与 $-\hbar$ 都挡住，成为只允许 $+\hbar$ 可能通过的过滤器。那么从这个装置通出的原子继续通出一个相同装置的概率是百分之百。可以把这个结果记作：
 
-$$\langle +S | +S \rangle = \langle +S | \mathbf{1} | +S \rangle = 1 \tag{2.1}$$
+$$\braket{+S | +S} = \braket{+S | \mathbf{1} | +S} = 1 \tag{2.1}$$
 
 另外的挡板情况也同理，即：
 
-$$\langle iS | jS \rangle = \delta_{ij} \tag{2.2}$$
+$$\braket{iS | jS} = \delta_{ij} \tag{2.2}$$
 
-现在让原子通过 $+S$ 过滤器后再通过一个 $S$ 旋转了适当角度的版本，记作 $T$. 考虑不同的挡板装法 $+T, 0T, -T$, 实验发现 $\langle +T | +S \rangle, \langle 0T | +S \rangle, \langle -T | +S \rangle$ 均不为零。进一步地，实验归纳出 Born 定则：
+现在让原子通过 $+S$ 过滤器后再通过一个 $S$ 旋转了适当角度的版本，记作 $T$. 考虑不同的挡板装法 $+T, 0T, -T$, 实验发现 $\braket{+T | +S}, \braket{0T | +S}, \braket{-T | +S}$ 均不为零。进一步地，实验归纳出 Born 定则：
 
-$$P(iS \to jT) = |\langle jT | iS \rangle|^2 \tag{2.3}$$
+$$P(iS \to jT) = |\braket{jT | iS}|^2 \tag{2.3}$$
 
 一个问题是，如果我们让一束原子先通过 $+S$, 再通过 $0T$, 是否就可以同时确定射出粒子的 $S$ 可能性与 $T$ 可能性了呢？答案是否定的。尽管 $T$ 可能性一定是 $0T$, 原子再通过 $+S, 0S, -S$ 后通出的可能性均非零。也就是说，一旦跃迁到 $0T$ 可能性，原来 $+S$ 可能性的信息就丢失了。
 
@@ -167,15 +167,15 @@ $$P(iS \to jT) = |\langle jT | iS \rangle|^2 \tag{2.3}$$
 或许这个性质就是对应到[量子信息](@/posts/quantum_information_1.md)中的在特定的基下观测？
 {% end %}
 
-推广到一般情形，一个量子系统的两个不同的可确定区分可能性完备集是指标集 $\mathcal{I}, \mathcal{J}$ 满足存在 $(m) \in \mathcal{I}, (n') \in \mathcal{J}$ 使得 $\langle n' | m \rangle \neq 0, 1$.
+推广到一般情形，一个量子系统的两个不同的可确定区分可能性完备集是指标集 $\mathcal{I}, \mathcal{J}$ 满足存在 $(m) \in \mathcal{I}, (n') \in \mathcal{J}$ 使得 $\braket{n' | m} \neq 0, 1$.
 
 ---
 
 我们继续这个实验，在过滤器 $S$, 无挡板的装置 $T$ 之后添加一个另外转过某个角度的过滤器 $R$. 实验发现中间的 $T$ 装置对结果没有影响，也即：
 
-$$\langle jR | iS \rangle = \sum_k \langle jR | kT \rangle \langle kT | iS \rangle \tag{2.4}$$
+$$\braket{jR | iS} = \sum_k \braket{jR | kT} \braket{kT | iS} \tag{2.4}$$
 
-我们记左侧 $\psi = \langle jR | iS \rangle$, 右侧三项分别为 $\phi_+, \phi_0, \phi_-$, 将发现：
+我们记左侧 $\psi = \braket{jR | iS}$, 右侧三项分别为 $\phi_+, \phi_0, \phi_-$, 将发现：
 
 $$P(iS \to jR) = |\phi_+ + \phi_0 + \phi_-|^2 > |\phi_+|^2 + |\phi_0|^2 + |\phi_-|^2 \tag{2.5}$$
 
@@ -184,21 +184,21 @@ $$P(iS \to jR) = |\phi_+ + \phi_0 + \phi_-|^2 > |\phi_+|^2 + |\phi_0|^2 + |\phi_
 如果我们在装置 $T$ 中对于分立的每一束都添加探测器，使得每通过一个原子有且仅有一盏灯会亮，情况就变得不同。此时确实满足 $P(iS \to jR) = |\phi_+|^2 + |\phi_0|^2 + |\phi_-|^2$.
 
 {% admonition(type="note", title="性质推导") %}
-考虑式子 $1 = \langle i | i \rangle = \sum_{j' \in \mathcal{J}} \langle i | j' \rangle \langle j' | i \rangle$ 及 $1 = \sum_{j' \in \mathcal{J}} |\langle j' | i \rangle|^2 = \sum_{j' \in \mathcal{J}} \langle j' | i \rangle^\ast \langle j' | i \rangle$. 它们同时成立的最简单条件是：
+考虑式子 $1 = \braket{i | i} = \sum_{j' \in \mathcal{J}} \braket{i | j'} \braket{j' | i}$ 及 $1 = \sum_{j' \in \mathcal{J}} |\braket{j' | i}|^2 = \sum_{j' \in \mathcal{J}} \braket{j' | i}^\ast \braket{j' | i}$. 它们同时成立的最简单条件是：
 
-$$\langle i | j' \rangle = \langle j' | i \rangle^\ast$$
+$$\braket{i | j'} = \braket{j' | i}^\ast$$
 {% end %}
 
-从式 (2.4) 的形式易见和矩阵乘法是一致的。我们可以让 $T$ 是任意的装置 $A$, 记作 $\langle jR | \hat{A} | iS \rangle$, 就有：
+从式 (2.4) 的形式易见和矩阵乘法是一致的。我们可以让 $T$ 是任意的装置 $A$, 记作 $\braket{jR | \hat{A} | iS}$, 就有：
 
-$$\langle jR | \hat{A}\hat{B} | iS \rangle = \sum_k \langle jR | \hat{A} | k \rangle \langle k | \hat{B} | iS \rangle \tag{2.6}$$
+$$\braket{jR | \hat{A}\hat{B} | iS} = \sum_k \braket{jR | \hat{A} | k} \braket{k | \hat{B} | iS} \tag{2.6}$$
 
-对一个可确定区分可能性完备集，人们常常把 $\langle j | \hat{A} | i \rangle$ 排成：
+对一个可确定区分可能性完备集，人们常常把 $\braket{j | \hat{A} | i}$ 排成：
 
 $$
 \begin{bmatrix}
-\langle 1 | \hat{A} | 1 \rangle & \langle 1 | \hat{A} | 2 \rangle & \cdots \\\\
-\langle 2 | \hat{A} | 1 \rangle & \langle 2 | \hat{A} | 2 \rangle & \cdots \\\\
+\braket{1 | \hat{A} | 1} & \braket{1 | \hat{A} | 2} & \cdots \cr
+\braket{2 | \hat{A} | 1} & \braket{2 | \hat{A} | 2} & \cdots \cr
 \vdots & \vdots & \ddots
 \end{bmatrix} \tag{2.7}
 $$
@@ -207,49 +207,49 @@ $$
 
 能量表象存在一定的特殊性：哈密顿量在其中的表示矩阵为对角矩阵，即：
 
-$$\langle E_m | \hat{H} | E_n \rangle = \delta_{mn}E_n \tag{2.8}$$
+$$\braket{E_m | \hat{H} | E_n} = \delta_{mn}E_n \tag{2.8}$$
 
 推广的海森堡运动方程是：
 
-$$\langle j' | i\hbar \frac{\mathrm{d}\hat{A}}{\mathrm{d}t} | i \rangle = \langle j' | [\hat{A}, \hat{H}] | i \rangle \tag{2.9}$$
+$$\braket{j' | i\hbar \frac{\mathrm{d}\hat{A}}{\mathrm{d}t} | i} = \braket{j' | [\hat{A}, \hat{H}] | i} \tag{2.9}$$
 
 ### 态和算符
-考虑进一步简化的 Stern-Gerlach 实验，假设原子只分成两束（角动量由），在磁场指向 $z$ 轴时两种可能记作 $S = \\{\uparrow, \downarrow\\}$, 指向 $x$ 轴时两种可能记作 $T = \\{\rightarrow, \leftarrow\\}$. 实验测得 $|\langle \rightarrow | \uparrow \rangle|^2 = |\langle \leftarrow | \uparrow \rangle|^2 = |\langle \rightarrow | \downarrow \rangle|^2 = |\langle \leftarrow | \downarrow \rangle|^2 = \frac{1}{2}$. 反之亦然。
+考虑进一步简化的 Stern-Gerlach 实验，假设原子只分成两束（角动量由），在磁场指向 $z$ 轴时两种可能记作 $S = \set{\uparrow, \downarrow}$, 指向 $x$ 轴时两种可能记作 $T = \set{\rightarrow, \leftarrow}$. 实验测得 $|\braket{\rightarrow | \uparrow}|^2 = |\braket{\leftarrow | \uparrow}|^2 = |\braket{\rightarrow | \downarrow}|^2 = |\braket{\leftarrow | \downarrow}|^2 = \frac{1}{2}$. 反之亦然。
 
 不妨选取为：
 
 $$
 \begin{bmatrix}
-\langle \uparrow | \rightarrow \rangle & \langle \uparrow | \leftarrow \rangle \\\\
-\langle \downarrow | \rightarrow \rangle & \langle \downarrow | \leftarrow \rangle
+\braket{\uparrow | \rightarrow} & \braket{\uparrow | \leftarrow} \cr
+\braket{\downarrow | \rightarrow} & \braket{\downarrow | \leftarrow}
 \end{bmatrix}
 = \frac{1}{\sqrt{2}}
 \begin{bmatrix}
-1 & 1 \\\\
+1 & 1 \cr
 1 & -1
 \end{bmatrix}
 \tag{2.10}
 $$
 
-我们会得到 $\langle \cdots | \uparrow \rangle = \frac{1}{\sqrt{2}} \langle \cdots | \rightarrow \rangle + \frac{1}{\sqrt{2}} \langle \cdots | \leftarrow \rangle$. 一个自然的想法是写成 $| \uparrow \rangle = \frac{1}{\sqrt{2}} | \rightarrow \rangle + \frac{1}{\sqrt{2}} | \leftarrow \rangle$. 这可以解读成引入了某种**叠加原理**。
+我们会得到 $\braket{\cdots | \uparrow} = \frac{1}{\sqrt{2}} \braket{\cdots | \rightarrow} + \frac{1}{\sqrt{2}} \braket{\cdots | \leftarrow}$. 一个自然的想法是写成 $\ket{\uparrow} = \frac{1}{\sqrt{2}} \ket{\rightarrow} + \frac{1}{\sqrt{2}} \ket{\leftarrow}$. 这可以解读成引入了某种**叠加原理**。
 
 这种可以线性叠加的东西就是矢量，称为**态矢量**。构成的矢量空间称为希尔伯特空间（因为支持内积），一般来说可以是任意维的，甚至无穷维的。一个量子态对应的是希尔伯特空间中的一条复直线。
 
 作为可确定区分性的要求，有：
 
-$$\langle \psi | \psi \rangle = 1 \tag{2.11}$$
+$$\braket{\psi | \psi} = 1 \tag{2.11}$$
 
 称为归一化条件。
 
-容易推导出一些结论，如对一个初态可能性 $| \psi \rangle = \sum_i a_i | i \rangle$ 其中 $a_i = \langle i | \psi \rangle$, 若将它作为一个末态可能性则有 $\langle \psi | = \sum_i \langle \psi | i \rangle \langle i | = \sum_i a_i^\ast \langle i |$. 从 $\psi$ 到 $\phi $ 的跃迁幅是一种乘法，即内积 $\langle \phi | \psi \rangle$.
+容易推导出一些结论，如对一个初态可能性 $\ket{\psi} = \sum_i a_i \ket{i}$ 其中 $a_i = \braket{i | \psi}$, 若将它作为一个末态可能性则有 $\bra{\psi} = \sum_i \braket{\psi | i} \bra{i} = \sum_i a_i^\ast \bra{i}$. 从 $\psi$ 到 $\phi $ 的跃迁幅是一种乘法，即内积 $\braket{\phi | \psi}$.
 
-如果两个态矢量满足 $\langle \phi | \psi \rangle = 0$ 则称它们**正交**。可确定区分可能性完备集 $\mathcal{L}$ 需要满足的就是 $\langle i | j \rangle = \delta_{ij}$ **正交归一性**。
+如果两个态矢量满足 $\braket{\phi | \psi} = 0$ 则称它们**正交**。可确定区分可能性完备集 $\mathcal{L}$ 需要满足的就是 $\braket{i | j} = \delta_{ij}$ **正交归一性**。
 
 ---
 
-考察初态可能性 $\psi$ 经物理量 $A$ 作用的结果，由于 $\langle \cdots | A | \psi \rangle$ 可以等效地由 $\langle \cdots | \phi \rangle$ 给出，可以写方程 $| A | \psi \rangle = | \phi \rangle$. 所以我们说量子力学中每一个物理量对应一个**线性算符**。
+考察初态可能性 $\psi$ 经物理量 $A$ 作用的结果，由于 $\braket{\cdots | A | \psi}$ 可以等效地由 $\braket{\cdots | \phi}$ 给出，可以写方程 $\ket{A | \psi} = \ket{\phi}$. 所以我们说量子力学中每一个物理量对应一个**线性算符**。
 
-式子 $| u \rangle \langle v |$ 可以视作一个算符（其运算规则是自然的）。
+式子 $\ket{u}\bra{v}$ 可以视作一个算符（其运算规则是自然的）。
 
 ### 绘景
 我们回顾海森堡运动方程是 (1.7) 式，量子力学基本对易关系是 $[X, P] = i\hbar$. 运动方程有一个形式上的通解：
@@ -264,11 +264,11 @@ $$e^B = 1 + \frac{1}{1!}B + \frac{1}{2!}B^2 + \frac{1}{3!}B^3 + \cdots \tag{2.13
 
 到现在为止我们都认为量子态不随时间演化（随时间演化的是代表物理量的算符），这种观点称为海森堡绘景；一种等价的观点是物理量算符不随时间演化，而量子态随时间演化，称为薛定谔绘景。从海森堡绘景过渡到薛定谔绘景可通过：
 
-$$\langle \phi | A(t) | \psi \rangle = \langle \phi | e^{iHt/\hbar} A_0 e^{-iHt/\hbar} | \psi \rangle = \langle \phi(t) | A_0 | \psi(t) \rangle \tag{2.14}$$
+$$\braket{\phi | A(t) | \psi} = \braket{\phi | e^{iHt/\hbar} A_0 e^{-iHt/\hbar} | \psi} = \braket{\phi(t) | A_0 | \psi(t)} \tag{2.14}$$
 
-其中 $| \psi(t) \rangle = e^{-iHt/\hbar} | \psi \rangle, | \phi(t) \rangle = e^{-iHt/\hbar} | \phi \rangle$. 注意 $(e^{-iHt/\hbar})^\dagger = e^{iHt/\hbar}$. 对此式对时间求导得到薛定谔方程：
+其中 $\ket{\psi(t)} = e^{-iHt/\hbar} \ket{\psi}, \ket{\phi(t)} = e^{-iHt/\hbar} \ket{\phi}$. 注意 $(e^{-iHt/\hbar})^\dagger = e^{iHt/\hbar}$. 对此式对时间求导得到薛定谔方程：
 
-$$i\hbar \frac{\mathrm{d}}{\mathrm{d}t} | \psi(t) \rangle = H | \psi(t) \rangle \tag{2.15}$$
+$$i\hbar \frac{\mathrm{d}}{\mathrm{d}t} \ket{\psi(t)} = H \ket{\psi(t)} \tag{2.15}$$
 
 在薛定谔绘景中，量子力学基本对易关系是 $[X_0, P_0] = i\hbar$.
 
@@ -278,15 +278,15 @@ $$i\hbar \frac{\mathrm{d}}{\mathrm{d}t} | \psi(t) \rangle = H | \psi(t) \rangle 
 
 ---
 
-如果一个态矢量 $| u_n \rangle$ 满足 $A | u_n \rangle = \lambda_n | u_n \rangle$ 则称它是算符 $A$ 的本征值，这个方程是算符 $A$ 的本征方程。
+如果一个态矢量 $\ket{u_n}$ 满足 $A \ket{u_n} = \lambda_n \ket{u_n}$ 则称它是算符 $A$ 的本征值，这个方程是算符 $A$ 的本征方程。
 
 哈密顿方程的本征方程叫做定态薛定谔方程，之后会看到其本征态就是能量有确定值的定态，因此定态薛定谔方程可以写成：
 
-$$H | E_n \rangle = E_n | E_n \rangle \tag{2.16}$$
+$$H \ket{E_n} = E_n \ket{E_n} \tag{2.16}$$
 
-易见厄米算符的本征值必为实数。又 $\lambda_j \langle i | j \rangle = \lambda_i^\ast \langle i | j \rangle$ 推出 $\lambda_i \neq \lambda_j$ 时两个本征态正交。而 $\lambda_i = \lambda_j$ 时，称两个本征态**简并**。我们可以考虑所有本征态张成的子空间，然后从中选取正交的基。最终可以使得所有的本征态两两正交。如果加上归一化条件，就有：
+易见厄米算符的本征值必为实数。又 $\lambda_j \braket{i | j} = \lambda_i^\ast \braket{i | j}$ 推出 $\lambda_i \neq \lambda_j$ 时两个本征态正交。而 $\lambda_i = \lambda_j$ 时，称两个本征态**简并**。我们可以考虑所有本征态张成的子空间，然后从中选取正交的基。最终可以使得所有的本征态两两正交。如果加上归一化条件，就有：
 
-$$\langle i | j \rangle = \delta_{ij} \tag{2.17}$$
+$$\braket{i | j} = \delta_{ij} \tag{2.17}$$
 
 对一个厄米算符 $A$, 相应的可能性完备集是可确定区分的，这些可能性称为 $A$ 的**本征可能性**。
 

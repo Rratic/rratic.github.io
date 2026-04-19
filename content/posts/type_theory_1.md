@@ -56,7 +56,7 @@ tags = ["笔记", "数学", "基石", "类型论"]
 
 在一阶逻辑（可以建立集合论）中只有一种判断：一个命题有证明。一个一阶逻辑的规则实际上是一种*证明构造*的规则。而类型论的基本判断是 $a: A$. 当 $A$ 表达的是命题时，$a$ 被称作 a *witness* to the provability of $A$ 或 *evidence* of the truth of $A$. 尽管 $a: A$ 与集合上说 $a \in A$ 有一些相似，前者是判断而后者是证明。我们不能说如果 $a: A$ 就没有 $b: B$, 也不能*证否*判断 $a: A$. 可以这样理解：类型论中类型对对象是本性的存在，在引入时就要声明。
 
-类型论中处理等同的方式也与集合论不同。对 $a, b: A$ 如果类型 $a =_A b$ is inhabited 就说它们**命题相等**。与此同时我们也需要关于相等的判断，称为**判断相等/定义相等**，写作 $a \equiv b : A$ 或者简写 $a \equiv b$. 例如说对 $f: \mathbb{N} \to \mathbb{N}, f(x) = x^2$ 有 $f(3) = 3^2$ by definition. 这样的相等只是从定义延申出来的，尽管需要一种外在的算法来判断。
+类型论中处理等同的方式也与集合论不同。对 $a, b: A$ 如果类型 $a =_A b$ is inhabited 就说它们**命题相等**。与此同时我们也需要关于相等的判断，称为**判断相等/定义相等**，写作 $a \equiv b : A$ 或者简写 $a \equiv b$. 例如说对 $f: \N \to \N, f(x) = x^2$ 有 $f(3) = 3^2$ by definition. 这样的相等只是从定义延申出来的，尽管需要一种外在的算法来判断。
 
 到现在为止，类型论的判断只有两种：一种形如 $a: A$, 另一种形如 $a \equiv b : A$.
 
@@ -100,14 +100,14 @@ $$\mathcal{U}_0: \mathcal{U}_1: \mathcal{U}_2: \cdots$$
 
 这些宇宙是累积的 `cumulative`, 即 $\mathcal{U}_i$ 的元素也是 $\mathcal{U} _{i+1}$ 的元素。不过确会引入一些麻烦。
 
-我们说 $A$ 是一个类型，如果它在某个宇宙 $\mathcal{U}_i$ 中。我们通常想要避免特别指出 $i$ 是什么，假设可以正确给出层级，写作 $A: \mathcal{U}$. 这种写法被称作 `typical ambiguity`. 当我们指定某个宇宙 $\mathcal{U}$ 时，称它含有的类型是小类型 `small types`. 为了建模一组关于类型 $A$ 变动的类型，我们使用 $B: A \to \mathcal{U}$. 这些函数称为类型类 `families of types` 或依值类型 `dependent types`. 一个例子是 $\mathrm{Fin}: \mathbb{N} \to \mathcal{U}$ 其中 $\mathrm{Fin}(n)$ 是一个恰有 $n$ 个元素的类型。一个平凡的例子是 $(\lambda (x: A).\ B): A \to \mathcal{U}$. 而反例是并没有类型类 $\lambda (i: \mathbb{N}).\ \mathcal{U}_i$.
+我们说 $A$ 是一个类型，如果它在某个宇宙 $\mathcal{U}_i$ 中。我们通常想要避免特别指出 $i$ 是什么，假设可以正确给出层级，写作 $A: \mathcal{U}$. 这种写法被称作 `typical ambiguity`. 当我们指定某个宇宙 $\mathcal{U}$ 时，称它含有的类型是小类型 `small types`. 为了建模一组关于类型 $A$ 变动的类型，我们使用 $B: A \to \mathcal{U}$. 这些函数称为类型类 `families of types` 或依值类型 `dependent types`. 一个例子是 $\mathrm{Fin}: \N \to \mathcal{U}$ 其中 $\mathrm{Fin}(n)$ 是一个恰有 $n$ 个元素的类型。一个平凡的例子是 $(\lambda (x: A).\ B): A \to \mathcal{U}$. 而反例是并没有类型类 $\lambda (i: \N).\ \mathcal{U}_i$.
 
 ### 依值函数类型
 类型论中我们使用函数类型的更普遍版本：依值函数类型 `Π-type/dependent function type`. 依值函数的陪域类型可以随输入的值变动。对 $A: \mathcal{U}$ 及类 $B: A \to \mathcal{U}$ 我们将对应的依值函数类型写作：
 
 $$\prod_{(x: A)} B(x) \text{\quad or \quad} \Pi (x: A), B(x)$$
 
-如果 $B$ 是常值的，就有 $\prod_{(x: A)} B(x) \equiv (A \to B)$. 后文中会给出例子 $\mathrm{fmax}: \prod_{(n: \mathbb{N})} \mathrm{Fin}(n+1)$ 如何构造。
+如果 $B$ 是常值的，就有 $\prod_{(x: A)} B(x) \equiv (A \to B)$. 后文中会给出例子 $\mathrm{fmax}: \prod_{(n: \N)} \mathrm{Fin}(n+1)$ 如何构造。
 
 现在我们可以定义多态 `polymorphic` 函数。这是说先传入一个参数表示类型，然后作用于这个类型的元素。例如：
 
@@ -222,7 +222,7 @@ $A + B$ 的元素有左右嵌入 `injection` 两种构造方法:对 $a: A$ 的 $
 为了构造非依值函数 $f: A + B \to C$, 需要函数 $g_0: A \to C$ 与 $g_1: B \to C$, 然后写：
 
 $$
-f(\mathrm{inl}(a)) :\equiv g_0(a) \\\\
+f(\mathrm{inl}(a)) :\equiv g_0(a) \cr
 f(\mathrm{inr}(b)) :\equiv g_1(b)
 $$
 
@@ -260,9 +260,9 @@ $$A \times B :\equiv \prod_{x: \mathbf{2}} \mathrm{rec}_{\mathbf{2}}(\mathcal{U}
 我们常将 $0_{\mathbf{2}}, 1_{\mathbf{2}}$ 称作 `false` 与 `true`. 但我们不把 $\mathbf{2}$ 的元素视作真值或者命题。
 
 ### 自然数
-自然数 $\mathbb{N}$ 的元素是通过 $0: \mathbb{N}$ 与 $\mathrm{succ}: \mathbb{N} \to \mathbb{N}$ 定义的。现在其上的 recursion 与 induction 更符合常用的含义了。
+自然数 $\N$ 的元素是通过 $0: \N$ 与 $\mathrm{succ}: \N \to \N$ 定义的。现在其上的 recursion 与 induction 更符合常用的含义了。
 
-使用素材 $c_0: C$ 与 $c_s: \mathbb{N} \to C \to C$ 可以定义：
+使用素材 $c_0: C$ 与 $c_s: \N \to C \to C$ 可以定义：
 
 $$f(0) :\equiv c_0$$
 
@@ -272,19 +272,19 @@ $$f(\mathrm{succ}(n)) :\equiv c_s(n, f(n))$$
 
 把原始递归打包成 recursor:
 
-$$\mathrm{rec}_{\mathbb{N}}: \prod _{C: \mathcal{U}} C \to (\mathbb{N} \to C \to C) \to \mathbb{N} \to C$$
+$$\mathrm{rec}_{\N}: \prod _{C: \mathcal{U}} C \to (\N \to C \to C) \to \N \to C$$
 
 同样一般化为归纳法 induction principle:
 
-$$\mathrm{ind}_{\mathbb{N}}: \prod _{(C: \mathbb{N} \to \mathcal{U})} C(0) \to \left(\prod _{(n: \mathbb{N})} C(n) \to C(\mathrm{succ}(n))\right) \to \prod _{(n: \mathbb{N})} C(n)$$
+$$\mathrm{ind}_{\N}: \prod _{(C: \N \to \mathcal{U})} C(0) \to \left(\prod _{(n: \N)} C(n) \to C(\mathrm{succ}(n))\right) \to \prod _{(n: \N)} C(n)$$
 
-一个自然数的性质 `property` 是由类型类 $P: \mathbb{N} \to \mathcal{U}$ 表达的。由此，上式即是数学归纳法。
+一个自然数的性质 `property` 是由类型类 $P: \N \to \mathcal{U}$ 表达的。由此，上式即是数学归纳法。
 
 ### 模式匹配与递归
 我们有时会这样定义函数：
 
 $$
-f(\mathrm{inl}(a)) :\equiv \Phi_0 \\\\
+f(\mathrm{inl}(a)) :\equiv \Phi_0 \cr
 f(\mathrm{inr}(b)) :\equiv \Phi_1
 $$
 
@@ -295,13 +295,13 @@ $$f :\equiv \mathrm{rec}_{A+B}(C, \lambda a.\ \Phi_0, \lambda b.\ \Phi_1)$$
 而对：
 
 $$
-f(0) :\equiv \Phi_0 \\\\
+f(0) :\equiv \Phi_0 \cr
 f(\mathrm{succ}(n)) :\equiv \Phi_s 
 $$
 
 则本质上是：
 
-$$f :\equiv \mathrm{rec}_{\mathbb{N}}(C, \Phi_0, \lambda n.\ \lambda r.\ \Phi_s')$$
+$$f :\equiv \mathrm{rec}_{\N}(C, \Phi_0, \lambda n.\ \lambda r.\ \Phi_s')$$
 
 这种使用 recursion/induction 非常方便，称为模式匹配 `pattern matching`. 当然它是有局限的，例如说 $f(\mathrm{succ}(n)) :\equiv$ 的右侧只能出现 $f(n)$ 而不能出现 $f(\mathrm{succ}(\mathrm{succ}(n)))$ 这样的东西。
 
@@ -326,7 +326,7 @@ $$f :\equiv \mathrm{rec}_{\mathbb{N}}(C, \Phi_0, \lambda n.\ \lambda r.\ \Phi_s'
 现在考虑实现 $(A \to \mathbf{0}) \times (B \to \mathbf{0}) \to (A + B \to \mathbf{0})$. 我们可以开“洞”然后整理：
 
 $$
-f((x, y))(\mathrm{inl}(a)) :\equiv \Box : 0 \\\\
+f((x, y))(\mathrm{inl}(a)) :\equiv \Box : 0 \cr
 f((x, y))(\mathrm{inr}(b)) :\equiv \Box : 0
 $$
 
@@ -346,7 +346,7 @@ $$f(p) :\equiv \left(\lambda x.\ \mathrm{pr}_1(p(x)), \lambda x.\ \mathrm{pr}_2(
 
 $$\left(\prod_{P: A \to \mathcal{U}_i} P(a) \to P(b)\right): \mathcal{U} _{i+1}$$
 
-由于这个逻辑（构造主义逻辑）是与证明有关 `proof-relevant` 的（例如说，如果有一个 $A + B$ 的实例，那么我们知道它来自于 $A$ 还是 $B$）。按照定义可以验证 $\mathbb{N} \iff \mathbf{1}$ 是正确的。这只是告诉我们当看成纯命题时，它们表达的命题是相同（这里是“真”命题）。当 $A \iff B$ 时我们称它们**逻辑相等**。
+由于这个逻辑（构造主义逻辑）是与证明有关 `proof-relevant` 的（例如说，如果有一个 $A + B$ 的实例，那么我们知道它来自于 $A$ 还是 $B$）。按照定义可以验证 $\N \iff \mathbf{1}$ 是正确的。这只是告诉我们当看成纯命题时，它们表达的命题是相同（这里是“真”命题）。当 $A \iff B$ 时我们称它们**逻辑相等**。
 
 我们把“命题作为类型”反过来，任何类型可以看作命题，并以给出一个元素的方式证明。当我们给出一个元素时，称 $A$ is `inhabited`. 反之，给出 $\neg A$ 的一个元素时称 $A$ is not inhabited. 易见 $\mathbf{0}$ is not inhabited, 因为 $\mathrm{id}_{\mathbf{0}}: \neg \mathbf{0}$. [^consistent]
 

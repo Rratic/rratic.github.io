@@ -29,7 +29,7 @@ $$(\alpha\times\beta)\times\gamma = (\alpha\cdot\gamma)\beta - (\beta\cdot\gamma
 
 另有公式：
 
-$$(a\times b)\cdot(c\times d) = \begin{vmatrix} a\cdot c & b\cdot c\\\\ a\cdot d & b\cdot d\end{vmatrix}$$
+$$(a\times b)\cdot(c\times d) = \begin{vmatrix} a\cdot c & b\cdot c\cr a\cdot d & b\cdot d\end{vmatrix}$$
 
 可由前式推得。它的转置相等在仿射空间上没有较好的几何解释。
 
@@ -41,17 +41,17 @@ $$
 x & y & 1
 \end{pmatrix}
 \begin{pmatrix}
-A & B & D \\\\
-B & C & E \\\\
+A & B & D \cr
+B & C & E \cr
 D & E & F
 \end{pmatrix}
 \begin{pmatrix}
-x \\\\ y \\\\ 1
+x \cr y \cr 1
 \end{pmatrix}
 = 0
 $$
 
-可以用 $I_2 = \det \begin{pmatrix}A & B\\\\ B & C\end{pmatrix}$ 来判断曲线的类型。在移轴、转轴变换下 $I_2$ 及 $I_1 = A + C$ 与 $I_3 = \det \begin{pmatrix}A & B & D\\\\ B & C & E\\\\ D & E & F\end{pmatrix}$ 不变。
+可以用 $I_2 = \det \begin{pmatrix}A & B\cr B & C\end{pmatrix}$ 来判断曲线的类型。在移轴、转轴变换下 $I_2$ 及 $I_1 = A + C$ 与 $I_3 = \det \begin{pmatrix}A & B & D\cr B & C & E\cr D & E & F\end{pmatrix}$ 不变。
 
 ---
 
@@ -77,7 +77,7 @@ $$
 方程为 $(Ax_0+By_0)x + (Bx_0+Cy_0)y + Dx_0 + Ey_0 = 0$.
 {% end %}
 
-两个直线方向共轭，如果 $\begin{pmatrix}x_0' & y_0'\end{pmatrix}\begin{pmatrix}A & B\\\\ B & C\end{pmatrix}\begin{pmatrix}x_0 \\\\ y_0\end{pmatrix}$，也就是一个是另一个的共轭直径的直线方向。
+两个直线方向共轭，如果 $\begin{pmatrix}x_0' & y_0'\end{pmatrix}\begin{pmatrix}A & B\cr B & C\end{pmatrix}\begin{pmatrix}x_0 \cr y_0\end{pmatrix}$，也就是一个是另一个的共轭直径的直线方向。
 
 ---
 
@@ -90,7 +90,7 @@ $$
 
 $$
 \begin{cases}
-A_1x+B_1y+C_1z+D_1=0 \\\\
+A_1x+B_1y+C_1z+D_1=0 \cr
 A_2x+B_2y+C_2z+D_2=0
 \end{cases}
 $$
@@ -99,8 +99,8 @@ $$
 
 $$
 \begin{pmatrix}
-A_1 & B_1 & C_1 \\\\
-A_2 & B_2 & C_2 \\\\
+A_1 & B_1 & C_1 \cr
+A_2 & B_2 & C_2 \cr
 A & B & C
 \end{pmatrix}
 = 0
@@ -140,9 +140,9 @@ $$
 2. 单叶双曲面，满足同族的直母线彼此异面，异族的两条直母线一定共面。
 
 ## 变换
-**仿射变换**是指保直线的双射，有 $\mathrm{Aff}(\mathbb{E}^n) = \mathrm{Transl}(\mathbb{E}^n) \rtimes \mathrm{GL}(n, \mathbb{R})$.
+**仿射变换**是指保直线的双射，有 $\mathrm{Aff}(\mathbb{E}^n) = \mathrm{Transl}(\mathbb{E}^n) \rtimes \mathrm{GL}(n, \R)$.
 
-对**保距变换**，有 $\mathrm{Isom}(\mathbb{E}^n) = \mathrm{Transl}(\mathbb{E}^n) \rtimes \mathrm{O}(n, \mathbb{R})$.
+对**保距变换**，有 $\mathrm{Isom}(\mathbb{E}^n) = \mathrm{Transl}(\mathbb{E}^n) \rtimes \mathrm{O}(n, \R)$.
 
 平面上的一些变换定义如下：
 - **反射**：关于一条直线对称
@@ -161,7 +161,7 @@ $$
 实对称矩阵的特征值都是实的。
 {% end %}
 
-设 $A\in \mathbb{R}^{n\times n}, A^\top=A$，有 $A\mathbf{v} = \lambda\mathbf{v}$，定义 $\mathbb{C}$ 上内积 $\langle x, y\rangle = y^\dagger x = \sum \overline{y_i}x_i$.
+设 $A\in \R^{n\times n}, A^\top=A$，有 $A\mathbf{v} = \lambda\mathbf{v}$，定义 $\Complex$ 上内积 $\langle x, y\rangle = y^\dagger x = \sum \overline{y_i}x_i$.
 
 则 $v^\dagger Av = \lambda \\|v\\|^2$，又 $(v^\dagger Av)^\dagger = v^\dagger Av$ 知它是实数，有 $\lambda$ 是实数。
 

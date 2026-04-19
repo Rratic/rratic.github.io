@@ -53,8 +53,8 @@ $$\frac{(\dot\gamma(s) \times \ddot\gamma(s)) \cdot \dddot\gamma(s))}{\lVert \do
 $$
 \frac{\mathrm{d}}{\mathrm{d}s} (\mathbf{t}, \mathbf{n}, \mathbf{b}) = (\mathbf{t}, \mathbf{n}, \mathbf{b})
 \begin{pmatrix}
-	0 & -\kappa & 0 \\\\
-	\kappa & 0 & -\tau \\\\
+	0 & -\kappa & 0 \cr
+	\kappa & 0 & -\tau \cr
 	0 & \tau & 0
 \end{pmatrix}
 $$
@@ -75,7 +75,7 @@ $$
 
 $$\varphi: U \to \mathbb{E}^3$$
 
-其中 $U \subseteq \mathbb{R}$ 中的点记作 $u = (s, t)$. 我们用下标 $s, t$ 分别表示对 $s, t$ 求偏导。
+其中 $U \subseteq \R$ 中的点记作 $u = (s, t)$. 我们用下标 $s, t$ 分别表示对 $s, t$ 求偏导。
 
 求面积即是：
 
@@ -100,8 +100,8 @@ $$\mathbf{n} = \frac{\phi_s \times \phi_t}{\lVert \phi_s \times \phi_t \rVert}$$
 
 $$
 \begin{cases}
-	L = \phi _{ss} \cdot \mathbf{n} = -\phi_s \cdot \mathbf{n} _s \\\\
-	M = \phi _{st} \cdot \mathbf{n} = -\phi_s \cdot \mathbf{n} _t = -\phi _t \cdot \mathbf{n} _s \\\\
+	L = \phi _{ss} \cdot \mathbf{n} = -\phi_s \cdot \mathbf{n} _s \cr
+	M = \phi _{st} \cdot \mathbf{n} = -\phi_s \cdot \mathbf{n} _t = -\phi _t \cdot \mathbf{n} _s \cr
 	N = \phi _{tt} \cdot \mathbf{n} = -\phi_t \cdot \mathbf{n} _t
 \end{cases}
 $$
@@ -142,7 +142,7 @@ $$\ddot\gamma = (\dot s^2 \phi_{ss} + 2\dot s \dot t \phi_{st} + \dot t^2 \phi_{
 
 $$
 \begin{aligned}
-\mathcal{G} \colon U & \to \mathbb{S}^2 \\\\
+\mathcal{G} \colon U & \to \mathbb{S}^2 \cr
     u & \mapsto \mathbf{n}(u)
 \end{aligned}
 $$
@@ -153,7 +153,7 @@ $$W(v) = -\frac{\mathrm{d}(\mathcal{G} \circ \gamma)}{\mathrm{d}r}\Big|_{r=0}$$
 
 取基 $\phi_s, \phi_t$, 有 $W(\phi_s) = -\mathbf{n}_s, W(\phi_t) = -\mathbf{n}_t$. 在基上的矩阵为：
 
-$$\begin{pmatrix} E & F \\\\ F & G \end{pmatrix}^{-1} \begin{pmatrix} L & M \\\\ M & N \end{pmatrix}$$
+$$\begin{pmatrix} E & F \cr F & G \end{pmatrix}^{-1} \begin{pmatrix} L & M \cr M & N \end{pmatrix}$$
 
 可见 $H = \frac{1}{2} \operatorname{tr} W, K = \det W$, 两个主曲率是其特征值，对应的特征线向为**主方向**。两个主方向是正交的。
 
@@ -162,7 +162,7 @@ $$\begin{pmatrix} E & F \\\\ F & G \end{pmatrix}^{-1} \begin{pmatrix} L & M \\\\
 ### 曲面论基本方程
 我们考虑：
 
-$$\begin{pmatrix} \phi_s \\\\ \phi_t \\\\ \mathbf{n} \end{pmatrix} \cdot \begin{pmatrix} \phi_s & \phi_t & \mathbf{n} \end{pmatrix} _{st} = \begin{pmatrix} \phi_s \\\\ \phi_t \\\\ \mathbf{n} \end{pmatrix} \cdot \begin{pmatrix} \phi_s & \phi_t & \mathbf{n} \end{pmatrix} _{ts}$$
+$$\begin{pmatrix} \phi_s \cr \phi_t \cr \mathbf{n} \end{pmatrix} \cdot \begin{pmatrix} \phi_s & \phi_t & \mathbf{n} \end{pmatrix} _{st} = \begin{pmatrix} \phi_s \cr \phi_t \cr \mathbf{n} \end{pmatrix} \cdot \begin{pmatrix} \phi_s & \phi_t & \mathbf{n} \end{pmatrix} _{ts}$$
 
 得到的矩阵首行中间列就是 Gauss 方程，前两行最右列就是 Codazzi 方程。
 
@@ -175,8 +175,8 @@ $$\begin{pmatrix} \phi_s \\\\ \phi_t \\\\ \mathbf{n} \end{pmatrix} \cdot \begin{
 计算非常琐碎，我们可以定义：
 
 $$
-P = \begin{pmatrix} \phi_s \\\\ \phi_t \\\\ \mathbf{n} \end{pmatrix} \cdot \begin{pmatrix} \phi_s & \phi_t & \mathbf{n} \end{pmatrix}
-= \begin{pmatrix} E & F & 0 \\\\ F & G & 0 \\\\ 0 & 0 & 1 \end{pmatrix}
+P = \begin{pmatrix} \phi_s \cr \phi_t \cr \mathbf{n} \end{pmatrix} \cdot \begin{pmatrix} \phi_s & \phi_t & \mathbf{n} \end{pmatrix}
+= \begin{pmatrix} E & F & 0 \cr F & G & 0 \cr 0 & 0 & 1 \end{pmatrix}
 $$
 
 $$\begin{pmatrix} \phi_s & \phi_t & \mathbf{n} \end{pmatrix}_s = \begin{pmatrix} \phi_s & \phi_t & \mathbf{n} \end{pmatrix} A$$
@@ -187,7 +187,7 @@ $$\begin{pmatrix} \phi_s & \phi_t & \mathbf{n} \end{pmatrix}_t = \begin{pmatrix}
 
 ### 曲面论基本定理
 {% admonition(type="theorem", title="曲面论基本定理") %}
-若 $D \subset \mathbb{R}^2$ 上 $g, h$ 相容（即满足 Gauss-Codazzi 方程），则实现的曲面片局部存在，且在刚体运动下唯一。
+若 $D \subset \R^2$ 上 $g, h$ 相容（即满足 Gauss-Codazzi 方程），则实现的曲面片局部存在，且在刚体运动下唯一。
 {% end %}
 
 使用一些 PDE 之类的东西。
@@ -199,7 +199,7 @@ $$\begin{pmatrix} \phi_s & \phi_t & \mathbf{n} \end{pmatrix}_t = \begin{pmatrix}
 
 $$
 J = \begin{pmatrix}
-	\frac{\partial s}{\partial \tilde{s}} & \frac{\partial s}{\partial \tilde{t}} \\\\
+	\frac{\partial s}{\partial \tilde{s}} & \frac{\partial s}{\partial \tilde{t}} \cr
 	\frac{\partial t}{\partial \tilde{s}} & \frac{\partial t}{\partial \tilde{t}}
 \end{pmatrix}
 $$
@@ -211,24 +211,24 @@ $\tau$ 保长当且仅当：
 
 $$
 J^\top \begin{pmatrix}
-	E \circ \tau & F \circ \tau \\\\
+	E \circ \tau & F \circ \tau \cr
 	F \circ \tau & G \circ \tau
 \end{pmatrix} J = \begin{pmatrix}
-	\tilde{E} & \tilde{F} \\\\
+	\tilde{E} & \tilde{F} \cr
 	\tilde{F} & \tilde{G}
 \end{pmatrix}
 $$
 {% end %}
 
 {% admonition(type="theorem", title="保角对应") %}
-$\tau$ 保角当且仅当存在恒正 $\rho: \tilde{U} \to \mathbb{R}$ 使得：
+$\tau$ 保角当且仅当存在恒正 $\rho: \tilde{U} \to \R$ 使得：
 
 $$
 J^\top \begin{pmatrix}
-	E \circ \tau & F \circ \tau \\\\
+	E \circ \tau & F \circ \tau \cr
 	F \circ \tau & G \circ \tau
 \end{pmatrix} J = \rho \cdot \begin{pmatrix}
-	\tilde{E} & \tilde{F} \\\\
+	\tilde{E} & \tilde{F} \cr
 	\tilde{F} & \tilde{G}
 \end{pmatrix}
 $$
@@ -280,7 +280,7 @@ $$1 + \gamma(0) \cdot \gamma''(0) + o(1) \leq 0$$
 $$\lVert \gamma''(0) \rVert \geq 1$$
 
 {% admonition(type="question", title="2023 P6") %}
-设 $\phi: \mathbb{R}^2 \to \mathbb{E}^3$ 是正则（浸入）参数曲面片，且假设 $\phi(s, t) = \phi(s+1, t) = \phi(s, t+1)$ 对所有 $(s, t) \in \mathbb{R}^2$ 成立。问：$\phi$ 的 Gauss 映射是否一定满射单位球面？加以论证。
+设 $\phi: \R^2 \to \mathbb{E}^3$ 是正则（浸入）参数曲面片，且假设 $\phi(s, t) = \phi(s+1, t) = \phi(s, t+1)$ 对所有 $(s, t) \in \R^2$ 成立。问：$\phi$ 的 Gauss 映射是否一定满射单位球面？加以论证。
 {% end %}
 
 否，例子大约是：

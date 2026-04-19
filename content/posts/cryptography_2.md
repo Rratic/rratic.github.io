@@ -238,15 +238,15 @@ Alice 解密过程为：
 
 现在介绍数域筛法的大致思路：
 
-我们先找到非零整数 $m$ 与首一的不可约整系数多项式 $f$ 满足 $f(m) \equiv 0 \pmod N$. 例如对 $N = 2^{2^9} + 1$ 考虑 $m = 2^{103}, f(x) = x^5 + 8$. 记 $\beta$ 是一个根，之后的工作将在 $\mathbb{Z}[\beta] \simeq \mathbb{Z}[x] / (f(x))$ 上进行。
+我们先找到非零整数 $m$ 与首一的不可约整系数多项式 $f$ 满足 $f(m) \equiv 0 \pmod N$. 例如对 $N = 2^{2^9} + 1$ 考虑 $m = 2^{103}, f(x) = x^5 + 8$. 记 $\beta$ 是一个根，之后的工作将在 $\Z[\beta] \simeq \Z[x] / (f(x))$ 上进行。
 
 接下来是希望找大量的整数对 $(a_1, b_1), \cdots, (a_k, b_k)$ 满足：
 
-$$\prod_{i=1}^k (a_i - b_im) = A^2,\quad \exists A \in \mathbb{Z}$$
+$$\prod_{i=1}^k (a_i - b_im) = A^2,\quad \exists A \in \Z$$
 
-$$\prod_{i=1}^k (a_i - b_i\beta) = \alpha^2,\quad \exists \alpha \in \mathbb{Z}[\beta]$$
+$$\prod_{i=1}^k (a_i - b_i\beta) = \alpha^2,\quad \exists \alpha \in \Z[\beta]$$
 
-设 $\alpha = c_0 + c_1\beta + \cdots c_{d-1}\beta^{d-1}$. 由于 $m \equiv \beta \pmod N$ 我们有 $A^2 \equiv \alpha^2 \pmod N$. 另一方面 $\alpha \equiv (B := c_0 + c_1m + \cdots c_{d-1}m^{d-1}) \pmod N$, $\gcd(A - B, N)$ 很有可能是非平凡因子。
+设 $\alpha = c_0 + c_1\beta + \cdots c_{d-1}\beta^{d-1}$. 由于 $m \equiv \beta \pmod N$ 我们有 $A^2 \equiv \alpha^2 \pmod N$. 另一方面 $\alpha \equiv (B \coloneqq c_0 + c_1m + \cdots c_{d-1}m^{d-1}) \pmod N$, $\gcd(A - B, N)$ 很有可能是非平凡因子。
 
 ---
 
@@ -274,8 +274,8 @@ $$i \equiv \sum_{l\leq B} u_l(i) \cdot \log_g(l) \pmod {p-1}$$
 
 $$
 \left(\frac{a}{p}\right) = \begin{cases}
-0 & p\mid a \\\\
-1 & a \equiv c^2 \pmod p \\\\
+0 & p\mid a \cr
+1 & a \equiv c^2 \pmod p \cr
 -1 & \text{else}
 \end{cases}
 $$
@@ -286,11 +286,11 @@ $$\left(\frac{a}{p_1^{e_1} \cdots p_t^{e_t}}\right) = \left(\frac{a}{p_1}\right)
 
 除基本性质外，对奇素数 $a, b$ 成立：
 
-$$\left(\frac{-1}{b}\right) = \begin{cases} 1 & b \equiv 1 \pmod 4 \\\\ -1 & b \equiv 3 \pmod 4 \end{cases}$$
+$$\left(\frac{-1}{b}\right) = \begin{cases} 1 & b \equiv 1 \pmod 4 \cr -1 & b \equiv 3 \pmod 4 \end{cases}$$
 
-$$\left(\frac{2}{b}\right) = \begin{cases} 1 & b \equiv 1, 7 \pmod 8 \\\\ -1 & b \equiv 3, 5 \pmod 8 \end{cases}$$
+$$\left(\frac{2}{b}\right) = \begin{cases} 1 & b \equiv 1, 7 \pmod 8 \cr -1 & b \equiv 3, 5 \pmod 8 \end{cases}$$
 
-$$\left(\frac{a}{b}\right)\left(\frac{b}{a}\right) = \begin{cases} 1 & \text{else} \\\\ -1 & a, b \equiv 3 \pmod 4 \end{cases}$$
+$$\left(\frac{a}{b}\right)\left(\frac{b}{a}\right) = \begin{cases} 1 & \text{else} \cr -1 & a, b \equiv 3 \pmod 4 \end{cases}$$
 
 这样一来我们可以对任意两整数使用辗转相除求值。
 
@@ -301,7 +301,7 @@ $$\left(\frac{a}{b}\right)\left(\frac{b}{a}\right) = \begin{cases} 1 & \text{els
 1. Alice 秘密地选取大素数 $p, q$ 及整数 $a$ 满足 $(\frac{a}{p}) = (\frac{a}{q}) = -1$
 2. Alice 公布 $N = pq$ 与 $a$
 
-Bob 对原文 $m \in \\{0, 1\\}$ 加密过程如下：
+Bob 对原文 $m \in \set{0, 1}$ 加密过程如下：
 1. 随机取 $1 < r < N$
 2. 若 $m = 0$ 计算 $c \equiv r^2 \pmod N$, 否则计算 $c \equiv ar^2 \pmod N$
 3. 将 $c$ 发给 Alice

@@ -28,7 +28,7 @@ tags = ["笔记", "数学", "代数", "线性代数"]
 {% admonition(type="question", title="2019 P1") %}
 考虑实线性空间：
 
-$$V = \\{f \in \mathbb{R}[x] | \deg (f) \leq 3\\}$$
+$$V = \set{f \in \R[x] | \deg (f) \leq 3}$$
 
 定义 $T_1, T_2 \in L(V)$ 为：
 
@@ -37,19 +37,19 @@ $$T_1(f) = \sum_{k=0}^3 f(k) (x-2019)^k,\ T_2(f) = \sum_{k=0}^3 (D^kf)(x-2020)^k
 求 $\det T_1$ 和 $\det T_2$.
 {% end %}
 
-对 $T_1$，取基 $\\{1, (x-2019), (x-2019)^2, (x-2019)^3\\}$，得到的是一个 Vandermonde 行列式，我们知道可化为 $\prod_{1 \leq i < j \leq n} (a_j - a_i)$.
+对 $T_1$，取基 $\set{1, (x-2019), (x-2019)^2, (x-2019)^3}$，得到的是一个 Vandermonde 行列式，我们知道可化为 $\prod_{1 \leq i < j \leq n} (a_j - a_i)$.
 
 $T_2$ 同理，得到对角矩阵。
 
 {% admonition(type="question", title="2019 P2") %}
-取定 $z \in \mathbb{C}$，有 $f, g \in \mathbb{Q}[x] \setminus \\{0\\}$ 满足 $f(z) = 0, g(z) \neq 0$，证：
+取定 $z \in \Complex$，有 $f, g \in \mathbb{Q}[x] \setminus \\{0\\}$ 满足 $f(z) = 0, g(z) \neq 0$，证：
 1. 存在 $h_1 \in \mathbb{Q}[x]$ 使 $h_1(z) = g(z)^{-1}$
 2. 存在 $h_2 \in \mathbb{Q}[x] \setminus \\{0\\}$ 使 $h_2(g(z)) = 0$
 {% end %}
 
 (1) 是因为可以对 $f$ 与 $g$ 作辗转相除，得到 $p(z)f(z) - q(z)g(z) = 1$.
 
-(2) 是因为设 $\deg f = n$，则 $\\{h(z) | h \in \mathbb{Q}[x]\\} \subset \mathbb{C}$ 作为 $\mathbb{Q}$-线性空间是至多 $n$ 维的，从而 $1, g(z), \cdots, [g(z)]^n$ 线性相关。
+(2) 是因为设 $\deg f = n$，则 $\set{h(z) | h \in \mathbb{Q}[x]} \subset \Complex$ 作为 $\mathbb{Q}$-线性空间是至多 $n$ 维的，从而 $1, g(z), \cdots, [g(z)]^n$ 线性相关。
 
 {% admonition(type="question", title="2019 P5") %}
 设 $V$ 有限维实线性空间，$W_1, \cdots, W_m \subset V$ 子空间，$\alpha_1, \cdots, \alpha_m \in V$，假设：
@@ -66,7 +66,7 @@ $$\dim W_i = \dim V - 1, \quad \bigcap_{i=1}^m W_i = \\{0\\}, \quad \alpha_i \no
 现在我们知道 $T^t(E) = E$，故存在某个 $(T^t|_E)^k = \mathrm{id}$.
 
 {% admonition(type="question", title="2020 P4") %}
-$A \in \mathbb{Z}^{n\times n}$ 满足 $|\det A| = 2$，证存在 $Z \in \mathbb{Z}^{n\times 1}$，使得对任意 $Y \in \mathbb{Z}^{n\times 1}$ 存在 $X \in \mathbb{Z}^{n\times 1}$ 使得 $AX - Y$ 为 $\mathbf{0}$ 或 $Z$.
+$A \in \Z^{n\times n}$ 满足 $|\det A| = 2$，证存在 $Z \in \Z^{n\times 1}$，使得对任意 $Y \in \Z^{n\times 1}$ 存在 $X \in \Z^{n\times 1}$ 使得 $AX - Y$ 为 $\mathbf{0}$ 或 $Z$.
 {% end %}
 
 对 $n$ 维整列向量称 $v \sim w$ 如果 $v - w$ 是 $A$ 乘以某个 $n$ 维整列向量的值。考虑将 $\det A$ 视作体积考虑格点，知只有两个等价类。但是这不容易严格说明。
@@ -78,7 +78,7 @@ $A \in \mathbb{Z}^{n\times n}$ 满足 $|\det A| = 2$，证存在 $Z \in \mathbb{
 此时 $AX = Y$ 有解即 $(PA)(QX) = PY$ 有解，易见。
 
 {% admonition(type="question", title="2022 P7") %}
-设 $V$ 为实线性空间 $\mathbb{R}^{2022}$，求正整数 $r$ 的最小值，使得存在 $L \in M^r(V)$，当 $T \in L(V)$ 满足 $L(T\alpha_1, \cdots, T\alpha_r) = L(\alpha_1, \cdots, \alpha_r)$ 时总有 $\det T = 1$.
+设 $V$ 为实线性空间 $\R^{2022}$，求正整数 $r$ 的最小值，使得存在 $L \in M^r(V)$，当 $T \in L(V)$ 满足 $L(T\alpha_1, \cdots, T\alpha_r) = L(\alpha_1, \cdots, \alpha_r)$ 时总有 $\det T = 1$.
 {% end %}
 
 $r = 1$ 时可强行分析。
@@ -92,15 +92,15 @@ $$\sum_{k=1}^n (T^t f_{2k-1}) \wedge (T^t f_{2k}) = \sum_{k=1}^n f_{2k-1} \wedge
 $$n! (T^t f_1)\wedge \cdots \wedge (T^t f_{2n}) = n! f_1\wedge \cdots \wedge f_{2n}$$
 
 {% admonition(type="question", title="2022 P8") %}
-考虑 $\mathbb{C}[x]$ 的子空间 $V = \mathrm{span}\\{x^{k^2} | k \in \\{0, 1, \cdots, 8\\}\\}$，求正整数 $n$ 的最小值，使得对 $\mathbb{C}$ 的任意 $n$ 元子集 $S$ 总存在 $z_1, \cdots, z_9 \in S$ 与 $f_1, \cdots, f_9 \in V$ 使得 $f_i(z_j) = \delta_{ij}$.
+考虑 $\Complex[x]$ 的子空间 $V = \mathrm{span}\set{x^{k^2} | k \in \set{0, 1, \cdots, 8}}$，求正整数 $n$ 的最小值，使得对 $\Complex$ 的任意 $n$ 元子集 $S$ 总存在 $z_1, \cdots, z_9 \in S$ 与 $f_1, \cdots, f_9 \in V$ 使得 $f_i(z_j) = \delta_{ij}$.
 {% end %}
 
-记 $L_z(f) = f(z)$，则对 $|S| = 65$ 有 $\bigcap_{z \in S} \ker(L_z) = \\{0\\}$，从而 $\mathrm{span}\\{L_z | z \in S\\} = V^\ast$，存在 $L_{z_1}, \cdots, L_{z_9}$ 为基。
+记 $L_z(f) = f(z)$，则对 $|S| = 65$ 有 $\bigcap_{z \in S} \ker(L_z) = \\{0\\}$，从而 $\mathrm{span}\set{L_z | z \in S} = V^\ast$，存在 $L_{z_1}, \cdots, L_{z_9}$ 为基。
 
 另一方面，取 $x^{64}-1$ 的根知 $|S| = 64$ 不行。
 
 {% admonition(type="question", title="2023 P1 (2)") %}
-设 $f_1, \cdots, f_4$ 是 $\mathbb{R}^4$ 的标准基的对偶基，线性映射 $T \in L(\mathbb{R}^4)$ 满足：
+设 $f_1, \cdots, f_4$ 是 $\R^4$ 的标准基的对偶基，线性映射 $T \in L(\R^4)$ 满足：
 
 $$(T^t f_1) \wedge (T^t f_2) + (T^t f_3) \wedge (T^t f_4) = f_1 \wedge f_3 + f_2 \wedge f_4$$
 
@@ -109,12 +109,12 @@ $$(T^t f_1) \wedge (T^t f_2) + (T^t f_3) \wedge (T^t f_4) = f_1 \wedge f_3 + f_2
 
 易见 $T$ 交换 $e_2, e_3$ 是一解。
 
-考虑自己 $\wedge$ 自己，取 $L = f_1 \wedge f_3 \wedge f_2 \wedge f_4 \in \Lambda^4(\mathbb{R}^4)$，直接使用 $\det$ 定义知 $\det T = -1$.
+考虑自己 $\wedge$ 自己，取 $L = f_1 \wedge f_3 \wedge f_2 \wedge f_4 \in \Lambda^4(\R^4)$，直接使用 $\det$ 定义知 $\det T = -1$.
 
 {% admonition(type="question", title="2023 P2") %}
-$n = 2024$，对复线性空间 $V = \mathbb{C}^n$，求最大整数 $r$ 使得对任意线性映射 $T: V \to V^\ast$，存在 $V$ 的基 $\alpha_1, \cdots, \alpha_n$ 使得：
+$n = 2024$，对复线性空间 $V = \Complex^n$，求最大整数 $r$ 使得对任意线性映射 $T: V \to V^\ast$，存在 $V$ 的基 $\alpha_1, \cdots, \alpha_n$ 使得：
 
-$$T(\alpha_i) \in \\{\alpha_{n-r+i}, \cdots, \alpha_n\\}^0, \quad i = 1, \cdots, r$$
+$$T(\alpha_i) \in \set{\alpha_{n-r+i}, \cdots, \alpha_n}^0, \quad i = 1, \cdots, r$$
 {% end %}
 
 将 $T$ 看成双线性形式，则易见 $r = 2024, 2023$ 不行。
@@ -133,7 +133,7 @@ $$T(\alpha_i) \in \\{\alpha_{n-r+i}, \cdots, \alpha_n\\}^0, \quad i = 1, \cdots,
 原题即证任意矩阵可通过合同变换变为主对角线上方略短对角线上方全为 $0$ 的矩阵。
 
 {% admonition(type="question", title="2023 P3") %}
-$n = 2024$，$\alpha = (x_1, \cdots, x_n) \in \mathbb{Z}^n$ 为非零向量且 $\gcd (x_1, \cdots, x_n) = 1$. 证存在含 $\alpha$ 的 $n$ 元集合 $S$ 通过整系数线性组合可以构成 $\mathbb{Z}^n$.
+$n = 2024$，$\alpha = (x_1, \cdots, x_n) \in \Z^n$ 为非零向量且 $\gcd (x_1, \cdots, x_n) = 1$. 证存在含 $\alpha$ 的 $n$ 元集合 $S$ 通过整系数线性组合可以构成 $\Z^n$.
 {% end %}
 
 一个自然的想法是归纳。
@@ -144,18 +144,18 @@ $n = 2024$，$\alpha = (x_1, \cdots, x_n) \in \mathbb{Z}^n$ 为非零向量且 $
 
 另一个想法是，结论等价于说构造一个第一行是 $x_1, \cdots, x_n$ 的行列式为 $\pm 1$ 的矩阵。
 
-假设我们现在有一个行列式非零的矩阵行列式有素因子 $p$，则 $F_p$ 下它是线性相关的，设有 $k_1v_1 + \cdots + k_mv_m = 0$，在 $\mathbb{Z}$ 下是 $k_1v_1 + \cdots + k_mv_m = pw$，现在将某个不是 $\alpha$ 的 $v_i$ 换成 $w$，行列式将减小。
+假设我们现在有一个行列式非零的矩阵行列式有素因子 $p$，则 $F_p$ 下它是线性相关的，设有 $k_1v_1 + \cdots + k_mv_m = 0$，在 $\Z$ 下是 $k_1v_1 + \cdots + k_mv_m = pw$，现在将某个不是 $\alpha$ 的 $v_i$ 换成 $w$，行列式将减小。
 
 ---
 
 从 Bézout 定理的形式衍生出的一种想法是：
 
-令 $\Omega = \\{A \in \mathbb{Z}^{n\times n} | \det A = \pm 1\\}$，则 $A^{-1} \in \mathbb{Z}$（我们回顾伴随矩阵 $\operatorname{adj} A$ 定义为 $(\operatorname{adj} A) _{ij} = (-1)^{i+j} M _{ji}$，满足 $A^{-1} = \frac{\operatorname{adj} A}{\det A}$）。
+令 $\Omega = \set{A \in \Z^{n\times n} | \det A = \pm 1}$，则 $A^{-1} \in \Z$（我们回顾伴随矩阵 $\operatorname{adj} A$ 定义为 $(\operatorname{adj} A) _{ij} = (-1)^{i+j} M _{ji}$，满足 $A^{-1} = \frac{\operatorname{adj} A}{\det A}$）。
 
 现在证存在 $A \in \Omega$ 使得 $\alpha A = e_1$. 考虑 $\alpha A$ 各分量出现的最小正整数值，设为 $d$. 我们可以让某个 $\beta = \alpha A$ 的第一个分量为 $d$，其余分量在 $0$ 到 $d-1$ 间，由最小性 $\beta = de_1$，现在易知 $d=1$.
 
 {% admonition(type="question", title="2023 P4") %}
-矩阵 $A \in \mathbb{R}^{5\times 5}$，$A^2$ 是对角线均为 $1$ 的上三角矩阵，且：
+矩阵 $A \in \R^{5\times 5}$，$A^2$ 是对角线均为 $1$ 的上三角矩阵，且：
 
 $$a_{11}=a_{12}=a_{21}=a_{55}=0 \quad a_{13}=a_{31}=a_{45}=a_{54}=1$$
 
@@ -166,17 +166,17 @@ $$a_{11}=a_{12}=a_{21}=a_{55}=0 \quad a_{13}=a_{31}=a_{45}=a_{54}=1$$
 
 $$
 \begin{pmatrix}
-1 & 0 & 0 & 0 & 0 \\\\
-0 & 1 & 0 & 0 & 0 \\\\
-0 & 0 & 1 & 0 & 0 \\\\
-a_{41} & a_{42} & a_{43} & a_{44} & 1 \\\\
+1 & 0 & 0 & 0 & 0 \cr
+0 & 1 & 0 & 0 & 0 \cr
+0 & 0 & 1 & 0 & 0 \cr
+a_{41} & a_{42} & a_{43} & a_{44} & 1 \cr
 a_{51} & a_{52} & a_{53} & 1 & 0
 \end{pmatrix} A =
 \begin{pmatrix}
-0 & 0 & 1 & a_{14} & a_{15} \\\\
-0 & a_{22} & a_{23} & a_{24} & a_{25} \\\\
-1 & a_{32} & a_{33} & a_{34} & a_{35} \\\\
-0 & 0 & 0 & 1 & \ast \\\\
+0 & 0 & 1 & a_{14} & a_{15} \cr
+0 & a_{22} & a_{23} & a_{24} & a_{25} \cr
+1 & a_{32} & a_{33} & a_{34} & a_{35} \cr
+0 & 0 & 0 & 1 & \ast \cr
 0 & 0 & 0 & 0 & 1
 \end{pmatrix}
 $$
@@ -186,7 +186,7 @@ $$
 事后来看配一个几乎是下三角矩阵的东西是有道理的，但此题还是太难。
 
 {% admonition(type="question", title="2024 P4") %}
-$n = 2024$，任意域 $F$，令 $V = \\{h \in F[x] | \deg h < n \\}$，设 $f, g$ 为首一 $n$ 次多项式，$T_1(h)$ 是 $fh$ 除以 $g$ 的余式，$T_2(h)$ 是 $gh$ 除以 $f$ 的余式。证：$\det T_1 = \det T_2$.
+$n = 2024$，任意域 $F$，令 $V = \set{h \in F[x] | \deg h < n}$，设 $f, g$ 为首一 $n$ 次多项式，$T_1(h)$ 是 $fh$ 除以 $g$ 的余式，$T_2(h)$ 是 $gh$ 除以 $f$ 的余式。证：$\det T_1 = \det T_2$.
 {% end %}
 
 考虑 $F$ 的代数闭包 $\bar{F}$，分解 $f(x) = (x-\alpha_1)\cdots(x-\alpha_n), g(x) = (x-\beta_1)\cdots(x-\beta_n)$.
@@ -224,7 +224,7 @@ $n = 2024$，任意域 $F$，令 $V = \\{h \in F[x] | \deg h < n \\}$，设 $f, 
 
 对 $V = V_1 \oplus V_2$，分析 $U \subseteq V$ 与它们的“相对位置关系”：
 
-设 $\Omega = \\{U_1 \oplus U_2 | U_1 \subseteq V_1, U_2 \subseteq V_2\\}$. 则其中包含于 $U$ 的最大者 $(U\cap V_1) \oplus (U\cap V_2)$，包含 $U$ 的最小者 $((U+V_2)\cap V_1) \oplus ((U+V_1)\cap V_2) = (U+V_1) \cap (U+V_2)$.
+设 $\Omega = \set{U_1 \oplus U_2 | U_1 \subseteq V_1, U_2 \subseteq V_2}$. 则其中包含于 $U$ 的最大者 $(U\cap V_1) \oplus (U\cap V_2)$，包含 $U$ 的最小者 $((U+V_2)\cap V_1) \oplus ((U+V_1)\cap V_2) = (U+V_1) \cap (U+V_2)$.
 
 实际上存在：
 
@@ -248,7 +248,7 @@ $n = 2024$，任意域 $F$，令 $V = \\{h \in F[x] | \deg h < n \\}$，设 $f, 
 - 分块运算，本质是直和分解
 - 多项式 $f(A), g(A)$ 可交换，甚至可以定义指数运算 $e^x = 1 + x + \frac{1}{2!}x^2 + \frac{1}{3!}x^3 + \cdots$
 
-例如，对二阶矩阵 $A = \begin{pmatrix} a & b \\\\ c & d \end{pmatrix}$ 有 $A^2 - (a+d)A + (ad-bc)I_2 = 0$，求 $f(A)$ 时只需先作带余除法。
+例如，对二阶矩阵 $A = \begin{pmatrix} a & b \cr c & d \end{pmatrix}$ 有 $A^2 - (a+d)A + (ad-bc)I_2 = 0$，求 $f(A)$ 时只需先作带余除法。
 
 幂零阵 $A^n = 0$ 可以用于计算 $(I+A)^m$.
 
@@ -256,10 +256,10 @@ $n = 2024$，任意域 $F$，令 $V = \\{h \in F[x] | \deg h < n \\}$，设 $f, 
 
 $$
 A = \begin{pmatrix}
-0 & & & & -a_0 \\\\
-1 & 0 & & & -a_1 \\\\
-& \ddots & \ddots & & \cdots \\\\
-& & 1 & 0 & -a_{n-2} \\\\
+0 & & & & -a_0 \cr
+1 & 0 & & & -a_1 \cr
+& \ddots & \ddots & & \cdots \cr
+& & 1 & 0 & -a_{n-2} \cr
 & & & 1 & -a_{n-1}
 \end{pmatrix}
 $$
@@ -272,19 +272,19 @@ $$(I - BA)^{-1} = I + B(I-AB)^{-1}A$$
 
 $$
 \begin{pmatrix}
-I & \\\\
+I & \cr
 -CA^{-1} & I
 \end{pmatrix}
 \begin{pmatrix}
-A & B \\\\
+A & B \cr
 C & D
 \end{pmatrix}
 \begin{pmatrix}
-I & -A^{-1}B \\\\
+I & -A^{-1}B \cr
 & I
 \end{pmatrix} =
 \begin{pmatrix}
-A & O \\\\
+A & O \cr
 O & D-CA^{-1}B
 \end{pmatrix}
 $$
@@ -294,14 +294,14 @@ $$
 $$
 A =
 P \begin{pmatrix}
-I_r & \\\\
+I_r & \cr
 & O
 \end{pmatrix} Q
 $$
 
 对复矩阵存在更细致的广义逆 Moore-Penrose 广义逆。
 
-简单考察了 $\mathrm{SL}(2, \mathbb{Z})$.
+简单考察了 $\mathrm{SL}(2, \Z)$.
 
 ---
 
@@ -373,17 +373,17 @@ $$\sum_{\sigma\in\Omega} \operatorname{sgn}(\sigma) a_{\sigma(1)\sigma(2)}a_{\si
 还是炸了。填空题没什么可说的，第三题错估了条件的强度做了太久。
 
 {% admonition(type="question", title="2025 P1 (3)") %}
-记 $\Lambda_d = \\{(x, y, z) \in \mathbb{Z}^3 \mid x+y+z \equiv 0 \pmod d\\}$，求数集 $\\{\det T | T \in L(\mathbb{R}^3), T(\Lambda_3) \subseteq \Lambda_5\\}$.
+记 $\Lambda_d = \set{(x, y, z) \in \Z^3 | x+y+z \equiv 0 \pmod d}$，求数集 $\set{\det T | T \in L(\R^3), T(\Lambda_3) \subseteq \Lambda_5}$.
 {% end %}
 
-是 $\frac{5}{3} \mathbb{Z}$. 因为可以 $(x, y, z) \to (x, y, x+y+z)$ 然后 $(x, y, 3k) \to (x, y, 5k)$ 然后 $(x, y, t) \to (x, 4x+y, 4y+t)$.
+是 $\frac{5}{3} \Z$. 因为可以 $(x, y, z) \to (x, y, x+y+z)$ 然后 $(x, y, 3k) \to (x, y, 5k)$ 然后 $(x, y, t) \to (x, 4x+y, 4y+t)$.
 
 {% admonition(type="question", title="2025 P4") %}
-复矩阵 $A \in \mathbb{C}^{2n\times 2n}$ 满足 $A^2 = -3I_{2n}$，将它表示为分块矩阵（$A_{ij} \in \mathbb{C}^{n\times n}$）：
+复矩阵 $A \in \Complex^{2n\times 2n}$ 满足 $A^2 = -3I_{2n}$，将它表示为分块矩阵（$A_{ij} \in \Complex^{n\times n}$）：
 
 $$
 A = \begin{pmatrix}
-A_{11} & A_{12} \\\\
+A_{11} & A_{12} \cr
 A_{21} & A_{22}
 \end{pmatrix}
 $$
@@ -399,11 +399,11 @@ $$\det (I_n + A_{11})^3 = \det (I_n - A_{22})^3$$
 
 $$
 (I_{2n}+A) \begin{pmatrix}
-I_n & -A_{12} \\\\
+I_n & -A_{12} \cr
 0 & I_n-A_{22}
 \end{pmatrix} =
 \begin{pmatrix}
-I_n + A_{11} & 0 \\\\
+I_n + A_{11} & 0 \cr
 A_{21} & 4I_n
 \end{pmatrix}
 $$

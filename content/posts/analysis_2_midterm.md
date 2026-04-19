@@ -150,7 +150,7 @@ $$\frac{\pi}{2} = \prod_{n=1}^\infty \left(\frac{2n}{2n-1} \cdot \frac{2n}{2n+1}
 
 $$
 f(x) = \begin{cases}
-	\sin \frac{1}{x} & x \neq 0 \\\\
+	\sin \frac{1}{x} & x \neq 0 \cr
 	0 & x = 0
 \end{cases}
 $$
@@ -401,10 +401,10 @@ Leibniz 判别法从略。Dirichlet 与 Abel 判别法类似无穷积分的结�
 
 $$
 \begin{cases}
-p<0 & \text{发散} \\\\
-p=0 & \begin{cases} q\leq 0 & \text{发散} \\\\ q>0 & \text{条件收敛} \end{cases} \\\\
-0<p<1 & \text{条件收敛} \\\\
-p=1 & \begin{cases} q\leq 1 & \text{条件收敛} \\\\ q>1 & \text{绝对收敛} \end{cases} \\\\
+p<0 & \text{发散} \cr
+p=0 & \begin{cases} q\leq 0 & \text{发散} \cr q>0 & \text{条件收敛} \end{cases} \cr
+0<p<1 & \text{条件收敛} \cr
+p=1 & \begin{cases} q\leq 1 & \text{条件收敛} \cr q>1 & \text{绝对收敛} \end{cases} \cr
 p>1 & \text{绝对收敛}
 \end{cases}
 $$
@@ -463,6 +463,6 @@ $$\lim C_n = \lim (C_1 + \cdots + C_n) / n = \lim (A_1B_n + \cdots A_nB_1) / n =
 对 (2) 考虑 $\ln (1 + x) = x - \frac{1}{2} x^2 + o(x^2)$, 一个想法是：
 
 $$
-a_{2n} = \frac{1}{n^\alpha} + o\left(\frac{1}{n^{2\alpha}}\right) \\\\
+a_{2n} = \frac{1}{n^\alpha} + o\left(\frac{1}{n^{2\alpha}}\right) \cr
 a_{2n+1} = -\frac{1}{n^\alpha} + \frac{1}{n^{2\alpha}} + o\left(\frac{1}{n^{2\alpha}}\right)
 $$

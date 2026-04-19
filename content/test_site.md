@@ -1,7 +1,7 @@
 +++
 title = "功能测试"
 date = 1900-01-01
-updated = 2025-04-20
+updated = 2026-04-19
 
 [extra]
 math = true
@@ -188,22 +188,23 @@ impl SerializeWithRegistry for ComponentTypeLink {
 </p>
 
 ## KaTeX
-$\mathbb{R}^{1,3} \rtimes \operatorname{SO}(1,3)$
+$\R^{1,3} \rtimes \operatorname{SO}(1,3)$ 是一个 $\set{A_n}$ 的 $\cancel{\boxed{~}}$.
 
 $$
 \begin{Vmatrix}
-   a & b \\\\
+   a & b \cr
    c & d
 \end{Vmatrix}
 $$
 
 $$
 \begin{CD}
-   A @>a>> B \\\\
-@VbVV @AAcA \\\\
+   A @>a>> B \cr
+   @VbVV @AAcA \cr
    C @= D
 \end{CD}
 $$
+
 ## Shortcodes
 {% mermaid() %}
 graph LR;

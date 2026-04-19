@@ -81,11 +81,11 @@ $$\oplus/ \cdot \otimes/\ast \cdot \operatorname{tails} = \odot \rightarrow\\!\\
 
 $$
 \begin{align*} 
-& \mathrm{mss} \\\\
-= & \uparrow/ \cdot +/\ast \cdot \operatorname{segs} \\\\
-= & \uparrow/ \cdot +/\ast \cdot +\\!\\!+ / \cdot \mathrm{tails} \ast \cdot \operatorname{inits} \\\\
-= & \uparrow/ \cdot (\uparrow/ \cdot +/\ast \cdot \operatorname{tails})\ast \cdot \operatorname{inits} \\\\
-= & \uparrow/ \cdot \odot \rightarrow\\!\\!\\!\\!\\!\\!/ _{\ 0} \ast \cdot \operatorname{inits} \\\\
+& \mathrm{mss} \cr
+= & \uparrow/ \cdot +/\ast \cdot \operatorname{segs} \cr
+= & \uparrow/ \cdot +/\ast \cdot +\\!\\!+ / \cdot \mathrm{tails} \ast \cdot \operatorname{inits} \cr
+= & \uparrow/ \cdot (\uparrow/ \cdot +/\ast \cdot \operatorname{tails})\ast \cdot \operatorname{inits} \cr
+= & \uparrow/ \cdot \odot \rightarrow\\!\\!\\!\\!\\!\\!/ _{\ 0} \ast \cdot \operatorname{inits} \cr
 = & \uparrow/ \cdot \odot \rightarrow\\!\\!\\!\\!\\!\\!\\!/\\!\\!/ _{\ 0}
 \end{align*}
 $$
@@ -160,11 +160,11 @@ $$p\triangleleft = +\\!\\!+/ \cdot (p \to [\mathrm{id}]^o, []^o)\ast$$
 
 $$
 \begin{align*} 
-& \mathrm{lsp} \\\\
-= & \uparrow _{\\#}/ \cdot (\mathrm{all}\ p)\triangleleft \cdot \operatorname{segs} \\\\
-= & \uparrow _{\\#}/ \cdot (\uparrow _{\\#}/ \cdot (\mathrm{all}\ p)\triangleleft \cdot \operatorname{tails})\ast \cdot \operatorname{inits} \\\\
-= & \uparrow _{\\#}/ \cdot (\uparrow _{\\#}/ \cdot (+\\!\\!+/ \cdot (p \to [\mathrm{id}]^o, K\ \omega)\ast) \ast \cdot \operatorname{tails})\ast \cdot \operatorname{inits} \\\\
-= & \uparrow _{\\#}/ \cdot \odot \rightarrow\\!\\!\\!\\!\\!\\!/ _{\ []}\ast \cdot \operatorname{inits} \\\\
+& \mathrm{lsp} \cr
+= & \uparrow _{\\#}/ \cdot (\mathrm{all}\ p)\triangleleft \cdot \operatorname{segs} \cr
+= & \uparrow _{\\#}/ \cdot (\uparrow _{\\#}/ \cdot (\mathrm{all}\ p)\triangleleft \cdot \operatorname{tails})\ast \cdot \operatorname{inits} \cr
+= & \uparrow _{\\#}/ \cdot (\uparrow _{\\#}/ \cdot (+\\!\\!+/ \cdot (p \to [\mathrm{id}]^o, K\ \omega)\ast) \ast \cdot \operatorname{tails})\ast \cdot \operatorname{inits} \cr
+= & \uparrow _{\\#}/ \cdot \odot \rightarrow\\!\\!\\!\\!\\!\\!/ _{\ []}\ast \cdot \operatorname{inits} \cr
 = & \uparrow _{\\#}/ \cdot \odot \rightarrow\\!\\!\\!\\!\\!\\!\\!/\\!\\!/ _{\ []}
 \end{align*} 
 $$

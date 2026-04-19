@@ -155,7 +155,7 @@ $$\bigcup\limits_{n=1}^{+\infty} A_n\in\mathfrak{F}$$
 
 则称 $\mathfrak{F}$ 为 $\Omega$ 上的 σ-代数。
 
-$\mathfrak{F}$ 上的概率 $P: 2^\Omega\to \mathbb{R}$ 满足
+$\mathfrak{F}$ 上的概率 $P: 2^\Omega\to \R$ 满足
 1. 非负：$P(A)\geq 0$
 2. 规范性：$P(\Omega)=1$
 3. 可列可加性：对 $\\{A_n\\}_{n\geq 1}$ 两两不交
@@ -270,7 +270,7 @@ $$P(N|DI) = P(N|I) \frac{P(D|NI)}{P(D|I)}$$
 
 $$
 P(N|DI) = \begin{cases}
-k \cdot P(N|I) & \text{ if } N \geq n\\\\
+k \cdot P(N|I) & \text{ if } N \geq n\cr
 0 & \text{ else}
 \end{cases}
 $$
