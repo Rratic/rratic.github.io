@@ -86,7 +86,7 @@ $$\iint_R \lVert \phi_s(u) \times \phi_t(u) \rVert \mathrm{d}s\mathrm{d}t$$
 
 $$g = E\mathrm{d}s^2 + 2F\mathrm{d}s\mathrm{d}t + G\mathrm{d}t^2$$
 
-这是一个内禀量，代表曲面作为二维黎曼流形的全部度量信息。
+这是一个内禀量，给出了每一点处切空间上的内积，从而代表了曲面作为二维黎曼流形的全部度量信息。
 
 正交参数是指 $F = 0$, 等温参数是指正交且 $E = G$.
 

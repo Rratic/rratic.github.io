@@ -122,9 +122,13 @@ $$p_{T_{V/W_{k-1}}} \mid p_T$$
 $F$ 代数闭域，其上 $\mathcal{F} \subseteq L(V)$ 中的映射两两交换，则 $\mathcal{F}$ 可同时三角化。
 {% end %}
 
-不妨设 $\mathcal{F}$ 有限，对 $\mathcal{F}$ 归纳。
+只需证在该条件下存在公共特征向量。不妨设 $\mathcal{F}$ 有限（取 $\operatorname{span} \mathcal{F}$ 的基）对 $\mathcal{F}$ 归纳。
 
-{{ todo() }}
+设已对 $T_1 \cdots T_{k-1}$ 有 $T_i \alpha = c_i \alpha$. 即：
+
+$$\alpha \in \bigcap_{i=1}^{k-1} \ker (T_i - c_iI)$$
+
+设右侧集合 $W$, 由交换知 $W$ 是 $T_k$-不变的。由代数闭，可取 $T_k|_W$ 的特征向量合题。
 
 ## 准素循环分解
 ### $T$-不变分解
@@ -173,9 +177,13 @@ $$R_\alpha = \set{f\alpha | f \in R}$$
 存在 $\alpha$ 使得 $p_\alpha = p_T$.
 {% end %}
 
+$F$ 为无限域时，易知以下集合非空（由去掉的均低一维）：
+
 $$\set{\alpha | p_\alpha = p_T} = V \setminus \bigcup_{i=1}^k \ker f_i(T)$$
 
-{{ todo() }}
+对一般的 $F$, 对 $T$ 进行准素分解分别取出 $p_{\alpha_i} = (x-c_i)^{r_i}$. 然后令 $\alpha = \sum \alpha_i$.
+
+---
 
 易见 $T$ 循环当且仅当 $p_T = f_T$, 且在基 $\set{\alpha, T\alpha, \cdots, T^{n-1}\alpha}$ 下是多项式 $f_T$ 的友阵：
 
@@ -199,7 +207,39 @@ $$p_r \mid \cdots \mid p_1$$
 这些不变因子的数量与内容被 $T$ 决定，且 $p_T = p_1, f_T = p_1 \cdots p_r$.
 {% end %}
 
-{{ todo() }}
+先证一个引理：设 $\alpha$ 满足 $p_\alpha = p_T$ 则对任意 $L \in V/R\alpha$ 存在 $\beta \in L$ 使得 $fL = \bar{0} \implies f\beta = 0$.
+
+取 $\beta_0 \in L$, 则 $p_L\beta_0 = f\alpha$. 从而：
+
+$$\boxed{\left(\frac{p_T}{p_L}\right)f}\alpha = \left(\frac{p_T}{p_L}\right)(p_L\beta_0) = 0$$
+
+故 $p_L \mid f$. 设 $f = p_Lh$ 则 $\beta = \beta_0 - h\alpha$ 合题。
+
+---
+
+现在证存在性，对 $\dim V$ 归纳。取 $\alpha_1$ 使得 $p_{\alpha_1} = p_T$. 然后由归纳假设知存在：
+
+$$V/R\alpha_1 = \bigoplus_{i=2}^r RL_i$$
+
+$$p_{L_r} \mid \cdots \mid p_{L_2}$$
+
+由引理知可在 $L_i$ 中找到 $\alpha_i$ 使得 $p_{\alpha_i} = p_{L_i}$. 又见：
+
+$$V = \bigoplus_{i=1}^r R\alpha_i$$
+
+---
+
+再证唯一性。假设存在不同的：
+
+$$V = \boxed{\bigoplus_{i=1}^r R\alpha_i = \bigoplus_{i=1}^s R\beta_i}$$
+
+设 $p_i = p_{\alpha_i}, q_i = p_{\beta_i}$. 取最小的使 $p_t \neq q_t$ 的 $t$. 在 $\boxed{~}$ 两边同乘 $p_t$.
+
+在 $i < t$ 时，有：
+
+$$\dim Rp_t\alpha_i = \deg \left(\frac{p_i}{p_t}\right) = \dim Rp_t\beta_i$$
+
+而 $i \geq t$ 时 $p_t\alpha_i = 0$, 故 $p_t\beta_i = 0$, 从而 $q_t \mid p_t$. 同理对称得到 $p_t \mid q_t$ 知矛盾。
 
 {% admonition(type="definition", title="有理标准型") %}
 使用循环分解，将友阵沿着对角线排出的就是有理标准型（从上到下编号 $1 \cdots r$ 要求 $p_r \mid \cdots \mid p_1$）。
@@ -317,7 +357,21 @@ $$f \equiv c_i \pmod {q_i}$$
 实际上 $T$ 半单等价于 $p_T$ 无平方因式；$T$ 单纯等价于 $f_T$ 为素多项式。
 
 ### 小结论
-{{ todo() }}
+据说这个结论之后不会再考，因此不在本文涉及往年题中包含。
+
+{% admonition(type="theorem", title="结论") %}
+若 $T$ 不变因子个数 $r$, 则 $V$ 作为 $F[x]$-模至少由 $r$ 个元素生成。
+{% end %}
+
+考察其对偶形式。转化为命题：若子空间 $W$ 维数满足 $\dim W \geq n - r + 1$ 则其中存在非零 $T$-不变子空间 $Z$.
+
+设 $V = \bigoplus R\alpha_i$ 并设 $p_{\alpha_r}$ 有素因式 $p$ 则：
+
+$$\dim \ker p(T) = \dim \bigoplus (R\alpha_i) \cap \ker (p(T)) = \dim \bigoplus \ker p(T)|_{R\alpha_i} = r\deg p$$
+
+设 $W' = V' \cap W$ 有 $\dim W' \geq \dim V' - (r-1)$. 又有原像 $\dim T^{-k}(W') \geq \dim W'$. 从而：
+
+$$\dim \left(\bigcap_{k=0}^{\deg p - 1} T^{-k}(W')\right) \geq \dim V' - (r-1)\deg P = \deg P > 0$$
 
 ## 往年题
 {% admonition(type="question", title="2017 P4") %}
@@ -334,6 +388,16 @@ $T, U \in L(V)$ 不可逆，并且 $TU$ 可对角化，证明 $(UT)^2$ 可对角
 
 $$(xg)(UT) = UTg(UT) = Ug(TU)T = 0$$
 
+{% admonition(type="question", title="2017 P6") %}
+设 $V$ 是 $n$ 维复线性空间，$T, U \in L(V)$ 满足 $\operatorname{rank}(TU - UT) = 1$. 证明存在 $V$ 的有序基 $\mathcal{B}$ 使得 $[T]_\mathcal{B}$ 和 $[U]_\mathcal{B}$ 同时为上三角矩阵。
+{% end %}
+
+仿照同时三角化的证明。
+
+容易分析得 $\ker T-cI$ 与 $\operatorname{Im} T-cI$ 之一 $U$-不变。
+
+假设最长的旗不是全旗，则存在 $\dim W_i/W_{i-1}$. 限制在 $W_i/W_{i-1}$ 上使用结论即得矛盾。
+
 {% admonition(type="question", title="2022 P2") %}
 对 $A \in \Complex^{2022\times 2022}$ 中至多十个非零矩阵元，求其最小多项式的最大次数。
 {% end %}
@@ -343,6 +407,16 @@ $$(xg)(UT) = UTg(UT) = Ug(TU)T = 0$$
 $$p_T \mid xf_{T_{V/W}}$$
 
 而 $\deg f_{T_{V/W}} = \dim V/W \leq 10$. 故 $\deg p_T \leq 11$.
+
+{% admonition(type="question", title="2022 P3") %}
+$V$ 为有限维 $F$-线性空间，对于 $V$ 的 $T$-不变子空间 $W$, 证明下面两个条件等价：
+1. 存在唯一的 $T$-不变子空间 $Z$ 使得 $V = W \oplus Z$
+2. $T_W$ 的特征多项式与 $T_{V/W}$ 的特征多项式互素
+{% end %}
+
+假设 (1) 成立但 (2) 不成立，设素多项式 $p$ 为 $f_{T_W}$ 与 $f_{T_Z}$ 公因式，作准素分解 $W = W_0 \oplus R\alpha, Z = Z_0 \oplus R\beta$. 设 $p_\alpha = p^r, p_\beta = p^s$. 考察 $\gamma = \beta + p^{r-1}\alpha$ 就有 $V = W \oplus (Z_0 \oplus R\gamma)$.
+
+(2) 成立时 $p_{T_W}$ 与 $f_{T_{V/W}}$ 互素。可证 $W = \ker p_{T_W}(T)$ 且 $Z = \ker p_{T_{V/W}}(T)$ 是不变补空间，且是唯一的。
 
 {% admonition(type="question", title="2023 P2") %}
 设 $n$ 为正整数，对于 $A \in \Complex^{n\times n}$ 证明以下两个条件等价：
