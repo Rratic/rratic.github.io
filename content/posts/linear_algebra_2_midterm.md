@@ -1,6 +1,6 @@
 +++
 title = "高等代数Ⅱ期中复习笔记"
-draft = true
+date = 2026-04-20
 
 [extra]
 math = true
@@ -86,6 +86,8 @@ $V$ 的子空间 $W$ 是 $T$-不变的，如果 $T(W) \subseteq W$. 并不总是
 $$f_T = f_{T_W} \cdot f_{T_{V/W}}$$
 
 $$\operatorname{lcm}(p_{T_W}, p_{T_{V/W}}) \mid p_T \mid p_{T_W} \cdot p_{T_{V/W}}$$
+
+这可以直接用于解决 2024 P3 (2).
 
 {% admonition(type="theorem", title="可同时对角化") %}
 $T, U$ 可同时对角化当且仅当它们分别可对角化且交换。
@@ -278,6 +280,16 @@ $$
 
 当 $f_T$ 为一次式之积时可由准素循环分解写出 Jordan 标准型。
 
+---
+
+这里我们采取的是把 $1$ 写在对角线下方而不是上方，因为希望有 $C_{x^n} = J_n(0)$.
+
+对 $p_T = \prod (x-c_i)^{r_i}$, 有：
+
+$$W_i = \ker [(T - c_i \cdot I)^{r_i}] = \ker [(T - c_i \cdot I)^n]$$
+
+称为**广义特征子空间/根子空间**。
+
 {% admonition(type="theorem", title="Jordan 分解") %}
 若 $V$ 是代数闭的域 $F$ 上的线性空间，则对 $T \in L(V)$ 存在唯一 $D, N \in L(V)$ 使得 $T = D + N$, 其中 $D$ 可对角化，$N$ 幂零且 $D, N$ 可交换。
 {% end %}
@@ -306,3 +318,94 @@ $$f \equiv c_i \pmod {q_i}$$
 
 ### 小结论
 {{ todo() }}
+
+## 往年题
+{% admonition(type="question", title="2017 P4") %}
+设 $\operatorname{char} F = 0$, $A \in F^{n\times n}$ 的特征多项式为 $(x - 1)^n$. 证明对任意正整数 $k$, $A^k$ 与 $A$ 相似。
+{% end %}
+
+不妨设 $A$ 循环，有 $p_A = (x - 1)^n$ 从而 $p_{A^k} = (x - 1)^n = f_{A^k}$.
+
+{% admonition(type="question", title="2017 P5") %}
+$T, U \in L(V)$ 不可逆，并且 $TU$ 可对角化，证明 $(UT)^2$ 可对角化。
+{% end %}
+
+设 $TU$ 有极小多项式 $p$ 为一次式之积，则存在零化多项式 $g = x (x^2 - c_1^2) \cdots (x^2 - c_r^2)$. 有：
+
+$$(xg)(UT) = UTg(UT) = Ug(TU)T = 0$$
+
+{% admonition(type="question", title="2022 P2") %}
+对 $A \in \Complex^{2022\times 2022}$ 中至多十个非零矩阵元，求其最小多项式的最大次数。
+{% end %}
+
+易见 $11$ 可以取到，再证至多 $11$. 设 $T = L_A, W = \ker A$ 有 $p_{T_W} = x$, 则：
+
+$$p_T \mid xf_{T_{V/W}}$$
+
+而 $\deg f_{T_{V/W}} = \dim V/W \leq 10$. 故 $\deg p_T \leq 11$.
+
+{% admonition(type="question", title="2023 P2") %}
+设 $n$ 为正整数，对于 $A \in \Complex^{n\times n}$ 证明以下两个条件等价：
+1. $A$ 可对角化
+2. 对任意非纯量多项式 $f \in \Complex[x]$ 存在 $B \in \Complex^{n\times n}$ 使得 $f(B) = A$
+{% end %}
+
+我们证 (2) 推 (1). 取 $\lambda$ 为 $A$ 的特征值，考虑 $B^n = A - \lambda I$. 考虑 $B$ 的 Jordan 标准型中 $0$ 对应的 Jordan 块，$n$ 次后会变为 $0$. 从而 $A$ 对应部分只有对角线上有 $\lambda$, 对应代数重数等于几何重数。
+
+{% admonition(type="question", title="2023 P3") %}
+设 $F$ 为任意域，$V$ 为有限维非零 $F$-线性空间。对于 $T \in L(V)$ 证明以下两个条件等价：
+1. $p_T$ 为素多项式
+2. 对任意非零向量 $\alpha, \beta$ 存在与 $T$ 交换的线性同构 $S \in \mathrm{GL}(V)$ 使得 $S\alpha = \beta$
+{% end %}
+
+将 $V$ 视作 $F[x]$-模。
+
+条件 (1) 可以看作 $V \simeq (F[x]/p)^n$. 其成立时，设 $\alpha = (f_1, \cdots, f_n), \beta = (g_1, \cdots, g_n)$, 取 $S$ 在第 $i$ 个分量上为：
+
+$$\alpha_i \mapsto g_if_i^{-1}\alpha_i$$
+
+条件 (2) 成立时，我们排除 $F[x]/p^k$ 与 $(F[x]/p) \oplus (F[x]/q) \simeq (F[x]/pq)$ 的情况。在此意义下 $T\alpha$ 就是将 $\alpha$ 对应多项式乘上 $x$, 而 $S, T$ 交换可知 $S\alpha$ 就是乘以 $S(1)$. 两种情况的反例是 $p \mapsto 1$ 与 $p \mapsto q$.
+
+{% admonition(type="question", title="2024 P2 (1)") %}
+判断：设实矩阵 $A \in \R^{2\times 2}$ 满足 $A^2$ 与 $A$ 相似，则 $A^3$ 与 $A$ 也相似。
+{% end %}
+
+不正确。取：
+
+$$A \sim \begin{pmatrix} \omega \cr & \omega^2 \end{pmatrix} \sim \begin{pmatrix} -\frac{1}{2} & -\frac{\sqrt{3}}{2} \cr \frac{\sqrt{3}}{2} & -\frac{1}{2} \end{pmatrix}$$
+
+{% admonition(type="question", title="2024 P4 (2)") %}
+是否存在 $A, B \in \Complex^{9\times 9}$, 使得 $AB$ 相似于 $\operatorname{diag}(J_3(0), J_3(0), J_3(0))$, 且 $BA$ 相似于 $\operatorname{diag}(J_4(0), J_4(0), J_1(0))$.
+{% end %}
+
+设 $C = \begin{pmatrix} 0 & A \cr B & 0 \end{pmatrix}$ 则 $C^2 = \begin{pmatrix} AB & 0 \cr 0 & BA \end{pmatrix}$.
+
+我们用到 $J_n(0)$ 的 Jordan 标准型是 $\operatorname{diag}(J_{[n_i/2]}(0), J_{[(n_i+1)/2]}(0))$.
+
+注：实际上存在很精细的结论：[非零特征值 Jordan 块对应相同，零特征值 Jordan 块可配对使阶数差 ≤ 1](https://zhuanlan.zhihu.com/p/707641120)
+
+{% admonition(type="question", title="2025 P2") %}
+判断：
+1. 对 $A, B \in \R^{2\times 2}$, 若存在 $P \in \mathrm{SL}_2(\Complex)$ 满足 $B = P^{-1}AP$, 则存在 $Q \in \mathrm{SL}_2(\R)$ 满足 $B = Q^{-1}AQ$.
+2. 设 $V$ 为有限维复线性空间，则对任意 $T \in L(V)$ 和任意 $T$-不变子空间 $W \subseteq V$, 总存在有限多个向量 $\alpha_1, \cdots, \alpha_r \in V$ 和 $\beta_1, \cdots, \beta_s \in W$ 同时满足：
+	- $V = \bigoplus R\alpha_i, W = \bigoplus R\beta_j$
+	- 对任意 $j$ 存在 $i$ 使得 $R\beta_j \subseteq R\alpha_i$
+{% end %}
+
+(1) 不正确，这里问题出在 $\mathrm{SL}$ 上，我们让实矩阵 $Q$ 形如 $\operatorname{diag}(-1, 1)$ 给出 $A, B$ 关系，现在希望 $A$ 的中心化子行列式恒正，取 $\begin{pmatrix} 0 & 0 \cr 1 & 0 \end{pmatrix}$.
+
+(2) 不正确。考虑 $T = \operatorname{diag}(J_3(0), J_1(0)), W = \operatorname{span}\set{e_3, e_2 + e_4}$.
+
+{% admonition(type="question", title="2025 P3 (3)") %}
+设 $n = 2025$, $A = J_n(1) \in \Complex^{n\times n}$. 设 $c$ 满足：存在 $\Complex^{n\times 1}$ 的“非 $L_A$ 不变”的 $L_{A^2+cA}$-不变子空间，求 $c$ 的所有可能值。
+{% end %}
+
+考虑 $V \simeq \Complex[x]/(x-1)^n$. 子空间 $W$ 是 $A^2 + cA$-不变的即：
+
+$$\alpha \in W \implies \alpha(x^2 + cx) = \alpha((x-1)^2+(c+2)(x-1)+(c+1)) \in W$$
+
+由 $W$ 是空间，$\alpha((x-1)^2+(c+2)(x-1)) \in W$
+
+$c \neq -2$ 时可取 $g$ 使 $g(y^2 + (c+2)y) \equiv y \pmod{y^n}$. 与 $L_A$-不变矛盾。
+
+$c = -2$ 时，取 $W = \operatorname{span}\set{1, (x-1)^2, (x-1)^4, \cdots}$ 即可。
