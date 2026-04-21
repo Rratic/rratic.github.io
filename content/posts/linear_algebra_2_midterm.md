@@ -1,6 +1,7 @@
 +++
 title = "高等代数Ⅱ期中复习笔记"
 date = 2026-04-20
+updated = 2026-04-21
 
 [extra]
 math = true
@@ -373,7 +374,8 @@ $$\dim \ker p(T) = \dim \bigoplus (R\alpha_i) \cap \ker (p(T)) = \dim \bigoplus 
 
 $$\dim \left(\bigcap_{k=0}^{\deg p - 1} T^{-k}(W')\right) \geq \dim V' - (r-1)\deg P = \deg P > 0$$
 
-## 往年题
+## 考试
+### 往年题
 {% admonition(type="question", title="2017 P4") %}
 设 $\operatorname{char} F = 0$, $A \in F^{n\times n}$ 的特征多项式为 $(x - 1)^n$. 证明对任意正整数 $k$, $A^k$ 与 $A$ 相似。
 {% end %}
@@ -389,12 +391,12 @@ $T, U \in L(V)$ 不可逆，并且 $TU$ 可对角化，证明 $(UT)^2$ 可对角
 $$(xg)(UT) = UTg(UT) = Ug(TU)T = 0$$
 
 {% admonition(type="question", title="2017 P6") %}
-设 $V$ 是 $n$ 维复线性空间，$T, U \in L(V)$ 满足 $\operatorname{rank}(TU - UT) = 1$. 证明存在 $V$ 的有序基 $\mathcal{B}$ 使得 $[T]_\mathcal{B}$ 和 $[U]_\mathcal{B}$ 同时为上三角矩阵。
+设 $V$ 是 $n$ 维复线性空间，$T, U \in L(V)$ 满足 $\operatorname{rank}(TU - UT) = 1$. 证明存在 $V$ 的有序基 $\mathcal{B}$ 使得 $[T] _\mathcal{B}$ 和 $[U] _\mathcal{B}$ 同时为上三角矩阵。
 {% end %}
 
 仿照同时三角化的证明。
 
-容易分析得 $\ker T-cI$ 与 $\operatorname{Im} T-cI$ 之一 $U$-不变。
+容易分析得 $\ker (T-cI)$ 与 $\operatorname{Im} (T-cI)$ 之一 $U$-不变。
 
 假设最长的旗不是全旗，则存在 $\dim W_i/W_{i-1}$. 限制在 $W_i/W_{i-1}$ 上使用结论即得矛盾。
 
@@ -483,3 +485,26 @@ $$\alpha \in W \implies \alpha(x^2 + cx) = \alpha((x-1)^2+(c+2)(x-1)+(c+1)) \in 
 $c \neq -2$ 时可取 $g$ 使 $g(y^2 + (c+2)y) \equiv y \pmod{y^n}$. 与 $L_A$-不变矛盾。
 
 $c = -2$ 时，取 $W = \operatorname{span}\set{1, (x-1)^2, (x-1)^4, \cdots}$ 即可。
+
+### 今年题
+完全炸了。
+
+{% admonition(type="question", title="2026 P2") %}
+复线性空间 $\Complex^{n\times n}$ 的子空间 $W$ 满足：
+- $W$ 中的矩阵均可对角化
+- 对任意 $A, B \in W$ 总有 $AB - BA \in W$
+
+证明 $W$ 中矩阵可同时对角化。
+{% end %}
+
+只需证 $W$ 中矩阵两两交换。
+
+记 $V = \Complex^{n\times n}$, 定义 $T_A(X) = AX-XA$. 有 $W$ 是 $T_A$-不变子空间。
+
+由 $A$ 可对角化可知 $T_A$ 可对角化，故 $(T_A)_W$ 可对角化。
+
+设 $c$ 为 $(T_A)_W$ 特征值，取 $B \in W \setminus \set{0}$ 使得 $T_A(B) = cB$. 有 $T_B(A) = -cB$. 从而：
+
+$$A \in \ker (T_B)^2 = \ker T_B$$
+
+从而 $c = 0$ 即 $(T_A)_W = 0$.
