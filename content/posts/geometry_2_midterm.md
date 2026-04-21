@@ -14,7 +14,7 @@ categories = ["知识"]
 tags = ["笔记", "数学", "几何"]
 +++
 
-本文用于准备几何学Ⅱ的期中考试。这半学期的主要内容是古典微分几何，嵌入 $\mathbb{E}^3$ 看的曲线论与曲面论。
+本文用于准备几何学Ⅱ的期中考试。这半学期的主要内容是古典微分几何，嵌入 $\mathbb{E}^3$ 看的曲线论与曲面论。本文略去关于 Christoffel 记号的内容（如果之后学习黎曼几何可能涉及到更一般的）。
 
 <!-- more -->
 
@@ -37,6 +37,8 @@ $$\lVert \gamma'(t) \rVert = 1$$
 定义衡量弯曲程度的**曲率**为弧长参数下 $\kappa = \lVert \gamma''(s) \rVert$, 在一般正则参数下即是：
 
 $$\frac{\lVert \gamma''(s) \times \gamma'(s) \rVert}{\lVert \gamma'(s) \rVert^3}$$
+
+以 $\gamma(s) + \frac{1}{\kappa} \mathbf{n}(s)$ 为圆心，以 $\frac{1}{\kappa}$ 为半径的圆称为**曲率圆**，与曲线有二阶以上的接触。
 
 衡量偏出密切平面趋势的**挠率**为（注意实际上 $\dot{\mathbf{b}}$ 与 $\mathbf{n}$ 是共线的）：
 
@@ -82,7 +84,7 @@ $$\varphi: U \to \mathbb{E}^3$$
 $$\iint_R \lVert \phi_s(u) \times \phi_t(u) \rVert \mathrm{d}s\mathrm{d}t$$
 
 ### 基本形式
-我们定义 $E(u) = \phi_s(u) \cdot \phi_s(u), F(u) = \phi_s(u) \cdot \phi_t(u), G(u) = \phi_t(u) \cdot \phi_t(u)$. 记**第一基本形式**：
+我们定义 $E(u) = \phi_s(u) \cdot \phi_s(u)$, $F(u) = \phi_s(u) \cdot \phi_t(u)$, $G(u) = \phi_t(u) \cdot \phi_t(u)$. 记**第一基本形式**：
 
 $$g = E\mathrm{d}s^2 + 2F\mathrm{d}s\mathrm{d}t + G\mathrm{d}t^2$$
 
@@ -110,6 +112,10 @@ $$
 
 $$h = L\mathrm{d}s^2 + 2M\mathrm{d}s\mathrm{d}t + N\mathrm{d}t^2$$
 
+这自然来自于 $\phi(s + \Delta s, t + \Delta t)$ 到 $\phi(s, t)$ 处切平面的有向距离。
+
+这两个基本形式都在参数变换下不变，这可以通过一次微分的形式不变性来看待。
+
 ### 曲率
 我们令**平均曲率**：
 
@@ -135,6 +141,8 @@ $$\ddot\gamma = (\dot s^2 \phi_{ss} + 2\dot s \dot t \phi_{st} + \dot t^2 \phi_{
 {% admonition(type="note", title="理解") %}
 我们可以选取适当参数，使 $\phi$ 在该处的第一基本形式为 $\mathrm{d}s^2 + \mathrm{d}t^2$. 此时可推出 $\kappa_1, \kappa_2$ 是 $\kappa_n$ 的两个极值。对应线向就是主方向。
 {% end %}
+
+称包含曲面在该点的法线的平面为**法截面**，与曲面交线为**法截线**。
 
 {% end %}
 
@@ -240,7 +248,63 @@ $\tau$ 保积当且仅当：
 $$\sqrt{(EG-F^2) \circ \tau} \cdot |\det J| = \sqrt{\tilde{E}\tilde{G}-\tilde{F}^2}$$
 {% end %}
 
-## 往年题
+## 扩展
+写一些我认为可以了解的东西，部分来自陈维桓《微分几何初步》。这里没有写测地线与常（高斯）曲率曲面。
+
+### 平面曲线
+平面曲线可以看成挠率为 $0$ 的空间曲线。
+
+我们让 $\alpha(s)$ 是单位切向量，逆时针旋转 90° 得到 $\beta(s)$. 可以定义相对曲率 $\kappa_r = \dot{\alpha} \cdot \beta = \pm \kappa$.
+
+定义方向角 $\theta(s)$ 表示 $\alpha(s)$ 与 x 轴正向所成的角。这是多值的，因此我们让 $\kappa_r = \frac{\mathrm{d}\theta(s)}{\mathrm{d}s}$.
+
+令旋转指标 $i(C) = \frac{1}{2\pi}(\theta(b) - \theta(a))$. 旋转指标定理告诉我们平面上连续可微的闭曲线，旋转指标 $i(C) = \pm 1$.
+
+### 极小曲面
+给定边界条件下，面积极小的曲面满足平均曲率处处为 $0$.
+
+设有一族光滑的：
+
+$$\phi^t: U \to \mathbb{E}^3$$
+
+采用变分法，设 $t \to 0$ 时：
+
+$$\phi^t(u, v) = \phi^0(u, v) + t\psi(u, v)$$
+
+满足边界条件 $\psi|_{\partial U} \equiv 0$.
+
+不妨再设参数足够好，使得 $\psi(u, v)$ 总是平行于 $\mathbf{n}$, 则：
+
+$$\frac{\mathrm{d}}{\mathrm{d}t} \text{Area} = \iint_U \frac{\mathrm{d}}{\mathrm{d}t}\left(\sqrt{EG - F^2}\right) \mathrm{d}u\mathrm{d}v$$
+
+其中 $\frac{\mathrm{d}}{\mathrm{d}t}\left(\sqrt{EG - F^2}\right) = \frac{\frac{\mathrm{d}}{\mathrm{d}t}\left(EG-F^2\right)}{2\sqrt{EG-F^2}}$ 且设 $\psi = k\mathbf{n}$ 则：
+
+$$
+\frac{\mathrm{d}}{\mathrm{d}t}\left(EG-F^2\right) =
+k(2G (\phi_s \cdot \mathbf{n}_s) + 2E (\phi_t \cdot \mathbf{n}_t) - 2F (\phi_s \cdot \mathbf{n}_t + \phi_t \cdot \mathbf{n}_s)) =
+-2k (LG-2MF+NE)
+$$
+
+由变分法基本引理知 $H \equiv 0$.
+
+### 定向
+光滑流形上的定向是指在每个点处的切空间指定一个有序基，使这个指定是局部连续的。局部正则参数曲面片显然是存在定向的。
+
+### Gauss–Bonnet 公式
+{% admonition(type="theorem", title="定理") %}
+设曲线 $C$ 是曲面 $S$ 上的分段光滑简单闭曲线，包围了单连通区域 $D$ 则：
+
+$$\oint_C \kappa_g \mathrm{d}s + \iint_D K \mathrm{d}\sigma = 2\pi - \sum a_i$$
+
+其中 $\sigma$ 表示面积微元，$a_i$ 表示角点处的外角。
+{% end %}
+
+{% admonition(type="theorem", title="Gauss–Bonnet 公式") %}
+$$\iint_D K \mathrm{d}\sigma = 2\pi \chi(S)$$
+{% end %}
+
+## 考试
+### 往年题
 {% admonition(type="question", title="2022 P3") %}
 给定空间曲面 $S_1: x^2+y^2+z^2 = 9$ 和 $S^2: x^2−2y = 0$，记 $c = S_1 \cap S_2$ 为它们的交线。求：点 $P(2, 2, 1)$ 处 $c$ 关于 $S_1$ 的法曲率。
 {% end %}
