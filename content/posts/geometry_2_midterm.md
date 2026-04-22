@@ -1,6 +1,7 @@
 +++
 title = "几何学Ⅱ期中复习笔记"
 date = 2026-04-18
+updated = 2026-04-22
 
 [extra]
 math = true
@@ -48,7 +49,7 @@ $$\tau = -\mathbf{b}'(s) \cdot \mathbf{n}(s)$$
 
 它在一般正则参数下是：
 
-$$\frac{(\dot\gamma(s) \times \ddot\gamma(s)) \cdot \dddot\gamma(s))}{\lVert \dot\gamma(s) \times \ddot\gamma(s) \rVert^2}$$
+$$\frac{((\dot\gamma(s) \times \ddot\gamma(s)) \cdot \dddot\gamma(s))}{\lVert \dot\gamma(s) \times \ddot\gamma(s) \rVert^2}$$
 
 一个有用的结论是：
 
@@ -352,3 +353,26 @@ $$\lVert \gamma''(0) \rVert \geq 1$$
 $$\mid 8$$
 
 这里“8”绕着轴转一圈，通过定向说明法向量只能在正向上、正向下中取其一。
+
+{% admonition(type="question", title="2025 P4") %}
+设 $\phi: \R^2 \to \mathbb{E}^3$ 为正则参数曲面片，第一、第二基本形式处处为：
+
+$$E\mathrm{d}s^2 + 2F\mathrm{d}s\mathrm{d}t + G\mathrm{d}t^2 = \mathrm{d}s^2 + 4\mathrm{d}s\mathrm{d}t + 5\mathrm{d}t^2$$
+
+$$L\mathrm{d}s^2 + 2M\mathrm{d}s\mathrm{d}t + N\mathrm{d}t^2 = 2c\mathrm{d}s\mathrm{d}t$$
+
+其中 $c \in \R$ 是与参数 $(s, t)$ 无关的常数。求证 $c = 0$.
+{% end %}
+
+等距变换到平面 $\phi(s, t) = (s+2t, t, 0)$. 有它的 Gauss 曲率 $0$.
+
+### 今年题
+{% admonition(type="question", title="2026 P5 (2)") %}
+假设正则参数曲面片 $\phi: U \to \mathbb{E}^3$ 的 Gauss 曲率处处为负，且坐标曲线构成渐进参数网。求证：若 Gauss 曲率还恒等于负常数，则二阶偏导数向量 $\phi_{st}$ 处处平行于 $\mathbf{n}$.
+{% end %}
+
+{% admonition(type="question", title="2026 P6") %}
+设 $f: \R^2 \to \R$ 为光滑函数，满足 $f(0, 0) = 1$, 且当 $s^2 + t^2 \geq 1$ 时 $f(s, t) = 0$. 记 $\phi: \R^2 \to \mathbb{E}^3$ 为正则参数曲面片 $\phi(s, t) = (s, t, f(s, t))$. 问：是否一定存在参数点 $(s_0, t_0) \in \R^2$ 使得 Gauss 曲率 $K(s_0, t_0) > 0$? 加以论证。
+{% end %}
+
+取充分大正数 $M$ 考察离 $(0, 0, -M)$ 最远的点，使用往年题结论。
