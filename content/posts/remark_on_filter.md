@@ -144,7 +144,7 @@ protected def Frequently (p : α → Prop) (f : Filter α) : Prop :=
   ¬∀ᶠ x in f, ¬p x
 ```
 
-我们可以把它们做成模态逻辑中的 $\Box$ 与 $\Diamond$.
+我们可以把它们做成[模态逻辑](@/posts/logic_3.md)中的 $\Box$ 与 $\Diamond$.
 
 容易发现它除了满足系统 $K$ 还会满足持续性 $D$ 公理 $\Box p \to \Diamond p$, 传递性 $4$ 公理 $\Box p \to \Box \Box p$, 欧性 $5$ 公理 $\neg \Box p \to \Box \neg \Box p$.
 

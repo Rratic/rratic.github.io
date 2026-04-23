@@ -66,7 +66,7 @@ tags = ["笔记", "数学", "基石", "逻辑学"]
 ## 形式系统
 现在考察**命题逻辑自然演绎系统** `Natrual Deduction System of Propositional Logic`. 自然演绎系统的核心是**推演** `derivation`. 我们使用记号：
 
-$$D \cr \varphi$$
+$$\begin{matrix} D \cr \varphi \end{matrix}$$
 
 表示一个结论为 $\varphi$ 的推演，用 $h(D)$ 表示 $D$ 的高度。
 
