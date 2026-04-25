@@ -21,13 +21,17 @@ tags = ["哲学"]
 
 但是我们可以从根本上去怀疑。例如说 Problem of other minds 他心问题：我们如何知道其它人类存在和自己类似的心智，不是恰好表现得能够理解自己说的话呢？也许人类的生理把运用自己的经验整合成了一种*内在*的机制，使得我们*相信*其它人类存在心智，但我们难道可以下定论说极小的概率就不会发生吗？
 
-推而广之，就有：
+推而广之，就有怀疑论。我们来看 [Wikipedia 下 Philosophical skepticism](https://en.wikipedia.org/wiki/Philosophical_skepticism) 给出的定义：
+
+> It differs from other forms of skepticism in that it even rejects very plausible knowledge claims that belong to basic common sense. Philosophical skeptics are often classified into two general categories: Those who deny all possibility of knowledge, and those who advocate for the suspension of judgment due to the inadequacy of evidence.
+
+这里我选取强怀疑论的一个版本：
 
 {% admonition(type="definition", title="Radical skepticism 强怀疑论") %}
 > It is impossible to have certainty in knowledge.
 {% end %}
 
-怀疑论有很多不同的版本，这里我选取了强怀疑论的一个版本。“确定”、“知识”的定义我并没有严格界定，但是暂且忽略。
+这里“知识”我们大致按照经典的“得到辩护的真信念”定义，“确定”是为 indubitability/infallibility/inimitability/indefeasibility[^certainty] 的某种混合。
 
 我*直觉*上认同这一点，以下对一些反驳作出回应：
 
@@ -37,19 +41,19 @@ tags = ["哲学"]
 
 首先，我们说 1 + 1 = 2 的时候是基于某种东西，比如说认为它是具有 Peano 公理的形式系统的一部分，或者更大地认为它带着一整个集合论/别的什么东西，或者更小地认为 1 + 1 = 2 本身就是公理。此时我们是说，在这个系统中我们根据规则的推演是正确的。
 
-此正确性是*可以被接受*的，但是如果审慎地想，在我们认为 1 + 1 = 2 是确定的知识之前，我们先认同了“规则”与“推演”是如何运作的，但是为什么这样
+此正确性是*可以被接受*的，但是如果审慎地想，在我们认为 1 + 1 = 2 是确定的知识之前，我们先认同了“规则”与“推演”是如何运作的，但是为什么这样的运作是能够被接受的呢，我们似乎给不出理由（有时人们声称，可以找一个更大的模型，证明可靠性与完全性，但是那个更大的模型又为何可以被接受？以及我们为何接受这种范式？），而只是直觉地认为如此。
 
-为何能够评判这一“规则-推演”体系是能够的呢？
-
-此外，我们如何确保整个过程中我们的神经系统没有出错呢？即使我们可以对照他人的结果，又如何确保
+此外，我们如何确保整个过程中我们的神经系统没有出错呢？即使我们可以对照他人的结果，例如说发现很多我们信任的人都认同：“当 1 + 1 = 2 时 1 + 1 = 2”，那除了我们没有因此而确信的理由外，又如何确保对照过程中我们没有出错呢？
 
 {% admonition(type="question", title="Pragmatism") %}
-考虑实用主义，
+考虑实用主义，在实践中，我们认同那些知识是*有用的*。
 {% end %}
 
 {% admonition(type="question", title="可能的反驳") %}
 你的论述本身
 {% end %}
+
+自然语言，或者甚至说
 
 {% admonition(type="question", title="可能的反驳") %}
 那强怀疑论本身不是你能确定的知识吗？
@@ -57,9 +61,7 @@ tags = ["哲学"]
 
 ---
 
-如果本文就此结束的话并没有什么写的意义
-
-https://en.wikipedia.org/wiki/Philosophical_skepticism
+如果本文就此结束的话并没有什么写的意义，也会有读者觉得是无理取闹
 
 Everyone from Pyrrho to Robert Audi has a solution.
 
@@ -67,3 +69,4 @@ https://philosophy.stackexchange.com/questions/134884/how-to-avoid-radical-skept
 
 [^word-vector]: 指词向量（还需要加上根据语境的调整），这只是一种失去精确性的比喻。
 [^world-vector]: 我认为*某种意义上*世界还是要比语言大一些的，但是这不重要。
+[^certainty]: [Certainty (Stanford Encyclopedia of Philosophy)](https://plato.stanford.edu/entries/certainty/)

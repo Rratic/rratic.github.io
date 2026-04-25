@@ -41,3 +41,5 @@ $$\Diamond \varphi = \neg \Box \neg \varphi$$
 - 可能世界集 $W$ 是非空集合，表示“可能的世界”
 - 可达关系 $R \subseteq W \times W$ 是二元关系，可以视作以 $W$ 为顶点的图的有向边
 - 赋值函数 $V$ 指出每个世界中哪些命题字母为真
+
+指定世界 $w$ 的原子命题、否定、合取的满足关系是自然的。而我们说 $\mathcal{M}, w \models \Box \varphi$ 当且仅当对所有 $w$ 可达的世界 $u$, $\varphi$ 在 $u$ 上为真。
