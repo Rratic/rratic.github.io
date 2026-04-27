@@ -157,8 +157,8 @@ $$
 \frac{
 	\begin{matrix} ~ \cr D_1 \cr (\varphi \vee \psi) \end{matrix} \quad
 	\begin{matrix} [\varphi] \cr D_2 \cr \chi \end{matrix} \quad
-	\begin{matrix} [\varphi] \cr D_3 \cr \chi \end{matrix}
-}{\varphi} (\vee \text{E})
+	\begin{matrix} [\psi] \cr D_3 \cr \chi \end{matrix}
+}{\chi} (\vee \text{E})
 $$
 
 ---

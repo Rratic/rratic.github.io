@@ -222,8 +222,10 @@ $A + B$ 的元素有左右嵌入 `injection` 两种构造方法:对 $a: A$ 的 $
 为了构造非依值函数 $f: A + B \to C$, 需要函数 $g_0: A \to C$ 与 $g_1: B \to C$, 然后写：
 
 $$
-f(\mathrm{inl}(a)) :\equiv g_0(a) \cr
-f(\mathrm{inr}(b)) :\equiv g_1(b)
+\begin{matrix}
+	f(\mathrm{inl}(a)) :\equiv g_0(a) \cr
+	f(\mathrm{inr}(b)) :\equiv g_1(b)
+\end{matrix}
 $$
 
 这种定义称为 case analysis. 如之前一样我们可以推导出 recursor 和 induction.
@@ -284,8 +286,10 @@ $$\mathrm{ind}_{\N}: \prod _{(C: \N \to \mathcal{U})} C(0) \to \left(\prod _{(n:
 我们有时会这样定义函数：
 
 $$
-f(\mathrm{inl}(a)) :\equiv \Phi_0 \cr
-f(\mathrm{inr}(b)) :\equiv \Phi_1
+\begin{matrix}
+	f(\mathrm{inl}(a)) :\equiv \Phi_0 \cr
+	f(\mathrm{inr}(b)) :\equiv \Phi_1
+\end{matrix}
 $$
 
 这本质上是使用了 recursor:
@@ -295,8 +299,10 @@ $$f :\equiv \mathrm{rec}_{A+B}(C, \lambda a.\ \Phi_0, \lambda b.\ \Phi_1)$$
 而对：
 
 $$
-f(0) :\equiv \Phi_0 \cr
-f(\mathrm{succ}(n)) :\equiv \Phi_s 
+\begin{matrix}
+	f(0) :\equiv \Phi_0 \cr
+	f(\mathrm{succ}(n)) :\equiv \Phi_s
+\end{matrix}
 $$
 
 则本质上是：
@@ -326,8 +332,10 @@ $$f :\equiv \mathrm{rec}_{\N}(C, \Phi_0, \lambda n.\ \lambda r.\ \Phi_s')$$
 现在考虑实现 $(A \to \mathbf{0}) \times (B \to \mathbf{0}) \to (A + B \to \mathbf{0})$. 我们可以开“洞”然后整理：
 
 $$
-f((x, y))(\mathrm{inl}(a)) :\equiv \Box : 0 \cr
-f((x, y))(\mathrm{inr}(b)) :\equiv \Box : 0
+\begin{matrix}
+	f((x, y))(\mathrm{inl}(a)) :\equiv \Box : 0 \cr
+	f((x, y))(\mathrm{inr}(b)) :\equiv \Box : 0
+\end{matrix}
 $$
 
 此时就可以看出两个洞应该填入 $x(a)$ 与 $y(b)$.
