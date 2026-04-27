@@ -1,0 +1,273 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>魔术效果的构造 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="魔术效果的构造" />
+  <meta name="description" content="大概总结一下一个学期来参加社团「魔术爱好者协会」所学和一些在媒体上所见的经典“构造”，特别是它们不需要道具或练习手法。虽然我称它们为“构造”，表演成分在魔术中相当重要，不宜看作纯粹的数学模型。从一个典型的例子开始：" />
+  <meta property="og:description" content="大概总结一下一个学期来参加社团「魔术爱好者协会」所学和一些在媒体上所见的经典“构造”，特别是它们不需要道具或练习手法。虽然我称它们为“构造”，表演成分在魔术中相当重要，不宜看作纯粹的数学模型。从一个典型的例子开始：" />
+  <meta property="og:url" content="https://rratic.top/posts/magic-construction/" />
+  <link rel="canonical" href="https://rratic.top/posts/magic-construction/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-02-04T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2026-02-05T00:00:00+00:00" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.top/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.top/style/shared.css?h=63eca58df589815f6747" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">魔术效果的构造</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2026-02-04T00:00:00+00:00">2026-02-04</time><span
+        class="middot"></span><time
+    datetime="PT0H11M0S">11&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+
+  <!-- Content -->
+  <section><p>大概总结一下一个学期来参加社团「魔术爱好者协会」所学和一些在媒体上所见的经典“构造”，特别是它们不需要道具或练习手法。虽然我称它们为“构造”，表演成分在魔术中相当重要，不宜看作纯粹的数学模型。从一个典型的例子开始：</p>
+<span id="continue-reading"></span>
+<hr />
+<p>「魔术师的选择」：这是一个预言效果。开始时桌子上摆有四个物品，魔术师对互动观众说：“请选择两样东西推向我”；现在有两个物品，魔术师对互动观众说：“请选择一样东西拉向你自己”。现在只有一个物品，魔术师展示旁边一个信封，信封中的纸条写着那个物品的名称。</p>
+<p>这个例子在实际中确实具有迷惑性，而且的确具有典型性，适合教学。魔术师视角的完整的流程是这样的：</p>
+<ol>
+<li><strong>提前准备</strong>：选择任意一个物品名称（这里假设是 key），写在纸条上放进信封中，把信封<strong>放在一个会被忽视的位置</strong></li>
+<li>如果有多个观众，找一个观众，说“你不是我的托吧”并得到承认</li>
+<li>说“请选择两样东西推向我”，看对方作出动作，现在<strong>应用话术和动作</strong>保证 key 留在桌子中央/关注焦点（e.g. 如果 key 没有被推来，那就把推来的两个物品拿走；否则，可以说观众选择了推来的那两个物品）</li>
+<li>说“请选择一样东西拉向你自己”，类似上一步应用话术和动作</li>
+<li>指出旁边的信封，<strong>强调</strong>“我没有动过这个信封”，然后打开展示内容</li>
+</ol>
+<p>这个魔术的核心是在 <code>3</code>, <code>4</code> 步时进行强行选择。因为观众不知道你接下来要做什么（如果条件允许，不要说自己接下来要变一个魔术之类的话），所以可以不被质疑地进行下去。这里需要想好留下什么，并保证留下它，过程尽量自然，不要体现出区别（有些话术如“选择一个你喜欢的物品”就会产生区别，观众可能质疑为什么要把自己喜欢的物品拿走之类）。话术可以根据环境适当改变。</p>
+<p>第 <code>5</code> 步的强调可以把观众的注意力从刚刚的选择上转移，同时增强效果的神奇性。</p>
+<hr />
+<p>考虑一个纸牌魔术。懒得写了，看这个，说明地相当详细：</p>
+<p><a href="https://www.bilibili.com/video/BV1z64y117XB/">https://www.bilibili.com/video/BV1z64y117XB/</a></p>
+<p>补充一点：因为观众可能不知道什么是切牌，或者进行多段切而且拦不住，所以也要强调并演示切牌方式。</p>
+<p>补充另一种获知关键牌的方法：观众在一摞牌中点一张，手拿着上面一叠牌指着观众选择的那张牌让其拿去看，此时可以偷看上面那叠牌的底牌。</p>
+<hr />
+<p>这个魔术没找到视频，只能自己写。效果是这样的：魔术师从一副牌的顶上切出约 13 张牌放在一边，然后依次要求两位观众从顶上切出约 13 张牌。此时魔术师指出，如果每一次都精准切出了 13 张牌，那么（由于不含大小王）剩下的是 13 张牌，然后依次数成一叠。无论数到的是否是 13 张，魔术师指出 13 代表 K, 然后翻开四叠牌的顶牌都是 K.</p>
+<p>魔术师视角的完整的流程是这样的：</p>
+<ol>
+<li><strong>提前准备</strong>好预设（称为 setting）：去掉大小王，置两张 K 在顶牌，两张 K 在底牌，中间任意，然后<strong>放在牌盒中</strong></li>
+<li>从牌盒中拿出那副牌（背面朝上），然后说：“这是一副去掉大小王的牌，魔术师很重要的是手感，比如说我拿起一叠牌是 13 张……拿起一叠牌是 26 张……拿起一叠牌是 39 张……再拿起一叠牌是 51 张，你们不信可以数一下”，做对应的动作</li>
+<li>说“现在我从顶上切出大约 13 张”，同时按住顶牌抽出其下的约 13 张，放在一边</li>
+<li>选择一个观众要求其“也从顶上切约 13 张”，等待其完成动作</li>
+<li>说“感觉一下切出约 1/3 是对的，如果你像这样，声称这是 13 张，那谁也救不了你”，同时拿起顶上的大部分牌（另一只手上只有底牌），在说话间不显眼地把底牌盖在上面</li>
+<li>选择一个观众（可以与之前相同）要求其“再次从顶上切约 13 张”，等待其完成动作</li>
+<li>说“如果之前每次都精准切到 13 张牌，那么会剩下 13 张”，开始一一数出，变成一叠</li>
+<li>无论数到的是否是 13 张，说：“但是不要紧，因为 13 代表 K, 而：”，然后翻开四叠牌的顶牌</li>
+</ol>
+<p>这里第 <code>2</code> 步一部分作用也是增强第 <code>5</code> 步的合理性。而第 <code>5</code> 步之后发生了很多事，观众在试图分析时可能会忘记这件事/忽视这里可能有疑点。</p>
+<hr />
+<p>也是一个懒得写的纸牌魔术。看这个：</p>
+<p><a href="https://www.bilibili.com/video/BV1tz4y1k7B2/">https://www.bilibili.com/video/BV1tz4y1k7B2/</a></p>
+<hr />
+<p>作为最后一部分，我们来看一个由<a href="https://space.bilibili.com/641975239">刘谦</a>在 2018 M.E.E.T 表演的魔术。<a href="https://www.bilibili.com/video/BV1hq4y1V7mj/">视频在此</a>。</p>
+<p>让我们先总结一下视频中发生了什么，并尽量地客观来祛除 Misdirection 的作用。</p>
+<p>在准备阶段：</p>
+<ol>
+<li>六位助手落座</li>
+<li>魔术师取出一副扑克牌，在桌面上摊开并点出其中前几张的数字花色，声称是「西班牙排序」</li>
+<li>声称因此可以进行「切牌」操作，而不能进行「洗牌」操作</li>
+<li>魔术师拿出布条，声称撕不开。助手帮助撕开的同时魔术师脱下外套</li>
+<li>拿出 Half Dollar，让助手检查其没有洞</li>
+<li>魔术师用布条蒙住双眼后让助手自由发挥蒙眼</li>
+<li>魔术师转身</li>
+</ol>
+<p>第一轮：</p>
+<ol>
+<li>魔术师通过指令让助手轮流进行切牌</li>
+<li>取出顶牌，为「红心2」。其被插入牌堆的随机位置</li>
+<li>魔术师拿到这堆牌，通过询问获知持有的面向，然后改为反面朝上</li>
+<li>魔术师一张张将最上方的牌放入另一只手中，停顿一段时间</li>
+<li>在某一刻，将牌归拢，缓慢地抽出一张，把剩余的放下</li>
+<li>示意这张牌是「红心2」</li>
+</ol>
+<p>“间幕”：</p>
+<ol>
+<li>魔术师把牌放下（到口袋中？）</li>
+<li>魔术师转身，边说话边对牌堆操作（进行了两次切牌？）</li>
+<li>魔术师声称之后不会再碰牌，让助手从牌堆中取出「红心2」丢掉</li>
+<li>魔术师把牌归拢</li>
+</ol>
+<p>第二轮：</p>
+<ol>
+<li>助手叫来一个观众（记作 A），进行两次切牌</li>
+<li>魔术师询问 A 是否要再进行一次切牌，A 否定</li>
+<li>A 独自观看顶牌，并插入随机位置</li>
+<li>魔术师让助手完成一系列操作，其中一些牌被抛到空中丢弃</li>
+<li>剩余的牌作一次双翻</li>
+<li>询问 A 得知选了「红心8」</li>
+<li>询问助手知不是当前张，要求把双翻翻回来</li>
+<li>宣布当前张是正确的</li>
+</ol>
+<p>根据观察和看到的相关分析，在这里给出一个构造。</p>
+<p>需要观察到：</p>
+<ul>
+<li>根据 <code>3.1</code> 与 <code>3.3</code> 推测，只有 26 张不同的牌，每张牌重复出现了两次</li>
+<li>在第一段魔术中，最后亮出的是第 26 张牌</li>
+<li>在第二段魔术中，最后亮出的是第 25 张牌</li>
+</ul>
+<p>推测的 setting 如下（注意魔术师从来没有声明过没有做 setting）：</p>
+<ul>
+<li>以 26 为周期，相隔 26 张牌的两张牌相同</li>
+<li>最上面几张牌的排列顺序和西班牙排列的开始几张相同</li>
+<li>最下面几张牌的排列顺序和西班牙排列的最后几张相同</li>
+</ul>
+<p>这个 setting 的第一个性质会在「切牌」操作下保持。这样一来，取决于牌被插入上半部分还是下半部分，第一次只需在 26 与 27 张中选择。可能的解决方法是：</p>
+<ul>
+<li>通过话术让人插在下半部分</li>
+<li>做不明显的记号（如用指甲用力压一下/在牌角轻戳小孔）</li>
+</ul>
+<p>这个 setting 相当地大胆，但是在这个环境下确实是有效的（开场白“给魔术师表演的魔术”），因为不会真的花时间仔细检查。</p>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/杂物/">杂物</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

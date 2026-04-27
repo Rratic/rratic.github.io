@@ -1,0 +1,544 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>【逻辑学】经典命题逻辑及其强可靠性、强完全性 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="【逻辑学】经典命题逻辑及其强可靠性、强完全性" />
+  <meta name="description" content="这一节主要讨论的是经典命题逻辑（不同于它的均称为“非经典”），重点在于其强完全性的证明。" />
+  <meta property="og:description" content="这一节主要讨论的是经典命题逻辑（不同于它的均称为“非经典”），重点在于其强完全性的证明。" />
+  <meta property="og:url" content="https://rratic.top/posts/logic-2/" />
+  <link rel="canonical" href="https://rratic.top/posts/logic-2/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-03-25T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2026-04-27T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="基石" />
+  <meta property="article:tag" content="逻辑学" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.top/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.top/style/shared.css?h=63eca58df589815f6747" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">【逻辑学】经典命题逻辑及其强可靠性、强完全性</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2026-03-25T00:00:00+00:00">2026-03-25</time><span
+        class="middot"></span><time
+    datetime="PT0H13M0S">13&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#xing-shi-yu-yan">形式语言</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#xing-shi-xi-tong">形式系统</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#gui-ze">规则</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#yu-xing-hou-cheng">语形后承</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ke-kao-xing-yu-wan-quan-xing">可靠性与完全性</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#zai-zheng-qiang-wan-quan-xing-ding-li">再证强完全性定理</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#za-xiang">杂项</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#xi-er-bo-te-shi-zheng-ming-xi-tong">希尔伯特式证明系统</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#remark">Remark</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ming-ti-luo-ji-de-ying-yong">命题逻辑的应用</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </details>
+</nav>
+
+  <!-- Content -->
+  <section><p>这一节主要讨论的是经典命题逻辑（不同于它的均称为“非经典”），重点在于其强完全性的证明。</p>
+<span id="continue-reading"></span><style>
+	.dark img {
+        filter: invert(100%);
+    }
+</style>
+<h2 id="xing-shi-yu-yan">形式语言</h2>
+<p>命题逻辑的形式语言使用符号包括：</p>
+<ul>
+<li>命题联结词：合取 $\wedge$, 析取 $\vee$, 蕴含 $\to$ <sup class="footnote-reference"><a href="#implies">1</a></sup>, 否定 $\neg$</li>
+<li>可数个命题字母</li>
+<li>技术符号：括号</li>
+</ul>
+<p>我们定义<strong>命题公式</strong> <code>propositional formula</code> 是通过有穷次使用如下规则得到的：</p>
+<ul>
+<li>命题字母是公式</li>
+<li>如果符号串 $\varphi$ 与 $\psi$ 是公式，则 $\neg \varphi$, $(\varphi \wedge \psi)$, $(\varphi \vee \psi)$, $(\varphi \to \psi)$ 是公式</li>
+</ul>
+<p>有时希望证明所有公式都具有性质 $P$, 可以使用结构归纳法：证明每个命题字母具有性质 $P$ 且如果 $\varphi$ 与 $\psi$ 具有性质 $P$ 则 $(\cdots)$ 均具有性质 $P$.</p>
+<p>在经典命题逻辑中，命题有真与假两种属性，在语义上有假设：</p>
+<ul>
+<li><strong>二值原理</strong> <code>Bi-valence Principle</code>: 命题有且仅有两个真值中的一个</li>
+<li><strong>组合原理</strong> <code>Composition Principle</code>: 命
+题的真值由组成它的命题的真值以及这些命题的组合方式唯一确定</li>
+</ul>
+<p>真值表从略，略记一些术语：</p>
+<ul>
+<li>一般的析取（满足 $T \vee T = T$）称为相容析取 <code>inclusive disjunction</code>, 反之称为不相容析取 <code>exclusive disjunction</code>, 使用符号 $\oplus$, 有时称作异或</li>
+<li>形如 $P \to Q$ 的陈述句称为条件句，其中 $P$ 称为前件 <code>antecedent</code>, $Q$ 称为后件 <code>consequent</code></li>
+<li>一般的蕴含（满足前件为假时命题为真，称为空洞为真 <code>vacuously true</code>）称为实质蕴涵 <code>material implication</code></li>
+</ul>
+<p>一个<strong>赋值</strong> <code>valuation</code> 是一个从公式组成的集合到集合 $\{T, F\}$ 的函数，使得各个真值表成立。</p>
+<p>令 $\Gamma$ 是公式组成的集合，$\varphi$ 与 $\psi$ 是公式，$V$ 是一个赋值，定义：</p>
+<ul>
+<li>若 $V(\varphi) = T$ 则称 $\varphi$ 在 $V$ 上为真，或 $V$ 满足 $\varphi$, 进而定义 $V$ 满足 $\Gamma$</li>
+<li>若对任意赋值 $V$, 一旦 $V$ 满足 $\Gamma$ 就有 $V$ 满足 $\varphi$, 则称 $\varphi$ 是 $\Gamma$ 的一个语义后承，记为 $\Gamma \models \varphi$, 易见这和上一节中定义是类似的</li>
+<li>若 $\emptyset \models \varphi$, 则称 $\varphi$ 是一个命题有效式/重言式 <code>propositional validity/tautology</code></li>
+<li>若 $\{\varphi\} \models \psi$ 且 $\{\psi\} \models \varphi$, 则称 $\varphi$ 与 $\psi$ 逻辑等价 <code>logical equivalent</code>, 记为 $\varphi \equiv \psi$</li>
+</ul>
+
+<link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" type="text/css">
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>紧致性定理</strong></span>
+  </div>
+  <div class="pl-4"><p>对公式集 $\Gamma$, 若对其任一有穷子集，存在一个赋值满足它，则存在赋值满足 $\Gamma$.</p>
+</div>
+</div>
+<p>由于命题字母可数个，可以使用归纳法。对命题 $p_0$, 考虑所有赋值构成的集合，分为满足 $V(p_0) = T$ 的与满足 $V(p_0) = F$ 的两部分，必有一部分满足：对任一有穷子集，存在一个赋值满足它。取该对 $p_0$ 的赋值，之后同理。</p>
+<p>如果命题字母可以是不可数个，则需要选择公理。</p>
+<h2 id="xing-shi-xi-tong">形式系统</h2>
+<p>现在考察<strong>命题逻辑自然演绎系统</strong> <code>Natrual Deduction System of Propositional Logic</code>. 自然演绎系统的核心是<strong>推演</strong> <code>derivation</code>. 我们使用记号：</p>
+<p>$$\begin{matrix} D \cr \varphi \end{matrix}$$</p>
+<p>表示一个结论为 $\varphi$ 的推演，用 $h(D)$ 表示 $D$ 的高度。</p>
+<h3 id="gui-ze">规则</h3>
+<p>最简单的规则是规则 $(\text{A})$: 如果 $\varphi$ 是一个公式，那么写 $\varphi$ 或者：</p>
+<p>$$\frac\varphi\varphi (\text{A})$$</p>
+<p>其高度是 $0$.</p>
+<hr />
+<p>规则 $(\wedge \text{I})$ 是关于 $\wedge$ 的规则（这里 $I$ 表示引入规则），如下：如果 $\varphi, \psi$ 是公式，且 $\begin{matrix} D_1 \cr \varphi \end{matrix}$ 和 $\begin{matrix} D_2 \cr \psi \end{matrix}$ 都是推演，则有推演：</p>
+<p>$$
+\frac{
+\begin{matrix} D_1 \cr \varphi \end{matrix} \quad
+\begin{matrix} D_2 \cr \psi \end{matrix}
+}{(\varphi \wedge \psi)} (\wedge \text{I})
+$$</p>
+<hr />
+<p>规则 $(\wedge \text{E})$ 类似（这里 $E$ 表示消去规则）：</p>
+<p>$$
+\frac{
+\begin{matrix} D \cr (\varphi \wedge \psi) \end{matrix}
+}{\varphi} (\wedge \text{E}) \quad
+\frac{
+\begin{matrix} D \cr (\varphi \wedge \psi) \end{matrix}
+}{\psi} (\wedge \text{E})
+$$</p>
+<p>读者可自行写出规则 $(\vee \text{I}), (\to \text{E})$.</p>
+<hr />
+<p>规则 $(\to \text{I})$ 涉及到假设。</p>
+<p>我们用方括号表示假设，用 $\begin{matrix} [\varphi] \cr D \cr \psi \end{matrix}$ 表示将 $\begin{matrix} D \cr \psi \end{matrix}$ 中所有由规则 $(\text{A})$ 引入的 $\varphi$ 换成 $[\varphi]$ 的结果。</p>
+<p>规则 $(\to \text{I})$ 及另外三条规则（$(\neg \text{I})$, $(\text{RAA})$, $(\vee \text{E})$）可以把“借来”的假设“还”回去。借的假设一定要还。</p>
+<p>$$
+\frac{
+\begin{matrix} [\varphi] \cr D \cr \psi \end{matrix}
+}{(\varphi \to \psi)} (\to \text{I})
+$$</p>
+<p>在实际使用时，我们加上上标 $[\varphi]^1$, 然后用 $(\to \text{I}), 1$ 标记还了哪个假设。</p>
+<p>有时我们可以不用额外通过规则 $(\text{A})$ 引入，此时不需要把它做成假设：</p>
+<p>$$
+\frac{q}{(p \to q)} (\to \text{I})
+$$</p>
+<hr />
+<p>规则 $(\neg \text{I})$ 如下：</p>
+<p>$$
+\frac{
+\begin{matrix} [\varphi] \cr D \cr \psi \end{matrix} \quad
+\begin{matrix} [\varphi] \cr D' \cr \neg\psi \end{matrix}
+}{\neg \varphi} (\neg \text{I})
+$$</p>
+<hr />
+<p>规则 $(\text{RAA})$ 即是反证法，如下：</p>
+<p>$$
+\frac{
+\begin{matrix} [\neg \varphi] \cr D \cr \psi \end{matrix} \quad
+\begin{matrix} [\neg \varphi] \cr D' \cr \neg\psi \end{matrix}
+}{\varphi} (\text{RAA})
+$$</p>
+<p>直觉主义逻辑自然演绎系统中没有这一条规则。关于直觉主义逻辑何以有用可参考我之前写的<a href="https://rratic.top/posts/type-theory-1/">类型论笔记</a>。</p>
+<hr />
+<p>最后是规则 $(\vee \text{E})$:</p>
+<p>$$
+\frac{
+\begin{matrix} ~ \cr D_1 \cr (\varphi \vee \psi) \end{matrix} \quad
+\begin{matrix} [\varphi] \cr D_2 \cr \chi \end{matrix} \quad
+\begin{matrix} [\psi] \cr D_3 \cr \chi \end{matrix}
+}{\chi} (\vee \text{E})
+$$</p>
+<hr />
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>习题</strong></span>
+  </div>
+  <div class="pl-4"><p>把如下推演补成正确的推演：</p>
+<p><img src="/images/misc/2026_04_13.png" alt="P7" /></p>
+</div>
+</div>
+<p>左上那个推演是再引入一个条件 $[\neg \varphi]^2$, 由 $(\neg I)$ 规则得到 $\neg \varphi$, 进而得到 $\varphi \vee \neg \varphi$.</p>
+<h3 id="yu-xing-hou-cheng">语形后承</h3>
+<p>仿照上一节中的定义，我们记 $\varphi$ 是 $\Gamma$ 在自然演绎系统中的语形后承 <code>syntactic consequence (in natural deduction)</code> 为 $\Gamma \vdash^\text{ND} \varphi$.</p>
+<p>如果 $\emptyset \vdash^\text{ND} \varphi$ 则称 $\varphi$ 是可证的 <code>provable (in natural deduction)</code>.</p>
+<p>称 $\Gamma$ 是（在自然演绎系统下）一致的 <code>consistent</code>, 如果不存在一个公式 $\psi$ 使得 $\Gamma \vdash^\text{ND} \varphi$ 且 $\Gamma \vdash^\text{ND} \neg\varphi$.</p>
+<h3 id="ke-kao-xing-yu-wan-quan-xing">可靠性与完全性</h3>
+<p>为了方便起见，只考虑 $\neg$ 和 $\to$ 两个命题联结词符号，因为具有真值函数完全性。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>强可靠性定理</strong></span>
+  </div>
+  <div class="pl-4"><p>对任意公式集 $\Gamma$ 和公式 $\varphi$, 如果 $\Gamma \vdash^\text{ND} \varphi$ 则 $\Gamma \models \varphi$.</p>
+</div>
+</div>
+<p>对 $h(D)$ 归纳即可。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>弱完全性定理</strong></span>
+  </div>
+  <div class="pl-4"><p>对任意公式 $\varphi$, 如果 $\emptyset \models \varphi$ 则 $\emptyset \vdash^\text{ND} \varphi$.</p>
+</div>
+</div>
+<p>我们先考虑一个例子。通过真值表我们知道 $\emptyset \models (p \to (q \to p))$. 首先希望证明 $\{\neg p, \neg q\} \vdash^\text{ND} (p \to (q \to p))$ 及另外三个情况也成立，然后用规则 $(\neg \text{I}), (\text{RAA})$ 拼成一个前提集 $\emptyset$ 的推演。</p>
+<p>对任意赋值 $V$, 定义：</p>
+<p>$$
+\varphi^V = \begin{cases}
+\varphi &amp; \text{if } V(\varphi) = T \cr
+\neg \varphi &amp; \text{if } V(\varphi) = F
+\end{cases}
+$$</p>
+<p>我们对 $n$ 归纳证明：如果 $p_0, \cdots, p_n$ 包含了 $\varphi$ 中出现的所有命题字母，则对任意赋值 $V$ 有 $\{p_0^V, \cdots, p_n^V\} \vdash^\text{ND} \varphi^V$. 这里强行讨论即可。</p>
+<p>然后证明：对任意公式集 $\Gamma$ 和公式 $\varphi$ 和 $\psi$, 如果 $\Gamma \cup \{\varphi\} \vdash^\text{ND} \psi$ 且 $\Gamma \cup \{\neg \varphi\} \vdash^\text{ND} \psi$, 则 $\Gamma\vdash^\text{ND} \psi$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>强完全性定理</strong></span>
+  </div>
+  <div class="pl-4"><p>对任意公式集 $\Gamma$ 和公式 $\varphi$, 如果 $\Gamma \models \varphi$ 则 $\Gamma \vdash^\text{ND} \varphi$.</p>
+</div>
+</div>
+<p>由定义，不存在赋值满足 $\Gamma \cup \{\neg \varphi\}$. 由紧致性定理知存在 $\psi_1, \cdots, \psi_n$ 使得不存在赋值满足 $\{\psi_1, \cdots, \psi_n, \neg \varphi\}$. 因此 $\emptyset \models (\psi_1 \to (\cdots (\psi_n \to \varphi) \cdots))$. 使用弱完全性定理再使用 $\to \text{E}$ 即可。</p>
+<h3 id="zai-zheng-qiang-wan-quan-xing-ding-li">再证强完全性定理</h3>
+<p>对于大部分逻辑来说，弱完全性定理并没有像经典命题逻辑这样的简单的、构造性的证明。一般的方法是基于极大一致集。</p>
+<p>称一个公式集 $\Gamma$ 是<strong>极大一致集</strong> <code>maximal consistent set</code>, 如果它一致，且对任意公式 $\psi$, 要么 $\psi \in \Gamma$ 要么 $\neg \psi \in \Gamma$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>真值引理</strong></span>
+  </div>
+  <div class="pl-4"><p>令 $\Delta$ 是极大一致集，定义一个赋值：</p>
+<p>$$
+V^\Delta(\varphi) = \begin{cases}
+T &amp; \text{if } \varphi \in \Delta \cr
+F &amp; \text{if } \varphi \notin \Delta
+\end{cases}
+$$</p>
+<p>则 $V^\Delta \models \Delta$.</p>
+</div>
+</div>
+<p>归纳即可。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Lindenbaum 引理</strong></span>
+  </div>
+  <div class="pl-4"><p>每一个一致集都是某个极大一致集的子集。</p>
+</div>
+</div>
+<p>将公式用自然数编号，依次考虑是否加入。</p>
+<h2 id="za-xiang">杂项</h2>
+<h3 id="xi-er-bo-te-shi-zheng-ming-xi-tong">希尔伯特式证明系统</h3>
+<p>希尔伯特式证明系统是经典命题逻辑的另一个证明系统。</p>
+<p>公理包括：</p>
+<ol>
+<li>$(\psi \to (\varphi \to \psi))$</li>
+<li>$((\varphi \to (\psi \to \chi)) \to ((\varphi \to \psi) \to (\varphi \to \chi)))$</li>
+<li>$((\neg \psi \to \neg \varphi) \to (\varphi \to \psi))$</li>
+</ol>
+<p>另有分离规则“肯定前件推理” <code>Modus Ponens</code><sup class="footnote-reference"><a href="#modus-tollens">2</a></sup>: 可以从 $\varphi$ 和 $(\varphi \to \psi)$ 推出 $\psi$.</p>
+<p>读者可在 <a href="https://us.metamath.org/mpeuni/mmtheorems1.html">P. 1 of Theorem List - Metamath Proof Explorer</a> 看到使用它们推导出一些基本结论的详细过程。</p>
+<p>为了证明公理三独立于公理一、二和分离规则，我们考虑赋值 $f$ 使得对任意公式 $\varphi$ 有 $f(\neg \varphi) = F$, 且对任意公式 $\varphi, \psi$ 有 $f((\varphi \to \psi)) = T$ 当且仅当 $f(\varphi) = F$ 或 $f(\psi) = T$. 这称为否定恒假赋值。</p>
+<h3 id="remark">Remark</h3>
+<p>实际上否并不是证明论和谐（引入/消去规则彼此精确匹配）的。真正和谐的是爆炸律 <code>Ex Falso</code>:</p>
+<p>$$\frac{\varphi \quad \neg \varphi}{\psi} (\text{Ex Falso})$$</p>
+<p>使用 Ex Falso 的证明系统一般是以 $\bot$ 为核心的，此时它写作：</p>
+<p>$$\frac{\bot}{\chi} (\bot E)$$</p>
+<h3 id="ming-ti-luo-ji-de-ying-yong">命题逻辑的应用</h3>
+<p>关于自然语言的命题逻辑分析、基于命题逻辑的形式化等从略。这些我们在数学里已经比较熟悉了。</p>
+<p>值得一提的是，工业上常将问题归约为 SAT 问题（可满足性问题），使用 SAT 求解器解决。但是 SAT 问题在最坏情况下极其困难，Cook 证明了任何 NP 问题可以在多项式时间内变换成一个等价的 SAT 问题。</p>
+<hr />
+<div class="footnote-definition" id="implies"><sup class="footnote-definition-label">1</sup>
+<p>在其它领域中一般使用 $\implies$, 但在逻辑学中通常使用 $\to$.</p>
+</div>
+<div class="footnote-definition" id="modus-tollens"><sup class="footnote-definition-label">2</sup>
+<p>与之对应的是“否定后件推理” <code>Modus Tollens</code>: 由 $(\varphi \to \psi)$ 与 $\neg\psi$ 推出 $\neg\varphi$. 这里不把它作为原始规则。</p>
+</div>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/基石/">基石</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/逻辑学/">逻辑学</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <link rel="stylesheet" href="https://rratic.top/katex/katex.min.css?h=e189fd0238811989c364" />
+  <script defer src="https://rratic.top/katex/katex.min.js?h=6b909443e6c8f6e5d24c"></script>
+  <script defer src="https://rratic.top/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

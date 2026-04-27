@@ -1,0 +1,754 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>几何学Ⅱ期中复习笔记 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="几何学Ⅱ期中复习笔记" />
+  <meta name="description" content="本文用于准备几何学Ⅱ的期中考试。这半学期的主要内容是古典微分几何，嵌入 $\mathbb{E}^3$ 看的曲线论与曲面论。本文略去关于 Christoffel 记号的内容（如果之后学习黎曼几何可能涉及到更一般的）。" />
+  <meta property="og:description" content="本文用于准备几何学Ⅱ的期中考试。这半学期的主要内容是古典微分几何，嵌入 $\mathbb{E}^3$ 看的曲线论与曲面论。本文略去关于 Christoffel 记号的内容（如果之后学习黎曼几何可能涉及到更一般的）。" />
+  <meta property="og:url" content="https://rratic.top/posts/geometry-2-midterm/" />
+  <link rel="canonical" href="https://rratic.top/posts/geometry-2-midterm/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-04-18T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2026-04-22T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="几何" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.top/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.top/style/shared.css?h=63eca58df589815f6747" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">几何学Ⅱ期中复习笔记</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2026-04-18T00:00:00+00:00">2026-04-18</time><span
+        class="middot"></span><time
+    datetime="PT0H17M0S">17&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#qu-xian-lun">曲线论</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#frenet-biao-jia">Frenet 标架</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#qu-xian-lun-ji-ben-ding-li">曲线论基本定理</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#qu-mian-lun">曲面论</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ji-ben-xing-shi">基本形式</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#qu-lu">曲率</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#qu-mian-lun-ji-ben-fang-cheng">曲面论基本方程</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#qu-mian-lun-ji-ben-ding-li">曲面论基本定理</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#bao-chang-dui-ying">保长对应</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#kuo-zhan">扩展</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ping-mian-qu-xian">平面曲线</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ji-xiao-qu-mian">极小曲面</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ding-xiang">定向</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#gauss-bonnet-gong-shi">Gauss–Bonnet 公式</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#kao-shi">考试</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#wang-nian-ti">往年题</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#jin-nian-ti">今年题</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </details>
+</nav>
+
+  <!-- Content -->
+  <section><p>本文用于准备几何学Ⅱ的期中考试。这半学期的主要内容是古典微分几何，嵌入 $\mathbb{E}^3$ 看的曲线论与曲面论。本文略去关于 Christoffel 记号的内容（如果之后学习黎曼几何可能涉及到更一般的）。</p>
+<span id="continue-reading"></span><h2 id="qu-xian-lun">曲线论</h2>
+<p>空间曲线被定义为光滑映射 $\gamma: J \to \mathbb{E}^3$. 如果懒得讨论端点，可以取 $J$ 为一个开区间。</p>
+<p>我们定义长度：</p>
+<p>$$\mathrm{Length}_\gamma([a, b]) = \int_a^b \lVert \gamma'(t) \rVert \mathrm{d}t$$</p>
+<p>弧长参数是指参数恒成立：</p>
+<p>$$\lVert \gamma'(t) \rVert = 1$$</p>
+<h3 id="frenet-biao-jia">Frenet 标架</h3>
+<p>在弧长参数下，由 $(\gamma'(s) \cdot \gamma'(s))' = 0$ 知 $\gamma'(s)$ 与 $\gamma''(s)$ 垂直。我们定义<strong>切向</strong> $\mathbf{t}(s) = \gamma'(s)$, <strong>主法向</strong> $\mathbf{n}(s) = \frac{\gamma''(s)}{\lVert \gamma''(s) \rVert}$, 次法向 $\mathbf{b}(s) = \mathbf{t}(s) \times \mathbf{n}(s)$.</p>
+<p>称 $(\gamma(s); \mathbf{t}(s), \mathbf{n}(s), \mathbf{b}(s))$ 是 $\gamma$ 的 Frenet 标架场，并称 $\mathbf{t}(s)$ 和 $\mathbf{n}(s)$ 张成<strong>密切平面</strong>，称 $\mathbf{b}(s)$ 和 $\mathbf{t}(s)$ 张成从切平面，称 $\mathbf{n}(s)$ 和 $\mathbf{b}(s)$ 张成法平面。</p>
+<p>定义衡量弯曲程度的<strong>曲率</strong>为弧长参数下 $\kappa = \lVert \gamma''(s) \rVert$, 在一般正则参数下即是：</p>
+<p>$$\frac{\lVert \gamma''(s) \times \gamma'(s) \rVert}{\lVert \gamma'(s) \rVert^3}$$</p>
+<p>以 $\gamma(s) + \frac{1}{\kappa} \mathbf{n}(s)$ 为圆心，以 $\frac{1}{\kappa}$ 为半径的圆称为<strong>曲率圆</strong>，与曲线有二阶以上的接触。</p>
+<p>衡量偏出密切平面趋势的<strong>挠率</strong>为（注意实际上 $\dot{\mathbf{b}}$ 与 $\mathbf{n}$ 是共线的）：</p>
+<p>$$\tau = -\mathbf{b}'(s) \cdot \mathbf{n}(s)$$</p>
+<p>这里的负号是采取的人为约定；反参数定向不会改变挠率的符号。</p>
+<p>它在一般正则参数下是：</p>
+<p>$$\frac{((\dot\gamma(s) \times \ddot\gamma(s)) \cdot \dddot\gamma(s))}{\lVert \dot\gamma(s) \times \ddot\gamma(s) \rVert^2}$$</p>
+<p>一个有用的结论是：</p>
+<p>$$
+\frac{\mathrm{d}}{\mathrm{d}s} (\mathbf{t}, \mathbf{n}, \mathbf{b}) = (\mathbf{t}, \mathbf{n}, \mathbf{b})
+\begin{pmatrix}
+0 &amp; -\kappa &amp; 0 \cr
+\kappa &amp; 0 &amp; -\tau \cr
+0 &amp; \tau &amp; 0
+\end{pmatrix}
+$$</p>
+<p>此矩阵的反对称性和对角元素为 $0$ 可由 Frenet 标架右手单位正交推得。</p>
+<h3 id="qu-xian-lun-ji-ben-ding-li">曲线论基本定理</h3>
+
+<link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" type="text/css">
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>曲线论基本定理</strong></span>
+  </div>
+  <div class="pl-4"><p>假设 $\kappa, \tau$ 是开区间 $J$ 上的光滑函数，且 $\kappa$ 恒正，那么：</p>
+<ol>
+<li>存在弧长参数曲线段 $\gamma: J \to \mathbb{E}^3$，使得曲率、挠率与 $\kappa, \tau$ 相对应</li>
+<li>这样的曲线段在差一个刚体运动下唯一</li>
+</ol>
+</div>
+</div>
+<p>这是通过 ODE 证明的。</p>
+<h2 id="qu-mian-lun">曲面论</h2>
+<p>局部正则参数曲面片记为：</p>
+<p>$$\varphi: U \to \mathbb{E}^3$$</p>
+<p>其中 $U \subseteq \R$ 中的点记作 $u = (s, t)$. 我们用下标 $s, t$ 分别表示对 $s, t$ 求偏导。</p>
+<p>求面积即是：</p>
+<p>$$\iint_R \lVert \phi_s(u) \times \phi_t(u) \rVert \mathrm{d}s\mathrm{d}t$$</p>
+<h3 id="ji-ben-xing-shi">基本形式</h3>
+<p>我们定义 $E(u) = \phi_s(u) \cdot \phi_s(u)$, $F(u) = \phi_s(u) \cdot \phi_t(u)$, $G(u) = \phi_t(u) \cdot \phi_t(u)$. 记<strong>第一基本形式</strong>：</p>
+<p>$$g = E\mathrm{d}s^2 + 2F\mathrm{d}s\mathrm{d}t + G\mathrm{d}t^2$$</p>
+<p>这是一个内禀量，给出了每一点处切空间上的内积，从而代表了曲面作为二维黎曼流形的全部度量信息。</p>
+<p>正交参数是指 $F = 0$, 等温参数是指正交且 $E = G$.</p>
+<hr />
+<p>我们记单位法向量：</p>
+<p>$$\mathbf{n} = \frac{\phi_s \times \phi_t}{\lVert \phi_s \times \phi_t \rVert}$$</p>
+<p>定义：</p>
+<p>$$
+\begin{cases}
+L = \phi _{ss} \cdot \mathbf{n} = -\phi_s \cdot \mathbf{n} _s \cr
+M = \phi _{st} \cdot \mathbf{n} = -\phi_s \cdot \mathbf{n} _t = -\phi _t \cdot \mathbf{n} _s \cr
+N = \phi _{tt} \cdot \mathbf{n} = -\phi_t \cdot \mathbf{n} _t
+\end{cases}
+$$</p>
+<p>及<strong>第二基本形式</strong>：</p>
+<p>$$h = L\mathrm{d}s^2 + 2M\mathrm{d}s\mathrm{d}t + N\mathrm{d}t^2$$</p>
+<p>这自然来自于 $\phi(s + \Delta s, t + \Delta t)$ 到 $\phi(s, t)$ 处切平面的有向距离。</p>
+<p>这两个基本形式都在参数变换下不变，这可以通过一次微分的形式不变性来看待。</p>
+<h3 id="qu-lu">曲率</h3>
+<p>我们令<strong>平均曲率</strong>：</p>
+<p>$$H = \frac{1}{2} \cdot \frac{LG-2MF+NE}{EG-F^2}$$</p>
+<p>令 <strong>Gauss 曲率</strong>：</p>
+<p>$$K = \frac{LN-M^2}{EG-F^2}$$</p>
+<p>称 $\lambda^2 - 2H\lambda + K = 0$ 的两根 $\kappa_1, \kappa_2$ 为主曲率。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-tip);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/tip.svg);"
+    >
+      tip
+    </div>
+    <span><strong>几何直观</strong></span>
+  </div>
+  <div class="pl-4"><p>考察曲面上的曲线 $\gamma(r) = \phi(u(r))$ 是弧长参数的。由于 $\ddot\gamma \bot \dot\gamma$ 存在分解：</p>
+<p>$$\ddot\gamma = \kappa_n\mathbf{n} + \kappa_g\mathbf{n} \times \dot\gamma$$</p>
+<p>其中 $\kappa_n$ 称为<strong>法曲率</strong>，$\kappa_g$ 称为<strong>测地曲率</strong>。我们算得：</p>
+<p>$$\ddot\gamma = (\dot s^2 \phi_{ss} + 2\dot s \dot t \phi_{st} + \dot t^2 \phi_{tt}) + (\ddot s \phi_s + \ddot t \phi_t)$$</p>
+<p>对两式均进行两边同乘 $\mathbf{n}$, 即得 $\kappa_n = L\dot s^2 + 2M\dot s \dot t + N\dot t^2$.</p>
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-note);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/note.svg);"
+    >
+      note
+    </div>
+    <span><strong>理解</strong></span>
+  </div>
+  <div class="pl-4"><p>我们可以选取适当参数，使 $\phi$ 在该处的第一基本形式为 $\mathrm{d}s^2 + \mathrm{d}t^2$. 此时可推出 $\kappa_1, \kappa_2$ 是 $\kappa_n$ 的两个极值。对应线向就是主方向。</p>
+</div>
+</div>
+<p>称包含曲面在该点的法线的平面为<strong>法截面</strong>，与曲面交线为<strong>法截线</strong>。</p>
+</div>
+</div>
+<p>考察 Gauss 映射：</p>
+<p>$$
+\begin{aligned}
+\mathcal{G} \colon U &amp; \to \mathbb{S}^2 \cr
+u &amp; \mapsto \mathbf{n}(u)
+\end{aligned}
+$$</p>
+<p>我们定义 Weingarten 映射 $W$ 从 $\mathbf{n}(u)^\bot$ 映到自身（更准确地说从 $T_uU$ 映到自身）：对 $\mathbf{v} \in \mathbf{n}(u)^\bot$ 任取弧长参数曲线 $\gamma(r) = \phi(u(r))$ 使得 $\dot\gamma(0) = \mathbf{v}$. 此时令：</p>
+<p>$$W(v) = -\frac{\mathrm{d}(\mathcal{G} \circ \gamma)}{\mathrm{d}r}\Big|_{r=0}$$</p>
+<p>取基 $\phi_s, \phi_t$, 有 $W(\phi_s) = -\mathbf{n}_s, W(\phi_t) = -\mathbf{n}_t$. 在基上的矩阵为：</p>
+<p>$$\begin{pmatrix} E &amp; F \cr F &amp; G \end{pmatrix}^{-1} \begin{pmatrix} L &amp; M \cr M &amp; N \end{pmatrix}$$</p>
+<p>可见 $H = \frac{1}{2} \operatorname{tr} W, K = \det W$, 两个主曲率是其特征值，对应的特征线向为<strong>主方向</strong>。两个主方向是正交的。</p>
+<p>称 $\kappa_1 = \kappa_2$ 的点为脐点，切向量处处为主方向的曲线为<strong>曲率线</strong>；法曲率处处为零的曲线称为渐近曲线；测地曲率处处为零的曲线称为测地线。</p>
+<h3 id="qu-mian-lun-ji-ben-fang-cheng">曲面论基本方程</h3>
+<p>我们考虑：</p>
+<p>$$\begin{pmatrix} \phi_s \cr \phi_t \cr \mathbf{n} \end{pmatrix} \cdot \begin{pmatrix} \phi_s &amp; \phi_t &amp; \mathbf{n} \end{pmatrix} _{st} = \begin{pmatrix} \phi_s \cr \phi_t \cr \mathbf{n} \end{pmatrix} \cdot \begin{pmatrix} \phi_s &amp; \phi_t &amp; \mathbf{n} \end{pmatrix} _{ts}$$</p>
+<p>得到的矩阵首行中间列就是 Gauss 方程，前两行最右列就是 Codazzi 方程。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Gauss 绝妙定理</strong></span>
+  </div>
+  <div class="pl-4"><p>空间曲面的第一基本形式完全决定 Gauss 曲率。</p>
+</div>
+</div>
+<p>即证 $LN - M^2$ 可以由 $E, F, G$ 完全表示。</p>
+<p>计算非常琐碎，我们可以定义：</p>
+<p>$$
+P = \begin{pmatrix} \phi_s \cr \phi_t \cr \mathbf{n} \end{pmatrix} \cdot \begin{pmatrix} \phi_s &amp; \phi_t &amp; \mathbf{n} \end{pmatrix}
+= \begin{pmatrix} E &amp; F &amp; 0 \cr F &amp; G &amp; 0 \cr 0 &amp; 0 &amp; 1 \end{pmatrix}
+$$</p>
+<p>$$\begin{pmatrix} \phi_s &amp; \phi_t &amp; \mathbf{n} \end{pmatrix}_s = \begin{pmatrix} \phi_s &amp; \phi_t &amp; \mathbf{n} \end{pmatrix} A$$</p>
+<p>$$\begin{pmatrix} \phi_s &amp; \phi_t &amp; \mathbf{n} \end{pmatrix}_t = \begin{pmatrix} \phi_s &amp; \phi_t &amp; \mathbf{n} \end{pmatrix} B$$</p>
+<p>特别地，当 $F = 0$ 时可以使用 $(\phi_s, \phi_t, \mathbf{n})$ 构成正交标架来简化计算。</p>
+<h3 id="qu-mian-lun-ji-ben-ding-li">曲面论基本定理</h3>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>曲面论基本定理</strong></span>
+  </div>
+  <div class="pl-4"><p>若 $D \subset \R^2$ 上 $g, h$ 相容（即满足 Gauss-Codazzi 方程），则实现的曲面片局部存在，且在刚体运动下唯一。</p>
+</div>
+</div>
+<p>使用一些 PDE 之类的东西。</p>
+<p>整体解不一定存在，是因为转一圈后可能出问题。</p>
+<h3 id="bao-chang-dui-ying">保长对应</h3>
+<p>设 $\phi: U \to \mathbb{E}^3, \tilde{\phi}: \tilde{U} \to \mathbb{E}^3$ 是局部正则的参数曲面片。设 $\tau: \tilde{U} \to U$ 是光滑同胚。令 Jacobi 矩阵：</p>
+<p>$$
+J = \begin{pmatrix}
+\frac{\partial s}{\partial \tilde{s}} &amp; \frac{\partial s}{\partial \tilde{t}} \cr
+\frac{\partial t}{\partial \tilde{s}} &amp; \frac{\partial t}{\partial \tilde{t}}
+\end{pmatrix}
+$$</p>
+<p>通过看 $\tilde{U} \to \mathbb{E}^3$ 及使用多元微积分，得：</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>保长对应</strong></span>
+  </div>
+  <div class="pl-4"><p>$\tau$ 保长当且仅当：</p>
+<p>$$
+J^\top \begin{pmatrix}
+E \circ \tau &amp; F \circ \tau \cr
+F \circ \tau &amp; G \circ \tau
+\end{pmatrix} J = \begin{pmatrix}
+\tilde{E} &amp; \tilde{F} \cr
+\tilde{F} &amp; \tilde{G}
+\end{pmatrix}
+$$</p>
+</div>
+</div>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>保角对应</strong></span>
+  </div>
+  <div class="pl-4"><p>$\tau$ 保角当且仅当存在恒正 $\rho: \tilde{U} \to \R$ 使得：</p>
+<p>$$
+J^\top \begin{pmatrix}
+E \circ \tau &amp; F \circ \tau \cr
+F \circ \tau &amp; G \circ \tau
+\end{pmatrix} J = \rho \cdot \begin{pmatrix}
+\tilde{E} &amp; \tilde{F} \cr
+\tilde{F} &amp; \tilde{G}
+\end{pmatrix}
+$$</p>
+</div>
+</div>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>保积对应</strong></span>
+  </div>
+  <div class="pl-4"><p>$\tau$ 保积当且仅当：</p>
+<p>$$\sqrt{(EG-F^2) \circ \tau} \cdot |\det J| = \sqrt{\tilde{E}\tilde{G}-\tilde{F}^2}$$</p>
+</div>
+</div>
+<h2 id="kuo-zhan">扩展</h2>
+<p>写一些我认为可以了解的东西，部分来自陈维桓《微分几何初步》。这里没有写测地线与常（高斯）曲率曲面。</p>
+<h3 id="ping-mian-qu-xian">平面曲线</h3>
+<p>平面曲线可以看成挠率为 $0$ 的空间曲线。</p>
+<p>我们让 $\alpha(s)$ 是单位切向量，逆时针旋转 90° 得到 $\beta(s)$. 可以定义相对曲率 $\kappa_r = \dot{\alpha} \cdot \beta = \pm \kappa$.</p>
+<p>定义方向角 $\theta(s)$ 表示 $\alpha(s)$ 与 x 轴正向所成的角。这是多值的，因此我们让 $\kappa_r = \frac{\mathrm{d}\theta(s)}{\mathrm{d}s}$.</p>
+<p>令旋转指标 $i(C) = \frac{1}{2\pi}(\theta(b) - \theta(a))$. 旋转指标定理告诉我们平面上连续可微的闭曲线，旋转指标 $i(C) = \pm 1$.</p>
+<h3 id="ji-xiao-qu-mian">极小曲面</h3>
+<p>给定边界条件下，面积极小的曲面满足平均曲率处处为 $0$.</p>
+<p>设有一族光滑的：</p>
+<p>$$\phi^t: U \to \mathbb{E}^3$$</p>
+<p>采用变分法，设 $t \to 0$ 时：</p>
+<p>$$\phi^t(u, v) = \phi^0(u, v) + t\psi(u, v)$$</p>
+<p>满足边界条件 $\psi|_{\partial U} \equiv 0$.</p>
+<p>不妨再设参数足够好，使得 $\psi(u, v)$ 总是平行于 $\mathbf{n}$, 则：</p>
+<p>$$\frac{\mathrm{d}}{\mathrm{d}t} \text{Area} = \iint_U \frac{\mathrm{d}}{\mathrm{d}t}\left(\sqrt{EG - F^2}\right) \mathrm{d}u\mathrm{d}v$$</p>
+<p>其中 $\frac{\mathrm{d}}{\mathrm{d}t}\left(\sqrt{EG - F^2}\right) = \frac{\frac{\mathrm{d}}{\mathrm{d}t}\left(EG-F^2\right)}{2\sqrt{EG-F^2}}$ 且设 $\psi = k\mathbf{n}$ 则：</p>
+<p>$$
+\frac{\mathrm{d}}{\mathrm{d}t}\left(EG-F^2\right) =
+k(2G (\phi_s \cdot \mathbf{n}_s) + 2E (\phi_t \cdot \mathbf{n}_t) - 2F (\phi_s \cdot \mathbf{n}_t + \phi_t \cdot \mathbf{n}_s)) =
+-2k (LG-2MF+NE)
+$$</p>
+<p>由变分法基本引理知 $H \equiv 0$.</p>
+<h3 id="ding-xiang">定向</h3>
+<p>光滑流形上的定向是指在每个点处的切空间指定一个有序基，使这个指定是局部连续的。局部正则参数曲面片显然是存在定向的。</p>
+<h3 id="gauss-bonnet-gong-shi">Gauss–Bonnet 公式</h3>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>定理</strong></span>
+  </div>
+  <div class="pl-4"><p>设曲线 $C$ 是曲面 $S$ 上的分段光滑简单闭曲线，包围了单连通区域 $D$ 则：</p>
+<p>$$\oint_C \kappa_g \mathrm{d}s + \iint_D K \mathrm{d}\sigma = 2\pi - \sum a_i$$</p>
+<p>其中 $\sigma$ 表示面积微元，$a_i$ 表示角点处的外角。</p>
+</div>
+</div>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Gauss–Bonnet 公式</strong></span>
+  </div>
+  <div class="pl-4"><p>$$\iint_D K \mathrm{d}\sigma = 2\pi \chi(S)$$</p>
+</div>
+</div>
+<h2 id="kao-shi">考试</h2>
+<h3 id="wang-nian-ti">往年题</h3>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2022 P3</strong></span>
+  </div>
+  <div class="pl-4"><p>给定空间曲面 $S_1: x^2+y^2+z^2 = 9$ 和 $S^2: x^2−2y = 0$，记 $c = S_1 \cap S_2$ 为它们的交线。求：点 $P(2, 2, 1)$ 处 $c$ 关于 $S_1$ 的法曲率。</p>
+</div>
+</div>
+<p>设 $c$ 的弧长参数方程 $\gamma(s)$ 满足 $\gamma(0) = (2, 2, 1), x'(0) &gt; 0$. 通过对 $S_1$ 求两次导及弧长参数知：</p>
+<p>$$2x''(0) + 2y''(0) + z''(0) = -1$$</p>
+<p>又法向量 $(\frac{2}{3}, \frac{2}{3}, \frac{1}{3})$ 知法曲率 $\gamma''(0) \cdot \mathbf{n} = -\frac{1}{3}$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2022 P4</strong></span>
+  </div>
+  <div class="pl-4"><p>求证：如果空间正则曲面 $S \subset \mathbb{E}^3$ 包含一条直线 $l \subset S$，那么 $S$ 在 $l$ 上任意点的 Gauss 曲率都小于或等于 $0$.</p>
+</div>
+</div>
+<p>因为主曲率将满足 $\kappa_1 \leq 0 \leq \kappa_2$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2022 P5</strong></span>
+  </div>
+  <div class="pl-4"><p>假设 $\Omega$ 是 $\mathbb{E}^3$ 中的区域，包含于单位球内部，且边界 $S = \partial \Omega$ 是正则曲面。求证：存在 $S$ 上某点，Gauss 曲率大于或等于 $1$.</p>
+</div>
+</div>
+<p>注意到单位球上 Gauss 曲率为 $1$.</p>
+<p>我们取与原点距离最远的点 $p$, 设主方向对应法截线 $\gamma(s)$ 满足 $\gamma(0) = p$.</p>
+<p>$$\gamma(s) = \gamma(0) + s\gamma'(0) + \frac{1}{2}s^2\gamma''(0) + o(s^2)$$</p>
+<p>由极大性知 $\gamma(0) \bot \gamma'(0)$, 由弧长参数的特性 $\gamma'(0) \bot \gamma''(0)$, 进而：</p>
+<p>$$\lVert \gamma(s) \rVert^2 = \lVert \gamma(0) \rVert^2 + s^2 + s^2 \gamma(0) \cdot \gamma''(0) + o(s^2)$$</p>
+<p>从而：</p>
+<p>$$1 + \gamma(0) \cdot \gamma''(0) + o(1) \leq 0$$</p>
+<p>从而：</p>
+<p>$$\lVert \gamma''(0) \rVert \geq 1$$</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2023 P6</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $\phi: \R^2 \to \mathbb{E}^3$ 是正则（浸入）参数曲面片，且假设 $\phi(s, t) = \phi(s+1, t) = \phi(s, t+1)$ 对所有 $(s, t) \in \R^2$ 成立。问：$\phi$ 的 Gauss 映射是否一定满射单位球面？加以论证。</p>
+</div>
+</div>
+<p>否，例子大约是：</p>
+<p>$$\mid 8$$</p>
+<p>这里“8”绕着轴转一圈，通过定向说明法向量只能在正向上、正向下中取其一。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2025 P4</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $\phi: \R^2 \to \mathbb{E}^3$ 为正则参数曲面片，第一、第二基本形式处处为：</p>
+<p>$$E\mathrm{d}s^2 + 2F\mathrm{d}s\mathrm{d}t + G\mathrm{d}t^2 = \mathrm{d}s^2 + 4\mathrm{d}s\mathrm{d}t + 5\mathrm{d}t^2$$</p>
+<p>$$L\mathrm{d}s^2 + 2M\mathrm{d}s\mathrm{d}t + N\mathrm{d}t^2 = 2c\mathrm{d}s\mathrm{d}t$$</p>
+<p>其中 $c \in \R$ 是与参数 $(s, t)$ 无关的常数。求证 $c = 0$.</p>
+</div>
+</div>
+<p>等距变换到平面 $\phi(s, t) = (s+2t, t, 0)$. 有它的 Gauss 曲率 $0$.</p>
+<h3 id="jin-nian-ti">今年题</h3>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2026 P5 (2)</strong></span>
+  </div>
+  <div class="pl-4"><p>假设正则参数曲面片 $\phi: U \to \mathbb{E}^3$ 的 Gauss 曲率处处为负，且坐标曲线构成渐进参数网。求证：若 Gauss 曲率还恒等于负常数，则二阶偏导数向量 $\phi_{st}$ 处处平行于 $\mathbf{n}$.</p>
+</div>
+</div>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2026 P6</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $f: \R^2 \to \R$ 为光滑函数，满足 $f(0, 0) = 1$, 且当 $s^2 + t^2 \geq 1$ 时 $f(s, t) = 0$. 记 $\phi: \R^2 \to \mathbb{E}^3$ 为正则参数曲面片 $\phi(s, t) = (s, t, f(s, t))$. 问：是否一定存在参数点 $(s_0, t_0) \in \R^2$ 使得 Gauss 曲率 $K(s_0, t_0) &gt; 0$? 加以论证。</p>
+</div>
+</div>
+<p>取充分大正数 $M$ 考察离 $(0, 0, -M)$ 最远的点，使用往年题结论。</p>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/几何/">几何</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <link rel="stylesheet" href="https://rratic.top/katex/katex.min.css?h=e189fd0238811989c364" />
+  <script defer src="https://rratic.top/katex/katex.min.js?h=6b909443e6c8f6e5d24c"></script>
+  <script defer src="https://rratic.top/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

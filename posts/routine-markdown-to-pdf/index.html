@@ -1,0 +1,277 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>推荐一个 Markdown 转 PDF 的流程 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="推荐一个 Markdown 转 PDF 的流程" />
+  <meta name="description" content="有时我们想要排版出一份数学/物理试卷或者 cheatsheet, 可能涉及到数学公式、代码块，并以 PDF 形式给出，但是不希望使用麻烦的 PDF 编辑器或者 Word, 也不希望使用一整套 pdftex. 此时可用此流程，只需用到 VSCode 与一个浏览器。或者在 AI 时代也可使用基于 VSCode 开发的 Cursor, 下文提及的样式可以交给 AI 定制（建议在提示词中指明使用的 Mar…" />
+  <meta property="og:description" content="有时我们想要排版出一份数学/物理试卷或者 cheatsheet, 可能涉及到数学公式、代码块，并以 PDF 形式给出，但是不希望使用麻烦的 PDF 编辑器或者 Word, 也不希望使用一整套 pdftex. 此时可用此流程，只需用到 VSCode 与一个浏览器。或者在 AI 时代也可使用基于 VSCode 开发的 Cursor, 下文提及的样式可以交给 AI 定制（建议在提示词中指明使用的 Markdown 插件）。" />
+  <meta property="og:url" content="https://rratic.top/posts/routine-markdown-to-pdf/" />
+  <link rel="canonical" href="https://rratic.top/posts/routine-markdown-to-pdf/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-02-23T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2026-04-08T00:00:00+00:00" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.top/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.top/style/shared.css?h=63eca58df589815f6747" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">推荐一个 Markdown 转 PDF 的流程</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2026-02-23T00:00:00+00:00">2026-02-23</time><span
+        class="middot"></span><time
+    datetime="PT0H5M0S">5&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+
+  <!-- Content -->
+  <section><p>有时我们想要排版出一份数学/物理试卷或者 cheatsheet, 可能涉及到数学公式、代码块，并以 PDF 形式给出，但是不希望使用麻烦的 PDF 编辑器或者 Word, 也不希望使用一整套 <a href="https://tug.org/applications/pdftex/">pdftex</a>. 此时可用此流程，只需用到 <a href="https://code.visualstudio.com/">VSCode</a> 与一个浏览器。</p>
+<p>或者在 AI 时代也可使用基于 VSCode 开发的 <a href="https://cursor.com/">Cursor</a>, 下文提及的样式可以交给 AI 定制（建议在提示词中指明使用的 Markdown 插件）。</p>
+<span id="continue-reading"></span><h2 id="liu-cheng">流程</h2>
+<p>首先需要下载的 VSCode 插件是 <a href="https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced">Markdown Preview Enhanced</a>. 这个插件提供了相当丰富的功能，可参考其<a href="https://shd101wyy.github.io/markdown-preview-enhanced/#/zh-cn/">文档</a>。</p>
+<p>我们新建一个后缀为 <code>.md</code> 的文件，填入 <a href="https://docs.net9.org/basic/markdown/">Markdown</a> 格式的内容（这支持代码块与使用 <a href="https://katex.org/">KaTeX</a> 嵌入数学公式）。你可以在编辑框中看到对应的高亮辅助。</p>
+<p>在编辑这个文件的状态下点击<kbd>鼠标右键</kbd>，在菜单中选择 "MPE:打开侧边预览". 结果如下：</p>
+<p><img src="/images/misc/2026_02_23.png" alt="侧边预览" /></p>
+<p>现在在侧边预览中点击<kbd>鼠标右键</kbd>，在菜单中选择 "Open in Browser" 或者选择 "Export" -&gt; "HTML" -&gt; "HTML (offline)" 然后手动用浏览器打开。此时打开的是你的 Markdown 内容生成的 <a href="https://docs.net9.org/frontend/web_foundation/html/">HTML</a> 文件。</p>
+<p>最后使用浏览器的打印功能，选择 "另存为 PDF" 即可。其它打印选项对于转 PDF 也是有效的。</p>
+<h2 id="xiu-gai-css">修改 CSS</h2>
+<p>排版出的效果可能存在令人不满意的地方。例如说，引用的效果看起来很奇怪。由于我们是先生成 HTML 而且 Markdown 天然支持嵌入 HTML, 我们可以在文件的最开头加上：</p>
+<pre data-lang="html" class="language-html z-code"><code class="language-html" data-lang="html"><span class="z-text z-html z-basic"><span class="z-meta z-tag z-style z-begin z-html"><span class="z-punctuation z-definition z-tag z-begin z-html">&lt;</span><span class="z-entity z-name z-tag z-style z-html">style</span></span><span class="z-meta z-tag z-style z-begin z-html"><span class="z-punctuation z-definition z-tag z-end z-html">&gt;</span></span>
+</span><span class="z-text z-html z-basic">	<span class="z-source z-css z-embedded z-html"><span class="z-source z-css"><span class="z-meta z-selector z-css"><span class="z-entity z-name z-tag z-css">html</span> <span class="z-entity z-name z-tag z-css">body</span> <span class="z-entity z-name z-tag z-css">blockquote</span> </span><span class="z-meta z-property-list z-css"><span class="z-punctuation z-section z-property-list z-css">{</span>
+</span></span></span></span><span class="z-text z-html z-basic"><span class="z-source z-css z-embedded z-html"><span class="z-source z-css"><span class="z-meta z-property-list z-css">		<span class="z-meta z-property-name z-css"><span class="z-support z-type z-property-name z-css">padding</span></span><span class="z-punctuation z-separator z-key-value z-css">:</span><span class="z-meta z-property-value z-css"> </span><span class="z-meta z-property-value z-css"><span class="z-constant z-numeric z-integer z-decimal z-css">12<span class="z-keyword z-other z-unit z-css">px</span></span> <span class="z-constant z-numeric z-integer z-decimal z-css">12<span class="z-keyword z-other z-unit z-css">px</span></span></span><span class="z-punctuation z-terminator z-rule z-css">;</span>
+</span></span></span></span><span class="z-text z-html z-basic"><span class="z-source z-css z-embedded z-html"><span class="z-source z-css"><span class="z-meta z-property-list z-css"></span>	<span class="z-punctuation z-section z-property-list z-css">}</span>
+</span></span></span><span class="z-text z-html z-basic"><span class="z-source z-css z-embedded z-html"><span class="z-source z-css"></span></span><span class="z-meta z-tag z-style z-end z-html"><span class="z-punctuation z-definition z-tag z-begin z-html">&lt;/</span><span class="z-entity z-name z-tag z-style z-html">style</span><span class="z-punctuation z-definition z-tag z-end z-html">&gt;</span></span>
+</span></code></pre>
+<p>这些都可以自己调。特别地本文提供在一页上排版成两列的方法（这适用于 cheatsheet）。在开头的 <code>&lt;style&gt;&lt;/style&gt;</code> 中添上：</p>
+<pre data-lang="css" class="language-css z-code"><code class="language-css" data-lang="css"><span class="z-source z-css"><span class="z-meta z-selector z-css"><span class="z-entity z-other z-attribute-name z-class z-css"><span class="z-punctuation z-definition z-entity z-css">.</span>row</span> </span><span class="z-meta z-property-list z-css"><span class="z-punctuation z-section z-property-list z-css">{</span>
+</span></span><span class="z-source z-css"><span class="z-meta z-property-list z-css">	<span class="z-meta z-property-name z-css"><span class="z-support z-type z-property-name z-css">display</span></span><span class="z-punctuation z-separator z-key-value z-css">:</span><span class="z-meta z-property-value z-css"> </span><span class="z-meta z-property-value z-css"><span class="z-support z-constant z-property-value z-css">flex</span></span><span class="z-punctuation z-terminator z-rule z-css">;</span>
+</span></span><span class="z-source z-css"><span class="z-meta z-property-list z-css"></span><span class="z-punctuation z-section z-property-list z-css">}</span>
+</span><span class="z-source z-css">
+</span><span class="z-source z-css"><span class="z-meta z-selector z-css"><span class="z-entity z-other z-attribute-name z-class z-css"><span class="z-punctuation z-definition z-entity z-css">.</span>card</span> </span><span class="z-meta z-property-list z-css"><span class="z-punctuation z-section z-property-list z-css">{</span>
+</span></span><span class="z-source z-css"><span class="z-meta z-property-list z-css">	<span class="z-meta z-property-name z-css"><span class="z-support z-type z-property-name z-css">position</span></span><span class="z-punctuation z-separator z-key-value z-css">:</span><span class="z-meta z-property-value z-css"> </span><span class="z-meta z-property-value z-css"><span class="z-support z-constant z-property-value z-css">relative</span></span><span class="z-punctuation z-terminator z-rule z-css">;</span>
+</span></span><span class="z-source z-css"><span class="z-meta z-property-list z-css">    <span class="z-meta z-property-name z-css"><span class="z-support z-type z-property-name z-css">display</span></span><span class="z-punctuation z-separator z-key-value z-css">:</span><span class="z-meta z-property-value z-css"> </span><span class="z-meta z-property-value z-css"><span class="z-support z-constant z-property-value z-css">flex</span></span><span class="z-punctuation z-terminator z-rule z-css">;</span>
+</span></span><span class="z-source z-css"><span class="z-meta z-property-list z-css">    <span class="z-meta z-property-name z-css"><span class="z-support z-type z-property-name z-css">flex-direction</span></span><span class="z-punctuation z-separator z-key-value z-css">:</span><span class="z-meta z-property-value z-css"> </span><span class="z-meta z-property-value z-css"><span class="z-support z-constant z-property-value z-css">column</span></span><span class="z-punctuation z-terminator z-rule z-css">;</span>
+</span></span><span class="z-source z-css"><span class="z-meta z-property-list z-css"></span><span class="z-punctuation z-section z-property-list z-css">}</span>
+</span><span class="z-source z-css">
+</span><span class="z-source z-css"><span class="z-meta z-selector z-css"><span class="z-entity z-other z-attribute-name z-class z-css"><span class="z-punctuation z-definition z-entity z-css">.</span>pad</span> </span><span class="z-meta z-property-list z-css"><span class="z-punctuation z-section z-property-list z-css">{</span>
+</span></span><span class="z-source z-css"><span class="z-meta z-property-list z-css">	<span class="z-meta z-property-name z-css"><span class="z-support z-type z-property-name z-css">padding</span></span><span class="z-punctuation z-separator z-key-value z-css">:</span><span class="z-meta z-property-value z-css"> </span><span class="z-meta z-property-value z-css"><span class="z-constant z-numeric z-integer z-decimal z-css">16<span class="z-keyword z-other z-unit z-css">px</span></span></span><span class="z-punctuation z-terminator z-rule z-css">;</span>
+</span></span><span class="z-source z-css"><span class="z-meta z-property-list z-css"></span><span class="z-punctuation z-section z-property-list z-css">}</span>
+</span></code></pre>
+<p>然后内容部分仿照这样写（前面的空可以省略）：</p>
+<pre data-lang="html" class="language-html z-code"><code class="language-html" data-lang="html"><span class="z-text z-html z-basic"><span class="z-meta z-tag z-block z-any z-html"><span class="z-punctuation z-definition z-tag z-begin z-html">&lt;</span><span class="z-entity z-name z-tag z-block z-any z-html">div</span> <span class="z-meta z-attribute-with-value z-class z-html"><span class="z-entity z-other z-attribute-name z-class z-html">class</span><span class="z-punctuation z-separator z-key-value z-html">=</span><span class="z-string z-quoted z-double z-html"><span class="z-punctuation z-definition z-string z-begin z-html">&quot;</span></span><span class="z-string z-quoted z-double z-html"><span class="z-meta z-class-name z-html">row</span><span class="z-punctuation z-definition z-string z-end z-html">&quot;</span></span></span><span class="z-punctuation z-definition z-tag z-end z-html">&gt;</span></span>
+</span><span class="z-text z-html z-basic">
+</span><span class="z-text z-html z-basic"><span class="z-meta z-tag z-block z-any z-html"><span class="z-punctuation z-definition z-tag z-begin z-html">&lt;</span><span class="z-entity z-name z-tag z-block z-any z-html">div</span> <span class="z-meta z-attribute-with-value z-class z-html"><span class="z-entity z-other z-attribute-name z-class z-html">class</span><span class="z-punctuation z-separator z-key-value z-html">=</span><span class="z-string z-quoted z-double z-html"><span class="z-punctuation z-definition z-string z-begin z-html">&quot;</span></span><span class="z-string z-quoted z-double z-html"><span class="z-meta z-class-name z-html">card</span><span class="z-punctuation z-definition z-string z-end z-html">&quot;</span></span></span><span class="z-punctuation z-definition z-tag z-end z-html">&gt;</span></span>
+</span><span class="z-text z-html z-basic">	第一列的内容，这里直接放代码块
+</span><span class="z-text z-html z-basic">
+</span><span class="z-text z-html z-basic">	<span class="z-meta z-tag z-block z-any z-html"><span class="z-punctuation z-definition z-tag z-begin z-html">&lt;</span><span class="z-entity z-name z-tag z-block z-any z-html">div</span> <span class="z-meta z-attribute-with-value z-class z-html"><span class="z-entity z-other z-attribute-name z-class z-html">class</span><span class="z-punctuation z-separator z-key-value z-html">=</span><span class="z-string z-quoted z-double z-html"><span class="z-punctuation z-definition z-string z-begin z-html">&quot;</span></span><span class="z-string z-quoted z-double z-html"><span class="z-meta z-class-name z-html">pad</span><span class="z-punctuation z-definition z-string z-end z-html">&quot;</span></span></span><span class="z-punctuation z-definition z-tag z-end z-html">&gt;</span></span>
+</span><span class="z-text z-html z-basic">	第一列的内容，文本
+</span><span class="z-text z-html z-basic">	<span class="z-meta z-tag z-block z-any z-html"><span class="z-punctuation z-definition z-tag z-begin z-html">&lt;/</span><span class="z-entity z-name z-tag z-block z-any z-html">div</span><span class="z-punctuation z-definition z-tag z-end z-html">&gt;</span></span>
+</span><span class="z-text z-html z-basic"><span class="z-meta z-tag z-block z-any z-html"><span class="z-punctuation z-definition z-tag z-begin z-html">&lt;/</span><span class="z-entity z-name z-tag z-block z-any z-html">div</span><span class="z-punctuation z-definition z-tag z-end z-html">&gt;</span></span>
+</span><span class="z-text z-html z-basic">
+</span><span class="z-text z-html z-basic"><span class="z-meta z-tag z-block z-any z-html"><span class="z-punctuation z-definition z-tag z-begin z-html">&lt;</span><span class="z-entity z-name z-tag z-block z-any z-html">div</span> <span class="z-meta z-attribute-with-value z-class z-html"><span class="z-entity z-other z-attribute-name z-class z-html">class</span><span class="z-punctuation z-separator z-key-value z-html">=</span><span class="z-string z-quoted z-double z-html"><span class="z-punctuation z-definition z-string z-begin z-html">&quot;</span></span><span class="z-string z-quoted z-double z-html"><span class="z-meta z-class-name z-html">card</span> <span class="z-meta z-class-name z-html">pad</span><span class="z-punctuation z-definition z-string z-end z-html">&quot;</span></span></span><span class="z-punctuation z-definition z-tag z-end z-html">&gt;</span></span>
+</span><span class="z-text z-html z-basic">	第二列的内容，全是文本
+</span><span class="z-text z-html z-basic"><span class="z-meta z-tag z-block z-any z-html"><span class="z-punctuation z-definition z-tag z-begin z-html">&lt;/</span><span class="z-entity z-name z-tag z-block z-any z-html">div</span><span class="z-punctuation z-definition z-tag z-end z-html">&gt;</span></span>
+</span><span class="z-text z-html z-basic">
+</span><span class="z-text z-html z-basic"><span class="z-meta z-tag z-block z-any z-html"><span class="z-punctuation z-definition z-tag z-begin z-html">&lt;/</span><span class="z-entity z-name z-tag z-block z-any z-html">div</span><span class="z-punctuation z-definition z-tag z-end z-html">&gt;</span></span>
+</span></code></pre>
+<p>有时我们会希望有合适大小，每列宽度合适的表格，可以参考（在开头的 <code>&lt;style&gt;&lt;/style&gt;</code> 中添上）：</p>
+<pre data-lang="css" class="language-css z-code"><code class="language-css" data-lang="css"><span class="z-source z-css"><span class="z-meta z-selector z-css"><span class="z-entity z-name z-tag z-css">table</span> </span><span class="z-meta z-property-list z-css"><span class="z-punctuation z-section z-property-list z-css">{</span>
+</span></span><span class="z-source z-css"><span class="z-meta z-property-list z-css">	<span class="z-meta z-property-name z-css"><span class="z-support z-type z-property-name z-css">table-layout</span></span><span class="z-punctuation z-separator z-key-value z-css">:</span><span class="z-meta z-property-value z-css"> </span><span class="z-meta z-property-value z-css"><span class="z-support z-constant z-property-value z-css">fixed</span></span><span class="z-punctuation z-terminator z-rule z-css">;</span>
+</span></span><span class="z-source z-css"><span class="z-meta z-property-list z-css">	<span class="z-meta z-property-name z-css"><span class="z-support z-type z-property-name z-css">width</span></span><span class="z-punctuation z-separator z-key-value z-css">:</span><span class="z-meta z-property-value z-css"> </span><span class="z-meta z-property-value z-css"><span class="z-constant z-numeric z-integer z-decimal z-css">100<span class="z-keyword z-other z-unit z-css">%</span></span></span><span class="z-punctuation z-terminator z-rule z-css">;</span>
+</span></span><span class="z-source z-css"><span class="z-meta z-property-list z-css">	<span class="z-meta z-property-name z-css"><span class="z-support z-type z-property-name z-css">border-collapse</span></span><span class="z-punctuation z-separator z-key-value z-css">:</span><span class="z-meta z-property-value z-css"> </span><span class="z-meta z-property-value z-css"><span class="z-support z-constant z-property-value z-css">collapse</span></span><span class="z-punctuation z-terminator z-rule z-css">;</span>
+</span></span><span class="z-source z-css"><span class="z-meta z-property-list z-css"></span><span class="z-punctuation z-section z-property-list z-css">}</span>
+</span><span class="z-source z-css">
+</span><span class="z-source z-css"><span class="z-meta z-selector z-css"><span class="z-entity z-name z-tag z-css">table</span> <span class="z-entity z-name z-tag z-css">td</span><span class="z-entity z-other z-pseudo-class z-css"><span class="z-punctuation z-definition z-entity z-css">:</span>first-child</span><span class="z-punctuation z-separator z-sequence z-css">,</span>
+</span></span><span class="z-source z-css"><span class="z-meta z-selector z-css"><span class="z-entity z-name z-tag z-css">table</span> <span class="z-entity z-name z-tag z-css">th</span><span class="z-entity z-other z-pseudo-class z-css"><span class="z-punctuation z-definition z-entity z-css">:</span>first-child</span> </span><span class="z-meta z-property-list z-css"><span class="z-punctuation z-section z-property-list z-css">{</span>
+</span></span><span class="z-source z-css"><span class="z-meta z-property-list z-css">	<span class="z-meta z-property-name z-css"><span class="z-support z-type z-property-name z-css">width</span></span><span class="z-punctuation z-separator z-key-value z-css">:</span><span class="z-meta z-property-value z-css"> </span><span class="z-meta z-property-value z-css"><span class="z-constant z-numeric z-integer z-decimal z-css">2<span class="z-keyword z-other z-unit z-css">%</span></span></span><span class="z-punctuation z-terminator z-rule z-css">;</span>
+</span></span><span class="z-source z-css"><span class="z-meta z-property-list z-css"></span><span class="z-punctuation z-section z-property-list z-css">}</span>
+</span><span class="z-source z-css">
+</span><span class="z-source z-css"><span class="z-meta z-selector z-css"><span class="z-entity z-name z-tag z-css">table</span> <span class="z-entity z-name z-tag z-css">td</span><span class="z-meta z-function-call z-css"><span class="z-entity z-other z-pseudo-class z-css"><span class="z-punctuation z-definition z-entity z-css">:</span>not</span><span class="z-meta z-group z-css"><span class="z-punctuation z-definition z-group z-begin z-css">(</span><span class="z-meta z-selector z-css"><span class="z-entity z-other z-pseudo-class z-css"><span class="z-punctuation z-definition z-entity z-css">:</span>first-child</span></span></span><span class="z-meta z-group z-css"><span class="z-punctuation z-definition z-group z-end z-css">)</span></span></span><span class="z-punctuation z-separator z-sequence z-css">,</span>
+</span></span><span class="z-source z-css"><span class="z-meta z-selector z-css"><span class="z-entity z-name z-tag z-css">table</span> <span class="z-entity z-name z-tag z-css">th</span><span class="z-meta z-function-call z-css"><span class="z-entity z-other z-pseudo-class z-css"><span class="z-punctuation z-definition z-entity z-css">:</span>not</span><span class="z-meta z-group z-css"><span class="z-punctuation z-definition z-group z-begin z-css">(</span><span class="z-meta z-selector z-css"><span class="z-entity z-other z-pseudo-class z-css"><span class="z-punctuation z-definition z-entity z-css">:</span>first-child</span></span></span><span class="z-meta z-group z-css"><span class="z-punctuation z-definition z-group z-end z-css">)</span></span></span> </span><span class="z-meta z-property-list z-css"><span class="z-punctuation z-section z-property-list z-css">{</span>
+</span></span><span class="z-source z-css"><span class="z-meta z-property-list z-css">	<span class="z-meta z-property-name z-css"><span class="z-support z-type z-property-name z-css">width</span></span><span class="z-punctuation z-separator z-key-value z-css">:</span><span class="z-meta z-property-value z-css"> </span><span class="z-meta z-property-value z-css"><span class="z-constant z-numeric z-integer z-decimal z-css">3<span class="z-keyword z-other z-unit z-css">%</span></span></span><span class="z-punctuation z-terminator z-rule z-css">;</span>
+</span></span><span class="z-source z-css"><span class="z-meta z-property-list z-css"></span><span class="z-punctuation z-section z-property-list z-css">}</span>
+</span></code></pre>
+<p>甚至于因为是用浏览器打开的，读者可以嵌入可运行的 <a href="https://docs.net9.org/frontend/web_foundation/javascript/">Javascript</a> 脚本来编辑内容。</p>
+<h2 id="da-yin-kong-zhi">打印控制</h2>
+<p>对一个较长的文章来说，另存为 PDF 时可能产生令人不适的分页。此时可以使用 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/Guides/Media_queries/Using">CSS 的媒体查询</a>。在开头的 <code>&lt;style&gt;&lt;/style&gt;</code> 中添上以下内容，用于在单独的一、二、三级标题前分页，并阻止在图片内部分页：</p>
+<pre data-lang="css" class="language-css z-code"><code class="language-css" data-lang="css"><span class="z-source z-css"><span class="z-meta z-at-rule z-media z-css"><span class="z-keyword z-control z-at-rule z-media z-css"><span class="z-punctuation z-definition z-keyword z-css">@</span>media</span> <span class="z-support z-constant z-media z-css">print</span> </span><span class="z-punctuation z-section z-property-list z-css">{</span>
+</span><span class="z-source z-css">	<span class="z-meta z-selector z-css"><span class="z-entity z-name z-tag z-css">h1</span><span class="z-punctuation z-separator z-sequence z-css">,</span> <span class="z-entity z-name z-tag z-css">h2</span><span class="z-meta z-function-call z-css"><span class="z-entity z-other z-pseudo-class z-css"><span class="z-punctuation z-definition z-entity z-css">:</span>not</span><span class="z-meta z-group z-css"><span class="z-punctuation z-definition z-group z-begin z-css">(</span><span class="z-meta z-selector z-css"><span class="z-entity z-name z-tag z-css">h1</span> <span class="z-punctuation z-separator z-combinator z-css">+</span> <span class="z-entity z-name z-tag z-css">h2</span></span></span><span class="z-meta z-group z-css"><span class="z-punctuation z-definition z-group z-end z-css">)</span></span></span><span class="z-punctuation z-separator z-sequence z-css">,</span> <span class="z-entity z-name z-tag z-css">h3</span><span class="z-meta z-function-call z-css"><span class="z-entity z-other z-pseudo-class z-css"><span class="z-punctuation z-definition z-entity z-css">:</span>not</span><span class="z-meta z-group z-css"><span class="z-punctuation z-definition z-group z-begin z-css">(</span><span class="z-meta z-selector z-css"><span class="z-entity z-name z-tag z-css">h2</span> <span class="z-punctuation z-separator z-combinator z-css">+</span> <span class="z-entity z-name z-tag z-css">h3</span></span></span><span class="z-meta z-group z-css"><span class="z-punctuation z-definition z-group z-end z-css">)</span></span></span> </span><span class="z-meta z-property-list z-css"><span class="z-punctuation z-section z-property-list z-css">{</span>
+</span></span><span class="z-source z-css"><span class="z-meta z-property-list z-css">        <span class="z-meta z-property-name z-css"><span class="z-support z-type z-property-name z-css">page-break-before</span></span><span class="z-punctuation z-separator z-key-value z-css">:</span><span class="z-meta z-property-value z-css"> </span><span class="z-meta z-property-value z-css"><span class="z-support z-constant z-property-value z-css">always</span></span><span class="z-punctuation z-terminator z-rule z-css">;</span>
+</span></span><span class="z-source z-css"><span class="z-meta z-property-list z-css"></span>    <span class="z-punctuation z-section z-property-list z-css">}</span>
+</span><span class="z-source z-css">
+</span><span class="z-source z-css">	<span class="z-meta z-selector z-css"><span class="z-entity z-name z-tag z-css">img</span> </span><span class="z-meta z-property-list z-css"><span class="z-punctuation z-section z-property-list z-css">{</span>
+</span></span><span class="z-source z-css"><span class="z-meta z-property-list z-css">        <span class="z-meta z-property-name z-css"><span class="z-support z-type z-property-name z-css">page-break-inside</span></span><span class="z-punctuation z-separator z-key-value z-css">:</span><span class="z-meta z-property-value z-css"> </span><span class="z-meta z-property-value z-css"><span class="z-support z-constant z-property-value z-css">avoid</span></span><span class="z-punctuation z-terminator z-rule z-css">;</span>
+</span></span><span class="z-source z-css"><span class="z-meta z-property-list z-css"></span>    <span class="z-punctuation z-section z-property-list z-css">}</span>
+</span><span class="z-source z-css"><span class="z-punctuation z-section z-property-list z-css">}</span>
+</span></code></pre>
+<p>这些同样都可以自己调，例如要求表格内容的颜色在 PDF 中保留：</p>
+<pre data-lang="css" class="language-css z-code"><code class="language-css" data-lang="css"><span class="z-source z-css"><span class="z-meta z-at-rule z-media z-css"><span class="z-keyword z-control z-at-rule z-media z-css"><span class="z-punctuation z-definition z-keyword z-css">@</span>media</span> <span class="z-support z-constant z-media z-css">print</span> </span><span class="z-punctuation z-section z-property-list z-css">{</span>
+</span><span class="z-source z-css">    <span class="z-meta z-selector z-css"><span class="z-entity z-name z-tag z-css">table</span> <span class="z-entity z-name z-tag z-wildcard z-css">*</span> </span><span class="z-meta z-property-list z-css"><span class="z-punctuation z-section z-property-list z-css">{</span>
+</span></span><span class="z-source z-css"><span class="z-meta z-property-list z-css">        <span class="z-meta z-property-name z-css">print-<span class="z-support z-type z-property-name z-css">color</span>-adjust</span><span class="z-punctuation z-separator z-key-value z-css">:</span><span class="z-meta z-property-value z-css"> </span><span class="z-meta z-property-value z-css">exact</span><span class="z-punctuation z-terminator z-rule z-css">;</span>
+</span></span><span class="z-source z-css"><span class="z-meta z-property-list z-css">        <span class="z-meta z-property-name z-css"><span class="z-support z-type z-vendor-prefix z-css">-webkit-</span>print-<span class="z-support z-type z-property-name z-css">color</span>-adjust</span><span class="z-punctuation z-separator z-key-value z-css">:</span><span class="z-meta z-property-value z-css"> </span><span class="z-meta z-property-value z-css">exact</span><span class="z-punctuation z-terminator z-rule z-css">;</span>
+</span></span><span class="z-source z-css"><span class="z-meta z-property-list z-css"></span>    <span class="z-punctuation z-section z-property-list z-css">}</span>
+</span><span class="z-source z-css"><span class="z-punctuation z-section z-property-list z-css">}</span>
+</span></code></pre>
+<p>也可以使用 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/Guides/Media_queries/Printing"><code>@page</code></a> 确定打印页面的大小、页边距等。</p>
+<h2 id="mu-lu-kong-zhi">目录控制</h2>
+<p>对于更长一些的文章（甚至是书）来说，可以使用创建目录 Table of Contents 的功能。在单独的一行写 <code>[toc]</code>, 将会在该处插入一个使用嵌套列表展示的目录。</p>
+<p>为了便于管理，可以把不同章节的内容写在不同文件中，然后在主文件中使用 <code>@import "文件路径"</code> 来引入对应文件。具体规则可参考文档的<a href="https://shd101wyy.github.io/markdown-preview-enhanced/#/zh-cn/file-imports">导入文件</a>一节。</p>
+<p>主文件将会长成：</p>
+<pre data-lang="md" class="language-md z-code"><code class="language-md" data-lang="md"><span class="z-text z-html z-markdown"><span class="z-meta z-block-level z-markdown"><span class="z-markup z-heading z-1 z-markdown"><span class="z-punctuation z-definition z-heading z-begin z-markdown">#</span> </span><span class="z-markup z-heading z-1 z-markdown"><span class="z-entity z-name z-section z-markdown">大标题</span><span class="z-meta z-whitespace z-newline z-markdown">
+</span></span></span></span><span class="z-text z-html z-markdown"><span class="z-meta z-paragraph z-markdown">[TOC]
+</span></span><span class="z-text z-html z-markdown"><span class="z-meta z-paragraph z-markdown">
+</span></span><span class="z-text z-html z-markdown"><span class="z-meta z-paragraph z-markdown">@import &quot;ch-01.md&quot;
+</span></span><span class="z-text z-html z-markdown"><span class="z-meta z-paragraph z-markdown">@import &quot;ch-02.md&quot;
+</span></span><span class="z-text z-html z-markdown"><span class="z-meta z-paragraph z-markdown">@import &quot;ch-03.md&quot;
+</span></span></code></pre>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/杂物/">杂物</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

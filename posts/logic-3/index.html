@@ -1,0 +1,422 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>【逻辑学】模态逻辑及其应用 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="【逻辑学】模态逻辑及其应用" />
+  <meta name="description" content="发展出（命题）模态逻辑的动机来自于，命题逻辑的实质蕴涵并不总是与自然语言的“如果……那么……”完全相符，因为自然语言中还携带了因果、时间、规范、认知、反事实等信息。由于精力有限，本文涉及的内容会远少于对应的课程讲义。" />
+  <meta property="og:description" content="发展出（命题）模态逻辑的动机来自于，命题逻辑的实质蕴涵并不总是与自然语言的“如果……那么……”完全相符，因为自然语言中还携带了因果、时间、规范、认知、反事实等信息。由于精力有限，本文涉及的内容会远少于对应的课程讲义。" />
+  <meta property="og:url" content="https://rratic.top/posts/logic-3/" />
+  <link rel="canonical" href="https://rratic.top/posts/logic-3/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-04-27T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="基石" />
+  <meta property="article:tag" content="逻辑学" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.top/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.top/style/shared.css?h=63eca58df589815f6747" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">【逻辑学】模态逻辑及其应用</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2026-04-27T00:00:00+00:00">2026-04-27</time><span
+        class="middot"></span><time
+    datetime="PT0H10M0S">10&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#xing-shi-yu-yan">形式语言</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#xing-shi-yu-yi">形式语义</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#kripke-mo-xing">Kripke 模型</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#xing-zhi-dui-ying">性质对应</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#gong-li-xi-tong">公理系统</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ji-xiao-xi-tong">极小系统</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#ying-yong">应用</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#zhi-shi-luo-ji">知识逻辑</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </details>
+</nav>
+
+  <!-- Content -->
+  <section><p>发展出（命题）模态逻辑的动机来自于，命题逻辑的实质蕴涵并不总是与自然语言的“如果……那么……”完全相符，因为自然语言中还携带了因果、时间、规范、认知、反事实等信息。由于精力有限，本文涉及的内容会远少于对应的课程讲义。</p>
+<span id="continue-reading"></span><h2 id="xing-shi-yu-yan">形式语言</h2>
+<p>模态逻辑提供的是各种不同模态概念（知识逻辑、道义逻辑、时态逻辑等）的统一范式。</p>
+
+<link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" type="text/css">
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>命题模态逻辑语言 ML</strong></span>
+  </div>
+  <div class="pl-4"><p>对字母集合 $\mathbf{P}$, 语言 ML 的公式由以下规则归纳生成：</p>
+<ul>
+<li>原子公式：每个 $p \in \mathbf{P}$ 是公式</li>
+<li>否定：若 $\varphi$ 是公式，则 $\neg \varphi$ 是公式</li>
+<li>合取：若 $\varphi, \psi$ 是公式，则 $\varphi \wedge \psi$ 是公式</li>
+<li>必然算子：若 $\varphi$ 是公式，则 $\Box \varphi$ 是公式</li>
+</ul>
+</div>
+</div>
+<p>这里用 <code>Box</code> 表示那个模态词。我们再定义：</p>
+<p>$$\Diamond \varphi \coloneqq \neg \Box \neg \varphi$$</p>
+<p>是 <code>Box</code> 的对偶。如，当 <code>Box</code> 的含义是“必然”（真势模态）时，<code>Diamond</code> 的含义是“可能”。</p>
+<p>从直观上我们可以用自然语言理解：</p>
+<ul>
+<li>$\neg \Diamond p$ 意为“不可能 $p$”</li>
+<li>$\Diamond p \wedge \Diamond \neg p$ 意为“$p$ 可能真，也可能假”</li>
+<li>$p \wedge \neg \Box p$ 意为“$p$ 偶然真”</li>
+</ul>
+<p>对“包含模态词的自然语言”来说，一个歧义来源是辖域，即模态词作用范围。</p>
+<blockquote>
+<p>如果你只吃了一个馒头，那么你<em>必然</em>吃的馒头数量少于两个。</p>
+</blockquote>
+<p>这有两种形式化方法，即窄辖域读法 $p \to \Box q$ 与宽辖域读法 $\Box (p \to q)$. 似乎宽辖域读法更符合本意，而窄辖域读法等价于 $\neg \Box q \to \neg p$ 不合理。</p>
+<h2 id="xing-shi-yu-yi">形式语义</h2>
+<h3 id="kripke-mo-xing">Kripke 模型</h3>
+<p>模态逻辑最自然的语义是可能世界语义。</p>
+<p>一个 Kripke 模型 $\mathcal{M}$ 包含：</p>
+<ul>
+<li>可能世界集 $W$ 是非空集合，表示“可能的世界”</li>
+<li>可达关系 $R \subseteq W \times W$ 是二元关系，可以视作以 $W$ 为顶点的图的有向边</li>
+<li>赋值函数 $V$ 指出每个世界中哪些命题字母为真</li>
+</ul>
+<p>指定世界 $w$ 的原子命题、否定、合取的满足关系是自然的。而我们说 $\mathcal{M}, w \models \Box \varphi$ 当且仅当对所有 $w$ 可达的世界 $u$, $\varphi$ 在 $u$ 上为真。</p>
+<p>现在，我们可以有严格蕴涵 $\varphi ⊰ \psi \coloneqq \Box (\varphi \to \psi)$. 这要强于实质蕴涵从而解决它的怪论，尽管它自身仍存在怪论（无法表达相关性）。</p>
+<p>我们称框架 $\mathcal{F} = \braket{W, R}$ 是去掉赋值函数后的模型骨架。有效性有多个层级：在模型上有效 $\mathcal{M} \models \varphi$; 在点框架上有效 $\mathcal{F}, w \models \varphi$; 在框架上有效 $\mathcal{F} \models \varphi$; 框架类（一类框架）有效 $\Complex \models \varphi$; 有效 $\models \varphi$.</p>
+<h3 id="xing-zhi-dui-ying">性质对应</h3>
+<table><thead><tr><th style="text-align: center">名称</th><th style="text-align: center">模态公式</th><th style="text-align: center">框架中关系的性质</th></tr></thead><tbody>
+<tr><td style="text-align: center">自反性（T 公理）</td><td style="text-align: center">$\Box p \to p$</td><td style="text-align: center">$\forall x (xRx)$</td></tr>
+<tr><td style="text-align: center">持续性（D 公理）</td><td style="text-align: center">$\Box p \to \Diamond p$</td><td style="text-align: center">$\forall x \exists y (xRy)$</td></tr>
+<tr><td style="text-align: center">对称性（B 公理）</td><td style="text-align: center">$p \to \Box \Diamond p$</td><td style="text-align: center">$\forall x \forall y (xRy \to yRx)$</td></tr>
+<tr><td style="text-align: center">传递性（4 公理）</td><td style="text-align: center">$\Box p \to \Box \Box p$</td><td style="text-align: center">$\forall x \forall y \forall z ((xRy \wedge yRz) \to xRz)$</td></tr>
+<tr><td style="text-align: center">稠密性</td><td style="text-align: center">$\Diamond p \to \Diamond \Diamond p$</td><td style="text-align: center">$\forall x \forall y (xRy \to \exists z (xRz \wedge zRy))$</td></tr>
+<tr><td style="text-align: center">合流性</td><td style="text-align: center">$\Diamond \Box p \to \Box \Diamond p$</td><td style="text-align: center">$\forall x \forall y \forall z ((xRy \wedge xRz) \to \exists t (yRt \wedge zRt))$</td></tr>
+<tr><td style="text-align: center">欧性（5 公理）</td><td style="text-align: center">$\Diamond p \to \Box \Diamond p$</td><td style="text-align: center">$\forall x \forall y \forall z ((xRy \wedge xRz) \to yRz)$</td></tr>
+<tr><td style="text-align: center">逆良基（Löb 条件）</td><td style="text-align: center">$\Box (\Box p \to p) \to \Box p$</td><td style="text-align: center">传递且没有无穷下降链<sup class="footnote-reference"><a href="#chain">1</a></sup></td></tr>
+</tbody></table>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>习题</strong></span>
+  </div>
+  <div class="pl-4"><p>证明稠密性的对应关系，即：公式 $\Diamond p \to \Diamond \Diamond p$ 在 $\mathcal{F}$ 上有效当且仅当 $\mathcal{F}$ 满足：</p>
+<p>$$\forall x \forall y (xRy \to \exists z (xRz \wedge zRy))$$</p>
+</div>
+</div>
+<p>先证充分性（设 $\mathcal{F}$ 满足上式）：对任意赋值 $V$ 与世界 $x$, 若 $\mathcal{M}, x \models \Diamond p$, 则存在 $y$ 使得 $xRy$ 且 $\mathcal{M}, y\models p$. 由稠密性，存在 $z$ 使得 $xRz$ 且 $zRy$, 从而 $\mathcal{M}, x \models \Diamond \Diamond p$. 因此 $\mathcal{M}, w \models \Diamond p \to \Diamond \Diamond p$. 由任意性知公式有效。</p>
+<p>再证必要性。设 $\mathcal{F}$ 不满足上式，则存在世界 $x, y \in W$ 使得 $xRy$ 且不存在 $z$ 满足 $xRz \wedge zRy$. 在该框架上定义赋值 $V(p) = \set{y}$, 有 $\mathcal{M}, x \models \Diamond p$, 但无法满足 $\mathcal{M}, x \models \Diamond \Diamond p$. 故 $\mathcal{M}, x \nvDash \Diamond \Diamond p$, 即 $\mathcal{M}, x \nvDash \Diamond p \to \Diamond \Diamond p$. 该公式在 $\mathcal{F}$ 上不有效，逆否命题成立。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>习题</strong></span>
+  </div>
+  <div class="pl-4"><p>证明合流性的对应关系，即：公式 $\Diamond \Box p \to \Box \Diamond p$ 在 $\mathcal{F}$ 上有效当且仅当 $\mathcal{F}$ 满足：</p>
+<p>$$\forall x \forall y \forall z ((xRy \wedge xRz) \to \exists t (yRt \wedge zRt))$$</p>
+</div>
+</div>
+<p>先证充分性（设 $\mathcal{F}$ 满足上式）：对任意赋值 $V$ 与世界 $x$, 若 $\mathcal{M}, x \models \Diamond \Box p$, 则存在 $y$ 使得 $xRy$ 且 $\mathcal{M},y\models\Box p$. 任取世界 $z$ 满足 $xRz$, 由合流性存在 $t$ 使得 $yRt \wedge zRt$. 因 $\mathcal{M}, y \models \Box p$, 得 $\mathcal{M}, t \models p$, 于是 $\mathcal{M}, z \models \Diamond p$. 由 $z$ 的任意性，$\mathcal{M}, x \models \Box \Diamond p$. 故 $\mathcal{M}, x \models \Diamond \Box p \to \Box \Diamond p$. 由任意性知公式有效。</p>
+<p>再证必要性。设 $\mathcal{F}$ 不满足上式，则存在世界 $x, y, z$ 满足 $xRy \wedge xRz$ 且不存在 $t$ 满足 $yRt \wedge zRt$. 在该框架上定义赋值 $V(p) = \set{u \in W | yRu}$. 读者易见公式在 $\mathcal{F}$ 上不有效，逆否命题成立。</p>
+<h2 id="gong-li-xi-tong">公理系统</h2>
+<h3 id="ji-xiao-xi-tong">极小系统</h3>
+<p>正规模态逻辑的最小系统 K 包含以下公理模式与规则（对应地我们对可达关系不作任何假设）：</p>
+<ul>
+<li>命题逻辑的公理模式</li>
+<li>K 公理 $\Box (\varphi \to \psi) \to (\Box \varphi \to \Box \psi)$</li>
+<li>MP 由 $\varphi$ 与 $\varphi \to \psi$ 推出 $\psi$</li>
+<li>NEC 必然化规则：若 $\vdash \varphi$ 则 $\vdash \Box \varphi$</li>
+</ul>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>习题</strong></span>
+  </div>
+  <div class="pl-4"><p>在 K 系统中证明：</p>
+<p>$$(\Box p \wedge \Box q) \to \Box (p \wedge q)$$</p>
+</div>
+</div>
+<p>我们有重言式：</p>
+<p>$$p \to (q \to (p \wedge q))$$</p>
+<p>使用必然化规则，然后用 K 公理即可。</p>
+<h2 id="ying-yong">应用</h2>
+<h3 id="zhi-shi-luo-ji">知识逻辑</h3>
+<p>知识逻辑的现代起点是 Jaakko Hintikka 1962 年的著作 <em>Knowledge and Belief: An Introduction to the Logic of the Two Notions</em>.</p>
+<p>给定主体集 $\mathrm{Ag} = \set{1, 2, \cdots, n}$, 知识逻辑中的算子是 $K_i, i \in \mathrm{Ag}$. 我们可以将 $K_i$ 算子嵌套，如 $K_1 \neg K_2p$ 1 知道 2 不知道 $p$.</p>
+<p>多主体知识模型有 $R_i \subseteq W \times W$ 表示的是主体 $i$ 的“认知不可区分”关系，即 $wR_iv$ 表示 $i$ 无法区分自己在 $w$ 还是 $v$ 中。</p>
+<p>最理想的知识模型要求每个 $R_i$ 是等价关系。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>习题</strong></span>
+  </div>
+  <div class="pl-4"><p>是否可能出现这样的情况：成立 $\neg K_b K_a p$ 与 $K_b \neg K_a \neg K_b K_a p$.</p>
+</div>
+</div>
+<p>不可能。假设在世界 $w$ 上同时成立，则存在 $w$ 的 $b$-可达世界 $u$ 满足 $\neg K_a p$.</p>
+<p>另一方面 $u$ 满足 $\neg K_a \neg K_b K_a p$, 它存在 $a$-可达世界 $v$ 满足 $K_b K_a p$. 有 $v$ 上 $K_a p$, 从而所有 $u$ 的 $a$-可达世界满足 $p$ 与 $K_a p$. 矛盾。</p>
+<p>另一种证法是用形式语言（来自我的同学）：</p>
+<ol>
+<li>由 T 公理 $\vdash K_b K_a p \to K_a p$</li>
+<li>由命题逻辑 $\vdash \neg K_a p \to \neg K_b K_a p$</li>
+<li>使用 NEC $\vdash K_a (\neg K_a p \to \neg K_b K_a p)$</li>
+<li>使用 K 公理 $\vdash K_a \neg K_a p \to K_a \neg K_b K_a p$</li>
+<li>由 5 公理 $\vdash \neg K_a p \to K_a \neg K_a p$, 故 $\vdash \neg K_a p \to K_a \neg K_b K_a p$</li>
+<li>故 $\vdash \neg K_a \neg K_b K_a p \to K_a p$</li>
+<li>使用 NEC 再使用 K 公理 $K_b \neg K_a \neg K_b K_a p \to K_b K_a p$</li>
+</ol>
+<hr />
+<div class="footnote-definition" id="chain"><sup class="footnote-definition-label">1</sup>
+<p>无法用一阶逻辑表达。</p>
+</div>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/基石/">基石</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/逻辑学/">逻辑学</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <link rel="stylesheet" href="https://rratic.top/katex/katex.min.css?h=e189fd0238811989c364" />
+  <script defer src="https://rratic.top/katex/katex.min.js?h=6b909443e6c8f6e5d24c"></script>
+  <script defer src="https://rratic.top/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

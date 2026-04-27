@@ -1,0 +1,441 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>关于滤子：极限及“最终”模态词诱导 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="关于滤子：极限及“最终”模态词诱导" />
+  <meta name="description" content="起因是听说 Lean 现在的 mathlib 中实数是依靠滤子定义的（虽然实际搜索了一下发现当前版本还是改为用 Cauchy 序列定义）。" />
+  <meta property="og:description" content="起因是听说 Lean 现在的 mathlib 中实数是依靠滤子定义的（虽然实际搜索了一下发现当前版本还是改为用 Cauchy 序列定义）。" />
+  <meta property="og:url" content="https://rratic.top/posts/remark-on-filter/" />
+  <link rel="canonical" href="https://rratic.top/posts/remark-on-filter/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-04-22T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2026-04-27T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="基石" />
+  <meta property="article:tag" content="分析" />
+  <meta property="article:tag" content="拓扑" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.top/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.top/style/shared.css?h=63eca58df589815f6747" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">关于滤子：极限及“最终”模态词诱导</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2026-04-22T00:00:00+00:00">2026-04-22</time><span
+        class="middot"></span><time
+    datetime="PT0H8M0S">8&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+
+  <!-- Content -->
+  <section><p>起因是听说 Lean 现在的 mathlib 中实数是依靠滤子定义的（虽然实际搜索了一下发现当前版本还是改为用 Cauchy 序列定义）。</p>
+<span id="continue-reading"></span>
+<p>用 <a href="https://leansearch.net/">LeanSearch</a> 搜索到用 Cauchy 序列（<a href="https://leansearch.net/doc/Mathlib.Algebra.Order.CauSeq.Basic.html#IsCauSeq">用 $\epsilon-\delta$ 语言定义</a>）定义的 <a href="https://leansearch.net/doc/Mathlib.Data.Real.Basic.html#Real">Data.Real.Basic - Real</a> 与用 Cauchy 滤子定义的 <a href="https://leansearch.net/doc/Mathlib.Topology.UniformSpace.CompareReals.html#CompareReals.Bourbaki%E2%84%9D">Topology.UniformSpace.CompareReals - CompareReals.Bourbakiℝ</a>.</p>
+<p>文档说使用前一定义是因：</p>
+<blockquote>
+<p>This choice is motivated by how easy it is to prove that <code>ℝ</code> is a commutative ring, by simply lifting everything to <code>ℚ</code>.</p>
+</blockquote>
+<p>使用 Git Blame 追踪历史发现：</p>
+<ul>
+<li>该定义直接导入自 mathlib3 <a href="https://github.com/leanprover-community/mathlib4/commit/f20a2b3ac74386a73b9ea12721a3b2bd2f41dec4">feat: port Data.Real.Basic</a></li>
+<li>应当来自于 2018 年的更改 <a href="https://github.com/leanprover-community/mathlib3/commit/04cac9587e1d32479935a0cf132b140b28bbac2b">feat(data/real): reals from first principles</a></li>
+</ul>
+<p>不过不管怎么说让我们了解一下滤子。</p>
+<hr />
+
+<link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" type="text/css">
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>滤子 filter</strong></span>
+  </div>
+  <div class="pl-4"><p>集合 $X$ 上的滤子（filter）是 $\mathcal{F} \subseteq \mathcal{P}(X)$ 满足：</p>
+<ul>
+<li>向上封闭：若 $A \in \mathcal{F}$ 且 $A \subset B$ 则 $B \in \mathcal{F}$</li>
+<li>对有限交封闭：若 $A, B \in \mathcal{F}$ 则 $A \cap B \in \mathcal{F}$</li>
+</ul>
+<p>当 $\emptyset \notin \mathcal{F}$ 时称它为真滤子。</p>
+</div>
+</div>
+<p>滤子描述的是“满足所有要求”的元素。例如说对 $q \in \mathbb{Q}$ 它的邻域滤子是：</p>
+<p>$$\set{A \in \mathbb{Q} | \exists \varepsilon: (q-\varepsilon, q+\varepsilon) \cap \mathbb{Q} \subseteq A}$$</p>
+<p>因此，我们称一个滤子 $\mathcal{F}$ 比另一个细 $\mathcal{F} \leq \mathcal{G}$ 如果 $\mathcal{F} \supseteq \mathcal{G}$. 这里“细”意为更精确。最精确的是 $\bot = \mathcal{P}(X)$ 包含空集；最模糊的是 $\top = \set{X}$.</p>
+<hr />
+<p>一个 $\mathbb{Q}$ 上的 Cauchy 滤子是满足对任意 $\varepsilon &gt; 0$ 存在 $A \in \mathcal{F}$ 使得 $\operatorname{diam} A &lt; \varepsilon$ 的滤子。记两个滤子 $\mathcal{F} \sim \mathcal{G}$ 等价，若 $\mathcal{F} \cap \mathcal{G}$ 仍是 Cauchy 滤子。</p>
+<p>此时，可以将实数 $\R$ 定义为 Cauchy 滤子的等价类。</p>
+<hr />
+<p>但实际上 mathlib 中考虑的是一般的定义，滤子是否 Cauchy 定义在一致空间上。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>一致空间 uniform space</strong></span>
+  </div>
+  <div class="pl-4"><p>一致空间是指集合 $X$ 有一个额外的一致结构。</p>
+<p>一致结构是一族二元关系 $\mathcal{U} \in \set{U_i \subseteq X \times X}_{i \in I}$, 其中二元关系意为“邻近”，满足：</p>
+<ul>
+<li>$\mathcal{U}$ 是 $X \times X$ 上的滤子</li>
+<li>二元关系是自反的 $x \stackrel{U}{\sim} x$</li>
+<li>二元关系是对称的 $x \stackrel{U}{\sim} y \iff y \stackrel{U}{\sim} x$</li>
+<li>三角不等式：对任一二元关系 $U$ 存在另一二元关系 $V$, $x \stackrel{V}{\sim} y \stackrel{V}{\sim} z \implies x \stackrel{U}{\sim} z$</li>
+</ul>
+</div>
+</div>
+<pre data-lang="lean" class="language-lean z-code"><code class="language-lean" data-lang="lean"><span class="z-source z-lean"><span class="z-comment z-block z-documentation z-lean">/-- A uniform space is a generalization of the &quot;uniform&quot; topological aspects of a
+</span></span><span class="z-source z-lean"><span class="z-comment z-block z-documentation z-lean">  metric space. It consists of a filter on `α × α` called the &quot;uniformity&quot;, which
+</span></span><span class="z-source z-lean"><span class="z-comment z-block z-documentation z-lean">  satisfies properties analogous to the reflexivity, symmetry, and triangle properties
+</span></span><span class="z-source z-lean"><span class="z-comment z-block z-documentation z-lean">  of a metric.
+</span></span><span class="z-source z-lean"><span class="z-comment z-block z-documentation z-lean">
+</span></span><span class="z-source z-lean"><span class="z-comment z-block z-documentation z-lean">  A metric space has a natural uniformity, and a uniform space has a natural topology.
+</span></span><span class="z-source z-lean"><span class="z-comment z-block z-documentation z-lean">  A topological group also has a natural uniformity, even when it is not metrizable. -/</span>
+</span><span class="z-source z-lean"><span class="z-meta z-definitioncommand z-lean"><span class="z-keyword z-other z-definitioncommand z-lean">class</span> <span class="z-entity z-name z-function z-lean">UniformSpace</span> </span>(α : <span class="z-storage z-type z-lean">Type</span> u) <span class="z-keyword z-other z-lean">extends</span> TopologicalSpace α <span class="z-keyword z-other z-lean">where</span>
+</span><span class="z-source z-lean">  <span class="z-comment z-block z-documentation z-lean">/-- The uniformity filter. -/</span>
+</span><span class="z-source z-lean">  <span class="z-keyword z-control z-definition z-modifier z-lean">protected</span> uniformity : Filter (α × α)
+</span><span class="z-source z-lean">  <span class="z-comment z-block z-documentation z-lean">/-- If `s ∈ uniformity`, then `Prod.swap ⁻¹&#39; s ∈ uniformity`. -/</span>
+</span><span class="z-source z-lean">  <span class="z-keyword z-control z-definition z-modifier z-lean">protected</span> symm : Tendsto Prod.swap uniformity uniformity
+</span><span class="z-source z-lean">  <span class="z-comment z-block z-documentation z-lean">/-- For every set `u ∈ uniformity`, there exists `v ∈ uniformity` such that `v ○ v ⊆ u`. -/</span>
+</span><span class="z-source z-lean">  <span class="z-keyword z-control z-definition z-modifier z-lean">protected</span> comp : (uniformity.lift&#39; <span class="z-keyword z-other z-lean">fun</span> s =&gt; s ○ s) ≤ uniformity
+</span><span class="z-source z-lean">  <span class="z-comment z-block z-documentation z-lean">/-- The uniformity agrees with the topology: the neighborhoods filter of each point `x`
+</span></span><span class="z-source z-lean"><span class="z-comment z-block z-documentation z-lean">  is equal to `Filter.comap (Prod.mk x) (𝓤 α)`. -/</span>
+</span><span class="z-source z-lean">  <span class="z-keyword z-control z-definition z-modifier z-lean">protected</span> nhds_eq_comap_uniformity (x : α) : 𝓝 x = comap (Prod.mk x) uniformity
+</span></code></pre>
+<p>作为一个例子，度量可以诱导一个一致空间（指标 $r$ 对应二元关系是 $d(x, y) &lt; r$）。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>Cauchy 滤子</strong></span>
+  </div>
+  <div class="pl-4"><p>一个真滤子是一致空间 $X$ 上的真滤子，如果对任意 $f \in \mathcal{F}$, $f \times f$ 被包含在 $X$ 的一致结构的某个滤子中。</p>
+</div>
+</div>
+<pre data-lang="lean" class="language-lean z-code"><code class="language-lean" data-lang="lean"><span class="z-source z-lean"><span class="z-comment z-block z-documentation z-lean">/-- A filter `f` is Cauchy if for every entourage `r`, there exists an
+</span></span><span class="z-source z-lean"><span class="z-comment z-block z-documentation z-lean">  `s ∈ f` such that `s × s ⊆ r`. This is a generalization of Cauchy
+</span></span><span class="z-source z-lean"><span class="z-comment z-block z-documentation z-lean">  sequences, because if `a : ℕ → α` then the filter of sets containing
+</span></span><span class="z-source z-lean"><span class="z-comment z-block z-documentation z-lean">  cofinitely many of the `a n` is Cauchy iff `a` is a Cauchy sequence. -/</span>
+</span><span class="z-source z-lean"><span class="z-meta z-definitioncommand z-lean"><span class="z-keyword z-other z-definitioncommand z-lean">def</span> <span class="z-entity z-name z-function z-lean">Cauchy</span> </span>(f : Filter α) :=
+</span><span class="z-source z-lean">  NeBot f ∧ f ×ˢ f ≤ 𝓤 α
+</span></code></pre>
+<p>对序列 $a: \N \to X$ 诱导出尾部滤子：</p>
+<p>$$f_a \coloneqq \set{A \subseteq X | \exists N, \set{a_n | n \geq N} \subseteq A}$$</p>
+<p>可见若 $X$ 上的一致结构是度量诱导的，则 $f_a$ 是 Cauchy 滤子当且仅当 $a$ 是 Cauchy 序列。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>收敛</strong></span>
+  </div>
+  <div class="pl-4"><p>称滤子 $\mathcal{F}$ 收敛到 $x$, 或者说 $x$ 是 $\mathcal{F}$ 的极限，如果 $\mathcal{F}$ 是 $x$ 的邻域滤子的加细。</p>
+</div>
+</div>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>Tendsto</strong></span>
+  </div>
+  <div class="pl-4"><p>对 $f: X \to Y$ 及 $X$ 上的滤子 $\mathcal{F}$, $Y$ 上的滤子 $\mathcal{G}$, 则 $f$ 沿着 $\mathcal{F}$ 趋近于 $\mathcal{G}$ 如果对任意 $G \in \mathcal{G}$ 有 $f^{-1}(G) \in \mathcal{F}$.</p>
+</div>
+</div>
+<pre data-lang="lean" class="language-lean z-code"><code class="language-lean" data-lang="lean"><span class="z-source z-lean"><span class="z-comment z-block z-documentation z-lean">/-- `Filter.Tendsto` is the generic &quot;limit of a function&quot; predicate.
+</span></span><span class="z-source z-lean"><span class="z-comment z-block z-documentation z-lean">  `Tendsto f l₁ l₂` asserts that for every `l₂` neighborhood `a`,
+</span></span><span class="z-source z-lean"><span class="z-comment z-block z-documentation z-lean">  the `f`-preimage of `a` is an `l₁` neighborhood. -/</span>
+</span><span class="z-source z-lean"><span class="z-meta z-definitioncommand z-lean"><span class="z-keyword z-other z-definitioncommand z-lean">def</span> <span class="z-entity z-name z-function z-lean">Tendsto</span> </span>(f : α → β) (l₁ : Filter α) (l₂ : Filter β) :=
+</span><span class="z-source z-lean">  l₁.map f ≤ l₂
+</span></code></pre>
+<p>作为一个例子，函数 $x \mapsto x^2$ 沿着 $2$ 的邻域滤子趋近于 $4$ 的邻域滤子，这等价于：</p>
+<p>$$\lim_{x \to 2} x^2 = 4$$</p>
+<p>仿照 $\varepsilon-\delta$ 语言的行为，读者容易写出描述趋向于正无穷和负无穷的极限过程的滤子（顶部滤子 <code>atTop</code> 与底部滤子 <code>atBot</code>）。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>一致连续</strong></span>
+  </div>
+  <div class="pl-4"><p>对一致空间 $(X, \mathscr{U})$, $(Y, \mathscr{V})$, 称 $f: X \to Y$ 一致连续，若对任意 $V \in \mathscr{V}$ 有 $f^{-1}(V) \in \mathscr{U}$.</p>
+</div>
+</div>
+<p>考察度量诱导的一致结构，读者可见它与一般的定义一致。</p>
+<hr />
+<p>除了刻画极限外，滤子另一个用途是刻画“最终”概念：</p>
+<pre data-lang="lean" class="language-lean z-code"><code class="language-lean" data-lang="lean"><span class="z-source z-lean"><span class="z-comment z-block z-documentation z-lean">/-- `f.Eventually p` or `∀ᶠ x in f, p x` mean that `{x | p x} ∈ f`. E.g., `∀ᶠ x in atTop, p x`
+</span></span><span class="z-source z-lean"><span class="z-comment z-block z-documentation z-lean">means that `p` holds true for sufficiently large `x`. -/</span>
+</span><span class="z-source z-lean"><span class="z-keyword z-control z-definition z-modifier z-lean">protected</span> <span class="z-meta z-definitioncommand z-lean"><span class="z-keyword z-other z-definitioncommand z-lean">def</span> <span class="z-entity z-name z-function z-lean">Eventually</span> </span>(p : α → <span class="z-storage z-type z-lean">Prop</span>) (f : Filter α) : <span class="z-storage z-type z-lean">Prop</span> :=
+</span><span class="z-source z-lean">  { x | p x } ∈ f
+</span><span class="z-source z-lean">
+</span><span class="z-source z-lean"><span class="z-comment z-block z-documentation z-lean">/-- `f.Frequently p` or `∃ᶠ x in f, p x` mean that `{x | ¬p x} ∉ f`. E.g., `∃ᶠ x in atTop, p x`
+</span></span><span class="z-source z-lean"><span class="z-comment z-block z-documentation z-lean">means that there exist arbitrarily large `x` for which `p` holds true. -/</span>
+</span><span class="z-source z-lean"><span class="z-keyword z-control z-definition z-modifier z-lean">protected</span> <span class="z-meta z-definitioncommand z-lean"><span class="z-keyword z-other z-definitioncommand z-lean">def</span> <span class="z-entity z-name z-function z-lean">Frequently</span> </span>(p : α → <span class="z-storage z-type z-lean">Prop</span>) (f : Filter α) : <span class="z-storage z-type z-lean">Prop</span> :=
+</span><span class="z-source z-lean">  ¬∀ᶠ x <span class="z-keyword z-other z-lean">in</span> f, ¬p x
+</span></code></pre>
+<p>我们可以把它们做成<a href="https://rratic.top/posts/logic-3/">模态逻辑</a>中的 $\Box$ 与 $\Diamond$.</p>
+<p>容易发现它除了满足系统 $K$ 还会满足持续性 $D$ 公理 $\Box p \to \Diamond p$, 传递性 $4$ 公理 $\Box p \to \Box \Box p$, 欧性 $5$ 公理 $\neg \Box p \to \Box \neg \Box p$.</p>
+<hr />
+<p>我自己的一点想法是，滤子可以用于知识逻辑。</p>
+<p>先看一个一般的知识逻辑讨论：</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-note);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/note.svg);"
+    >
+      note
+    </div>
+    <span><strong>Williamson (1992) 关于非精确知识的讨论</strong></span>
+  </div>
+  <div class="pl-4"><p>假设现在有一棵离你比较远的树，无法精确判断它有多高，假设性质：</p>
+<p>$$p_k: \text{这棵树} k \text{厘米高}$$</p>
+<p>由于无法判断精确高度，不妨假定：我们知道，如果树 $k+1$ 厘米高的话，我们无法知道树不是 $k$ 厘米高，即：</p>
+<p>$$K(p_{k+1} \to \neg K \neg p_k)$$</p>
+<p>我们可以依次推出：</p>
+<ul>
+<li>对任意 $k$ 有 $K(K(\neg p_k \to \neg p_{k+1}))$</li>
+<li>假设 $K \neg p_0$ 则 $KK \neg p_0$, 进而 $K \neg p_1$</li>
+<li>同上一步归纳，发现树多高都不可以</li>
+</ul>
+</div>
+</div>
+<p>这指出的是我们从自然语言翻译到形式语言时的问题。这里的重点在于使用了正自省，对应到可能世界语义上，说的是主体不可区分世界的传递性。实际上，我们认为 $w_1$ 与 $w_2$ 不可区分且 $w_2$ 与 $w_3$ 不可区分，则不一定 $w_1$ 与 $w_3$ 不可区分（这里我定义 $V(p_k) = \set{w_k}$）。</p>
+<p>为此，可能有一个修正是说引入概率，但是我想这并无助于加深理解。</p>
+<p>我的想法是，一个可能世界除了包含树的真实高度还包含一个滤子 $\mathcal{F}_k^i$ 满足它可以加细成一个收敛到 $k$ 的滤子，含义是“观察能力”。观察者不能区分两个世界，如果一个滤子是另一个的加细。</p>
+<p>现在，在 $(k, i)$-世界上有 $\neg K \neg p_k$.</p>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/基石/">基石</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/分析/">分析</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/拓扑/">拓扑</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <link rel="stylesheet" href="https://rratic.top/katex/katex.min.css?h=e189fd0238811989c364" />
+  <script defer src="https://rratic.top/katex/katex.min.js?h=6b909443e6c8f6e5d24c"></script>
+  <script defer src="https://rratic.top/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

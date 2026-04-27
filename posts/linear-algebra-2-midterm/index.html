@@ -1,0 +1,1045 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>高等代数Ⅱ期中复习笔记 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="高等代数Ⅱ期中复习笔记" />
+  <meta name="description" content="本文用于准备高等代数Ⅱ的期中考试。这半学期的内容是推进到准素循环分解，其动机是尽可能精细的直和分解。" />
+  <meta property="og:description" content="本文用于准备高等代数Ⅱ的期中考试。这半学期的内容是推进到准素循环分解，其动机是尽可能精细的直和分解。" />
+  <meta property="og:url" content="https://rratic.top/posts/linear-algebra-2-midterm/" />
+  <link rel="canonical" href="https://rratic.top/posts/linear-algebra-2-midterm/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-04-20T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2026-04-21T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="代数" />
+  <meta property="article:tag" content="线性代数" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.top/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.top/style/shared.css?h=63eca58df589815f6747" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">高等代数Ⅱ期中复习笔记</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2026-04-20T00:00:00+00:00">2026-04-20</time><span
+        class="middot"></span><time
+    datetime="PT0H23M0S">23&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#yin-ru">引入</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ji-ben-gai-nian">基本概念</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#te-zheng-zhi">特征值</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#bu-bian-zi-kong-jian">不变子空间</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#zhun-su-xun-huan-fen-jie">准素循环分解</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#t-bu-bian-fen-jie">$T$-不变分解</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#zhun-su-fen-jie">准素分解</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#xun-huan-fen-jie">循环分解</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#zhun-su-xun-huan-fen-jie-1">准素循环分解</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#remark">Remark</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#wan-quan-yu">完全域</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#xiao-jie-lun">小结论</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#kao-shi">考试</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#wang-nian-ti">往年题</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#jin-nian-ti">今年题</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </details>
+</nav>
+
+  <!-- Content -->
+  <section><p>本文用于准备高等代数Ⅱ的期中考试。这半学期的内容是推进到准素循环分解，其动机是尽可能精细的直和分解。</p>
+<span id="continue-reading"></span><h2 id="yin-ru">引入</h2>
+<h3 id="ji-ben-gai-nian">基本概念</h3>
+<p>外直和定义略去，当以下映射：</p>
+<p>$$
+\begin{aligned}
+\Phi: \bigoplus_{i=1}^k V_i &amp; \to V \cr
+(\alpha_1, \cdots, \alpha_k) &amp; \mapsto \alpha_1 + \cdots + \alpha_k
+\end{aligned}
+$$</p>
+<p>为单射时称 $\sum_{i=1}^k V_i$ 为内直和。</p>
+<h3 id="te-zheng-zhi">特征值</h3>
+<p>对 $T \in L(V)$ 考察：</p>
+<p>$$V_c = \ker (c \cdot \mathrm{id}_V - T)$$</p>
+<p>它不是零空间时称 $c$ 是<strong>特征值</strong>，该空间是关于 $c$ 的<strong>特征子空间</strong>，其中非零向量是（关于 $c$ 的）<strong>特征向量</strong>。称 $T$ 的所有特征值构成集合 $\sigma(T)$ 为<strong>谱集</strong>。</p>
+<p>对矩阵 $A = [T]_\mathcal{B}$ 我们记它的<strong>特征多项式</strong>是 $F$ 上的多项式函数：</p>
+<p>$$f_A = \det (xI_n - A)$$</p>
+<p>其基本性质易见，且有谱集与 $f_A$ 根的集合相等。我们记<strong>代数重数</strong> $m(c, f)$ 是最高的 $(x-c)^k \mid f$ 次数，<strong>几何重数</strong>是 $\dim V_c$, 则：</p>
+<p>$$\dim V_c \leq m(c, f)$$</p>
+<p>这是因为我们可以取 $V_c$ 的基，把它扩充成 $V$ 的基，看矩阵的行列式计算。</p>
+<p>我们考虑 $T$ 的所有零化多项式：</p>
+<p>$$M_T = \set{f \in F[x] | f(T) = 0}$$</p>
+<p>它存在唯一的首一生成元，称为 $T$ 的<strong>极小多项式</strong> $p_T$.</p>
+
+<link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" type="text/css">
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Cayley-Hamilton 定理</strong></span>
+  </div>
+  <div class="pl-4"><p>$$p_T \mid f_T$$</p>
+</div>
+</div>
+<p>我们考察 $F[x]$-模，对 $f \in F[x]$ 及 $\alpha \in V$ 定义：</p>
+<p>$$f\alpha = f(T) \alpha$$</p>
+<p>取 $T$ 在基 $\mathcal{B} = \set{\alpha_1, \cdots, \alpha_n}$ 下的矩阵为 $A$.</p>
+<p>先证断言：对 $g \in F[x]$ 如果存在 $B \in F[x]^{n\times n}$ 使得 $(xI_n-A)B = gI_n$, 则 $g(T) = 0$. 这是因为：</p>
+<p>$$(0, \cdots, 0) = ((\alpha_1, \cdots, \alpha_n)(xI_n - A)) B = (\alpha_1, \cdots, \alpha_n)(gI_n)$$</p>
+<p>又 $f_T$ 符合断言中的条件，因为可以取 $B = \operatorname{adj} (xI_n - A)$. 从而 $f_T \in M_T$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>可对角化</strong></span>
+  </div>
+  <div class="pl-4"><p>$T$ 可对角化，当且仅当 $p_T$ 为 $F[x]$ 中互不相同首一一次式乘积。</p>
+</div>
+</div>
+<p>容易证明（读者注意采取线性映射视角！）。</p>
+<p>在此基础上，让 $P$ 是那些对应的特征向量从左到右排成的矩阵，则 $P^{-1}AP$ 是对角阵，每一格是对应特征值。</p>
+<h3 id="bu-bian-zi-kong-jian">不变子空间</h3>
+<p>$V$ 的子空间 $W$ 是 $T$-不变的，如果 $T(W) \subseteq W$. 并不总是存在 $T$-不变补空间（$Z$ 是 $T$-不变子空间且 $V = W \oplus Z$）。</p>
+<p>考虑取 $W$ 的基，然后扩充为 $V$ 的基，可以观察到：</p>
+<p>$$f_T = f_{T_W} \cdot f_{T_{V/W}}$$</p>
+<p>$$\operatorname{lcm}(p_{T_W}, p_{T_{V/W}}) \mid p_T \mid p_{T_W} \cdot p_{T_{V/W}}$$</p>
+<p>这可以直接用于解决 2024 P3 (2).</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>可同时对角化</strong></span>
+  </div>
+  <div class="pl-4"><p>$T, U$ 可同时对角化当且仅当它们分别可对角化且交换。</p>
+</div>
+</div>
+<p>只需证后推前。对 $\dim V$ 归纳。</p>
+<p>当 $T$ 不为 $I$ 的常数倍时，按特征值分解：</p>
+<p>$$V = \bigoplus V_{c_i}$$</p>
+<p>由交换知每个 $V_{c_i}$ 都是 $U$-不变的，分别使用归纳假设。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>可三角化</strong></span>
+  </div>
+  <div class="pl-4"><p>以下条件等价：</p>
+<ol>
+<li>$T$ 可（上）三角化</li>
+<li>$f_T$ 为 $F[x]$ 中一次式之积（无需互异）</li>
+<li>$p_T$ 为 $F[x]$ 中一次式之积（无需互异）</li>
+</ol>
+</div>
+</div>
+<p>只需证 (3) 推 (1) 成立。往证存在 $T$-不变（全）旗，即：</p>
+<p>$$0 = W_0 \subset W_1 \subset \cdots \subset W_n = V$$</p>
+<p>其中 $\dim W_k = k$. 我们归纳构造 $W_k$. 考察：</p>
+<p>$$p_{T_{V/W_{k-1}}} \mid p_T$$</p>
+<p>在 $F$ 中有根，即是特征值，故有特征向量。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>可同时三角化</strong></span>
+  </div>
+  <div class="pl-4"><p>$F$ 代数闭域，其上 $\mathcal{F} \subseteq L(V)$ 中的映射两两交换，则 $\mathcal{F}$ 可同时三角化。</p>
+</div>
+</div>
+<p>只需证在该条件下存在公共特征向量。不妨设 $\mathcal{F}$ 有限（取 $\operatorname{span} \mathcal{F}$ 的基）对 $\mathcal{F}$ 归纳。</p>
+<p>设已对 $T_1 \cdots T_{k-1}$ 有 $T_i \alpha = c_i \alpha$. 即：</p>
+<p>$$\alpha \in \bigcap_{i=1}^{k-1} \ker (T_i - c_iI)$$</p>
+<p>设右侧集合 $W$, 由交换知 $W$ 是 $T_k$-不变的。由代数闭，可取 $T_k|_W$ 的特征向量合题。</p>
+<h2 id="zhun-su-xun-huan-fen-jie">准素循环分解</h2>
+<h3 id="t-bu-bian-fen-jie">$T$-不变分解</h3>
+<p>即分解为 $T$-不变子空间的直和：</p>
+<p>$$V = \bigoplus W_i$$</p>
+<p>令 $T_i = T_{W_i}$, 读者易证 $p_T = \operatorname{lcm}(p_{T_1}, \cdots, p_{T_k})$ 及：</p>
+<p>$$\ker T = \bigoplus \ker T_i$$</p>
+<p>$$\operatorname{Im} T = \bigoplus \operatorname{Im} T_i$$</p>
+<h3 id="zhun-su-fen-jie">准素分解</h3>
+<p>当 $p_T$ 为素多项式的幂时，称 $T$ 准素。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>准素分解</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $p_T = \prod_{i=1}^k p_i^{r_i}$ 其中 $r_i \geq 1$, $p_i$ 为不同的首一素多项式，记 $W_i = \ker (p_i^{r_i}(T))$, 则：</p>
+<p>$W_i$ 非零，且 $T$-不变，且 $T_{W_i}$ 极小多项式 $p_i^{r_i}$. 且：</p>
+<p>$$V = \bigoplus_{i=1}^k W_i$$</p>
+</div>
+</div>
+<p>记 $f_i = p_T / p_i^{r_i}$, 则有：</p>
+<p>$$
+\begin{rcases}
+p_i^{r_i}(T) f_i(T) = 0 \cr
+f_i(T) \neq 0
+\end{rcases} \implies \ker p_i^{r_i} \neq 0
+$$</p>
+<p>又，易见 $W_i$ 间线性无关，及 $p_{T_{W_i}} = p_i^{r_i}$.</p>
+<h3 id="xun-huan-fen-jie">循环分解</h3>
+<p>我们回顾证明 Cayley-Hamilton 定理时引入了模。令 $R = F[x]$ 使 $V$ 成为 $R$-模。记 $\alpha$ 生成的循环子空间：</p>
+<p>$$R_\alpha = \set{f\alpha | f \in R}$$</p>
+<p>若 $R_\alpha = V$, 则称 $\alpha$ 为<strong>循环向量</strong>，存在循环向量时称 $T$ 循环。</p>
+<p>记 $M(\alpha) = \set{f \in R | f\alpha = 0}$ 的唯一首一生成元为 $\alpha$ 的<strong>零化子</strong> $p_\alpha$. 易见 $\dim R_\alpha = \deg p_\alpha$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>引理</strong></span>
+  </div>
+  <div class="pl-4"><p>存在 $\alpha$ 使得 $p_\alpha = p_T$.</p>
+</div>
+</div>
+<p>$F$ 为无限域时，易知以下集合非空（由去掉的均低一维）：</p>
+<p>$$\set{\alpha | p_\alpha = p_T} = V \setminus \bigcup_{i=1}^k \ker f_i(T)$$</p>
+<p>对一般的 $F$, 对 $T$ 进行准素分解分别取出 $p_{\alpha_i} = (x-c_i)^{r_i}$. 然后令 $\alpha = \sum \alpha_i$.</p>
+<hr />
+<p>易见 $T$ 循环当且仅当 $p_T = f_T$, 且在基 $\set{\alpha, T\alpha, \cdots, T^{n-1}\alpha}$ 下是多项式 $f_T$ 的友阵：</p>
+<p>$$
+\begin{pmatrix}
+0 &amp;   &amp; &amp; &amp; -a_0 \cr
+1 &amp; 0 &amp; &amp; &amp; -a_1 \cr
+&amp; \ddots &amp; \ddots &amp; &amp; \vdots \cr
+&amp; &amp; 1 &amp; 0 &amp; -a_{n-2} \cr
+&amp; &amp; &amp; 1 &amp; -a_{n-1} \cr
+\end{pmatrix}
+$$</p>
+<p>这可以给出 Cayley-Hamilton 的另一证明。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>循环分解</strong></span>
+  </div>
+  <div class="pl-4"><p>对 $T \in L(V)$ 存在 $T$-不变分解 $V = \bigoplus V_i$ 满足 $V_i$ 非零，$T_{V_i}$ 循环，且记<strong>不变因子</strong> $p_i = p_{T_{V_i}}$ 有：</p>
+<p>$$p_r \mid \cdots \mid p_1$$</p>
+<p>这些不变因子的数量与内容被 $T$ 决定，且 $p_T = p_1, f_T = p_1 \cdots p_r$.</p>
+</div>
+</div>
+<p>先证一个引理：设 $\alpha$ 满足 $p_\alpha = p_T$ 则对任意 $L \in V/R\alpha$ 存在 $\beta \in L$ 使得 $fL = \bar{0} \implies f\beta = 0$.</p>
+<p>取 $\beta_0 \in L$, 则 $p_L\beta_0 = f\alpha$. 从而：</p>
+<p>$$\boxed{\left(\frac{p_T}{p_L}\right)f}\alpha = \left(\frac{p_T}{p_L}\right)(p_L\beta_0) = 0$$</p>
+<p>故 $p_L \mid f$. 设 $f = p_Lh$ 则 $\beta = \beta_0 - h\alpha$ 合题。</p>
+<hr />
+<p>现在证存在性，对 $\dim V$ 归纳。取 $\alpha_1$ 使得 $p_{\alpha_1} = p_T$. 然后由归纳假设知存在：</p>
+<p>$$V/R\alpha_1 = \bigoplus_{i=2}^r RL_i$$</p>
+<p>$$p_{L_r} \mid \cdots \mid p_{L_2}$$</p>
+<p>由引理知可在 $L_i$ 中找到 $\alpha_i$ 使得 $p_{\alpha_i} = p_{L_i}$. 又见：</p>
+<p>$$V = \bigoplus_{i=1}^r R\alpha_i$$</p>
+<hr />
+<p>再证唯一性。假设存在不同的：</p>
+<p>$$V = \boxed{\bigoplus_{i=1}^r R\alpha_i = \bigoplus_{i=1}^s R\beta_i}$$</p>
+<p>设 $p_i = p_{\alpha_i}, q_i = p_{\beta_i}$. 取最小的使 $p_t \neq q_t$ 的 $t$. 在 $\boxed{~}$ 两边同乘 $p_t$.</p>
+<p>在 $i &lt; t$ 时，有：</p>
+<p>$$\dim Rp_t\alpha_i = \deg \left(\frac{p_i}{p_t}\right) = \dim Rp_t\beta_i$$</p>
+<p>而 $i \geq t$ 时 $p_t\alpha_i = 0$, 故 $p_t\beta_i = 0$, 从而 $q_t \mid p_t$. 同理对称得到 $p_t \mid q_t$ 知矛盾。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>有理标准型</strong></span>
+  </div>
+  <div class="pl-4"><p>使用循环分解，将友阵沿着对角线排出的就是有理标准型（从上到下编号 $1 \cdots r$ 要求 $p_r \mid \cdots \mid p_1$）。</p>
+</div>
+</div>
+<p>对任意矩阵存在且唯一。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>定理</strong></span>
+  </div>
+  <div class="pl-4"><p>$A$ 与 $A^\top$ 相似。</p>
+</div>
+</div>
+<p>写成有理标准型，使用：</p>
+<p>$$\det (xI_k - C_g)^\top = \det (xI_k - C_g)$$</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-example);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/example.svg);"
+    >
+      example
+    </div>
+    <span><strong>求有理标准型</strong></span>
+  </div>
+  <div class="pl-4"><p>$$A = \begin{pmatrix} 5 &amp; -6 &amp; -6 \cr -1 &amp; 4 &amp; 2 \cr 3 &amp; -6 &amp; -4 \end{pmatrix} = \mathbb{Q}^{3\times 3}$$</p>
+</div>
+</div>
+<p>算得 $f_A = (x-1)(x-2)^2$ 从而 $p_A = (x-1)(x-2)$. 故 $p_1 = (x-1)(x-2), p_2 = x-2$.</p>
+<p>$$
+\begin{pmatrix} C_{p_1} \cr &amp; C_{p_2} \end{pmatrix} =
+\left(\begin{array}{cc|c}
+0 &amp; -2 \cr
+1 &amp; 3 \cr
+\hline
+&amp; &amp; 2
+\end{array}\right)
+$$</p>
+<p>现在找 $P$ 使 $P^{-1}AP$ 等于上述标准型。即找 $F^{3\times 1} = R\alpha_1 \oplus R\alpha_2$, 此时 $P = \begin{pmatrix} \alpha_1 &amp; A\alpha_1 &amp; \alpha_2 \end{pmatrix}$.</p>
+<p>我们需要 $p_{\alpha_1} = p_1$ 即 $\alpha_1$ 不是特征向量，取 $\begin{pmatrix} 1 \cr 0 \cr 0 \end{pmatrix}$ 即可。另需要 $p_{\alpha_2} = p_2$ 是特征向量，且 $\alpha_2 \notin R\alpha_1$.</p>
+<h3 id="zhun-su-xun-huan-fen-jie-1">准素循环分解</h3>
+<p>回顾 $T$ 准素的等价条件是 $p_T$ 准素（这等价于 $f_T$ 准素）；而 $T$ 循环的等价条件是 $p_T = f_T$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>定理</strong></span>
+  </div>
+  <div class="pl-4"><p>$T$ 不可分解当且仅当 $T$ 准素循环。</p>
+</div>
+</div>
+<p>只需证准素循环时不可分解。假设可分解为非平凡的 $V_1 \oplus V_2$ 则：</p>
+<p>$$f_1f_2 = f_T = p_T = \operatorname{lcm}(p_1, p_2) \mid \operatorname{lcm}(f_1, f_2)$$</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>准素循环分解</strong></span>
+  </div>
+  <div class="pl-4"><p>存在 $T$-不变分解使得 $T_{V_i}$ 准素循环分解。记 $q_i = p_{T_{v_i}} = f_{T_{v_i}}$, 则<strong>初等因子</strong>序列 $q_1, \cdots q_s$ 在不计次序意义下唯一。</p>
+</div>
+</div>
+<p>由于准素分解是严格唯一的，我们可以直接使用准素分解对应子空间与循环分解对应子空间的交。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>定理</strong></span>
+  </div>
+  <div class="pl-4"><p>循环子空间的不变子空间循环。</p>
+</div>
+</div>
+<p>$$p_T \mid p_{T_W} \cdot p_{T_{R\alpha/W}} \mid f_{T_W} \cdot f_{T_{R\alpha/W}} \mid f_T$$</p>
+<p>取等，故 $p_{T_W} = f_{T_W}$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>Jordan 标准型</strong></span>
+  </div>
+  <div class="pl-4"><p>Jordan 块 $J_n(c)$ 是指 $n$ 阶方阵：</p>
+<p>$$
+% TODO: 调整长宽比
+\begin{pmatrix}
+c \cr
+1 &amp; c \cr
+&amp; \ddots &amp; \ddots \cr
+&amp; &amp; 1 &amp; c
+\end{pmatrix}
+$$</p>
+<p>其满足 $f_T = p_T = (x-c)^n$.</p>
+<p>将 Jordan 块沿着对角线排出的就是 Jordan 标准型。</p>
+</div>
+</div>
+<p>当 $f_T$ 为一次式之积时可由准素循环分解写出 Jordan 标准型。</p>
+<hr />
+<p>这里我们采取的是把 $1$ 写在对角线下方而不是上方，因为希望有 $C_{x^n} = J_n(0)$.</p>
+<p>对 $p_T = \prod (x-c_i)^{r_i}$, 有：</p>
+<p>$$W_i = \ker [(T - c_i \cdot I)^{r_i}] = \ker [(T - c_i \cdot I)^n]$$</p>
+<p>称为<strong>广义特征子空间/根子空间</strong>。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Jordan 分解</strong></span>
+  </div>
+  <div class="pl-4"><p>若 $V$ 是代数闭的域 $F$ 上的线性空间，则对 $T \in L(V)$ 存在唯一 $D, N \in L(V)$ 使得 $T = D + N$, 其中 $D$ 可对角化，$N$ 幂零且 $D, N$ 可交换。</p>
+</div>
+</div>
+<p>先证存在性。若写成 Jordan 标准型则易见；另一种取法是：设 $p_T = \prod (x-c_i)^{r_i}$, 记 $q_i = (x-c_i)^{r_i}$, 则由中国剩余定理存在多项式 $f$ 满足：</p>
+<p>$$f \equiv c_i \pmod {q_i}$$</p>
+<p>取 $D = f(T), N = T - D$ 即可。</p>
+<p>再证唯一性：现在有 $D, N$ 是 $T$ 的多项式满足条件，若还有 $D'+N'$ 满足条件，则我们易推出 $D, D', N, N'$ 交换。有 $D, D'$ 可同时对角化，从而 $D - D'$ 可对角化，同时 $N - N'$ 幂零，有 $(D-D') + (N-N')$ 是 $0$ 的 Jordan 分解。故 $D = D'$.</p>
+<h2 id="remark">Remark</h2>
+<h3 id="wan-quan-yu">完全域</h3>
+<p>当 $F = \R$ 时，若 $A$ 在 $\Complex$ 上可以分解为 $D + N$, 则 $\bar{D} + \bar{N}$ 也是一个分解，则由唯一性知 $D, N$ 是实的。</p>
+<p>这一结论可以推广到完全域（$K$ 完全域等价于 $K[x]$ 中无平方因子式在 $\bar{K}$ 中无重根，即 $a \in K \iff \sigma(a) = a, \forall \sigma \in \operatorname{Gal}(\bar{K}/K)$），因为可写作 $\sigma(A) = \sigma(D) + \sigma(N)$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>单纯</strong></span>
+  </div>
+  <div class="pl-4"><p>对有限维 $F$-线性空间 $V$ 及 $T \in L(V)$ 我们称：</p>
+<ol>
+<li>$T$ <strong>半单</strong>，若 $V$ 的任一 $T$-不变子空间有 $T$-不变补空间</li>
+<li>$T$ <strong>单纯</strong>，若 $V$ 无非平凡 $T$-不变子空间</li>
+</ol>
+</div>
+</div>
+<p>实际上 $T$ 半单等价于 $p_T$ 无平方因式；$T$ 单纯等价于 $f_T$ 为素多项式。</p>
+<h3 id="xiao-jie-lun">小结论</h3>
+<p>据说这个结论之后不会再考，因此不在本文涉及往年题中包含。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>结论</strong></span>
+  </div>
+  <div class="pl-4"><p>若 $T$ 不变因子个数 $r$, 则 $V$ 作为 $F[x]$-模至少由 $r$ 个元素生成。</p>
+</div>
+</div>
+<p>考察其对偶形式。转化为命题：若子空间 $W$ 维数满足 $\dim W \geq n - r + 1$ 则其中存在非零 $T$-不变子空间 $Z$.</p>
+<p>设 $V = \bigoplus R\alpha_i$ 并设 $p_{\alpha_r}$ 有素因式 $p$ 则：</p>
+<p>$$\dim \ker p(T) = \dim \bigoplus (R\alpha_i) \cap \ker (p(T)) = \dim \bigoplus \ker p(T)|_{R\alpha_i} = r\deg p$$</p>
+<p>设 $W' = V' \cap W$ 有 $\dim W' \geq \dim V' - (r-1)$. 又有原像 $\dim T^{-k}(W') \geq \dim W'$. 从而：</p>
+<p>$$\dim \left(\bigcap_{k=0}^{\deg p - 1} T^{-k}(W')\right) \geq \dim V' - (r-1)\deg P = \deg P &gt; 0$$</p>
+<h2 id="kao-shi">考试</h2>
+<h3 id="wang-nian-ti">往年题</h3>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2017 P4</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $\operatorname{char} F = 0$, $A \in F^{n\times n}$ 的特征多项式为 $(x - 1)^n$. 证明对任意正整数 $k$, $A^k$ 与 $A$ 相似。</p>
+</div>
+</div>
+<p>不妨设 $A$ 循环，有 $p_A = (x - 1)^n$ 从而 $p_{A^k} = (x - 1)^n = f_{A^k}$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2017 P5</strong></span>
+  </div>
+  <div class="pl-4"><p>$T, U \in L(V)$ 不可逆，并且 $TU$ 可对角化，证明 $(UT)^2$ 可对角化。</p>
+</div>
+</div>
+<p>设 $TU$ 有极小多项式 $p$ 为一次式之积，则存在零化多项式 $g = x (x^2 - c_1^2) \cdots (x^2 - c_r^2)$. 有：</p>
+<p>$$(xg)(UT) = UTg(UT) = Ug(TU)T = 0$$</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2017 P6</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $V$ 是 $n$ 维复线性空间，$T, U \in L(V)$ 满足 $\operatorname{rank}(TU - UT) = 1$. 证明存在 $V$ 的有序基 $\mathcal{B}$ 使得 $[T] _\mathcal{B}$ 和 $[U] _\mathcal{B}$ 同时为上三角矩阵。</p>
+</div>
+</div>
+<p>仿照同时三角化的证明。</p>
+<p>容易分析得 $\ker (T-cI)$ 与 $\operatorname{Im} (T-cI)$ 之一 $U$-不变。</p>
+<p>假设最长的旗不是全旗，则存在 $\dim W_i/W_{i-1}$. 限制在 $W_i/W_{i-1}$ 上使用结论即得矛盾。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2022 P2</strong></span>
+  </div>
+  <div class="pl-4"><p>对 $A \in \Complex^{2022\times 2022}$ 中至多十个非零矩阵元，求其最小多项式的最大次数。</p>
+</div>
+</div>
+<p>易见 $11$ 可以取到，再证至多 $11$. 设 $T = L_A, W = \ker A$ 有 $p_{T_W} = x$, 则：</p>
+<p>$$p_T \mid xf_{T_{V/W}}$$</p>
+<p>而 $\deg f_{T_{V/W}} = \dim V/W \leq 10$. 故 $\deg p_T \leq 11$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2022 P3</strong></span>
+  </div>
+  <div class="pl-4"><p>$V$ 为有限维 $F$-线性空间，对于 $V$ 的 $T$-不变子空间 $W$, 证明下面两个条件等价：</p>
+<ol>
+<li>存在唯一的 $T$-不变子空间 $Z$ 使得 $V = W \oplus Z$</li>
+<li>$T_W$ 的特征多项式与 $T_{V/W}$ 的特征多项式互素</li>
+</ol>
+</div>
+</div>
+<p>假设 (1) 成立但 (2) 不成立，设素多项式 $p$ 为 $f_{T_W}$ 与 $f_{T_Z}$ 公因式，作准素分解 $W = W_0 \oplus R\alpha, Z = Z_0 \oplus R\beta$. 设 $p_\alpha = p^r, p_\beta = p^s$. 考察 $\gamma = \beta + p^{r-1}\alpha$ 就有 $V = W \oplus (Z_0 \oplus R\gamma)$.</p>
+<p>(2) 成立时 $p_{T_W}$ 与 $f_{T_{V/W}}$ 互素。可证 $W = \ker p_{T_W}(T)$ 且 $Z = \ker p_{T_{V/W}}(T)$ 是不变补空间，且是唯一的。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2023 P2</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $n$ 为正整数，对于 $A \in \Complex^{n\times n}$ 证明以下两个条件等价：</p>
+<ol>
+<li>$A$ 可对角化</li>
+<li>对任意非纯量多项式 $f \in \Complex[x]$ 存在 $B \in \Complex^{n\times n}$ 使得 $f(B) = A$</li>
+</ol>
+</div>
+</div>
+<p>我们证 (2) 推 (1). 取 $\lambda$ 为 $A$ 的特征值，考虑 $B^n = A - \lambda I$. 考虑 $B$ 的 Jordan 标准型中 $0$ 对应的 Jordan 块，$n$ 次后会变为 $0$. 从而 $A$ 对应部分只有对角线上有 $\lambda$, 对应代数重数等于几何重数。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2023 P3</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $F$ 为任意域，$V$ 为有限维非零 $F$-线性空间。对于 $T \in L(V)$ 证明以下两个条件等价：</p>
+<ol>
+<li>$p_T$ 为素多项式</li>
+<li>对任意非零向量 $\alpha, \beta$ 存在与 $T$ 交换的线性同构 $S \in \mathrm{GL}(V)$ 使得 $S\alpha = \beta$</li>
+</ol>
+</div>
+</div>
+<p>将 $V$ 视作 $F[x]$-模。</p>
+<p>条件 (1) 可以看作 $V \simeq (F[x]/p)^n$. 其成立时，设 $\alpha = (f_1, \cdots, f_n), \beta = (g_1, \cdots, g_n)$, 取 $S$ 在第 $i$ 个分量上为：</p>
+<p>$$\alpha_i \mapsto g_if_i^{-1}\alpha_i$$</p>
+<p>条件 (2) 成立时，我们排除 $F[x]/p^k$ 与 $(F[x]/p) \oplus (F[x]/q) \simeq (F[x]/pq)$ 的情况。在此意义下 $T\alpha$ 就是将 $\alpha$ 对应多项式乘上 $x$, 而 $S, T$ 交换可知 $S\alpha$ 就是乘以 $S(1)$. 两种情况的反例是 $p \mapsto 1$ 与 $p \mapsto q$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2024 P2 (1)</strong></span>
+  </div>
+  <div class="pl-4"><p>判断：设实矩阵 $A \in \R^{2\times 2}$ 满足 $A^2$ 与 $A$ 相似，则 $A^3$ 与 $A$ 也相似。</p>
+</div>
+</div>
+<p>不正确。取：</p>
+<p>$$A \sim \begin{pmatrix} \omega \cr &amp; \omega^2 \end{pmatrix} \sim \begin{pmatrix} -\frac{1}{2} &amp; -\frac{\sqrt{3}}{2} \cr \frac{\sqrt{3}}{2} &amp; -\frac{1}{2} \end{pmatrix}$$</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2024 P4 (2)</strong></span>
+  </div>
+  <div class="pl-4"><p>是否存在 $A, B \in \Complex^{9\times 9}$, 使得 $AB$ 相似于 $\operatorname{diag}(J_3(0), J_3(0), J_3(0))$, 且 $BA$ 相似于 $\operatorname{diag}(J_4(0), J_4(0), J_1(0))$.</p>
+</div>
+</div>
+<p>设 $C = \begin{pmatrix} 0 &amp; A \cr B &amp; 0 \end{pmatrix}$ 则 $C^2 = \begin{pmatrix} AB &amp; 0 \cr 0 &amp; BA \end{pmatrix}$.</p>
+<p>我们用到 $J_n(0)$ 的 Jordan 标准型是 $\operatorname{diag}(J_{[n_i/2]}(0), J_{[(n_i+1)/2]}(0))$.</p>
+<p>注：实际上存在很精细的结论：<a href="https://zhuanlan.zhihu.com/p/707641120">非零特征值 Jordan 块对应相同，零特征值 Jordan 块可配对使阶数差 ≤ 1</a></p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2025 P2</strong></span>
+  </div>
+  <div class="pl-4"><p>判断：</p>
+<ol>
+<li>对 $A, B \in \R^{2\times 2}$, 若存在 $P \in \mathrm{SL}_2(\Complex)$ 满足 $B = P^{-1}AP$, 则存在 $Q \in \mathrm{SL}_2(\R)$ 满足 $B = Q^{-1}AQ$.</li>
+<li>设 $V$ 为有限维复线性空间，则对任意 $T \in L(V)$ 和任意 $T$-不变子空间 $W \subseteq V$, 总存在有限多个向量 $\alpha_1, \cdots, \alpha_r \in V$ 和 $\beta_1, \cdots, \beta_s \in W$ 同时满足：
+<ul>
+<li>$V = \bigoplus R\alpha_i, W = \bigoplus R\beta_j$</li>
+<li>对任意 $j$ 存在 $i$ 使得 $R\beta_j \subseteq R\alpha_i$</li>
+</ul>
+</li>
+</ol>
+</div>
+</div>
+<p>(1) 不正确，这里问题出在 $\mathrm{SL}$ 上，我们让实矩阵 $Q$ 形如 $\operatorname{diag}(-1, 1)$ 给出 $A, B$ 关系，现在希望 $A$ 的中心化子行列式恒正，取 $\begin{pmatrix} 0 &amp; 0 \cr 1 &amp; 0 \end{pmatrix}$.</p>
+<p>(2) 不正确。考虑 $T = \operatorname{diag}(J_3(0), J_1(0)), W = \operatorname{span}\set{e_3, e_2 + e_4}$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2025 P3 (3)</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $n = 2025$, $A = J_n(1) \in \Complex^{n\times n}$. 设 $c$ 满足：存在 $\Complex^{n\times 1}$ 的“非 $L_A$ 不变”的 $L_{A^2+cA}$-不变子空间，求 $c$ 的所有可能值。</p>
+</div>
+</div>
+<p>考虑 $V \simeq \Complex[x]/(x-1)^n$. 子空间 $W$ 是 $A^2 + cA$-不变的即：</p>
+<p>$$\alpha \in W \implies \alpha(x^2 + cx) = \alpha((x-1)^2+(c+2)(x-1)+(c+1)) \in W$$</p>
+<p>由 $W$ 是空间，$\alpha((x-1)^2+(c+2)(x-1)) \in W$</p>
+<p>$c \neq -2$ 时可取 $g$ 使 $g(y^2 + (c+2)y) \equiv y \pmod{y^n}$. 与 $L_A$-不变矛盾。</p>
+<p>$c = -2$ 时，取 $W = \operatorname{span}\set{1, (x-1)^2, (x-1)^4, \cdots}$ 即可。</p>
+<h3 id="jin-nian-ti">今年题</h3>
+<p>完全炸了。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2026 P2</strong></span>
+  </div>
+  <div class="pl-4"><p>复线性空间 $\Complex^{n\times n}$ 的子空间 $W$ 满足：</p>
+<ul>
+<li>$W$ 中的矩阵均可对角化</li>
+<li>对任意 $A, B \in W$ 总有 $AB - BA \in W$</li>
+</ul>
+<p>证明 $W$ 中矩阵可同时对角化。</p>
+</div>
+</div>
+<p>只需证 $W$ 中矩阵两两交换。</p>
+<p>记 $V = \Complex^{n\times n}$, 定义 $T_A(X) = AX-XA$. 有 $W$ 是 $T_A$-不变子空间。</p>
+<p>由 $A$ 可对角化可知 $T_A$ 可对角化，故 $(T_A)_W$ 可对角化。</p>
+<p>设 $c$ 为 $(T_A)_W$ 特征值，取 $B \in W \setminus \set{0}$ 使得 $T_A(B) = cB$. 有 $T_B(A) = -cB$. 从而：</p>
+<p>$$A \in \ker (T_B)^2 = \ker T_B$$</p>
+<p>从而 $c = 0$ 即 $(T_A)_W = 0$.</p>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/代数/">代数</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/线性代数/">线性代数</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <link rel="stylesheet" href="https://rratic.top/katex/katex.min.css?h=e189fd0238811989c364" />
+  <script defer src="https://rratic.top/katex/katex.min.js?h=6b909443e6c8f6e5d24c"></script>
+  <script defer src="https://rratic.top/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

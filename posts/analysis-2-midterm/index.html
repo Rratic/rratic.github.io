@@ -1,0 +1,1153 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>数学分析Ⅱ期中复习笔记 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="数学分析Ⅱ期中复习笔记" />
+  <meta name="description" content="本文用于准备数学分析Ⅱ的期中考试。这半学期的内容是定积分（Riemann 积分），广义积分（无穷积分与瑕积分）与数项级数（更多的敛散性判断与计算）。" />
+  <meta property="og:description" content="本文用于准备数学分析Ⅱ的期中考试。这半学期的内容是定积分（Riemann 积分），广义积分（无穷积分与瑕积分）与数项级数（更多的敛散性判断与计算）。" />
+  <meta property="og:url" content="https://rratic.top/posts/analysis-2-midterm/" />
+  <link rel="canonical" href="https://rratic.top/posts/analysis-2-midterm/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-04-12T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2026-04-13T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="分析" />
+  <meta property="article:tag" content="微积分学" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.top/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.top/style/shared.css?h=63eca58df589815f6747" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">数学分析Ⅱ期中复习笔记</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2026-04-12T00:00:00+00:00">2026-04-12</time><span
+        class="middot"></span><time
+    datetime="PT0H20M0S">20&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#ding-ji-fen">定积分</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#gai-nian-yu-ke-ji-xing">概念与可积性</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#xing-zhi">性质</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ji-he-ying-yong">几何应用</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#yan-yi-ji-fen">广义积分</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#wu-qiong-ji-fen">无穷积分</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#xia-ji-fen">瑕积分</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ji-suan">计算</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#shu-xiang-ji-shu">数项级数</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#zheng-xiang-ji-shu">正项级数</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ren-yi-xiang-ji-shu">任意项级数</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ji-shu-zhong-pai">级数重排</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </details>
+</nav>
+
+  <!-- Content -->
+  <section><p>本文用于准备数学分析Ⅱ的期中考试。这半学期的内容是定积分（Riemann 积分），广义积分（无穷积分与瑕积分）与数项级数（更多的敛散性判断与计算）。</p>
+<span id="continue-reading"></span><h2 id="ding-ji-fen">定积分</h2>
+<h3 id="gai-nian-yu-ke-ji-xing">概念与可积性</h3>
+
+<link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" type="text/css">
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>定积分</strong></span>
+  </div>
+  <div class="pl-4"><p>对任意分割和取点 $\xi_i \in [x_{i-1}, x_i]$ 极限存在时，定义：</p>
+<p>$$\int_a^b f(x) \mathrm{d}x = \lim_{\max \{\Delta x_i\} \to 0} \sum_{i=1}^n f(\xi_i) \Delta x_i$$</p>
+</div>
+</div>
+<p>此时称 $f$ 在 $[a, b]$ 上 Riemann 可积 $f \in R[a, b]$.</p>
+<p>做题时可以用来把一些极限转成积分。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Newton-Leibniz 定理</strong></span>
+  </div>
+  <div class="pl-4"><p>对 $f \in R[a, b]$ 若存在 $F'(x) = f(x)$ 则：</p>
+<p>$$\int_a^b f(x) \mathrm{d}x = F(x) \Big |_a^b$$</p>
+</div>
+</div>
+<p>使用 Lagrange 中值定理写为 $F(x_i) - F(x_{i-1}) = f(\xi_i) \Delta x_i$.</p>
+<hr />
+<p>关于 Darboux 上下和，上下积分的内容省略。一个有用的证明可积的方法是证明振幅和可以任意小。</p>
+<hr />
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Riemann 定理</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $f$ 在 $[a, b]$ 上有界，则 $f \in R[a, b]$ 当且仅当对任意 $\varepsilon, \eta &gt; 0$ 存在某个分割使得：</p>
+<p>$$\sum _ {\text{振幅}_i \geq \eta} \Delta x_i &lt; \varepsilon$$</p>
+</div>
+</div>
+<p>通过琐碎的分析。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Lebesgue 定理</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $f$ 在 $[a, b]$ 上有界，则 $f \in R[a, b]$ 当且仅当其间断点集零测（开覆盖总长可任意小）。</p>
+</div>
+</div>
+<p>基于 Riemann 定理通过琐碎的分析。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>有界变差函数</strong></span>
+  </div>
+  <div class="pl-4"><p>对 $[a, b]$ 的一个分割 $\Delta$ 称 $\sigma(f, \Delta) = \sum_{i=0}^{n-1} |f(x_{i+1}) - f(x_i)|$ 为变差，定义全变差：</p>
+<p>$$\bigvee_{a}^{b} f(x) = \sup_\Delta \sigma(f, \Delta)$$</p>
+<p>其有界时称 $f$ 是 $[a, b]$ 上的有界变差函数，记作 $f \in BV[a, b]$.</p>
+</div>
+</div>
+<p>Lipschitz 连续函数是有界变差的。感觉定义出来也没什么用，写在这里是防止题目里不给定义直接用。</p>
+<h3 id="xing-zhi">性质</h3>
+<p>定积分的保序性、线性性、区间可加性易见。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>习题课 W2 2</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $f \in C[0, 1]$ 且 $\int_0^1 f(x) \mathrm{d}x = 1$, 证明：</p>
+<p>$$\int_0^1 (1+x^2) f^2(x) \mathrm{d}x \geq \frac{4}{\pi}$$</p>
+</div>
+</div>
+<p>使用积分的 Cauchy 不等式，将之乘以：</p>
+<p>$$\int_0^1 \frac{1}{1+x^2} \mathrm{d}x$$</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>习题课 W2 3</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $f \in C^1[0, 1]$ 且 $f(0) = 0, f(1) = 1$, 证明：</p>
+<p>$$\int_0^1 |f(x) - f'(x)| \mathrm{d}x \geq \frac{1}{e}$$</p>
+</div>
+</div>
+<p>令 $F(x) = e^{-x}f(x)$, 有原式大于等于：</p>
+<p>$$\int_0^1 F'(x) \mathrm{d}x = F(1) - F(0)$$</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>变上限函数</strong></span>
+  </div>
+  <div class="pl-4"><p>$$F(x) = \int_a^x f(t) \mathrm{d}t$$</p>
+</div>
+</div>
+<p>$F$ 连续，且在 $f$ 的所有连续点处可导，在这样的点处成立 $F'(x) = f(x)$. 因为可以考虑：</p>
+<p>$$F(x) - F(x_0) = f(x_0) (x - x_0) + \int_{x_0}^x [f(t) - f(x_0)] \mathrm{d}t$$</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>换元积分</strong></span>
+  </div>
+  <div class="pl-4"><p>$x = \varphi(t)$ 是 $[\alpha, \beta]$ 上连续可微的分段单调函数，满足 $\varphi(t) \in [A, B], [a, b] \subseteq [A, B], f \in C[A, B]$, 则：</p>
+<p>$$\int_a^b f(x) \mathrm{d}x = \int_\alpha^\beta f(\varphi(t)) \varphi'(t) \mathrm{d}t$$</p>
+</div>
+</div>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2024 P3</strong></span>
+  </div>
+  <div class="pl-4"><p>计算定积分：</p>
+<p>$$\int_0^1 \frac{\ln(1+x)}{1+x^2} \mathrm{d}x$$</p>
+</div>
+</div>
+<p>考虑凑 $\ln$ 上的求和，作 $x = \frac{1 - t}{1 + t}$ 恰有：</p>
+<p>$$\int_{\sqrt{2}-1}^1 \frac{\ln(1+x)}{1+x^2} \mathrm{d}x = \int_0^{\sqrt{2}-1} \frac{\ln \frac{2}{1+t}}{1+t^2} \mathrm{d}t$$</p>
+<p>注：翻作业发现我之前做过，当时是正常做法，令 $t = \arctan x$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>分部积分法</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $u, v \in D[a, b]$ 且 $u', v' \in R[a, b]$, 则：</p>
+<p>$$\int_a^b u(x) \mathrm{d}v(x) = u(x)v(x) \Big|_a^b - \int_a^b v(x) \mathrm{d}u(x)$$</p>
+</div>
+</div>
+<p>这可以推出积分的 Young 不等式。进而有 Hölder 不等式，进而有：</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>习题课 W2 13 Minkowski 不等式</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $f, g \in R[a, b]$ 且恒非负，对 $p \geq 1$ 有：</p>
+<p>$$\left(\int_a^b (f+g)^p(x) \mathrm{d}x\right)^{\frac{1}{p}} \leq \left(\int_a^b f^p(x) \mathrm{d}x\right)^{\frac{1}{p}} \left(\int_a^b g^p(x) \mathrm{d}x\right)^{\frac{1}{p}}$$</p>
+</div>
+</div>
+<p>$$
+\int_a^b (f+g)^p(x) \mathrm{d}x =
+\int_a^b (f+g)^{p-1}(x)f(x) \mathrm{d}x + \int_a^b (f+g)^{p-1}(x)g(x) \mathrm{d}x \leq
+\left(\int_a^b (f+g)^p(x) \mathrm{d}x\right)^{\frac{p-1}{p}} \left(\int_a^b f^p(x) \mathrm{d}x\right)^{\frac{1}{p}} + \cdots
+$$</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Wallis 公式</strong></span>
+  </div>
+  <div class="pl-4"><p>$$\frac{\pi}{2} = \prod_{n=1}^\infty \left(\frac{2n}{2n-1} \cdot \frac{2n}{2n+1}\right)$$</p>
+</div>
+</div>
+<p>通过计算 $I_n = \int_0^{\pi/2} \sin^n x \mathrm{d}x$ 奇数与偶数项的递推公式并夹逼。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-tip);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/tip.svg);"
+    >
+      tip
+    </div>
+    <span><strong>补充说明</strong></span>
+  </div>
+  <div class="pl-4"><p>当我们说 $\int_0^1 \sin \frac{1}{x} \mathrm{d}x$ 时，实际上是指 $\int_0^1 f(x) \mathrm{d}x$, 其中：</p>
+<p>$$
+f(x) = \begin{cases}
+\sin \frac{1}{x} &amp; x \neq 0 \cr
+0 &amp; x = 0
+\end{cases}
+$$</p>
+</div>
+</div>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>积分中值定理</strong></span>
+  </div>
+  <div class="pl-4"><p>设有 $g \in R[a, b]$ 不变号及 $f \in R[a, b]$, 则存在 $\mu \in [\inf f, \sup f]$ 使得：</p>
+<p>$$\int_a^b f(x)g(x) \mathrm{d}x = \mu \int_a^b g(x) \mathrm{d}x$$</p>
+</div>
+</div>
+<p>其推论积分第一中值定理从略。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>习题课 W3 1</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $f \in C^1[0, 1]$, 证明存在 $\xi \in [0, 1]$ 使得：</p>
+<p>$$\int_0^1 f(x) \mathrm{d}x = f(0) + \frac{1}{2}f'(\xi)$$</p>
+</div>
+</div>
+<p>左式等于：</p>
+<p>$$\int_0^1 f(x) \mathrm{d}(x-1) = (x-1)f(x) \Big|_0^1 - \int_0^1 (x-1)f'(x) \mathrm{d}x = f(0) - f'(\xi)\int_0^1 (x-1) \mathrm{d}x$$</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>习题课 W3 4 (1)</strong></span>
+  </div>
+  <div class="pl-4"><p>$$\lim_{n \to +\infty} \int_{n^2}^{n^2+n} \frac{e^{-1/x}}{\sqrt{x}} = 1$$</p>
+</div>
+</div>
+<p>重点在于想到可以用中值定理。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>讲义例 7.5.1</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $f \in C[a, b]$, 证明：</p>
+<p>$$\lim_{n \to +\infty} \int_0^1 \frac{nf(x)}{1+n^2x^2} \mathrm{d}x = \frac{\pi}{2}f(0)$$</p>
+</div>
+</div>
+<p>考虑：</p>
+<p>$$\left|\int_0^1 \frac{n[f(x)-f(0)]}{1+n^2x^2} \mathrm{d}x\right| \leq \left|\int_0^\delta \cdots \mathrm{d}x\right| + \left|\int_\delta^1 \cdots \mathrm{d}x\right|$$</p>
+<p>其中 $\delta$ 使得 $|f(x)-f(0)| &lt; \frac{\varepsilon}{\pi}$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>积分第二中值定理</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $g \in R[a, b]$ 及 $f$ 在 $[a, b]$ 非负递增，则存在 $\xi \in [a, b]$ 使得：</p>
+<p>$$\int_a^b f(x)g(x) \mathrm{d}x = f(a) \int_a^\xi g(x) \mathrm{d}x$$</p>
+</div>
+</div>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>广义分部积分公式</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $f, g \in R[a, b]$, 记 $F(x) = \int_a^x f(t) \mathrm{d}t, G(x) = \int_a^x g(t) \mathrm{d}t$, 则：</p>
+<p>$$\int_a^b F(x)g(x) \mathrm{d}x = F(x)G(x) \Big|_a^b - \int_a^b G(x)f(x) \mathrm{d}x$$</p>
+</div>
+</div>
+<p>用 Abel 变换。</p>
+<p>关于积分余项此处从略。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Riemann-Lebesgue 引理</strong></span>
+  </div>
+  <div class="pl-4"><p>设单调函数 $f \in R[a, b]$, 周期 $T$ 的周期函数 $g \in R[0, T]$ 满足 $\int_0^T g(x) \mathrm{d}x = 0$, 则：</p>
+<p>$$\lim_{p \to +\infty} \int_a^b f(x)g(px) \mathrm{d}x = 0$$</p>
+</div>
+</div>
+<p>取分割（设区间上下界 $M_i, m_i$）使得 $\sum (M_i - m_i) \Delta x_i &lt; \frac{\varepsilon}{2\sup g}$, 则：</p>
+<p>$$\left|\int_a^b f(x)g(px) \mathrm{d}x\right| = \left|\sum \int_{x_{i-1}}^{x_i} f(x)g(px) \mathrm{d}x\right| \leq \left|\sum \int_{x_{i-1}}^{x_i} [f(x) - m_i]g(px) \mathrm{d}x\right| + \left|\sum \int_{x_{i-1}}^{x_i} m_i g(px) \mathrm{d}x\right|$$</p>
+<p>其中后一项通过：</p>
+<p>$$\int_{x_{i-1}}^{x_i} g(px) \mathrm{d}x = \frac{1}{p} \int_{px_{i-1}}^{px_i} g(t) \mathrm{d}t \leq \frac{T\sup g}{p}$$</p>
+<hr />
+<p>或者使用积分第二中值定理即可。</p>
+<h3 id="ji-he-ying-yong">几何应用</h3>
+<p>定积分在几何学中的应用不考。由于与几何Ⅱ内容有一定重合，放在该处。</p>
+<h2 id="yan-yi-ji-fen">广义积分</h2>
+<h3 id="wu-qiong-ji-fen">无穷积分</h3>
+<p>无穷积分是用极限定义的，需注意只有对任意 $c$ 收敛且值相同时才有：</p>
+<p>$$\int_{-\infty}^{+\infty} f(x) \mathrm{d}x = \int_{-\infty}^c f(x) \mathrm{d}x + \int_c^{+\infty} f(x) \mathrm{d}x$$</p>
+<p>而 $\lim_{a \to +\infty} \int_{-a}^a f(x) \mathrm{d}x$ 是另一种东西（Cauchy 主值积分）。</p>
+<p>Cauchy 准则、比较判别法及其极限形式、推广的 Newton-Leibniz 公式略去。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2024 P4</strong></span>
+  </div>
+  <div class="pl-4"><p>$f(x)$ 以 $T$ 为周期，且可积，证明：</p>
+<p>$$\lim_{n \to +\infty} n\int_n^{+\infty} \frac{f(x)}{x^2} \mathrm{d}x = \frac{1}{T} \int_0^T f(x) \mathrm{d}x$$</p>
+</div>
+</div>
+<p>记 $\frac{1}{T} \int_0^T f(x) \mathrm{d}x = A$, 左式可以写为（由 $f$ 有界，差项趋于 $0$）：</p>
+<p>$$\lim_{n \to +\infty} n \sum_{k=0}^{+\infty} \frac{A}{(kT + n)^2} \mathrm{d}x$$</p>
+<p>这等于：</p>
+<p>$$\int_0^{+\infty} \frac{A}{(xT + 1)^2} \mathrm{d}x = \frac{A}{T}$$</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>绝对收敛</strong></span>
+  </div>
+  <div class="pl-4"><p>若 $\int_a^{+\infty} |f(x)| \mathrm{d}x$ 收敛则称<strong>绝对收敛</strong>，收敛但不绝对收敛称<strong>条件收敛</strong>。</p>
+</div>
+</div>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Dirichlet 判别法</strong></span>
+  </div>
+  <div class="pl-4"><p>若 $f$ 的有限积分有界，且 $g$ 单调趋于 $0$, 则下式收敛：</p>
+<p>$$\int_a^{+\infty} f(x)g(x) \mathrm{d}x$$</p>
+</div>
+</div>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Abel 判别法</strong></span>
+  </div>
+  <div class="pl-4"><p>若 $\int_a^{+\infty} f(x) \mathrm{d}x$ 收敛，且 $g$ 单调有界, 则下式收敛：</p>
+<p>$$\int_a^{+\infty} f(x)g(x) \mathrm{d}x$$</p>
+</div>
+</div>
+<p>这可以给出一个推论：⭐若 $g$ 单调趋于 $0$, 则 $f(x)$ 与 $f(x)(1+g(x))$ 无穷积分的收敛性相同。这是因为：两边都可用 Abel 判别法。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2022 P4</strong></span>
+  </div>
+  <div class="pl-4"><p>讨论积分的收敛性和绝对收敛性：</p>
+<p>$$\int_1^{+\infty} \frac{\sin x}{x^\alpha + \sin x} \mathrm{d}x$$</p>
+</div>
+</div>
+<p>不妨 $\alpha &gt; 0$, 先考察绝对收敛性，此时可用极限形式比较判别法，考察 $\frac{|\sin x|}{x^\alpha}$. 分析即可。</p>
+<p>$$\frac{\sin x}{x^\alpha + \sin x} = \frac{\sin x}{x^\alpha} - \frac{\sin^2 x}{x^\alpha (x^\alpha + \sin x)}$$</p>
+<p>第一项由 Dirichlet 判别法知收敛，第二项用极限形式比较判别法即可。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>习题课 W4 5</strong></span>
+  </div>
+  <div class="pl-4"><p>讨论积分的收敛性和绝对收敛性：</p>
+<p>$$\int_1^{+\infty} \sin \left(\frac{\sin x}{x}\right) \mathrm{d}x$$</p>
+<p>$$\int_1^{+\infty} \sin x^2 \mathrm{d}x$$</p>
+</div>
+</div>
+<p>对 (1) 式，作 Taylor 展开：</p>
+<p>$$\sin \left(\frac{\sin x}{x}\right) = \frac{\sin x}{x} - \frac{\cos (\xi(x))}{6} \left(\frac{\sin x}{x}\right)^3$$</p>
+<p>减号后面部分绝对收敛。</p>
+<p>对 (2) 式作换元得：</p>
+<p>$$\int_1^{+\infty} \frac{\sin t}{2\sqrt{t}} \mathrm{d}t$$</p>
+<h3 id="xia-ji-fen">瑕积分</h3>
+<p>同无穷积分，略去。</p>
+<h3 id="ji-suan">计算</h3>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>书例 10.3.2</strong></span>
+  </div>
+  <div class="pl-4"><p>计算积分：</p>
+<p>$$I = \int_0^{+\infty} \frac{1}{1+x^4} \mathrm{d}x$$</p>
+</div>
+</div>
+<p>令 $x = \frac{1}{t}$ 得 $I = \int_0^{+\infty} \frac{t^2}{1+t^4} \mathrm{d}t$. 从而：</p>
+<p>$$2I = \int_0^{+\infty} \frac{1+x^2}{1+x^4} \mathrm{d}x = \int_0^{+\infty} \frac{(x-1/x)'}{(x-1/x)^2+2} \mathrm{d}x = \frac{1}{\sqrt{2}} \arctan \frac{u}{\sqrt{2}} \Big|_{-\infty}^{+\infty}$$</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>书例 10.3.5</strong></span>
+  </div>
+  <div class="pl-4"><p>计算 Euler-Poisson 积分：</p>
+<p>$$I = \int_0^{+\infty} e^{-x^2} \mathrm{d}x$$</p>
+</div>
+</div>
+<p>过于有技巧性。通过对下式求极限得结果为 $\frac{\sqrt{\pi}}{2}$.</p>
+<p>$$\int_0^{+\infty} (1-x^2)^n \mathrm{d}x \leq \int_0^{+\infty} e^{-nx^2} \mathrm{d}x \leq \int_0^{+\infty} \frac{1}{(1+x^2)^n} \mathrm{d}x$$</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>书例 10.3.6</strong></span>
+  </div>
+  <div class="pl-4"><p>计算积分：</p>
+<p>$$I = \int_0^{+\infty} \frac{\sin^2 x}{x^2} \mathrm{d}x$$</p>
+</div>
+</div>
+<p>$$\int_0^{\pi/2} \frac{\sin (2n+1)x}{\sin x} \mathrm{d}x = \int_0^{\pi/2} (1 + 2\cos 2x + \cdots + 2\cos 2nx) \mathrm{d}x = \frac{\pi}{2}$$</p>
+<p>通过分部积分知：</p>
+<p>$$\int_0^{+\infty} \frac{\sin x}{x} \mathrm{d}x = \int_0^{+\infty} \frac{\sin^2 x}{x^2} \mathrm{d}x$$</p>
+<p>我们考察前者，其等于：</p>
+<p>$$
+\lim_{n \to +\infty, n \text{ odd}} \int_0^{n\pi/2} \frac{\sin x}{x} \mathrm{d}x =
+\lim_{n \to +\infty, n \text{ odd}} \int_0^{\pi/2} \frac{\sin nx}{x} \mathrm{d}x =
+\lim_{n \to +\infty, n \text{ odd}} \int_0^{\pi/2} \frac{\sin nx}{\sin x} \mathrm{d}x + \lim_{n \to +\infty, n \text{ odd}} \int_0^{\pi/2} \sin nx \left(\frac{1}{x} - \frac{1}{\sin x}\right) \mathrm{d}x =
+\frac{\pi}{2} + 0
+$$</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>书例 10.3.8</strong></span>
+  </div>
+  <div class="pl-4"><p>函数 $f$ 满足对 $0 &lt; a &lt; b$ 均有 $\int_a^b \frac{f(x)}{x} \mathrm{d}x$ 存在，且 $\lim_{x \to 0^+} f(x) = L, \lim_{x \to +\infty} f(x) = M$, 求 Frullani 积分：</p>
+<p>$$I = \int_0^{+\infty} \frac{f(\alpha x) - f(\beta x)}{x} \mathrm{d}x, \quad \alpha, \beta &gt; 0$$</p>
+</div>
+</div>
+<p>$$
+\int_a^b \frac{f(\alpha x) - f(\beta x)}{x} \mathrm{d}x =
+\int_{a\alpha}^{b\alpha} \frac{f(y)}{y} \mathrm{d}y - \int_{a\beta}^{b\beta} \frac{f(y)}{y} \mathrm{d}y =
+\int_{b\beta}^{b\alpha} \frac{f(y)}{y} \mathrm{d}y - \int_{a\beta}^{a\alpha} \frac{f(y)}{y} \mathrm{d}y
+$$</p>
+<p>使用积分第一中值定理，然后求极限。</p>
+<h2 id="shu-xiang-ji-shu">数项级数</h2>
+<h3 id="zheng-xiang-ji-shu">正项级数</h3>
+<p>默认此节中定理都加上正项级数要求。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>结论</strong></span>
+  </div>
+  <div class="pl-4"><p>若 $\{a_n\}$ 递减，且 $\sum a_n$ 收敛，则 $\lim na_n = 0$.</p>
+</div>
+</div>
+<p>用 Cauchy 准则即可。</p>
+<p>比较判别法、比值判别法、根式判别法从略。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Rabbe 判别法</strong></span>
+  </div>
+  <div class="pl-4"><ol>
+<li>若 $\varliminf n(\frac{a_n}{a_{n+1}}-1) &gt; 1$ 则 $\sum a_n$ 收敛</li>
+<li>若 $\varlimsup n(\frac{a_n}{a_{n+1}}-1) &lt; 1$ 则 $\sum a_n$ 发散</li>
+</ol>
+</div>
+</div>
+<p>采用 $\frac{1}{n^p}$ 为对标级数，使用比较判别法。若希望更精细，对标级数也可选取 $\frac{1}{n\ln^p n}$, $\frac{1}{n\ln n (\ln \ln n)^p}$ 等。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>积分判别法</strong></span>
+  </div>
+  <div class="pl-4"><p>$f$ 在 $[1, +\infty)$ 上单调下降趋于 $0$ 且 $a_n = f(n)$, 则 $\sum_{n=1}^{+\infty} a_n$ 与 $\int_1^{+\infty} f(x) \mathrm{d}x$ 敛散性相同。</p>
+</div>
+</div>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Abel-Dini 定理</strong></span>
+  </div>
+  <div class="pl-4"><ol>
+<li>$\sum a_n$ 收敛，则 $\sum a_n/T_n^{1+\alpha}$ 收敛的充要条件是 $\alpha &lt; 0$, 其中 $T_n$ 是余式和 $a_n + \cdots$</li>
+<li>$\sum a_n$ 发散，则 $\sum a_n/S_n^{1+\alpha}$ 收敛的充要条件是 $\alpha &gt; 0$, 其中 $S_n$ 是部分和</li>
+</ol>
+</div>
+</div>
+<p>考试考了 (2). 一侧用积分判别法，一侧用 Cauchy 准则。</p>
+<h3 id="ren-yi-xiang-ji-shu">任意项级数</h3>
+<p>Leibniz 判别法从略。Dirichlet 与 Abel 判别法类似无穷积分的结论。Abel 判别法推论也成立。</p>
+<p>可以把相同符号的相邻项括在一起。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-example);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/example.svg);"
+    >
+      example
+    </div>
+    <span><strong>讲义例 9.3.3</strong></span>
+  </div>
+  <div class="pl-4"><p>讨论交错级数 $\sum_{n=2}^{+\infty} \frac{(-1)^n}{n^p (\ln n)^q}$ 的收敛性和绝对收敛性。</p>
+</div>
+</div>
+<p>$$
+\begin{cases}
+p&lt;0 &amp; \text{发散} \cr
+p=0 &amp; \begin{cases} q\leq 0 &amp; \text{发散} \cr q&gt;0 &amp; \text{条件收敛} \end{cases} \cr
+0&lt;p&lt;1 &amp; \text{条件收敛} \cr
+p=1 &amp; \begin{cases} q\leq 1 &amp; \text{条件收敛} \cr q&gt;1 &amp; \text{绝对收敛} \end{cases} \cr
+p&gt;1 &amp; \text{绝对收敛}
+\end{cases}
+$$</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2024 P2</strong></span>
+  </div>
+  <div class="pl-4"><p>讨论级数的敛散性和绝对敛散性：</p>
+<p>$$\sum_{n=2}^{+\infty} \frac{(-1)^n (n+1)^2 \arctan \sqrt{n}}{n^2 (n+(-1)^n)^p}$$</p>
+</div>
+</div>
+<p>绝对敛散性是容易讨论的。使用比较判别法，转为讨论 $\sum_{n=2}^{+\infty} \frac{\pi / 2}{n^p}$ 敛散性使用熟知结论。</p>
+<p>使用 Abel 判别法推论，题可被简化为 $\sum_{n=2}^{+\infty} \frac{(-1)^n}{(n+(-1)^n)^p}$ 敛散性，此式即 $\sum_{n=2}^{+\infty} \frac{(-1)^{n-1}}{n^p}$, 用 Leibniz 判别法即可。</p>
+<h3 id="ji-shu-zhong-pai">级数重排</h3>
+<p>有界重排（$|\sigma(n)-n|$ 有界）不会改变敛散性和值。对无界重排我们有 <a href="/posts/analysis-1-final/#jiang-yi-yue-du">Riemann 重排定理</a>。</p>
+<hr />
+<p>$\sum_{n=1}^{+\infty} a_n$ 与 $\sum_{n=1}^{+\infty} b_n$ 绝对收敛时，其乘积矩阵中元素按任何顺序构成的级数都绝对收敛。</p>
+<p>Mertens 定理从略。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2024 P5</strong></span>
+  </div>
+  <div class="pl-4"><ol>
+<li>将级数 $\sum_{n=1}^{+\infty} \frac{(-1)^{n+1}}{n}$ 重排，使其值为 $\ln 6$</li>
+<li>级数 $\sum_{n=1}^{+\infty} a_n, \sum_{n=1}^{+\infty} b_n$ 收敛，令 Cauchy 乘积级数 $c_i = \sum_{j+k = n+1} a_j b_k$, 正方形乘积 $\sum_{i=1}^{n} d_i = \sum_{i=1}^{n} a_i \sum_{i=1}^{n} b_i$. 证明：$\sum_{n=1}^{+\infty} c_n$ 的充要条件是：</li>
+</ol>
+<p>$$\lim_{n \to +\infty} \sum_{i=1}^n d_i - \sum_{i=1}^n c_i = 0$$</p>
+</div>
+</div>
+<p>对 (1) 我们证明引理：如果依次选取，每次取 $p$ 个正项 $q$ 个负项，则和为：</p>
+<p>$$\ln 2 + \frac{1}{2} \ln \frac{p}{q}$$</p>
+<p>对 (2) 只需必要性，即 Abel 定理。</p>
+<p>一种证明是用 Stolz 和 Toplitz, 令对应的部分和 $A_i, B_i, C_i$, 有：</p>
+<p>$$\lim C_n = \lim (C_1 + \cdots + C_n) / n = \lim (A_1B_n + \cdots A_nB_1) / n = \lim A_n \lim B_n$$</p>
+<p>另一种是给 $a_n, b_n$ 配 $x^n$ 考察幂级数，但是幂级数应当是下半学期的，从略。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>无穷乘积</strong></span>
+  </div>
+  <div class="pl-4"><p>用极限定义。注意积为 $0$ 时定义为发散。</p>
+</div>
+</div>
+<p>在 $a_n &gt; -1$ 时 $\prod (1+a_n)$ 收敛当且仅当 $\sum \ln (1+a_n)$ 收敛。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2022 P6</strong></span>
+  </div>
+  <div class="pl-4"><ol>
+<li>请给出 $\sum_{n=1}^\infty a_n$ 发散而 $\prod_{n=1}^\infty (1+a_n)$ 收敛的一个实例</li>
+<li>请尝试给出这样的 $a_n$ 的一般表达式并说明理由</li>
+</ol>
+</div>
+</div>
+<p>(1) 的一个构造：奇数项为 $1$, 偶数项为 $-\frac{1}{2}$.</p>
+<p>对 (2) 考虑 $\ln (1 + x) = x - \frac{1}{2} x^2 + o(x^2)$, 一个想法是：</p>
+<p>$$
+a_{2n} = \frac{1}{n^\alpha} + o\left(\frac{1}{n^{2\alpha}}\right) \cr
+a_{2n+1} = -\frac{1}{n^\alpha} + \frac{1}{n^{2\alpha}} + o\left(\frac{1}{n^{2\alpha}}\right)
+$$</p>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/分析/">分析</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/微积分学/">微积分学</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <link rel="stylesheet" href="https://rratic.top/katex/katex.min.css?h=e189fd0238811989c364" />
+  <script defer src="https://rratic.top/katex/katex.min.js?h=6b909443e6c8f6e5d24c"></script>
+  <script defer src="https://rratic.top/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>
