@@ -1,6 +1,7 @@
 +++
 title = "关于滤子：极限及“最终”模态词诱导"
 date = 2026-04-22
+updated = 2026-04-27
 
 [extra]
 math = true
@@ -18,7 +19,7 @@ tags = ["笔记", "数学", "基石", "分析", "拓扑"]
 
 <!-- more -->
 
-用 [LeanSearch](https://leansearch.net/) 搜索到用 Cauchy 序列定义的 [Data.Real.Basic - Real](https://leansearch.net/doc/Mathlib.Data.Real.Basic.html#Real) 与用 Cauchy 滤子定义的 [Topology.UniformSpace.CompareReals - CompareReals.Bourbakiℝ](https://leansearch.net/doc/Mathlib.Topology.UniformSpace.CompareReals.html#CompareReals.Bourbaki%E2%84%9D).
+用 [LeanSearch](https://leansearch.net/) 搜索到用 Cauchy 序列（[用 $\epsilon-\delta$ 语言定义](https://leansearch.net/doc/Mathlib.Algebra.Order.CauSeq.Basic.html#IsCauSeq)）定义的 [Data.Real.Basic - Real](https://leansearch.net/doc/Mathlib.Data.Real.Basic.html#Real) 与用 Cauchy 滤子定义的 [Topology.UniformSpace.CompareReals - CompareReals.Bourbakiℝ](https://leansearch.net/doc/Mathlib.Topology.UniformSpace.CompareReals.html#CompareReals.Bourbaki%E2%84%9D).
 
 文档说使用前一定义是因：
 > This choice is motivated by how easy it is to prove that `ℝ` is a commutative ring, by simply lifting everything to `ℚ`.
@@ -31,7 +32,7 @@ tags = ["笔记", "数学", "基石", "分析", "拓扑"]
 
 ---
 
-{% admonition(type="definition", title="滤子") %}
+{% admonition(type="definition", title="滤子 filter") %}
 集合 $X$ 上的滤子（filter）是 $\mathcal{F} \subseteq \mathcal{P}(X)$ 满足：
 - 向上封闭：若 $A \in \mathcal{F}$ 且 $A \subset B$ 则 $B \in \mathcal{F}$
 - 对有限交封闭：若 $A, B \in \mathcal{F}$ 则 $A \cap B \in \mathcal{F}$
@@ -53,9 +54,9 @@ $$\set{A \in \mathbb{Q} | \exists \varepsilon: (q-\varepsilon, q+\varepsilon) \c
 
 ---
 
-但实际上 mathlib 中考虑的是一般的定义，滤子是否 Cauchy 定义在一致空间（uniform space）上。
+但实际上 mathlib 中考虑的是一般的定义，滤子是否 Cauchy 定义在一致空间上。
 
-{% admonition(type="definition", title="一致空间") %}
+{% admonition(type="definition", title="一致空间 uniform space") %}
 一致空间是指集合 $X$ 有一个额外的一致结构。
 
 一致结构是一族二元关系 $\mathcal{U} \in \set{U_i \subseteq X \times X}_{i \in I}$, 其中二元关系意为“邻近”，满足：
@@ -128,6 +129,12 @@ $$\lim_{x \to 2} x^2 = 4$$
 
 仿照 $\varepsilon-\delta$ 语言的行为，读者容易写出描述趋向于正无穷和负无穷的极限过程的滤子（顶部滤子 `atTop` 与底部滤子 `atBot`）。
 
+{% admonition(type="definition", title="一致连续") %}
+对一致空间 $(X, \mathscr{U})$, $(Y, \mathscr{V})$, 称 $f: X \to Y$ 一致连续，若对任意 $V \in \mathscr{V}$ 有 $f^{-1}(V) \in \mathscr{U}$.
+{% end %}
+
+考察度量诱导的一致结构，读者可见它与一般的定义一致。
+
 ---
 
 除了刻画极限外，滤子另一个用途是刻画“最终”概念：
@@ -150,9 +157,9 @@ protected def Frequently (p : α → Prop) (f : Filter α) : Prop :=
 
 ---
 
-我自己的一点想法是，这两个模态词可以用于知识逻辑。
+我自己的一点想法是，滤子可以用于知识逻辑。
 
-先看一个一般的知识逻辑讨论（假定了正自省）：
+先看一个一般的知识逻辑讨论：
 
 {% admonition(type="note", title="Williamson (1992) 关于非精确知识的讨论") %}
 假设现在有一棵离你比较远的树，无法精确判断它有多高，假设性质：
@@ -169,12 +176,10 @@ $$K(p_{k+1} \to \neg K \neg p_k)$$
 - 同上一步归纳，发现树多高都不可以
 {% end %}
 
-这指出的是我们从自然语言翻译到形式语言时的问题。可能有一个修正是说引入概率，但是我想这并无助于加深理解。
+这指出的是我们从自然语言翻译到形式语言时的问题。这里的重点在于使用了正自省，对应到可能世界语义上，说的是主体不可区分世界的传递性。实际上，我们认为 $w_1$ 与 $w_2$ 不可区分且 $w_2$ 与 $w_3$ 不可区分，则不一定 $w_1$ 与 $w_3$ 不可区分（这里我定义 $V(p_k) = \set{w_k}$）。
 
-在树的高度为 $k$ 的可能世界中，观察者获得的是一个滤子 $\mathcal{G} = \mathcal{F}_k$.
+为此，可能有一个修正是说引入概率，但是我想这并无助于加深理解。
 
-现在，那个无法判断精确高度表述为：
+我的想法是，一个可能世界除了包含树的真实高度还包含一个滤子 $\mathcal{F}_k^i$ 满足它可以加细成一个收敛到 $k$ 的滤子，含义是“观察能力”。观察者不能区分两个世界，如果一个滤子是另一个的加细。
 
-$$K(\exists \mathcal{F} \leq \mathcal{G}: \text{Eventually}\ p_{k+1}\ \mathcal{F} \to \text{Frequently}\ (Kp_k)\ \mathcal{G})$$
-
-现在在使用滤子的模型下它成为了一个重言式。
+现在，在 $(k, i)$-世界上有 $\neg K \neg p_k$.
