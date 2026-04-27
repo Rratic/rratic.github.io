@@ -1,6 +1,6 @@
 +++
-title = "【草稿】【逻辑学】模态逻辑"
-date = 2026-04-23
+title = "【逻辑学】模态逻辑"
+date = 2026-04-27
 
 [extra]
 math = true
@@ -21,9 +21,17 @@ tags = ["笔记", "数学", "基石", "逻辑学"]
 ## 形式语言
 模态逻辑提供的是各种不同模态概念（知识逻辑、道义逻辑、时态逻辑等）的统一范式。
 
-在命题逻辑之上，模态逻辑允许：若 $\varphi$ 是公式，则 $\Box \varphi$ 是公式。这里用 `Box` 表示那个模态词。我们再定义：
+{% admonition(type="definition", title="命题模态逻辑语言 ML") %}
+对字母集合 $\mathbf{P}$, 语言 ML 的公式由以下规则归纳生成：
+- 原子公式：每个 $p \in \mathbf{P}$ 是公式
+- 否定：若 $\varphi$ 是公式，则 $\neg \varphi$ 是公式
+- 合取：若 $\varphi, \psi$ 是公式，则 $\varphi \wedge \psi$ 是公式
+- 必然算子：若 $\varphi$ 是公式，则 $\Box \varphi$ 是公式
+{% end %}
 
-$$\Diamond \varphi = \neg \Box \neg \varphi$$
+这里用 `Box` 表示那个模态词。我们再定义：
+
+$$\Diamond \varphi \coloneqq \neg \Box \neg \varphi$$
 
 是 `Box` 的对偶。如，当 `Box` 的含义是“必然”（真势模态）时，`Diamond` 的含义是“可能”。
 
@@ -34,7 +42,12 @@ $$\Diamond \varphi = \neg \Box \neg \varphi$$
 
 对“包含模态词的自然语言”来说，一个歧义来源是辖域，即模态词作用范围。
 
+> 如果你只吃了一个馒头，那么你*必然*吃的馒头数量少于两个。
+
+这有两种形式化方法，即窄辖域读法 $p \to \Box q$ 与宽辖域读法 $\Box (p \to q)$. 似乎宽辖域读法更符合本意，而窄辖域读法等价于 $\neg \Box q \to \neg p$ 不合理。
+
 ## 形式语义
+### Kripke 模型
 模态逻辑最自然的语义是可能世界语义。
 
 一个 Kripke 模型 $\mathcal{M}$ 包含：
@@ -43,3 +56,66 @@ $$\Diamond \varphi = \neg \Box \neg \varphi$$
 - 赋值函数 $V$ 指出每个世界中哪些命题字母为真
 
 指定世界 $w$ 的原子命题、否定、合取的满足关系是自然的。而我们说 $\mathcal{M}, w \models \Box \varphi$ 当且仅当对所有 $w$ 可达的世界 $u$, $\varphi$ 在 $u$ 上为真。
+
+现在，我们可以有严格蕴涵 $\varphi ⊰ \psi \coloneqq \Box (\varphi \to \psi)$. 这要强于实质蕴涵从而解决它的怪论，尽管它自身仍存在怪论（无法表达相关性）。
+
+我们称框架 $\mathcal{F} = \braket{W, R}$ 是去掉赋值函数后的模型骨架。有效性有多个层级：在模型上有效 $\mathcal{M} \models \varphi$; 在点框架上有效 $\mathcal{F}, w \models \varphi$; 在框架上有效 $\mathcal{F} \models \varphi$; 框架类（一类框架）有效 $\Complex \models \varphi$; 有效 $\models \varphi$.
+
+### 性质对应
+| 名称 | 模态公式 | 框架中关系的性质 |
+| :-: | :-: | :-: |
+| 自反性（T 公理） | $\Box p \to p$ | $\forall x (xRx)$ |
+| 持续性（D 公理） | $\Box p \to \Diamond p$ | $\forall x \exists y (xRy)$ |
+| 对称性（B 公理） | $p \to \Box \Diamond p$ | $\forall x \forall y (xRy \to yRx)$ |
+| 传递性（4 公理） | $\Box p \to \Box \Box p$ | $\forall x \forall y \forall z ((xRy \wedge yRz) \to xRz)$ |
+| 稠密性 | $\Diamond p \to \Diamond \Diamond p$ | $\forall x \forall y (xRy \to \exists z (xRz \wedge zRy))$ |
+| 合流性 | $\Diamond \Box p \to \Box \Diamond p$ | $\forall x \forall y \forall z ((xRy \wedge xRz) \to \exists t (yRt \wedge zRt))$ |
+| 欧性（5 公理） | $\Diamond p \to \Box \Diamond p$ | $\forall x \forall y \forall z ((xRy \wedge xRz) \to yRz)$ |
+| 逆良基（Löb 条件） | $\Box (\Box p \to p) \to \Box p$ | 传递且没有无穷下降链[^chain] |
+
+{% admonition(type="question", title="习题") %}
+证明稠密性的对应关系，即：公式 $\Diamond p \to \Diamond \Diamond p$ 在 $\mathcal{F}$ 上有效当且仅当 $\mathcal{F}$ 满足：
+
+$$\forall x \forall y (xRy \to \exists z (xRz \wedge zRy))$$
+{% end %}
+
+先证充分性（设 $\mathcal{F}$ 满足上式）：对任意赋值 $V$ 与世界 $x$, 若 $\mathcal{M}, x \models \Diamond p$, 则存在 $y$ 使得 $xRy$ 且 $\mathcal{M}, y\models p$. 由稠密性，存在 $z$ 使得 $xRz$ 且 $zRy$, 从而 $\mathcal{M}, x \models \Diamond \Diamond p$. 因此 $\mathcal{M}, w \models \Diamond p \to \Diamond \Diamond p$. 由任意性知公式有效。
+
+再证必要性。设 $\mathcal{F}$ 不满足上式，则存在世界 $x, y \in W$ 使得 $xRy$ 且不存在 $z$ 满足 $xRz \wedge zRy$. 在该框架上定义赋值 $V(p) = \set{y}$, 有 $\mathcal{M}, x \models \Diamond p$, 但无法满足 $\mathcal{M}, x \models \Diamond \Diamond p$. 故 $\mathcal{M}, x \nvDash \Diamond \Diamond p$, 即 $\mathcal{M}, x \nvDash \Diamond p \to \Diamond \Diamond p$. 该公式在 $\mathcal{F}$ 上不有效，逆否命题成立。
+
+{% admonition(type="question", title="习题") %}
+证明合流性的对应关系，即：公式 $\Diamond \Box p \to \Box \Diamond p$ 在 $\mathcal{F}$ 上有效当且仅当 $\mathcal{F}$ 满足：
+
+$$\forall x \forall y \forall z ((xRy \wedge xRz) \to \exists t (yRt \wedge zRt))$$
+{% end %}
+
+先证充分性（设 $\mathcal{F}$ 满足上式）：对任意赋值 $V$ 与世界 $x$, 若 $\mathcal{M}, x \models \Diamond \Box p$, 则存在 $y$ 使得 $xRy$ 且 $\mathcal{M},y\models\Box p$. 任取世界 $z$ 满足 $xRz$, 由合流性存在 $t$ 使得 $yRt \wedge zRt$. 因 $\mathcal{M}, y \models \Box p$, 得 $\mathcal{M}, t \models p$, 于是 $\mathcal{M}, z \models \Diamond p$. 由 $z$ 的任意性，$\mathcal{M}, x \models \Box \Diamond p$. 故 $\mathcal{M}, x \models \Diamond \Box p \to \Box \Diamond p$. 由任意性知公式有效。
+
+再证必要性。设 $\mathcal{F}$ 不满足上式，则存在世界 $x, y, z$ 满足 $xRy \wedge xRz$ 且不存在 $t$ 满足 $yRt \wedge zRt$. 在该框架上定义赋值 $V(p) = \set{u \in W | yRu}$. 读者易见公式在 $\mathcal{F}$ 上不有效，逆否命题成立。
+
+## 公理系统
+### 极小系统
+正规模态逻辑的最小系统 K 包含以下公理模式与规则（对应地我们对可达关系不作任何假设）：
+- 命题逻辑的公理模式
+- K 公理 $\Box (\varphi \to \psi) \to (\Box \varphi \to \Box \psi)$
+- MP 由 $\varphi$ 与 $\varphi \to \psi$ 推出 $\psi$
+- NFC 必然化规则：若 $\vdash \varphi$ 则 $\vdash \Box \varphi$
+
+{% admonition(type="question", title="习题") %}
+在 K 系统中证明：
+
+$$(\Box p \wedge \Box q) \to \Box (p \wedge q)$$
+{% end %}
+
+我们有重言式：
+
+$$p \to (q \to (p \wedge q))$$
+
+使用必然化规则，然后用 K 公理即可。
+
+## 应用
+{{ todo() }}
+
+---
+
+[^chain]: 无法用一阶逻辑表达。
