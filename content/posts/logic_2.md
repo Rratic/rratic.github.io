@@ -1,7 +1,7 @@
 +++
 title = "【逻辑学】经典命题逻辑及其强可靠性、强完全性"
 date = 2026-03-25
-updated = 2026-04-13
+updated = 2026-04-27
 
 [extra]
 math = true
@@ -43,7 +43,7 @@ tags = ["笔记", "数学", "基石", "逻辑学"]
 题的真值由组成它的命题的真值以及这些命题的组合方式唯一确定
 
 真值表从略，略记一些术语：
-- 一般的析取（满足 $T \vee T = T$）称为相容析取 `inclusive disjunction`, 反之称为不相容析取 `exclusive disjunction`
+- 一般的析取（满足 $T \vee T = T$）称为相容析取 `inclusive disjunction`, 反之称为不相容析取 `exclusive disjunction`, 使用符号 $\oplus$, 有时称作异或
 - 形如 $P \to Q$ 的陈述句称为条件句，其中 $P$ 称为前件 `antecedent`, $Q$ 称为后件 `consequent`
 - 一般的蕴含（满足前件为假时命题为真，称为空洞为真 `vacuously true`）称为实质蕴涵 `material implication`
 
@@ -247,11 +247,20 @@ $$
 2. $((\varphi \to (\psi \to \chi)) \to ((\varphi \to \psi) \to (\varphi \to \chi)))$
 3. $((\neg \psi \to \neg \varphi) \to (\varphi \to \psi))$
 
-另有分离规则 `Modus Ponens`: 可以从 $\varphi$ 和 $(\varphi \to \psi)$ 推出 $\psi$.
+另有分离规则“肯定前件推理” `Modus Ponens`[^modus-tollens]: 可以从 $\varphi$ 和 $(\varphi \to \psi)$ 推出 $\psi$.
 
-读者可在 [P. 1 of Theorem List - Metamath Proof Explorer](https://us.metamath.org/mpeuni/mmtheorems1.html) 看到使用它们推导出一些基本结论的过程。
+读者可在 [P. 1 of Theorem List - Metamath Proof Explorer](https://us.metamath.org/mpeuni/mmtheorems1.html) 看到使用它们推导出一些基本结论的详细过程。
 
 为了证明公理三独立于公理一、二和分离规则，我们考虑赋值 $f$ 使得对任意公式 $\varphi$ 有 $f(\neg \varphi) = F$, 且对任意公式 $\varphi, \psi$ 有 $f((\varphi \to \psi)) = T$ 当且仅当 $f(\varphi) = F$ 或 $f(\psi) = T$. 这称为否定恒假赋值。
+
+### Remark
+实际上否并不是证明论和谐（引入/消去规则彼此精确匹配）的。真正和谐的是爆炸律 `Ex Falso`:
+
+$$\frac{\varphi \quad \neg \varphi}{\psi} (\text{Ex Falso})$$
+
+使用 Ex Falso 的证明系统一般是以 $\bot$ 为核心的，此时它写作：
+
+$$\frac{\bot}{\chi} (\bot E)$$
 
 ### 命题逻辑的应用
 关于自然语言的命题逻辑分析、基于命题逻辑的形式化等从略。这些我们在数学里已经比较熟悉了。
@@ -261,3 +270,4 @@ $$
 ---
 
 [^implies]: 在其它领域中一般使用 $\implies$, 但在逻辑学中通常使用 $\to$.
+[^modus-tollens]: 与之对应的是“否定后件推理” `Modus Tollens`: 由 $(\varphi \to \psi)$ 与 $\neg\psi$ 推出 $\neg\varphi$. 这里不把它作为原始规则。

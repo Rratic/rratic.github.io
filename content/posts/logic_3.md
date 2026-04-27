@@ -1,5 +1,5 @@
 +++
-title = "【逻辑学】模态逻辑"
+title = "【逻辑学】模态逻辑及其应用"
 date = 2026-04-27
 
 [extra]
@@ -99,7 +99,7 @@ $$\forall x \forall y \forall z ((xRy \wedge xRz) \to \exists t (yRt \wedge zRt)
 - 命题逻辑的公理模式
 - K 公理 $\Box (\varphi \to \psi) \to (\Box \varphi \to \Box \psi)$
 - MP 由 $\varphi$ 与 $\varphi \to \psi$ 推出 $\psi$
-- NFC 必然化规则：若 $\vdash \varphi$ 则 $\vdash \Box \varphi$
+- NEC 必然化规则：若 $\vdash \varphi$ 则 $\vdash \Box \varphi$
 
 {% admonition(type="question", title="习题") %}
 在 K 系统中证明：
@@ -114,7 +114,31 @@ $$p \to (q \to (p \wedge q))$$
 使用必然化规则，然后用 K 公理即可。
 
 ## 应用
-{{ todo() }}
+### 知识逻辑
+知识逻辑的现代起点是 Jaakko Hintikka 1962 年的著作 *Knowledge and Belief: An Introduction to the Logic of the Two Notions*.
+
+给定主体集 $\mathrm{Ag} = \set{1, 2, \cdots, n}$, 知识逻辑中的算子是 $K_i, i \in \mathrm{Ag}$. 我们可以将 $K_i$ 算子嵌套，如 $K_1 \neg K_2p$ 1 知道 2 不知道 $p$.
+
+多主体知识模型有 $R_i \subseteq W \times W$ 表示的是主体 $i$ 的“认知不可区分”关系，即 $wR_iv$ 表示 $i$ 无法区分自己在 $w$ 还是 $v$ 中。
+
+最理想的知识模型要求每个 $R_i$ 是等价关系。
+
+{% admonition(type="question", title="习题") %}
+是否可能出现这样的情况：成立 $\neg K_b K_a p$ 与 $K_b \neg K_a \neg K_b K_a p$.
+{% end %}
+
+不可能。假设在世界 $w$ 上同时成立，则存在 $w$ 的 $b$-可达世界 $u$ 满足 $\neg K_a p$.
+
+另一方面 $u$ 满足 $\neg K_a \neg K_b K_a p$, 它存在 $a$-可达世界 $v$ 满足 $K_b K_a p$. 有 $v$ 上 $K_a p$, 从而所有 $u$ 的 $a$-可达世界满足 $p$ 与 $K_a p$. 矛盾。
+
+另一种证法是用形式语言（来自我的同学）：
+1. 由 T 公理 $\vdash K_b K_a p \to K_a p$
+2. 由命题逻辑 $\vdash \neg K_a p \to \neg K_b K_a p$
+3. 使用 NEC $\vdash K_a (\neg K_a p \to \neg K_b K_a p)$
+4. 使用 K 公理 $\vdash K_a \neg K_a p \to K_a \neg K_b K_a p$
+5. 由 5 公理 $\vdash \neg K_a p \to K_a \neg K_a p$, 故 $\vdash \neg K_a p \to K_a \neg K_b K_a p$
+6. 故 $\vdash \neg K_a \neg K_b K_a p \to K_a p$
+7. 使用 NEC 再使用 K 公理 $K_b \neg K_a \neg K_b K_a p \to K_b K_a p$
 
 ---
 
