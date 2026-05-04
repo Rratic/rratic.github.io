@@ -180,7 +180,7 @@ $$
 
 ---
 
-进一步地，可解群的合成因子均为交换的单群，从而是素数阶循环群（利用了[交换群一定可以分解为循环群的直积](/posts/group-theory-1/#footnotes)）。
+进一步地，可解群的合成因子均为交换的单群，从而是素数阶循环群（利用了[交换群一定可以分解为循环群的直积](@/posts/group_theory_1.md#footnotes)）。
 
 {% admonition(type="theorem", title="Jordan-Hölder 定理") %}
 两个合成群列
@@ -193,5 +193,6 @@ $$G = H_0 \triangleright H_1 \triangleright H_2 \cdots H_m = \\{e\\}$$
 
 存在一些归纳的证法。同时可以抽象成短正合列说明。
 
-## 注释
+---
+
 [^1]: [Computational Group theory](https://www.jaapsch.net/puzzles/schreier.htm)
