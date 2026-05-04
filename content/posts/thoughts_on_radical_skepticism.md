@@ -18,7 +18,7 @@ tags = ["哲学"]
 
 ---
 
-先从我对哲学的*图景*至今的印象开始（这不包括我认为应该放在数学的逻辑学部分外）。我观察到人们这样学哲学：学习历史上的各个定义（其中一些确实相当复杂）、观点、反驳，以及反驳的反驳。人们写哲学文章时，也常沿用这套路径。
+先从我对哲学的*图景*至今的印象开始（这不包括我认为应该放在数学的逻辑学部分）。我观察到人们这样学哲学：学习历史上的各个定义（其中一些确实相当复杂）、观点、反驳，以及反驳的反驳。人们写哲学文章时，也常沿用这套路径。
 
 总之，除了少数我认为确实称得上*真知灼见*的观点外，我看到的哲学，常常像是在一个混沌的 word vector[^word-vector] 空间里施展某种*巫术*。其中一部分当然有趣[^magic]，但我们似乎并未达成什么*真正*的成果[^progress]，因为连许多关键词汇都没有公认定义。对此常见的回应是：即便没有完美结论，讨论本身仍会让我们更谨慎，也更能理解问题的真实难度；不必过度追求精确，也可能抵达某种深刻。[^witt]
 
@@ -31,7 +31,7 @@ tags = ["哲学"]
 这里我选取强怀疑论的一个版本：
 
 {% admonition(type="definition", title="Radical skepticism 强怀疑论") %}
-> It is impossible to have certainty in knowledge.
+It is impossible to have certainty in knowledge.
 {% end %}
 
 这里“知识”暂按经典的“得到辩护的真信念”来理解；“确定”则指 indubitability / infallibility / inimitability / indefeasibility[^certainty] 的某种混合要求。
@@ -51,7 +51,7 @@ tags = ["哲学"]
 此外，我们如何确保整个过程中神经系统没有出错？即使我们对照他人结果，发现许多信任的人都认同“当 1 + 1 = 2 时，1 + 1 = 2”，这除了并不足以带来“确定性”外，也仍无法排除我们在对照环节本身出错。
 
 {% admonition(type="question", title="Pragmatism") %}
-考虑实用主义，在实践中，我们认同那些知识是*有用的*。
+考虑实用主义，在实践中，我们认同那些知识，对我们是*有用的*。
 {% end %}
 
 我承认这一点，但是现在我并不是在讨论实用性。
@@ -66,7 +66,7 @@ tags = ["哲学"]
 那强怀疑论本身不是你能确定的知识吗？
 {% end %}
 
-我只是声称“我*直觉*上认同这一点”。
+我只是声称“我*直觉*上认同这一点”，而没有认为这是我确定的知识。
 
 ---
 
@@ -78,9 +78,9 @@ tags = ["哲学"]
 
 这个条目中提及的 solution 包含：
 - 对于 Pyrrhonian suspension of judgment 我承认可以暂停判断以换取内心平静（并且人们应该就是如此生活的），但这没有给出正面回应
-- Mitigated skepticism / Fallibilism 主张我们仍可拥有可错而可靠的 knowledge（或 virtual knowledge）。我能理解它的实践价值；不过如果我们讨论的是“确定知识”，那么它等于改变题目：把“确定”降格成“足够好”，而不是证明“确定”存在。
-- Foundationalism (basic beliefs) 想用“基础信念”终止无限追问，但为什么这些基础可以被接受是无法被回答，而我原先直觉接受强怀疑论在结构上与之相同
-- 我完全不认可 Common-sense anti-skepticism 
+- Mitigated skepticism / Fallibilism 主张我们仍可拥有可错而可靠的知识，但这没有回应我们所讨论的“确定知识”
+- Foundationalism (basic beliefs) 想用“基础信念”终止无限追问，但为什么这些基础可以被接受是无法被回答的，而我原先“直觉上接受强怀疑论”，在结构上与之相同
+- 我完全不认可 Common-sense anti-skepticism
 - 对于 Kantian strategy (secure empirical knowledge by limiting knowledge claims) 的回应参考我对第一个可能的反驳的回应
 - Methodological/pragmatic response (treat skepticism as a tool, not a final worldview) 并没有回答我的问题
 
@@ -88,7 +88,9 @@ tags = ["哲学"]
 > 
 > > Process reliabilism, by contrast, asks whether the general belief-forming process by which S formed the belief that p would produce a high ratio of true beliefs to false beliefs.
 
-随后还提及了 [constructive empiricism (SEP)](https://plato.stanford.edu/entries/constructive-empiricism/) 与 [pragmatism (IEP)](https://iep.utm.edu/pragmati/) 等路径。这里不妨看被采纳回答的第一部分：
+随后还提及了 [constructive empiricism (SEP)](https://plato.stanford.edu/entries/constructive-empiricism/) 与 [pragmatism (IEP)](https://iep.utm.edu/pragmati/) 等路径，我以后再看。
+
+这里不妨看被采纳回答的第一部分：
 
 > Radical scepsis is not necessarily bad or something to avoid. Why would you need to avoid it? If you conclude by some reasoning, that appears to be valid to you, that all the voices in a dispute express opinions that are not tenable or not completely convincing, then that conclusion is your new starting point. It may not enable you to take sides in the debate, or to judge who is right, but is that a bad thing? For one, it frees you up. It may show you that all the other participants seem to be missing something - even if you yourself don't have all the answers either. So, it may free you up to ask further questions.
 
