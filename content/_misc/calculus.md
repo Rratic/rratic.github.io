@@ -19,7 +19,7 @@ tags = ["数学", "分析", "微积分学"]
 ### 基本概念
 - 实数（实数集 $\R$，Archimedes 性，上界，下界，上确界 $\sup$，下确界 $\inf$）
 	- 可阅读 [文献综述：实数的不下二十种定义方法](https://projecteuclid.org/journals/rocky-mountain-journal-of-mathematics/volume-45/issue-3/Survey-Article-The-real-numbersA-survey-of-constructions/10.1216/RMJ-2015-45-3-737.full?tab=ArticleLink)
-- 极限（级数，数列极限 $\lim_{x\to \infty}$，Stolz 定理，上下极限，Fubini 定理，Riemann 重排定理）
+- 极限（级数，数列极限 $\lim_{x\to \infty}$，Stolz 定理，上下极限，Fubini 定理）
 - 等价性（闭区间套定理，有限覆盖定理，Bolzano-Weierstrass 定理，Cauchy 收敛准则）
 
 ### 一元函数
@@ -31,8 +31,11 @@ tags = ["数学", "分析", "微积分学"]
 - Taylor 展开式（Peano 余项，Lagrange 余项）
 - 不定积分（代换，分部积分，有理积分）
 - Riemann 积分（积分 $\int_a^b f(x) \mathrm{d}x$，Riemann 和，Darboux 上下和，Newton–Leibniz 公式，Lebesgue 定理，广义积分，瑕积分）
-- 解析性 $C^{\omega}(U)$
-- Lebesgue 积分
+
+### 级数
+- 数项级数（Riemann 重排定理）
+- 函数项级数
+- 幂级数（解析性 $C^{\omega}(U)$）
 
 ### 多元函数
 - 高维微分（方向导数 $\nabla_v(f) = \frac{\partial f}{\partial v}$，微分 $\mathrm{d}f(x_0)$）

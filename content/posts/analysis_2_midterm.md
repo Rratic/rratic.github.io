@@ -463,6 +463,8 @@ $$\lim C_n = \lim (C_1 + \cdots + C_n) / n = \lim (A_1B_n + \cdots A_nB_1) / n =
 对 (2) 考虑 $\ln (1 + x) = x - \frac{1}{2} x^2 + o(x^2)$, 一个想法是：
 
 $$
-a_{2n} = \frac{1}{n^\alpha} + o\left(\frac{1}{n^{2\alpha}}\right) \cr
-a_{2n+1} = -\frac{1}{n^\alpha} + \frac{1}{n^{2\alpha}} + o\left(\frac{1}{n^{2\alpha}}\right)
+\begin{cases}
+	a_{2n} = \frac{1}{n^\alpha} + o\left(\frac{1}{n^{2\alpha}}\right) \cr
+	a_{2n+1} = -\frac{1}{n^\alpha} + \frac{1}{n^{2\alpha}} + o\left(\frac{1}{n^{2\alpha}}\right)
+\end{cases}
 $$
