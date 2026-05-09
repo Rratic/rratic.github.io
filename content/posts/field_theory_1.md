@@ -134,9 +134,9 @@ $\mathbb{Q}$ 由 p-进绝对值完备化为 $\mathbb{Q}_p$.
 ### Galois 群
 Galois 理论给出了域的扩张与其自同构群的联系。
 
-对域扩张 $E/F$，对自同构 $\mathrm{Aut}(E)$ 中的元素 $\sigma$，称其**保持** $F$，如果 $\sigma(a)=a, \forall a\in F$
+对域扩张 $E/F$，对自同构 $\mathrm{Aut}(E)$ 中的元素 $\sigma$，称其**保持** $F$，如果对任意 $a \in F$ 有 $\sigma(a) = a$.
 
-以下讨论 $n$ 次首一多项式 $f\in F[x]$ 在 $E/F$ 中分裂，所有根 $\Omega = \\{z_i\\}$ 有序且 $E=F(\Omega)$
+以下讨论 $n$ 次首一多项式 $f\in F[x]$ 在 $E/F$ 中分裂，所有根 $\Omega = \set{z_i}$ 有序且 $E = F(\Omega)$.
 
 {% admonition(type="theorem", title="是置换") %}
 对 $\sigma\in \mathrm{Aut}(E)$ 保持 $F$，它在 $\Omega$ 上是一个置换。
@@ -161,7 +161,7 @@ $$
 \end{aligned}
 $$
 
-有 $\ker\varphi = \\{e\\}$，从而 $\mathrm{Gal}(E/F)\cong \mathrm{Im}(\varphi)\leq S(\Omega)$
+有 $\ker\varphi = \set{e}$，从而 $\mathrm{Gal}(E/F)\cong \mathrm{Im}(\varphi)\leq S(\Omega)$
 
 ### 根式可解性
 我们用代数的语言定义根式可解性。
@@ -189,7 +189,7 @@ $$
 {% admonition(type="theorem", title="根式扩张导出 Galois 群的次正规群列") %}
 对一列扩张 $F=K_0\subset K_1\subset \cdots K_t$ 满足 $K_{i+1} = K_i(u)$，其中 $u^{p_i}\in K_i, p\in\mathbb{P}$，且 $K_t/F$ 正规，$F$ 包含所有 $p_i$ 阶单位根。
 
-则有子群列 $\\{e\\} = G_t \subset \cdots G_1\subset G_0 = \mathrm{Gal}(K_t/F)$，其中 $G_{i+1}\triangleleft G_i$，$G_i/G_{i+1}$ 为 $\\{e\\}$ 或 $p_{i+1}$ 阶循环群。
+则有子群列 $\set{e} = G_t \subset \cdots G_1\subset G_0 = \mathrm{Gal}(K_t/F)$，其中 $G_{i+1}\triangleleft G_i$，$G_i/G_{i+1}$ 为 $\set{e}$ 或 $p_{i+1}$ 阶循环群。
 {% end %}
 
 令 $G_i = \mathrm{Gal}(K_t/F)$. 再由[群论（二）](/posts/group-theory-2/)知上述为次正规群列。

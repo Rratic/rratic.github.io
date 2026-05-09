@@ -64,7 +64,7 @@ impl SerializeWithRegistry for ComponentTypeLink {
 - let mut me = self.entry::<FreeWill>.mut();
 - world.execute(me);
 + if Some(mut me) = self.entry::<FreeWill>.get_mut() {
-+ 	  world.execute(me);
++     world.execute(me);
 + }
 ```
 
@@ -220,18 +220,27 @@ graph LR;
 
 ## My Shortcodes
 {{ todo() }}
+
 {% quote(by = "《庄子·杂篇·列御寇》") %}
-庄子将死，弟子欲厚葬之。\
-庄子曰：“吾以天地为棺椁，以日月为连璧，星辰为珠玑，万物为齎送。吾葬具岂不备邪？何以加此！”\
-弟子曰：“吾恐乌鸢之食夫子也。”\
-庄子曰：“在上为乌鸢食，在下为蝼蚁食，夺彼与此，何其偏也。”\
+庄子将死，弟子欲厚葬之。
+
+庄子曰：“吾以天地为棺椁，以日月为连璧，星辰为珠玑，万物为齎送。吾葬具岂不备邪？何以加此！”
+
+弟子曰：“吾恐乌鸢之食夫子也。”
+
+庄子曰：“在上为乌鸢食，在下为蝼蚁食，夺彼与此，何其偏也。”
+
 以不平平，其平也不平；以不徵徵，其徵也不徵。明者唯为之使，神者徵之。夫明之不胜神也久矣，而愚者恃其所见入于人，其功外也，不亦悲夫！
 {% end %}
+
 {{ quote_display(id="cat", text="生成引用") }}
+
 {{ quote_display(id="cat", text="再一次生成引用") }}
+
 {% shell(text="What is a fish without an eye?") %}
 A fsh.
 {% end %}
+
 {% shell(text="点击**展开**回答。") %}
 **展 开** 回 答。
 {% end %}

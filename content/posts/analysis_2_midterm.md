@@ -24,7 +24,7 @@ tags = ["笔记", "数学", "分析", "微积分学"]
 {% admonition(type="definition", title="定积分") %}
 对任意分割和取点 $\xi_i \in [x_{i-1}, x_i]$ 极限存在时，定义：
 
-$$\int_a^b f(x) \mathrm{d}x = \lim_{\max \\{\Delta x_i\\} \to 0} \sum_{i=1}^n f(\xi_i) \Delta x_i$$
+$$\int_a^b f(x) \mathrm{d}x = \lim_{\max \set{\Delta x_i} \to 0} \sum_{i=1}^n f(\xi_i) \Delta x_i$$
 {% end %}
 
 此时称 $f$ 在 $[a, b]$ 上 Riemann 可积 $f \in R[a, b]$.

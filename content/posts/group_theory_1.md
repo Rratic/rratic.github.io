@@ -102,7 +102,7 @@ $$
 \end{aligned}
 $$
 
-记 $G$ 上 $\\{x\\}$ 的**中心化子** $C_G(x)=\set{a | xa=ax}$，**中心** $Z(G) = \set{x | gx=xg (\forall g\in G)}$.
+记 $G$ 上 $\set{x}$ 的**中心化子** $C_G(x) = \set{a | xa=ax}$，**中心** $Z(G) = \set{x | gx=xg (\forall g\in G)}$.
 
 则 $x\in Z(G)\Leftrightarrow |\mathrm{Orb}(x)|=1$.
 
@@ -144,7 +144,7 @@ $$|G| = |Z(G)| + \sum |G\colon C_G(y_i)|$$
 故至少一个 $|\mathrm{Orb}(aP)| = 1$. 对应 $h\in aPa^{-1}$ 即 $H\subseteq aPa^{-1}$
 
 {% admonition(type="theorem", title="第三 Sylow 定理") %}
-对 $p^l\parallel |G|, |G|=p^lm$，Sylow p 子群个数 $r$，则 $r\equiv 1\pmod{p}, r\mid m$
+对 $p^l\parallel |G|, |G|=p^lm$，Sylow p 子群个数 $r$，则 $r\equiv 1\pmod{p}$ 且 $r\mid m$.
 {% end %}
 
 称 $H$ 在 $G$ 中**正规化子** $N_G(H) = \set{G | gHg^{-1}=H}$.
@@ -165,9 +165,9 @@ $$|G| = |Z(G)| + \sum |G\colon C_G(y_i)|$$
 对素数 $p < q$，$pq$ 阶群在 $q\not\equiv 1\pmod{p}$ 时只有循环群。
 {% end %}
 
-取 Sylow p 子群及 Sylow q 子群，由第三定理知个数均为 1，从而分别是正规的
+取 Sylow p 子群及 Sylow q 子群，由第三定理知个数均为 1，从而分别是正规的。
 
-易知 $PQ=G$，又由 $P\cap Q=\\{e\\}$，可知 $G\cong P\oplus Q\cong Z_p\oplus Z_q\cong Z_{pq}$
+易知 $PQ=G$，又由 $P\cap Q = \set{e}$，可知 $G\cong P\oplus Q\cong Z_p\oplus Z_q\cong Z_{pq}$.
 
 ## 注释 {#footnotes}
 [^1]: 通过以下步骤证明：

@@ -1,6 +1,5 @@
 +++
 title = "【范畴论】练习：定义验证与泛性质使用"
-description = "选做一些 Mac Lane 书上的习题（到 Ⅲ. Universals and Limits 的 1. Universal Arrows）。"
 date = 2025-12-05
 updated = 2025-12-08
 
@@ -14,6 +13,10 @@ priority = "0.8"
 categories = ["知识"]
 tags = ["笔记", "数学", "范畴论"]
 +++
+
+选做一些 Mac Lane 书上的习题，包含 Ⅱ. Constructions on Categories 及 Ⅲ. Universals and Limits 的 1. Universal Arrows 节。
+
+<!-- more -->
 
 <style>
 	img:where(.dark,.dark *) {

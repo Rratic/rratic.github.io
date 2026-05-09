@@ -77,16 +77,16 @@ Thislethwaite Method 将群逐步化为：
 - $< U, R, F^2, D, L, B^2 >$
 - $< U, R^2, F^2, D, L^2, B^2 >$
 - $< U^2, R^2, F^2, D^2, L^2, B^2 >$
-- $\\{e\\}$
+- $\set{e}$
 
 Kociemba Algorithm 则将群逐步化为：
 - $< U, R^2, F^2, D, L^2, B^2 >$
-- $\\{e\\}$
+- $\set{e}$
 
 ## 通用解法
 以上的解法都依赖于具体的结构，这里提供一个通用方法：Schreier-Sims-Minkwits 算法。[^1]
 
-我们希望进行这样的操作：每次多固定一个集合上的元素，其稳定化子就是原变换群的真子群，如此下去可以得到一个链 $G = G_0 > G_1 > G_2 \cdots G_n = \\{e\\}$，而由于我们要写出一个操作序列，设第 $i$ 个阶段可能的操作为 $r_{i_1}, r_{i_2} \cdots$ 有 $r_{i_1}G_{i+1}, r_{i_2}G_{i+1} \cdots$ 陪集族构成 $G_i$.
+我们希望进行这样的操作：每次多固定一个集合上的元素，其稳定化子就是原变换群的真子群，如此下去可以得到一个链 $G = G_0 > G_1 > G_2 \cdots G_n = \set{e}$，而由于我们要写出一个操作序列，设第 $i$ 个阶段可能的操作为 $r_{i_1}, r_{i_2} \cdots$ 有 $r_{i_1}G_{i+1}, r_{i_2}G_{i+1} \cdots$ 陪集族构成 $G_i$.
 
 {% admonition(type="theorem", title="Schreier 子群引理") %}
 $G$ 是一个由集合 $S$ 中元素（置换）生成的群，有子群 $H$，设（左）陪集代表元构成集合 $R$，其中元素 $g$ 对应代表元为 $\bar{g}$，则 $H$ 是由 $\set{\overline{sr}^{-1}sr | r\in R, s\in S}$ 生成的。
@@ -128,15 +128,15 @@ x^-1*y*w^-1*y^-1*w*y^-1*x*y*x*z*y*z^-1*y^-1*x^-1*y*x*y*z*y^-1*z^-1*x^-1*w*y*w^-1
 
 ## 群列
 ### 次正规群列
-仍考虑前述的链 $G = G_0 > G_1 > G_2 \cdots G_n = \\{e\\}$，我们希望它的性质足够好。
+仍考虑前述的链 $G = G_0 > G_1 > G_2 \cdots G_n = \set{e}$，我们希望它的性质足够好。
 
-称序列 $G = G_0 \triangleright G_1 \triangleright G_2 \cdots G_n = \\{e\\}$ 为 $G$ 的**次正规群列**。
+称序列 $G = G_0 \triangleright G_1 \triangleright G_2 \cdots G_n = \set{e}$ 为 $G$ 的**次正规群列**。
 
 ### 可解群
 称群是**可解群**，如果在次正规群列中每个商 $G_{i-1}/G_i$（称为**合成因子**）都是交换群。
 
 {% admonition(type="definition", title="可解群的群列") %}
-称**导群**是一个群所有的换位子生成的群，记作 $G'=G^{(1)}$，则一个群可解等价于它的若干阶导群 $G^{(k)} = \\{e\\}$.
+称**导群**是一个群所有的换位子生成的群，记作 $G'=G^{(1)}$，则一个群可解等价于它的若干阶导群 $G^{(k)} = \set{e}$.
 {% end %}
 
 一方面，所有的 $G^{(k)}$ 给出了这个群列的构造。可以证明 $G/G'$ 交换：考虑映射：
@@ -185,8 +185,8 @@ $$
 {% admonition(type="theorem", title="Jordan-Hölder 定理") %}
 两个合成群列
 
-$$G = G_0 \triangleright G_1 \triangleright G_2 \cdots G_n = \\{e\\}$$
-$$G = H_0 \triangleright H_1 \triangleright H_2 \cdots H_m = \\{e\\}$$
+$$G = G_0 \triangleright G_1 \triangleright G_2 \cdots G_n = \set{e}$$
+$$G = H_0 \triangleright H_1 \triangleright H_2 \cdots H_m = \set{e}$$
 
 可以以某种方式配对，使对应的合成因子同构。
 {% end %}

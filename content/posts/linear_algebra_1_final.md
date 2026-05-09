@@ -42,9 +42,9 @@ $$T_1(f) = \sum_{k=0}^3 f(k) (x-2019)^k,\ T_2(f) = \sum_{k=0}^3 (D^kf)(x-2020)^k
 $T_2$ 同理，得到对角矩阵。
 
 {% admonition(type="question", title="2019 P2") %}
-取定 $z \in \Complex$，有 $f, g \in \mathbb{Q}[x] \setminus \\{0\\}$ 满足 $f(z) = 0, g(z) \neq 0$，证：
+取定 $z \in \Complex$，有 $f, g \in \mathbb{Q}[x] \setminus \set{0}$ 满足 $f(z) = 0, g(z) \neq 0$，证：
 1. 存在 $h_1 \in \mathbb{Q}[x]$ 使 $h_1(z) = g(z)^{-1}$
-2. 存在 $h_2 \in \mathbb{Q}[x] \setminus \\{0\\}$ 使 $h_2(g(z)) = 0$
+2. 存在 $h_2 \in \mathbb{Q}[x] \setminus \set{0}$ 使 $h_2(g(z)) = 0$
 {% end %}
 
 (1) 是因为可以对 $f$ 与 $g$ 作辗转相除，得到 $p(z)f(z) - q(z)g(z) = 1$.
@@ -54,7 +54,7 @@ $T_2$ 同理，得到对角矩阵。
 {% admonition(type="question", title="2019 P5") %}
 设 $V$ 有限维实线性空间，$W_1, \cdots, W_m \subset V$ 子空间，$\alpha_1, \cdots, \alpha_m \in V$，假设：
 
-$$\dim W_i = \dim V - 1, \quad \bigcap_{i=1}^m W_i = \\{0\\}, \quad \alpha_i \notin W_i$$
+$$\dim W_i = \dim V - 1, \quad \bigcap_{i=1}^m W_i = \set{0}, \quad \alpha_i \notin W_i$$
 
 设 $T(L(V))$ 满足如下条件：对任意 $i$ 存在 $j$ 使得 $T(\alpha_i + W_i) \subseteq \alpha_j + W_j$，证：$\det T = \pm 1$.
 {% end %}
@@ -95,7 +95,7 @@ $$n! (T^t f_1)\wedge \cdots \wedge (T^t f_{2n}) = n! f_1\wedge \cdots \wedge f_{
 考虑 $\Complex[x]$ 的子空间 $V = \mathrm{span}\set{x^{k^2} | k \in \set{0, 1, \cdots, 8}}$，求正整数 $n$ 的最小值，使得对 $\Complex$ 的任意 $n$ 元子集 $S$ 总存在 $z_1, \cdots, z_9 \in S$ 与 $f_1, \cdots, f_9 \in V$ 使得 $f_i(z_j) = \delta_{ij}$.
 {% end %}
 
-记 $L_z(f) = f(z)$，则对 $|S| = 65$ 有 $\bigcap_{z \in S} \ker(L_z) = \\{0\\}$，从而 $\mathrm{span}\set{L_z | z \in S} = V^\ast$，存在 $L_{z_1}, \cdots, L_{z_9}$ 为基。
+记 $L_z(f) = f(z)$，则对 $|S| = 65$ 有 $\bigcap_{z \in S} \ker(L_z) = \set{0}$，从而 $\mathrm{span}\set{L_z | z \in S} = V^\ast$，存在 $L_{z_1}, \cdots, L_{z_9}$ 为基。
 
 另一方面，取 $x^{64}-1$ 的根知 $|S| = 64$ 不行。
 
@@ -122,7 +122,7 @@ $$T(\alpha_i) \in \set{\alpha_{n-r+i}, \cdots, \alpha_n}^0, \quad i = 1, \cdots,
 对 $r = 2022$ 与给定的 $T$，进行操作：
 1. 第 $1$ 次取 $n - 1$ 维子空间 $W_1$ 及 $\alpha_1 \in V\setminus W_1$
 2. 第 $k$ 次取 $n - k$ 维子空间 $W_k \subset W_{k-1} \cap \ker T(\alpha_{k-1})$ 及 $\alpha_k \in W_{k-1}\setminus W_k$
-3. 第 $n$ 次取 $\alpha_n \in W_{n-1}\setminus \\{0\\}$
+3. 第 $n$ 次取 $\alpha_n \in W_{n-1}\setminus \set{0}$
 
 ---
 

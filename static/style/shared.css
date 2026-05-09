@@ -21,6 +21,11 @@ section>p>img {
 	padding-right: 1rem;
 }
 
+blockquote cite {
+	display: block;
+	text-align: right;
+}
+
 blockquote cite em {
 	text-decoration: 1px underline;
 }
