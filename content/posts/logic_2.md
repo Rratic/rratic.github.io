@@ -169,7 +169,7 @@ $$
 ![P7](/images/misc/2026_04_13.png)
 {% end %}
 
-左上那个推演是再引入一个条件 $[\neg \varphi]^2$, 由 $(\neg I)$ 规则得到 $\neg \varphi$, 进而得到 $\varphi \vee \neg \varphi$.
+左上那个推演是再引入一个条件 $[\neg \varphi]^2$, 由 $(\neg \text{I})$ 规则得到 $\neg \varphi$, 进而得到 $\varphi \vee \neg \varphi$.
 
 ### 语形后承
 仿照上一节中的定义，我们记 $\varphi$ 是 $\Gamma$ 在自然演绎系统中的语形后承 `syntactic consequence (in natural deduction)` 为 $\Gamma \vdash^\text{ND} \varphi$.
