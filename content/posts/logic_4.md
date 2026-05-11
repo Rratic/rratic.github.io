@@ -1,6 +1,7 @@
 +++
-title = "【逻辑学】一阶逻辑"
+title = "【逻辑学】一阶逻辑及其应用"
 date = 2026-05-09
+updated = 2026-05-12
 
 [extra]
 math = true
@@ -162,3 +163,30 @@ $$\forall x_1 \cdots \forall x_n (\forall x \varphi(x, x_1, \cdots, x_n) \to \va
 $$\forall x_1 \cdots \forall x_n (\forall x (\varphi(x, x_1, \cdots, x_n) \to \psi(x, x_1, \cdots, x_n)) \to (\forall x \varphi(x, x_1, \cdots, x_n) \to \forall x \psi(x, x_1, \cdots, x_n)))$$
 
 $$\forall x_1 \cdots \forall x_n (\varphi(x, x_1, \cdots, x_n) \to \forall x \varphi(x, x_1, \cdots, x_n))$$
+
+## 应用
+### 形式化
+自然语言基于一阶逻辑的形式化，我们在数学里已经比较熟悉了。
+
+例如说，“所有猫都是哺乳动物”应形式化为：
+
+$$\forall x (\text{Cat}(x) \to \text{Mammal}(x))$$
+
+自然语言通过堆叠修饰语来构造复合谓词。有一些修饰语是相交性（intersectional）的，如果“红色的苹果”，有一些是包含性（subsective）的，如“高明的外科医生”，甚至有一些是掠夺性（privative）的，如“玩具熊”。
+
+形式化中存在一些麻烦：
+- 量词顺序与模式歧义
+- Peter Geach 的经典驴句是 Every farmer who owns a donkey beats it. 其中驴对应变量的辖域有所错位，对此的回应是引入新的可以被保留到从句外的话语指称，使得后续代词可以拾取它，不定描述的语义被看作一种“语境更新操作”
+- 内涵语境，“小明知道鲁迅写了某篇小说，但不知道周树人写了某篇小说”
+- 必要条件与充分条件，对于使用模态逻辑，多数哲学家选择保留可能世界语义学语义上的好处，却拒绝其本体论
+
+### 超越
+一阶逻辑有一些无法做到的事，如无法说明某图是连通的（论域是无穷的时无法处理），可以用紧致性原理证明这一点。
+
+二阶逻辑增加了对谓词和关系本身的量词，即：可以用 $\forall P$ 这样的量词。
+
+自由逻辑（free logic）允许常元或项是“空”的，而 $\exists y (x = y)$ 就意为 $x$ 存在。
+
+一阶模态逻辑在一阶逻辑中直接引入了模态算子。Saul Kripke 主张专名是严格指示词：它在每个该对象存在的可能世界中都指称同一对象。
+
+Lindström 定理表明，一阶逻辑在紧致性和向下 Löwenheim-Skolem 性质下是表达能力最强的逻辑系统。也就是，任何严格更具表达力的逻辑，必至少损失其中一个性质，这解释了一阶逻辑的特殊地位具有某种理论必然性。但我们对这些性质的重视最终取决于我们对逻辑的目的和界限的看法，是一种哲学选择。
