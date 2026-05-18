@@ -411,6 +411,6 @@ $$f: \prod_{(x, y: A)} \prod_{(p: x =_A y)} C(x, y, p)$$
 [^intuitionistic]: 应当是指直觉主义那种。不考虑哲学细节，直觉主义和构造主义可以认为是相同的。Brouwer-Heyting-Kolmogorov 释义说我们构造出事物而不是使用真值表。参考 <https://ncatlab.org/nlab/show/BHK+interpretation>.
 [^small]: 看起来和集合论的称法是一样的。集合论有些书也称 $\mathcal{U}$-小的。
 [^formal]: 正式版本被放在附录 A. 包含了严格、完整的表述。
-[^COQ92]: Thierry Coquand. The paradox of trees in type theory. *BIT Numerical Mathematics*, 32(1):10–14, 1992.
+[^COQ92]: Thierry Coquand, "The Paradox of Trees in Type Theory," *BIT Numerical Mathematics* 32, no. 1 (1992): 10-14.
 [^contradiction]: 如果我们的类型论是*不一致 inconsistent* 的，则可能存在构造 $\mathbf{0}$ 的元素的复杂方法。
 [^consistent]: 这不应与类型论是一致的 consistent 混淆。一致是说通过类型论规则无法得到 $\mathbf{0}$ 的元素。

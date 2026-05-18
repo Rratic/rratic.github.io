@@ -289,4 +289,4 @@ $$E(\ket{\psi}) = S(\rho^A) = S(\rho^B) \tag{3.2.6}$$
 
 ---
 
-[^satellite-based-qkd]: 可以在 <https://arxiv.org/abs/1707.00542> 看到一个我国于 2017 年所作的基于卫星的 1200km QKD 实验论文。
+[^satellite-based-qkd]: 一个我国于 2017 年完成的基于卫星的 1200km QKD 实验。Sheng-Kai Liao et al., "Satellite-to-ground Quantum Key Distribution," *Nature* 549, no. 7670 (2017): 43-47, <https://doi.org/10.1038/nature23655>; 预印本见 <https://arxiv.org/abs/1707.00542>.

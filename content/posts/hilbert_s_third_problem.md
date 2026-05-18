@@ -77,6 +77,6 @@ $$(v, a_1w_1 + a_2w_2) = a_1(v, w_1) + a_2(v, w_2)$$
 Jean-Pierre Sydler 于 1965 年证明体积与 Dehn 不变量都相同的多面体一定可通过互相剪拼得到。[^paper-sydler]
 
 [^hilbert23reprinted]: 一个英文重制文本见于 <https://people.tamu.edu/~rojas//hilbert23reprinted.pdf>。
-[^paper-dehn]: <https://link.springer.com/article/10.1007/BF01448001>
+[^paper-dehn]: M. Dehn, "Ueber den Rauminhalt," *Mathematische Annalen* 55, no. 3 (1901): 465-478, <https://doi.org/10.1007/BF01448001>.
 [^not-zero]: 否则存在 $\frac{a}{b}\in\mathbb{Q}$ 使得 $\tan(\frac{a}{b}\pi)=\frac{\sqrt{2}}{2}$。一方面设 $y=e^{i\frac{a}{b}\pi}$ 则这等于 $-i\frac{y^2-1}{y^2+1}$，满足 $2(y^2-1)^2+(y^2+1)^2=0$。另一方面 $y$ 为单位根，极小多项式是分圆多项式，枚举知不成立。
-[^paper-sydler]: <https://link.springer.com/article/10.1007/BF02564364>
+[^paper-sydler]: J.-P. Sydler, "Conditions necessaires et suffisantes pour l'equivalence des polyedres de l'espace euclidien a trois dimensions," *Commentarii Mathematici Helvetici* 40, no. 1 (1965): 43-80, <https://doi.org/10.1007/BF02564364>.

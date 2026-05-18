@@ -195,4 +195,4 @@ $$G = H_0 \triangleright H_1 \triangleright H_2 \cdots H_m = \set{e}$$
 
 ---
 
-[^1]: [Computational Group theory](https://www.jaapsch.net/puzzles/schreier.htm)
+[^1]: Jaap Scherphuis, "Computational Group Theory," *Jaap's Puzzle Page*, <https://www.jaapsch.net/puzzles/schreier.htm>.

@@ -321,5 +321,5 @@ $$\mathrm{meta}\ (p,f,g)\ (\oplus, e) = \mathrm{unfold}\ p\ f\ g \cdot \mathrm{f
 
 [^PLDI07]: 会议 Programming Language Design and Implementation 2007
 [^POPL09]: 会议 Principles of Programming Languages 2009
-[^ICFP00]: Isao Sasano, Zhenjiang Hu, Masato Takeichi, Mizuhito Ogawa, Make it Practical: A Generic Linear Time Algorithm for Solving Maximum Weightsum Problems, The 2000 ACM SIGPLAN International Conference on Functional Programming, (ICFP 2000), Montreal, Canada, 18-20 September 2000. ACM Press. pp. 137-149.
+[^ICFP00]: Isao Sasano, Zhenjiang Hu, Masato Takeichi, and Mizuhito Ogawa, "Make It Practical: A Generic Linear Time Algorithm for Solving Maximum Weightsum Problems," in *Proceedings of the 2000 ACM SIGPLAN International Conference on Functional Programming (ICFP '00)* (Montreal, Canada, September 18-20, 2000; New York: ACM, 2000), 137-149.
 [^SAIG01]: 会议 Semantics, applications, and implementation of program generation 2001

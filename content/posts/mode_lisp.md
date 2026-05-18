@@ -562,14 +562,14 @@ Richard P. Gabriel 提出了[^6]两种设计理念的不同。
 
 ---
 
-[^1]: ``Recursive Functions of Symbolic Expressions and Their Computation by Machine, Part1.'' Communication of the ACM 3:4, April 1960, pp. 184-195.
+[^1]: John McCarthy, "Recursive Functions of Symbolic Expressions and Their Computation by Machine, Part I," *Communications of the ACM* 3, no. 4 (1960): 184-195, <https://doi.org/10.1145/367177.367199>.
 [^feature]: 在现实中，生物、语言等具有更复杂的此种特性。
 [^only-seven]: 原文如此，但不借助 `lambda` 等记号完成 `eval` 的递归特性似乎是不可能的。
 [^elegant]: 尽管早有大量图灵完备的模型存在，先前并无具备足够抽象性的语言。而这是发明 Lisp 的目标之一。
-[^3]: Guy Lewis Steele, Jr. and Gerald Jay Sussman, ”The Art of the Interpreter, or the Modularity Complex (Parts Zero, One, and Two),” MIT AI Lab Memo 453, May 1978.
+[^3]: Guy Lewis Steele Jr. and Gerald Jay Sussman, "The Art of the Interpreter, or the Modularity Complex (Parts Zero, One, and Two)," MIT AI Lab Memo 453, 1978.
 [^lisp-count]: 可能是指 Common Lisp. 取决于具体的统计方式。
-[^5]: No Silver Bullet—Essence and Accident in Software Engineering
-[^6]: <https://www.dreamsongs.com/WorseIsBetter.html>
+[^5]: Fred P. Brooks Jr., "No Silver Bullet: Essence and Accidents of Software Engineering," *Computer* 20, no. 4 (1987): 10-19, <https://doi.org/10.1109/MC.1987.1663532>.
+[^6]: Richard P. Gabriel, "Worse Is Better," *Dreamsongs*, accessed May 18, 2026, <https://www.dreamsongs.com/WorseIsBetter.html>.
 [^maplist]: > Present day Lisp programmers would use `mapcar` instead of `maplist` here. This example
             does clear up one mystery: why `maplist` is in Common Lisp at all. It was the original mapping
             function, and `mapcar` a later addition.

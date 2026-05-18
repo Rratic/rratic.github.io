@@ -126,5 +126,5 @@ $$\N \sqcup \mathscr{P}(\N) \sqcup \mathscr{P}(\mathscr{P}(\N)) \sqcup \cdots$$
 
 ---
 
-[^etcs-1]: F.W.Lawvere. An elementary theory of the category of sets. Proceedings of the National Academy of Sciences of the U.S.A.,52:1506-1511,1964.
-[^etcs-2]: F.W.Lawvere. An elementary theory of the category of sets (long version) with commentary. Reprints in Theory and Applications of Categories,12:1-35,2005.
+[^etcs-1]: F. W. Lawvere, "An Elementary Theory of the Category of Sets," *Proceedings of the National Academy of Sciences of the U.S.A.* 52 (1964): 1506-1511.
+[^etcs-2]: F. W. Lawvere, "An Elementary Theory of the Category of Sets (Long Version) with Commentary," *Reprints in Theory and Applications of Categories* 12 (2005): 1-35.
