@@ -2,7 +2,8 @@ import { CellState } from "./grids.js";
 
 const DEFAULT_CELL_SIZE = 60;
 const GRID_COLOR = "#dcdcdc";
-const WALL_COLOR = "#111111";
+const BANNED_COLOR = "#111111";
+const AVOIDED_WALL_COLOR = "#6b6b6b";
 const SPACE_COLOR = "#ffffff";
 
 export class InfiniteGridRenderer {
@@ -74,24 +75,35 @@ export class InfiniteGridRenderer {
     drawWallMarks() {
         const range = this.visibleCellRange();
         const inset = this.cellSize * 0.24;
-        this.ctx.strokeStyle = WALL_COLOR;
-        this.ctx.lineWidth = Math.max(2, this.cellSize * 0.08);
         this.ctx.lineCap = "round";
-        this.ctx.beginPath();
+        this.ctx.lineWidth = Math.max(2, this.cellSize * 0.08);
 
-        this.map.forEachCellWithStateInRange(range, CellState.WALL, (cellX, cellY) => {
-            const pos = this.worldToScreen(cellX, cellY);
-            const cellTop = pos.y - this.cellSize;
-            const left = pos.x + inset;
-            const right = pos.x + this.cellSize - inset;
-            const top = cellTop + inset;
-            const bottom = cellTop + this.cellSize - inset;
-            this.ctx.moveTo(left, top);
-            this.ctx.lineTo(right, bottom);
-            this.ctx.moveTo(right, top);
-            this.ctx.lineTo(left, bottom);
+        this.ctx.strokeStyle = BANNED_COLOR;
+        this.ctx.beginPath();
+        this.map.forEachCellWithStateInRange(range, CellState.BANNED, (cellX, cellY) => {
+            this.appendWallCross(cellX, cellY, inset);
         });
         this.ctx.stroke();
+
+        this.ctx.strokeStyle = AVOIDED_WALL_COLOR;
+        this.ctx.beginPath();
+        this.map.forEachCellWithStateInRange(range, CellState.AVOIDED, (cellX, cellY) => {
+            this.appendWallCross(cellX, cellY, inset);
+        });
+        this.ctx.stroke();
+    }
+
+    appendWallCross(cellX, cellY, inset) {
+        const pos = this.worldToScreen(cellX, cellY);
+        const cellTop = pos.y - this.cellSize;
+        const left = pos.x + inset;
+        const right = pos.x + this.cellSize - inset;
+        const top = cellTop + inset;
+        const bottom = cellTop + this.cellSize - inset;
+        this.ctx.moveTo(left, top);
+        this.ctx.lineTo(right, bottom);
+        this.ctx.moveTo(right, top);
+        this.ctx.lineTo(left, bottom);
     }
 
     drawGridLines() {

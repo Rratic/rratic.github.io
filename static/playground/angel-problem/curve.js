@@ -1,3 +1,5 @@
+import { computeLeftSet, cellKey } from "./leftset.js";
+
 /*
 边界曲线的有限部分（无限部分为自南向北到达 (0, 0) 与离开 (0, n)）。
 
@@ -83,10 +85,12 @@ export class BorderCurve {
         return this.points[this.points.length - 1];
     }
 
+    // 线段数
     count() {
         return this.points.length - 1;
     }
 
+    // “长度”，不重合部分线段数之差
     length() {
         return this.count() - this.getEndPoint().y;
     }
@@ -268,6 +272,36 @@ export class BorderCurve {
     }
 }
 
+export function segmentDirection(start, end) {
+    const dx = end.x - start.x;
+    const dy = end.y - start.y;
+    if (dx === 0 && dy === 1) return "N";
+    if (dx === 1 && dy === 0) return "E";
+    if (dx === 0 && dy === -1) return "S";
+    if (dx === -1 && dy === 0) return "W";
+    return null;
+}
+
+/** 沿曲线走向的顺时针拐角：N→E→S→W→N */
+export function isClockwiseTurn(dirIn, dirOut) {
+    const next = { N: "E", E: "S", S: "W", W: "N" };
+    return next[dirIn] === dirOut;
+}
+
+/** 段 segIdx 的终点 points[segIdx+1] 处是否为顺时针拐角（需存在下一段） */
+export function isClockwiseCornerAtSegmentEnd(curve, segIdx) {
+    if (segIdx < 0 || segIdx + 2 >= curve.points.length) {
+        return false;
+    }
+    const a = curve.points[segIdx];
+    const b = curve.points[segIdx + 1];
+    const c = curve.points[segIdx + 2];
+    const dIn = segmentDirection(a, b);
+    const dOut = segmentDirection(b, c);
+    if (!dIn || !dOut) return false;
+    return isClockwiseTurn(dIn, dOut);
+}
+
 function rightCellOfSegment(start, end) {
     const dx = end.x - start.x;
     const dy = end.y - start.y;
@@ -320,21 +354,81 @@ function computeDetour(A, B) {
     throw new Error("Segment must be axis-aligned with unit length.");
 }
 
-// 由起始曲线与希望额外加入 V_μ 的格子集合 S，依次拓展+收缩，得到对应的后代曲线。
-// addedCellsInOrder 形参里的格子需要按可到达顺序提供；在 strategy 里 DFS 步进时已经满足。
-export function buildCurveByExpansion(baseCurve, addedCellsInOrder, angelSegmentIndex) {
-    const work = baseCurve.clone();
-    for (const cell of addedCellsInOrder) {
-        const segIdx = findExtendableSegmentForCell(work, cell, angelSegmentIndex);
-        if (segIdx === -1) {
-            throw new Error(
-                `Cell (${cell.x}, ${cell.y}) is not adjacent to current V_\u03ba via an extendable segment.`
-            );
+function parseCellKey(key) {
+    const idx = key.indexOf(",");
+    return {
+        x: Number(key.slice(0, idx)),
+        y: Number(key.slice(idx + 1))
+    };
+}
+
+function maxFutureSegmentIndex(curve, angelSegmentIndex, bbox) {
+    const end = curve.getEndPoint();
+    const finiteCount = curve.count();
+    const virtualNorth = Math.max(0, bbox.maxY - end.y);
+    return angelSegmentIndex + finiteCount + virtualNorth + 8;
+}
+
+function isTargetSetEngulfed(curve, targetKeys, bbox) {
+    const leftSet = computeLeftSet(curve, bbox);
+    for (const key of targetKeys) {
+        if (!leftSet.has(key)) {
+            return false;
         }
-        work.extendSegment(segIdx);
-        work.fullyContract();
     }
-    return work;
+    return true;
+}
+
+/**
+ * 将 targetKeys 全部吞入 V_μ：反复扫描未来段，对右格在 target 且不在 V 的段做拓展+收缩。
+ * 返回 { curve, complete }，仅 complete === true 时方可作为 P_i 候选。
+ */
+export function buildCurveForTargetKeys(baseCurve, targetKeys, angelSegmentIndex, bbox) {
+    const work = baseCurve.clone();
+    if (targetKeys.size === 0) {
+        return { curve: work, complete: true };
+    }
+
+    const maxSeg = maxFutureSegmentIndex(work, angelSegmentIndex, bbox);
+    const maxRounds = Math.max(targetKeys.size * 8, 64);
+
+    for (let round = 0; round < maxRounds; round += 1) {
+        if (isTargetSetEngulfed(work, targetKeys, bbox)) {
+            return { curve: work, complete: true };
+        }
+
+        let progressed = false;
+        for (let segIdx = angelSegmentIndex + 1; segIdx <= maxSeg; segIdx += 1) {
+            const right = work.getRightCellAtSegmentIndex(segIdx);
+            const key = cellKey(right.x, right.y);
+            if (!targetKeys.has(key)) {
+                continue;
+            }
+            const leftSet = computeLeftSet(work, bbox);
+            if (leftSet.has(key)) {
+                continue;
+            }
+            work.extendSegment(segIdx);
+            work.fullyContract();
+            progressed = true;
+            break;
+        }
+
+        if (!progressed) {
+            return { curve: work, complete: false };
+        }
+    }
+
+    return {
+        curve: work,
+        complete: isTargetSetEngulfed(work, targetKeys, bbox)
+    };
+}
+
+/** @deprecated 使用 buildCurveForTargetKeys */
+export function buildCurveByExpansion(baseCurve, cells, angelSegmentIndex, bbox) {
+    const keys = new Set(cells.map((c) => cellKey(c.x, c.y)));
+    return buildCurveForTargetKeys(baseCurve, keys, angelSegmentIndex, bbox).curve;
 }
 
 // 在 angelSegmentIndex 之后的段落里寻找右格等于 targetCell 的段索引。

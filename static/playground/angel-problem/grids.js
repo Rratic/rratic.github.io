@@ -1,11 +1,16 @@
 export const CellState = Object.freeze({
+    /* 空格，自由格或者未被禁过的规避格 */
     SPACE: 0,
-    WALL: 1
+    /* 右集中的被禁格 */
+    BANNED: 1,
+    /* 左集中的曾经被禁格（只增不减） */
+    AVOIDED: 2
 });
 
 const DEFAULT_CHUNK_SIZE = 32;
-const HASH_SHIFT_BITS = 32n;
-const HASH_MASK_32 = 0xffffffffn;
+
+// 将 chunk 索引（有符号）偏置后装入 16 位；假定 |cellX|,|cellY| < 65536
+const CHUNK_PACK_BIAS = 32768;
 
 /*
 方格坐标使用整数对 (x, y) 表示，x 向右，y 向上。
@@ -40,9 +45,17 @@ export class ChunkedGridMap {
     }
 
     chunkHash(chunkX, chunkY) {
-        const x = BigInt(chunkX) & HASH_MASK_32;
-        const y = BigInt(chunkY) & HASH_MASK_32;
-        return (x << HASH_SHIFT_BITS) | y;
+        return (
+            ((chunkX + CHUNK_PACK_BIAS) << 16) |
+            ((chunkY + CHUNK_PACK_BIAS) & 0xffff)
+        );
+    }
+
+    unpackChunkHash(hash) {
+        return {
+            chunkX: (hash >>> 16) - CHUNK_PACK_BIAS,
+            chunkY: (hash & 0xffff) - CHUNK_PACK_BIAS
+        };
     }
 
     getChunk(chunkX, chunkY, createIfMissing = false) {
@@ -82,6 +95,25 @@ export class ChunkedGridMap {
         chunk[this.toChunkIndex(localX, localY)] = nextState;
     }
 
+    /** 魔鬼禁用：右集被禁格 */
+    banCell(cellX, cellY) {
+        this.setCellState(cellX, cellY, CellState.BANNED);
+    }
+
+    /**
+     * 路径更新后，将已进入 V_κ 的被禁格升级为规避格（BANNED → AVOIDED，单调不降）。
+     */
+    absorbBannedIntoLeftSet(leftSet) {
+        for (const key of leftSet) {
+            const comma = key.indexOf(",");
+            const x = Number(key.slice(0, comma));
+            const y = Number(key.slice(comma + 1));
+            if (this.getCellState(x, y) === CellState.BANNED) {
+                this.setCellState(x, y, CellState.AVOIDED);
+            }
+        }
+    }
+
     forEachCellWithStateInRange(range, state, visitCell) {
         const minChunkX = this.toChunkCoord(range.minX);
         const maxChunkX = this.toChunkCoord(range.maxX);
@@ -110,6 +142,28 @@ export class ChunkedGridMap {
 
                         visitCell(cellX, cellY);
                     }
+                }
+            }
+        }
+    }
+
+    /** 遍历所有非 SPACE 格子；visitCell(x, y, state)。 */
+    forEachOccupiedCell(visitCell) {
+        for (const [hash, chunk] of this.chunks) {
+            const { chunkX, chunkY } = this.unpackChunkHash(hash);
+
+            for (let localY = 0; localY < this.chunkSize; localY += 1) {
+                for (let localX = 0; localX < this.chunkSize; localX += 1) {
+                    const index = this.toChunkIndex(localX, localY);
+                    const state = chunk[index];
+                    if (state === CellState.SPACE) {
+                        continue;
+                    }
+                    visitCell(
+                        chunkX * this.chunkSize + localX,
+                        chunkY * this.chunkSize + localY,
+                        state
+                    );
                 }
             }
         }

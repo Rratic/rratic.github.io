@@ -1,3 +1,5 @@
+import { CellState } from "./grids.js";
+
 // 计算边界曲线 κ 的左集 V_κ。
 // 思路：以 (-1, 0) 为种子做 BFS，沿格子之间的"未被曲线切断的"边扩散。
 // 边的判定：
@@ -89,10 +91,28 @@ function clamp(value, lo, hi) {
     return value;
 }
 
-export function countAvoidance(leftSet, bannedHistory) {
+function parseCellKey(key) {
+    const idx = key.indexOf(",");
+    return {
+        x: Number(key.slice(0, idx)),
+        y: Number(key.slice(idx + 1))
+    };
+}
+
+/**
+ * n_κ(i)：左集中「曾为被禁格」的个数。
+ * AVOIDED 已吞并进 V；本轮左集内的 BANNED 在本条 μ 下亦计入。
+ */
+export function countAvoidance(leftSet, map) {
     let count = 0;
-    for (const key of bannedHistory) {
-        if (leftSet.has(key)) {
+    map.forEachOccupiedCell((x, y, state) => {
+        if (state === CellState.AVOIDED) {
+            count += 1;
+        }
+    });
+    for (const key of leftSet) {
+        const cell = parseCellKey(key);
+        if (map.getCellState(cell.x, cell.y) === CellState.BANNED) {
             count += 1;
         }
     }
@@ -126,14 +146,6 @@ export function adjacentCellsOfEdge(a, b) {
         { x: minX, y: a.y - 1 },
         { x: minX, y: a.y }
     ];
-}
-
-function parseCellKey(key) {
-    const idx = key.indexOf(",");
-    return {
-        x: Number(key.slice(0, idx)),
-        y: Number(key.slice(idx + 1))
-    };
 }
 
 // 从 V_κ 出发，在右集可达区域（不穿越 fixed）内做 BFS，返回 dist / parent。
@@ -182,59 +194,91 @@ function bfsRightReachable(leftSet, fixedRightCells, bbox) {
     return { dist, parent };
 }
 
-// 为吞并目标格集合 S 计算拓展顺序（含必经的中间格，按离 V 的距离升序）。
-export function computeEngulfOrder(targetKeys, leftSet, fixedRightCells, bbox) {
-    if (targetKeys.length === 0) {
-        return [];
+/**
+ * 吞并 selectedKeys 时实际需处理的格子：
+ * 1. 每个选中格到 V_λ 的路径上的格；
+ * 2. 每个「被选中的 BANNED」连通块 bbox 内、右集可达的格（兜住块内空格）。
+ */
+export function computeEngulfClosure(selectedKeys, leftSet, fixedRightCells, bbox, map) {
+    if (selectedKeys.length === 0) {
+        return new Set();
     }
 
     const { dist, parent } = bfsRightReachable(leftSet, fixedRightCells, bbox);
-    const neededKeys = new Set();
+    const closure = new Set();
 
-    for (const key of targetKeys) {
+    for (const key of selectedKeys) {
         if (leftSet.has(key)) continue;
         if (!dist.has(key)) continue;
         let cur = key;
         while (cur !== undefined && !leftSet.has(cur)) {
-            neededKeys.add(cur);
+            closure.add(cur);
             cur = parent.get(cur);
         }
     }
 
-    const ordered = [...neededKeys]
-        .map((key) => ({ key, cell: parseCellKey(key), depth: dist.get(key) }))
-        .sort((a, b) => {
-            if (a.depth !== b.depth) return a.depth - b.depth;
-            if (a.cell.y !== b.cell.y) return a.cell.y - b.cell.y;
-            return a.cell.x - b.cell.x;
-        });
+    const bannedSelected = selectedKeys.filter((key) => {
+        const { x, y } = parseCellKey(key);
+        return map.getCellState(x, y) === CellState.BANNED;
+    });
 
-    return ordered.map((item) => item.cell);
-}
-
-// 候选格：历史被禁格中，不在 V_λ、不在 past/current 右格里的那些（DFS 只对这些做 include/exclude）。
-export function computeBannedCandidates(bannedHistory, leftSet, fixedRightCells, bbox) {
-    const { dist } = bfsRightReachable(leftSet, fixedRightCells, bbox);
-    const ordered = [];
-
-    for (const key of bannedHistory) {
-        if (leftSet.has(key)) continue;
-        if (fixedRightCells.has(key)) continue;
-        if (!dist.has(key)) continue;
-        ordered.push({
-            key,
-            cell: parseCellKey(key),
-            depth: dist.get(key)
-        });
+    // 对所有被选中的禁格取并集 bbox（而非按 4-连通分量分别取），
+    // 避免「上排 5 禁 + 下排 1 禁」仅角接触时兜不住中间空腔。
+    if (bannedSelected.length > 0) {
+        let minX = Infinity;
+        let maxX = -Infinity;
+        let minY = Infinity;
+        let maxY = -Infinity;
+        for (const key of bannedSelected) {
+            const { x, y } = parseCellKey(key);
+            if (x < minX) minX = x;
+            if (x > maxX) maxX = x;
+            if (y < minY) minY = y;
+            if (y > maxY) maxY = y;
+        }
+        for (const key of dist.keys()) {
+            if (leftSet.has(key) || fixedRightCells.has(key)) continue;
+            const { x, y } = parseCellKey(key);
+            if (x >= minX && x <= maxX && y >= minY && y <= maxY) {
+                closure.add(key);
+            }
+        }
     }
 
-    ordered.sort((a, b) => {
+    return closure;
+}
+
+function sortCandidatesByDepth(items) {
+    items.sort((a, b) => {
         if (a.depth !== b.depth) return a.depth - b.depth;
         if (a.cell.y !== b.cell.y) return a.cell.y - b.cell.y;
         return a.cell.x - b.cell.x;
     });
+    return items;
+}
 
-    return ordered;
+/**
+ * DFS 分支用候选：右集可达的全部 BANNED。
+ * 空腔 pocket 由 computeEngulfClosure 对选中禁格的并集 bbox 自动兜入，避免 2^(禁格+pocket) 爆炸。
+ */
+export function computeDfsCandidates(map, leftSet, fixedRightCells, bbox) {
+    const { dist } = bfsRightReachable(leftSet, fixedRightCells, bbox);
+    const banned = [];
+
+    map.forEachCellWithStateInRange(bbox, CellState.BANNED, (x, y) => {
+        const key = cellKey(x, y);
+        if (leftSet.has(key)) return;
+        if (fixedRightCells.has(key)) return;
+        if (!dist.has(key)) return;
+        banned.push({
+            key,
+            cell: { x, y },
+            depth: dist.get(key),
+            isBanned: true
+        });
+    });
+
+    return sortCandidatesByDepth(banned);
 }
 
 // 计算 past + current 段的"必须保持在右集"的格子集合。
@@ -252,7 +296,7 @@ export function computeFixedRightCells(curve, angelSegIdx, bbox) {
 }
 
 // 计算一个能覆盖策略搜索所需的所有相关格子的 bbox。
-export function computeRelevantBBox(curve, bannedHistory, angelCell, padding = 3) {
+export function computeRelevantBBox(curve, map, angelCell, padding = 3) {
     let minX = -1;
     let maxX = 1;
     let minY = -1;
@@ -264,15 +308,12 @@ export function computeRelevantBBox(curve, bannedHistory, angelCell, padding = 3
         if (p.y < minY) minY = p.y;
         if (p.y > maxY) maxY = p.y;
     }
-    for (const key of bannedHistory) {
-        const [xStr, yStr] = key.split(",");
-        const x = Number(xStr);
-        const y = Number(yStr);
+    map.forEachOccupiedCell((x, y) => {
         if (x < minX) minX = x;
         if (x > maxX) maxX = x;
         if (y < minY) minY = y;
         if (y > maxY) maxY = y;
-    }
+    });
     if (angelCell) {
         if (angelCell.x < minX) minX = angelCell.x;
         if (angelCell.x > maxX) maxX = angelCell.x;

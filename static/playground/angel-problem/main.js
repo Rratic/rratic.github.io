@@ -3,7 +3,7 @@ import { InfiniteGridRenderer } from "./renderer.js";
 import { BorderCurve, createFrameLineOverlay } from "./curve.js";
 import { Angel } from "./angel.js";
 import { planNextCurve } from "./strategy.js";
-import { cellKey, computeLeftSet } from "./leftset.js";
+import { computeLeftSet, computeRelevantBBox } from "./leftset.js";
 
 const CLICK_MOVE_THRESHOLD = 4;
 
@@ -20,12 +20,11 @@ const renderer = new InfiniteGridRenderer(canvas, map, 60);
 
 const navigation = new BorderCurve();
 const angel = new Angel(navigation);
-const bannedHistory = new Set();
 let roundNumber = 0;
 
 globalThis.navigation = navigation;
 globalThis.angel = angel;
-globalThis.bannedHistory = bannedHistory;
+globalThis.map = map;
 
 renderer.addOverlayDrawer(({ ctx, renderer: view, visibleRange }) => {
     drawAvoidanceCells(ctx, view, visibleRange);
@@ -143,24 +142,26 @@ function onPointerUp(event) {
 }
 
 function performDevilMove(cell) {
-    map.setCellState(cell.x, cell.y, CellState.WALL);
-    bannedHistory.add(cellKey(cell.x, cell.y));
+    map.banCell(cell.x, cell.y);
     roundNumber += 1;
 
     const newCurve = planNextCurve({
         navigation,
         angel,
-        bannedHistory,
-        newWallKey: cellKey(cell.x, cell.y)
+        map
     });
     navigation.replaceWith(newCurve);
+
+    const bbox = computeRelevantBBox(navigation, map, angel.getCell(), 4);
+    const leftSet = computeLeftSet(navigation, bbox);
+    map.absorbBannedIntoLeftSet(leftSet);
+
     angel.moveBy(2);
     updateStatusPanel();
 }
 
 function resetGame() {
     map.clear();
-    bannedHistory.clear();
     roundNumber = 0;
     navigation.reset();
     angel.segmentIndex = 0;
