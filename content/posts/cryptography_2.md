@@ -125,7 +125,7 @@ where
 {% admonition(type="tip", title="Babystep–Giantstep Algorithm") %}
 对群 $G$ 中阶为 $N$ 的元素 $g$ 和另一元素 $h$，可用以下方法求得 $g^x = h$ 的解：
 1. 取 $n$ 满足 $n > \sqrt{N}$
-2. 建立列表 $e, g, g^2, \cdots, g^n$ 与 $h, hg^{-n}, \cdots, hg^{-n^2}$
+2. 建立列表 $e, g, g^2, \dots, g^n$ 与 $h, hg^{-n}, \dots, hg^{-n^2}$
 3. 找到其中相等的 $g^i = hg^{-jn}$，就有 $x = i + jn$
 
 其时间复杂度 $O(\sqrt{N} \cdot \ln N)$，空间复杂度 $O(\sqrt{N})$.
@@ -173,7 +173,7 @@ Alice 解密过程为：
 
 对 RSA PKC 来说，会出现这样的情况：
 1. 若 Bob 发送了密文 $c$，则 Eve 考虑一个随机的 $k$ 计算 $c' \equiv k^e \cdot c$，然后要求 Alice 给出其解（理由可能是通过解一个随机的密文来证明身份）。给出的解 $m' \equiv (k^e \cdot c)^d \equiv k \cdot m$ 可推断出原文 $m$.
-2. Alice 对同一个 $N$ 创建了多个 $e$，如 $e_1, \cdots, e_r$，并且 Bob 均使用了它们，发送 $c_i \equiv m^{e_i}$. 若 $\gcd(e_1, \cdots, e_r) = 1$，则 Eve 可直接计算出 $m$.
+2. Alice 对同一个 $N$ 创建了多个 $e$，如 $e_1, \dots, e_r$，并且 Bob 均使用了它们，发送 $c_i \equiv m^{e_i}$. 若 $\gcd(e_1, \dots, e_r) = 1$，则 Eve 可直接计算出 $m$.
 
 ---
 
@@ -204,7 +204,7 @@ Alice 解密过程为：
 {% admonition(type="tip", title="Pollard’s p − 1 Factorization Algorithm") %}
 分解整数 $N$ 的流程如下：
 1. 令 $a = 2$ 或某个好算的值
-2. 考虑 $j = 2, 3, \cdots$ 至某个特定的界，计算 $d = \gcd(a^{j!}-1, N)$，如果 $1 < d < N$ 则 $d$ 是一个因子
+2. 考虑 $j = 2, 3, \dots$ 至某个特定的界，计算 $d = \gcd(a^{j!}-1, N)$，如果 $1 < d < N$ 则 $d$ 是一个因子
 
 为了增加效率，可以每次隔 $k$ 个再计算 $d$.
 {% end %}
@@ -218,7 +218,7 @@ Alice 解密过程为：
 另一个想法是：如果可以写出 $N + b^2 = a^2$，那么 $(a + b)(a - b)$ 可以用于分解。而在 $k$ 较小时，$kN + b^2 = a^2$ 也是有用的。
 
 这给出了如下现代算法：
-1. 找到若干整数 $a_1, \cdots, a_r$ 使得有 $c_i \equiv a_i^2 \pmod N$ 可以被分解为小素数乘积
+1. 找到若干整数 $a_1, \dots, a_r$ 使得有 $c_i \equiv a_i^2 \pmod N$ 可以被分解为小素数乘积
 2. 取一个 $c_{i_1} \cdots c_{i_s}$ 使它是平方数 $b^2$
 3. 令 $a = a_{i_1} \cdots a_{i_s}$，则 $a^2 \equiv b^2 \pmod N$，故而 $\gcd(a-b, N)$ 很有可能是非平凡因子
 
@@ -232,7 +232,7 @@ Alice 解密过程为：
 
 这里给出 Pomerance 的二次筛法的简单版本：
 
-先找到许多小于某个界 $X$ 的 $B$-smooth number. 我们可以改造 Eratosthenes 筛，改为每次作除法，看最后哪些值变为 1. 实际上需要的是找到其中形如 $a^2 \pmod N$ 的那些。因此考虑多项式 $F(T) = T^2 - N$ 并取 $a = \lfloor \sqrt{n} \rfloor + 1$, 对一列数 $F(a), F(a+1), \cdots, F(b)$ 使用前述筛法。
+先找到许多小于某个界 $X$ 的 $B$-smooth number. 我们可以改造 Eratosthenes 筛，改为每次作除法，看最后哪些值变为 1. 实际上需要的是找到其中形如 $a^2 \pmod N$ 的那些。因此考虑多项式 $F(T) = T^2 - N$ 并取 $a = \lfloor \sqrt{n} \rfloor + 1$, 对一列数 $F(a), F(a+1), \dots, F(b)$ 使用前述筛法。
 
 ---
 
@@ -240,7 +240,7 @@ Alice 解密过程为：
 
 我们先找到非零整数 $m$ 与首一的不可约整系数多项式 $f$ 满足 $f(m) \equiv 0 \pmod N$. 例如对 $N = 2^{2^9} + 1$ 考虑 $m = 2^{103}, f(x) = x^5 + 8$. 记 $\beta$ 是一个根，之后的工作将在 $\Z[\beta] \simeq \Z[x] / (f(x))$ 上进行。
 
-接下来是希望找大量的整数对 $(a_1, b_1), \cdots, (a_k, b_k)$ 满足：
+接下来是希望找大量的整数对 $(a_1, b_1), \dots, (a_k, b_k)$ 满足：
 
 $$\prod_{i=1}^k (a_i - b_im) = A^2,\quad \exists A \in \Z$$
 
@@ -252,7 +252,7 @@ $$\prod_{i=1}^k (a_i - b_i\beta) = \alpha^2,\quad \exists \alpha \in \Z[\beta]$$
 
 对于 $\mathbb{F}_p$ 上的离散对数问题，有一个算法 Index Calculus 是这样的：
 
-选择一个数 $B$, 转而求解 $g^x \equiv l \pmod p, \ \forall l \leq B, l \in \mathbb{P}$. 这样以后，依次对 $k = 1, 2, \cdots$ 枚举 $h \cdot g^{-k} \pmod p$ 直到找到一个 $B$-smooth 的，我们有：
+选择一个数 $B$, 转而求解 $g^x \equiv l \pmod p, \ \forall l \leq B, l \in \mathbb{P}$. 这样以后，依次对 $k = 1, 2, \dots$ 枚举 $h \cdot g^{-k} \pmod p$ 直到找到一个 $B$-smooth 的，我们有：
 
 $$h \cdot g^{-k} \equiv \prod_{l \leq B} l^{e_l} \pmod p$$
 

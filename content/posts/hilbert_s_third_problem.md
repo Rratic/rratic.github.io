@@ -42,7 +42,7 @@ tags = ["笔记", "数学", "几何", "Euclid 几何"]
 
 ## 原问题 {#original-question}
 ### Dehn 不变量 {#dehn-invariant}
-对一个多面体，其 $n$ 个棱长为 $l_1, l_2, \cdots l_n$，对应的二面角为 $\theta _1, \theta _2, \cdots \theta _n$，则该不变量被定义为：
+对一个多面体，其 $n$ 个棱长为 $l_1, l_2, \dots, l_n$，对应的二面角为 $\theta _1, \theta _2, \dots, \theta _n$，则该不变量被定义为：
 
 $$\sum_{i=1}^n l_i\otimes \theta _i \in \R\otimes _\Z \R/\pi\Z$$
 

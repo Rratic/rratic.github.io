@@ -20,13 +20,13 @@ tags = ["笔记", "数学", "代数", "线性代数"]
 
 ## 作业及延申
 {% admonition(type="question", title="Steinitz 替换引理") %}
-若 $S = \set{\alpha_1, \cdots, \alpha_s}$ 线性无关，可由 $T = \set{\beta_1, \cdots, \beta_t}$ 线性表出，则可用 $S$ 替换 $T$ 中的 $s$ 个向量，使新的向量组与 $S$ 等价。
+若 $S = \set{\alpha_1, \dots, \alpha_s}$ 线性无关，可由 $T = \set{\beta_1, \dots, \beta_t}$ 线性表出，则可用 $S$ 替换 $T$ 中的 $s$ 个向量，使新的向量组与 $S$ 等价。
 {% end %}
 
 我们维护一个向量组，初始是 $T$，每次取出某个 $\alpha_i$，放入后整体变得线性相关，此时总是可以弹出一个 $\beta_j$.
 
 {% admonition(type="question", title="习题 2.3:6") %}
-$V$ 为 $n$ 维 $F$-线性空间，子空间 $M_1,\cdots,M_{n-1},N_1,\cdots,N_{n-1}$ 使 $\dim M_i = \dim N_i = i$，且 $M_i\subset M_{i+1}, N_i\subset N_{i+1}$，证明存在 $V$ 的基 $S$，使这些子空间均由它的子集生成。
+$V$ 为 $n$ 维 $F$-线性空间，子空间 $M_1, \dots, M_{n-1}, N_1, \dots, N_{n-1}$ 使 $\dim M_i = \dim N_i = i$，且 $M_i\subset M_{i+1}, N_i\subset N_{i+1}$，证明存在 $V$ 的基 $S$，使这些子空间均由它的子集生成。
 {% end %}
 
 同例题使用的证法，记 $M_0=N_0=\emptyset$，又记 $k_i$ 是使 $(M_i\setminus M_{i-1})\cap N_{k_i}\neq\emptyset$ 的最小下标，则 $k_i$ 互不相等。
@@ -90,7 +90,7 @@ $$\mathrm{rank}(A)+\mathrm{rank}(B)-n\leq \mathrm{rank}(AB)\leq \min \set{\mathr
 对域 $F$，一个 $F^{n\times n}$ 的子空间 $M$ 称为“优美”的，如果对任意 $A\in F^{n\times n}, B\in M$ 有 $AB\in M$，求“优美”的子空间维数的所有可能值。
 {% end %}
 
-采取这样的视角：$A$ 把 $B$ 原来的一行变为原来所有行的线性组合（可以有任意多的系数为零），那么一个子空间 $M$ 可以有至多 $n$ 个线性无关的行向量作为“素材”，对其中的元素，每一个素材在每一行有一个可变的系数取遍 $F$，故可能值为 $0, n, 2n, \cdots, n^2$.
+采取这样的视角：$A$ 把 $B$ 原来的一行变为原来所有行的线性组合（可以有任意多的系数为零），那么一个子空间 $M$ 可以有至多 $n$ 个线性无关的行向量作为“素材”，对其中的元素，每一个素材在每一行有一个可变的系数取遍 $F$，故可能值为 $0, n, 2n, \dots, n^2$.
 
 {% admonition(type="question", title="2022 P3") %}
 域 $F$ 上 $A\in F^{n\times n}, B=A^n, \alpha\in F^{n\times 1}$，设 $B^3\alpha = B^2\alpha$，则 $B^2\alpha = B\alpha$.
@@ -131,7 +131,7 @@ $W_1+W_2 = W_2+W_3 = W_3+W_1 = \R^{2023-k}, \dim W_1\cap W_2\cap W_3 = 0$，求 
 只需 $A^\top T = S$ 或 $A^\top T = \mathbf{0}$，分类即可。
 
 {% admonition(type="question", title="2024 P4") %}
-是否存在 $\R^{2024}$ 的有限个二维子空间 $W_1, \cdots, W_k$，使对任意二维子空间 $M$ 有
+是否存在 $\R^{2024}$ 的有限个二维子空间 $W_1, \dots, W_k$，使对任意二维子空间 $M$ 有
 
 $$M = \bigcap_{i=1}^k (W_i+M)$$
 

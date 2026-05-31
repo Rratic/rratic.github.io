@@ -202,7 +202,7 @@ $$
 \end{cases}
 $$
 
-我们对 $n$ 归纳证明：如果 $p_0, \cdots, p_n$ 包含了 $\varphi$ 中出现的所有命题字母，则对任意赋值 $V$ 有 $\\{p_0^V, \cdots, p_n^V\\} \vdash^\text{ND} \varphi^V$. 这里强行讨论即可。
+我们对 $n$ 归纳证明：如果 $p_0, \dots, p_n$ 包含了 $\varphi$ 中出现的所有命题字母，则对任意赋值 $V$ 有 $\set{p_0^V, \dots, p_n^V} \vdash^\text{ND} \varphi^V$. 这里强行讨论即可。
 
 然后证明：对任意公式集 $\Gamma$ 和公式 $\varphi$ 和 $\psi$, 如果 $\Gamma \cup \\{\varphi\\} \vdash^\text{ND} \psi$ 且 $\Gamma \cup \\{\neg \varphi\\} \vdash^\text{ND} \psi$, 则 $\Gamma\vdash^\text{ND} \psi$.
 
@@ -210,7 +210,7 @@ $$
 对任意公式集 $\Gamma$ 和公式 $\varphi$, 如果 $\Gamma \models \varphi$ 则 $\Gamma \vdash^\text{ND} \varphi$.
 {% end %}
 
-由定义，不存在赋值满足 $\Gamma \cup \\{\neg \varphi\\}$. 由紧致性定理知存在 $\psi_1, \cdots, \psi_n$ 使得不存在赋值满足 $\\{\psi_1, \cdots, \psi_n, \neg \varphi\\}$. 因此 $\emptyset \models (\psi_1 \to (\cdots (\psi_n \to \varphi) \cdots))$. 使用弱完全性定理再使用 $\to \text{E}$ 即可。
+由定义，不存在赋值满足 $\Gamma \cup \set{\neg \varphi}$. 由紧致性定理知存在 $\psi_1, \dots, \psi_n$ 使得不存在赋值满足 $\set{\psi_1, \dots, \psi_n, \neg \varphi}$. 因此 $\emptyset \models (\psi_1 \to (\cdots (\psi_n \to \varphi) \cdots))$. 使用弱完全性定理再使用 $\to \text{E}$ 即可。
 
 ### 再证强完全性定理
 对于大部分逻辑来说，弱完全性定理并没有像经典命题逻辑这样的简单的、构造性的证明。一般的方法是基于极大一致集。

@@ -134,7 +134,7 @@ Given any commutative diagram of categories and functors
 Show that every finite ordinal number is a free category.
 {% end %}
 
-这里有限序数是指把自然数 $n$ 看作 $\set{0, 1, \cdots, n-1}$，即集合论中无穷公理给的那个构造，并令 $i \to j$ 若 $i \leq j$.
+这里有限序数是指把自然数 $n$ 看作 $\set{0, 1, \dots, n-1}$，即集合论中无穷公理给的那个构造，并令 $i \to j$ 若 $i \leq j$.
 
 易见它是由图 $0 \to 1 \to \cdots \to n-1$ 生成的自由范畴。
 
@@ -171,7 +171,7 @@ $$V^{\otimes n} = \underbrace{V \otimes\cdots \otimes V}_n$$
 
 ![张量代数的泛态射表述](/images/diagram/universal_tensor_algebra.png)
 
-这是因为对 $v\in V$，有 $f'((0, (v), \cdots)) = f(v)$，而 $TV$ 中的元素均可由所有 $(0, (v), \cdots)$ 经乘法与加法生成，这保证了唯一性。而张量代数不引入额外的等同关系，保证了存在性。
+这是因为对 $v\in V$，有 $f'((0, (v), \dots)) = f(v)$，而 $TV$ 中的元素均可由所有 $(0, (v), \dots)$ 经乘法与加法生成，这保证了唯一性。而张量代数不引入额外的等同关系，保证了存在性。
 
 ---
 

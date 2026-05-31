@@ -34,7 +34,7 @@ $$\frac{}{\text{All } X \text{ are } X} \mathrm{Id}$$
 
 对一个前提集 $\Gamma$ （可能会长成 $\set{\text{All } A \text{ are } B\\, \text{All } B \text{ are } C}$），以 $\varphi$ 结尾的**推演** `deduction` 是指一个有穷公式序列：
 
-$$\varphi_1, \cdots, \varphi_n = \varphi$$
+$$\varphi_1, \dots, \varphi_n = \varphi$$
 
 其中每个 $\varphi_i$ 是公理或者属于 $\Gamma$ 或者可以由已有公式通过某规则得到。
 
@@ -60,7 +60,7 @@ $$\mathcal{M} \models \text{All } X \text{ are } Y \iff I(X) \subseteq I(Y)$$
 $$\Gamma \vdash \varphi \implies \Gamma \models \varphi$$
 {% end %}
 
-回忆推演定义为 $\varphi_1, \cdots, \varphi_n = \varphi$, 对 $i$ 归纳证 $\varphi \models \varphi_i$ 即可。
+回忆推演定义为 $\varphi_1, \dots, \varphi_n = \varphi$, 对 $i$ 归纳证 $\varphi \models \varphi_i$ 即可。
 
 {% admonition(type="theorem", title="完全性 completeness") %}
 对任意 $\Gamma, \varphi$ 有：

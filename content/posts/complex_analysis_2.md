@@ -132,16 +132,16 @@ $f:\Complex\to\Complex$ 是全纯自同胚当且仅当它形如 $az+b\ (a\neq 0)
 一个区域上的亚纯函数全体构成一个域，记作 $m(\Omega)$.
 
 {% admonition(type="theorem", title="Mittag-Leffler 问题的 $\Complex$ 版本") %}
-设 $\\{z_n\\}$ 是无重复项的点列，且 $\lim_{n\to+\infty}z_n = \infty$，每个 $n$ 对应一个
+设 $\\{z_n\\}$ 是无重复项的点列，且 $\lim_{n \to +\infty} z_n = \infty$，每个 $n$ 对应一个：
 
 $$L_n(z) = \frac{a_{n_1}}{z-z_n} + \frac{a_{n_2}}{(z-z_n)^2} + \cdots + \frac{a_{n_{m_n}}}{(z-z_n)^{m_n}}$$
 
 则存在 $\Complex$ 上亚纯函数 $f$，使极点集为 $\\{z_n\\}$，且在 $z_n$ 处的 Laurent 展式的主部为 $L_n(z)$.
 {% end %}
 
-不妨设 $z_n \in D(0, n, n+1)$，取序列 $\\{a_n\\}$ 使 $a_n > 0$ 且和收敛，设对 $z_1, \cdots , z_{n-1}$ 已取到 $P_1(z), \cdots , P_{n-1}(z)$，使
+不妨设 $z_n \in D(0, n, n+1)$，取序列 $\\{a_n\\}$ 使 $a_n > 0$ 且和收敛，设对 $z_1, \dots , z_{n-1}$ 已取到 $P_1(z), \dots, P_{n-1}(z)$，使对任意 $k = 1, 2, \dots, n-1$ 有：
 
-$$\max_{z\in\overline{D(0, k)}} \\{|L_k(z)-P_k(z)|\\} \lt a_k,\ k=1,2,\cdots,n-1$$
+$$\max_{z\in\overline{D(0, k)}} \\{|L_k(z)-P_k(z)|\\} \lt a_k$$
 
 有 $L_n(z)$ 在 $\overline{D(0, n)}$ 的邻域上解析，从而它在 $z=0$ 展开的幂级数在 $\overline{D(0, n)}$ 上一致收敛于它，可用多项式一致逼近，从而可取出 $P_n(z)$.
 
@@ -151,7 +151,7 @@ $$\max_{z\in\overline{D(0, k)}} \\{|L_k(z)-P_k(z)|\\} \lt a_k,\ k=1,2,\cdots,n-1
 $\bar{\Complex}$ 上的亚纯函数都是有理函数。
 {% end %}
 
-设亚纯函数 $f$，有极点 $z_1, \cdots , z_l, \infty$，且对应的 Laurent 展式主部：
+设亚纯函数 $f$，有极点 $z_1, \dots, z_l, \infty$，且对应的 Laurent 展式主部：
 
 $$L_k(z) = \frac{a_{k_1}}{z-z_k} + \frac{a_{k_2}}{(z-z_k)^2} + \cdots + \frac{a_{k_{m_k}}}{(z-z_k)^{m_k}}$$
 
@@ -188,14 +188,14 @@ $$\frac{1}{2\pi\mathrm{i}}\int_{|z-z_0|=\rho} f(z)\mathrm{d}z = a_{-1}$$
 在 $z_0$ 为 $m$ 阶零点时，其邻域内有 $f(z) = \frac{1}{(z-z_0)^m}g(z)$，设 $g$ 在 $z_0$ 处的 Taylor 展开式为 $\sum_{n=0}^{+\infty}\frac{1}{n!}g^{(n)}(z_0)(z-z_0)^n$，就有 $\mathrm{Res}_{z=z_0} f(z)\mathrm{d}z = \frac{1}{(m-1)!}g^{(m-1)}(z_0)$.
 
 {% admonition(type="theorem", title="留数定理") %}
-$\Omega$ 是 $\bar{\Complex}$ 中以有限条逐段光滑曲线为边界的区域且 $\infty\notin\partial\Omega$，其内部有点 $z_1, z_2, \cdots ,z_n$，设 $f$ 在 $\Omega$ 中除这些点之外解析，在 $\bar{\Omega}$ 中除这些点之外连续，则：
+$\Omega$ 是 $\bar{\Complex}$ 中以有限条逐段光滑曲线为边界的区域且 $\infty\notin\partial\Omega$，其内部有点 $z_1, z_2, \dots, z_n$，设 $f$ 在 $\Omega$ 中除这些点之外解析，在 $\bar{\Omega}$ 中除这些点之外连续，则：
 
 $$\int_{\partial\Omega} f(z)\mathrm{d}z = 2\pi\mathrm{i}\sum_{i=1}^n\mathrm{Res}_{z=z_k}f(z)$$
 {% end %}
 
 可从 Cauchy 公式推出。
 
-一种补充情况是，若 $f$ 在 $\bar{\Complex}$ 内除 $z_1, z_2, \cdots, z_n$ 外解析，则
+一种补充情况是，若 $f$ 在 $\bar{\Complex}$ 内除 $z_1, z_2, \dots, z_n$ 外解析，则
 
 $$\sum_{i=1}^n\mathrm{Res}_ {z=z_k}f(z) + \mathrm{Res}_ {z=\infty}f(z) = 0$$
 
@@ -208,7 +208,7 @@ $$\frac{1}{2\pi\mathrm{i}}\int_\Gamma \frac{f'(z)}{f(z)} \mathrm{d}z$$
 等于 $f$ 在 $\Gamma$ 内的零点个数减去极点个数（记重数）。
 {% end %}
 
-由 $f$ 在 $\Gamma$ 上没有零点和极点，在 $\Omega$ 内只有有限个零点和极点，设零点 $z_1, \cdots , z_n$，极点 $w_1, \cdots , w_k$，取充分小的 $r$ 使所有的 $D(z_i, r)$ 及 $D(w_j, r)$ 两两不交即可。
+由 $f$ 在 $\Gamma$ 上没有零点和极点，在 $\Omega$ 内只有有限个零点和极点，设零点 $z_1, \dots, z_n$，极点 $w_1, \dots, w_k$，取充分小的 $r$ 使所有的 $D(z_i, r)$ 及 $D(w_j, r)$ 两两不交即可。
 
 实际上此定理说的是这个值等于 $w$ 沿着 $\gamma = f(\Gamma)$ 前进的辐角改变量 $\Delta_\gamma \operatorname{Arg} w$ 除以 $2\pi$.
 

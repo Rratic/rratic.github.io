@@ -47,17 +47,17 @@ $$(f\cdot)\cdot(g\cdot) = ((f\cdot g)\cdot)$$
 - $[]$ 是空列表，有一个把值映到 singleton 列表的映射 $[\cdot]\ a = [a]$
 - $+\\!\\!+$ 是我们熟知的拼接 concatenation
 - 结构 bag 是在列表基础上忽略顺序，结构 set 是进一步忽略重复
-- 熟知的 `map` 写作 $f \ast [a_1, \cdots, a_n] = [f\ a_1, \cdots, f\ a_n]$
-- reduce 是指 $\oplus / [a_1, \cdots, a_n] = a_1 \oplus \cdots \oplus a_n$，现在就有 `maximum` 是 $\uparrow/$，其中 $a\uparrow b$ 结果是两者较大值
-- `foldl` 即 left to right reduce 是 $\oplus \rightarrow\\!\\!\\!\\!\\!\\!/_e [a_1, \cdots, a_n] = ((e \oplus a_1) \oplus \cdots) \oplus a_n$，右下角不写 $e$ 则是把 $e$ 当作单位元的结果；相应地 `foldr` 即 right to left reduce 是 $\oplus \leftarrow\\!\\!\\!\\!\\!\\!/_e [a_1, \cdots, a_n] = a_1 \oplus (\cdots (a_n \oplus e))$
+- 熟知的 `map` 写作 $f \ast [a_1, \dots, a_n] = [f\ a_1, \dots, f\ a_n]$
+- reduce 是指 $\oplus / [a_1, \dots, a_n] = a_1 \oplus \cdots \oplus a_n$，现在就有 `maximum` 是 $\uparrow/$，其中 $a\uparrow b$ 结果是两者较大值
+- `foldl` 即 left to right reduce 是 $\oplus \rightarrow\\!\\!\\!\\!\\!\\!/_e [a_1, \dots, a_n] = ((e \oplus a_1) \oplus \cdots) \oplus a_n$，右下角不写 $e$ 则是把 $e$ 当作单位元的结果；相应地 `foldr` 即 right to left reduce 是 $\oplus \leftarrow\\!\\!\\!\\!\\!\\!/_e [a_1, \dots, a_n] = a_1 \oplus (\cdots (a_n \oplus e))$
 
 我们定义 `scanl` 即 left-accumulate 是：
 
-$$\oplus \rightarrow\\!\\!\\!\\!\\!\\!\\!/\\!\\!/_e [a_1, \cdots, a_n] = [e, e \oplus a_1, \cdots, ((e \oplus a_1) \oplus \cdots) \oplus a_n]$$
+$$\oplus \rightarrow\\!\\!\\!\\!\\!\\!\\!/\\!\\!/_e [a_1, \dots, a_n] = [e, e \oplus a_1, \dots, ((e \oplus a_1) \oplus \cdots) \oplus a_n]$$
 
 相应地 `scanr` 即 right-accumulate 是：
 
-$$\oplus \leftarrow\\!\\!\\!\\!\\!\\!\\!/\\!\\!/_e [a_1, \cdots, a_n] = [a_1 \oplus (\cdots (a_n \oplus e)), \cdots, a_n \oplus e, e]$$
+$$\oplus \leftarrow\\!\\!\\!\\!\\!\\!\\!/\\!\\!/_e [a_1, \dots, a_n] = [a_1 \oplus (\cdots (a_n \oplus e)), \dots, a_n \oplus e, e]$$
 
 ### 推导示例
 现在来看一个具体的问题：
@@ -139,7 +139,7 @@ $$h\ v = h\ x \wedge h\ w = h\ y \implies h\ (v +\\!\\!+ w) = h\ (x +\\!\\!+ y)$
 
 ---
 
-我们定义记号 all applied to $[f, g, \cdots, h]^o a = [f\ a, g\ a, \cdots, h\ a]$. 定义 $h = (p \to f, g)$ 是指 $h\ x = \mathbf{if}\ p\ x\ \mathbf{then}\ f\ x\ \mathbf{else}\ g\ x$.
+我们定义记号 all applied to $[f, g, \dots, h]^o a = [f\ a, g\ a, \dots, h\ a]$. 定义 $h = (p \to f, g)$ 是指 $h\ x = \mathbf{if}\ p\ x\ \mathbf{then}\ f\ x\ \mathbf{else}\ g\ x$.
 
 现在就可以定义 filter 如下：
 
@@ -191,14 +191,14 @@ $$f \cdot \oplus \leftarrow\\!\\!\\!\\!\\!\\!/ _e = \otimes \leftarrow\\!\\!\\!\
 考虑一个典型问题：找到列表中所有那些比后面的元素大的元素。在 reduction 时除结果外还需要记录最大值。
 
 {% admonition(type="definition", title="Mutumorphism") %}
-称 $f_1, \cdots, f_n$ 构成 mutumorphism 如果对每个 $f_i$ 有：
+称 $f_1, \dots, f_n$ 构成 mutumorphism 如果对每个 $f_i$ 有：
 
 $$f_i\ [] = e_i$$
-$$f_i\ [a] +\\!\\!+ x = a \oplus_i (f_1\ x, \cdots, f_n\ x)$$
+$$f_i\ [a] +\\!\\!+ x = a \oplus_i (f_1\ x, \dots, f_n\ x)$$
 
-此时我们将 $f\ x = (f_1\ x, \cdots, f_n\ x)$ 记作：
+此时我们将 $f\ x = (f_1\ x, \dots, f_n\ x)$ 记作：
 
-$$f = [\\![ (e_1, \cdots, e_n), (\oplus_1, \cdots, \oplus_n) ]\\!]$$
+$$f = [\\![ (e_1, \dots, e_n), (\oplus_1, \dots, \oplus_n) ]\\!]$$
 {% end %}
 
 关于它有一些易见的性质，此处从略。

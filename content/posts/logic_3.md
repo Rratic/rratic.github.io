@@ -117,7 +117,7 @@ $$p \to (q \to (p \wedge q))$$
 ### 知识逻辑
 知识逻辑的现代起点是 Jaakko Hintikka 1962 年的著作 *Knowledge and Belief: An Introduction to the Logic of the Two Notions*.
 
-给定主体集 $\mathrm{Ag} = \set{1, 2, \cdots, n}$, 知识逻辑中的算子是 $K_i, i \in \mathrm{Ag}$. 我们可以将 $K_i$ 算子嵌套，如 $K_1 \neg K_2p$ 1 知道 2 不知道 $p$.
+给定主体集 $\mathrm{Ag} = \set{1, 2, \dots, n}$, 知识逻辑中的算子是 $K_i, i \in \mathrm{Ag}$. 我们可以将 $K_i$ 算子嵌套，如 $K_1 \neg K_2p$ 1 知道 2 不知道 $p$.
 
 多主体知识模型有 $R_i \subseteq W \times W$ 表示的是主体 $i$ 的“认知不可区分”关系，即 $wR_iv$ 表示 $i$ 无法区分自己在 $w$ 还是 $v$ 中。
 

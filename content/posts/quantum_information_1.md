@@ -59,7 +59,7 @@ H = \frac{1}{\sqrt{2}} \begin{pmatrix}
 \end{pmatrix} \tag{1.2.2}
 $$
 
-换基是有意义的行为，在基 $\ket{V_0}, \cdots , \ket{V_{N-1}}$ 下**观测** $\ket{\psi}$ 得到 $\ket{V_i}$ 的概率是 $|\braket{V_i | \psi}|^2$.
+换基是有意义的行为，在基 $\ket{V_0}, \dots, \ket{V_{N-1}}$ 下**观测** $\ket{\psi}$ 得到 $\ket{V_i}$ 的概率是 $|\braket{V_i | \psi}|^2$.
 
 观测行为是不可逆、依赖概率且不保证连续的。
 

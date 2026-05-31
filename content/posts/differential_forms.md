@@ -53,7 +53,7 @@ $$
 \end{aligned}
 $$
 
-如果我们选取一个指定的坐标卡，继续把 $x_i$ 看作投射函数，那么 $\mathrm{d}x_i|_ p$ 就是指对应的 $\mathrm{d}\pi_i|_ p$，其中 $\pi_i(x_1,\cdots,x_n)= x_i$.
+如果我们选取一个指定的坐标卡，继续把 $x_i$ 看作投射函数，那么 $\mathrm{d}x_i|_ p$ 就是指对应的 $\mathrm{d}\pi_i|_ p$，其中 $\pi_i(x_1, \dots, x_n)= x_i$.
 
 作为一个例子，对 $\mathrm{d}f|_ p: T_p\R^n \to T_p\R^m$，考虑 $T_p\R^k \cong \R^k$ 可以将它表示成 **Jacobi 矩阵**：
 
@@ -93,24 +93,24 @@ $$\gamma '(t_ 0) = \mathrm{d}\gamma \left(\left.\frac{\mathrm{d}}{\mathrm{d}t}\r
 
 首先，定义 $V_1\otimes\cdots\otimes V_k = \mathcal{F}(V_1\times\cdots\times V_k)/\mathcal{R}$，其中 $\mathcal{F}(S)$ 是指集合 $S$ 上的自由向量空间，$\mathcal{R}$ 是由形如 $(v_1\cdots av_i\cdots v_k)-a(v_1\cdots v_i\cdots v_k)$ 与 $(v_1\cdots v_i+v_i'\cdots v_k) - (v_1\cdots v_i\cdots v_k) - (v_1\cdots v_i'\cdots v_k)$ 的元素生成的子空间。
 
-实际上我们有 $V_1^\ast\otimes\cdots\otimes V_k^\ast \cong L(V_1,\cdots,V_k;\R)$.
+实际上我们有 $V_1^\ast\otimes\cdots\otimes V_k^\ast \cong L(V_1, \dots, V_k;\R)$.
 
 我们称 $V$ 上的**协变** k-张量是指 $\underbrace{V^\ast\otimes\cdots\otimes V^\ast}_k$，其全体记作 $T^k(V^\ast)$；称 $V$ 上的**反变** k-张量是指 $\underbrace{V\otimes\cdots\otimes V}_k$，其全体记作 $T^k(V)$；称 $(k, l)$-型混合张量是指 $\underbrace{V\otimes\cdots\otimes V}_k \otimes \underbrace{V^\ast\otimes\cdots\otimes V^\ast}_l$，其全体记作 $T^{(k, l)}(V)$.
 
 一个协变 k-张量 $\alpha$ 被称为是**对称**的，如果 $\alpha(\cdots v_i\cdots v_j \cdots) = \alpha(\cdots v_j\cdots v_i \cdots)$，其全体称为 $\Sigma^k(V^\ast)$；我们有一个投射 $\mathrm{Sym}: T^k(V^\ast) \to \Sigma^k(V^\ast)$，它是：
 
-$$(\operatorname{Sym} \alpha)(v_1,\cdots,v_k) = \frac{1}{k!}\sum_{\sigma\in S_k} \alpha(v_{\sigma(1)},\cdots,v_{\sigma(k)})$$
+$$(\operatorname{Sym} \alpha)(v_1, \dots, v_k) = \frac{1}{k!}\sum_{\sigma\in S_k} \alpha(v_{\sigma(1)}, \dots, v_{\sigma(k)})$$
 
 对 $\alpha, \beta \in \Sigma^k(V^\ast)$，可以定义其对称积 $\alpha\beta = \mathrm{Sym}(\alpha\otimes\beta)$.
 
 一个协变 k-张量 $\alpha$ 被称为是**交错/反对称**的，如果 $\alpha(\cdots v_i\cdots v_j \cdots) = -\alpha(\cdots v_j\cdots v_i \cdots)$，其全体称为 $\Lambda^k(V^\ast)$；我们有一个投射 $\mathrm{Alt}: T^k(V^\ast) \to \Lambda^k(V^\ast)$，它是：
 
-$$(\operatorname{Alt} \alpha)(v_1,\cdots,v_k) = \frac{1}{k!}\sum_{\sigma\in S_k} (\operatorname{sgn} \sigma) \alpha(v_{\sigma(1)},\cdots,v_{\sigma(k)})$$
+$$(\operatorname{Alt} \alpha)(v_1, \dots, v_k) = \frac{1}{k!}\sum_{\sigma\in S_k} (\operatorname{sgn} \sigma) \alpha(v_{\sigma(1)}, \dots, v_{\sigma(k)})$$
 
-实际上我们可以找到 $\Lambda^k(V^\ast)$ 的一组基。对 $I=(i_1,\cdots,i_k)$，我们定义 $\varepsilon^I$ 是指：
+实际上我们可以找到 $\Lambda^k(V^\ast)$ 的一组基。对 $I = (i_1, \dots, i_k)$，我们定义 $\varepsilon^I$ 是指：
 
 $$
-\varepsilon^I(v_1,\cdots,v_k) = \det \begin{pmatrix}
+\varepsilon^I(v_1, \dots, v_k) = \det \begin{pmatrix}
 v_1^{i_1} & \cdots & v_k^{i_1} \cr
 \vdots & \ddots & \vdots \cr
 v_1^{i_k} & \cdots & v_k^{i_k} 
@@ -128,7 +128,7 @@ $$\omega\wedge\eta = \frac{(k+l)!}{k!l!}\mathrm{Alt}(\omega\otimes\eta)$$
 * 结合律 $\omega\wedge(\eta\wedge\xi) = (\omega\wedge\eta)\wedge\xi$
 * 反对称性 $\omega\wedge\eta=(-1)^{kl}\eta\wedge\omega$
 * $\varepsilon^I\wedge\varepsilon^J = \varepsilon^{IJ}$，其中 $IJ$ 是拼接
-* $\omega^1\wedge\cdots\wedge\omega^k(v_1,\cdots,v_k) = \det (\omega^j(v_i))$
+* $\omega^1 \wedge \cdots \wedge \omega^k(v_1, \dots, v_k) = \det (\omega^j(v_i))$
 
 作为一个例子，在 $\R^2$ 上有：
 

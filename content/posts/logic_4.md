@@ -44,11 +44,11 @@ tags = ["笔记", "数学", "基石", "逻辑学"]
 对一个一阶逻辑形式语言 $\mathcal{L}$, 有穷次使用以下规则得到的符号串是 $\mathcal{L}$-项：
 - 个体变元是 $\mathcal{L}$-项
 - 常元符号是 $\mathcal{L}$-项
-- 如果 $F$ 是 $\mathcal{L}$ 中的 $n$ 元函数符号，而 $t_1, \cdots, t_n$ 是 $n$ 个 $\mathcal{L}$-项，则 $F(t_1, \cdots, t_n)$ 是 $\mathcal{L}$-项
+- 如果 $F$ 是 $\mathcal{L}$ 中的 $n$ 元函数符号，而 $t_1, \dots, t_n$ 是 $n$ 个 $\mathcal{L}$-项，则 $F(t_1, \dots, t_n)$ 是 $\mathcal{L}$-项
 {% end %}
 
 {% admonition(type="definition", title="原子公式（atomic formula）") %}
-- 如果 $R$ 是 $\mathcal{L}$ 中的 $n$ 元关系符号，而 $t_1, \cdots, t_n$ 是 $n$ 个 $\mathcal{L}$-项，则 $R(t_1, \cdots, t_n)$ 是原子 $\mathcal{L}$-公式
+- 如果 $R$ 是 $\mathcal{L}$ 中的 $n$ 元关系符号，而 $t_1, \dots, t_n$ 是 $n$ 个 $\mathcal{L}$-项，则 $R(t_1, \dots, t_n)$ 是原子 $\mathcal{L}$-公式
 - 如果 $s, t$ 是 $\mathcal{L}$-项，则 $s \dot{=} t$ 是原子 $\mathcal{L}$-公式
 {% end %}
 
@@ -158,11 +158,11 @@ $$\forall x_1 \cdots \forall x_n (t \dot{=} t)$$
 
 $$\forall x_1 \cdots \forall x_n ((s \dot{=} t) \to (\varphi[s/x] \dot{=} \varphi[t/x]))$$
 
-$$\forall x_1 \cdots \forall x_n (\forall x \varphi(x, x_1, \cdots, x_n) \to \varphi(x, x_1, \cdots, x_n)[t/x])$$
+$$\forall x_1 \cdots \forall x_n (\forall x \varphi(x, x_1, \dots, x_n) \to \varphi(x, x_1, \dots, x_n)[t/x])$$
 
-$$\forall x_1 \cdots \forall x_n (\forall x (\varphi(x, x_1, \cdots, x_n) \to \psi(x, x_1, \cdots, x_n)) \to (\forall x \varphi(x, x_1, \cdots, x_n) \to \forall x \psi(x, x_1, \cdots, x_n)))$$
+$$\forall x_1 \cdots \forall x_n (\forall x (\varphi(x, x_1, \dots, x_n) \to \psi(x, x_1, \dots, x_n)) \to (\forall x \varphi(x, x_1, \dots, x_n) \to \forall x \psi(x, x_1, \dots, x_n)))$$
 
-$$\forall x_1 \cdots \forall x_n (\varphi(x, x_1, \cdots, x_n) \to \forall x \varphi(x, x_1, \cdots, x_n))$$
+$$\forall x_1 \cdots \forall x_n (\varphi(x, x_1, \dots, x_n) \to \forall x \varphi(x, x_1, \dots, x_n))$$
 
 ## 应用
 ### 形式化
