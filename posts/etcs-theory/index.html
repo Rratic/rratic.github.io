@@ -1,0 +1,429 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>ETCS 理论简介 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="ETCS 理论简介" />
+  <meta name="description" content="集合范畴基本理论的公理简介。" />
+  <meta property="og:description" content="集合范畴基本理论的公理简介。" />
+  <meta property="og:url" content="https://rratic.top/posts/etcs-theory/" />
+  <link rel="canonical" href="https://rratic.top/posts/etcs-theory/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-05-12T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="基石" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.top/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.top/style/shared.css?h=8cc71386e970b029328a" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">ETCS 理论简介</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2026-05-12T00:00:00+00:00">2026-05-12</time><span
+        class="middot"></span><time
+    datetime="PT0H7M0S">7&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+
+  <!-- Content -->
+  <section><p>ETCS 是 Lawvere 的集合范畴基本理论<sup class="footnote-reference"><a href="#etcs-1">1</a></sup> <sup class="footnote-reference"><a href="#etcs-2">2</a></sup>（Elementary Theory of the Category of Sets）。</p>
+<p>对此会有一个误解是认为其基本动机是用范畴论来取代集合理论，其实不然，它就是集合论。这些公理是受范畴启发的，并不依赖于拥有一个一般的范畴的定义。</p>
+<p>本文参考了 <a href="https://www.tandfonline.com/doi/abs/10.4169/amer.math.monthly.121.05.403"><em>Rethinking Set Theory</em></a> 及其<a href="https://chaoli.club/index.php/7082/0/">中译</a>。</p>
+<hr />
+<p>不同于一般公理化使用的集合和元素，我们使用集合和函数。假设存在单点集 $\mathbf{1} = \set{\bullet}$, 那么一个函数 $\mathbf{1} \to X$ 本质上是 $X$ 的一个元素。这并没有看起来的那么 trivial. 在此种观点下，求值可以看成函数的复合。</p>
+
+<link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" type="text/css">
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-info);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/info.svg);"
+    >
+      info
+    </div>
+    <span><strong>公理 1</strong></span>
+  </div>
+  <div class="pl-4"><p>函数复合满足结合律、存在单位元。</p>
+</div>
+</div>
+<p>后者即，对任一集合 $X$ 存在一个函数 $\mathbf{1}_X: X \to X$ 使得对所有 $g: X \to Y$ 有 $g \circ \mathbf{1}_X = g$; 对所有 $f: W \to X$ 有 $\mathbf{1}_X \circ f = f$. 从中可知唯一性。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-info);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/info.svg);"
+    >
+      info
+    </div>
+    <span><strong>公理 2</strong></span>
+  </div>
+  <div class="pl-4"><p>存在一个 terminal set $T$, 即满足对任意 $X$ 都有唯一函数 $X \to T$.</p>
+</div>
+</div>
+<p>放在一般的理论中，也就是集合范畴的终对象，这一点读者应当很熟悉了。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-info);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/info.svg);"
+    >
+      info
+    </div>
+    <span><strong>公理 3</strong></span>
+  </div>
+  <div class="pl-4"><p>存在一个没有元素的集合。</p>
+</div>
+</div>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-info);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/info.svg);"
+    >
+      info
+    </div>
+    <span><strong>公理 4</strong></span>
+  </div>
+  <div class="pl-4"><p>对 $f, g: X \to Y$, 若对所有 $x \in X$ 都有 $f(x) = g(x)$, 那么 $f = g$.</p>
+</div>
+</div>
+<p>关于等号在理论中处于哪一层，读者可参考<a href="https://rratic.top/posts/logic-4/">一阶逻辑</a>。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-info);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/info.svg);"
+    >
+      info
+    </div>
+    <span><strong>公理 5</strong></span>
+  </div>
+  <div class="pl-4"><p>每对集合都有一个积。</p>
+</div>
+</div>
+<p>积不仅包含一个集合，还有两个投影映射。积的定义即范畴论中的定义。</p>
+<p>两个积是唯一同构的，故我们在讨论时假定一个优选的 $(X \times Y, \mathrm{pr}_1^{X,Y}, \mathrm{pr}_2^{X,Y})$ 是无碍的（或者直接将此运算放在原始概念列表中）。</p>
+<p>对 $f: I \to X \times Y$, 可以与两个投影映射合成得到 $f_1$ 与 $f_2$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-info);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/info.svg);"
+    >
+      info
+    </div>
+    <span><strong>公理 6</strong></span>
+  </div>
+  <div class="pl-4"><p>对于所有集合 $X, Y$, 存在一个从 $X$ 到 $Y$ 的函数集。</p>
+</div>
+</div>
+<p>函数集是指集合 $F$ 与函数 $\epsilon: F \times X \to Y$, 满足：对任意集合 $I$ 和函数 $q: I \times X \to Y$ 存在唯一的函数 $\bar{q}: I \to F$ 使得对所有 $t \in I, x \in X$ 有 $q(t, x) = \epsilon(\bar{q}(t), x)$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-info);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/info.svg);"
+    >
+      info
+    </div>
+    <span><strong>公理 7</strong></span>
+  </div>
+  <div class="pl-4"><p>对任意函数 $f: X \to Y$ 及元素 $y \in Y$ 存在 $f$ 下 $y$ 的逆像。</p>
+</div>
+</div>
+<p>逆像是集合 $A$ 和一个函数 $j: A \to X$ 使得 $f(j(a)) = y, \forall a \in A$. 对同样满足此的 $I$ 和 $q: I \to X$ 存在唯一的函数 $\bar{q}: I \to A$ 使 $q = j \circ \bar{q}$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-info);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/info.svg);"
+    >
+      info
+    </div>
+    <span><strong>公理 8</strong></span>
+  </div>
+  <div class="pl-4"><p>存在一个子集分类器（subset classifier）。</p>
+</div>
+</div>
+<p>首先定义嵌入映射是指 $j: A \to X$ 满足对于 $a, a' \in A$ 有 $j(a) = j(a') \implies a = a'$.</p>
+<p>一个子集分类器是一个集合 $\mathbf{2}$ 和元素 $t \in 2$ 满足：对所有集合 $A, X$ 与嵌入映射 $j: A \to X$ 存在唯一的函数 $\chi:X \to \mathbf{2}$ 使得 $j$ 是 $\chi$ 下 $t$ 的逆像。</p>
+<p>$$
+\begin{CD}
+A @&gt;&gt;&gt; \mathbf{1} \cr
+@VVjV @VVtV \cr
+X @&gt;&gt;\chi&gt; \mathbf{2}
+\end{CD}
+$$</p>
+<p>读者可以看出 $\mathbf{2}$ 中元素表意为真假。定义中没有提及它必须有两个元素，但十条公理实际上暗示了这一点。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-info);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/info.svg);"
+    >
+      info
+    </div>
+    <span><strong>公理 9</strong></span>
+  </div>
+  <div class="pl-4"><p>存在一个自然数系。</p>
+</div>
+</div>
+<p>一个自然数系是集合 $N$ 与其中元素 $0$ 及一个函数 $s: N \to N$ 满足：对集合 $X$ 与 $a \in X, r: X \to X$ 存在唯一的函数 $x: N \to X$ 使得 $x(0) = a$ 且 $x(s(n)) = r(x(n))$.</p>
+<p>$$
+\begin{CD}
+\mathbf{1} @&gt;&gt;0&gt; N @&gt;&gt;s&gt; N \cr
+@VV\mathbf{1_1}V @VVxV @VVxV \cr
+\mathbf{1} @&gt;&gt;a&gt; X @&gt;&gt;r&gt; X
+\end{CD}
+$$</p>
+<p>读者易见 $s$ 即是后继。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-info);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/info.svg);"
+    >
+      info
+    </div>
+    <span><strong>公理 10</strong></span>
+  </div>
+  <div class="pl-4"><p>每个满射都有一个右逆。</p>
+</div>
+</div>
+<p>满射与右逆的定义显然。</p>
+<hr />
+<p>通过一些麻烦的方式，我们可以用上述公理定义商 $X/\sim$ 与无交并 $X \sqcup Y$. 进而定义我们熟悉的 $\Z, \mathbb{Q}, \R$ 等。</p>
+<p>大多数数学家永远不会使用比十条公理所保证的集合更多的性质。例如，McLarty 认为，在经典多卷作品 Éléments de Géométrie Algébrique (EGA) 和 Séminaire de Géométrie Algébrique (SGA) 中，任何地方都不再需要更多。</p>
+<p>让我们考虑无限的笛卡尔积：能否形成积 $\prod _{i \in I} X_i$. 这取决于集族 $(X _i) _{i \in I}$ 的含义。我们可以将它看作 $p: X \to I$, 那么 $\prod _{i \in I} X _i$ 就是在 $p^I: X^I \to I^I$ 下 $\mathbf{1} _I$ 的逆像。</p>
+<p>然而，十条公理没有保证无交并的存在：</p>
+<p>$$\N \sqcup \mathscr{P}(\N) \sqcup \mathscr{P}(\mathscr{P}(\N)) \sqcup \cdots$$</p>
+<p>我们可以额外添加第十一条公理，称为“替换”，大致说：对集合 $I$ 和一个对 $i \in I$ 在同构意义下指定集合 X_i 的一阶公式，存在集合 $X$ 与函数 $p: X \to I$ 使得对每个 $i \in I$ 有 $p^{-1}(i) \simeq X_i$.</p>
+<p>原本的十条公理弱于 ZFC；而加入第十一个时，两个理论的强度相等。</p>
+<hr />
+<div class="footnote-definition" id="etcs-1"><sup class="footnote-definition-label">1</sup>
+<p>F. W. Lawvere, "An Elementary Theory of the Category of Sets," <em>Proceedings of the National Academy of Sciences of the U.S.A.</em> 52 (1964): 1506-1511.</p>
+</div>
+<div class="footnote-definition" id="etcs-2"><sup class="footnote-definition-label">2</sup>
+<p>F. W. Lawvere, "An Elementary Theory of the Category of Sets (Long Version) with Commentary," <em>Reprints in Theory and Applications of Categories</em> 12 (2005): 1-35.</p>
+</div>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/基石/">基石</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <link rel="stylesheet" href="https://rratic.top/katex/katex.min.css?h=e189fd0238811989c364" />
+  <script defer src="https://rratic.top/katex/katex.min.js?h=6b909443e6c8f6e5d24c"></script>
+  <script defer src="https://rratic.top/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

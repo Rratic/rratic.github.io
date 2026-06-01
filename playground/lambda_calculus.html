@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>在线测试 Lambda 演算</title>
+	<meta name="description" content="" />
+	<link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
+	<link rel="stylesheet" href="/style/terminal.css" type="text/css">
+</head>
+
+<body>
+	<div id="terminal">
+		<div class="output stream"></div>
+		<div class="line input"><span id="to-click" class="prompt">>>> </span><span id="to-input" class="command" contenteditable="true"># ===== Standard Library =====
+# SK Pack
+S = λx. λy. λz. x z (y z)
+K = λx. λy. x
+I = S K K
+ι = λf. (f S) K
+
+# Boolean Pack
+T = λx. λy. x
+F = λx. λy. y
+IfThenElse = λe. λu. λv.e u v
+
+# List Pack
+Nil = λc. λn. n
+Cons = λh. λt. λc. λn. c h (t c n)
+
+# Natural Number Pack
+0 = λf. λs. s
+1 = λf. λs. f s
+2 = λf. λs. f (f s)
+3 = λf. λs. f (f (f s))
+
+IsZero = λn. n (λx. F) T
+Succ = λn. λf. λs. f (n f s)
+Plus = λn. λm. n Succ m
+Mul = λn. λm. n (Plus m) 0
+
+Prev = λn. λf. λx. n (λg. λh. h (g f)) (λu. x) λu. u
+
+# High Order Functions
+# TODO
+
+# Recursion
+Ω = λx. x x
+Y = λf. (λx. f (x x)) λx. f (x x)
+Z = λf. (λx. f (λy. (x x) y)) (λx. f (λy. (x x) y))
+
+Fact = λf. λn. IfThenElse (IsZero n) 1 (Mul n (f (Prev n)))
+
+# ===== Test =====
+@eval write_your_expr_here</span>
+		</div>
+	</div>
+	<script src="/script/chaos/keydown.js"></script>
+	<script type="module">
+		import init, { Context } from '/script/lambda/stt.js';
+
+		function is_ident(token) {
+			return /^[a-zA-Z0-9_]*$/.test(token);
+		}
+
+		function history_line(tokens) {
+			let line = document.createElement("div");
+			line.className = "line input";
+
+			let prompt = document.createElement("span");
+			prompt.className = "prompt";
+			prompt.innerText = ">>> ";
+
+			let command = document.createElement("span");
+			command.className = "command pre";
+			for (let i = 0; i < tokens.length; i++) {
+				let token = tokens[i];
+				if (token == "\n") {
+					let br = document.createElement("br");
+					command.appendChild(br);
+				}
+				else {
+					let span = document.createElement("span");
+					span.innerText = token;
+					if (token[0] == "#") {
+						span.style.color = "green";
+					}
+					else if (token == "λ") {
+						span.style.color = "purple";
+					}
+					else if (token == "@") {
+						span.style.color = "orange";
+					}
+					else if (token == "=") {
+						span.style.color = "black";
+						span.innerText = " = ";
+					}
+					else if (token == ".") {
+						span.style.color = "black";
+						span.innerText = ". ";
+					}
+					else if (token == "(") {
+						span.style.color = "royalblue";
+					}
+					else if (token == ")") {
+						span.style.color = "royalblue";
+						if (tokens[i + 1] != "\n" && tokens[i + 1] != ")") {
+							span.innerText += " ";
+						}
+					}
+					else if (is_ident(token)) {
+						if (tokens[i + 1] == "(" || is_ident(tokens[i + 1]) || tokens[i + 1] == "λ") {
+							span.innerText += " ";
+						}
+						if (tokens[i - 1] == "@") {
+							span.style.color = "orange";
+						}
+						else if (tokens[i + 1] == "=") {
+							span.style.color = "dodgerblue";
+						}
+						else {
+							span.style.color = "darkslateblue";
+						}
+					}
+					else {
+						span.style.color = "red";
+					}
+					command.appendChild(span);
+				}
+			}
+
+			line.append(prompt, command);
+			return line;
+		}
+
+		async function run() {
+			await init();
+
+			let ctx = new Context();
+
+			function respond() {
+				let area = document.getElementById("to-input");
+				let src = area.innerText;
+				area.innerText = "";
+
+				let tokens = ctx.preprocess(src);
+				let output = document.getElementsByClassName("output")[0];
+				output.appendChild(history_line(tokens));
+
+				let line = document.createElement("div");
+				line.className = "line";
+
+				try {
+					let result = ctx.process(src);
+					line.innerText = result;
+				} catch (error) {
+					line.innerHTML = "<span class='error'>[Error]</span> " + error + ".";
+				}
+
+				output.appendChild(line);
+			}
+
+			document.getElementById("to-click").addEventListener("click", respond);
+		}
+
+		run();
+	</script>
+</body>
+
+</html>

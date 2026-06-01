@@ -1,0 +1,463 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>【群论】魔方与次正规群列 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="【群论】魔方与次正规群列" />
+  <meta name="description" content="换位子，半直积，Schreier 子群引理，可解群，导群，合成群列，Schreier 定理与 Jordan-Hölder 定理。" />
+  <meta property="og:description" content="换位子，半直积，Schreier 子群引理，可解群，导群，合成群列，Schreier 定理与 Jordan-Hölder 定理。" />
+  <meta property="og:url" content="https://rratic.top/posts/group-theory-2/" />
+  <link rel="canonical" href="https://rratic.top/posts/group-theory-2/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2025-06-16T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2026-02-02T00:00:00+00:00" />
+  <meta property="article:tag" content="笔记" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="代数" />
+  <meta property="article:tag" content="群论" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.top/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.top/style/shared.css?h=8cc71386e970b029328a" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">【群论】魔方与次正规群列</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2025-06-16T00:00:00+00:00">2025-06-16</time><span
+        class="middot"></span><time
+    datetime="PT0H9M0S">9&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#ji-hao">记号</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#qun-jie-gou">群结构</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#da-xiao">大小</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ban-zhi-ji">半直积</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#jie-fa">解法</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#huan-wei-zi">换位子</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#tong-yong-jie-fa">通用解法</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#qun-lie">群列</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ci-zheng-gui-qun-lie">次正规群列</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ke-jie-qun">可解群</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#he-cheng-qun-lie">合成群列</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </details>
+</nav>
+
+  <!-- Content -->
+  <section><nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+	<div class="select-none py-0.5 lg:py-1 pl-3.5">
+		<a href="/_misc/group-theory/" target="_blank">索引 ⟨ group-theory ⟩</a>
+	</div>
+</nav>
+<p>注意到有一些群论的文章以魔方为例，但停留在将它作为例子，本文对三阶魔方进行详细说明。</p>
+<h2 id="ji-hao">记号</h2>
+<p>不妨设每个面的中心固定，令 $G$ 表示魔方的变换群。</p>
+<p>我们记六个面为上面 U，下面 D，左面 L，右面 R，前面 F 和后面 B（取首字母），以大写字母表示将该面顺时针旋转 90°.</p>
+<p>显然所求的群是由它们生成的，即 $G = &lt; U, R, F, D, L, B &gt;$.</p>
+<h2 id="qun-jie-gou">群结构</h2>
+<h3 id="da-xiao">大小</h3>
+<p>魔方剩余可动的有两类：角块和棱块，它们两两不同，由于分别有位置和旋转状态，有：</p>
+<p>$$G\leq Z_3^8\times S_8 \times Z_2^{12}\times S_{12}$$</p>
+<p>接下来更精细地讨论哪些角块、棱块排布是合法的。</p>
+<p>先讨论角块，一个角块的标准状态是一个（或三个）面上与中心块颜色相同，将其记作 0，顺时针转 120° 的状态记作 1，顺时针转 240° 的状态记作 2，那么所有标记之和在 mod 3 下不变。同理，棱块的标记之和在 mod 2 下不变。此外，角块的置换奇偶性与棱块的置换奇偶性一致。</p>
+<p>同时，我们可以说明符合上述要求的是合法的。</p>
+<p>定义<strong>换位子</strong>是 $[a, b] = aba^{-1}b^{-1}$. 它将满足：如果 $x^{[a, b]}\neq x$，则要么 $a\notin \mathrm{Stab}(x), b\notin \mathrm{Stab}(x^a)$，要么 $b\notin \mathrm{Stab}(x), a\notin \mathrm{Stab}(x^b)$.</p>
+<p>例如，我们构造操作：$[[R, U], D] = RUR'U'DURU'R'D'$，这只会改变三个角块的状态。</p>
+<p>因此有：</p>
+<p>$$|G| = \frac{1}{12} |Z_3^8\times S_8 \times Z_2^{12}\times S_{12}| = 43252003274489856000$$</p>
+<h3 id="ban-zhi-ji">半直积</h3>
+<p>为更好地描述角块群与棱块群，我们定义直积的扩展。</p>
+<p>群 $N, H$，$H$ 在 $N$ 上的作用 $\varphi$，定义半直积 $N\rtimes_\varphi H$ 为：</p>
+<ul>
+<li>集合是 $N\times H$</li>
+<li>运算 $(n_1, h_1)\cdot (n_2, h_2) = (n_1n_2^{h_1}, h_1h_2)$</li>
+<li>单位元 $(e_N, e_H)$</li>
+<li>逆元 $(n^{-h^{-1}}, h^{-1})$</li>
+</ul>
+<p>例如，$D_{2n} = Z_n \rtimes Z_2$，其中：</p>
+<p>$$
+\varphi: \begin{cases}
+e \mapsto (g \mapsto g) \cr
+a \mapsto (g \mapsto g^{-1})
+\end{cases}
+$$</p>
+<p>由于角块（通过操作造成的）位置变化会改变朝向，角块群形如 $(Z_3)^7 \rtimes S_8$.</p>
+<p>整个魔方群是 $(Z_3^7 \rtimes S_8)\times (Z_2^{11} \rtimes S_{12}) / \sim$.</p>
+<h2 id="jie-fa">解法</h2>
+<h3 id="huan-wei-zi">换位子</h3>
+<p>现在人类的方法大致如此逐层复原，在后半部分使用预设的小阶数置换的公式。</p>
+<p>Thislethwaite Method 将群逐步化为：</p>
+<ul>
+<li>$&lt; U, R, F^2, D, L, B^2 &gt;$</li>
+<li>$&lt; U, R^2, F^2, D, L^2, B^2 &gt;$</li>
+<li>$&lt; U^2, R^2, F^2, D^2, L^2, B^2 &gt;$</li>
+<li>$\set{e}$</li>
+</ul>
+<p>Kociemba Algorithm 则将群逐步化为：</p>
+<ul>
+<li>$&lt; U, R^2, F^2, D, L^2, B^2 &gt;$</li>
+<li>$\set{e}$</li>
+</ul>
+<h2 id="tong-yong-jie-fa">通用解法</h2>
+<p>以上的解法都依赖于具体的结构，这里提供一个通用方法：Schreier-Sims-Minkwits 算法。<sup class="footnote-reference"><a href="#1">1</a></sup></p>
+<p>我们希望进行这样的操作：每次多固定一个集合上的元素，其稳定化子就是原变换群的真子群，如此下去可以得到一个链 $G = G_0 &gt; G_1 &gt; G_2 \cdots G_n = \set{e}$，而由于我们要写出一个操作序列，设第 $i$ 个阶段可能的操作为 $r_{i_1}, r_{i_2} \cdots$ 有 $r_{i_1}G_{i+1}, r_{i_2}G_{i+1} \cdots$ 陪集族构成 $G_i$.</p>
+
+<link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" type="text/css">
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Schreier 子群引理</strong></span>
+  </div>
+  <div class="pl-4"><p>$G$ 是一个由集合 $S$ 中元素（置换）生成的群，有子群 $H$，设（左）陪集代表元构成集合 $R$，其中元素 $g$ 对应代表元为 $\bar{g}$，则 $H$ 是由 $\set{\overline{sr}^{-1}sr | r\in R, s\in S}$ 生成的。</p>
+</div>
+</div>
+<p>对 $H$ 的元素 $h = s_1s_2\cdots s_k$，其中 $s_i$ 为生成元，记 $t_i = \overline{s_{i+1}\cdots s_k}$，其中 $t_0 = t_k = e$，故有：</p>
+<p>$$h = (t_0^{-1}s_1t_1)(t_1^{-1}s_2t_2)\cdots (t_{k-1}^{-1}s_kt_k) \tag{1}$$</p>
+<p>由于 $s_it_iH = t_{i-1}H$，有 $\overline{s_it_i} = t_{i-1}$，我们可以把上式写成：</p>
+<p>$$h = (\overline{s_0t_0}^{-1}s_1t_1)(\overline{s_1t_1}^{-1}s_2t_2)\cdots (\overline{s_{k-1}t_{k-1}}^{-1}s_kt_k) \tag{2}$$</p>
+<p>另一方面，$\overline{sr}^{-1}srH = \overline{sr}^{-1}\overline{sr}H = H$，得证。</p>
+<hr />
+<p>上式给出了一般的找到链的方法，代码可参见 <a href="https://oi-wiki.org/math/algebra/schreier-sims/">Schreier–Sims 算法 - OI Wiki</a>.</p>
+<p>顺带提及 <a href="https://www.gap-system.org/">GAP</a>，这是一个处理用于离散代数的系统。以下是用它处理一个四面体魔方（每个面有 9 个正三角形）的示例（忽略了角块，只考虑四种大旋转）。</p>
+<pre data-lang="sh" class="language-sh z-code"><code class="language-sh" data-lang="sh"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">gap</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span> it := Group(</span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span> <span class="z-punctuation z-definition z-compound z-begin z-shell">(</span><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">10,16,24</span></span><span class="z-punctuation z-definition z-compound z-end z-shell">)</span><span class="z-meta z-function-call z-arguments z-shell">(11,15,19</span><span class="z-meta z-function-call z-shell"></span>)<span class="z-punctuation z-definition z-compound z-begin z-shell">(</span><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">12,14,20</span></span><span class="z-punctuation z-definition z-compound z-end z-shell">)</span><span class="z-meta z-function-call z-arguments z-shell">,</span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span> <span class="z-punctuation z-definition z-compound z-begin z-shell">(</span><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">2,20,18</span></span><span class="z-punctuation z-definition z-compound z-end z-shell">)</span><span class="z-meta z-function-call z-arguments z-shell">(1,21,17</span><span class="z-meta z-function-call z-shell"></span>)<span class="z-punctuation z-definition z-compound z-begin z-shell">(</span><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">6,22,16</span></span><span class="z-punctuation z-definition z-compound z-end z-shell">)</span><span class="z-meta z-function-call z-arguments z-shell">,</span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span> <span class="z-punctuation z-definition z-compound z-begin z-shell">(</span><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">2,8,24</span></span><span class="z-punctuation z-definition z-compound z-end z-shell">)</span><span class="z-meta z-function-call z-arguments z-shell">(3,7,23</span><span class="z-meta z-function-call z-shell"></span>)<span class="z-punctuation z-definition z-compound z-begin z-shell">(</span><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">4,12,22</span></span><span class="z-punctuation z-definition z-compound z-end z-shell">)</span><span class="z-meta z-function-call z-arguments z-shell">,</span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span> <span class="z-punctuation z-definition z-compound z-begin z-shell">(</span><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">4,18,10</span></span><span class="z-punctuation z-definition z-compound z-end z-shell">)</span><span class="z-meta z-function-call z-arguments z-shell">(5,13,9</span><span class="z-meta z-function-call z-shell"></span>)<span class="z-punctuation z-definition z-compound z-begin z-shell">(</span><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">6,14,8</span></span><span class="z-punctuation z-definition z-compound z-end z-shell">)</span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span> <span class="z-meta z-function-call z-shell"></span>)<span class="z-keyword z-operator z-logical z-continue z-shell">;</span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-operator z-assignment z-redirection z-shell">&lt;</span>permutation <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">group</span></span><span class="z-meta z-function-call z-arguments z-shell"> with 4 generators<span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span>
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">gap</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span> Size(it</span><span class="z-meta z-function-call z-shell"></span>)<span class="z-keyword z-operator z-logical z-continue z-shell">;</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">933120</span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">gap</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span> f := FreeGroup(<span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>x<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span>, <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>y<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span>, <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>z<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span>, <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>w<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span><span class="z-meta z-function-call z-shell"></span>)<span class="z-keyword z-operator z-logical z-continue z-shell">;</span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-operator z-assignment z-redirection z-shell">&lt;</span>free <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">group</span></span><span class="z-meta z-function-call z-arguments z-shell"> on the generators <span class="z-keyword z-control z-regexp z-set z-begin z-shell">[</span> x, y, z, w <span class="z-keyword z-control z-regexp z-set z-end z-shell">]</span><span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span>
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">gap</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span> hom := GroupHomomorphismByImages(f, it, GeneratorsOfGroup(f</span><span class="z-meta z-function-call z-shell"></span>)<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">,</span></span><span class="z-meta z-function-call z-arguments z-shell"> GeneratorsOfGroup(it</span><span class="z-meta z-function-call z-shell"></span>)<span class="z-meta z-function-call z-shell"></span>)<span class="z-keyword z-operator z-logical z-continue z-shell">;</span>
+</span><span class="z-source z-shell z-bash"><span class="z-support z-function z-test z-begin z-shell">[</span><span class="z-meta z-function-call z-arguments z-shell"> x, y, z, w <span class="z-support z-function z-test z-end z-shell">]</span></span> <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">-</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span> <span class="z-keyword z-control z-regexp z-set z-begin z-shell">[</span> (10,16,24)(11,15,19)(12,14,20), (1,21,17)(2,20,18)(6,22,16), (2,8,24)(3,7,23)(4,12,22), (4,18,10)(5,13,9)(6,14,8) <span class="z-keyword z-control z-regexp z-set z-end z-shell">]</span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">gap</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span> PreImagesRepresentative(hom, (10,14</span><span class="z-meta z-function-call z-shell"></span>)<span class="z-punctuation z-definition z-compound z-begin z-shell">(</span><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">12,24</span></span><span class="z-punctuation z-definition z-compound z-end z-shell">)</span><span class="z-meta z-function-call z-shell"></span>)<span class="z-keyword z-operator z-logical z-continue z-shell">;</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">x^-1*y*w^-1*y^-1*w*y^-1*x*y*x*z*y*z^-1*y^-1*x^-1*y*x*y*z*y^-1*z^-1*x^-1*w*y*w^-1*y^-1*x^-1*w*x^2*z*x^-1*z^-1*w*x*w^-2*y^-1*x^-1</span></span>
+</span></code></pre>
+<h2 id="qun-lie">群列</h2>
+<h3 id="ci-zheng-gui-qun-lie">次正规群列</h3>
+<p>仍考虑前述的链 $G = G_0 &gt; G_1 &gt; G_2 \cdots G_n = \set{e}$，我们希望它的性质足够好。</p>
+<p>称序列 $G = G_0 \triangleright G_1 \triangleright G_2 \cdots G_n = \set{e}$ 为 $G$ 的<strong>次正规群列</strong>。</p>
+<h3 id="ke-jie-qun">可解群</h3>
+<p>称群是<strong>可解群</strong>，如果在次正规群列中每个商 $G_{i-1}/G_i$（称为<strong>合成因子</strong>）都是交换群。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>可解群的群列</strong></span>
+  </div>
+  <div class="pl-4"><p>称<strong>导群</strong>是一个群所有的换位子生成的群，记作 $G'=G^{(1)}$，则一个群可解等价于它的若干阶导群 $G^{(k)} = \set{e}$.</p>
+</div>
+</div>
+<p>一方面，所有的 $G^{(k)}$ 给出了这个群列的构造。可以证明 $G/G'$ 交换：考虑映射：</p>
+<p>$$
+\begin{aligned}
+\sigma \colon G &amp; \longrightarrow G/G' \cr
+g &amp; \longmapsto gG'
+\end{aligned}
+$$</p>
+<p>有 $\ker\sigma = G'$，即 $\sigma(xyx^{-1}y^{-1})=e$，从而 $\sigma(x)\sigma(y)=\sigma(y)\sigma(x)$，$\mathrm{Im}\:\sigma = G/G'$ 交换。</p>
+<p>另一方面，我们可以与上类似地说明对 $H\triangleleft G$，$G/H$ 交换当且仅当 $G'\leq H$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Feit-Thompson 定理</strong></span>
+  </div>
+  <div class="pl-4"><p>每一个奇阶的有限群都是可解群。</p>
+</div>
+</div>
+<p>此定理的证明长达 254 页，在此仅作告示之用。</p>
+<h3 id="he-cheng-qun-lie">合成群列</h3>
+<p>如果次正规群列中每个商都是单群，则称为<strong>合成群列</strong>。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Schreier 定理</strong></span>
+  </div>
+  <div class="pl-4"><p>有限群的任何次正规群列可以加细为合成群列。</p>
+</div>
+</div>
+<p>取长度极大的次正规群列，假设不是合成群列，某个 $G_{i-1}/G_i$ 有非平凡正规子群 $H$</p>
+<p>取其在典范同态</p>
+<p>$$
+\begin{aligned}
+\sigma \colon G_{i-1} &amp; \longrightarrow G_{i-1}/G_i \cr
+g &amp; \longmapsto gG_i
+\end{aligned}
+$$</p>
+<p>下的原像，可以插在序列中，与极大矛盾。</p>
+<hr />
+<p>进一步地，可解群的合成因子均为交换的单群，从而是素数阶循环群（利用了<a href="https://rratic.top/posts/group-theory-1/#footnotes">交换群一定可以分解为循环群的直积</a>）。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Jordan-Hölder 定理</strong></span>
+  </div>
+  <div class="pl-4"><p>两个合成群列</p>
+<p>$$G = G_0 \triangleright G_1 \triangleright G_2 \cdots G_n = \set{e}$$
+$$G = H_0 \triangleright H_1 \triangleright H_2 \cdots H_m = \set{e}$$</p>
+<p>可以以某种方式配对，使对应的合成因子同构。</p>
+</div>
+</div>
+<p>存在一些归纳的证法。同时可以抽象成短正合列说明。</p>
+<hr />
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>Jaap Scherphuis, "Computational Group Theory," <em>Jaap's Puzzle Page</em>, <a href="https://www.jaapsch.net/puzzles/schreier.htm">https://www.jaapsch.net/puzzles/schreier.htm</a>.</p>
+</div>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/笔记/">笔记</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/代数/">代数</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/群论/">群论</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <link rel="stylesheet" href="https://rratic.top/katex/katex.min.css?h=e189fd0238811989c364" />
+  <script defer src="https://rratic.top/katex/katex.min.js?h=6b909443e6c8f6e5d24c"></script>
+  <script defer src="https://rratic.top/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+<svg viewBox="0 0 400 200" width="400" height="200" xmlns="http://www.w3.org/2000/svg">
+	<defs>
+		<marker id="arrowhead" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto">
+			<polygon points="0,0 8,4 0,8" fill="#000"/>
+		</marker>
+	</defs>
+
+	<text x="205" y="182" font-size="12" fill="#000">O</text>
+	<line x1="30" y1="170" x2="370" y2="170" stroke="#000" stroke-width="1" marker-end="url(#arrowhead)"/>
+	<text x="355" y="182" font-size="12" fill="#000">x</text>
+	<line x1="200" y1="190" x2="200" y2="10" stroke="#000" stroke-width="1" marker-end="url(#arrowhead)"/>
+	<text x="188" y="25" font-size="12" fill="#000">y</text>
+
+	<line x1="80" y1="170" x2="180" y2="170" stroke="#000" stroke-width="3"/>
+	<line x1="220" y1="170" x2="320" y2="170" stroke="#000" stroke-width="3"/>
+	<path d="M 180 170 A 20 20 0 0 1 220 170" stroke="#000" stroke-width="3" fill="none"/>
+	<path d="M 80 170 A 20 20 0 0 1 320 170" stroke="#000" stroke-width="3" fill="none"/>
+</svg>

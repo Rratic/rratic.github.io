@@ -1,0 +1,279 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>天使与方格吞噬者问题的策略模拟 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="天使与方格吞噬者问题的策略模拟" />
+  <meta name="description" content="天使问题发生在一张无限大的整数网格棋盘上，天使初始在原点 $(0, 0)$ 处。每回合，先由魔鬼禁用掉任意一个格子，然后天使尝试移动到一个未被禁用的格子。天使的移动受力量值 $K$ 约束：若当前在 $(x, y)$ 则下一步位置需满足 $|x&apos; - x|, |y&apos; - y| \leq K$. 天使的胜利条件是总是有方法移动下去。" />
+  <meta property="og:description" content="天使问题发生在一张无限大的整数网格棋盘上，天使初始在原点 $(0, 0)$ 处。每回合，先由魔鬼禁用掉任意一个格子，然后天使尝试移动到一个未被禁用的格子。天使的移动受力量值 $K$ 约束：若当前在 $(x, y)$ 则下一步位置需满足 $|x&apos; - x|, |y&apos; - y| \leq K$. 天使的胜利条件是总是有方法移动下去。" />
+  <meta property="og:url" content="https://rratic.top/posts/angel-problem-simulation/" />
+  <link rel="canonical" href="https://rratic.top/posts/angel-problem-simulation/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-05-20T00:00:00+00:00" />
+  <meta property="article:tag" content="发布" />
+  <meta property="article:tag" content="展示" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="组合学" />
+  <meta property="article:tag" content="计算机" />
+  <meta property="article:tag" content="可运行" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.top/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.top/style/shared.css?h=8cc71386e970b029328a" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">天使与方格吞噬者问题的策略模拟</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2026-05-20T00:00:00+00:00">2026-05-20</time><span
+        class="middot"></span><time
+    datetime="PT0H6M0S">6&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+
+  <!-- Content -->
+  <section><p>天使问题发生在一张无限大的整数网格棋盘上，天使初始在原点 $(0, 0)$ 处。每回合，先由魔鬼禁用掉任意一个格子，然后天使尝试移动到一个未被禁用的格子。天使的移动受力量值 $K$ 约束：若当前在 $(x, y)$ 则下一步位置需满足 $|x' - x|, |y' - y| \leq K$. 天使的胜利条件是总是有方法移动下去。</p>
+<span id="continue-reading"></span>
+<hr />
+<p>以下概述 $K = 2$ 下的必胜策略思路，参考的是知乎回答<a href="https://www.zhihu.com/question/298657281/answer/1952324587753804479">有哪些令人为之惊叹的数学题目？</a>对应的在线项目见于<a href="/playground/angel-problem/">天使与方格吞噬者</a>。</p>
+<hr />
+<p>我们称两个相邻格子之间的边界为<strong>线段</strong>，由无限个线段序列构成的连续有向路径是<strong>曲线</strong>（允许线段在曲线中多次出现）。</p>
+<p>对曲线中一线段 $s$, 沿曲线的行进方向观察时，与该线段相邻且位于其右侧的格子称为 $s$ 的<strong>右格</strong>，另一侧相邻的格子称为<strong>左格</strong>。</p>
+
+<link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" type="text/css">
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>边界曲线</strong></span>
+  </div>
+  <div class="pl-4"><p>曲线 $\kappa$ 称为<strong>边界曲线</strong>，如果存在某个满足以下条件的格子集合 $V_{\kappa}$:</p>
+<ol>
+<li>棋盘上的任意一条线段在 $\kappa$ 中出现的次数不超过 $2$ 次
+<ul>
+<li>若某一线段在 $\kappa$ 中仅出现 $1$ 次，则该线段的左格属于 $V_{\kappa}$ 右格不属于 $V_{\kappa}$</li>
+<li>若某一线段在 $\kappa$ 中仅出现 $2$ 次，则这两次出现的方向相反，且该线段的两个相邻格子均属于 $V_{\kappa}$</li>
+<li>若某一线段未出现在 $\kappa$ 中，则该线段的两个相邻格子要么均属于 $V_{\kappa}$ 要么均不属于 $V_{\kappa}$</li>
+</ul>
+</li>
+<li>$V_{\kappa}$ 及其补集均为无限集</li>
+<li>$V_{\kappa}$ 在 $\kappa$ 的分隔下连通</li>
+</ol>
+</div>
+</div>
+<p>可以证明 $V_{\kappa}$ 若存在则唯一，称为 $\kappa$ 的<strong>左集</strong>，其补集称为 $\kappa$ 的<strong>右集</strong>。</p>
+<p>我们定义两种变换边界曲线 $\kappa$ 的操作：</p>
+<ul>
+<li>“拓展”：若 $\kappa$ 中某一线段的右格 $q$ 不属于 $V_{\kappa}$, 将此线段替换为 $q$ 的另外三条边界，且替换后的线段方向使得 $q$ 成为其左格</li>
+<li>“收缩”：若 $\kappa$ 中某两条连续线段在棋盘上重叠但方向相反，将这两条线段从 $\kappa$ 中删除</li>
+</ul>
+<p>在操作下左集只会增加元素。称有限次操作得到的为 $\kappa$ 的<strong>后代曲线</strong>。</p>
+<hr />
+<p>天使的策略是维护一条边界曲线作为逃生路径（天使始终处在某个线段的右格；依此划分为过去段、当前段与<strong>未来段</strong>）。初始的边界曲线自南向北无限延申。每次魔鬼操作后，天使尝试更新边界曲线，然后沿着它移动两格（这使得天使甚至不需要用 $(\pm 2, \pm 2)$ 这样的移动）。</p>
+<p>在任意时刻，将方格划分为三类：</p>
+<ul>
+<li>“规避格”：当前路径的左集中的方格</li>
+<li>“被禁格”：右集中被禁用的方格</li>
+<li>“自由格”：右集中未被禁用的方格</li>
+</ul>
+<p>我们记天使第 $i$ 轮行动得到的路径为 $\lambda_i$, 则可定义 $\kappa$ 的<strong>长度</strong> $L_{\kappa}$ 是 $\kappa$ 与 $\lambda_0$ 去除过去段与未来段足够远的完全一致部分后，两者线段的数量差。</p>
+<p>对第 $j$ 轮行动与某条边界曲线 $\kappa$, 定义<strong>规避值</strong> $n_{\kappa}(j)$ 为：第 $j$ 轮行动时 $\kappa$ 左集中曾经的“被禁格”的数量。也就是用来统计自游戏开始到第 $j$ 轮以来，天使更新路径时，主动把“被禁格”转换为“规避格”的数目。</p>
+<hr />
+<p>天使的正式策略如下：</p>
+<p>在第 $i$ 轮行动开始时，设 $\lambda_{i-1}$ 为当前路径，$p_{i-1}$ 为当前所在线段。</p>
+<p>首先，定义 $P_i$ 为满足以下两个条件的所有边界曲线 $\mu$ 构成的集合：</p>
+<ol>
+<li>$\mu$ 是 $\lambda_{i-1}$ 的后代曲线</li>
+<li>$\mu$ 与 $\lambda_{i-1}$ 在过去段及当前段完全一致</li>
+</ol>
+<p>随后，定义 $Q_i$ 为 $P_i$ 中 $L_{\mu}-2n_{\mu}(i)$ 最小的那些 $\mu$ 构成的集合。</p>
+<p>最后，定义 $R_i$ 为 $Q_i$ 中 $n_{\mu}(i)$ 最大的那些 $\mu$ 构成的集合。逃生路径 $\lambda_i$ 可以在 $R_i$ 中任取。</p>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/杂物/">杂物</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/发布/">发布</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/展示/">展示</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/组合学/">组合学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/计算机/">计算机</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/可运行/">可运行</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <link rel="stylesheet" href="https://rratic.top/katex/katex.min.css?h=e189fd0238811989c364" />
+  <script defer src="https://rratic.top/katex/katex.min.js?h=6b909443e6c8f6e5d24c"></script>
+  <script defer src="https://rratic.top/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>
