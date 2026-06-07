@@ -1,7 +1,7 @@
 +++
-title = "【逻辑学】一阶逻辑及其应用"
+title = "【逻辑学】一阶逻辑及其边界"
 date = 2026-05-09
-updated = 2026-06-01
+updated = 2026-06-07
 
 [extra]
 math = true
@@ -15,7 +15,7 @@ categories = ["知识"]
 tags = ["笔记", "数学", "基石", "逻辑学"]
 +++
 
-命题逻辑对推理的分析无法满足我们的需求，我们还需要对“所有”这样的词语分析。本文不涉及元定理的证明。
+命题逻辑对推理的分析无法满足我们的需求，我们还需要对“所有”这样的词语分析，因而有了一阶逻辑，在满足一定条件下它是表达能力最强的逻辑系统，但也有其边界。
 
 <!-- more -->
 
@@ -237,19 +237,122 @@ Turing 指出了，对完全的一阶逻辑来说，是不可判定的。[^turin
 
 为此，我们考虑什么是计算。有以下等价的计算模型：
 - 图灵机
-- Church 的一般递归函数和 [λ 演算](@/posts/lambda_calculus.md)
+- Gödel 的一般递归函数（Kleene 得到另一种等价形式）与 Church 的 [λ 演算](@/posts/lambda_calculus.md)
 - Emil Post 的[重写系统](@/posts/lambda_calculus.md#rewriting-systems)
+
+Church-Turing 论题认为，直观上可计算的函数恰好就是图灵可计算的函数。
 
 计算理论非常有趣，读者可自行查阅资料。
 
-我们考虑停机问题（输入一串描述图灵机 $T$ 的符号 $s$, 输出 $T$ 运行在 $s$ 上是否最后会停下来）。如果停机问题是可计算的，令计算停机问题的图灵机为 $H$, 此时我们可以写一个图灵机 $L$ 来执行如下任务：输入一串符号 $s$, 用 $H$ 计算 $H(s)$, 如果输出 `true` 则进入不停往下一个格子写 $1$ 的循环，反之停下来。我们把其代码记作 $c(L)$, 则在 $L(c(L))$ 是否停机上出现矛盾。
+我们考虑停机问题（输入一串描述图灵机 $T$ 的符号 $s$, 输出 $T$ 运行在 $s$ 上是否最后会停下来）。如果停机问题是可计算的，令计算停机问题的图灵机为 $H$, 此时我们可以写一个图灵机 $L$ 来执行如下任务：输入一串符号 $s$, 用 $H$ 计算 $H(s)$, 如果输出 `true` 则进入一个死循环，反之停下来。我们把其代码记作 $c(L)$, 则在 $L(c(L))$ 是否停机上出现矛盾。
 
 从而我们知道停机问题是不可计算的，对此的形式化过程略去。而为了把图灵机运行编码进一阶逻辑，考虑经典的使用纸带的状态转移机，形式化过程略去。从而说明了一阶逻辑的有效性的不可计算性。
 
-## 不完备性
-具体证明相当复杂，这里略去。
+{% admonition(type="theorem", title="Rice 定理") %}
+图灵机的每个非平凡的语义性质都不可判定。
+{% end %}
 
-可以得到的结果是：
+一个性质被称为语义的，如果仅依赖于机器所计算的函数；称为非平凡的，如果有些机器具备而有些不具备。
+
+## 不完备性
+我们称一个理论 $T$ 是一致的当且仅当不存在句子 $\varphi$ 使得 $T \vdash (\varphi \wedge \neg \varphi)$，这实际上和之前的定义等价。是完备的，当且仅当对任意句子 $\varphi$ 有 $T \vdash \varphi$ 或 $T \vdash \neg \varphi$.
+
+### 算术
+{% admonition(type="definition", title="一阶皮亚诺算术 PA") %}
+一阶算术语言包含非逻辑符号：常元符号 $0$；一元函数符号 $S$ 与二元函数符号 $+, \times$.
+
+在一阶逻辑希尔伯特演算证明系统外，还可使用非逻辑公理：
+- $\forall x \neg (S(x) = 0)$
+- $\forall x \forall y (S(x) = S(y) \to x = y)$
+- $\forall x (x + 0 = x)$
+- $\forall x \forall y (x + S(y) = S(x + y))$
+- $\forall x (x \times 0 = 0)$
+- $\forall x (x \times S(y) = x \times y + x)$
+- 归纳公理 $(\varphi(0) \wedge \forall x (\varphi(x) \to \varphi(S(x)))) \to \forall x \varphi(x)$
+{% end %}
+
+关于如何用它证明一些基本的结果，可以在 The Natural Number Game 中看到。
+
+### Gödel 编码
+进行编码时，只需要一个很弱的算术元理论，只需要能够逐个讨论具体的自然数。
+
+我们定义自然数的“标准数”：
+
+$$\bar{n} = \underbrace{S(S( \cdots S(}_{n \text{个}} 0) \cdots ))$$
+
+我们对符号进行编码：少量非变元符号用奇数，变元符号依次使用偶数。定义：
+
+$$\\# (s_1, \dots, s_n) = 2^{a_1} \cdot 3^{a_2} \cdot 5^{a_3} \cdots p_n^{a_n}$$
+
+定义公式的名字：
+
+$$┌ \varphi ┐ \coloneqq \overline{\\# \varphi}$$
+
+对一个自由变元的公式 $\varphi$ 可以考虑其对角化句子 $\varphi(┌ \varphi ┐)$.
+
+定义关系 $\mathrm{diag}(m, n)$ 当且仅当 $n = \\# \varphi$ 时 $m = \\# (\varphi(┌ \varphi ┐))$.
+
+{% admonition(type="theorem", title="事实") %}
+存在 PA 中的公式 $\mathrm{Diag}(x, y)$ 使得对任意自然数 $m, n$ 有：
+- 若 $\mathrm{diag}(m, n)$ 成立，则 $\text{PA} \vdash \mathrm{Diag}(\bar{m}, \bar{n}) \wedge \exists! x \mathrm{Diag}(x, \bar{n})$
+- 若 $\mathrm{diag}(m, n)$ 成立，则 $\text{PA} \vdash \neg \mathrm{Diag}(\bar{m}, \bar{n})$
+{% end %}
+
+证明复杂略去。
+
+{% admonition(type="theorem", title="不动点引理") %}
+对任意只有一个自由变元的公式 $\varphi$，存在 $\psi$ 使得：
+
+$$\text{PA} \vdash \psi \leftrightarrow \varphi(┌ \psi ┐)$$
+{% end %}
+
+$$\theta(y) \coloneqq \exists z (\mathrm{Diag}(z, y) \wedge \varphi(z))$$
+
+$$\psi \coloneqq \theta(┌ \theta ┐)$$
+
+### 第一不完备性定理
+我们定义公式序列的 Gödel 编码：
+
+$$\mathrm{Code}(s_1, s_2, \dots, s_n) = 2^{\\#(s_1)} \cdot 3^{\\#(s_2)} \cdots p_n^{\\#(s_n)}$$
+
+我们称 $\mathrm{prf}(n, m)$ 当且仅当 $n$ 是一个编码为 $m$ 的句子在 PA 中的证明的编码。通过复杂证明可知可以在 PA 内部定义一个公式 $\mathrm{Prf}(n, m)$ 来刻画。再定义：
+
+$$\mathrm{Prov}(y) \coloneqq \exists x \mathrm{Prf}(x, y)$$
+
+Gödel 句是指满足 $\text{PA} \vdash G \leftrightarrow \neg \mathrm{Prov}(┌ G ┐)$ 的句子。易见若 PA 一致则 $\text{PA} \nvdash G$.
+
+{% admonition(type="definition", title="一阶算术语言") %}
+一阶算术语言的标准模型是结构：
+
+$$\mathcal{N} \coloneqq (\N; \mathbf{0}, \mathbf{S}, +, \times)$$
+{% end %}
+
+我们说 $\sigma$ 是算术真理，如果 $\mathcal{N} \models \sigma$.
+
+从现在开始，我们作一个比前面弱元理论更强的假设：标准模型存在且 $\mathcal{N} \models \text{PA}$. 易见 $\mathcal{N} \models G$.
+
+由此可见，PA 不能证明所有算术真命题。
+
+### 非标准模型
+{% admonition(type="definition", title="Tarski 真不可定义性原理") %}
+不存在一阶算术语言的公式 $T(x)$ 使得对每个算术句子 $\mathcal{N} \models T(┌ \sigma ┐)$ 当且仅当 $\mathcal{N} \models \sigma$.
+{% end %}
+
+对 $\neg T$ 使用不动点引理。
+
+---
+
+如果 PA 一致，则 $\text{PA} \cup \set{\neg G}$ 是一致的，由完全性定理知存在模型 $\mathcal{M}$ 满足它且不是标准模型。
+
+更直接的看法是加入一个新常元 $c$，考虑理论：
+
+$$\text{PA} \cup \set{c \neq \bar{0}, c \neq \bar{1}, \dots}$$
+
+用紧致性定理知有模型。
+
+---
+
+通过定义 ω-一致性与罗塞尔句，可以证明：若 PA 一致，则 PA 不完备。更一般的结论是：
 
 {% admonition(type="theorem", title="第一不完备性定理") %}
 满足以下条件的理论 $T$ 是不完备的：
@@ -257,6 +360,22 @@ Turing 指出了，对完全的一阶逻辑来说，是不可判定的。[^turin
 2. $T$ 是递归可公理化的
 3. $T$ 是一致的
 {% end %}
+
+### 第二不完备性定理
+我们用 $\mathrm{Con}(\text{PA})$ 指代句子 $\neg \mathrm{Prov}(┌ 0 = \bar{1} ┐)$.
+
+{% admonition(type="theorem", title="事实") %}
+对任意一阶算术语言的句子 $\varphi$ 有：
+1. 若 $\text{PA} \vdash \varphi$ 则 $\text{PA} \vdash \mathrm{Prov}(┌ \varphi ┐)$
+2. $\text{PA} \vdash \mathrm{Prov}(┌ \varphi \to \psi ┐) \to (\mathrm{Prov}(┌ \varphi ┐) \to \mathrm{Prov}(┌ \psi ┐))$
+3. $\text{PA} \vdash \mathrm{Prov}(┌ \varphi ┐) \to \mathrm{Prov}(\mathrm{Prov}(┌ \varphi ┐))$
+{% end %}
+
+证明复杂略去。读者可以发现这一谓词在此成为了一个模态词。不严格地说，$\mathrm{Con}(\text{PA})$ 相当于 $\neg \Box \bot$.
+
+其推论是，如果 PA 一致，那么 $\text{PA} \nvdash \mathrm{Con}(\text{PA})$.
+
+更一般的结论是：
 
 {% admonition(type="theorem", title="第二不完备性定理") %}
 在同上条件下，$T$ 不能证明 $\mathrm{Con}(T)$，其中 $\mathrm{Con}(T)$ 是 $T$ 的一致性句子。
