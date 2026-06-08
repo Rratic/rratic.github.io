@@ -127,6 +127,22 @@ $$\rho = \varlimsup_{n \to +\infty} |a_n|^{\frac{1}{n}}$$
 3. 若在 $-R$ 处收敛，则在 $[-R, R)$ 内闭一致收敛
 {% end %}
 
+{% admonition(type="question", title="2023 P4") %}
+使用幂级数计算级数的值：
+
+$$\sum_{n=0}^{\infty} \left(\frac{1}{4n + 1} + \frac{1}{4n + 3} - \frac{1}{2n + 2}\right)$$
+{% end %}
+
+令：
+
+$$F(x) = \sum_{n=0}^{\infty} \left(\frac{1}{4n + 1} x^{4n + 1} + \frac{1}{4n + 3} x^{4n + 3} - \frac{1}{2n + 2} x^{2n + 2}\right) \quad |x| \leq 1$$
+
+有：
+
+$$F(x) = \int_0^x \frac{\mathrm{d}x}{1 + x}$$
+
+故所求为 $\ln 2$.
+
 ### Taylor 展开式
 {% admonition(type="definition", title="幂级数展开") %}
 称函数 $f(x)$ 在 $x_0$ 附近可以展开成幂级数，是指某个邻域内有：

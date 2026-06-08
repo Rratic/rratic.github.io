@@ -1,6 +1,6 @@
 +++
 title = "【草稿】高等代数Ⅱ期末复习笔记"
-date = 2026-06-01
+date = 2026-06-09
 
 [extra]
 math = true
@@ -14,7 +14,7 @@ categories = ["知识"]
 tags = ["笔记", "数学", "代数", "线性代数"]
 +++
 
-本文用于准备高等代数Ⅱ的期末考试。这半学期的内容主要是内积空间、内积空间上的线性变换，以及？？？。
+本文用于准备高等代数Ⅱ的期末考试。这半学期的内容主要是内积空间、内积空间上的线性变换，以及双线性形式。
 
 <!-- more -->
 
@@ -153,7 +153,7 @@ $T$ 正规时设 $T_1 = (T + T^\ast) / 2, T_2 = (T - T^\ast) / 2\mathrm{i}$, 则
 
 对 $f \in \text{Form}(V)$ 有 $f$ 在 $\mathcal{B}$ 下的矩阵：
 
-$$([f] _\mathcal{B}) _{ij} = f(\alpha_k, \alpha_j)$$
+$$([f] _\mathcal{B}) _{ij} = f(\alpha_j, \alpha_i)$$
 
 对于换基 $(\alpha_1', \dots, \alpha_n') = (\alpha_1, \dots, \alpha_n) P$ 有：
 
@@ -338,3 +338,62 @@ $$f_T = \prod_{i=1}^l (x - a_i) \prod_{j=1}^m \left(x^2 - (2r_j\cos \theta_j)x +
 ---
 
 上述法二有一个推论：若 $A$ 正规，则 $A^\ast$ 为 $A$ 的多项式。我们取 $f$ 使得 $f(c_i) = \bar{c_i}$. 考虑 $A$ 的酉对角化知 $f(A) = A^\ast$ 成立。
+
+## 双线性形式
+### 双线性形式
+记双线性形式集合 $M_2(V)$. 取一组基，令 $[f]_{\mathcal{B}}$ 的 $(i, j)$ 元 $f(\alpha_i, \alpha_j)$，注意这和之前的定义是转置。
+
+我们称 $A, B \in F^{n\times n}$ **合同**，如果存在 $P$ 使得 $B = P^\top A P$.
+
+我们定义：
+
+$$L_f(\alpha)(\beta) = R_f(\beta)(\alpha) = f(\alpha, \beta)$$
+
+从而有 $\mathrm{rank}(L_f) = \mathrm{rank}(R_f) = \mathrm{rank}([f]_{\mathcal{B}})$，记作 $\mathrm{rank}(f)$.
+
+### 对称、反对称与二次型
+记对称、反对称、交错的双线性形式集合为 $S^2(V)$，$A^2(V)$ 与 $\Lambda^2(V)$. 易见 $\Lambda^2(V) \subseteq A^2(V)$ 且在特征不为 $2$ 时取等（进而 $M_2(V) = S_2(V) \oplus A_2(V)$）。
+
+称 $q: V \to F$ 是**二次型**，如果存在某个 $f \in M^2(V)$ 使得 $q(\alpha) = f(\alpha, \alpha)$，记全体为 $Q(V)$.
+
+在特征不为 $2$ 时：
+- 取 $\Phi(f)(\alpha) = f(\alpha, \alpha)$，则 $\Phi| _{S^2(V)}$ 是 $S^2(V) \to Q(V)$ 的线性同构，因为 $\ker \Phi = \Lambda^2(V)$，从而可以定义对称阵 $[q] _{\mathcal{B}}$
+- 对 $f \in S^2(V)$ 有极化恒等式 $f(\alpha,\beta) = (q(\alpha + \beta) - q(\alpha - \beta)) / 4$
+
+{% admonition(type="theorem", title="定理") %}
+- 对 $\operatorname{char} F \neq 2$ 及 $f \in S^2(V)$，存在有序基使 $[f]_{\mathcal{B}}$ 对角
+- 对 $f \in \Lambda^2(V)$ 存在有序基使 $[f]_{\mathcal{B}}$ 形如
+
+$$\mathrm{diag}\left(\begin{pmatrix} 0 & 1 \cr -1 & 0 \end{pmatrix} \cdots \begin{pmatrix} 0 & 1 \cr -1 & 0 \end{pmatrix}, 0, \dots, 0 \right)$$
+{% end %}
+
+我们定义 $W^\perp = \set{\beta \in V | f(\alpha, \beta) = 0, \forall \alpha \in W}$，则若 $f|_W$ 非退化就有 $V = W \oplus W^\perp$. 讨论即可。
+
+称非退化交错双线性形式为**辛形式**，则在某个基下形如 $\begin{pmatrix} 0 & I_m \cr -I_m & 0 \end{pmatrix}$.
+
+{% admonition(type="theorem", title="合同标准形") %}
+对 $f$ 对称：
+- 若 $F$ 代数闭且特征非 $2$，则存在有序基使 $[f]_{\mathcal{B}} = \mathrm{diag}(I_r, 0, \dots, 0)$
+- 若 $F = \R$，则存在有序基使 $[f] _{\mathcal{B}} = \mathrm{diag}(I _{r_1}, -I _{r_2}, 0, \dots, 0)$
+{% end %}
+
+第二种情况的 $r_1, r_2$ 被 $f$ 决定，$r_1$ 为使 $f|_W$ 正定的最大子空间维数。两者称为**正惯性指数**、**负惯性指数**，数对 $(r_1, r_2)$ 称为 $f$ 的符号。定理称 Sylvester 惯性定理。
+
+### 自同构群
+我们记 $(V, f)$ 的自同构群：
+
+$$\mathrm{Aut}(V, f) = \set{T \in \mathrm{GL}(V) | f(T\alpha, T\beta) = f(\alpha, \beta)}$$
+
+对 $A \in F^{n\times n}$，所求同构于：
+
+$$G_A = \set{M \in \mathrm{GL}_n(F) | M^\top AM = A}$$
+
+对 $f$ 对称非退化，记不定正交群/伪正交群：
+
+$$\mathrm{O}(p, q) = G_{\mathrm{diag}(I_p, -I_q)}$$
+
+特别地，$\mathrm{O}(3, 1)$ 是 Lorentz 群。
+
+对 $f$ 交错非退化，记辛群：
+
+$$\mathrm{Sp} _{2m}(F) = G _{\begin{pmatrix} 0 & I _m \cr -I _m & 0 \end{pmatrix}}$$
