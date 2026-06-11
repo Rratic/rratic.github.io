@@ -284,6 +284,29 @@ $$\lVert U\alpha \rVert = \lVert T (N^{-1} \alpha) \rVert = \lVert N (N^{-1} \al
 
 考虑极分解 $A = UN$ 再分解 $N = PDP^{-1}$.
 
+{% admonition(type="question", title="2024 P3") %}
+证明对 $A, B \in \R^{n \times n}$ 以下两个条件等价：
+1. 存在 $X, Y \in \R^{n \times n}$ 使得 $\begin{pmatrix} A & X \cr Y & B \end{pmatrix} \in \mathrm{O}(2n)$
+2. 对任意 $\alpha \in \R^{n \times 1}$ 有 $\lVert A\alpha \rVert \leq \lVert \alpha \rVert$，并且存在 $P, Q \in \mathrm{O}(n)$ 使得 $A = PBQ$
+{% end %}
+
+对 (1) 推 (2)，对大矩阵用定义知 $A^\top A + Y^\top Y = YY^\top + BB^\top = I$. 故 $\lVert A\alpha \rVert^2 = \lVert \alpha \rVert^2 - \lVert Y\alpha \rVert^2 \leq \lVert A\alpha \rVert^2$.
+
+又，考虑极分解，有：
+
+$$A^\top A = I - Y^\top Y = I - P_Y^{-1}(YY^\top)P_Y = P_Y^{-1}(BB^\top)P_Y = (BP_B^{-1}P_Y)^\top(BP_B^{-1}P_Y)$$
+
+故 $BP_B^{-1}P_Y$ 的极分解形如 $P'\sqrt{A^\top A}$，有 $A = (P_AP'^{-1})B(P_B^{-1}P_Y)$.
+
+对 (2) 推 (1)，考虑奇异值分解 $A = RDS$，取对角阵 $C$ 使得 $D^2 + C^2 = I$，则：
+
+$$
+\begin{pmatrix} R & ~ \cr ~ & P^{-1}R \end{pmatrix}
+\begin{pmatrix} D & -C \cr C & D \end{pmatrix}
+\begin{pmatrix} S & ~ \cr ~ & SQ^{-1} \end{pmatrix} =
+\begin{pmatrix} A & \ast \cr \ast & B \end{pmatrix}
+$$
+
 ### 正规变换进一步性质
 对 $\theta \in \R$ 记：
 
@@ -377,7 +400,28 @@ $$\mathrm{diag}\left(\begin{pmatrix} 0 & 1 \cr -1 & 0 \end{pmatrix} \cdots \begi
 - 若 $F = \R$，则存在有序基使 $[f] _{\mathcal{B}} = \mathrm{diag}(I _{r_1}, -I _{r_2}, 0, \dots, 0)$
 {% end %}
 
-第二种情况的 $r_1, r_2$ 被 $f$ 决定，$r_1$ 为使 $f|_W$ 正定的最大子空间维数。两者称为**正惯性指数**、**负惯性指数**，数对 $(r_1, r_2)$ 称为 $f$ 的符号。定理称 Sylvester 惯性定理。
+第二种情况的 $r_1, r_2$ 被 $f$ 决定，$r_1$ 为使 $f|_{W \times W}$ 正定的最大子空间维数。两者称为**正惯性指数**、**负惯性指数**，数对 $(r_1, r_2)$ 称为 $f$ 的符号。定理称 Sylvester 惯性定理。
+
+{% admonition(type="question", title="2025 P3 (2)") %}
+考虑实线性空间 $\R^{3 \times 3}$ 上的对称双线性函数 $f(A, B) = \mathrm{tr}(AB)$，求 $f$ 的正惯性指数。
+{% end %}
+
+取 $\R^{3 \times 3} = S \oplus A$，其中 $S$ 是那些对称矩阵，$A$ 是那些反对称矩阵。有 $S$ 使 $f|_{S \times S}$ 正定，维数最大，故正惯性指数 $6$.
+
+{% admonition(type="question", title="2023 P2") %}
+设 $V$ 为 $2023$ 维实线性空间，$f$ 为 $V$ 上的非退化双线性函数，$T \in L(V)$满足：
+
+$$f(T\alpha, T\beta) = f(\alpha, \beta)$$
+
+1. 证明 $1$ 为 $T^2$ 的特征值
+2. 进一步假设 $f$ 对称并且 $T$（在 $\R$ 上）可对角化，证明：
+
+$$\mathrm{rank}(T^2 - I) \leq 2\min\set{r_1, r_2}$$
+{% end %}
+
+对 (1)，由 $T^\top AT = A$ 知 $ATA^{-1} = (T^\top)^{-1}$. 由 $T^\top \sim T$ 知 $T \sim T^{-1}$. 用特征多项式知成立。
+
+对 (2)，由在 $\R$ 上可对角化，考察 $V = \bigoplus V_\lambda$. 对 $\alpha \in V_\lambda, \beta \in V_\mu$ 有 $(1 - \lambda\mu) f(\alpha, \beta) = 0$. 因此可以将 $V$ 拆成 $V_1, V_{-1}$ 及一族 $V_\lambda \oplus V_{1/\lambda}$ 两两在 $f$ 下正交。讨论即可。
 
 ### 自同构群
 我们记 $(V, f)$ 的自同构群：

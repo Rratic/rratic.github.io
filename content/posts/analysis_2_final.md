@@ -357,8 +357,45 @@ $$\nabla^2 f \coloneqq \left(\frac{\partial^2 f}{\partial x_j \partial x_i}\righ
 
 或者使用压缩映射原理。对函数定义距离是区间上差的最大值。取 $k$ 使得 $\Phi(x, y) = y - kF(x, y)$ 是关于 $y$ 的压缩。
 
-多元情形的定理同理。这使得 $x^2 + y^2 + z^2 = a^2 \implies x\mathrm{d}x + y\mathrm{d}y + z\mathrm{d}z$ 之类的事情是合理的。
+当还有 $F_x$ 连续时，
 
----
+$$f'(x) = -\left.\frac{F_x(x, y)}{F_y(x, y)}\right|_{y = f(x)}$$
 
-Lagrange 乘数法、最小二乘法等略去。
+多元情形的定理同理，在 $F$ 在对应区域 $C^1$ 时 $f(\mathbf{x})$ 可微。
+
+这使得 $x^2 + y^2 + z^2 = a^2 \implies x\mathrm{d}x + y\mathrm{d}y + z\mathrm{d}z$ 之类的事情是合理的。
+
+{% admonition(type="theorem", title="隐映射定理") %}
+设 $W \subseteq \R^n \times \R^m$ 为开集及其中 $(\mathbf{x}_0, \mathbf{y}_0)$，设 $F(\mathbf{x}, \mathbf{y}) = (F_1(\mathbf{x}, \mathbf{y}), \dots, F_m(\mathbf{x}, \mathbf{y}))$；若满足 $F(\mathbf{x}_0, \mathbf{y}_0) = 0$ 且 $\det J_y F(\mathbf{x}_0, \mathbf{y}_0) \neq 0$，其中：
+
+$$J_y F(\mathbf{x}, \mathbf{y}) = \left(\frac{\partial F_i}{\partial y_j}(\mathbf{x}, \mathbf{y})\right)_{m\times m}$$
+
+则存在 $\mathbf{x}_0$ 的开邻域 $V$ 及 $C^1$ 映射 $\psi: V \to \R^m$ 使得 $\mathbf{y}_0 = \psi(\mathbf{x}_0), F(\mathbf{x}, \psi(\mathbf{x})) = 0$，且：
+
+$$J\psi(\mathbf{x}) = -(J_y F(\mathbf{x}, \psi(\mathbf{x})))^{-1} J_x F(\mathbf{x}, \psi(\mathbf{x}))$$
+{% end %}
+
+对 $m$ 归纳，使用隐函数存在定理即可。
+
+{% admonition(type="theorem", title="逆映射定理") %}
+设 $D \subseteq \R^n$ 为开集，$f: D \to \R^n$ 是 $C^k (k \geq 1)$ 的；若 $Jf(\mathbf{x}_0) = 0$，则存在 $\mathbf{x}_0$ 的开邻域 $U$ 及 $\mathbf{y}_0$ 的开邻域 $V$，使得 $f|_U: U \to V$ 可逆，且其逆映射 $h$ 也是 $C^k$ 的，且：
+
+$$Jh(y) = (Jf(h(y)))^{-1}$$
+{% end %}
+
+用压缩映射。
+
+### Lagrange 乘数法
+对曲线 $\Sigma: \varphi(x, y) = 0$，我们希望求其上 $f(x, y)$ 的极值。
+
+在某一点附近找隐函数，则极值的必要条件是 $\frac{\partial f}{\partial x} + \frac{\partial f}{\partial y} y'(x_0) = 0$. 即：
+
+$$\operatorname{grad} f(x_0, y_0) = -\lambda \operatorname{grad} \varphi(x_0, y_0)$$
+
+{% admonition(type="theorem", title="Lagrange 乘数法") %}
+设 $U$ 开集，$f: U \to \R$ 可微，$\Phi: U \to \R^m (n > m)$ 是 $C^k$ 的，记 $\Sigma = \ker \Phi$. 若 $x_0$ 是 $f$ 限制在 $\Sigma$ 上的极值点，且 $\mathrm{rank}(J\Phi(x_0)) = m$，则存在 $\lambda \in \R^m$ 使得：
+
+$$\nabla f(x_0) - \lambda \cdot J\Phi(x_0) = \mathbf{0}$$
+{% end %}
+
+使用时，我们求 $f(x) - \sum_{j=1}^m \lambda_j \varphi_j(x)$ 的驻点。
