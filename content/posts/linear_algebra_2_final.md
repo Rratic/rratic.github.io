@@ -1,6 +1,6 @@
 +++
 title = "【草稿】高等代数Ⅱ期末复习笔记"
-date = 2026-06-09
+date = 2026-06-13
 
 [extra]
 math = true
@@ -135,17 +135,42 @@ $$\braket{T\alpha, \beta} = \braket{\alpha, T^\ast\beta}$$
 ### 正规变换
 称 $T$ **正规**，如果 $T$ 与 $T^\ast$ 可交换。
 
-$T$ 正规时设 $T_1 = (T + T^\ast) / 2, T_2 = (T - T^\ast) / 2\mathrm{i}$, 则它们自伴且可交换。
-
-{% admonition(type="theorem", title="定理") %}
+{% admonition(type="theorem", title="正交/酉对角化") %}
 对 $F$ 上的有限维内积空间 $V$ 与 $T \in L(V)$ 有：
 - $F = \R$ 时存在标准正交基 $\mathcal{B}$ 使 $[T]_\mathcal{B}$ 对角 $\iff$ $T$ 自伴
 - $F = \Complex$ 时存在标准正交基 $\mathcal{B}$ 使 $[T]_\mathcal{B}$ 对角 $\iff$ $T$ 正规
 {% end %}
 
-也称为正交/酉对角化。
+左推右易证，考察右推左：
 
-{{ todo() }}
+首先，当 $W$ 是 $T$-不变子空间时，$W^\perp$ 是 $T^\ast$-不变子空间。故 $T$ 自伴时 $W^\perp$ 是 $T$-不变子空间。进而 $T$ 自伴时，$f_T$ 在 $\Complex$ 中只有实根，且特征子空间两两正交。从而在 $T$ 自伴时结论可证。
+
+$T$ 正规时，一种方法是取 $T_1 = (T + T^\ast) / 2, T_2 = (T - T^\ast) / 2\mathrm{i}$，它们自伴且可交换。
+
+---
+
+另一种证法先证明：对 $T$ 正规，当 $W$ 是 $T$-不变子空间时，$W$ 是 $T^\ast$-不变子空间。取 $W$ 和 $W^\perp$ 的有序标准正交基，则 $A$ 形如 $\begin{pmatrix} B & C \cr 0 & D \end{pmatrix}$. 计算得到 $BB^\ast + CC^\ast = B^\ast B$. 两边取迹得 $C = 0$，引理得证。故 $T$ 的特征子空间两两正交，从而结论可证。
+
+---
+
+第三种证法先证明 Schur 三角化定理：设 $V$ 有限维复内积空间，$T \in L(V)$，存在有序标准正交基使得 $[T]_{\mathcal{B}}$ 上三角。我们知道存在 $T$-不变全旗，恰当取基使得标准正交即可（或者使用 QR 分解）。而正规的上三角矩阵只能是对角阵。
+
+{% admonition(type="theorem", title="特征值刻画") %}
+设 $V$ 有限维复内积空间，$T$ 正规，则：
+1. $T$ 自伴 $\iff \sigma(T) \subset \R$
+2. $T$ 反自伴 $\iff \sigma(T) \subset \mathrm{i}\R$
+3. $T$ 酉 $\iff \sigma(T) \subset \set{e^{\mathrm{i}\theta}}$
+{% end %}
+
+取使 $T$ 对角的基来看。
+
+{% admonition(type="question", title="2021 P3") %}
+求所有满足如下性质的正整数 $k$：对任意对称非对角矩阵 $A \in \R^{2021 \times 2021}$，矩阵 $A^k + A$ 总不是对角矩阵。
+{% end %}
+
+$k$ 为偶时有反例：取 $A$ 每一元均为 $-1/n$，有 $A^2 = -A$.
+
+$k$ 为奇时令 $f(x) = x^k + x$，只需找 $g$ 使得 $g(f(A)) = A$. 考察正交对角化 $A = QDQ^{-1}$，只需对每个对角元 $c$ 有 $g(f(c)) = c$ 即可。
 
 ## 内积空间上的线性变换
 ### 线性空间上的形式
@@ -197,6 +222,8 @@ $$\Delta_k(A) \coloneqq \det(A_{1:k,1:k})$$
 
 作 LU 分解然后令 $D = (U^\ast)^{-1}L$，则有 $A = U^\ast DU$. 有 $D$ Hermite 且下三角，故对角。然后分块计算即可。
 
+注：这个判定方法不能拓展到半正定。
+
 ### 内积空间上的形式
 在有限维内积空间 $V$ 上，使用标准正交基 $\mathcal{B}$ 有线性同构：
 
@@ -221,6 +248,8 @@ $$
 $$f(\alpha, \beta) = \braket{T_f\alpha, \beta}$$
 
 现在有：$f$ Hermite $\Leftrightarrow$ $[f]_\mathcal{B}$ Hermite $\Leftrightarrow$ $[T _f] _\mathcal{B}$ Hermite $\Leftrightarrow$ $T_f$ 自伴。
+
+我们定义 $T \in L(V)$ 正定，如果它自伴并且 $\braket{T\alpha, \alpha} > 0$.
 
 {% admonition(type="theorem", title="主轴定理") %}
 对 $f \in \mathrm{Form}(V)$ Hermite 存在标准正交基使得 $[f]_\mathcal{B}$ 实对角。
@@ -249,7 +278,9 @@ $$f(T) = \sum_{i=1}^k f(c_i) P_i$$
 
 $$\phi(T) = \sum_{i=1}^k \phi(c_i) P_i$$
 
-保持自伴/正规。对半正定 $T$ 令 $\phi(x) = \sqrt{x}$ 有 $\sqrt{T}$ 将满足 $(\sqrt{T})^2 = T$.
+保持自伴/正规。
+
+对半正定 $T$ 令 $\phi(x) = \sqrt{x}$ 有 $\sqrt{T}$ 将满足 $(\sqrt{T})^2 = T$. 用 $\braket{T\alpha, \alpha} = \lVert \sqrt{T} \alpha \rVert^2$ 有 $\braket{T\alpha, \alpha} = 0 \implies T\alpha = 0$.
 
 ---
 
@@ -441,3 +472,9 @@ $$\mathrm{O}(p, q) = G_{\mathrm{diag}(I_p, -I_q)}$$
 对 $f$ 交错非退化，记辛群：
 
 $$\mathrm{Sp} _{2m}(F) = G _{\begin{pmatrix} 0 & I _m \cr -I _m & 0 \end{pmatrix}}$$
+
+{% admonition(type="question", title="2023 P4") %}
+求实线性空间 $\R^{4\times 4}$ 的与 $\mathrm{O}(3, 1)$ 不相交的子空间的最大维数。
+{% end %}
+
+取 $\set{A | a_{44} = 0}$ 即可。

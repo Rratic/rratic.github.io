@@ -91,6 +91,23 @@ $$\lim_{n \to +\infty} \int_a^b f_n(x) \mathrm{d}x = \int_a^b f(x) \mathrm{d}x$$
 
 这个定理要远强于逐项积分定理。
 
+{% admonition(type="question", title="2020 P5") %}
+$$\int_0^1 \frac{\ln x}{1 - x} \mathrm{d}x = -\sum_{n=1}^{+\infty} \frac{1}{n^2}$$
+{% end %}
+
+$$
+\text{LHS} =
+\lim_{r \to 1^-} \int_0^r \left(1 + \frac{1}{2}t + \frac{1}{3}t^2 + \cdots\right) \mathrm{d}t =
+\lim_{r \to 1^-} \left.\left(t + \frac{1}{2^2}t^2 + \frac{1}{3^2}t^3 + \cdots\right)\right|_0^r =
+\text{RHS}
+$$
+
+{% admonition(type="question", title="2022 P2") %}
+举例说明存在函数序列满足 $f_n(x) \in R[0, 1]$，逐点收敛于$f$，而 $f(x) \notin R[0, 1]$.
+{% end %}
+
+将 $[0, 1]$ 中的有理数用正整数编号，让 $f_n(q_k) = 1 (k \leq n)$，其余为 $0$ 即可。
+
 {% admonition(type="theorem", title="可微性") %}
 在 $[a, b]$ 上，设 $f_n(x)$ 可微且 $\\{f_n'(x)\\}$ 一致收敛到某 $g(x)$，且某点 $c$ 处 $\\{f_n(c)\\}$ 收敛，则 $f_n(x)$ 必一致收敛于某可微函数 $f(x)$ 且：
 
