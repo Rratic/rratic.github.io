@@ -1,6 +1,6 @@
 +++
-title = "【草稿】数学分析Ⅱ期末复习笔记"
-date = 2026-06-08
+title = "数学分析Ⅱ期末复习笔记"
+date = 2026-06-14
 
 [extra]
 math = true
@@ -14,7 +14,7 @@ categories = ["知识"]
 tags = ["笔记", "数学", "分析", "微积分学"]
 +++
 
-本文用于准备数学分析Ⅱ的期末考试。这半学期的内容是函数项级数（一致收敛）、幂级数与多元函数。
+本文用于准备数学分析Ⅱ的期末考试。这半学期的内容是函数项级数（一致收敛）、幂级数与多元函数微分学。
 
 <!-- more -->
 
@@ -58,6 +58,12 @@ $$\lim_{\substack{x \to x_0 \cr x \in E}} \lim_{n \to +\infty} f_n(x) = \lim_{n 
 {% end %}
 
 在 $[a, b]$ 上，等度连续与逐点收敛给出 $f(x)$ 连续。
+
+{% admonition(type="question", title="2020 P7") %}
+闭区间上一致有界的等度连续函数序列必有一致收敛的子列。
+{% end %}
+
+对 $\varepsilon$ 取间隔为 $\delta(\varepsilon/3)$ 的点，取所有 $N((\varepsilon/3))$ 的最大值，作为子列第一项对应下标。同理对 $\varepsilon/2, \dots$ 进行即可。
 
 {% admonition(type="question", title="习题课 W8 6 Arzela-Ascoli 引理") %}
 在 $[a, b]$ 上函数列 $\\{f_n(x)\\}$ 等度连续，且一致有界，则存在一致收敛子列。
@@ -191,8 +197,23 @@ $$
 \sum_{n=0}^\infty \frac{1}{(n+1)^{n+1}}
 $$
 
+### 幂级数的代数运算
+对两个收敛半径 $R$ 的幂级数，有其 Cauchy 乘积在 $(-R, R)$ 收敛。
+
+Cauchy 乘积收敛半径可能更大。考察：
+
+$$f(x) = \frac{1 - x}{1 - 2x} = 1 + \sum_{n=1}^{+\infty} 2^{n-1}x^n$$
+
+$$g(x) = \frac{1 - 2x}{1 - x} = 1 - \sum_{n=1}^{+\infty} x^n$$
+
+{% admonition(type="theorem", title="小 o Tauber 定理") %}
+设 $\lim_{x \to 1^-} \sum_{n=1}^{+\infty} a_n x^n = A$，且 $a_n = o(1/n)$，则 $\sum_{n=1}^{+\infty} a_n = A$.
+{% end %}
+
+分析差即可。
+
 ### 连续函数多项式逼近
-{% admonition(type="theorem", title="Weierstrauss 定理") %}
+{% admonition(type="theorem", title="Weierstrauss 第一逼近定理") %}
 如果 $f(x) \in C[a, b]$，则 $f(x)$ 于 $[a, b]$ 可被多项式一致逼近。
 {% end %}
 
@@ -208,7 +229,7 @@ $$B_n(f, x) = \sum_{k=0}^n f\left(\frac{k}{n}\right) \binom{n}{k} x^k (1-x)^{n-k
 
 ## 多元函数
 ### 基本概念
-关于内积的理论参考[高等代数Ⅱ期末复习笔记](@/posts/linear_algebra_2_final.md)。点集拓扑、$\R^n$ 中点列极限、压缩映射原理略去。
+点集拓扑与 $\R^n$ 的拓扑性质略去。关于内积的理论参考[高等代数Ⅱ期末复习笔记](@/posts/linear_algebra_2_final.md)。
 
 $n - 1$ 个 $n$ 元向量的外积是：
 
@@ -240,6 +261,16 @@ $$\tilde{\Lambda_j} = \set{\lambda \in \Lambda | R2^{-j} < r_\lambda \leq R2^{-j
 
 多元函数在 $p_0$ 处连续，就定义成 $\lim_{p \to p_0} f(p) = f(p_0)$. 注意这里需要 $p_0$ 是聚点，我们不认为定义域孤立点处函数连续。
 
+{% admonition(type="question", title="2020 P3 压缩映射原理一种形式") %}
+对映射 $f: \R^n \to \R^n$ 存在 $\theta \in (0, 1)$ 与 $k \in N$ 使得：
+
+$$|f^{(k)}(x) - f^{(k)}(y)| \leq \theta |x - y|$$
+
+证明 $f$ 有唯一的不动点。
+{% end %}
+
+易知 $f^{(k)}$ 的不动点必唯一，故 $f$ 的不动点唯一。又，取序列 $x, f^{(k)}(x), f^{(2k)}(x), \dots$ 的极限知存在不动点。
+
 ### 微分
 以二元函数 $f(x, y)$ 为例。
 
@@ -264,6 +295,22 @@ $f(x) \in C^1(E)$ 是指在 $E$ 上各个偏导数都连续。
 $$\mathrm{d}f(x_0, y_0) = \frac{\partial f(x_0, y_0)}{\partial x} \mathrm{d}x + \frac{\partial f(x_0, y_0)}{\partial y} \mathrm{d}y$$
 
 $f(x) \in C^1(E)$ 可以说明在 $E$ 上可微。
+
+{% admonition(type="question", title="2020 P5") %}
+设 $B = \set{(x, y, z) | x^2 + y^2 + z^2 < 1}$ 上 $f(x, y, z), \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y} \in C(B)$，且 $\frac{\partial f}{\partial z}$ 在 $B$ 上存在，证明 $u = f(x, y, z)$ 在 $B$ 上可微。
+{% end %}
+
+考察：
+
+$$
+\begin{aligned}
+\Delta f =& \bigl[f(x_0+\Delta x, y_0+\Delta y, z_0+\Delta z) - f(x_0, y_0+\Delta y, z_0+\Delta z)\bigr] & (1) \cr
+&+ \bigl[f(x_0, y_0+\Delta y, z_0+\Delta z) - f(x_0, y_0, z_0+\Delta z)\bigr] & (2) \cr
+&+ \bigl[f(x_0, y_0, z_0+\Delta z) - f(x_0, y_0, z_0)\bigr] & (3)
+\end{aligned}
+$$
+
+前两项使用微分中值定理及偏导连续性处理，最后一项使用定义即可。
 
 {% admonition(type="definition", title="方向导数") %}
 对 $\lVert l \rVert = 1$ 定义方向导数：
@@ -297,6 +344,19 @@ $$\frac{\partial f}{\partial l} = \nabla f \cdot l$$
 
 $$f_{xy}(x_0, y_0) = f_{yx}(x_0, y_0)$$
 {% end %}
+
+{% admonition(type="question", title="2020 P4 (1)") %}
+设 $u = \frac{x - y}{x + y + 1}$，计算 $\frac{\partial^8 u}{\partial x^5 \partial y^3}$.
+{% end %}
+
+令 $s = x - y$ 及 $t = x + y + 1$，有：
+
+$$
+\frac{\partial^8 u}{\partial x^5 \partial y^3} =
+(\partial_t + \partial_s)^5 (\partial_t - \partial_s)^3 \left(\frac{s}{t}\right) =
+(\partial_t^8 + 2\partial_t^7\partial_s) \left(\frac{s}{t}\right) =
+\frac{8!s - 2 \cdot 7!t}{t^9}
+$$
 
 {% admonition(type="theorem", title="Schwarz 定理") %}
 设 $f: E \to \R^2$ 及 $(x_0, y_0)$，若 $f$ 在 $(x_0, y_0)$ 附近 $f_x$ 与 $f_y$ 存在；$f_{xy}$ 存在且在该点连续，则 $f_{yx}$ 也存在且：
@@ -416,3 +476,14 @@ $$\nabla f(x_0) - \lambda \cdot J\Phi(x_0) = \mathbf{0}$$
 {% end %}
 
 使用时，我们求 $f(x) - \sum_{j=1}^m \lambda_j \varphi_j(x)$ 的驻点。
+
+### 几何上的应用
+{% admonition(type="question", title="2020 P7") %}
+曲面 $F\left(\frac{x - a}{z - c}, \frac{y - b}{z - c}\right) = 1$ 的全体切平面具有公共点。
+{% end %}
+
+令 $G(x, y, z) = F\left(\frac{x - a}{z - c}, \frac{y - b}{z - c}\right) - 1$. 在 $(x_0, y_0, z_0)$ 处切平面：
+
+$$G_x(x_0, y_0, z_0)(x - x_0) + \cdots + G_z(x_0, y_0, z_0)(z - z_0) = 0$$
+​
+验证 $(a, b, c)$ 是公共点即可。
