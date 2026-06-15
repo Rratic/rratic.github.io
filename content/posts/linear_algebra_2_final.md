@@ -1,6 +1,6 @@
 +++
-title = "【草稿】高等代数Ⅱ期末复习笔记"
-date = 2026-06-13
+title = "高等代数Ⅱ期末复习笔记"
+date = 2026-06-15
 
 [extra]
 math = true
@@ -172,6 +172,12 @@ $k$ 为偶时有反例：取 $A$ 每一元均为 $-1/n$，有 $A^2 = -A$.
 
 $k$ 为奇时令 $f(x) = x^k + x$，只需找 $g$ 使得 $g(f(A)) = A$. 考察正交对角化 $A = QDQ^{-1}$，只需对每个对角元 $c$ 有 $g(f(c)) = c$ 即可。
 
+{% admonition(type="question", title="2016 P6") %}
+证明任意 $3 \times 3$ 复矩阵酉相似于形如的 $\begin{pmatrix} \ast & 0 & \ast \cr \ast & \ast & 0 \cr \ast & 0 & \ast \end{pmatrix}$ 矩阵。
+{% end %}
+
+只需证对线性变换 $T$ 存在标准正交基满足 $\braket{T\alpha_2, \alpha_1} = \braket{T\alpha_2, \alpha_3} = \braket{T\alpha_3, \alpha_2} = 0$. 取特征向量 $\alpha_2$，只需再取出 $\alpha_3$ 即可。
+
 ## 内积空间上的线性变换
 ### 线性空间上的形式
 我们考察之前所提及的“$1\frac{1}{2}$-线性”，记满足这样的集合为 $\text{Form}(V)$.
@@ -308,6 +314,14 @@ $$
 $$\lVert U\alpha \rVert = \lVert T (N^{-1} \alpha) \rVert = \lVert N (N^{-1} \alpha) \rVert = \lVert \alpha \rVert$$
 
 对一般情况，存在 $U_1: \mathrm{Im}(N) \to \mathrm{Im}(T)$. 再任取 $U_2: \mathrm{Im}(N)^\perp \to \mathrm{Im}(T)^\perp$，令 $U = U_1 \oplus U_2$ 即可。
+
+{% admonition(type="question", title="2016 P7") %}
+设 $V$ 有限维复内积空间，$S, T \in L(V)$ 正规，证明 $ST$ 正规的充要条件是 $TS$ 正规。
+{% end %}
+
+考虑 $S = UN$，有 $U, N$ 可交换。验证 $T, N$ 可交换：令 $R = TS^\ast S - S^\ast ST$ 有 $\mathrm{tr}(R^\ast R) = 0$，从而 $R = 0$.
+
+故有 $U^{-1}STU = NTU = TUN = TS$.
 
 {% admonition(type="theorem", title="奇异值分解") %}
 对 $A \in F^{n\times n}$ 存在分解 $A = U_1DU_2$ 使 $D$ 是对角元非负实数的对角阵，$U_1, U_2$ 正交/酉。
