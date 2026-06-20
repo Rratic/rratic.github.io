@@ -18,12 +18,18 @@ tags = ["笔记", "数学", "拓扑", "代数拓扑"]
 
 <!-- more -->
 
+<style>
+	img:where(.dark,.dark *) {
+        filter: invert(100%);
+    }
+</style>
+
 ## 引入
 ### 闭曲面分类
 这里所说曲面是指二维（拓扑）流形，闭曲面是指没有边界点的紧致连通曲面。
 
 {% admonition(type="note", title="关于可数") %}
-在《基础拓扑学讲义》中流形的定义没有第二可数的要求。这会带来一些病态的例子，如 Alexandroff 长直线：对 $\omega_1 \times [0, 1]$ 每一区间首位相接。在听闻闭曲面分类定理时我疑心：如果有不可数个洞怎么办？但这里对闭曲面要求了紧致（这可以推出第二可数），是足够的。
+在《基础拓扑学讲义》中流形的定义没有第二可数的要求。这会带来一些病态的例子，如 Alexandroff 长直线：对 $\omega_1 \times [0, 1]$ 每一区间首尾相接。在听闻闭曲面分类定理时我疑心：如果有不可数个洞怎么办？但这里对闭曲面要求了紧致（这可以推出第二可数），是足够的。
 {% end %}
 
 我们定义对闭曲面的“环柄”手术是在该闭曲面上挖一个洞（挖去一个开圆盘），在环面上挖一个洞，然后粘起来。把球面上安 $n$ 个环柄得到的称为 $nT^2$ 亏格为 $n$ 的可定向闭曲面。
@@ -44,8 +50,20 @@ $$a_1a_1a_2a_2 \cdots a_mb_m \tag{P}$$
 
 这样一来我们证明了除了不重复之外的事情。
 
+---
+
+我们定义 Euler 示性数 $\chi = V - E + F$. 则 $nT^2$ 型的示性数 $2 - 2n$，$mP^2$ 型的示性数 $1 - m$.
+
+{% admonition(type="question", title="2025 P2") %}
+将 Klein 瓶表面挖去两个不相交的开圆盘，得到带边的紧曲面 $K$. 将 $K$ 拷贝两份，并将边界用恒同映射粘合，得到的曲面记为 $X$. 确定 $X$ 在闭曲面分类表中对应哪一种同胚型，并说明理由。
+{% end %}
+
+可以看成 $T^2$ 粘上两个 $2P^2$. 由于不可定向，用示性数算得 $6P^2$.
+
 ### 基本概念
+{% admonition(type="definition", title="同伦") %}
 对 $f, g \in C(X, Y)$，称它们**同伦** $f \simeq g$，如果存在连续映射 $H: X \times I \to Y$ 使得 $H(x, 0) = f(x), H(x, 1) = g(x)$. 此时称 $H$ 是 $f$ 与 $g$ 之间的同伦。
+{% end %}
 
 如果 $f$ 同伦于常值映射，称 $f$ 是零伦的。
 
@@ -68,6 +86,7 @@ $$a_1a_1a_2a_2 \cdots a_mb_m \tag{P}$$
 与单点空间同伦等价的称为**可缩空间**，此时其任一点都是形变收缩核。
 
 ## 基本群
+### 基本群
 {% admonition(type="definition", title="基本群") %}
 给定空间 $X$ 与点 $x$，以基点 $x$ 的道路的同伦类为元素，道路的拼接为乘法，易见构成群，记作 $\pi_1(X, x)$.
 {% end %}
@@ -126,6 +145,13 @@ $$\varphi(i' _\pi(\alpha) i'' _\pi(\alpha^{-1})) = (j') _\pi i' _\pi(\alpha) \cd
 
 使用此定理可以得到，对于 $nT^2$ 型曲面，$\pi_1(X)$ 的交换化是 $\Z^{2n}$，对于 $mP^2$ 型曲面，交换化是 $\Z^{m-1} \times \Z/2\Z$，故各不相同。基本群本身则恰好是所有的生成元商去多边形表示看成生成元关系的结果。
 
+{% admonition(type="question", title="Wirtinger presentation") %}
+关于对扭结 $K$ 的 $\pi_1(\mathbb{E}^3 \setminus K)$ 的一般算法，见 Hatcher 习题 1.2.22.
+{% end %}
+
+取基点在桌面下方。仿照 Van-Kampen 证明，只需证明每个 $S_l$ 处只给出关系 $x_ix_jx_i^{-1} = x_k$ 即可。交换化后所有的生成元相等。
+
+### 典型应用
 基本群（及高阶同伦群）的典型应用如下：
 
 {% admonition(type="theorem", title="Brouwer 不动点定理") %}
@@ -164,6 +190,7 @@ $$
 关于 $g$ 的构造略去。
 
 ## 复叠空间
+### 复叠空间
 {% admonition(type="definition", title="复叠空间") %}
 对道路连通、局部道路连通的空间 $X, \tilde{X}$，称 $p: \tilde{X} \to X$ 为 $X$ 上的**复（覆）叠（迭）空间**，如果对任一 $x \in X$ 存在开邻域 $U$，满足 $p^{-1}(U)$ 是一族不交开集 $\set{V_\alpha}$ 的并，且 $p$ 把每个 $V_\alpha$ 同胚地映成 $U$. 此时称 $X$ 为底空间，满足上述性质的 $U$ 为基本邻域，$p^{-1}(x)$ 为 $x$ 上的纤维，其基数称为**叶/页/层数**。
 {% end %}
@@ -189,13 +216,13 @@ $$
 
 令 $A = \set{x \in X | \tilde{f_1}(x) = \tilde{f_2}(x)}$，只需证 $A$ 既开又闭。用定义取出 $A$ 及 $A^\complement$ 任一点的邻域即可。
 
-其推论是，对 $X$ 中道路 $\gamma$，设 $\gamma(0) = x$ 及 $e \in p^{-1}(x)$，存在唯一提升 $\tilde{\gamma}$ 使 $\tilde{\gamma}(0) = e$. 这里存在性是用 $[0, 1]$ 的紧性：对 $\gamma(I)$ 中的点的基本邻域，所有 $\gamma^{-1}(U)$ 是一个覆盖，取有限子覆盖，在 $\tilde{X}$ 中使用粘接引理即可。
+其推论是，对 $X$ 中道路 $\gamma$，设 $\gamma(0) = x$ 及 $\tilde{x} \in p^{-1}(x)$，存在唯一提升 $\tilde{\gamma}$ 使 $\tilde{\gamma}(0) = \tilde{x}$. 这里存在性是用 $[0, 1]$ 的紧性：对 $\gamma(I)$ 中的点的基本邻域，所有 $\gamma^{-1}(U)$ 是一个覆盖，取有限子覆盖，在 $\tilde{X}$ 中使用粘接引理即可。
 
 {% admonition(type="note", title="紧性的使用") %}
 这里以我无法想到的方式利用了紧性。如果从 $0$ 处开始每次在邻域中取点作新的邻域，则很难说明为什么会在有限步终止。
 {% end %}
 
-容易看到对 $e \in p^{-1}(x)$，有一个单同态 $p_\pi: \pi_1(\tilde{X}, e) \to \pi_1(X, x)$. 有 $[\pi_1(X, x) : p_\pi(\pi_1(\tilde{X}, e))]$ 等于 $p$ 的叶数。
+容易看到对 $\tilde{x} \in p^{-1}(x)$，有一个单同态 $p_\pi: \pi_1(\tilde{X}, \tilde{x}) \to \pi_1(X, x)$. 有 $[\pi_1(X, x) : p_\pi(\pi_1(\tilde{X}, \tilde{x}))]$ 等于 $p$ 的叶数。
 
 {% admonition(type="theorem", title="同伦提升定理") %}
 $$
@@ -208,3 +235,82 @@ $$
 
 存在 $\tilde{F}: Y \times I \to \tilde{X}$ 使图表交换。
 {% end %}
+
+构造方式略。只需证其连续。若 $F(\set{y} \times [s, t])$ 在某个基本邻域中，且 $\tilde{F}$ 的 $s$-切片在 $y$ 连续，则存在 $y$ 的邻域 $W$ 使得 $\tilde{F}$ 在 $W \times [s, t]$ 连续。
+
+{% admonition(type="theorem", title="映射提升定理") %}
+对道路连通、局部道路连通的 $Y$ 及 $f: Y \to X$, $f(y) = p(\tilde{x}) = x$，则存在 $f$ 的提升使 $\tilde{f}(y) = \tilde{x}$ 当且仅当 $f_\pi(\pi_1(Y, y)) \subseteq p_\pi(\pi_1(\tilde{X}, \tilde{x}))$.
+{% end %}
+
+仿照之前证明。
+
+### 复叠变换
+{% admonition(type="definition", title="复叠变换") %}
+复叠变换是满足 $p \circ h = p$ 的 $\tilde{X}$ 自同胚，也即 $(\tilde{X}, p)$ 的自同构，记作 $\mathrm{Deck}(\tilde{X}/X)$.
+{% end %}
+
+有 $\mathrm{Deck}(\tilde{X}/X) \cong \pi_1(X)$.
+
+如果 $p^{-1}(x)$ 的每一点都可被自同胚映作另外每一点（即群作用可递），则称 $\tilde{X}$ 是 $X$ 的**正则复叠**。这等价于对每个 $\tilde{x}$，$p_\pi(\pi_1(\tilde{X}, \tilde{x}))$ 是 $\pi_1(X, p(\tilde{x}))$ 的正规子群。
+
+{% admonition(type="definition", title="万有复叠") %}
+如果复叠空间 $\tilde{X}$ 是单连通的，就称为**万有/泛复叠**。
+{% end %}
+
+容易证明万有复叠在 $X$ 上同构意义下唯一。
+
+{% admonition(type="theorem", title="复叠空间存在定理") %}
+如果 $X$ 道路连通、局部道路连通、半局部单连通，则它有万有复叠空间。
+{% end %}
+
+取一点 $x$，让 $\tilde{X}$ 是以 $x$ 为起点的道路类集合，$p$ 把道路类映到其终点，有 $p$ 是满的。
+
+记集合 $(\alpha, U)$ 包含所有 $\alpha \omega$，其中 $\omega$ 是 $U$ 中起点为 $\alpha$ 终点的道路。所有 $\alpha \in \tilde{X}$ 与 $\alpha(1)$ 的道路连通开邻域 $U$ 对应的 $(\alpha, U)$ 构成拓扑基 $\mathscr{B}$，规定 $\tilde{X}$ 上的拓扑是由 $\mathscr{B}$ 生成的。现在有 $p$ 连续且开。
+
+对 $X$ 中的点，其半单连通的开邻域是一个基本邻域。
+
+---
+
+$S^1 \vee S^1$ 的万有复叠如图：
+
+![万有复叠](/images/geometry/covering_space_1.jpg)
+
+其推论是对 $\pi_1(X, x)$ 的子群 $H$，存在复叠空间 $p: X_H \to X$ 使得对恰当的 $\tilde{x}$ 有：
+
+$$p_\ast(\pi_1(X_H, \tilde{x})) = H$$
+
+这是因为可以取万有复叠，然后粘起来。
+
+{% admonition(type="question", title="2024 P6") %}
+设 $\pi_1(S^1 \vee S^1) = \braket{a, b}$. 求复叠空间，使其基本群表示为 $\braket{a^2, b^2, (ab)^4}$ 在 $\braket{a, b}$ 的正规闭包。
+{% end %}
+
+![复叠](/images/geometry/covering_space_3.jpg)
+
+{% admonition(type="question", title="2024 P4") %}
+求 $\R\mathrm{P}^2 \vee \R\mathrm{P}^2$ 所有连通的复叠空间。
+{% end %}
+
+{% admonition(type="question", title="2025 P6") %}
+令 $X = \Complex \setminus \Z$，即复平面上挖掉所有实轴上的整点得到的空间。证明：$X$ 存在万有复叠，且其万有复叠空间同胚于平面。
+{% end %}
+
+由于得到的空间是二维流形，且单连通、不紧，由黎曼单值化定理只能（同胚于）平面。
+
+或者有构造：
+
+![万有复叠](/images/geometry/covering_space_2.jpg)
+
+{% admonition(type="definition", title="自由不连续") %}
+群作用 $G \to \mathrm{Homeo}(X)$ 称为**自由不连续**的，如果对每个点 $x$ 存在开邻域 $U$，使得对所有 $g \in G$，有 $gU \cap U \neq \emptyset \iff g = 1$.
+{% end %}
+
+如 $\mathbb{E}^2$ 上变换 $g(x, y) = (x+1, y)$ 与 $h(x, y) = (-x, y+1)$ 生成的群给出的作用。
+
+{% admonition(type="definition", title="恰当不连续") %}
+群作用 $G \to \mathrm{Homeo}(X)$ 称为**恰当不连续**的，如果对任意紧集 $K$，$gK \cap K \neq \emptyset$ 只对有限多个 $g$ 成立。
+{% end %}
+
+如平面上整格平移和关于原点中心对称生成的作用。
+
+一个非恰当不连续的例子是对 $a > 0$ 取 $\tau_a(x, y) = (ax, a^{-1}y)$.
