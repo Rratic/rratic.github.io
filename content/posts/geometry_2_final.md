@@ -1,6 +1,6 @@
 +++
-title = "【草稿】几何学Ⅱ期末复习笔记"
-date = 2026-06-20
+title = "几何学Ⅱ期末复习笔记"
+date = 2026-06-21
 
 [extra]
 math = true
@@ -14,7 +14,7 @@ categories = ["知识"]
 tags = ["笔记", "数学", "拓扑", "代数拓扑"]
 +++
 
-下半学期的内容是基本群和复叠空间。本文主要是啃一些大定理的证明。参考尤承业《基础拓扑学讲义》及 Allen Hatcher 的 *Algebraic Topology* 第一章。
+下半学期的内容是基本群和复叠空间。参考尤承业《基础拓扑学讲义》及 Allen Hatcher 的 *Algebraic Topology* 第一章。
 
 <!-- more -->
 
@@ -85,6 +85,10 @@ $$a_1a_1a_2a_2 \cdots a_mb_m \tag{P}$$
 
 与单点空间同伦等价的称为**可缩空间**，此时其任一点都是形变收缩核。
 
+{% admonition(type="note", title="有用的定理") %}
+当 $(X, A)$ 是一个 CW 对，且 $A$ 可缩时，$X \to X/A$ 是一个同伦等价。
+{% end %}
+
 ## 基本群
 ### 基本群
 {% admonition(type="definition", title="基本群") %}
@@ -145,11 +149,9 @@ $$\varphi(i' _\pi(\alpha) i'' _\pi(\alpha^{-1})) = (j') _\pi i' _\pi(\alpha) \cd
 
 使用此定理可以得到，对于 $nT^2$ 型曲面，$\pi_1(X)$ 的交换化是 $\Z^{2n}$，对于 $mP^2$ 型曲面，交换化是 $\Z^{m-1} \times \Z/2\Z$，故各不相同。基本群本身则恰好是所有的生成元商去多边形表示看成生成元关系的结果。
 
-{% admonition(type="question", title="Wirtinger presentation") %}
-关于对扭结 $K$ 的 $\pi_1(\mathbb{E}^3 \setminus K)$ 的一般算法，见 Hatcher 习题 1.2.22.
+{% admonition(type="note", title="Wirtinger presentation") %}
+这是一个关于对扭结 $K$ 的 $\pi_1(\mathbb{E}^3 \setminus K)$ 的一般算法，见 Hatcher 习题 1.2.22. 可以取基点在桌面下方，生成元是绕过 $\alpha_i$ 的圈（取定定向）来想象。
 {% end %}
-
-取基点在桌面下方。仿照 Van-Kampen 证明，只需证明每个 $S_l$ 处只给出关系 $x_ix_jx_i^{-1} = x_k$ 即可。交换化后所有的生成元相等。
 
 ### 典型应用
 基本群（及高阶同伦群）的典型应用如下：
@@ -219,7 +221,7 @@ $$
 其推论是，对 $X$ 中道路 $\gamma$，设 $\gamma(0) = x$ 及 $\tilde{x} \in p^{-1}(x)$，存在唯一提升 $\tilde{\gamma}$ 使 $\tilde{\gamma}(0) = \tilde{x}$. 这里存在性是用 $[0, 1]$ 的紧性：对 $\gamma(I)$ 中的点的基本邻域，所有 $\gamma^{-1}(U)$ 是一个覆盖，取有限子覆盖，在 $\tilde{X}$ 中使用粘接引理即可。
 
 {% admonition(type="note", title="紧性的使用") %}
-这里以我无法想到的方式利用了紧性。如果从 $0$ 处开始每次在邻域中取点作新的邻域，则很难说明为什么会在有限步终止。
+看完的感受是紧性生来就是这么用的。如果从 $0$ 处开始每次在邻域中取点作新的邻域，则很难说明为什么会在有限步终止。
 {% end %}
 
 容易看到对 $\tilde{x} \in p^{-1}(x)$，有一个单同态 $p_\pi: \pi_1(\tilde{X}, \tilde{x}) \to \pi_1(X, x)$. 有 $[\pi_1(X, x) : p_\pi(\pi_1(\tilde{X}, \tilde{x}))]$ 等于 $p$ 的叶数。
@@ -249,9 +251,13 @@ $$
 复叠变换是满足 $p \circ h = p$ 的 $\tilde{X}$ 自同胚，也即 $(\tilde{X}, p)$ 的自同构，记作 $\mathrm{Deck}(\tilde{X}/X)$.
 {% end %}
 
-有 $\mathrm{Deck}(\tilde{X}/X) \cong \pi_1(X)$.
+如果 $p^{-1}(x)$ 的每一点都可被自同胚映作另外每一点（即群作用可递），则称 $\tilde{X}$ 是 $X$ 的**正则复叠**。
 
-如果 $p^{-1}(x)$ 的每一点都可被自同胚映作另外每一点（即群作用可递），则称 $\tilde{X}$ 是 $X$ 的**正则复叠**。这等价于对每个 $\tilde{x}$，$p_\pi(\pi_1(\tilde{X}, \tilde{x}))$ 是 $\pi_1(X, p(\tilde{x}))$ 的正规子群。
+使用映射提升引理，知这等价于对每个 $\tilde{x}$，$p_\pi(\pi_1(\tilde{X}, \tilde{x}))$ 是 $\pi_1(X, p(\tilde{x}))$ 的正规子群。
+
+记 $G = \pi_1(X, x)$ 及 $H = p_\pi(\pi_1(\tilde{X}, \tilde{x}))$，用 $N$ 表示正规化子，有：
+
+$$\mathrm{Deck}(\tilde{X}/X) \cong N_G(H) / H$$
 
 {% admonition(type="definition", title="万有复叠") %}
 如果复叠空间 $\tilde{X}$ 是单连通的，就称为**万有/泛复叠**。
@@ -275,27 +281,29 @@ $S^1 \vee S^1$ 的万有复叠如图：
 
 ![万有复叠](/images/geometry/covering_space_1.jpg)
 
-其推论是对 $\pi_1(X, x)$ 的子群 $H$，存在复叠空间 $p: X_H \to X$ 使得对恰当的 $\tilde{x}$ 有：
-
-$$p_\ast(\pi_1(X_H, \tilde{x})) = H$$
-
-这是因为可以取万有复叠，然后粘起来。
-
 {% admonition(type="question", title="2024 P6") %}
 设 $\pi_1(S^1 \vee S^1) = \braket{a, b}$. 求复叠空间，使其基本群表示为 $\braket{a^2, b^2, (ab)^4}$ 在 $\braket{a, b}$ 的正规闭包。
 {% end %}
 
 ![复叠](/images/geometry/covering_space_3.jpg)
 
+一般的方法是，让 $Q = \braket{a, b} / [\braket{a^2, b^2, (ab)^4}]$ 中的每一个元素是一个顶点，连边 $q \to qa$ 与 $q \to qb$. 这相当于直接在万有复叠上把对应的值粘起来。
+
+---
+
+一般地在万有复叠构造上将特定的道路粘起来，知保持基点的复叠等价类与 $\pi_1(X, x)$ 的子群一一对应。
+
 {% admonition(type="question", title="2024 P4") %}
 求 $\R\mathrm{P}^2 \vee \R\mathrm{P}^2$ 所有连通的复叠空间。
 {% end %}
+
+只需考虑 $\Z/2\Z \ast \Z/2\Z$ 的子群。我们把它看成无限二面体群（$ab$ 是旋转，$b$ 是对称），知非平凡的子群有无限循环子群 $\braket{(ab)^n}$，二阶循环子群 $\braket{(ab)^m a}$ 及无限二面体子群 $\braket{(ab)^n, (ab)^m a}$.
 
 {% admonition(type="question", title="2025 P6") %}
 令 $X = \Complex \setminus \Z$，即复平面上挖掉所有实轴上的整点得到的空间。证明：$X$ 存在万有复叠，且其万有复叠空间同胚于平面。
 {% end %}
 
-由于得到的空间是二维流形，且单连通、不紧，由黎曼单值化定理只能（同胚于）平面。
+由于得到的空间是二维流形（其中第二可数可能需要用定理的构造），且单连通、不紧，由黎曼单值化定理只能（同胚于）平面。
 
 或者有构造：
 
@@ -314,3 +322,38 @@ $$p_\ast(\pi_1(X_H, \tilde{x})) = H$$
 如平面上整格平移和关于原点中心对称生成的作用。
 
 一个非恰当不连续的例子是对 $a > 0$ 取 $\tau_a(x, y) = (ax, a^{-1}y)$.
+
+{% admonition(type="theorem", title="命题") %}
+对 $X$ 局部紧 Hausdorff 及 $G$ 在 $X$ 上恰当不连续群作用，有 $X/G$ 局部紧 Hausdorff. 且如果 $G$ 无挠（$g \neq 1 \implies g^n \neq 1$），则该作用自由不连续，这使得 $X \to X/G$ 是正则复叠。
+{% end %}
+
+证明略。
+
+---
+
+考虑模群 $\mathrm{SL}(2, \Z)$ 的无挠子群：
+
+$$\Gamma(2) = \ker (\mathrm{SL}(2, \Z) \to \mathrm{SL}(2, \Z/2))$$
+
+有 $\mathrm{UHP} \to \mathrm{UHP}/\Gamma(2)$ 是正则复叠，商 $\mathrm{UHP}/\Gamma(2)$ 是一个“双曲曲面”。
+
+## 补充
+一些与上半学期的联系。
+
+{% admonition(type="definition", title="几何结构") %}
+设 $(X, G)$ 是某种“几何”，流形 $M$ 上一个局部 $(X, G)$-几何结构是指一族图卡 $\set{U _\alpha, \varphi _\alpha} _{\alpha \in A}$ 满足 $\Phi _{\alpha\beta}: \varphi _\beta(U _\alpha \cap U _\beta) \to \varphi _\alpha(U _\alpha \cap U _\beta)$ 由 $G$ 中变换实现。
+{% end %}
+
+闭曲面有平面/球面/双曲三种几何结构之一。在 $3$ 维的版本是 Thurston 几何化纲领。
+
+{% admonition(type="theorem", title="命题") %}
+度量完备、单连通、Gauss 曲率恒 $-1$ 的曲面 $M$ 等距同构于 $\mathbb{H}^2$.
+{% end %}
+
+用测地参数系证局部等距同构存在，再证等距同构存在。
+
+{% admonition(type="question", title="2025 P7") %}
+给定区域 $U$ 上的光滑函数 $E, F, G, L, M, N$，满足曲面论基本定理中的正定性条件和 Gauss-Codazzi 方程组给出的相容性条件。问：当 $U$ 是单连通区域时，是否存在参数曲面片 $\varphi: U \to \mathbb{E}^3$，使得其第一第二类基本量分别为 $E, F, G, L, M, N$？说明理由。
+{% end %}
+
+存在。通过曲面论基本定理及紧知可以延拓，只需证明延拓与道路无关。取 $H: \gamma_0 \simeq \gamma_1$，用 $I \times I$ 的紧性即可。
