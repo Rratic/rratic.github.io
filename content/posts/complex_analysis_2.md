@@ -13,7 +13,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["笔记", "数学", "分析", "复分析"]
+tags = ["数学", "分析学"]
 +++
 
 > 一般认为 Cauchy 积分理论、Weierstrass 级数理论和共形映射理论是单复变函数理论中的三个最重要的组成部分。

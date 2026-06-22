@@ -6,7 +6,7 @@ updated = 2024-12-01
 
 [taxonomies]
 categories = ["杂物"]
-tags = ["展示", "游戏"]
+tags = ["游戏"]
 +++
 
 <style>

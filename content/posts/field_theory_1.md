@@ -16,7 +16,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["笔记", "数学", "代数", "域论", "Galois 理论"]
+tags = ["数学", "代数学"]
 +++
 
 封面图来自知乎上阐释的一个[使用拓扑 Galois 理论的证明](https://www.zhihu.com/question/29316970/answer/151649630)。

@@ -11,7 +11,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["笔记", "数学", "拓扑", "代数拓扑"]
+tags = ["数学", "拓扑学"]
 +++
 
 下半学期的内容是基本群和复叠空间。参考尤承业《基础拓扑学讲义》及 Allen Hatcher 的 *Algebraic Topology* 第一章。

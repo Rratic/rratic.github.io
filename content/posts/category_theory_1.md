@@ -13,7 +13,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["笔记", "数学", "范畴论"]
+tags = ["数学", "范畴论"]
 +++
 
 {{ ref_index(to = "category-theory") }}

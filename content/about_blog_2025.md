@@ -5,10 +5,6 @@ updated = 2025-04-24
 
 [extra]
 toc = true
-
-[taxonomies]
-categories = ["项目"]
-tags = ["发布"]
 +++
 
 ## 为什么要写博客 {#why-blog}

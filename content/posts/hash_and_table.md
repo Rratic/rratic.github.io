@@ -11,7 +11,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["笔记", "计算机", "算法"]
+tags = ["计算机", "算法"]
 +++
 
 参考阅读

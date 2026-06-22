@@ -11,7 +11,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["笔记", "数学", "基石"]
+tags = ["数学", "基石"]
 +++
 
 ETCS 是 Lawvere 的集合范畴基本理论[^etcs-1] [^etcs-2]（Elementary Theory of the Category of Sets）。

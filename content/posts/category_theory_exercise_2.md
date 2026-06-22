@@ -10,7 +10,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["笔记", "数学", "范畴论"]
+tags = ["数学", "范畴论"]
 +++
 
 做一些 Mac Lane 书上 Ⅲ. Universals and Limits 的习题（从 2. The Yoneda Lemma 开始，前面的在[练习一](@/posts/category_theory_exercise_1.md)）。

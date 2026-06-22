@@ -11,7 +11,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["笔记", "计算机", "密码学"]
+tags = ["计算机", "密码学"]
 +++
 
 主要参考的是 An Introduction to Mathematical Cryptography 第二、三、四章。

@@ -15,10 +15,6 @@ height = 450
 
 [extra.sitemap]
 priority = "0.0"
-
-[taxonomies]
-categories = ["项目"]
-tags = ["展示"]
 +++
 
 ## Markdown

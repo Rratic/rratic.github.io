@@ -5,6 +5,7 @@ updated = 2026-04-08
 
 [taxonomies]
 categories = ["杂物"]
+tags = ["计算机"]
 +++
 
 有时我们想要排版出一份数学/物理试卷或者 cheatsheet, 可能涉及到数学公式、代码块，并以 PDF 形式给出，但是不希望使用麻烦的 PDF 编辑器或者 Word, 也不希望使用一整套 [pdftex](https://tug.org/applications/pdftex/). 此时可用此流程，只需用到 [VSCode](https://code.visualstudio.com/) 与一个浏览器。

@@ -7,7 +7,7 @@ date = 2026-01-27
 priority = "0.8"
 
 [taxonomies]
-categories = ["知识"]
+categories = ["杂物"]
 tags = ["计算机"]
 +++
 

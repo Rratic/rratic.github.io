@@ -8,7 +8,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["笔记", "计算机", "图形学"]
+tags = ["计算机", "图形学"]
 +++
 
 参考了[数学公式模拟大自然：雪山大海的日出日落](https://zhuanlan.zhihu.com/p/30586157351)。

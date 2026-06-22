@@ -5,7 +5,7 @@ title = "#域论"
 math = true
 
 [taxonomies]
-tags = ["数学", "代数", "域论"]
+tags = ["数学", "代数学"]
 +++
 
 ## 基本概念

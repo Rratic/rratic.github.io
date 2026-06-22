@@ -13,7 +13,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["笔记", "数学", "计算机", "函数式编程", "可运行"]
+tags = ["数学", "计算机", "函数式编程", "可运行"]
 +++
 
 {{ ref_index(to = "functional-programming") }}

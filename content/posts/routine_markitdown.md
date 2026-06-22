@@ -4,6 +4,7 @@ date = 2026-06-11
 
 [taxonomies]
 categories = ["杂物"]
+tags = ["计算机"]
 +++
 
 很早听说微软的 [MarkItDown](https://github.com/microsoft/markitdown) 工具，简单尝试。由于本地空间有限，我在学校提供的云计算实验平台 [PKU CLab](https://clab.pku.edu.cn/) 上配置了一个 Ubuntu 环境，在我的 Windows 中远程连接。

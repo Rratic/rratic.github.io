@@ -11,7 +11,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["笔记", "计算机", "函数式编程"]
+tags = ["计算机", "函数式编程"]
 +++
 
 主要包含使用 Bird Meertens Formalism 导出高效程序与进行自动并行化。
