@@ -8,6 +8,7 @@ toc = true
 ## CHANGELOG
 {% shell(text = "2025-06-22 大更改") %}
 - 移除了大量标签，重命名了少量标签
+- 更改了 playground 路径
 {% end %}
 
 {% shell(text = "2025/12/17 大更改") %}

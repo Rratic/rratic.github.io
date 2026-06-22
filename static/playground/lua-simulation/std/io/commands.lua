@@ -111,7 +111,7 @@ register({
 register({
 	name = "require",
 	abnf = "commands.require(path: string)",
-	description = "从路径 `/script/chaos/{path}/lib.lua` 导入代码",
+	description = "从路径 `/playground/lua-simulation/{path}/lib.lua` 导入代码",
 	f = function(self)
 		if self.args.n == 1 then
 			local str = self.args[1]

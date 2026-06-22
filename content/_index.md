@@ -7,7 +7,7 @@ template = "my_index.html"
 profile = "rratic"
 +++
 
-[本站说明](about-blog-2025/) | [FAQs](faqs/) | [友链](friend-links/)
+[本站说明](about-blog-2025/) | [FAQs](faqs/) | [友链](friend-links/) | [交互页面索引](playgrounds/)
 
 {{ quote_display(id="main", text="点此生成引用。") }}
 

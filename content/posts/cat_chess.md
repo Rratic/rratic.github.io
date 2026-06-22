@@ -9,7 +9,7 @@ image = "/images/cover/cat_chess.png"
 
 [taxonomies]
 categories = ["杂物"]
-tags = ["游戏", "可运行"]
+tags = ["游戏"]
 +++
 
 注：本文迁移自之前的文章集，最初设计的原因是希望做一个新奇的棋类游戏作为娱乐活动
@@ -41,4 +41,4 @@ tags = ["游戏", "可运行"]
 ## 交互
 AI 采用了 α-β 剪枝算法。棋盘评估函数不一定合理。
 
-> > > [在此打开](/playground/cat_chess.html)
+> > > [在此打开](/playground/cat-chess/)

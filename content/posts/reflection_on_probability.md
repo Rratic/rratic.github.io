@@ -13,7 +13,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["数学", "概率论", "统计学", "可运行"]
+tags = ["数学", "概率论", "统计学"]
 +++
 
 前置知识
@@ -40,7 +40,7 @@ tags = ["数学", "概率论", "统计学", "可运行"]
 
 该问题以各种途径传播，引起了极大的争议。
 
-[我们来做一次模拟。](/playground/simulation_three_door.html)
+[我们来做一次模拟。](/playground/three-door/)
 
 {% shell(text = "关于模拟的配置说明。") %}
 随机源只支持默认随机源 `Math.random()`，其使用系统熵源，随机算法取决于具体实现，如 [xorshift128+](https://github.com/v8/v8/blob/master/src/base/utils/random-number-generator.cc)，`pcg32` 及 `arc4random_buf`

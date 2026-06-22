@@ -56,9 +56,9 @@ Fact = λf. λn. IfThenElse (IsZero n) 1 (Mul n (f (Prev n)))
 @eval write_your_expr_here</span>
 		</div>
 	</div>
-	<script src="/script/chaos/keydown.js"></script>
+	<script src="/playground/lua-simulation/keydown.js"></script>
 	<script type="module">
-		import init, { Context } from '/script/lambda/stt.js';
+		import init, { Context } from './stt.js';
 
 		function is_ident(token) {
 			return /^[a-zA-Z0-9_]*$/.test(token);
