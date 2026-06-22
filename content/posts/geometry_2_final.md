@@ -1,6 +1,6 @@
 +++
 title = "几何学Ⅱ期末复习笔记"
-date = 2026-06-21
+date = 2026-06-22
 
 [extra]
 math = true
@@ -52,7 +52,7 @@ $$a_1a_1a_2a_2 \cdots a_mb_m \tag{P}$$
 
 ---
 
-我们定义 Euler 示性数 $\chi = V - E + F$. 则 $nT^2$ 型的示性数 $2 - 2n$，$mP^2$ 型的示性数 $1 - m$.
+我们定义 Euler 示性数 $\chi = V - E + F$. 则 $nT^2$ 型的示性数 $2 - 2n$，$mP^2$ 型的示性数 $2 - m$.
 
 {% admonition(type="question", title="2025 P2") %}
 将 Klein 瓶表面挖去两个不相交的开圆盘，得到带边的紧曲面 $K$. 将 $K$ 拷贝两份，并将边界用恒同映射粘合，得到的曲面记为 $X$. 确定 $X$ 在闭曲面分类表中对应哪一种同胚型，并说明理由。
@@ -81,7 +81,7 @@ $$a_1a_1a_2a_2 \cdots a_mb_m \tag{P}$$
 
 称 $f: X \to Y$ 是一个**同伦等价**，如果存在 $g: Y \to X$ 使得 $g \circ f \simeq \mathrm{id}_X, f \circ g \simeq \mathrm{id}_Y$. 此时称 $X$ 和 $Y$ 有相同的伦型 $X \simeq Y$. 这个关系比同胚弱（我们用 $X \cong Y$ 表示同胚）。
 
-对 $A \subseteq X$ 及含入映射 $i: A \hookrightarrow X$，若存在 $r: X \to A$ 是收缩映射（$r \circ i = \mathrm{id}_A$），使得 $i \circ r \simeq \mathrm{id}_X$，则称 $A$ 是 $X$ 的**形变收缩核**。对应的 $H: \mathrm{id}_X \simeq i \circ r$ 称为一个形变收缩。如果 $H$ 还满足保持 $A$ 中的点不动，则称之为**强形变收缩**。
+对 $A \subseteq X$ 及含入映射 $i: A \hookrightarrow X$，若存在 $r: X \to A$ 是收缩映射（$r \circ i = \mathrm{id}_A$），使得 $i \circ r \simeq \mathrm{id}_X$，则称 $A$ 是 $X$ 的**形变收缩核**。对应的 $H: \mathrm{id}_X \simeq i \circ r$ 称为一个形变收缩。如果 $H$ 还满足保持 $A$ 中的点不动，则称之为**强形变收缩**。注意这是同伦等价的特例。
 
 与单点空间同伦等价的称为**可缩空间**，此时其任一点都是形变收缩核。
 
@@ -96,6 +96,8 @@ $$a_1a_1a_2a_2 \cdots a_mb_m \tag{P}$$
 {% end %}
 
 若 $X$ 道路连通，易见基本群（的同构型）与 $x$ 无关，记作 $\pi_1(X)$. 道路连通且基本群平凡的空间称为**单连通**的。
+
+易见同伦等价的空间的基本群是同构的。
 
 {% admonition(type="note", title="高阶同伦群") %}
 $n$ 阶同伦群 $\pi_n(X, x)$ 的元素是从 $S^n$ 到 $X$ 带基点 $x$ 的连续映射的同伦类。若把 $S^n$ 视作 $I^n/\partial I^n$，则乘积定义为在第一个坐标上拼接。在 $n \geq 2$ 时一定是交换群。
@@ -281,6 +283,10 @@ $S^1 \vee S^1$ 的万有复叠如图：
 
 ![万有复叠](/images/geometry/covering_space_1.jpg)
 
+$z \mapsto z^3$ 的映射柱（这带有 $2$-胞腔）的万有复叠如图：
+
+![万有复叠](/images/geometry/covering_space_cw_2.jpg)
+
 {% admonition(type="question", title="2024 P6") %}
 设 $\pi_1(S^1 \vee S^1) = \braket{a, b}$. 求复叠空间，使其基本群表示为 $\braket{a^2, b^2, (ab)^4}$ 在 $\braket{a, b}$ 的正规闭包。
 {% end %}
@@ -292,6 +298,10 @@ $S^1 \vee S^1$ 的万有复叠如图：
 ---
 
 一般地在万有复叠构造上将特定的道路粘起来，知保持基点的复叠等价类与 $\pi_1(X, x)$ 的子群一一对应。
+
+{% admonition(type="note", title="自由群的子群是自由群") %}
+设自由群 $F$ 是图 $X$ 的基本群，取它的复叠对应 $F$ 的子群，这个复叠仍然是图。可以通过生成树证明图的基本群是自由群。
+{% end %}
 
 {% admonition(type="question", title="2024 P4") %}
 求 $\R\mathrm{P}^2 \vee \R\mathrm{P}^2$ 所有连通的复叠空间。

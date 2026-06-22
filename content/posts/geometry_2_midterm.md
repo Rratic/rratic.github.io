@@ -49,7 +49,7 @@ $$\tau = -\mathbf{b}'(s) \cdot \mathbf{n}(s)$$
 
 它在一般正则参数下是：
 
-$$\frac{((\dot\gamma(s) \times \ddot\gamma(s)) \cdot \dddot\gamma(s))}{\lVert \dot\gamma(s) \times \ddot\gamma(s) \rVert^2}$$
+$$\frac{(\dot\gamma(s) \times \ddot\gamma(s)) \cdot \dddot\gamma(s)}{\lVert \dot\gamma(s) \times \ddot\gamma(s) \rVert^2}$$
 
 一个有用的结论是：
 
