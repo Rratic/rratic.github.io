@@ -9,5 +9,6 @@ title = "交互页面索引"
 - [基于 Lua 的模拟环境](/playground/lua-simulation/) · [原文](@/posts/lua_simulation_environment.md)
 
 ## N-Z
+- [迷宫生成算法演示](/playground/maze-generation/) · [原文](@/posts/maze_generation.md)
 - [多面体展示](/playground/polyhedra/) · [原文](@/posts/polyhedra_symmetry.md)
 - [三门问题模拟](/playground/three-door/) · [原文](@/posts/reflection_on_probability.md)
