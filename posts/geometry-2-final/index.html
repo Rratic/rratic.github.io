@@ -1,0 +1,979 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>几何学Ⅱ期末复习笔记 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="几何学Ⅱ期末复习笔记" />
+  <meta name="description" content="下半学期的内容是基本群和复叠空间。参考尤承业《基础拓扑学讲义》及 Allen Hatcher 的 Algebraic Topology 第一章。" />
+  <meta property="og:description" content="下半学期的内容是基本群和复叠空间。参考尤承业《基础拓扑学讲义》及 Allen Hatcher 的 Algebraic Topology 第一章。" />
+  <meta property="og:url" content="https://rratic.top/posts/geometry-2-final/" />
+  <link rel="canonical" href="https://rratic.top/posts/geometry-2-final/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-06-22T00:00:00+00:00" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="拓扑学" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.top/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.top/style/shared.css?h=8cc71386e970b029328a" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">几何学Ⅱ期末复习笔记</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2026-06-22T00:00:00+00:00">2026-06-22</time><span
+        class="middot"></span><time
+    datetime="PT0H24M0S">24&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#yin-ru">引入</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#bi-qu-mian-fen-lei">闭曲面分类</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ji-ben-gai-nian">基本概念</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#ji-ben-qun">基本群</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ji-ben-qun-1">基本群</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#dian-xing-ying-yong">典型应用</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#fu-die-kong-jian">复叠空间</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#fu-die-kong-jian-1">复叠空间</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#fu-die-bian-huan">复叠变换</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#bu-chong">补充</a>
+      </li>
+    </ul>
+  </details>
+</nav>
+
+  <!-- Content -->
+  <section><p>下半学期的内容是基本群和复叠空间。参考尤承业《基础拓扑学讲义》及 Allen Hatcher 的 <em>Algebraic Topology</em> 第一章。</p>
+<span id="continue-reading"></span><style>
+	img:where(.dark,.dark *) {
+        filter: invert(100%);
+    }
+</style>
+<h2 id="yin-ru">引入</h2>
+<h3 id="bi-qu-mian-fen-lei">闭曲面分类</h3>
+<p>这里所说曲面是指二维（拓扑）流形，闭曲面是指没有边界点的紧致连通曲面。</p>
+
+<link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" type="text/css">
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-note);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/note.svg);"
+    >
+      note
+    </div>
+    <span><strong>关于可数</strong></span>
+  </div>
+  <div class="pl-4"><p>在《基础拓扑学讲义》中流形的定义没有第二可数的要求。这会带来一些病态的例子，如 Alexandroff 长直线：对 $\omega_1 \times [0, 1]$ 每一区间首尾相接。在听闻闭曲面分类定理时我疑心：如果有不可数个洞怎么办？但这里对闭曲面要求了紧致（这可以推出第二可数），是足够的。</p>
+</div>
+</div>
+<p>我们定义对闭曲面的“环柄”手术是在该闭曲面上挖一个洞（挖去一个开圆盘），在环面上挖一个洞，然后粘起来。把球面上安 $n$ 个环柄得到的称为 $nT^2$ 亏格为 $n$ 的可定向闭曲面。</p>
+<p>“交叉帽”是在洞口粘一条 Möbius 带，等效地说是把洞口的对径点粘合。把球面上安 $m$ 个交叉帽得到的称为 $mP^2$ 亏格为 $n$ 的不可定向闭曲面。有 $1P^2$ 就是 $P^2$，$2P^2$ 就是 Klein 瓶。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>闭曲面分类定理</strong></span>
+  </div>
+  <div class="pl-4"><p>球面、$\set{nT^2 | n \in \Z^+}$ 及 $\set{nP^2 | n \in \Z^+}$ 不重复地列出了闭曲面的所有拓扑类型。</p>
+</div>
+</div>
+<p>我们引入闭曲面的多边形表示：在一个偶数边的多边形上标字母和箭头，表示把对应的边粘在一起。我们选取一个顶点和顺/逆时针，可以简写为形如 $aba^{-1}b$ 的表达式（此例为 Klein 瓶）。</p>
+<p>通过三角剖分（存在冗长的初等证明），可以证明任一闭曲面都有多边形表示。对于多边形手术我们可以做两类手术：粘合相邻的 $aa^{-1}$；选定一个字母 $a$，沿着某条对角线剪开，然后沿 $a$ 粘在一起。我们可以得到标准的多边形表示：</p>
+<p>$$a_1b_1a_1^{-1}b_1^{-1} a_2b_2a_2^{-1}b_2^{-1} \cdots a_nb_na_n^{-1}b_n^{-1} \tag{T}$$</p>
+<p>$$a_1a_1a_2a_2 \cdots a_mb_m \tag{P}$$</p>
+<p>这样一来我们证明了除了不重复之外的事情。</p>
+<hr />
+<p>我们定义 Euler 示性数 $\chi = V - E + F$. 则 $nT^2$ 型的示性数 $2 - 2n$，$mP^2$ 型的示性数 $2 - m$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2025 P2</strong></span>
+  </div>
+  <div class="pl-4"><p>将 Klein 瓶表面挖去两个不相交的开圆盘，得到带边的紧曲面 $K$. 将 $K$ 拷贝两份，并将边界用恒同映射粘合，得到的曲面记为 $X$. 确定 $X$ 在闭曲面分类表中对应哪一种同胚型，并说明理由。</p>
+</div>
+</div>
+<p>可以看成 $T^2$ 粘上两个 $2P^2$. 由于不可定向，用示性数算得 $6P^2$.</p>
+<h3 id="ji-ben-gai-nian">基本概念</h3>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>同伦</strong></span>
+  </div>
+  <div class="pl-4"><p>对 $f, g \in C(X, Y)$，称它们<strong>同伦</strong> $f \simeq g$，如果存在连续映射 $H: X \times I \to Y$ 使得 $H(x, 0) = f(x), H(x, 1) = g(x)$. 此时称 $H$ 是 $f$ 与 $g$ 之间的同伦。</p>
+</div>
+</div>
+<p>如果 $f$ 同伦于常值映射，称 $f$ 是零伦的。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-note);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/note.svg);"
+    >
+      note
+    </div>
+    <span><strong>连续</strong></span>
+  </div>
+  <div class="pl-4"><p>这里说 $H$ 连续映射是指从积空间到 $Y$ 的按定义连续，而不是对两个参数分别连续。</p>
+</div>
+</div>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-note);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/note.svg);"
+    >
+      note
+    </div>
+    <span><strong>2-同伦</strong></span>
+  </div>
+  <div class="pl-4"><p>我们还可以讨论 $H, K: f \simeq g$ 之间的同伦 $F: X \times I \times I \to Y$，称为“$2$-同伦”。注意这和“$2$ 阶同伦”是不同的东西。</p>
+</div>
+</div>
+<p>对 $A \subseteq X$，如果 $H$ 还满足 $H(a, t) = f(t) = g(t)$，则称 $f$ 和 $g$ 相对于 $A$ 同伦 $f \simeq g \text{ rel } A$.</p>
+<p>设 $a, b$ 是 $X$ 上的两道路，如果 $a \simeq b \text{ rel } \set{0, 1}$，则称它们<strong>定端同伦</strong>。在此等价关系下 $X$ 所有道路的等价类称为 $X$ 的道路类。当起点、终点重合时称为基点。</p>
+<p>称 $f: X \to Y$ 是一个<strong>同伦等价</strong>，如果存在 $g: Y \to X$ 使得 $g \circ f \simeq \mathrm{id}_X, f \circ g \simeq \mathrm{id}_Y$. 此时称 $X$ 和 $Y$ 有相同的伦型 $X \simeq Y$. 这个关系比同胚弱（我们用 $X \cong Y$ 表示同胚）。</p>
+<p>对 $A \subseteq X$ 及含入映射 $i: A \hookrightarrow X$，若存在 $r: X \to A$ 是收缩映射（$r \circ i = \mathrm{id}_A$），使得 $i \circ r \simeq \mathrm{id}_X$，则称 $A$ 是 $X$ 的<strong>形变收缩核</strong>。对应的 $H: \mathrm{id}_X \simeq i \circ r$ 称为一个形变收缩。如果 $H$ 还满足保持 $A$ 中的点不动，则称之为<strong>强形变收缩</strong>。注意这是同伦等价的特例。</p>
+<p>与单点空间同伦等价的称为<strong>可缩空间</strong>，此时其任一点都是形变收缩核。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-note);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/note.svg);"
+    >
+      note
+    </div>
+    <span><strong>有用的定理</strong></span>
+  </div>
+  <div class="pl-4"><p>当 $(X, A)$ 是一个 CW 对，且 $A$ 可缩时，$X \to X/A$ 是一个同伦等价。</p>
+</div>
+</div>
+<h2 id="ji-ben-qun">基本群</h2>
+<h3 id="ji-ben-qun-1">基本群</h3>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>基本群</strong></span>
+  </div>
+  <div class="pl-4"><p>给定空间 $X$ 与点 $x$，以基点 $x$ 的道路的同伦类为元素，道路的拼接为乘法，易见构成群，记作 $\pi_1(X, x)$.</p>
+</div>
+</div>
+<p>若 $X$ 道路连通，易见基本群（的同构型）与 $x$ 无关，记作 $\pi_1(X)$. 道路连通且基本群平凡的空间称为<strong>单连通</strong>的。</p>
+<p>易见同伦等价的空间的基本群是同构的。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-note);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/note.svg);"
+    >
+      note
+    </div>
+    <span><strong>高阶同伦群</strong></span>
+  </div>
+  <div class="pl-4"><p>$n$ 阶同伦群 $\pi_n(X, x)$ 的元素是从 $S^n$ 到 $X$ 带基点 $x$ 的连续映射的同伦类。若把 $S^n$ 视作 $I^n/\partial I^n$，则乘积定义为在第一个坐标上拼接。在 $n \geq 2$ 时一定是交换群。</p>
+</div>
+</div>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>圈的基本群</strong></span>
+  </div>
+  <div class="pl-4"><p>$S^1$ 的基本群是 $\Z$.</p>
+</div>
+</div>
+<p>使用复叠空间，这里略过。</p>
+<p>读者容易证明，关于积空间有：</p>
+<p>$$\pi_1(X \times Y, (x, y)) \cong \pi_1(X, x) \times \pi_1(Y, y)$$</p>
+<p>从而 $\pi_1(T^2) = \Z \times \Z$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Van-Kampen 定理</strong></span>
+  </div>
+  <div class="pl-4"><p>如果拓扑空间 $X$ 可分解为开集 $U', U''$ 的并，$W = U' \cap U''$ 非空、道路连通，设：</p>
+<p>$$
+\begin{CD}
+W @&gt;i'&gt;&gt; U' \cr
+@Vi''VV @VVj'V \cr
+U'' @&gt;j''&gt;&gt; X
+\end{CD}
+$$</p>
+<p>用 $[S]$ 表示正规闭包，对 $w \in W$ 有 $\pi_1(X, w) \cong \pi$，其中：</p>
+<p>$$\pi = \pi_1(U', w) \ast \pi_1(U'', w) / [\set{i' _\pi(\alpha) i'' _\pi(\alpha^{-1}) | \alpha \in \pi_1(X, w)}]$$</p>
+</div>
+</div>
+<p>不妨设 $U', U''$ 同在 $W$ 所在道路连通分支中。</p>
+<p>同态 $(j') _\pi$ 与 $(j'') _\pi$ 唯一决定了一个 $\varphi: \pi _1(U', w) \ast \pi _1(U'', w) \to \pi _1(X, w)$. 它满足：</p>
+<p>$$\varphi(i' _\pi(\alpha) i'' _\pi(\alpha^{-1})) = (j') _\pi i' _\pi(\alpha) \cdot (j'') _\pi i'' _\pi(\alpha) = 1$$</p>
+<p>由 $\varphi$ 可以诱导出一个同态 $\Phi: \pi \to \pi_1(X, w)$，只需证它是同构。</p>
+<p>先证 $\Phi$ 是满的，只需 $\varphi$ 是满的。对 $\gamma \in \pi_1(X, w)$，由于 $[0, 1]$ 是紧的，可取到足够大的 $n$ 将 $[0, 1]$ 进行 $n$ 等分，使得每个区间对应道路全在 $U'$ 中或全在 $U''$ 中，指定分割点到 $w$ 的道路将每一段改造为以 $w$ 为基点的，就找到了原像。</p>
+<p>再证 $\Phi$ 是单的。对 $U'$ 或 $U''$ 中基点 $w$ 的道路 $\gamma$ 可以唯一指定 $\pi$ 中的一个元素 $[\gamma]$. 这一指定满足 $[\gamma \psi] = [\gamma] [\psi]$ 及在 $U'$ 或 $U''$ 中 $\gamma, \psi$ 定端同伦则 $[\gamma] = [\psi]$. 我们考察 $\varphi(\omega) = 1, \omega = [\gamma_1] \cdots [\gamma_n]$.</p>
+<p>取 $\gamma$ 使得 $\gamma|_{[(i-1)/n, i/n]} = \gamma_i$，有 $\gamma$ 到 $\mathrm{id}_w$ 的同伦 $H: I \times I \to X$. 取 $m = kn$ 将 $I \times I$ 等分，使得每个小方块全在 $U'$ 中或全在 $U''$ 中，可分析知 $\omega = 1$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-note);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/note.svg);"
+    >
+      note
+    </div>
+    <span><strong>改进</strong></span>
+  </div>
+  <div class="pl-4"><p>可以作改进：$U', U''$ 为闭集，$W$ 是它一个开邻域的强形变收缩核。</p>
+</div>
+</div>
+<p>使用此定理可以得到，对于 $nT^2$ 型曲面，$\pi_1(X)$ 的交换化是 $\Z^{2n}$，对于 $mP^2$ 型曲面，交换化是 $\Z^{m-1} \times \Z/2\Z$，故各不相同。基本群本身则恰好是所有的生成元商去多边形表示看成生成元关系的结果。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-note);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/note.svg);"
+    >
+      note
+    </div>
+    <span><strong>Wirtinger presentation</strong></span>
+  </div>
+  <div class="pl-4"><p>这是一个关于对扭结 $K$ 的 $\pi_1(\mathbb{E}^3 \setminus K)$ 的一般算法，见 Hatcher 习题 1.2.22. 可以取基点在桌面下方，生成元是绕过 $\alpha_i$ 的圈（取定定向）来想象。</p>
+</div>
+</div>
+<h3 id="dian-xing-ying-yong">典型应用</h3>
+<p>基本群（及高阶同伦群）的典型应用如下：</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Brouwer 不动点定理</strong></span>
+  </div>
+  <div class="pl-4"><p>$D^n \to D^n$ 连续映射一定存在不动点。</p>
+</div>
+</div>
+<p>假设没有不动点，则考虑 $g$ 如下：</p>
+<p>$$g(x) = \frac{x - f(x)}{|x - f(x)|}$$</p>
+<p>有 $\mathrm{id} _{S^{n-1}} \simeq g| _{S^{n-1}} = g \circ i$，而 $i: S^{n-1} \to D^n$ 是零伦的，矛盾。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Jordan 曲线定理</strong></span>
+  </div>
+  <div class="pl-4"><p>对 $\mathbb{E}^2$ 上一条 Jordan 曲线 $J$，有 $\mathbb{E}^2 \setminus J$ 有两个连通分支，且都以 $J$ 为边界。</p>
+</div>
+</div>
+<p>证明琐碎且用到 Tietze 扩张定理。由于存在初等证明，此处略去。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>区域不变性定理</strong></span>
+  </div>
+  <div class="pl-4"><p>对 $U \subseteq \R^n$ 开，$f: U \to \R^n$ 连续且单，有 $f$ 是 $U \to f(U)$ 的同胚。</p>
+</div>
+</div>
+<p>使用此可以得到“边界不变性” $\R^n \ncong \R^{n-1} \times [0, +\infty)$ 与“维数不变性” $\R^n \ncong \R^m$.</p>
+<p>只需要证 $f(U)$ 开，进一步只需要证 $f(B_0(1))$ 包含 $f(0)$ 的一个开邻域。假设存在反例，我们希望构造 $g: \R^n \to \R^n$ 满足：</p>
+<p>$$
+\begin{cases}
+|x - g(f(x))| \leq 1 \cr
+g(f(x)) \neq 0
+\end{cases}
+$$</p>
+<p>这会使得 $x \mapsto x - g(f(x))$ 为 $B^n \to B^n$ 连续函数，且无不动点。</p>
+<p>关于 $g$ 的构造略去。</p>
+<h2 id="fu-die-kong-jian">复叠空间</h2>
+<h3 id="fu-die-kong-jian-1">复叠空间</h3>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>复叠空间</strong></span>
+  </div>
+  <div class="pl-4"><p>对道路连通、局部道路连通的空间 $X, \tilde{X}$，称 $p: \tilde{X} \to X$ 为 $X$ 上的<strong>复（覆）叠（迭）空间</strong>，如果对任一 $x \in X$ 存在开邻域 $U$，满足 $p^{-1}(U)$ 是一族不交开集 $\set{V_\alpha}$ 的并，且 $p$ 把每个 $V_\alpha$ 同胚地映成 $U$. 此时称 $X$ 为底空间，满足上述性质的 $U$ 为基本邻域，$p^{-1}(x)$ 为 $x$ 上的纤维，其基数称为<strong>叶/页/层数</strong>。</p>
+</div>
+</div>
+<p>由于叶数局部常值且 $X$ 连通，叶数与 $x$ 的选取无关。</p>
+<p>典型的例子是 $S^1$ 的一个复叠空间是无限长弹簧，对应 $p: \mathbb{E}^1 \to S^1, x \mapsto e^{i\pi x}$. 基于此一个稍微不平凡的事实是：</p>
+<p>$$
+\begin{aligned}
+p: \mathbb{E}^2 &amp; \to \mathbb{E}^2 \setminus \mathbf{0} \cr
+(x, y) &amp; \mapsto (e^x \cos y, e^x \sin y)
+\end{aligned}
+$$</p>
+<p>对于 $f: X \to X$ 同胚满足 $f^n = \mathrm{id}$ 且 $f^m (0 &lt; m &lt; n)$ 没有不动点，当 $X$ Hausdorff 时，容易证明 $p: X \to X/f$ 是叶数为 $n$ 的复叠。</p>
+<p>对复叠 $p: \tilde{X} \to X$，称 $\tilde{f}: Y \to \tilde{X}$ 是 $f: Y \to X$ 的<strong>提升</strong>，如果 $p \circ \tilde{f} = f$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>提升唯一性定理</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $Y$ 连通，$\tilde{f_1}, \tilde{f_2}$ 都是 $f$ 的提升，且在某一点 $x_0$ 处 $\tilde{f_1}(x_0) = \tilde{f_2}(x_0)$，则 $\tilde{f_1} = \tilde{f_2}$.</p>
+</div>
+</div>
+<p>令 $A = \set{x \in X | \tilde{f_1}(x) = \tilde{f_2}(x)}$，只需证 $A$ 既开又闭。用定义取出 $A$ 及 $A^\complement$ 任一点的邻域即可。</p>
+<p>其推论是，对 $X$ 中道路 $\gamma$，设 $\gamma(0) = x$ 及 $\tilde{x} \in p^{-1}(x)$，存在唯一提升 $\tilde{\gamma}$ 使 $\tilde{\gamma}(0) = \tilde{x}$. 这里存在性是用 $[0, 1]$ 的紧性：对 $\gamma(I)$ 中的点的基本邻域，所有 $\gamma^{-1}(U)$ 是一个覆盖，取有限子覆盖，在 $\tilde{X}$ 中使用粘接引理即可。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-note);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/note.svg);"
+    >
+      note
+    </div>
+    <span><strong>紧性的使用</strong></span>
+  </div>
+  <div class="pl-4"><p>看完的感受是紧性生来就是这么用的。如果从 $0$ 处开始每次在邻域中取点作新的邻域，则很难说明为什么会在有限步终止。</p>
+</div>
+</div>
+<p>容易看到对 $\tilde{x} \in p^{-1}(x)$，有一个单同态 $p_\pi: \pi_1(\tilde{X}, \tilde{x}) \to \pi_1(X, x)$. 有 $[\pi_1(X, x) : p_\pi(\pi_1(\tilde{X}, \tilde{x}))]$ 等于 $p$ 的叶数。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>同伦提升定理</strong></span>
+  </div>
+  <div class="pl-4"><p>$$
+\begin{CD}
+Y @&gt;\tilde{f}&gt;&gt; \tilde{X} \cr
+@V\mathrm{inj}_0VV @VVpV \cr
+Y \times I @&gt;F&gt;&gt; X
+\end{CD}
+$$</p>
+<p>存在 $\tilde{F}: Y \times I \to \tilde{X}$ 使图表交换。</p>
+</div>
+</div>
+<p>构造方式略。只需证其连续。若 $F(\set{y} \times [s, t])$ 在某个基本邻域中，且 $\tilde{F}$ 的 $s$-切片在 $y$ 连续，则存在 $y$ 的邻域 $W$ 使得 $\tilde{F}$ 在 $W \times [s, t]$ 连续。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>映射提升定理</strong></span>
+  </div>
+  <div class="pl-4"><p>对道路连通、局部道路连通的 $Y$ 及 $f: Y \to X$, $f(y) = p(\tilde{x}) = x$，则存在 $f$ 的提升使 $\tilde{f}(y) = \tilde{x}$ 当且仅当 $f_\pi(\pi_1(Y, y)) \subseteq p_\pi(\pi_1(\tilde{X}, \tilde{x}))$.</p>
+</div>
+</div>
+<p>仿照之前证明。</p>
+<h3 id="fu-die-bian-huan">复叠变换</h3>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>复叠变换</strong></span>
+  </div>
+  <div class="pl-4"><p>复叠变换是满足 $p \circ h = p$ 的 $\tilde{X}$ 自同胚，也即 $(\tilde{X}, p)$ 的自同构，记作 $\mathrm{Deck}(\tilde{X}/X)$.</p>
+</div>
+</div>
+<p>如果 $p^{-1}(x)$ 的每一点都可被自同胚映作另外每一点（即群作用可递），则称 $\tilde{X}$ 是 $X$ 的<strong>正则复叠</strong>。</p>
+<p>使用映射提升引理，知这等价于对每个 $\tilde{x}$，$p_\pi(\pi_1(\tilde{X}, \tilde{x}))$ 是 $\pi_1(X, p(\tilde{x}))$ 的正规子群。</p>
+<p>记 $G = \pi_1(X, x)$ 及 $H = p_\pi(\pi_1(\tilde{X}, \tilde{x}))$，用 $N$ 表示正规化子，有：</p>
+<p>$$\mathrm{Deck}(\tilde{X}/X) \cong N_G(H) / H$$</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>万有复叠</strong></span>
+  </div>
+  <div class="pl-4"><p>如果复叠空间 $\tilde{X}$ 是单连通的，就称为<strong>万有/泛复叠</strong>。</p>
+</div>
+</div>
+<p>容易证明万有复叠在 $X$ 上同构意义下唯一。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>复叠空间存在定理</strong></span>
+  </div>
+  <div class="pl-4"><p>如果 $X$ 道路连通、局部道路连通、半局部单连通，则它有万有复叠空间。</p>
+</div>
+</div>
+<p>取一点 $x$，让 $\tilde{X}$ 是以 $x$ 为起点的道路类集合，$p$ 把道路类映到其终点，有 $p$ 是满的。</p>
+<p>记集合 $(\alpha, U)$ 包含所有 $\alpha \omega$，其中 $\omega$ 是 $U$ 中起点为 $\alpha$ 终点的道路。所有 $\alpha \in \tilde{X}$ 与 $\alpha(1)$ 的道路连通开邻域 $U$ 对应的 $(\alpha, U)$ 构成拓扑基 $\mathscr{B}$，规定 $\tilde{X}$ 上的拓扑是由 $\mathscr{B}$ 生成的。现在有 $p$ 连续且开。</p>
+<p>对 $X$ 中的点，其半单连通的开邻域是一个基本邻域。</p>
+<hr />
+<p>$S^1 \vee S^1$ 的万有复叠如图：</p>
+<p><img src="/images/geometry/covering_space_1.jpg" alt="万有复叠" /></p>
+<p>$z \mapsto z^3$ 的映射柱（这带有 $2$-胞腔）的万有复叠如图：</p>
+<p><img src="/images/geometry/covering_space_cw_2.jpg" alt="万有复叠" /></p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2024 P6</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $\pi_1(S^1 \vee S^1) = \braket{a, b}$. 求复叠空间，使其基本群表示为 $\braket{a^2, b^2, (ab)^4}$ 在 $\braket{a, b}$ 的正规闭包。</p>
+</div>
+</div>
+<p><img src="/images/geometry/covering_space_3.jpg" alt="复叠" /></p>
+<p>一般的方法是，让 $Q = \braket{a, b} / [\braket{a^2, b^2, (ab)^4}]$ 中的每一个元素是一个顶点，连边 $q \to qa$ 与 $q \to qb$. 这相当于直接在万有复叠上把对应的值粘起来。</p>
+<hr />
+<p>一般地在万有复叠构造上将特定的道路粘起来，知保持基点的复叠等价类与 $\pi_1(X, x)$ 的子群一一对应。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-note);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/note.svg);"
+    >
+      note
+    </div>
+    <span><strong>自由群的子群是自由群</strong></span>
+  </div>
+  <div class="pl-4"><p>设自由群 $F$ 是图 $X$ 的基本群，取它的复叠对应 $F$ 的子群，这个复叠仍然是图。可以通过生成树证明图的基本群是自由群。</p>
+</div>
+</div>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2024 P4</strong></span>
+  </div>
+  <div class="pl-4"><p>求 $\R\mathrm{P}^2 \vee \R\mathrm{P}^2$ 所有连通的复叠空间。</p>
+</div>
+</div>
+<p>只需考虑 $\Z/2\Z \ast \Z/2\Z$ 的子群。我们把它看成无限二面体群（$ab$ 是旋转，$b$ 是对称），知非平凡的子群有无限循环子群 $\braket{(ab)^n}$，二阶循环子群 $\braket{(ab)^m a}$ 及无限二面体子群 $\braket{(ab)^n, (ab)^m a}$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2025 P6</strong></span>
+  </div>
+  <div class="pl-4"><p>令 $X = \Complex \setminus \Z$，即复平面上挖掉所有实轴上的整点得到的空间。证明：$X$ 存在万有复叠，且其万有复叠空间同胚于平面。</p>
+</div>
+</div>
+<p>由于得到的空间是二维流形（其中第二可数可能需要用定理的构造），且单连通、不紧，由黎曼单值化定理只能（同胚于）平面。</p>
+<p>或者有构造：</p>
+<p><img src="/images/geometry/covering_space_2.jpg" alt="万有复叠" /></p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>自由不连续</strong></span>
+  </div>
+  <div class="pl-4"><p>群作用 $G \to \mathrm{Homeo}(X)$ 称为<strong>自由不连续</strong>的，如果对每个点 $x$ 存在开邻域 $U$，使得对所有 $g \in G$，有 $gU \cap U \neq \emptyset \iff g = 1$.</p>
+</div>
+</div>
+<p>如 $\mathbb{E}^2$ 上变换 $g(x, y) = (x+1, y)$ 与 $h(x, y) = (-x, y+1)$ 生成的群给出的作用。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>恰当不连续</strong></span>
+  </div>
+  <div class="pl-4"><p>群作用 $G \to \mathrm{Homeo}(X)$ 称为<strong>恰当不连续</strong>的，如果对任意紧集 $K$，$gK \cap K \neq \emptyset$ 只对有限多个 $g$ 成立。</p>
+</div>
+</div>
+<p>如平面上整格平移和关于原点中心对称生成的作用。</p>
+<p>一个非恰当不连续的例子是对 $a &gt; 0$ 取 $\tau_a(x, y) = (ax, a^{-1}y)$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>命题</strong></span>
+  </div>
+  <div class="pl-4"><p>对 $X$ 局部紧 Hausdorff 及 $G$ 在 $X$ 上恰当不连续群作用，有 $X/G$ 局部紧 Hausdorff. 且如果 $G$ 无挠（$g \neq 1 \implies g^n \neq 1$），则该作用自由不连续，这使得 $X \to X/G$ 是正则复叠。</p>
+</div>
+</div>
+<p>证明略。</p>
+<hr />
+<p>考虑模群 $\mathrm{SL}(2, \Z)$ 的无挠子群：</p>
+<p>$$\Gamma(2) = \ker (\mathrm{SL}(2, \Z) \to \mathrm{SL}(2, \Z/2))$$</p>
+<p>有 $\mathrm{UHP} \to \mathrm{UHP}/\Gamma(2)$ 是正则复叠，商 $\mathrm{UHP}/\Gamma(2)$ 是一个“双曲曲面”。</p>
+<h2 id="bu-chong">补充</h2>
+<p>一些与上半学期的联系。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>几何结构</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $(X, G)$ 是某种“几何”，流形 $M$ 上一个局部 $(X, G)$-几何结构是指一族图卡 $\set{U _\alpha, \varphi _\alpha} _{\alpha \in A}$ 满足 $\Phi _{\alpha\beta}: \varphi _\beta(U _\alpha \cap U _\beta) \to \varphi _\alpha(U _\alpha \cap U _\beta)$ 由 $G$ 中变换实现。</p>
+</div>
+</div>
+<p>闭曲面有平面/球面/双曲三种几何结构之一。在 $3$ 维的版本是 Thurston 几何化纲领。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>命题</strong></span>
+  </div>
+  <div class="pl-4"><p>度量完备、单连通、Gauss 曲率恒 $-1$ 的曲面 $M$ 等距同构于 $\mathbb{H}^2$.</p>
+</div>
+</div>
+<p>用测地参数系证局部等距同构存在，再证等距同构存在。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>2025 P7</strong></span>
+  </div>
+  <div class="pl-4"><p>给定区域 $U$ 上的光滑函数 $E, F, G, L, M, N$，满足曲面论基本定理中的正定性条件和 Gauss-Codazzi 方程组给出的相容性条件。问：当 $U$ 是单连通区域时，是否存在参数曲面片 $\varphi: U \to \mathbb{E}^3$，使得其第一第二类基本量分别为 $E, F, G, L, M, N$？说明理由。</p>
+</div>
+</div>
+<p>存在。通过曲面论基本定理及紧知可以延拓，只需证明延拓与道路无关。取 $H: \gamma_0 \simeq \gamma_1$，用 $I \times I$ 的紧性即可。</p>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/拓扑学/">拓扑学</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <link rel="stylesheet" href="https://rratic.top/katex/katex.min.css?h=e189fd0238811989c364" />
+  <script defer src="https://rratic.top/katex/katex.min.js?h=6b909443e6c8f6e5d24c"></script>
+  <script defer src="https://rratic.top/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

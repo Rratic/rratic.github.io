@@ -1,0 +1,445 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>同调论的拓扑基础与持续同调 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="同调论的拓扑基础与持续同调" />
+  <meta name="description" content="由于高阶同伦群不好算，我们引入了同调群。其一个应用是数据分析的持续同调。" />
+  <meta property="og:description" content="由于高阶同伦群不好算，我们引入了同调群。其一个应用是数据分析的持续同调。" />
+  <meta property="og:url" content="https://rratic.top/posts/homology-1/" />
+  <link rel="canonical" href="https://rratic.top/posts/homology-1/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-06-30T00:00:00+00:00" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="拓扑学" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.top/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.top/style/shared.css?h=8cc71386e970b029328a" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">同调论的拓扑基础与持续同调</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2026-06-30T00:00:00+00:00">2026-06-30</time><span
+        class="middot"></span><time
+    datetime="PT0H13M0S">13&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#tong-diao-qun">同调群</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#bao-qiang-tong-diao">胞腔同调</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#dan-chun-tong-diao">单纯同调</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#qi-yi-tong-diao">奇异同调</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#zheng-he-lie">正合列</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#dan-chun-yu-qi-yi-tong-diao-de-deng-jia">单纯与奇异同调的等价</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#chi-xu-tong-diao">持续同调</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#betti-shu">Betti 数</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#gou-jian-fu-xing">构建复形</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#suan-fa">算法</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </details>
+</nav>
+
+  <!-- Content -->
+  <section><p>由于高阶同伦群不好算，我们引入了同调群。其一个应用是数据分析的持续同调。</p>
+<span id="continue-reading"></span><h2 id="tong-diao-qun">同调群</h2>
+<h3 id="bao-qiang-tong-diao">胞腔同调</h3>
+<p>考虑胞腔复形 $X$ 为点 $x$ 到点 $y$ 的四条标记了方向的道路 $a, b, c, d$. 有 $ab^{-1}$ 与 $b^{-1}a$ 描述的是同一个圈，我们用加法表示运算是交换的，一个边链 $ka + lb + mc + nd$ 是圈的充要条件是 $k + l + m + n = 0$.</p>
+<p>对此，我们作一般的描述：令 $C_0$ 是顶点生成的自由 Abel 群（即包含所有形式和），令 $C_1$ 是边生成的自由 Abel 群，令同态 $\partial_1: C_1 \to C_0$ 将边映射到 $y - x$，就有 $0$ 阶<strong>胞腔同调群</strong> $H_1(X) = \ker \partial_1 / \mathrm{Im} \partial_2 = \braket{a - b, b - c, c - d} \cong \Z \oplus \Z \oplus \Z$.</p>
+<p>如果我们在 $X$ 基础上添加一个顶点为 $x, y$，边为 $a, b$ 的面 $A$，并令 $\partial_2: C_2 \to C_1$ 将 $A$ 映射到 $a - b$，则现在 $H_1(X) = \ker \partial_1 / \mathrm{Im} \partial_2 = \braket{b - c, c - d}$. 这反映的是面的加入使得 $ab^{-1}$ 不再是圈。</p>
+<p>以类似的方式在胞腔复形上定义 $\partial_n: C_n \to C_{n-1}$ 及 $H_n(X) = \ker \partial_n / \mathrm{Im} \partial_{n+1}$.</p>
+<p>现在的问题是在定义 $\partial$ 时相当麻烦。</p>
+<h3 id="dan-chun-tong-diao">单纯同调</h3>
+<p>为此我们考虑三角剖分。令 $n$-单形是指顶点 $v_0, \dots, v_n$ 的闭包，标准的单形形如：</p>
+<p>$$\Delta^n = \set{(t_0, \dots, t_n) \in \R^{n+1} | \sum t_i = 1, t_i \geq 0}$$</p>
+<p>类似胞腔复形地定义 $\Delta$-复形，并且令边缘同态是：</p>
+<p>$$\partial_n([v_0, \dots, v_n]) = \sum_i (-1)^i [v_0, \dots, v_{i-1}, v_{i+1}, \dots, v_n]$$</p>
+<p>$\Delta$-复形可以进一步割为单纯复形，其要求单形唯一被其边决定。</p>
+<p>容易发现 $\partial_{n-1} \circ \partial_n = 0$. 由此方法定义的 $H_n^\Delta(X)$ 记作<strong>单纯同调群</strong>。</p>
+<h3 id="qi-yi-tong-diao">奇异同调</h3>
+<p>为了证明同胚、同伦等价的空间有相同的同调群，我们引入奇异同调。一个奇异 $n$-单形指的是一个连续映射 $\sigma: \Delta^n \to X$. 仿照前文定义<strong>奇异同调群</strong>。基本的结论略过，注意 $H_1(X)$ 实际上是 $\pi_1(X)$ 的交换化。</p>
+<p>为了方便描述，我们定义约化同调群 $\tilde{H}_n(X)$，它只在 $0$ 处不同，把 $\partial_0$ 换成 $\varepsilon(\sum n_i\sigma_i) = \sum n_i$. 有 $H_0(X) \simeq \tilde{H}_0(X) \oplus \Z$.</p>
+<p>对 $f: X \to Y$ 有交换的图表：</p>
+<p>$$
+\begin{CD}
+\cdots @&gt;&gt;&gt; C_{n+1}(X) @&gt;\partial&gt;&gt; C_n(X) @&gt;\partial&gt;&gt; C_{n-1}(X) @&gt;&gt;&gt; \cdots \cr
+@. @Vf_\sharp VV @Vf_\sharp VV @Vf_\sharp VV @. \cr
+\cdots @&gt;&gt;&gt; C_{n+1}(Y) @&gt;\partial&gt;&gt; C_n(Y) @&gt;\partial&gt;&gt; C_{n-1}(Y) @&gt;&gt;&gt; \cdots
+\end{CD}
+$$</p>
+<p>我们称这些 $f_\sharp$ 是两个<strong>链复形</strong>的<strong>链映射</strong>。这会诱导对应同调群之间的同态。</p>
+
+<link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" type="text/css">
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>定理</strong></span>
+  </div>
+  <div class="pl-4"><p>若 $f, g: X \to Y$ 同伦，则它们诱导相同的 $f_\ast = g_\ast: H_n(X) \to H_n(Y)$.</p>
+</div>
+</div>
+<p>对一个 $\Delta^n \times I$，令 $\Delta^n \times \set{0} = [v_0, \dots, v_n]$，$\Delta^n \times \set{1} = [w_0, \dots, w_n]$. 对 $F: f \simeq g$ 定义 prism operator $P: C_n(X) \to C_{n+1}(Y)$ 如下：</p>
+<p>$$P(\sigma) = \sum_i (-1)^i F((\sigma \times \mathrm{id})([v_0, \dots, v_i, w_i, \dots w_n]))$$</p>
+<p>算得 $\partial P = g_\sharp - f_\sharp - P\partial$，满足此条件称 $P$ 为<strong>链同伦</strong>。从而 $\alpha \in \ker \partial_n \implies g_\sharp(\alpha) - f_\sharp(\alpha) \in \mathrm{Im} \partial_{n+1}$，知结论成立。</p>
+<h3 id="zheng-he-lie">正合列</h3>
+<p>我们说一列同态在以下 $B$ 处正合，如果 $\ker \beta = \mathrm{Im} \alpha$. 处处正合的称为<strong>正合列</strong>。</p>
+<p>$$\begin{CD} A @&gt;\alpha&gt;&gt; B @&gt;\beta&gt;&gt; C \end{CD}$$</p>
+<p>我们将证明对于空间 $X$ 与 $X$ 中某个开集的非空、闭的形变收缩核 $A$（注意 CW 对 $(X, A)$ 一定满足此条件）有以下正合列：</p>
+<p>$$
+\begin{CD}
+\cdots @&gt;&gt;&gt; \tilde{H} _n(A)
+@&gt;\mathrm{inj} _\ast&gt;&gt; \tilde{H} _n(X)
+@&gt;\mathrm{quot} _\ast&gt;&gt; \tilde{H} _n(X/A)
+@&gt;\partial&gt;&gt; \tilde{H} _{n-1}(A)
+@&gt;&gt;&gt; \cdots @&gt;&gt;&gt; 0
+\end{CD}
+$$</p>
+<p>我们定义 $C_n(X, A) = C_n(X) / C_n(A)$. 依此同前定义<strong>相对同调群</strong> $H_n(X, A)$.</p>
+<p>考虑如下交换图表，其中每一列是短正合列，每一行是链复形：</p>
+<p>$$
+\begin{CD}
+~ @. 0 @. 0 @. 0 @. ~ \cr
+@. @VVV @VVV @VVV @. \cr
+\cdots @&gt;&gt;&gt; A_{n+1} @&gt;\partial&gt;&gt; A_n @&gt;\partial&gt;&gt; \boxed{A_{n-1}} @&gt;&gt;&gt; \cdots \cr
+@. @ViVV @ViVV @ViVV @. \cr
+\cdots @&gt;&gt;&gt; B_{n+1} @&gt;\partial&gt;&gt; \boxed{B_n} @&gt;\partial&gt;&gt; \boxed{B_{n-1}} @&gt;&gt;&gt; \cdots \cr
+@. @VjVV @VjVV @VjVV @. \cr
+\cdots @&gt;&gt;&gt; C_{n+1} @&gt;\partial&gt;&gt; \boxed{C_n} @&gt;\partial&gt;&gt; C_{n-1} @&gt;&gt;&gt; \cdots \cr
+@. @VVV @VVV @VVV @. \cr
+~ @. 0 @. 0 @. 0 @. ~
+\end{CD}
+$$</p>
+<p>我们需要定义 $\partial: H_n(C) \to H_{n-1}(A)$. 考虑图中被框出群的元素 $a, b, \partial b, c$，有 $\partial [c] = [a]$ 是良定义的。从而可代入证明所需结论。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Excision Theorem</strong></span>
+  </div>
+  <div class="pl-4"><p>对 $X$ 的子空间 $\bar{Z} \subseteq A^{\circ}$，嵌入 $(X-Z, A-Z) \hookrightarrow (X, A)$ 诱导了同构 $H_n(X-Z, A-Z) \to H_n(X, A)$.</p>
+</div>
+</div>
+<p>先证明引理：对 $\mathcal{U} = \set{U_j}$ 满足它们的内部构成 $X$ 的一个开覆盖，令 $C_n^\mathcal{U}(X)$ 是由像只在单个 $U_j$ 中的 $\sigma$ 生成的自由 Abel 群，则嵌入 $\iota: C_n^\mathcal{U}(X) \hookrightarrow C_n(X)$ 是链同伦等价。</p>
+<p>首先定义单形 $[v_0, \dots, v_n]$ 的 Barycentric Subdivision. 我们令 barycenter $b$ 是重心，考虑单形 $[b, v_0, \dots, v_{i-1}, v_{i+1}, \dots, v_n]$. 然后归纳地对每个面作 Barycentric Subdivision 再分割……最终得到 $n!$ 个 $n$ 维流形，满足 $\mathrm{diam}[w_0, \dots, w_n] \leq n/(n+1) \mathrm{diam} [v_0, \dots, v_n]$. 之后会用到 $(n/(n+1))^r \to 0$.</p>
+<p>接下来考虑欧氏空间中的凸集 $Y$，记线性映射 $\Delta^n \to Y$ 生成的自由 Abel 群为 $\mathrm{LC} _n(Y)$. 令 $\mathrm{LC} _{-1}(Y) = \Z$. 对 $b \in Y$ 诱导一个同态：</p>
+<p>$$
+\begin{aligned}
+b: \mathrm{LC} _n(Y) &amp; \to \mathrm{LC} _{n+1}(Y) \cr
+[w_0, \dots, w_n] &amp; \mapsto [b, w_0, \dots, w_n]
+\end{aligned}
+$$</p>
+<p>对于 $\lambda: \Delta^n \to Y$ 记 $b_\lambda$ 是像的重心，可归纳定义：</p>
+<p>$$
+\begin{aligned}
+S: \mathrm{LC} _n(Y) &amp; \to \mathrm{LC} _n(Y) \cr
+\lambda &amp; \mapsto b _\lambda(S\partial\lambda)
+\end{aligned}
+$$</p>
+<p>容易归纳验证 $\partial S = S\partial$，从而我们可以考虑以下图表：</p>
+<p>$$
+\begin{CD}
+\cdots @&gt;&gt;&gt; \mathrm{LC} _1(Y) @&gt;\partial&gt;&gt; \mathrm{LC} _0(Y) @&gt;\partial&gt;&gt; \mathrm{LC} _{-1}(Y) @&gt;&gt;&gt; 0 \cr
+@. @VSVV @VS=\mathrm{id}VV @VS=\mathrm{id}VV @. \cr
+\cdots @&gt;&gt;&gt; \mathrm{LC} _1(Y) @&gt;\partial&gt;&gt; \mathrm{LC} _0(Y) @&gt;\partial&gt;&gt; \mathrm{LC} _{-1}(Y) @&gt;&gt;&gt; 0
+\end{CD}
+$$</p>
+<p>我们归纳定义 $T$ 使得 $\partial T + T\partial = \mathrm{id} - S$，即 $T$ 是 $\mathrm{id}$ 与 $S$ 的链同伦：</p>
+<p>$$
+\begin{aligned}
+T: \mathrm{LC} _n(Y) &amp; \to \mathrm{LC} _{n+1}(Y) \cr
+\lambda &amp; \mapsto b _\lambda(\lambda - T\partial\lambda)
+\end{aligned}
+$$</p>
+<p>容易用此诱导非线性情形的定义。</p>
+<p>对 $\sigma: \Delta^n \to X$ 取 $m(\sigma)$ 使得 $S^{m(\sigma)}(\sigma)$ 在 $C_n^{\mathcal{U}}(X)$ 中，定义：</p>
+<p>$$
+\begin{aligned}
+D: C _n(X) &amp; \to C _{n+1}(X) \cr
+\sigma &amp; \mapsto \sum _{i=0}^{m(\sigma)-1} TS^i \sigma
+\end{aligned}
+$$</p>
+<p>我们将下式方括号部分记作 $\rho(\sigma) \in C_n^{\mathcal{U}}(X)$：</p>
+<p>$$\partial D\sigma + D\partial\sigma = \sigma - [S^{m(\sigma)}\sigma + D_{m(\sigma)}(\partial\sigma) - D(\partial\sigma)]$$</p>
+<p>从而 $\iota\rho$ 和 $\rho\iota$ 均与恒同映射链同伦。推论是 $\iota$ 诱导了 $H_n^{\mathcal{U}}(X)$ 与 $H_n(X)$ 的同构。</p>
+<p>回到原定理，我们令 $\mathcal{U} = \set{A, X - Z}$，分析即可。</p>
+<p>其推论是，对 $X$ 与 $X$ 中某个邻域的非空、闭的形变收缩核 $A$，商映射诱导了 $H_n(X, A) \to H_n(X/A, A/A)$ 的同构，而后者同构于 $H_n(X/A)$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>维数不变性</strong></span>
+  </div>
+  <div class="pl-4"><p>若非空开集 $U \subseteq \R^m$ 与 $V \subseteq \R^n$ 同胚，则 $m = n$.</p>
+</div>
+</div>
+<p>使用 excision 及之前长正合列知：</p>
+<p>$$
+H _k(U, U - \set{x}) \cong H _k(\R^m, \R^m - \set{x}) \cong \tilde{H} _{k-1}(\R^m - \set{x}) \cong
+\tilde{H} _{k-1}(S^{m-1}) = \begin{cases} \Z &amp; k=m \cr 0 &amp; \text{else} \end{cases}
+$$</p>
+<p>一般地定义<strong>局部同调群</strong>是指 $H_n(X, X - \set{x})$. 由 excision 知它只和局部的拓扑有关。这可以用于考察局部的同胚情况。</p>
+<h3 id="dan-chun-yu-qi-yi-tong-diao-de-deng-jia">单纯与奇异同调的等价</h3>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>等价性</strong></span>
+  </div>
+  <div class="pl-4"><p>对 $\Delta$-复形 $X$ 与子复形 $A$，$H_n^\Delta(X, A)$ 与 $H_n(X, A)$ 总是同构。</p>
+</div>
+</div>
+<p>先归纳地考虑有限维，$A = \emptyset$ 情形。记 $X^k$ 是 $k$-骨架。</p>
+<p>$$
+\begin{CD}
+H_{n+1}^\Delta(X^k, X^{k-1}) @&gt;&gt;&gt; H_n^\Delta(X^{k-1}) @&gt;&gt;&gt; H_n^\Delta(X^k) @&gt;&gt;&gt; H_n^\Delta(X^k, X^{k-1}) @&gt;&gt;&gt; H_{n-1}^\Delta(X^{k-1}) \cr
+@VVV @VVV @VVV @VVV @VVV \cr
+H_{n+1}(X^k, X^{k-1}) @&gt;&gt;&gt; H_n(X^{k-1}) @&gt;&gt;&gt; H_n(X^k) @&gt;&gt;&gt; H_n(X^k, X^{k-1}) @&gt;&gt;&gt; H_{n-1}(X^{k-1})
+\end{CD}
+$$</p>
+<p>上图在行上正合，第 $2, 5$ 列由归纳假设是同构。由于 $\Phi: \coprod_\alpha(\Delta_\alpha^k, \partial\Delta_\alpha^k) \to (X^k, X^{k-1})$ 诱导了 $\coprod_\alpha \Delta_\alpha^k / \coprod_\alpha \partial\Delta_\alpha^k$ 与 $X^k / X^{k-1}$ 的同构，我们知道 $1, 4$ 列是同构。</p>
+<p>根据以上条件使用 $5$-引理（通过对具体的元素作 diagram chasing）知 $3$ 列是同构。</p>
+<p>对无限维的 $X$，使用 $X$ 的紧集只能与可数个开单形（单形去掉面）有交，知 $H_n^\Delta(X) \to H_n(X)$ 满，又它一定是单的，得证。$A \neq \emptyset$ 的证法则同理。</p>
+<h2 id="chi-xu-tong-diao">持续同调</h2>
+<p>持续同调是拓扑数据分析（TDA）的一种技术。我们考虑一般的欧氏空间中的点集，我们有一些方法将数据降维到适合观察的低维空间，如主成分分析（PCA），但降维可能丢失数据。而持续同调（PH）则不需要降维就能刻画数据全貌。</p>
+<h3 id="betti-shu">Betti 数</h3>
+<p>定义 Betti 数 $\beta_n = \operatorname{rank} H_n(X)$. 历史上同调群最开始是用 Betti 数和扭系数表示的。我们知道有限生成 Abel 群的结构定理：</p>
+<p>$$H_n(X) \cong \Z^{\beta_n} \oplus \bigoplus_i \Z/d_i\Z, \quad d_1 \mid d_2 \mid \cdots \mid d_k$$</p>
+<h3 id="gou-jian-fu-xing">构建复形</h3>
+<p>对一个取定的 $\varepsilon$，我们用该点集构建 Vietoris–Rips 复形，定义为：</p>
+<p>$$V_\varepsilon(P) = \set{\sigma \subseteq P | \lVert u-v \rVert \leq \varepsilon, \forall u, v \in \sigma}$$</p>
+<p>另一种选择是 Čech 复形：</p>
+<p>$$C_\varepsilon(P) = \set{\sigma \subseteq P | \bigcap_{x \in \sigma} B(x, \varepsilon) \neq \emptyset}$$</p>
+<h3 id="suan-fa">算法</h3>
+<p>对于这样建立的单纯复形，我们可以计算它的 Betti 数。考虑 $\varepsilon$ 在 $[0, +\infty)$ 连续改变，观察那些拓扑特性的持续时间。持续时间长的更可能是信号而不是噪声。对每个持续段 $[l, r]$，有两种表现方式：在平面上绘制点 $(l, r)$，得到的持续图，和绘制区间 $[l, r]$ 得到的条形码。</p>
+<p>在计算 Betti 数时，只需用矩阵化简的方法即可。</p>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/拓扑学/">拓扑学</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <link rel="stylesheet" href="https://rratic.top/katex/katex.min.css?h=e189fd0238811989c364" />
+  <script defer src="https://rratic.top/katex/katex.min.js?h=6b909443e6c8f6e5d24c"></script>
+  <script defer src="https://rratic.top/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>
