@@ -1,6 +1,5 @@
 +++
-title = "无类型 λ 演算"
-description = "最经典的类型论例子：无类型 λ 演算的规则、使用和合流性。"
+title = "无类型 λ 演算与重写系统"
 date = 2025-03-22
 updated = 2026-03-23
 
@@ -13,24 +12,24 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["数学", "计算机", "函数式编程"]
+tags = ["数学", "基石", "计算机", "计算理论"]
 +++
 
-{{ ref_index(to = "functional-programming") }}
+本文讨论 Alonzo Church 发明的**无类型 λ 演算** Lambda Calculus. 这是一个类型论与函数式编程的基础模型。
 
-本节讨论的是 Alonzo Church 发明的 lambda calculus **无类型 λ 演算**。[^paper-invention]
+<!-- more -->
 
 本站提供了一个[在线演绎器](/playground/lambda-calculus/)，其中使用 `@eval` 命令会使用 [beta-reduction](#evaluation-rules) 按[正则次序](#evaluation-order)进行求值，使用 `@simp` 会额外尝试使用 [eta-等价](#evaluation-rules)进行简化，输出使用 de Brujin 无名表示（`#i` 表示从里到外第 $i$ 层函数声明对应的参数）。想要自行编写解释器的读者可参考其仓库 [Rratic/my-lam](https://github.com/Rratic/my-lam).
 
 ## 语法 {#grammar}
-Lambda 演算的语法形式极其简单。一种可理解的形式文法如下：
+Lambda 演算[^paper-invention]的语法形式极其简单。形式文法如下：
 ```c
 E = x           // variables
   | λx. E       // function creation (abstraction)
   | E1 E2       // function application
 ```
 
-上面的 $E$ 称为 λ-表达式（`λ-terms`），它的值有三种形式：
+其中，上面的 $E$ 称为 λ-表达式（λ-term），它的值有三种形式：
 * 变量，如 $x$
 * 函数声明或抽象：函数**有且仅有**一个参数，在 $\lambda x.\ E$ 中，$x$ 是参数，$E$ 是函数体，即一般语境所说的 $x\mapsto E$
 * 函数应用：在 $f\ x$ 中，是把 $f$ 作用于 $x$，即一般语境所说的 $f(x)$
@@ -47,26 +46,26 @@ E = x           // variables
 例如，$\lambda x.\ x\ \lambda y.\ x\ y\ z$ 应被理解为 $\lambda x.\ (x\ \lambda y.\ ((x\ y)\ z))$.
 
 ### Currying
-尽管在定义中，函数必须恰有一个参数，多个参数的函数仍然可以通过 `currying` 技术间接地表示。
+尽管在定义中，函数必须恰有一个参数，多个参数的函数仍然可以通过 currying 技术间接地表示。
 
-{% admonition(type="tip", title="只有函数") %}
+{% admonition(type="note", title="只有函数") %}
 实际上在 λ 演算中，如果不认为函数是恰有一个参数的，则没有办法说明一个 $f$ 有多少个参数。因为体系中所有的值都是函数，无论填入多少个参数都无法得到一个“最终”的结果。
 
 我们之后会看到，所谓自然数等等在 λ 演算中也是用函数表达的。
 {% end %}
 
-作为一个例子，一般语境所说的 $f(x, y) = x+y$ 应被表达为 $f = \lambda x.\ (\lambda y.\ x+y)$.
+作为一个例子，一般语境所说的 $f(x, y) = x + y$ 应被表达为 $f = \lambda x.\ (\lambda y.\ x + y)$.
 
-对上述 $f$，你可以传入少于全部参数个数的参数。例如代入 $g = f\ 1$ 将得到 $g = \lambda y.\ 1+y$，这也是一个可用的函数。
+对上述 $f$，你可以传入少于全部参数个数的参数。例如代入 $g = f\ 1$ 将得到 $g = \lambda y.\ 1 + y$，这也是一个可用的函数。
 
 ## 求值 {#lambda-evaluation}
 ### 求值规则 {#evaluation-rules}
 求值规则包括：
-* $\alpha$-重命名，可任意改变变量名。如有歧义的 $\lambda x.\ x\ (\lambda x.\ x)$ 可改为 $\lambda x.\ x\ (\lambda y.\ y)$
-* $\beta$-归约（`reduction`），在应用时将声明展开。例如对 $(\lambda x.\ x)\ (\lambda y.\ y)$，将 $\lambda y.\ y$ 代入 $x$ 得到 $\lambda y.\ y$
-* $\eta$-等价，形如 $\lambda x.\ f\ x$ 的表达式可改为 $f$，这一般来说只是提前省略了一步 β-归约
+* $\alpha$-重命名，可任意改变变量名，如有歧义的 $\lambda x.\ x\ (\lambda x.\ x)$ 可改为 $\lambda x.\ x\ (\lambda y.\ y)$
+* $\beta$-归约（reduction），在应用时将声明展开，例如对 $(\lambda x.\ x)\ (\lambda y.\ y)$，将 $\lambda y.\ y$ 代入 $x$ 得到 $\lambda y.\ y$
+* $\eta$-等价，若 $x$ 不在 $f$ 中自由出现，则形如 $\lambda x.\ f\ x$ 的表达式可改为 $f$，这一般来说只是提前省略了一步 β-归约
 
-这三者均可称为归约（`conversion`）。
+这三者均可称为转换（conversion）。
 
 ---
 
@@ -104,19 +103,9 @@ E = x           // variables
 * 先求内层，得到 $(\lambda y.\ y)\ E$，然后得到 $E$
 * 先求外层，得到 $(\lambda x.\ x)\ E$，然后得到 $E$
 
-根据 Church–Rosser 定理（其证明会在[之后](#church-rosser-theorem)提供），这两种方法是等价的，最终会得到相等的结果。
+根据下下节的 [Church–Rosser 定理](#confluence)，这两种方法最终会得到相等的结果。我们在计算时选择其一，这诱导了两种常用的不同计算方式：
 
-但我们在计算时必须作出选择。
-
-有两种常用的不同计算方式：
-
-一种是在函数应用前，就计算函数参数的值。也被记作：
-* 应用次序（`Applicative Order`）
-* 紧迫求值（`Eager Evaluation`）
-
-另一种是在函数应用前，不计算函数参数的值，直到需要时才求值。也被记作：
-* 正则/标准次序（`Normal Order`）
-* 懒惰求值（`Lazy Evaluation`）
+一种是在函数应用前，就计算函数参数的值。也被记作应用次序（Applicative Order）与紧迫求值（Eager Evaluation）。另一种是在函数应用前，不计算函数参数的值，直到需要时才求值。也被记作正则/标准次序（Normal Order），加上共享就是懒惰求值（Lazy Evaluation）。
 
 如果表达式可以被化简，那么标准次序总是能够将表达式成功化简[^succeeds]，使用应用次序则可能陷入无限递归。
 
@@ -133,7 +122,7 @@ E = x           // variables
 
 $$Y = \lambda f.\ (\lambda x.\ f\ (x\ x))\ (\lambda x.\ f\ (x\ x))$$
 
-称为 Y 组合子（`Y combinator`）。不难验证：
+称为 Y 组合子（Y combinator）。不难验证：
 
 ```txt
   Y f
@@ -145,7 +134,7 @@ $$Y = \lambda f.\ (\lambda x.\ f\ (x\ x))\ (\lambda x.\ f\ (x\ x))$$
 ### 递归 {#recursive-functions}
 Y 组合子可以用于实现递归。
 
-如果我们希望定义一个递归函数：
+如果我们希望定义一个递归函数，伪代码：
 $$f = \lambda \mathrm{fact}.\ \lambda n.\ \begin{cases} 1, & \text {if $n$ < 2} \cr n\times \mathrm{fact}(n-1), & \text{else} \end{cases}$$
 
 那么，若使用正则次序，可得到正确的结果。
@@ -216,7 +205,7 @@ $$\mathrm{succ}\ n = \lambda f.\ \lambda s.\ f\ (n\ f\ s)$$
 $$\mathrm{add}\ n_1\ n_2 = n_1\ \mathrm{succ}\ n_2$$
 $$\mathrm{mult}\ n_1\ n_2 = n_1\ (\mathrm{add}\ n_2)\ 0$$
 
-举个例子。
+举个例子：
 ```txt
   add 0
 = (λn₁. λn₂. n₁ succ n₂) 0
@@ -225,29 +214,13 @@ $$\mathrm{mult}\ n_1\ n_2 = n_1\ (\mathrm{add}\ n_2)\ 0$$
 = λx. x
 ```
 
-又如。
+又如：
 ```txt
   add 1 1
 = 1 succ 1
 = succ 1
 = λf. λs. f (f s)
 = 2
-```
-
-又如。
-```txt
-  mult 2 2
-= 2 (add 2) 0
-= (add 2) ((add 2) 0)
-= 2 succ (2 succ 0)
-= succ (succ (succ (succ 0)))
-= succ (succ (succ (λf. λs. f (0 f s))))
-= succ (succ (succ (λf. λs. f s)))
-= succ (succ (λg. λy. g ((λf. λs. f s) g y)))
-= succ (succ (λg. λy. g (g y)))
-= ...
-= λg. λy. g (g (g (g y)))
-= 4
 ```
 
 ### 列表 {#datatype-list}
@@ -264,17 +237,12 @@ cons 1 (cons 2 (cons 3 nil)) // 构造列表示例
 ### 术语 {#jargon}
 **重写**是将表达式的一部分替换为其它表达式的过程，可以看作一种关系或者一组规则，在这里，规则包括 $\alpha, \beta, \eta$ 三种归约。
 
-在此之上，**重写系统**是由一个表达式的集合和表达式到表达式之间的重写关系组成的结构，类似于有向图。
+在此之上，**重写系统**是由一个表达式的集合和表达式到表达式之间的重写关系组成的结构，类似于有向图。我们记表达式的集合 $E$，重写关系 $(\to) \subset E\times E$.
 
-### 记号 {#rewriting-notation}
-因此，所有资料为：表达式的集合 $E$ 与重写关系 $(\to ) \subset E\times E$.
-
-记 $\stackrel{*}{\to}$ 表示将 $\to$ 应用任意自然数次。
-
-用双向箭头 $\stackrel{*}{\leftrightarrow}$ 表示两边都可的版本。
+用 $\stackrel{ * }{\to}$ 表示将 $\to$ 应用任意自然数次的版本。用双向箭头 $\stackrel{ * }{\leftrightarrow}$ 表示两边都可的版本。
 
 ### 正规性 {#normalization}
-对于重写系统 $E$ 和 $a,b\in E$，若 $a\stackrel{*}{\to} b \iff a=b$，那么 $a$ 是一个**正规形式/既约形式**。
+对于重写系统 $E$ 和 $a,b\in E$，若 $a\stackrel{*}{\to} b \iff a=b$，那么 $a$ 是一个**正规形式/既约形式**。我们可能希望避免 Ω 组合子 $(\lambda x.\ x\ x)(\lambda x.\ x\ x)$ 被认为是正规形式，因此可以进一步要求定义是不含 β-可归约式。
 
 若重写系统中任意表达式都能通过某个特定的顺序重写为正规形式，那么该重写系统是**弱正规/弱停机**的。
 
@@ -283,12 +251,11 @@ cons 1 (cons 2 (cons 3 nil)) // 构造列表示例
 ### 合流性 {#confluence}
 若对于重写系统 $E$ 和任意 $a, b, c\in E$，一旦成立 $b\stackrel{\*}{\gets} a \stackrel{\*}{\to} c$，就存在 $d$ 使得 $b\stackrel{\*}{\to} d \stackrel{\*}{\gets} c$，那么 $E$ 是合流的。
 
-Church–Rosser 定理说，λ 演算具有合流性。
+{% admonition(type="example", title="Church–Rosser 定理") %}
+λ 演算具有合流性。
+{% end %}
 
-### Church–Rosser 定理 {#church-rosser-theorem}
-本部分原本希望参考 [D. Kozen/Church–Rosser Made Easy](https://www.cs.cornell.edu/~kozen/Papers/ChurchRosser.pdf)[^paper-proof]，但其中包含了过多未声明含义的术语，且包含了今天看来不必要的步骤，例如，使用了包含序列的集合来定义树[^prefix-tree]，并混用术语。
-
-其列举的文献中包含了其它的证明方式。此外，你可以[在此](https://pauillac.inria.fr/~huet/PUBLIC/residuals.pdf)找到一个使用 Coq 形式化验证的证明。
+参考了文献 [D. Kozen/Church–Rosser Made Easy](https://www.cs.cornell.edu/~kozen/Papers/ChurchRosser.pdf)[^paper-proof] 列举的其它证明方式。其本身的证明包含了过多未声明含义的术语，且包含了今天看来不必要的步骤，例如，使用了包含序列的集合来定义树[^prefix-tree]，并混用术语。此外，你可以[在此](https://pauillac.inria.fr/~huet/PUBLIC/residuals.pdf)找到一个使用 Coq 形式化验证的证明。
 
 以下将对证明思路进行摘要。
 
@@ -310,7 +277,9 @@ Church–Rosser 定理说，λ 演算具有合流性。
 
 由此，λ 演算具有合流性。
 
+---
+
 [^paper-invention]: Alonzo Church, *The Calculi of Lambda-Conversion* (Princeton, NJ: Princeton University Press, 1941).
 [^succeeds]: 其证明超出了本文范围，可参考标准教材如 *The Lambda Calculus: Its Syntax and Semantics* 中的证明。
 [^paper-proof]: Marco Gavanelli and Toni Mancini, "Preface," *Fundamenta Informaticae* 102, no. 3-4 (2010), <https://doi.org/10.3233/FI-2010-306>.
-[^prefix-tree]: `prefix-closed` 的集合需满足：对其每个元素 $s$，均有 $s$ 的前缀在集合中。例如，使用 $\{\epsilon, a, ab, ac, abd\}$ 表示一个树的父子关系，其中 $\epsilon$ 表示空序列。
+[^prefix-tree]: 考虑对前缀闭（prefix-closed）的集合，对每个元素 $s$，均有 $s$ 的前缀在集合中。例如，使用 $\set{\epsilon, a, ab, ac, abd}$ 表示一个树的父子关系，其中 $\epsilon$ 表示空序列。

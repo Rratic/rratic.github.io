@@ -1,5 +1,5 @@
 +++
-title = "迷宫生成算法：固定大小迷宫与无限迷宫"
+title = "迷宫生成算法的若干方案"
 date = 2022-08-29
 updated = 2024-01-21
 
@@ -35,7 +35,7 @@ while (列表 非空) {
 
 这种算法甚至允许主动选择起点和通过设置初始状态实现大块“空房间”的效果。
 
-关于更自由地使用此算法，可参考[三套简单的迷宫地图生成方案](https://zhuanlan.zhihu.com/p/27381213)。
+关于更自由地使用此算法，可参考 [Rooms and Mazes: A Procedural Dungeon Generator](https://journal.stuffwithstuff.com/2014/12/21/rooms-and-mazes/).
 
 ---
 

@@ -1,6 +1,5 @@
 +++
 title = "LISP 模式：图灵完备及元编程"
-description = "关于最早的 LISP 的核心想法，它如何实现图灵完备及元编程，及在此基础上的扩展和现状。"
 date = 2025-03-29
 
 [extra]
@@ -12,26 +11,18 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["计算机", "函数式编程"]
+tags = ["计算机", "计算理论"]
 +++
 
-前置知识
-- [无类型 λ 演算](/posts/lambda-calculus/)
-
----
-
-## 介绍 {#about}
-在 1960 年，John McCarthy 发表了一篇划时代的论文。其对编程的贡献有如欧几里德对几何的贡献。[^1]
-
-这篇论文中定义了一个名为 Lisp（意为 list processing）的编程语言。Paul Graham 认为，“目前为止只有两种真正干净利落，始终如一的编程模式：C 语言模式和 Lisp 语言模式。此二者就象两座高地……随着计算机变得越来越强大，新开发的语言一直在坚定地趋向于 Lisp 模式。”
+在 1960 年，John McCarthy 中一篇论文中定义了一个名为 Lisp（意为 list processing）的编程语言。Paul Graham 认为，“目前为止只有两种真正干净利落，始终如一的编程模式：C 语言模式和 Lisp 语言模式。此二者就像两座高地……随着计算机变得越来越强大，新开发的语言一直在坚定地趋向于 Lisp 模式。”
 
 Lisp 似乎受到了 Lambda 演算与 Kleene 的递归论的影响，但不完全来自于它们。
 
-## Lisp 之根源 {#roots-of-lisp}
-本部分参考了[其原始论文](https://www-formal.stanford.edu/jmc/recursive.pdf)。
+<!-- more -->
 
-另参考了 [Paul Graham](http://www.paulgraham.com/) 所作 [The Roots of Lisp](https://blog.freecloud.dev/img/the-roots-of-lisp.pdf)。找到了其一个 2003 年的译本 [Lisp 之根源](http://daiyuwen.freeshell.org/gb/rol/roots_of_lisp.html)，但该翻译多有谬误。
+本文参考了[其原始论文](https://www-formal.stanford.edu/jmc/recursive.pdf)[^1]及 [Paul Graham](http://www.paulgraham.com/) 所作 [The Roots of Lisp](https://blog.freecloud.dev/img/the-roots-of-lisp.pdf)。找到了其一个 2003 年的译本 [Lisp 之根源](http://daiyuwen.freeshell.org/gb/rol/roots_of_lisp.html)，但该翻译多有谬误。
 
+## 原始定义
 ### S-表达式 {#s-expression}
 一个表达式（expression）可以是：
 - 一个原子（atom），在这里是一个连续的字母序列，如 `foo`
@@ -124,11 +115,8 @@ second
 
 称这样的操作符为函数。
 
+## 扩展定义
 ### 函数 {#denoting-functions}
-{% admonition(type="info", title="说明") %}
-从这里开始的内容并非原始的定义。你将在[求值](#evaluation)中看到它们如何起作用。
-{% end %}
-
 函数表示为 `(lambda (p1 ... pn) e)`，其中 $p_i$ 是原子，称为参数，$e$ 是表达式。
 
 如果表达式形如 `((lambda (p1 ... pn) e) a1 ... an)` 则称为函数调用。
@@ -154,7 +142,7 @@ second
 有另外一个函数记号使得函数能提及它本身，使我们能方便地定义递归函数。
 
 ### 递归记号 {#mark-for-recursive-functions}
-理论上说，引入新的记号是可以通过[组合子](/posts/lambda-calculus/#recursive-functions)避免的。
+理论上说，引入新的记号是可以通过[组合子](@/posts/lambda_calculus.md#recursive-functions)避免的。
 
 不管是为了降低复杂性还是组合子提出太晚，让我们引入记号 `label`.
 
@@ -381,12 +369,11 @@ list
 这一设计的实现使得仅通过七个原始操作符 `quote`，`atom`，`eq`，`car`，`cdr`，`cons` 和 `cond` 完成[^only-seven]一个可用且具备优雅性[^elegant]的计算模型是可能的（尽管可能相当复杂）。
 
 ### 反思 {#review}
-在 1960 的原始定义中缺乏了很多使用的特性。如语句不会产生 `side-effect`（即每一个完整的表达式被单独执行，没有联系），因而没有顺序执行流程。并且没有实用的数字（尽管可以用长度为 $n$ 的列表表示，或者[使用函数表达](/pages/lambda-calculus/#datatype-number)）。
+在 1960 的原始定义中缺乏了很多实用的特性。如语句不会产生 `side-effect`（即每一个完整的表达式被单独执行，没有联系），因而没有顺序执行流程。并且没有实用的数字（尽管可以用长度为 $n$ 的列表表示，或者[使用函数表达](@/posts/lambda_calculus.md#datatype-number)）。
 
 McCarthy 的想法仍是今日的 Lisp 的语义的核心。Lisp 本质上并非一个为 AI 或 `rapid prototyping` 等任务设计的工具，它是当你试图公理化计算时的一个产物。
 
 ## 引入副作用 {#introduce-side-effects}
-### 概述 {#conclusion}
 如果想要阅读如何构建一个有 `side-effect` 的解释器并且完成一些任务，可以阅读 `AI Memo No. 543`。[^3]这篇文章里充满了技术细节。
 
 这里我们讨论解决更现实的问题。不如看看 Common Lisp 是如何设计的。这参阅了 [Common Lisp 教程](https://lisp.fullstack.org.cn/learn/getting-started/) 中的内容。

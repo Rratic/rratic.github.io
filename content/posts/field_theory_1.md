@@ -1,5 +1,5 @@
 +++
-title = "【域论】高次方程与 Galois 理论"
+title = "高次方程与 Galois 理论"
 description = "关于高次方程的根式解：代数基本定理，低次方程求根公式，域扩张，Galois 扩张，Galois 群，根式可解性判断与 Abel-Ruffini 定理。"
 date = 2025-07-09
 updated = 2025-10-02
@@ -20,12 +20,6 @@ tags = ["数学", "代数学"]
 +++
 
 封面图来自知乎上阐释的一个[使用拓扑 Galois 理论的证明](https://www.zhihu.com/question/29316970/answer/151649630)。
-
----
-
-前置知识
-- 线性代数
-- [群论（二）](/posts/group-theory-2/)
 
 ## 背景
 ### 代数基本定理
@@ -53,18 +47,16 @@ $$
 
 如此转化成了二次方程。
 
-此后，其学生 Lodovico Ferrari 提出了四次方程的解法。换元将原方程化为 $x^4+px^2+qx+r=0$，再化为 $(x^2+p+u)^2 = (p+2u)x^2-qx+(p^2-r+u^2+2pu)$，辅助变量 $u$ 使得右边为完全平方式。$\Delta = 0$ 是一个三次方程。
+此后，其学生 Lodovico Ferrari 提出了四次方程的解法。换元将原方程化为 $x^4+px^2+qx+r = 0$，再化为 $(x^2+p+u)^2 = (p+2u)x^2-qx+(p^2-r+u^2+2pu)$，辅助变量 $u$ 使得右边为完全平方式。$\Delta = 0$ 是一个三次方程。
 
 之后 Niels Abel 严格证明了五次方程不存在通用根式解，Évariste Galois 彻底解决了任意次方程的可解性问题。
 
 ### Lagrange 预解式
 Lagrange 在解方程时构造了辅助量。
 
-对三次方程的情形，$L_1 = x_1 + \omega x_2 + \omega^2 x_3, L_2 = x_1 + \omega^2 x_2 + \omega x_3$.
+对三次方程的情形，令 $L_1 = x_1 + \omega x_2 + \omega^2 x_3, L_2 = x_1 + \omega^2 x_2 + \omega x_3$.
 
-考察 $(x_1, x_2, x_3)$ 上的置换群，$L_1$ 与 $L_2$ 在 $A_3$ 下不变，
-
-而解二次方程 $Z^2-(L_1^3+L_2^3)Z+(L_1^3L_2^3)=0$ 的过程解决了对换。
+考察 $(x_1, x_2, x_3)$ 上的置换群，$L_1$ 与 $L_2$ 在 $A_3$ 下不变，而解二次方程 $Z^2-(L_1^3+L_2^3)Z+(L_1^3L_2^3) = 0$ 的过程解决了对换。
 
 这已经暗含了对称性的思想。可阅读：[为什么要消去二次项才能解一元三次方程？ - 酱紫君的回答 - 知乎](https://www.zhihu.com/question/450445294/answer/1934019614859330183)。
 
@@ -73,8 +65,8 @@ Lagrange 在解方程时构造了辅助量。
 ## 基本概念
 ### 基本定义
 域 $F$ 是一个配备两种运算的集合，满足：
-* $(F, +)$ 是交换群，记单位元为 0
-* $(F\setminus \set{0}, \times)$ 是交换群，记单位元为 1
+* $(F, +)$ 是交换群，记单位元为 $0$
+* $(F\setminus \set{0}, \times)$ 是交换群，记单位元为 $1$
 * 分配律 $a(b+c) = ab+ac$
 
 子域、同态的定义是平凡的。
@@ -84,23 +76,19 @@ Lagrange 在解方程时构造了辅助量。
 例如，$\mathbb{Q}(\sqrt{2}) = \set{a+b\sqrt{2} | a,b\in \mathbb{Q}}$ 是 $\mathbb{Q}$ 的次数为 2 的扩张，基为 $\set{1, \sqrt{2}}$，而 $\R/\mathbb{Q}$ 为无限扩张。
 
 ### 特征
-域 $F$ 的**特征** $\mathrm{char}\ F$ 是使得 $n\cdot 1=0$ 成立的最小正整数 $n$，如果不存在，则称特征是 0.
+域 $F$ 的**特征** $\mathrm{char}\ F$ 是使得 $n\cdot 1=0$ 成立的最小正整数 $n$，如果不存在，则称特征是 $0$.
 
-易说明，若特征是 0，一定存在子域同构于 $\mathbb{Q}$，否则特征一定是素数，同构于子域 $F_p = Z/pZ$，并且由 $(x+y)^p = x^p+y^p$ 有 Frobenius 自同态 $x\mapsto x^p$.
+易说明，若特征是 $0$，一定存在子域同构于 $\mathbb{Q}$，否则特征一定是素数，同构于子域 $F_p = \Z/p\Z$，并且由 $(x+y)^p = x^p+y^p$ 有 Frobenius 自同态 $x\mapsto x^p$.
 
-最典型的特征 p 的域是 $F_p$，定义为整数在 mod p 意义下的代表类按照常规的加法、乘法构成的域。
+最典型的特征 $p$ 的域是 $F_p$，定义为整数在 mod $p$ 意义下的代表类按照常规的加法、乘法构成的域。
 
 不那么平凡但重要的例子如下：
 
 {% admonition(type="example", title="p-进数域") %}
-对 $q=p^n \frac{a}{b}$，其中 $a$，$b$ 与 $p$ 互素，定义 p-进绝对值 $|q|_p = p^{-n}$.
-
-$\mathbb{Q}$ 由 p-进绝对值完备化为 $\mathbb{Q}_p$.
-
-可以看成全体有限的 p 进制小数（每一位为 $\mathbb{F}_p$）构成的域。
+对 $q=p^n \frac{a}{b}$，其中 $a$，$b$ 与 $p$ 互素，定义 $p$-进绝对值 $|q|_p = p^{-n}$. $\mathbb{Q}$ 由 $p$-进绝对值完备化为 $\mathbb{Q}_p$.
 {% end %}
 
-其特征为 $p$.
+其特征为 $0$.
 
 {% admonition(type="example", title="形式 Laurent 级数域") %}
 对域 $F$，$F(\\!(x)\\!)$ 是全体 $\sum_{n=k}^\infty a_nx^n, k\in\Z, a_n\in F$ 的域。
@@ -116,7 +104,7 @@ $\mathbb{Q}$ 由 p-进绝对值完备化为 $\mathbb{Q}_p$.
 对 $S\subset E$，由 $S$ 生成的域 $F$ 上的扩张 $F(S)$ 是同时包含 $F$ 和 $S$ 的最小的 $E$ 的子域。若 $S$ 为单元集，且 $E=F(S)$，称其是域 $F$ 的**单扩张**。考虑同态 $\varphi: F[x] \to F(\alpha), f \mapsto f(\alpha)$ 知 $[F(\alpha):F]=\deg m_{\alpha, F}$.
 
 ### Galois 扩张
-如果域扩张 $E/F$ 满足 $E$ 是 $F[x]$ 某个元素的分裂域（即 $f$ 可以写成 $E[x]$ 中一次式的乘积），则称其为**正规扩张**。
+如果域扩张 $E/F$ 满足 $E$ 是 $F[x]$ 中某个多项式 $f$ 的分裂域（即 $f$ 在 $E[x]$ 中可以写成一次式的乘积），则称其为**正规扩张**。
 
 如果一个不可约多项式没有重根，则称它**可分**。
 
@@ -125,10 +113,10 @@ $\mathbb{Q}$ 由 p-进绝对值完备化为 $\mathbb{Q}_p$.
 **Galois 扩张**是指正规且可分的扩张。
 
 {% admonition(type="theorem", title="0 特征域的扩张可分") %}
-对 0 特征域 $F$，每个扩张 $E/F$ 都可分。
+对 $0$ 特征域 $F$，每个扩张 $E/F$ 都可分。
 {% end %}
 
-对不可约的 $f$，由于特征为 0，$f'$ 非零，从而 $\gcd(f, f')=1$，$f$ 没有重根。
+对不可约的 $f$，由于特征为 $0$，$f'$ 非零，从而 $\gcd(f, f')=1$，$f$ 没有重根。
 
 ## Galois 理论
 ### Galois 群
@@ -170,12 +158,12 @@ $$
 
 {% admonition(type="theorem", title="性质") %}
 对 $F\subset K\subset E$，其中 $K/F, E/F$ 是正规扩张，则对任意 $\sigma\in \mathrm{Gal}(E/F)$，有
-- $\sigma\ K = K$
+- $\sigma K = K$
 - $\mathrm{Gal}(E/K)\triangleleft \mathrm{Gal}(E/F)$
-- $\mathrm{Gal}(E/K)/\mathrm{Gal}(E/F)\cong \mathrm{Gal}(F/K)$
+- $\mathrm{Gal}(E/F)/\mathrm{Gal}(E/K)\cong \mathrm{Gal}(K/F)$
 {% end %}
 
-第一个结论由定义易得。
+第一个结论由定义易得。从而给出结论二、三。
 
 $$
 \begin{aligned}
@@ -184,23 +172,19 @@ $$
 \end{aligned}
 $$
 
-给出结论二、三。
-
 {% admonition(type="theorem", title="根式扩张导出 Galois 群的次正规群列") %}
-对一列扩张 $F=K_0\subset K_1\subset \cdots K_t$ 满足 $K_{i+1} = K_i(u)$，其中 $u^{p_i}\in K_i, p\in\mathbb{P}$，且 $K_t/F$ 正规，$F$ 包含所有 $p_i$ 阶单位根。
+对一列扩张 $F = K_0\subset K_1\subset \cdots K_t$ 满足 $K_{i+1} = K_i(u)$，其中 $u^{p_i}\in K_i, p_i \in \mathbb{P}$，且 $K_t/F$ 正规，$F$ 包含所有 $p_i$ 阶单位根。
 
 则有子群列 $\set{e} = G_t \subset \cdots G_1\subset G_0 = \mathrm{Gal}(K_t/F)$，其中 $G_{i+1}\triangleleft G_i$，$G_i/G_{i+1}$ 为 $\set{e}$ 或 $p_{i+1}$ 阶循环群。
 {% end %}
 
-令 $G_i = \mathrm{Gal}(K_t/F)$. 再由[群论（二）](/posts/group-theory-2/)知上述为次正规群列。
-
-我们给出：
+令 $G_i = \mathrm{Gal}(K_t/K_i)$. 有 $G_i/G_{i+1} \cong \mathrm{Gal}(K_{i+1}/K_i)$ 知成立。
 
 {% admonition(type="theorem", title="n 次方程可解性问题") %}
 域 $F$ 和非常数多项式 $f\in F[x]$，正规扩张 $E$，若 $f$ 根式可解，则 $\mathrm{Gal}(E/F)$ 为可解群。
 {% end %}
 
-特别地，
+上一个结论的推论。特别地，
 
 {% admonition(type="theorem", title="Abel-Ruffini 定理") %}
 五次方程不存在通用根式解。
@@ -213,25 +197,27 @@ $$
 ## 计算 Galois 群
 关于一到六次方程计算 Galois 群的流程图可参考：[为什么课本上计算 Galois 群都是先求出根再计算的（不可解的除外）？ - 酱紫君的回答 - 知乎](https://www.zhihu.com/question/458961859/answer/1926427500826846761)
 
-### mod p 约化
-使用 mod p 约化技巧，有时会得到一些有用的结果。
+### mod $p$ 约化
+使用 mod $p$ 约化技巧，有时会得到一些有用的结果。
 
 过程如下：[^1]
-1. 对多项式 $f\in \Z[x]$，例如 $x^4+3x^2−3x−2$，取一个素数（这里是 3）
-2. 在 $F_3[x]$ 下多项式变为 $\bar{f} = x^4-2 = (x^2+x+2)(x^2+2x+2)$
-3. 其分裂域为 $F_9$，$\mathrm{Gal}(\mathbb{F}_9/\bar{f}) = Z_2$，从而 $f$ 的 Galois 群中有阶为 3 的元素
-4. 再 mod 7 做一次，知 Galois 群中有阶为 4 的元素，故为 $S_4$
+1. 对多项式 $f\in \Z[x]$，例如 $x^4+3x^2-3x-2$，取一个素数（这里是 $3$）
+2. 在 $\mathbb{F}_3[x]$ 下多项式变为 $\bar{f} = x^4-2 = (x^2+x+2)(x^2+2x+2)$
+3. 由 Dedekind 定理，$\bar{f}$ 的分解型 $(2,2)$ 表明 $\mathrm{Gal}(f/\mathbb{Q})$ 含 $(2)(2)$ 型置换，即有阶为 $2$ 的元素
+4. 再 mod $2$，$\bar{f} = x(x^3+x+1)$ 有阶为 $3$ 的元素
+5. 再 mod $7$，$\bar{f}$ 在 $\mathbb{F}_7$ 上不可约，故有阶为 $4$ 的元素
+6. 故 $\mathrm{Gal}(f/\mathbb{Q}) \cong S_4$
 
 ### 通用方法
 以下设 $f\in F[x]$ 是首一不可约可分多项式，且 $\mathrm{char}\ F\neq 2$. 我们令：
 
-$$D = \prod_{1\leq i\le j\leq n}(z_i-z_j)=\begin{vmatrix} 1 & 1 & \cdots & 1\cr  z_1 & z_2 & \cdots & z_n \cr  \vdots & \vdots & \ddots &\vdots \cr z_1^{n-1} & z_2^{n-1} & \cdots &z_n^{n-1} \end{vmatrix}$$
+$$D = \prod_{1\leq i < j\leq n}(z_i-z_j)=\begin{vmatrix} 1 & 1 & \cdots & 1\cr  z_1 & z_2 & \cdots & z_n \cr  \vdots & \vdots & \ddots &\vdots \cr z_1^{n-1} & z_2^{n-1} & \cdots &z_n^{n-1} \end{vmatrix}$$
 
 它具有这样的性质：$\sigma$ 是偶置换当且仅当 $D(\sigma(\Omega)) = D(\Omega)$.
 
 从而 $\mathrm{Gal}(f)\leq A_n \iff D\in F$.
 
-又，$z_i, z_j$ 在 $F$ 上的极小多项式相同，有 $\mathrm{Gal}(f)$ 是传递子群。
+又，$f$ 不可约，故任意两根 $z_i, z_j$ 共轭，$\mathrm{Gal}(f)$ 在 $\Omega$ 上传递。
 
 ---
 

@@ -1,5 +1,5 @@
 +++
-title = "【Haskell 语言】单子与副作用"
+title = "Haskell 的单子与副作用"
 description = "函数式语言如何引入副作用：函子、应用函子、单子。"
 date = 2025-08-27
 updated = 2025-10-26
@@ -16,21 +16,14 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["计算机", "函数式编程"]
+tags = ["计算机", "计算理论"]
 +++
 
 封面图为 `Monad` 类型类的声明，使用字体 JetBrains Mono.
 
 ---
 
-{{ ref_index(to = "functional-programming") }}
-
-前置知识
-- 一般的抽象代数基础
-- [Haskell 学习（一）](/posts/haskell-1/)
-- 一般的范畴论基础
-
-关于 Haskell 有一句广泛流传的话
+关于 Haskell 有一句广泛流传的话：
 > 一个单子说白了不过就是自函子范畴上的一个幺半群而已，这有什么难以理解的？
 
 这句话有一点不负责任。现在我们来尝试理清 Haskell 中对应的概念。
@@ -53,7 +46,7 @@ putStrLn :: String -> IO ()
 return :: a -> IO a
 ```
 
-使用 `do` 语法糖，我们可以顺序地执行
+使用 `do` 语法糖，我们可以顺序地执行：
 ```hs
 myGetLine :: IO String
 myGetLine = do
@@ -74,7 +67,7 @@ ghci> str
 "It's a red fox."
 ```
 
-我们在文件中写
+我们在文件中写：
 ```hs
 module Main where
 
@@ -375,7 +368,7 @@ data Either a b = Left a | Right b
 列表作为单子，副作用语义是一个计算可能产生多个结果，我们会对所有可能性的笛卡尔积遍历。
 
 ### 上下文副作用
-下文中提到的 `Monad` 都需通过以下方式导入
+下文中提到的 `Monad` 都需通过以下方式导入：
 
 ```hs
 import Control.Monad.Reader

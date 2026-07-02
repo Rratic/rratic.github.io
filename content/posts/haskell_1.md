@@ -1,5 +1,5 @@
 +++
-title = "【Haskell 语言】基础概念与语法"
+title = "Haskell 的基础概念与语法"
 description = "函数式语言的基础特性概览：列表、类型与高阶函数。"
 date = 2025-08-26
 updated = 2025-08-27
@@ -15,27 +15,17 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["计算机", "函数式编程"]
+tags = ["计算机"]
 +++
 
 封面图为 Haskell 实现的快速排序算法，使用字体 JetBrains Mono.
 
----
-
-{{ ref_index(to = "functional-programming") }}
-
-前置知识
-- 一般的编程基础
-- [无类型 λ 演算](/posts/lambda-calculus/)
-
-参考的是 <https://www.bilibili.com/video/BV1pwdgYmE9L>
-
 ## 环境配置
 如果读者不想配置，可使用 <https://play.haskell.org/> 的在线运行，但它不提供交互式。
 
-参考 <https://www.haskell.org/downloads/> 的指引
+配置时可参考 <https://www.haskell.org/downloads/> 的指引。
 
-在 Windows 下，可使用以下 Powershell 命令
+在 Windows 下，可使用以下 Powershell 命令：
 ```powershell
 Set-ExecutionPolicy Bypass -Scope Process -Force;[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; try { & ([ScriptBlock]::Create((Invoke-WebRequest https://www.haskell.org/ghcup/sh/bootstrap-haskell.ps1 -UseBasicParsing))) -Interactive -DisableCurl } catch { Write-Error $_ }
 ```
@@ -59,7 +49,7 @@ ghci> :t 0::Int
 0::Int :: Int
 ```
 
-类型有时也会产生一些需要处理的问题：
+有时不合适的类型会引来一些麻烦：
 
 ```hs
 ghci> b::Int = 3
@@ -76,9 +66,6 @@ ghci> 2 / fromIntegral b
 ```
 
 ### 函数
-类似于[无类型 λ 演算](/posts/lambda-calculus/)中的定义，Haskell 中的函数“只接受一个参数”。
-
-例如
 ```hs
 ghci> :t isUpper
 isUpper :: Char -> Bool
@@ -99,9 +86,13 @@ ghci> isUpper "abc"
 
 这个函数接受一个 `Char` 类型参数，返回一个 `Bool` 类型的值。
 
-Haskell 中实际上存在元组，对应的泛性质是[积](/posts/category-theory-1/#product-and-coproduct)。
+类似于[无类型 λ 演算](@/posts/lambda_calculus.md#currying)中的情况，Haskell 中的函数“只接受一个参数”。例如：
+```hs
+ghci> :t (+)
+(+) :: Num a => a -> a -> a
+```
 
-用括号表示元组
+Haskell 中实际上存在元组，对应的泛性质是[积](@/posts/category_theory_1.md#product-and-coproduct)。用括号表示元组：
 ```hs
 ghci> (fst (1, 2), snd (3, 4))
 (1,4)
@@ -180,7 +171,7 @@ ghci> [ e | li <- ["Ahh!", "meow~", "..."], e <- li ]
 ### 应用
 `String` 其实就是 `[Char]` 的别名。
 
-考虑以下代码（在位于 `./Main.hs` 的文件中编辑）
+考虑以下代码（在位于 `./Main.hs` 的文件中编辑）：
 ```hs
 import Data.Char
 import Data.List
@@ -196,16 +187,16 @@ normalise c | isUpper c = c
             | otherwise = ' '
 ```
 
-并使用 `:load Main` 运行，这会得到
+并使用 `:load Main` 运行，这会得到：
 ```hs
 ghci> :load Main
 [1 of 2] Compiling Main             ( Main.hs, interpreted )
 Ok, one module loaded.
 ```
 
-或者，也可以使用 GHCi 提供的多行输入（从 `:{` 开始，以 `:}` 结束）
+或者，也可以使用 GHCi 提供的多行输入（从 `:{` 开始，以 `:}` 结束）。
 
-我们来测试以下：
+我们来测试一下：
 ```hs
 ghci> canonical "Hello, world!"
 "HELLOWORLD"
@@ -224,13 +215,13 @@ ghci> unused "Hello, world!"
 
 ## 自定义类型
 ### 新类型
-我们可以定义类型别名，或基于原类型定义新类型
+我们可以定义类型别名，或基于原类型定义新类型：
 ```hs
 ghci> type Id = Int
 ghci> newtype Id = Id Int
 ```
 
-也可以从头开始定义类型
+也可以从头开始定义类型：
 ```hs
 ghci> data Lis = Empty | Cons Int (Lis)
 ghci> :t Empty
@@ -239,7 +230,7 @@ ghci> :t Cons 1 (Cons 2 Empty)
 Cons 1 (Cons 2 Empty) :: Lis
 ```
 
-可以增加泛型
+可以增加泛型：
 ```hs
 ghci> data Lis ty = Empty | Cons ty (Lis ty)
 ghci> :t Cons 1 (Cons 2 Empty)
@@ -248,7 +239,7 @@ ghci> :t Cons 'A' (Cons 'B' Empty)
 Cons 'A' (Cons 'B' Empty) :: Lis Char
 ```
 
-在文件中写如下内容
+在文件中写如下内容：
 ```hs
 data Lis ty = Empty | Cons ty (Lis ty)
 
@@ -257,11 +248,11 @@ toHList Empty       = []
 toHList (Cons x xs) = x : toHList xs
 ```
 
-即有 `toHList (Cons 'a' (Cons 'b' Empty))` 给出 `"ab"`
+即有 `toHList (Cons 'a' (Cons 'b' Empty))` 给出 `"ab"`.
 
-或可使用语法糖 `toHList $ Cons 'a' $ Cons 'b' Empty`
+或可使用语法糖 `toHList $ Cons 'a' $ Cons 'b' Empty`.
 
-也可以实现我们在现代语言中熟悉的 `Option`（在 Haskell 里对应的类型是 `data Maybe a = Nothing | Just a`）
+也可以实现我们在现代语言中熟悉的 `Option`（在 Haskell 里对应的类型是 `data Maybe a = Nothing | Just a`）。
 ```hs
 data Option a = None | Some a deriving (Show)
 
@@ -270,7 +261,7 @@ safeDiv a 0 = None
 safeDiv a b = Some (a `div` b)
 ```
 
-对于结构体，有更简单的定义方法
+对于结构体，有更简单的定义方法：
 ```hs
 data Person = Person {
   name :: String,
@@ -289,7 +280,7 @@ ghci> name a
 ```
 
 ### 类型类
-我们之前用到了 `show`，可以将数据变为显示的字符串
+我们之前用到了 `show`，可以将数据变为显示的字符串。
 ```hs
 ghci> show 'A'
 "'A'"
@@ -312,11 +303,11 @@ instance Display a => Display (List a) where
   display (Cons a xs) = "[" ++ display a ++ ", " ++ display xs ++ "]"
 ```
 
-`display (Cons (1::Int) (Cons (2::Int) Empty))` 会得到 `"[1, [2, []]]"`
+`display (Cons (1::Int) (Cons (2::Int) Empty))` 会得到 `"[1, [2, []]]"`.
 
-`deriving` 的方式也可以允许自动推导出 `Eq`、`Ord` 等
+`deriving` 的方式也可以允许自动推导出 `Eq`、`Ord` 等。
 
-有时，我们不接受默认的推导方式，可自行定义
+有时，我们不接受默认的推导方式，可自行定义：
 ```hs
 data Q = Q Integer Integer
 
@@ -363,7 +354,7 @@ ghci> Q (-1) 10 + Q 1 2
 ## 高阶函数
 高阶函数是指参数或返回值中有类型是函数的函数。
 
-一个典型的简单例子是 `flip`
+一个典型的简单例子是 `flip`.
 ```hs
 ghci> :t flip
 flip :: (a -> b -> c) -> b -> a -> c
@@ -374,7 +365,7 @@ ghci> "Hello, " +++ "world!"
 "Hello, world!"
 ```
 
-`map` 是常用的函数
+`map` 是常用的函数：
 ```hs
 ghci> map (\x -> [x, 2*x]) [1..3]
 [[1,2],[2,4],[3,6]]

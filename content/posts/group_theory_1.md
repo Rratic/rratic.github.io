@@ -1,6 +1,5 @@
 +++
-title = "【群论】群在集合上的作用相关"
-description = "群在集合上的作用，Pólya 计数法，共轭作用与 Sylow 定理。"
+title = "群在集合上的作用讨论"
 date = 2025-06-09
 updated = 2025-06-11
 
@@ -16,15 +15,9 @@ categories = ["知识"]
 tags = ["数学", "代数学"]
 +++
 
-{{ ref_index(to = "group-theory") }}
+在历史上，首先出现的概念是具体的集合上的对称/变换群（取元素为双射，运算为复合），然后才从中抽象出了群的概念。因此，自然地，我们可以考察群到集合的对称群的同态。
 
-前置知识
-- 线性代数
-- 群论基本定义
-
-在历史上，首先出现的概念是具体的集合上的对称/变换群（取元素为双射，运算为复合），然后才从中抽象出了群的概念。
-
-因此，自然地，我们可以考察群到集合的对称群的同态。
+<!-- more -->
 
 ## 群在集合上的作用
 群 $G$ 在集合 $\Omega$ 上的作用是一个映射：
@@ -51,7 +44,7 @@ $$
 
 显然有 $\varphi$ 是从 $G$ 到 $\Omega$ 上对称群的同态。
 
-记集合元素 $\alpha$ 在这一关系下的等价类 $\set{\alpha^x | x\in G}$ 为其**轨道** $\mathrm{Orb}(\alpha)$；全体不变映射 $\set{x | \alpha^x=\alpha}$ 为其**稳定化子** $\mathrm{Stab}(\alpha)$，易知 $|\mathrm{Orb}(\alpha)|=|G\colon \mathrm{Stab}(\alpha)|$.
+记集合元素 $\alpha$ 在这一关系下的等价类 $\set{\alpha^x | x\in G}$ 为其**轨道** $\mathrm{Orb}(\alpha)$；全体不变映射 $\set{x | \alpha^x = \alpha}$ 为其**稳定化子** $\mathrm{Stab}(\alpha)$，易知 $|\mathrm{Orb}(\alpha)| = |G\colon \mathrm{Stab}(\alpha)|$.
 
 作为一个例子，对于正四面体（记顶点 $\set{A,B,C,D}$），设其旋转变换群为 $G$，则：任取一个顶点，它对应的稳定子群阶为 3，轨道为 $\set{A,B,C,D}$，故而 $G$ 是 $S_4$ 的 12 阶子群，必然是 $A_4\cong V_4\oplus Z_3\cong Z_2\oplus Z_2\oplus Z_3$.
 
@@ -63,7 +56,7 @@ $\varphi$ 对应的轨道数为 $\frac{1}{|G|} \sum_{g\in G}|X(g)|$，其中 $X(
 {% end %}
 
 其本质是对所有满足 $x^g = x$ 的数对的算两次。
-- 对 $g$ 计数为 $\sum |\mathrm{Stab}(g)| = \sum\frac{|G|}{|\mathrm{Orb}(g)|} = |G|\cdot ans$
+- 对 $g$ 计数为 $\sum |\mathrm{Stab}(g)| = \sum\frac{|G|}{|\mathrm{Orb}(g)|} = |G|\cdot \text{ans}$
 - 对 $x$ 计数则为 $\sum_{g\in G}|X(g)|$
 
 {% admonition(type="question", title="立方体染色Ⅰ") %}
@@ -74,23 +67,22 @@ $\varphi$ 对应的轨道数为 $\frac{1}{|G|} \sum_{g\in G}|X(g)|$，其中 $X(
 
 集合 $\Omega$ 是六个面的染色状态构成的集合，作用 $\varphi$ 使得 $\varphi(g)$ 是进行 $g$ 对应的旋转操作。所求即它的轨道数。
 
-$X(g)$ 只在单位元处取到 720，其余情况为空集。故所求为 30.
+$X(g)$ 只在单位元处取到 $720$，其余情况为空集。故所求为 $30$.
 
 {% admonition(type="question", title="立方体染色Ⅱ") %}
 一个立方体，使用三种颜料染色，有多少种旋转下不同的染色？
 {% end %}
 定义同上。
 
-对 $G$ 中元素分类：
+对 $G$ 中元素分类，算得 $57$.
+
 | 类型 | 个数 | $X(g)$ 值 |
 | :-: | :-: | :-: |
-| 不动 | 1 | $3^6$ |
-| 旋转 90° | 6 | $3^2\cdot 3$ |
-| 旋转 180° | 3 | $3^2\cdot 3^2$ |
-| 绕一对对棱中点连成的轴旋转 180° | 6 | $3^3$ |
-| 绕顶点旋转 120° | 8 | $3^2$ |
-
-所求为 57.
+| 不动 | $1$ | $3^6$ |
+| 旋转 90° | $6$ | $3^2\cdot 3$ |
+| 旋转 180° | $3$ | $3^2\cdot 3^2$ |
+| 绕一对对棱中点连成的轴旋转 180° | $6$ | $3^3$ |
+| 绕顶点旋转 120° | $8$ | $3^2$ |
 
 ## 共轭作用
 共轭作用是在 $G$ 的集合上的作用：
@@ -102,74 +94,61 @@ $$
 \end{aligned}
 $$
 
-记 $G$ 上 $\set{x}$ 的**中心化子** $C_G(x) = \set{a | xa=ax}$，**中心** $Z(G) = \set{x | gx=xg (\forall g\in G)}$.
-
-则 $x\in Z(G)\Leftrightarrow |\mathrm{Orb}(x)|=1$.
+记 $G$ 上 $\set{x}$ 的**中心化子** $C_G(x) = \set{a | xa = ax}$，**中心** $Z(G) = \set{x | gx=xg,  \forall g}$. 有 $x\in Z(G)\iff |\mathrm{Orb}(x)| = 1$.
 
 那么我们可以写出**类方程**：
 
-$$|G| = |Z(G)| + \sum |G\colon C_G(y_i)|$$
+$$|G| = |Z(G)| + \sum_{y_i \notin Z(G)} |G\colon C_G(y_i)|$$
 
-其中 $y_i$ 的轨道阶不为 1.
-
-例如，对 $|G|=p^l$，所有的 $C_G(y_i)$ 都是真子群，从而 $p\mid |Z(G)|$.
+例如，考察 $|G| = p^l$，所有的 $C_G(y_i)$ 都是真子群，有 $|Z(G)|$ 是 $p$ 的倍数，从而是非平凡的。
 
 ## Sylow 定理
-对有限群 $G$ 和素数 $p$ 使 $p^l\parallel |G|$，$G$ 的 $p^l$ 阶子群为其 **Sylow p 子群**。
+对有限群 $G$ 和素数 $p$ 使 $p^l$ 恰整除 $|G|$，称 $G$ 的 $p^l$ 阶子群为其 **Sylow $p$-子群**。以下设 $|G| = p^l m$. 可以参考[启发式推导过程](https://zhuanlan.zhihu.com/p/358852225)。
 
 {% admonition(type="theorem", title="第一 Sylow 定理") %}
-对有限群 $G$ 和素数 $p$ 使 $p^k\mid |G|$，$G$ 存在 $p^k$ 阶子群。
+对有限群 $G$ 和素数 $p$ 使 $p^k$ 整除 $|G|$，$G$ 存在 $p^k$ 阶子群。
 {% end %}
-
-可以参考证明的[启发式推导过程](https://zhuanlan.zhihu.com/p/358852225)，这给出了另一种证明方法。
-
----
 
 只需讨论阶大于 $p$ 的非交换群，因为交换群一定可以分解为循环群的直积。[^1]
 
 对 $|G|$ 归纳：
-- 若 $p\mid Z(G)$，由于它是交换的，有 p 阶子群；考察它和对应的商群，使用归纳假设
+- 若 $p\mid Z(G)$，由于它是交换的，有 $p$ 阶子群；考察它和对应的商群，使用归纳假设
 - 若 $p\nmid Z(G)$，由类方程，存在一个 $p\nmid \mathrm{Orb}(y_i)$，有 $p^l\parallel C_G(y_i)$，使用归纳假设
 
 {% admonition(type="theorem", title="第二 Sylow 定理") %}
-对 $p^k\mid |G|$，Sylow p 子群 $P$，$p^k$ 阶子群必为 $P$ 的某个共轭的子群。
+对 $p^k$ 整除 $|G|$ 及 Sylow $p$-子群 $P$，$p^k$ 阶子群必为 $P$ 的某个共轭的子群。
 {% end %}
 
-令 $\Omega$ 为 $P$ 的左陪集构成的集合，$|G| = p^lm$.
+对一个 $p^k$ 阶子群 $H$，考察 $H$ 在 $P$ 上的作用 $\varphi(h) = (aP\mapsto haP)$. 有 $|\mathrm{Orb}(aP)|$ 整除 $|H|$，且：
 
-对一个 $p^k$ 阶子群 $H$，考察 $H$ 在 $P$ 上的作用 $\varphi(h) = (aP\mapsto haP)$.
+$$|G:P| = \sum_{aP} 1 = \sum |\mathrm{Orb}(aP)|\not\equiv 0\pmod{p}$$
 
-有 $|\mathrm{Orb}(aP)|\big| |H|$，且 $|\Omega|=\sum |\mathrm{Orb}(aP)|\not\equiv 0\pmod{p}$.
-
-故至少一个 $|\mathrm{Orb}(aP)| = 1$. 对应 $h\in aPa^{-1}$ 即 $H\subseteq aPa^{-1}$
+故至少一个 $|\mathrm{Orb}(aP)| = 1$. 对应 $h\in aPa^{-1}$ 即满足 $H\subseteq aPa^{-1}$.
 
 {% admonition(type="theorem", title="第三 Sylow 定理") %}
-对 $p^l\parallel |G|, |G|=p^lm$，Sylow p 子群个数 $r$，则 $r\equiv 1\pmod{p}$ 且 $r\mid m$.
+设 Sylow $p$-子群个数 $r$，则 $r\equiv 1\pmod{p}$ 且 $r\mid m$.
 {% end %}
 
-称 $H$ 在 $G$ 中**正规化子** $N_G(H) = \set{G | gHg^{-1}=H}$.
+称 $H$ 在 $G$ 中**正规化子** $N_G(H) = \set{G | gHg^{-1}=H}$. 则对 $G$ 的 Sylow $p$-子群 $P$，有 $P\unlhd N_G(P)\le G$.
 
-则对 $G$ 的 Sylow p 子群 $P$，有 $P\unlhd N_G(P)\le G$.
+对 $G$ 的 Sylow $p$-子群 $Q\subseteq N_G(P)$，$P,Q$ 同为 $N_G(P)$ 的 Sylow p 子群，由第二定理知相互共轭。由 $P$ 为 $N_G(P)$ 的正规子群，$P = Q$.
 
-对 $G$ 的 Sylow p 子群 $Q\subseteq N_G(P)$，$P,Q$ 同为 $N_G(P)$ 的 Sylow p 子群，由第二定理知相互共轭。由 $P$ 为 $N_G(P)$ 的正规子群，$P = Q$.
+令 $\Omega$ 为 Sylow $p$-子群的集合，令 $P$ 在 $\Omega$ 上作用为共轭 $\varphi(p) = (Q\mapsto pQp^{-1})$. 有 $|\mathrm{Orb}(Q)| = 1 \iff Q = P$，其余整除 $|P|$. 即：
 
-令 $\Omega$ 为 Sylow p 子群的集合，$P$ 在 $\Omega$ 上作用为共轭 $\varphi(g) = (Q\mapsto gQg^{-1})$.
+$$r = \sum |\mathrm{Orb}(Q)|\equiv 1\pmod{p}$$
 
-有 $|\mathrm{Orb}(Q)|=1\Leftrightarrow Q=P$，其余整除 $|P|$.
-
-故 $r=\sum |\mathrm{Orb}(Q)|\equiv 1\pmod{p}$.
-
-由第二定理知 $G$ 在 $\Omega$ 上的共轭作用使 $\Omega$ 成为轨道，$r = |\Omega|\big| |G|$，即 $r\mid m$.
+由第二定理知 $G$ 在 $\Omega$ 上的共轭作用使 $\Omega$ 成为轨道，$|\Omega|$ 整除 $|G|$，即 $r\mid m$.
 
 {% admonition(type="theorem", title="p·q 阶群分类") %}
 对素数 $p < q$，$pq$ 阶群在 $q\not\equiv 1\pmod{p}$ 时只有循环群。
 {% end %}
 
-取 Sylow p 子群及 Sylow q 子群，由第三定理知个数均为 1，从而分别是正规的。
+考察 Sylow $p$-子群及 Sylow $q$-子群，由第三定理知个数均为 $1$，从而分别是正规的。
 
-易知 $PQ=G$，又由 $P\cap Q = \set{e}$，可知 $G\cong P\oplus Q\cong Z_p\oplus Z_q\cong Z_{pq}$.
+易知 $PQ = G$，又由 $P\cap Q = \set{e}$，可知 $G\cong P\oplus Q\cong Z_p\oplus Z_q\cong Z_{pq}$.
 
-## 注释 {#footnotes}
+---
+
 [^1]: 通过以下步骤证明：
 * 将 $G$ 用自由群表示法表示为 $<g_1, g_2\cdots g_n\mid \text{rules}>$
 * 由于是交换群，可以将一个规则（形如 $g_1 g_2^{-1} g_1^2$）任意交换顺序写成 $3x_1-x_2=0$ 的形式

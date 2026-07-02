@@ -1,5 +1,5 @@
 +++
-title = "【着色器】GLSL 的基础用法与技巧"
+title = "GLSL 的基础用法与技巧"
 description = "基于 GLSL 的着色器基础内容：2D 绚丽图像及 Raymarching."
 date = 2025-09-03
 
@@ -16,7 +16,7 @@ tags = ["计算机", "图形学"]
 
 参考了 [kishimisu](https://www.youtube.com/@kishimisu) 的视频教程。
 
-以下均采取平台 [Shadertoy](https://www.shadertoy.com/new) 的配置，使用的语言是 [GLSL](https://registry.khronos.org/OpenGL-Refpages/gl4/index.php). 完整的 GLSL 手册见于 [GLSL ES](https://registry.khronos.org/OpenGL/specs/es/3.0/GLSL_ES_Specification_3.00.pdf).
+以下均采取平台 [Shadertoy](https://www.shadertoy.com/new) 的配置，使用的语言是 [GLSL](https://registry.khronos.org/OpenGL-Refpages/gl4/index.php). 完整的 GLSL 手册见于 [GLSL ES](https://registry.khronos.org/OpenGL/specs/es/3.0/GLSL_ES_Specification_3.00.pdf). Shadertoy 平台额外提供了全局变量 `iMouse` 等，请参考其 GLSL 帮助。
 
 ## 基本效果
 着色器的入口函数是 `mainImage`，接受参数包括 `vec2` 类型的 `fragCoord` 和 `vec4` 类型的 `fragColor`. 其中 `fragColor` 用 `out` 修饰，表示它的值在函数内的改变会影响到函数外（我不清楚为什么不把它改成返回值形式）。
@@ -211,7 +211,3 @@ vec3 rot3D(vec3 p, vec3 axis, float angle) {
 		+ cross(axis, p) * sin(angle);
 }
 ```
-
-使用 `mod(x, 1.0) = fract(x)` 可以实现空间复制的效果。
-
-在 Shadertoy 中可以调用全局变量 `iMouse` 可以实现随鼠标旋转的效果。请参考其 GLSL 帮助。
