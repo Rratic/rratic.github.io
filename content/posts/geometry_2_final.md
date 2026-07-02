@@ -248,6 +248,12 @@ $$
 
 仿照之前证明。
 
+{% admonition(type="note", title="复叠的复合不一定是复叠") %}
+在不局部单连通时有反例：
+
+![反例](/images/geometry/covering_covering.png)
+{% end %}
+
 ### 复叠变换
 {% admonition(type="definition", title="复叠变换") %}
 复叠变换是满足 $p \circ h = p$ 的 $\tilde{X}$ 自同胚，也即 $(\tilde{X}, p)$ 的自同构，记作 $\mathrm{Deck}(\tilde{X}/X)$.
