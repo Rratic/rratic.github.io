@@ -1,6 +1,5 @@
 +++
-title = "ETCS 理论简介"
-description = "集合范畴基本理论的公理简介。"
+title = "集合范畴基本理论（ETCS）简介"
 date = 2026-05-12
 
 [extra]
@@ -14,9 +13,11 @@ categories = ["知识"]
 tags = ["数学", "基石"]
 +++
 
-ETCS 是 Lawvere 的集合范畴基本理论[^etcs-1] [^etcs-2]（Elementary Theory of the Category of Sets）。
+ETCS 是 Lawvere 的集合范畴基本理论（Elementary Theory of the Category of Sets）。
 
 对此会有一个误解是认为其基本动机是用范畴论来取代集合理论，其实不然，它就是集合论。这些公理是受范畴启发的，并不依赖于拥有一个一般的范畴的定义。
+
+<!-- more -->
 
 本文参考了 [*Rethinking Set Theory*](https://www.tandfonline.com/doi/abs/10.4169/amer.math.monthly.121.05.403) 及其[中译](https://chaoli.club/index.php/7082/0/)。
 
@@ -28,7 +29,9 @@ ETCS 是 Lawvere 的集合范畴基本理论[^etcs-1] [^etcs-2]（Elementary The
 函数复合满足结合律、存在单位元。
 {% end %}
 
-后者即，对任一集合 $X$ 存在一个函数 $\mathbf{1}_X: X \to X$ 使得对所有 $g: X \to Y$ 有 $g \circ \mathbf{1}_X = g$; 对所有 $f: W \to X$ 有 $\mathbf{1}_X \circ f = f$. 从中可知唯一性。
+后者即，对任一集合 $X$ 存在一个函数 $\mathbf{1}_X: X \to X$ 使得对所有 $g: X \to Y$ 有 $g \circ \mathbf{1}_X = g$; 对所有 $f: W \to X$ 有 $\mathbf{1}_X \circ f = f$.
+
+请读者注意，等词是[一阶形式语言](@/posts/logic_4.md)自带的。容易证明这里的单位元唯一而不需要任何多于已有定义的东西。
 
 {% admonition(type="info", title="公理 2") %}
 存在一个 terminal set $T$, 即满足对任意 $X$ 都有唯一函数 $X \to T$.
@@ -40,17 +43,17 @@ ETCS 是 Lawvere 的集合范畴基本理论[^etcs-1] [^etcs-2]（Elementary The
 存在一个没有元素的集合。
 {% end %}
 
+我们熟悉的 $\emptyset$.
+
 {% admonition(type="info", title="公理 4") %}
 对 $f, g: X \to Y$, 若对所有 $x \in X$ 都有 $f(x) = g(x)$, 那么 $f = g$.
 {% end %}
-
-关于等号在理论中处于哪一层，读者可参考[一阶逻辑](@/posts/logic_4.md)。
 
 {% admonition(type="info", title="公理 5") %}
 每对集合都有一个积。
 {% end %}
 
-积不仅包含一个集合，还有两个投影映射。积的定义即范畴论中的定义。
+积不仅包含一个集合，还有两个投影映射。积的定义即[范畴论中的定义](@/posts/category_theory_1.md#product-and-coproduct)。
 
 两个积是唯一同构的，故我们在讨论时假定一个优选的 $(X \times Y, \mathrm{pr}_1^{X,Y}, \mathrm{pr}_2^{X,Y})$ 是无碍的（或者直接将此运算放在原始概念列表中）。
 

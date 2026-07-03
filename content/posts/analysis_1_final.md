@@ -50,7 +50,7 @@ $$(f_1(x) \cdots f_n(x))' = \sum_{k=1}^n f_1(x) \cdots f_{k-1}(x) f_k'(x) f_{k+1
 
 $$\Delta y = f(x + \Delta x) - f(x) = A \Delta x + o(\Delta x) \quad (\Delta x \to 0)$$
 
-关于微分的高观点看法可以参考[微分与微分形式](/posts/differential-forms/)。另外 $o(h(x))$ 可以被理解为无幺的函数环。
+关于微分的高观点看法可以参考[微分与微分形式](@/posts/differential_forms.md)。另外 $o(h(x))$ 可以被理解为无幺的函数环。
 
 对乘法高阶导数有 Leibniz 法则：
 

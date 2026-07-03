@@ -1,5 +1,5 @@
 +++
-title = "【密码学】有限域上的数论算法"
+title = "基于有限域上数论的密码系统"
 date = 2026-02-12
 
 [extra]
@@ -11,10 +11,10 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["计算机", "密码学"]
+tags = ["数学", "数论", "计算机", "密码学"]
 +++
 
-主要参考的是 An Introduction to Mathematical Cryptography 第二、三、四章。
+主要参考的是 An Introduction to Mathematical Cryptography 第二章离散对数、第三章整数分解及第四章数字签名。
 
 <!-- more -->
 

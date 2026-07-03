@@ -420,7 +420,7 @@ $$\sum_{n=2}^{+\infty} \frac{(-1)^n (n+1)^2 \arctan \sqrt{n}}{n^2 (n+(-1)^n)^p}$
 使用 Abel 判别法推论，题可被简化为 $\sum_{n=2}^{+\infty} \frac{(-1)^n}{(n+(-1)^n)^p}$ 敛散性，此式即 $\sum_{n=2}^{+\infty} \frac{(-1)^{n-1}}{n^p}$, 用 Leibniz 判别法即可。
 
 ### 级数重排
-有界重排（$|\sigma(n)-n|$ 有界）不会改变敛散性和值。对无界重排我们有 [Riemann 重排定理](/posts/analysis-1-final/#jiang-yi-yue-du)。
+有界重排（$|\sigma(n)-n|$ 有界）不会改变敛散性和值。对无界重排我们有 [Riemann 重排定理](@/posts/analysis_1_final.md)。
 
 ---
 

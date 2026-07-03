@@ -1,6 +1,5 @@
 +++
-title = "《初识量子力学》笔记（上）：海森堡绘景到薛定谔绘景"
-description = "《初识量子力学》是一个理顺量子力学理论的尝试。"
+title = "《初识量子力学》笔记（上）"
 date = 2026-03-06
 
 [extra]
@@ -15,11 +14,9 @@ categories = ["知识"]
 tags = ["物理", "量子物理"]
 +++
 
-前置知识
-- 线性代数
-- 一般的经典力学基础，参考[《初识经典力学》笔记](@/posts/classical_mechanics_1.md)
+参考的是[《初识量子力学》](https://chaoli.club/index.php/10485)前三章，这是一个理顺量子力学理论的尝试。读者可先阅读[《初识经典力学》笔记](@/posts/classical_mechanics_1.md)。
 
-参考的是[《初识量子力学》](https://chaoli.club/index.php/10485)前三章。
+<!-- more -->
 
 ## 氢原子光谱
 ### 矩阵引入与运动方程

@@ -23,7 +23,7 @@ tags = ["计算机", "计算理论"]
 ## 环境配置
 可参考 <https://agda.readthedocs.io/en/latest/getting-started/installation.html> 的指引。
 
-Agda 是用 Haskell 写的，可以在[安装好 Haskell](/posts/haskell-1/) 后通过如下命令安装：
+Agda 是用 Haskell 写的，可以在[安装好 Haskell](@/posts/haskell_1.md) 后通过如下命令安装：
 ```sh
 cabal update
 cabal install Agda

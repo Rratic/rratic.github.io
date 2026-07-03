@@ -253,7 +253,7 @@ $$
 
 $$f(\alpha, \beta) = \braket{T_f\alpha, \beta}$$
 
-现在有：$f$ Hermite $\Leftrightarrow$ $[f]_\mathcal{B}$ Hermite $\Leftrightarrow$ $[T _f] _\mathcal{B}$ Hermite $\Leftrightarrow$ $T_f$ 自伴。
+现在有：$f$ Hermite $\iff$ $[f]_\mathcal{B}$ Hermite $\iff$ $[T _f] _\mathcal{B}$ Hermite $\iff$ $T_f$ 自伴。
 
 我们定义 $T \in L(V)$ 正定，如果它自伴并且 $\braket{T\alpha, \alpha} > 0$.
 
