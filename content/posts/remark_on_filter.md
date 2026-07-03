@@ -15,9 +15,11 @@ categories = ["知识"]
 tags = ["数学", "基石", "分析学", "拓扑学"]
 +++
 
-起因是听说 Lean 现在的 mathlib 中实数是依靠滤子定义的（虽然实际搜索了一下发现当前版本还是改为用 Cauchy 序列定义）。 
+起因是听说 Lean 现在的 mathlib 中实数是依靠滤子定义的（但实际搜索了一下发现当前版本还是改为用 Cauchy 序列定义）。
 
 <!-- more -->
+
+这里不妨提一下，有一篇收录了实数不下二十种定义方法的[文献综述](https://projecteuclid.org/journals/rocky-mountain-journal-of-mathematics/volume-45/issue-3/Survey-Article-The-real-numbersA-survey-of-constructions/10.1216/RMJ-2015-45-3-737.full?tab=ArticleLink)。
 
 用 [LeanSearch](https://leansearch.net/) 搜索到用 Cauchy 序列（[用 $\epsilon-\delta$ 语言定义](https://leansearch.net/doc/Mathlib.Algebra.Order.CauSeq.Basic.html#IsCauSeq)）定义的 [Data.Real.Basic - Real](https://leansearch.net/doc/Mathlib.Data.Real.Basic.html#Real) 与用 Cauchy 滤子定义的 [Topology.UniformSpace.CompareReals - CompareReals.Bourbakiℝ](https://leansearch.net/doc/Mathlib.Topology.UniformSpace.CompareReals.html#CompareReals.Bourbaki%E2%84%9D).
 

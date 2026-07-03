@@ -23,7 +23,7 @@ tags = ["计算机", "计算理论"]
 参考的是[课程](https://zhenjiang888.github.io/FP/2025/)的对应部分讲义。
 
 ## 基本概念
-BMF/Bird Meertens Formalism 是一套让人们从特定规范表述中导出（高效）程序的函数演算。
+Bird Meertens Formalism (BMF) 是一套让人们从特定规范表述中导出（高效）程序的函数演算。
 
 ### 记号
 先明确一些基础的规范：
