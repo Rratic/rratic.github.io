@@ -39,7 +39,7 @@ float res = fract(sin(x) * 100000.0);
 在 2D 情形下，需要采取不可约的系数（读者可自行测试 `col = vec3(fract(sin(uv.x) * 100000.0 + sin(uv.y) * 100.0));` 的结果）
 ```glsl
 float random(vec2 uv) {
-	return fract(sin(dot(uv.xy, vec2(11.9898, 78.233))) * 43758.5453123);
+	return fract(sin(dot(uv, vec2(11.9898, 78.233))) * 43758.5453123);
 }
 
 vec2 random2(vec2 uv) {
@@ -111,9 +111,7 @@ float perlin(vec2 st) {
 
     vec2 u = smoothstep(0.0, 1.0, f);
 
-    return mix(a, b, u.x) +
-            (c - a) * u.y * (1.0 - u.x) +
-            (d - b) * u.x * u.y;
+    return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);
 }
 ```
 
@@ -230,7 +228,7 @@ $$\mathrm{fbm}(x, y) = \sum_{i=1}^n w^i \cdot \mathrm{noise}(s^ix, s^iy)$$
 
 其中取 $w=\frac{1}{2}, s=2$，此时称每次迭代为 octave.
 
-有以下例子：
+在高于一维时，可在叠加时额外加一个旋转。有以下例子：
 ```glsl
 float random(vec2 uv) { ... }
 
@@ -240,9 +238,10 @@ float fbm(vec2 uv) {
     float value = 0.0;
     float amplitude = .5;
     float frequency = 0.;
+    float rotation = mat2(0.8, -0.6, 0.6, 0.8);
 
     for (int i = 0; i < 6; i++) {
-        value += amplitude * perlin(uv);
+        value += amplitude * rotation * perlin(uv);
         uv *= 2.;
         amplitude *= .5;
     }
