@@ -1,5 +1,5 @@
 +++
-title = "【着色器】色彩与复杂绘制"
+title = "基于 GLSL 的色彩与数学绘制"
 description = "基于 GLSL 的 HSV 操作与经典数学对象的绘制。"
 date = 2025-09-22
 
@@ -8,7 +8,7 @@ toc = true
 math = true
 
 [extra.cover]
-image = "images/cover/shader_exp_inv.png"
+image = "images/cover/shader_complex.png"
 
 [extra.sitemap]
 priority = "0.8"
@@ -29,7 +29,7 @@ HSV 是一种比较好的适用于人类视觉的颜色模型。
 
 在后文中，我们都归一到范围 0 ~ 1 去处理。
 
-GLSL 中参数是 RGB 的，因此需要将 HSV 转为 RGB，可参考 Sam Hocevar 的代码。（可以在 <https://github.com/hughsk/glsl-hsv2rgb> 找到它的一个 npm package）
+GLSL 中参数是 RGB 的，因此需要将 HSV 转为 RGB，可参考 Sam Hocevar 的代码（可以在 <https://github.com/hughsk/glsl-hsv2rgb> 找到它的一个 npm package）。
 ```glsl
 vec3 hsv2rgb(vec3 c) {
     vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
@@ -39,7 +39,7 @@ vec3 hsv2rgb(vec3 c) {
 ```
 
 ### 色板生成算法
-参考这个帖子：[Ant Design 色板生成算法演进之路](https://zhuanlan.zhihu.com/p/32422584)，可以在 [Ant Design 的色板互动页面](https://ant.design/docs/spec/colors-cn) 体验其效果。
+参考了帖子 [Ant Design 色板生成算法演进之路](https://zhuanlan.zhihu.com/p/32422584)。可以在 [Ant Design 的色板互动页面](https://ant.design/docs/spec/colors-cn)体验其效果。
 
 将其中的 Javascript 代码翻译为 GLSL 如下：
 ```glsl
@@ -92,28 +92,57 @@ vec3 palette(vec3 col, float i) {
 ### 光照
 使用 HSV 可以给[上一篇提及的 Raymarching](@/posts/shader_1.md#Raymarching) 渲染的曲面添加光照效果。
 
-一个简单的方法是将光照方向与曲面在该点处的法方向的余弦值赋予给亮度。
+一个简单的方法是将光照方向与曲面在该点处的法方向的夹角余弦值赋予给亮度。我们可以额外用 `pow(val, 100.0)` 赋予高光。
 
-完整示例如下：
+一个球体的示例如下：
 
 ```glsl
-vec3 lightDirection = vec3(1.0, 1.0, 1.0);
-
-vec3 hsv2rgb(vec3 c) { ... }
+vec3 lightDirection = normalize(vec3(1.0, 1.0, 1.0));
 
 float getBallValue(float x, float y) {
     float z = sqrt(1. - x * x - y * y);
-    return clamp(dot(lightDirection, vec3(x, y, z)) / sqrt(3.), 0., 1.);
+    float val = max(0., dot(lightDirection, vec3(x, y, z)));
+    return min(1., val + pow(val, 100.0));
 }
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord)
 {
     vec2 uv = (fragCoord * 2.0 - iResolution.xy) / iResolution.y;
-	float dist = length(uv);
+    float value = getBallValue(uv.x, uv.y);
+    fragColor = vec4(value, value, value, 1.0);
+}
+```
 
-	float value = getBallValue(uv.x, uv.y);
+一般情况下，为了获得法方向，如果我们有可调用的高度场函数，可以考察两个方向的微小偏移来近似计算切向量。
 
-	fragColor = vec4(hsv2rgb(vec3((uv.x + 1.0) / 20.0, 1.0, value)), 1.0);
+```glsl
+#define eps 1e-3
+
+vec3 lightDirection = normalize(vec3(1.0, 1.0, 1.0));
+
+float height(vec2 uv) {
+    return pow(1.0 - pow(uv.x, 2.0) - pow(uv.y, 2.0), 0.1);
+}
+
+vec3 getNormal(vec2 uv) {
+    vec3 tx = vec3(eps * 2.0, 0.0,
+        height(uv + vec2(eps, 0.0)) - height(uv - vec2(eps, 0.0)));
+    vec3 ty = vec3(0.0, eps * 2.0,
+        height(uv + vec2(0.0, eps)) - height(uv - vec2(0.0, eps)));
+    return normalize(cross(tx, ty));
+}
+
+float getValue(vec2 uv) {
+    vec3 n = getNormal(uv);
+    float val = max(0., dot(lightDirection, n));
+    return min(1., val + pow(val, 100.0));
+}
+
+void mainImage(out vec4 fragColor, in vec2 fragCoord)
+{
+    vec2 uv = (fragCoord * 2.0 - iResolution.xy) / iResolution.y;
+	float value = getValue(uv);
+	fragColor = vec4(value, value, value, 1.0);
 }
 ```
 
@@ -183,7 +212,7 @@ float movingLine(vec2 d, float radius) {
 ### 复函数
 参考 Elias Wegert 的 *Visual Complex Functions* 的想法（可以在 [Domain coloring](https://complex-analysis.com/content/domain_coloring.html) 看到大量函数绘制结果），可以用色相来表示值的辐角，用亮度表示值的模长。
 
-渲染 $z\mapsto e^{\frac{1}{z}}$ 的代码如下：
+渲染 $z\mapsto \sum_{n=1}^{20}\frac{z^n}{1-z^n}$ 的代码如下：
 ```glsl
 precision highp float; // 设置为最高精度
 
@@ -191,16 +220,36 @@ precision highp float; // 设置为最高精度
 
 vec3 hsv2rgb(vec3 c) { ... }
 
+vec2 cmul(vec2 a, vec2 b) {
+    return vec2(a.x * b.x - a.y * b.y, a.x * b.y + a.y * b.x);
+}
+
+vec2 cdiv(vec2 a, vec2 b) {
+    float d = dot(b, b);
+    return vec2(
+        (a.x * b.x + a.y * b.y) / d,
+        (a.y * b.x - a.x * b.y) / d
+    );
+}
+
 void mainImage(out vec4 fragColor, in vec2 fragCoord)
 {
     vec2 uv = (fragCoord * 2.0 - iResolution.xy) / iResolution.y;
-    uv = uv / (0.1 + iTime);
-    uv = vec2(uv.x, -uv.y) / (uv.x * uv.x + uv.y * uv.y);
-    vec2 val = vec2(exp(uv.x) * cos(uv.y), exp(uv.x) * sin(uv.y));
-    float len = 0.5 + 0.5 * exp(fract(log(length(val)) * 2.0) - 1.0);
-    float rot = fract((uv.y / PI + 1.0) / 2.0);
-    vec3 col = vec3(rot, 1.0, len);
-    fragColor = vec4(hsv2rgb(col), 1.0);
+    vec2 z = uv / 0.8;
+
+    vec2 sum = vec2(0.0);
+    vec2 zn = z;
+    for (int n = 1; n <= 20; n++) {
+        vec2 term = cdiv(zn, vec2(1.0, 0.0) - zn);
+        sum += term;
+        zn = cmul(zn, z);
+    }
+
+    float modulus = length(sum);
+    float phase = atan(sum.y, sum.x);
+    float value = 0.5 + 0.5 * exp(fract(log(modulus) * 2.0) - 1.0);
+    float hue = fract(phase / PI / 2.0);
+    fragColor = vec4(hsv2rgb(vec3(hue, 1.0, value)), 1.0);
 }
 ```
 
@@ -209,8 +258,10 @@ GLSL 不支持递归（因为需要支持不支持递归的硬件），但是我
 
 一般的思路是：找到一个适合递归的结构，然后作坐标转换。
 
-以下为 Kech 雪花的示例。
+以下为 Koch 雪花的示例：
 ```glsl
+#define s3 sqrt(3.0)
+
 // 一条 (0, 0) 到 (1, 0) 的边，向上方延伸
 float kech_edge(float x, float y) {
     float d = s3;

@@ -1,5 +1,5 @@
 +++
-title = "【着色器】随机与噪声"
+title = "着色器中的随机与噪声"
 description = "基于 GLSL 的噪声实现及应用。"
 date = 2025-10-01
 updated = 2025-10-30
@@ -27,11 +27,11 @@ tags = ["计算机", "图形学"]
 
 但我们并不需要真随机，只需要看起来有随机性即可。
 
-{% admonition(type="tip", title="提示") %}
-真随机与均匀随机是不同的概念。
+{% admonition(type="note", title="真随机与均匀随机") %}
+似乎许多人会混淆真随机与均匀随机。真随机关心的是不可预测性，通常需要物理熵源；而均匀随机关心的是分布。
 {% end %}
 
-一个简洁的生成方法是
+一个简洁的生成方法是：
 ```glsl
 float res = fract(sin(x) * 100000.0);
 ```
@@ -43,21 +43,30 @@ float random(vec2 uv) {
 }
 
 vec2 random2(vec2 uv) {
-    return fract(sin(vec2(dot(uv, vec2(127.1, 311.7)), dot(uv, vec2(269.5, 183.3)))) * 43758.5453);
+    return fract(sin(vec2(
+        dot(uv, vec2(127.1, 311.7)),
+        dot(uv, vec2(269.5, 183.3)))) * 43758.5453);
 }
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord)
 {
-    vec2 uv = fragCoord/iResolution.xy;
+    vec2 uv = fragCoord / iResolution.xy;
     vec3 col = vec3(random(uv));
     fragColor = vec4(col, 1.0);
 }
 ```
 
 ### 应用技巧
-可以把一个系数调得很小，产生在该方向上长条形的效果。
+可以把一个系数调得很小，产生在该方向上长条形的效果。封面图使用了：
+```glsl
+float crayon(vec2 uv) {
+    vec2 uv2 = uv * vec2(20.0, 1000.0);
+    float fr = noise(uv2 + random(uv2));
+    return smoothstep(0.0, 1.0, fr);
+}
+```
 
-{% admonition(type="tip", title="提示") %}
+{% admonition(type="tip", title="技巧") %}
 如果你希望保持长条形的效果但将它改为曲线，则不应在浮点数上操作，而是在原来的像素整点上操作到整点再使用。
 {% end %}
 
@@ -245,5 +254,3 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     fragColor = vec4(vec3(fbm(uv * 3.0)), 1.0);
 }
 ```
-
-更多内容可参考 Inigo Quilez 的经典作品 [Rainforest](https://www.shadertoy.com/view/4ttSWf).

@@ -1,10 +1,13 @@
 +++
-title = "GLSL 的基础用法与技巧"
+title = "GLSL 的基础用法与 Raymarching"
 description = "基于 GLSL 的着色器基础内容：2D 绚丽图像及 Raymarching."
 date = 2025-09-03
 
 [extra]
 toc = true
+
+[extra.cover]
+image = "images/cover/shader_colorful.png"
 
 [extra.sitemap]
 priority = "0.8"
