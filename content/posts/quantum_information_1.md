@@ -1,5 +1,5 @@
 +++
-title = "【量子信息】基本原理与基本结论"
+title = "量子信息的基本原理与基本结论"
 description = "量子信息的一些系统学习。从量子状态定义到量子密集编码、量子隐形传态、纠缠的量化。"
 date = 2025-11-27
 updated = 2025-12-10
@@ -13,11 +13,8 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["数学", "计算机", "算法", "量子物理"]
+tags = ["计算机", "算法", "物理", "量子物理"]
 +++
-
-前置知识
-- 线性代数
 
 参考的是 Scott Aaronson 的 [Introduction to Quantum Information Science](https://www.scottaaronson.com/qclec.pdf) 讲义。
 
@@ -34,7 +31,7 @@ $$\binom{\alpha}{\beta} = \alpha \ket{0} + \beta \ket{1} = \ket{\psi} \tag{1.1.1
 另外有约定：
 - $\ket{+} = \frac{1}{\sqrt{2}} (\ket{0} + \ket{1})$
 - $\ket{-} = \frac{1}{\sqrt{2}} (\ket{0} - \ket{1})$
-- $\ket{i} = \frac{1}{\sqrt{2}} (\ket{0} + i\ket{1})$
+- $\ket{i} = \frac{1}{\sqrt{2}} (\ket{0} + \mathrm{i}\ket{1})$
 
 酉/幺正矩阵是把单位向量映到单位向量的矩阵，实值的为正交矩阵。
 

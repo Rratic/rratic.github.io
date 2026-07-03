@@ -1,8 +1,7 @@
 +++
-title = "【复分析】间章：Laurent 级数、留数与调和函数"
+title = "Laurent 级数、留数与调和函数"
 description = "关于 Laurent 级数、留数与调和函数。"
-date = 2025-10-16
-updated = 2025-12-04
+date = 2025-12-04
 
 [extra]
 math = true
@@ -25,7 +24,7 @@ tags = ["数学", "分析学"]
 ### 定义
 在实际中，有些函数会有奇点，我们使用 Laurent 级数来研究奇点附近的性质。
 
-我们将它定义为
+我们将它定义为：
 
 $$\sum_{-\infty}^{+\infty} a_n (z-z_0)^n$$
 
@@ -93,7 +92,7 @@ $$a_n = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = \varepsilon}\frac{f(w)}{(w-z_0)^
 
 这是根据前两个结论得到的。
 
-在 [Classification of Singularities](https://complex-analysis.com/content/classification_of_singularities.html) 你可以看到很多与奇点有关的函数的彩色绘制；也可阅读 [着色器（二）](/posts/shader-2/) 中对应的内容。
+在 [Classification of Singularities](https://complex-analysis.com/content/classification_of_singularities.html) 你可以看到很多与奇点有关的函数的彩色绘制；也可阅读[基于 GLSL 的色彩与数学绘制](@/posts/shader_2.md)中对应的内容。
 
 {% admonition(type="theorem", title="Weierstrass 定理") %}
 若 $z_0$ 是 $f$ 的一个本性奇点，则对任意 $\varepsilon>0$，$f(\mathring{D}(z_0, \varepsilon))$ 在 $\Complex$ 中稠密。

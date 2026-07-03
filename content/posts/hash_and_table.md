@@ -1,6 +1,5 @@
 +++
 title = "Hash 与基于哈希的 table 实现"
-description = "阅读 Rust 标准库的 Hash 与 RawTable 相关代码。"
 date = 2025-12-08
 
 [extra]
@@ -14,10 +13,11 @@ categories = ["知识"]
 tags = ["计算机", "算法"]
 +++
 
-参考阅读
-- Steven S. Skiena 的 *The Algorithm Design Manual* 第三版
+阅读一下 Rust 标准库的 `Hash` 与 `RawTable` 相关代码。本文参考的 Rust 版本是 `1.90.0-nightly`.
 
-本文参考的 Rust 版本是 `1.90.0-nightly`.
+<!-- more -->
+
+参考资料为 Steven S. Skiena 的 *The Algorithm Design Manual* 第三版。
 
 ## Hash
 哈希的想法是：把任何对象编码到一个有限位的数字。

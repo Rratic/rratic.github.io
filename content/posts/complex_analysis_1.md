@@ -1,8 +1,7 @@
 +++
-title = "【复分析】基本概念与 Cauchy 积分理论"
+title = "复变基本概念与 Cauchy 积分理论"
 description = "复变函数基本概念的速通，从复值函数写到 Cauchy 公式及其推论。"
-date = 2025-07-27
-updated = 2025-11-16
+date = 2025-11-16
 
 [extra]
 math = true
@@ -22,14 +21,8 @@ tags = ["数学", "分析学"]
 - 《复变函数简明教程》
 - Lars V. Ahlfors *Complex Analysis*
 
-前置知识
-- 数学分析
-- [点集拓扑](/_misc/topology/)
-
 ## 基本定义
-复值函数是定义域为 $\Complex$ 的子集，陪域为 $\Complex$ 的函数，例如 $x+y\mathrm{i}\mapsto x^2+(x+y)\mathrm{i}$
-
-一般可以写作 $f(z) = u(z) + \mathrm{i}v(z)$，其中 $u, v$ 都是实值的。
+复值函数就是定义域为 $\Complex$ 的子集，陪域为 $\Complex$ 的函数。可以写作 $f(z) = u(z) + \mathrm{i}v(z)$，其中 $u, v$ 都是实值的。
 
 这类函数相当于是多元的实函数，并不是这里研究的主题。我们之后会看一些性质更好的函数。
 

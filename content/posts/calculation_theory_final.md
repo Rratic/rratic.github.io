@@ -1,5 +1,5 @@
 +++
-title = "计算概论期末复习笔记（Bird Meertens 形式开始的部分）"
+title = "Bird Meertens 形式与高效程序导出"
 date = 2025-12-27
 
 [extra]
@@ -11,7 +11,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["计算机", "函数式编程"]
+tags = ["计算机", "计算理论"]
 +++
 
 主要包含使用 Bird Meertens Formalism 导出高效程序与进行自动并行化。
@@ -20,9 +20,7 @@ tags = ["计算机", "函数式编程"]
 
 <!-- more -->
 
-{{ ref_index(to = "functional-programming") }}
-
-课程主页在 <https://zhenjiang888.github.io/FP/2025/>.
+参考的是[课程](https://zhenjiang888.github.io/FP/2025/)的对应部分讲义。
 
 ## 基本概念
 BMF/Bird Meertens Formalism 是一套让人们从特定规范表述中导出（高效）程序的函数演算。

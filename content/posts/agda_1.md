@@ -1,6 +1,5 @@
 +++
-title = "【Agda 语言】形式化证明所需的主要设施"
-description = "类型论的实践：函数式程序推理与演算。Agda 中的证明、归纳、列表、Internal Verification 和等式理论。"
+title = "Agda 语言与基本的形式化证明"
 date = 2025-11-12
 updated = 2025-12-13
 
@@ -12,24 +11,20 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["计算机", "函数式编程"]
+tags = ["计算机", "计算理论"]
 +++
 
-{{ ref_index(to = "functional-programming") }}
+下半学期使用 Agda 来讲授函数式程序推理与演算，也展示了 Internal Verification 思想。
 
-前置知识
-- [Haskell](/posts/haskell-1/)
+<!-- more -->
 
-参考的是[北京大学 - 计算概论A实验班 函数式程序设计 2025秋](https://zhenjiang888.github.io/FP/2025/)下半学期讲义。
-
-参考阅读：
-- *Verified Functional Programming in Agda*
+参考的是[课程](https://zhenjiang888.github.io/FP/2025/)的对应部分讲义及 *Verified Functional Programming in Agda*.
 
 ## 环境配置
 可参考 <https://agda.readthedocs.io/en/latest/getting-started/installation.html> 的指引。
 
 Agda 是用 Haskell 写的，可以在[安装好 Haskell](/posts/haskell-1/) 后通过如下命令安装：
-```cmd
+```sh
 cabal update
 cabal install Agda
 ```
@@ -39,7 +34,7 @@ cabal install Agda
 setx PATH "%PATH%;D:\cabal\bin"
 ```
 
-接下来需要安装标准库，步骤请参考 [配置 Agda 开发环境（2023）](https://higher-order.fun/cn/2023/11/15/InstallAgda.html)，本文是基于 2.8.0 版本的标准库。
+接下来需要安装标准库，步骤请参考[配置 Agda 开发环境](https://higher-order.fun/cn/2023/11/15/InstallAgda.html)，本文是基于 2.8.0 版本的标准库。
 
 在 VSCode 的 `agda-mode` 插件中，打开一个 Agda 文件，按 <kbd>Ctrl</kbd> + <kbd>C</kbd> 再按 <kbd>Ctrl</kbd> + <kbd>L</kbd> 来加载它。
 
@@ -47,7 +42,7 @@ setx PATH "%PATH%;D:\cabal\bin"
 
 ## 概览
 ### 布尔类型
-布尔类型的定义如下
+布尔类型的定义如下：
 ```agda
 module Agda.Builtin.Bool where
 
@@ -97,7 +92,7 @@ data _≡_ {a} {A : Set a} (x : A) : A → Set a where
 ~~-elim false = refl
 ```
 
-或者使用
+或者使用：
 ```agda
 ~~-elim : ∀ (b : Bool) → ~ ~ b ≡ b
 ~~-elim true = ~~tt
@@ -136,7 +131,7 @@ data Nat : Set where
 +assoc (suc x) y z rewrite +assoc x y z = refl
 ```
 
-我们给一个小的定理
+我们给一个小的定理：
 ```agda
 +0 : ∀ (x : ℕ) → x + 0 ≡ x
 +0 zero = refl
@@ -154,7 +149,7 @@ data Nat : Set where
 ```
 
 ### 辅助引理
-为了证明 `+comm : ∀(x y : N) → x+y ≡ y+x`，分为两步
+为了证明 `+comm : ∀(x y : N) → x+y ≡ y+x`，分为两步：
 ```agda
 +comm zero y rewrite +0 y = refl
 +comm (suc x) y rewrite +comm x y = ?
@@ -171,13 +166,13 @@ data Nat : Set where
 
 对于更复杂的命题如 `*distribr : ∀ (x y z : N) → (x + y) * z ≡ x * z + y * z`，需选取合适的归纳变量。
 
-在这个结论中
+在这个结论中：
 ```agda
 <-trans : ∀ {x y z : ℕ} → x < y ≡ true → y < z ≡ true → x < z ≡ true
 <-trans p q = ?
 ```
 
-加载将会显示
+加载将会显示：
 ```agda
 Goal: .x < .z ≡ true
 ------------------------------------------------

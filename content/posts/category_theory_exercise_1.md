@@ -1,5 +1,5 @@
 +++
-title = "【范畴论】练习：定义验证与泛性质使用"
+title = "一些泛性质使用的习题选做"
 date = 2025-12-05
 updated = 2025-12-08
 
@@ -14,7 +14,7 @@ categories = ["知识"]
 tags = ["数学", "范畴论"]
 +++
 
-选做一些 Mac Lane 书上的习题，包含 Ⅱ. Constructions on Categories 及 Ⅲ. Universals and Limits 的 1. Universal Arrows 节。
+选做 Saunders Mac Lane 的书 *Categories for the Working Mathmatician* 第二版中一些不废话的习题，包含 Ⅱ. Constructions on Categories 及 Ⅲ. Universals and Limits 的 1. Universal Arrows 节。
 
 <!-- more -->
 
@@ -23,10 +23,6 @@ tags = ["数学", "范畴论"]
         filter: invert(100%);
     }
 </style>
-
-感觉之前并没有学明白，需要做一些习题。
-
-采取的是 Saunders Mac Lane 的 *Categories for the Working Mathmatician* 第二版。此书包含许多不废话的习题。
 
 交换图表图片是用 [Quiver](https://q.uiver.app/) 绘制的。
 

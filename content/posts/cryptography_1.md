@@ -1,12 +1,9 @@
 +++
-title = "【密码学】异或密码与 AES"
-description = "使用 Haskell 完成的 The Cryptopals Crypto Challenges - Set 1"
-date = 2025-09-22
-updated = 2025-10-30
+title = "异或密码的实现与 AES"
+date = 2025-10-30
 
 [extra]
 toc = true
-math = true
 
 [extra.sitemap]
 priority = "0.8"
@@ -16,11 +13,9 @@ categories = ["知识"]
 tags = ["计算机", "密码学"]
 +++
 
-{{ ref_index(to = "cryptography") }}
+本文实现 [The Cryptopals Crypto Challenges](https://cryptopals.com/) 的基础练习集 Set 1. 曾经我使用 Julia 写过类似的内容，但没有良好的解耦。因此改用 Haskell 进行更清晰的实现，读者可在 [Haskell Playground](https://play.haskell.org/) 运行，也可使用自己熟悉的语言实现。
 
-注：曾经我使用别的语言（Julia）写过类似的内容，但没有良好的解耦。因此改用 Haskell 进行更清晰的实现，读者也可使用自己熟悉的语言实现。
-
-本文实现 [The Cryptopals Crypto Challenges](https://cryptopals.com/) 的基础练习集 Set 1.
+<!-- more -->
 
 ## 格式转换
 > Always operate on raw bytes, never on encoded strings. Only use hex and base64 for pretty-printing.
@@ -34,12 +29,10 @@ import Data.Maybe
 type Raw = [Bool]
 
 readSized :: Int -> Raw -> Int
-readSized sz raw = sum [if raw !! i then 2 ^ (sz - i - 1) else 0 | i <- [0 .. sz - 1]]
+readSized sz = foldl' (\acc b -> acc * 2 + fromEnum b) 0 . take sz
 
 writeSized :: Int -> Int -> Raw
-writeSized sz int
-  | sz == 0 = []
-  | otherwise = writeSized (sz - 1) (int `div` 2) ++ [int `mod` 2 == 1]
+writeSized sz int = [testBit int (sz - 1 - i) | i <- [0 .. sz - 1]]
 ```
 
 ### 解耦
@@ -65,39 +58,36 @@ splits len = unfoldr split
 ```
 
 ### Hex
-这里实际上存在大小端的约定问题。按照 Challenge 1 的结果，对 $4=(0100)_2$，按从左至右顺序排布。
+这里实际上存在大小端的约定问题。按照 Challenge 1 的结果（4 = (0100)₂）按从左至右顺序排布。
 
 ```hs
+hexTable :: String
+hexTable = "0123456789abcdef"
+
 readHex :: String -> Raw
-readHex = concatMap read1
-  where
-    read1 c = writeSized 4 $ fromJust $ lookup c (zip table [0 .. 15])
-      where
-        table = "0123456789abcdef"
+readHex = concatMap (writeSized 4 . fromJust . (`elemIndex` hexTable))
 
 writeHex :: Raw -> String
-writeHex raw = map write4 (splits 4 padded)
-  where
-    padded = pad 4 (const False) raw
-    write4 seq = table !! readSized 4 seq
-      where
-        table = "0123456789abcdef"
+writeHex = map ((hexTable !!) . readSized 4) . splits 4 . pad 4 (const False)
 ```
 
-我们已经可以实现 Challenge 2
+这里我们已经可以实现 Challenge 2 了（`writeHex (zipWith (/=) (readHex "...") (readHex "..."))`）。
 
 ### Base64
 ```hs
+base64Table :: String
+base64Table = ['A' .. 'Z'] ++ ['a' .. 'z'] ++ ['0' .. '9'] ++ "+/"
+
 writeBase64 :: Raw -> String
-writeBase64 raw = map write6 (splits 6 padded)
-  where
-    padded = pad 6 (const False) raw
-    write6 seq = table !! readSized 6 seq
-      where
-        table = ['A' .. 'Z'] ++ ['a' .. 'z'] ++ ['0' .. '9'] ++ "+/"
+writeBase64 = map ((base64Table !!) . readSized 6) . splits 6 . pad 6 (const False)
 ```
 
-有了这些东西我们已经可以实现 Challenge 1
+有了这些东西我们已经可以实现 Challenge 1 了。为了后续 Challenge 6 的需要，这里顺带给出解码函数（会过滤空白字符与 `=` 补位符等）：
+
+```hs
+readBase64 :: String -> Raw
+readBase64 = concatMap (writeSized 6 . fromJust . (`elemIndex` base64Table)) . filter (`elem` base64Table)
+```
 
 ### Ascii
 ```hs
@@ -105,17 +95,12 @@ readAscii :: String -> Raw
 readAscii = concatMap (writeSized 8 . ord)
 
 writeAscii :: Raw -> String
-writeAscii raw = map write8 (splits 8 padded)
-  where
-    padded = pad 8 (const False) raw
-    write8 seq = chr $ readSized 8 seq
+writeAscii = map (chr . readSized 8) . splits 8 . pad 8 (const False)
 ```
 
 ## 异或密码
 ### 单位异或
-Challenge 3 要求 do this by hand
-
-观察十六进制编码，分为两个一段，即
+Challenge 3 要求 do this by hand. 观察十六进制编码，分为两个一段，即：
 ```txt
 1b 37 37 33 31 36 3f 78 15 1b 7f 2b 78 34 31 33 3d 78 39 78 28 37 2d 36 3c 78 37 3e 78 3a 39 3b 37 36
 ```
@@ -186,9 +171,7 @@ evalPhrase str = sum $ map (\i -> (freqs !! i - tableAsciiFrequency !! i) ^ 2 / 
 
 不过它在 Haskell 中就太慢了，以下还是使用前者。
 
-现在来实现 Challenge 4
-
-检测的思路是：看所有解密可能中评分最高的。
+现在来实现 Challenge 4. 检测的思路是：看所有解密可能中评分最高的。
 
 ```hs
 performScXor :: Int -> String -> String
@@ -219,9 +202,7 @@ Challenge 5 也是易做的：
 
 ```hs
 performRpXor :: String -> String -> String
-performRpXor key str = map (\(id, c) -> chr $ xor (ord c) (ord $ key !! mod id (length key))) indexed
-  where
-    indexed = zip [0 .. length str - 1] str
+performRpXor key = zipWith (\k c -> chr $ xor (ord k) (ord c)) (cycle key)
 ```
 
 Challenge 6 比较有挑战，文本中指出的工作流程如下：
@@ -232,19 +213,52 @@ Challenge 6 比较有挑战，文本中指出的工作流程如下：
 4. 上述的约化结果中最小的可能是正确的 KEYSIZE（为保证正确性，可能保留多个小的、计算多个片段）
 5. 现在把原文本切成 KEYSIZE 大小的块
 6. 对这些块作转置，即，考虑每个块的第 k 位，组成新块
-7. 每个块的做法即单位异或解密的方法（如果没有解密是没有考虑字符之间的关系）
+7. 每个块的做法即单位异或解密的方法
 8. 现在把它们拼在一起
 
 ```hs
 evalEditDistance :: (Eq a) => [a] -> [a] -> Int
-evalEditDistance x y = foldr (\i c -> if x !! i == y !! i then c else c + 1) 0 [0 .. length x - 1]
+evalEditDistance x y = length $ filter id $ zipWith (/=) x y
+```
 
--- 其余内容略去
+接着猜测 KEYSIZE. 对每个候选长度，取开头若干块两两计算归一化的编辑距离并取平均，最后按平均值从小到大排序：
+
+```hs
+guessKeySize :: Raw -> [Int]
+guessKeySize raw = map snd $ sort [(score sz, sz) | sz <- [2 .. 40]]
+  where
+    score sz = average [dist a b | (a, b) <- pairs (take 4 (splits (sz * 8) raw))]
+    pairs bs = [(x, y) | (i, x) <- zip [0 ..] bs, (j, y) <- zip [0 ..] bs, i < (j :: Int)]
+    dist a b = fromIntegral (evalEditDistance a b) / fromIntegral (length a) :: Float
+    average xs = sum xs / fromIntegral (length xs)
+```
+
+然后，把密文切成 KEYSIZE 大小的块后作转置，每个转置块都是用同一个密钥字节加密的，于是退化为单位异或的破解。
+
+```hs
+breakScXor :: String -> Int
+breakScXor str = snd $ maximum [(evalPhrase (performScXor n str), n) | n <- [1 .. 127]]
+
+breakRpXor :: Int -> String -> String
+breakRpXor keysize = map (chr . breakScXor) . transpose . splits keysize
+```
+
+最后得到：
+
+```hs
+challenge_6 :: String -> (String, String)
+challenge_6 input = (key, performRpXor key str)
+  where
+    raw = readBase64 input
+    str = writeAscii raw
+    key = breakRpXor (head (guessKeySize raw)) str
 ```
 
 ## AES
 ### 有密钥解密
-Challenge 7 部分略过。
+Challenge 7 部分略过。因为算法复杂，一般不自行实现。
 
-### 检测
+### 检测 ECB
 Challenge 8 中，用到 ECB 是无状态且确定的，相同的 16 字节段的加密结果一致，我们去检测是否存在这样的情况。
+
+由于密文以十六进制给出，16 字节为 32 个十六进制字符，直接在十六进制串上分段即可。重复块最多的那一行即为 ECB 加密的结果。
