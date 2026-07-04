@@ -18,8 +18,6 @@ static/playground/
     ...                 # 该项目 JS / Lua / WASM 等资源
 ```
 
-### 引用格式
-尾注使用 Chicago Notes-Bibliography 风格，文中引用格式随意。
 ## 使用的资源
 ### Sublime Syntax
 - Agda: [spyder-ide/pysyntect](https://github.com/spyder-ide/pysyntect/blob/master/syntect/grammars/Agda.sublime-syntax)

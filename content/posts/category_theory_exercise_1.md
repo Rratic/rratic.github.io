@@ -90,8 +90,8 @@ $$\Phi: \mathcal{D}(F(-), -) \stackrel{\cong}{\to} \mathcal{C}(-, G(-))$$
 
 那么 $-^B$ 是 $-\times B$ 的右伴随。
 
-{% admonition(type="question", title="Ⅱ 5.5") %}
-(Hilton-Eckmann). Let $S$ be a set with two (everywhere defined) binary operations $\cdot: S\times S\to S$, $\circ: S\times S\to S$ which both have the same (two-sided) unit element $e$ and which satisfy the interchange identity $(\tau'\cdot\sigma')\circ(\tau\cdot\sigma) = (\tau'\cdot\tau)\circ(\sigma'\cdot\sigma)$. Prove that $\cdot$ and $\sigma$ are equal, and that each is commutative.
+{% admonition(type="question", title="Ⅱ 5.5 (Hilton-Eckmann)") %}
+Let $S$ be a set with two (everywhere defined) binary operations $\cdot: S\times S\to S$, $\circ: S\times S\to S$ which both have the same (two-sided) unit element $e$ and which satisfy the interchange identity $(\tau'\cdot\sigma')\circ(\tau\cdot\sigma) = (\tau'\cdot\tau)\circ(\sigma'\cdot\sigma)$. Prove that $\cdot$ and $\sigma$ are equal, and that each is commutative.
 {% end %}
 
 取 $\sigma = \sigma' = e$ 就有 $\cdot \equiv \circ$，交换性也易知。
