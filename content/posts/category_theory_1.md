@@ -6,7 +6,6 @@ updated = 2025-09-29
 
 [extra]
 math = true
-toc = true
 
 [extra.sitemap]
 priority = "0.8"
@@ -17,7 +16,7 @@ tags = ["数学", "范畴论"]
 +++
 
 ## 积与余积 {#product-and-coproduct}
-积的历史可以追溯到古代文明，随数学的发展，从自然数的积扩展到整数、有理数、实数、多项式的积，并且保持兼容性。这个过程是自然的。
+积的历史可以追溯到古代文明，随数学的发展，从自然数的积扩展到整数、有理数、实数、多项式的积，并且保持兼容性。这个过程是*自然*的。
 
 代数结构的积以笛卡尔积为基础。对两个集合 $A$，$B$，我们熟知 $A\times B = \set{(a, b) | a\in A, b\in B}$，其中 $(a, b)$ 在集合论上严格地被定义为 $\set{\set{a}, \set{a, b}}$，读者可验证我们确实可以从 $(a, b)$ 中提取出 $a$ 与 $b$ 来。
 
@@ -25,30 +24,31 @@ tags = ["数学", "范畴论"]
 
 参照集合中的情形，在类型论中，有元组 $(a:A, b:B)$ 与枚举类型 $a: A \mid b: B$，如果不严格地把类型看作值的集合，那么这其实就是笛卡尔积与无交并。
 
-同样地，抽象代数中有直积与直和，区别在于在无穷情形，直和要求只要有限个分量是非平凡的。
+类似地，对各种代数结构可以定义直积与直和，区别在于在无穷情形，直和要求只要有限个分量是非平凡的。
 
 拓扑中，一族 $(X_i, \tau_i)$ 的积空间中的拓扑是使所有投影映射 $X\to X_i$ 连续的最粗拓扑。积拓扑的基可以由所有的 $\prod U_i, U_i\in\tau_i$ 其中只有有限个 $U_i\neq X_i$ 给出。
 
----
+……
 
 这些定义实际上体现了两种不同的泛性质。
 
 {% admonition(type="definition", title="积") %}
-对范畴 $\mathcal{C}$，称 $P$ 是一族 $\\{X_i\\}_{i\in I}$ 的**积**，如果存在一族态射 $\pi_i\colon P\to X_i$ 使任一族态射 $\varphi_i\colon Y\to X_i$，存在唯一的 $\phi: Y\to P$ 使 $\pi_i\circ\phi=\varphi_i$.
+对范畴 $\mathcal{C}$，称 $P$ 是一族 $\\{X_i\\}_{i\in I}$ 的**积**，如果存在一族态射 $\pi_i: P\to X_i$，使得对任一族态射 $\varphi_i: Y\to X_i$，存在唯一的 $\phi: Y\to P$ 使 $\pi_i \circ \phi = \varphi_i$.
 {% end %}
 
-特别地，$I=\emptyset$ 时定义空积为终对象。
+特别地，在 $I = \emptyset$ 时定义空积为终对象。
 
 易知积在同构意义下是唯一的。
 
 ---
 
 积的对偶是**余积**（或称**上积**，上的译法可能来自画图时的方向；或称**和**），即：
+
 {% admonition(type="definition", title="余积") %}
-称 $P$ 是一族 $\\{X_i\\}_{i\in I}$ 的余积，如果存在一族态射 $\iota_i\colon X_i\to P$ 使任一族态射 $\varphi_i\colon X_i\to Y$，存在唯一的 $\phi: P\to Y$ 使 $\phi\circ\iota_i=\varphi_i$.
+称 $P$ 是一族 $\\{X_i\\}_{i\in I}$ 的余积，如果存在一族态射 $\iota_i: X_i\to P$，使得对任一族态射 $\varphi_i: X_i\to Y$，存在唯一的 $\phi: P\to Y$ 使 $\phi \circ \iota_i = \varphi_i$.
 {% end %}
 
-$I=\emptyset$ 时定义空积为始对象。
+$I = \emptyset$ 时定义空积为始对象。
 
 特别地，如果一族对象的积与余积相同，则称为双积。
 
@@ -73,20 +73,28 @@ $I=\emptyset$ 时定义空积为始对象。
 对于对象 $B, C, D$ 与态射 $B\to D, C\to D$，它们的**拉回**是对象 $A$ 及态射 $A\to B, A\to C$，满足泛性质：对另一组对象 $A'$ 及态射 $A'\to B, A'\to C$，存在唯一的态射 $A'\to A$ 使图表交换。
 {% end %}
 
-拉回可以由积和等化子确定。
+读者容易写出两个集合的拉回是 $\set{(b, c) \in B\times C | f(b) = g(c)}$，因此一个集合的两个子集的拉回是它们的交。
+
+读者可验证，在下图中，如果两个小方块是拉回，那么大矩形也是拉回；如果大矩形和右侧方块是拉回，那么左侧方块也是拉回。
+
+$$
+\begin{CD}
+	\bullet @>>> \bullet @>>> \bullet \cr
+	@VVV @VVV @VVV \cr
+	\bullet @>>> \bullet @>>> \bullet
+\end{CD}
+$$
 
 {% admonition(type="definition", title="等化子") %}
-对 $A\overset{\quad f\quad}{\underset{g}{\rightrightarrows}} B$，称对象 $E$ 及态射 $e:E\to A$ 为它们的**等化子**，如果对任意 $z:Z\to A$ 有唯一的态射 $Z\to E$ 使图表交换。
+对 $f, g: A \to B$，称对象 $E$ 及态射 $e: E \to A$ 为它们的**等化子**，如果对任意 $z: Z \to A$ 有唯一的态射 $Z \to E$ 使图表交换。
 {% end %}
 
-观察图表即可发现拉回是 $B\times C\to D$ 的等化子。
-
-通过此容易写出两个集合的拉回是 $\set{(b, c) \in B\times C | f(b) = g(c)}$，可以验证：一个集合的两个子集的拉回是它们的交。
+观察图表即可发现拉回是 $B\times C\to D$ 的等化子；与此同时等化子是 $\braket{1_A, f}, \braket{1_A, g}: A \to A \times B$ 的拉回。
 
 使用拉回可以定义一般的核 $\ker f$ 概念。
 
 {% admonition(type="definition", title="核") %}
-对范畴 $\mathcal{C}$ 及零对象 $0$，态射 $f: X\to Y$，$f$ 的**核**为 $f$ 与 $u:0\to Y$ 的拉回。
+对范畴 $\mathcal{C}$ 及零对象 $\mathbf{0}$，态射 $f: X\to Y$，$f$ 的**核**为 $f$ 与 $u: \mathbf{0} \to Y$ 的拉回。
 {% end %}
 
 拉回、等化子、核的对偶是**推出**、**余等化子**、**余核**。
