@@ -77,7 +77,7 @@ $$\frac{\sqrt 3}{2} < \Im(z_2) = \frac{\Im(z_1)}{|cz_1 + d|^2} \leq \frac{\Im(z_
 ### 有限维数性
 现在来证 $M_k(\Gamma_1)$ 是有限维的。
 
-$f$ 的[零点阶数](@/posts/complex_analysis_1.md) $\mathrm{ord}_z(f)$ 在 $z$ 的轨道上是一致的，从而对 $P \in \mathfrak{H}/\Gamma_1$ 有 $\mathrm{ord}_P(f)$ 是合法的。$\widetilde{\mathcal{F}_1}$ 有奇点/椭圆点，因为 $\omega = e^{2\pi\mathrm{i}/3}$ 在 $ST$ 作用下不动，$\mathrm{i}$ 在 $S$ 作用下不动，我们用 $n_P$ 表示 $P$ 在 $\overline{\Gamma_1}$ 中的稳定化子的阶数。$\mathfrak{H}/\Gamma_1$ 需要被紧化，这可以通过添加一个 $\infty$ 实现（此时 $\overline{\mathcal{F}_1} = (\mathfrak{H} \cup \mathbb{Q} \cup \set{\infty}) / \Gamma_1$）。
+$f$ 的[零点阶数](@/posts/complex_analysis_2.md) $\mathrm{ord}_z(f)$ 在 $z$ 的轨道上是一致的，从而对 $P \in \mathfrak{H}/\Gamma_1$ 有 $\mathrm{ord}_P(f)$ 是合法的。$\widetilde{\mathcal{F}_1}$ 有奇点/椭圆点，因为 $\omega = e^{2\pi\mathrm{i}/3}$ 在 $ST$ 作用下不动，$\mathrm{i}$ 在 $S$ 作用下不动，我们用 $n_P$ 表示 $P$ 在 $\overline{\Gamma_1}$ 中的稳定化子的阶数。$\mathfrak{H}/\Gamma_1$ 需要被紧化，这可以通过添加一个 $\infty$ 实现（此时 $\overline{\mathcal{F}_1} = (\mathfrak{H} \cup \mathbb{Q} \cup \set{\infty}) / \Gamma_1$）。
 
 我们定义 $\mathrm{ord}_\infty(f)$ 是 (3) 式中的最小非零 $a_n$，则：
 
@@ -99,7 +99,7 @@ $$
 2\pi\mathrm{i} \cdot \mathrm{ord} _\infty (f)
 $$
 
-其它零点就是正常使用留数定理（如果稳定化子不是中心则拼起来）。
+其它零点就是正常使用[留数定理](@/posts/complex_analysis_3.md)（如果稳定化子不是中心则拼起来）。
 
 对圆弧 $a_1$ 从角度 $\pi/3$ 到 $\pi/2$，圆弧 $a_2$ 从角度 $\pi/2$ 到 $2\pi/3$，使用 (4) 有：
 

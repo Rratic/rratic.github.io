@@ -144,6 +144,10 @@ $$\frac{az+b}{cz+d} \quad (a, b, c, d \in \R, ad - bc \neq 0)$$
 
 $$e^{i\theta}\frac{z-a}{1-\bar{a}z}$$
 
+所有上半平面到单位圆盘的分式线性变换是：
+
+$$e^{\mathrm{i}\theta} \frac{z - a}{z - \bar{a}}$$
+
 双曲三角公式的证明均可参考：
 
 ![三角公式推导](/images/complex/2026_01_07.jpg)

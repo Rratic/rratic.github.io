@@ -1,7 +1,6 @@
 +++
-title = "Laurent 级数、留数与调和函数"
-description = "关于 Laurent 级数、留数与调和函数。"
-date = 2025-12-04
+title = "单复变 Cauchy 积分理论"
+date = 2025-11-16
 
 [extra]
 math = true
@@ -15,311 +14,303 @@ categories = ["知识"]
 tags = ["数学", "分析学"]
 +++
 
-> 一般认为 Cauchy 积分理论、Weierstrass 级数理论和共形映射理论是单复变函数理论中的三个最重要的组成部分。
+> 复变会告诉你：性质好的函数性质有多好。
 
-参考阅读
-- 《复变函数简明教程》
+<!-- more -->
 
-## Laurent 级数
-### 定义
-在实际中，有些函数会有奇点，我们使用 Laurent 级数来研究奇点附近的性质。
+## 复积分
+### 路径积分
+在一个实区间上的定积分可以直接由实积分推广得到。
 
-我们将它定义为：
+对给定的连续曲线 $\gamma$，作 Riemann 和，极限可取到时即为路径积分的值。
 
-$$\sum_{-\infty}^{+\infty} a_n (z-z_0)^n$$
+或者，设 $\gamma: [a, b]\to \Complex$，让
 
-其中 $n\leq -1$ 部分称为**主部**，$n\geq 0$ 部分称为**正则部分**。
+$$\int_{\gamma} f(z) dz = \int_{[a, b]} f(\gamma(z)) \mathrm{d}\gamma(z) = \int_{[a, b]} f(\gamma(z))\gamma'(z) \mathrm{d}z$$
 
-在较好的情形下，Laurent 级数在一个圆环形区域 $D(z_0, r, R)$ 上收敛（两个幂级数分别收敛）。
+或者，
 
-对圆环形区域上的解析函数，令 $r < r' < |z-z_0| < R' < R$，使用 Cauchy 公式，有：
+$$\int_{\gamma} (u+\mathrm{i}v)(\mathrm{d}x+\mathrm{i}\cdot\mathrm{d}y) = \int_{\gamma} (u\mathrm{d}x-v\mathrm{d}y) + \mathrm{i}\int_{\gamma} (u\mathrm{d}y+v\mathrm{d}x)$$
 
-$$f(z) = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = R'}\frac{f(w)}{w-z}\mathrm{d}w - \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = r'}\frac{f(w)}{w-z}\mathrm{d}w$$
+现在给一些具体的例子：
 
-其中减号左边部分可以写成正则部分，从而是 $D(0, R)$ 上的解析函数，右边部分则可写成主部。
+对闭曲线 $\gamma$ 和 $n\neq -1$，有
 
-### 孤立奇点的分类
-若 $z_0$ 使得 $f$ 在它处未定义，而在它的一个去心邻域上解析，则称 $z_0$ 是它的**孤立奇点**。
+$$\oint_{\gamma}z^n \mathrm{d}z = \int_{\gamma}\frac{1}{n+1} \mathrm{d}z^{n+1} = 0$$
 
-例如，对 $f(z) = \frac{1}{\sin \frac{1}{z}}$，有 $\frac{1}{k\pi}$ 与 $\infty$ 是它的孤立奇点，但 $0$ 不是。
+$n = -1$ 时考虑曲线 $\gamma: [0, 2\pi]\to\Complex, \theta\mapsto re^{\mathrm{i}\theta}$，换元知积分结果 $2\pi\mathrm{i}$；若原点不在曲线内部，则化为 $\oint \mathrm{d}\ \mathrm{Ln}z = 0$；通过曲线加减法可以推知，对所有把 0 包含在内部的闭曲线，积分结果均为 $2\pi\mathrm{i}$.
 
-{% admonition(type="definition", title="孤立奇点分类") %}
-如果存在 $g$ 补上 $z_0$ 处的值，使得它在 $z_0$ 的邻域上解析，则称 $f$ 可以解析开拓到 $z_0$，且 $z_0$ 称为它的**可去奇点**。
+我们来说明一个更一般的结论。
 
-否则，若 $\frac{1}{f(z)}$ 可解析开拓到 $z_0$，则称 $z_0$ 为它的**极点**。
+{% admonition(type="theorem", title="Cauchy 定理") %}
+有界区域 $\Omega$ 以有限段光滑曲线为边界，对 $f$ 在 $\bar{\Omega}$ 上连续，在 $\Omega$ 内解析，则有
 
-其余情况称 $z_0$ 为**本性奇点**。
+$$\int_{\partial \Omega} f(z)\mathrm{d}z = 0$$
+
+这将说明路径积分的值只与起点、终点有关，而与选取的路径无关。
 {% end %}
 
-我们有以下结论：
+证明的大致思想是说，可以把一个三角形上的路径积分转化为它按中点分割成的四个三角形上的路径积分之和。
 
-{% admonition(type="theorem", title="孤立奇点") %}
-以下条件等价：
-1. $z_0$ 是可去奇点。
-2. $\lim_{z\to z_0} f(z)$ 在 $\Complex$ 上存在。
-3. $f(z)$ 在 $z_0$ 邻域上有界。
-4. $f(z)$ 在 $z_0$ 的 Laurent 展式的主部为 $0$.
+{% admonition(type="theorem", title="Cauchy 公式") %}
+有界区域 $\Omega$ 以有限段光滑曲线为边界，对 $f$ 在 $\bar{\Omega}$ 上连续，在 $\Omega$ 内解析及 $z\in\Omega$ 有
+
+$$f(z) = \frac{1}{2\pi\mathrm{i}}\int_{\partial \Omega}\frac{f(w)}{w-z}\mathrm{d}w$$
 {% end %}
 
-我们来证明不平凡的 (3) 推 (4) 如下：
+这是因为我们可以取 $\varepsilon>0$ 使 $\bar{D(z, \varepsilon)}\subset\Omega$
 
-设展式为 $f(z) = \sum_{-\infty}^{+\infty} a_n (z-z_0)^n$，取 $\varepsilon$ 则
+故 $\mathrm{RHS} = \frac{1}{2\pi\mathrm{i}}\int_{|w-z|=\varepsilon}\frac{f(w)}{w-z}\mathrm{d}w$
 
-$$a_n = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = \varepsilon}\frac{f(w)}{(w-z_0)^{n+1}}\mathrm{d}w$$
+令 $f(w) = f(z) + f'(z) + \rho(w, z)(w-z)$，其中 $\lim_{w\to z}\rho(w, z) = 0$
 
-且设 $f$ 在 $z_0$ 的（去心）邻域上有界 $M$，则有 $a_{-n}\leq M\cdot\varepsilon^n$
+有 $\int_{|w-z|=\varepsilon}f'(z)\mathrm{d}w = 0$，而 $\int_{|w-z|=\varepsilon}\rho(w, z)\mathrm{d}w$ 是常数且随 $\varepsilon\to 0$ 趋向于 0，原式得证。
 
-令 $\varepsilon\to 0$ 知主部为 $0$.
+### 等价性
+我们现在可以证明全纯函数和解析函数是等价的条件了。
 
-{% admonition(type="theorem", title="极点") %}
-以下条件等价：
-1. $z_0$ 是极点。
-2. $z_0$ 是 $\frac{1}{f(z)}$ 的零点。
-3. $\lim_{z\to z_0} f(z) = \infty$.
-4. $f(z)$ 在 $z_0$ 的 Laurent 展式的主部有且仅有有限项非 $0$.
+解析推全纯是容易的，因为幂级数在收敛半径内全纯。
+
+若已知全纯，对 $z_0\in\Omega$，取充分小的 $r$ 使 $\bar{D(z_0, r)}\subset\Omega$，则由 Cauchy 公式，
+
+$$f(z) = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = r}\frac{f(w)}{w-z}\mathrm{d}w$$
+
+而由
+
+$$\frac{1}{w-z} = \frac{1}{w-z_0}\cdot\sum_{n=0}^{+\infty}\left(\frac{z-z_0}{w-z_0}\right)^n$$
+
+且该级数是一致收敛的，可写成
+
+$$f(z) = \sum_{n=0}^{+\infty} \frac{1}{2\pi\mathrm{i}}(z-z_0)^n\int_{|w-z_0| = r}\frac{f(w)}{(w-z_0)^{n+1}}\mathrm{d}w$$
+
+即所求的幂级数。可喜可贺！
+
+进一步地，若 $f$ 是全纯的，则 $u, v$ 都是实解析的。
+
+{% admonition(type="theorem", title="Morera 定理") %}
+对区域 $\Omega$ 与其上的连续函数 $f$，一下两个条件等价
+1. $f$ 在 $\Omega$ 内解析
+2. 对 $\Omega$ 内任意逐段光滑曲线围成的有界区域 $D$ 使 $\bar{D}\subset\Omega$，有 $\int_{\partial D}f(w)\mathrm{d}w = 0$
 {% end %}
 
-证明不平凡的 (3) 推 (4) 如下：
+1 推 2 是 Cauchy 定理。
 
-设 $z_0$ 是 $\frac{1}{f(z)}$ 的 $m$ 阶零点，在邻域内展为 $(z-z_0)^m g(z)$，再由 $\frac{1}{g(z)}$ 解析即可。
+对于2 推 1，我们考虑任意 $z_0\in\Omega$ 及 $\varepsilon>0$ 使 $D(z_0, \varepsilon)\subset\Omega$ 让 $f$ 在上面是解析的。
 
-{% admonition(type="theorem", title="本性奇点") %}
-以下条件等价：
-1. $z_0$ 是本性奇点。
-2. $\lim_{z\to z_0} f(z)$ 在 $\bar{\Complex}$ 中不存在。
-3. $f(z)$ 在 $z_0$ 的 Laurent 展式的主部有无穷多项非 $0$.
+对该邻域中的点 $z$，令 $F(z) = \int_{z_0}^z f(w)\mathrm{d}w$，它是良定义的。
+
+可证 $F$ 在该邻域内可导，且 $F'=f$，从而 $F$ 是解析的，从而 $f$ 是解析的。
+
+其中的一部分结论整理如下：
+
+{% admonition(type="theorem", title="存在原函数") %}
+对单连通区域 $D$ 和它上的解析函数 $f$，则存在它上的函数 $F$ 使 $F'=f$
 {% end %}
 
-这是根据前两个结论得到的。
+对非单连通区域，有反例：$\Complex \setminus \set{0}$ 上的 $f: z\mapsto \frac{1}{z}$
 
-在 [Classification of Singularities](https://complex-analysis.com/content/classification_of_singularities.html) 你可以看到很多与奇点有关的函数的彩色绘制；也可阅读[基于 GLSL 的色彩与数学绘制](@/posts/shader_2.md)中对应的内容。
+### 幂级数工具
+对一个指定的区域 $\Omega$ 上的解析函数 $f$，令 $S = \set{z \in \Omega | f'(z) = f''(z) = \cdots = 0}$
+
+由连续性知 $\set{f^{(n)}(z) = 0}$ 为闭集，从而 $S$ 为闭集。
+
+又，对 $z_0\in S$ 有 $f$ 在其一个邻域内可展成幂级数，对应的 $D(z_0, \varepsilon)\subset S$，知 $S$ 为开集。
+
+从而，若 $S$ 非空，那么它就是整个 $\Omega$，从而 $f$ 在 $\Omega$ 上是常值的。
+
+这就给出了结论：对区域 $\Omega$ 上的非常值解析函数 $f$ 及任一点 $z_0$，存在一个自然数 $m$，使
+* $f'(z_0) = \cdots = f^{(n-1)}(z_0) = 0$
+* $f^{(n)}(z_0) \neq 0$
+
+此时称 $z_0$ 为 $m$ 阶零点。
+
+从而，在 $z_0$ 的某个邻域上有 $f(z) - f(z_0) = (z-z_0)^m g(z)$，其中 $g$ 解析且 $g(z_0) \neq 0$
+
+这将给出如下结论：
+
+{% admonition(type="theorem", title="零点孤立性") %}
+对区域 $\Omega$ 上的非常值解析函数 $f$，其零点是孤立的。
+{% end %}
+
+我们取 $\varepsilon>0$ 使 $g$ 在对应的圆盘上处处不为 0.
+
+---
+
+进而，我们有：
+
+{% admonition(type="theorem", title="解析函数的刚性/唯一性定理") %}
+区域 $\Omega$ 上的解析函数 $f, g$，若存在点列 $\\{z_n\\}$ 且它有 $\Omega$ 内的极限点，则 $\Omega$ 上 $f\equiv g$.
+{% end %}
+
+这是因为该极限点不是 $f-g$ 的孤立零点。
+
+如果极限点不在 $\Omega$ 内，则有反例 $f: z\mapsto \sin \frac{1}{z}, g: z\mapsto 0, z_n = \frac{1}{n\pi}$
+
+---
+
+接下来，我们将解析函数看作平面区域到平面区域的映射。
+
+由于对 $f(z)-f(z_0)$ 的 $m$ 阶零点有 $f(z) - f(z_0) = (z-z_0)^m g(z)$，我们可进一步取 $h^m = g$ 使 $f(z) - f(z_0) = ((z-z_0) h(z))^m$.
+
+令 $\varphi(z) = (z-z_0) h(z)$，则 $\varphi'(z_0) = h(z_0)\neq 0$，故存在 $z_0$ 的邻域及 $\varphi(z_0) = 0$ 的邻域使 $\varphi$ 为解析同胚。
+
+{% admonition(type="theorem", title="开映射定理") %}
+区域 $\Omega$ 上的非常值解析函数 $f$，将 $\Omega$ 中开集映到开集。
+{% end %}
+
+只需 $f(\Omega)$ 开。对 $w_0 = f(z_0)$，其中 $z_0$ 为 $f(z)-f(z_0)$ 的 $m$ 阶零点，存在 $w_0$ 的邻域 $O$，使其中点在 $z_0$ 邻域内有 $m$ 个原像，故 $O\subset f(\Omega)$.
+
+进而我们知道对单叶解析函数 $f$，它是 $\Omega\to f(\Omega)$ 的解析同胚。
+
+### 代数基本定理
+我们来使用开映射定理：
+
+{% admonition(type="theorem", title="最大模原理") %}
+对区域 $\Omega$ 上的非常值解析函数 $f$，$|f(z)|$ 在 $\Omega$ 内无最大值点。
+{% end %}
+
+因为 $f(z_0)$ 是 $f(D(z_0, \varepsilon))$ 的内点。
+
+{% admonition(type="theorem", title="代数基本定理") %}
+$n$ 次多项式 $P(z) = a_nz^n+\cdots+a_0$ 在 $\Complex$ 中有零点。
+{% end %}
+
+法一：
+> 由 $\lim_{n\to\infty} |P(z)| = +\infty$，存在 $R$ 使 $\min \set{\lvert P(z) \rvert | \lvert z \rvert = R} > |P(0)|$
+>
+> 设 $z_0$ 是 $|P(z)|$ 在 $\overline{D(0, R)}$ 的最小值点，则 $P(z_0)$ 为 $P(D(0, R))$ 的内点，故 $|P(z_0)| = 0$
+
+法二：
+> 将 $P$ 视作 $\bar{\Complex}\to\bar{\Complex}$ 的连续映射。
+>
+> 其不为常数，故 $P(\bar{\Complex})$ 为开集，而 $\bar{\Complex}$ 是紧的，故 $P(\bar{\Complex})$ 为闭集。从而值域是 $\bar{\Complex}$
+
+### 积分工具
+{% admonition(type="theorem", title="Cauchy 不等式") %}
+区域 $\Omega$ 上的解析函数 $|f|\leq M$，则 $\forall z_0\in\Omega, 0<r\leq \mathrm{dist}(z_0, \partial\Omega)$ 有
+
+$$|f^{(n)}(z_0)|\leq \frac{n!M}{r^n}$$
+{% end %}
+
+对 $0 < r < \mathrm{dist}(z_0, \partial\Omega)$，由
+
+$$f^{(n)}(z_0) = \frac{n!}{2\pi\mathrm{i}}\int_{|w-z_0| = r}\frac{f(w)}{(w-z_0)^{n+1}}\mathrm{d}w$$
+
+有
+
+$$|f^{(n)}(z_0)| = \frac{n!}{2\pi\mathrm{i}}\int_{|w-z_0| = r}\left|\frac{f(w)}{(w-z_0)^{n+1}}\right||\mathrm{d}w|\leq \frac{n!M}{r^n}$$
+
+再让 $r\to\mathrm{dist}(z_0, \partial\Omega)$ 即可。
+
+这表明，我们可以用 $|f(z)|$ 在区域内的最大值控制任意的 $|f^{(n)}(z)|$.
+
+{% admonition(type="theorem", title="Liouville 定理") %}
+解析函数 $f$ 在 $\Complex$ 上有界，则必为常数。
+{% end %}
+
+因为可以取 $r\to+\infty$ 使 $|f'(z_0)|\leq 0$.
+
+这表明：在解析同胚意义下，$\Complex$ 中单连通区域恰有 $\Complex$ 和 $D(0, 1)$ 两类。
+
+我们将 $\Complex$ 上的解析函数称为**整函数**，其中不为多项式的称为**超越整函数**。
+
+可以给出 Liouville 定理的推广如下：
 
 {% admonition(type="theorem", title="Weierstrass 定理") %}
-若 $z_0$ 是 $f$ 的一个本性奇点，则对任意 $\varepsilon>0$，$f(\mathring{D}(z_0, \varepsilon))$ 在 $\Complex$ 中稠密。
+对非常值的整函数 $f$，有 $f(\Complex)$ 在 $\Complex$ 中稠密。
 {% end %}
 
-我们知道 $\Complex-\overline{f(D_0(z_0, \varepsilon))}$ 是开集，若它非空，存在 $z^\star$ 及 $\delta>0$ 使 $D(z^\star, \delta)$ 在其内。
+假设结论不成立，存在 $z_0\in\Complex-\overline{f(\Complex)}$ 为开集，有 $g(z)=\frac{1}{f(z)-z_0}$ 有界，矛盾。
 
-令 $g(z) = \frac{1}{f(z)-z^\star}$，有 $|g(z)|\leq \frac{1}{\delta}$，从而 $z_0$ 是 $g$ 的可去奇点，只能是 $f$ 的可去奇点或极点，与条件矛盾。
+---
 
-更进一步，我们有 Picard 大定理：
-{% admonition(type="theorem", title="Picard 大定理") %}
-$z_0$ 是 $f$ 的一个本性奇点，且 $f$ 在 $\mathring{D}(z_0, \varepsilon)$ 上解析，则对任意 $0 < \varepsilon < R$，集合 $\Complex \setminus f(\mathring{D}(z_0, \varepsilon))$ 至多包含一个点。
-{% end %}
+我们期待对于定义在 $\Complex$ 上的超越整函数，能够如多项式一样证明它的值域是 $\Complex$；而事实上我们有相当接近的结论：
 
-甚至还有更强的结论 Julia 定理。
-
-{% admonition(type="theorem", title="Julia 定理") %}
-$z_0$ 是 $f$ 的一个本性奇点，则存在 $\theta\in [0, 2\pi)$，对任意 $\epsilon>0$ 及 $\omega\in\Complex$（至多存在一个例外），在 $|\arg (z-z_0) - \theta| < \epsilon$ 中 $f(z)=\omega$ 有无穷多解。
+{% admonition(type="theorem", title="Picard 小定理") %}
+对 $\Complex$ 上的超越整函数 $f$，有 $\Complex-f(\Complex)$ 至多包含一个点。
 {% end %}
 
 此证明将略过。
 
-{% admonition(type="theorem", title="全纯自同胚") %}
-$f:\Complex\to\Complex$ 是全纯自同胚当且仅当它形如 $az+b\ (a\neq 0)$.
-{% end %}
-
-只需证左推右。我们知道 $f$ 是整函数，且 $\infty$ 是孤立奇点。
-
-由 $f$ 无界知 $\infty$ 不是可去奇点，又由 Weierstrass 定理知它不是本性奇点，从而是极点。
-
-从而它是多项式，由代数学基本定理知是一次的。
-
-### 亚纯函数
-对 $\bar{\Complex}$ 中区域 $\Omega$ 上的函数 $f$，若除了（可能）有极点外处处解析，则称它是**亚纯**的。
-
-一个区域上的亚纯函数全体构成一个域，记作 $m(\Omega)$.
-
-{% admonition(type="theorem", title="Mittag-Leffler 问题的 $\Complex$ 版本") %}
-设 $\\{z_n\\}$ 是无重复项的点列，且 $\lim_{n \to +\infty} z_n = \infty$，每个 $n$ 对应一个：
-
-$$L_n(z) = \frac{a_{n_1}}{z-z_n} + \frac{a_{n_2}}{(z-z_n)^2} + \cdots + \frac{a_{n_{m_n}}}{(z-z_n)^{m_n}}$$
-
-则存在 $\Complex$ 上亚纯函数 $f$，使极点集为 $\\{z_n\\}$，且在 $z_n$ 处的 Laurent 展式的主部为 $L_n(z)$.
-{% end %}
-
-不妨设 $z_n \in D(0, n, n+1)$，取序列 $\\{a_n\\}$ 使 $a_n > 0$ 且和收敛，设对 $z_1, \dots , z_{n-1}$ 已取到 $P_1(z), \dots, P_{n-1}(z)$，使对任意 $k = 1, 2, \dots, n-1$ 有：
-
-$$\max_{z\in\overline{D(0, k)}} \\{|L_k(z)-P_k(z)|\\} \lt a_k$$
-
-有 $L_n(z)$ 在 $\overline{D(0, n)}$ 的邻域上解析，从而它在 $z=0$ 展开的幂级数在 $\overline{D(0, n)}$ 上一致收敛于它，可用多项式一致逼近，从而可取出 $P_n(z)$.
-
-令 $f(z) = \sum_{k=1}^{+\infty} [L_k(z) - P_k(z)]$，它即是所求。
-
-{% admonition(type="theorem", title="有理函数") %}
-$\bar{\Complex}$ 上的亚纯函数都是有理函数。
-{% end %}
-
-设亚纯函数 $f$，有极点 $z_1, \dots, z_l, \infty$，且对应的 Laurent 展式主部：
-
-$$L_k(z) = \frac{a_{k_1}}{z-z_k} + \frac{a_{k_2}}{(z-z_k)^2} + \cdots + \frac{a_{k_{m_k}}}{(z-z_k)^{m_k}}$$
-
-$$L_\infty(z) = b_1z + b_2z^2 + \cdots + b_mz^m$$
-
-则 $f(z) - \sum_{k=1}^l L_k(z) - L_\infty(z)$ 是 $\bar{\Complex}$ 上的全纯函数，因而是常数。从而 $f$ 是有理函数。
-
-利用此可以说明 $\bar{\Complex}$ 到 $\bar{\Complex}$ 的全纯自同胚只能是分式线性变换，这是因为考虑 $P(z)/Q(z)$，一一映射要求 $P$ 与 $Q$ 都是一次的。
-
-{% admonition(type="theorem", title="Cousin 问题 2 的 $\Complex$ 版本") %}
-$\\{z_n\\}$ 是无重复项的点列，且 $\lim_{n\to+\infty}z_n = \infty$，又正整数列 $\\{m_n\\}$，则存在解析函数 $f$，使 $f$ 所有零点是 $\\{z_n\\}$，且在 $z_n$ 处零点的阶数是 $m_n$.
-{% end %}
-
-证明过程用到无穷乘积，此处略过。
-
-它的一个推论是：对 $\bar{\Complex}$ 上亚纯函数 $f$，存在解析函数 $g$ 与 $h$ 使得 $f(z) = \frac{g(z)}{h(z)}$.
-
-## 留数
-### 基本概念
-我们希望把 Cauchy 定理和 Cauchy 公式推广到有孤立奇点的函数上。
-
-设 $z_0$ 为 $f$ 的孤立奇点，在 $\mathring{D}(z_0, R)$ 上解析，则对该去心圆盘中一个包含了 $z_0$ 的简单闭曲线，有 $\int_\Gamma f(z)\mathrm{d}z = \int_{|z-z_0|=\rho} f(z)\mathrm{d}z$.
-
-将 $f$ 在该去心圆盘上展成 Laurent 级数 $\sum_{n=-\infty}^{+\infty} a_n(z-z_0)^n$，由一致收敛，可以逐项积分得：
-
-$$\frac{1}{2\pi\mathrm{i}}\int_{|z-z_0|=\rho} f(z)\mathrm{d}z = a_{-1}$$
-
-定义上式为 $f$ 在 $z_0$ 处的**留数**，记作 $\mathrm{Res}_{z=z_0} f(z)\mathrm{d}z$.
-
-另定义无穷处的留数为 $-\frac{1}{2\pi\mathrm{i}}\int_{|z|=\rho} f(z)\mathrm{d}z$.
-
-我们是对 1-形式 $f(z)\mathrm{d}z$ 定义的，从而不依赖坐标选取。有时也省略 $\mathrm{d}z$.
-
-在 $z_0$ 为 $m$ 阶零点时，其邻域内有 $f(z) = \frac{1}{(z-z_0)^m}g(z)$，设 $g$ 在 $z_0$ 处的 Taylor 展开式为 $\sum_{n=0}^{+\infty}\frac{1}{n!}g^{(n)}(z_0)(z-z_0)^n$，就有 $\mathrm{Res}_{z=z_0} f(z)\mathrm{d}z = \frac{1}{(m-1)!}g^{(m-1)}(z_0)$.
-
-{% admonition(type="theorem", title="留数定理") %}
-$\Omega$ 是 $\bar{\Complex}$ 中以有限条逐段光滑曲线为边界的区域且 $\infty\notin\partial\Omega$，其内部有点 $z_1, z_2, \dots, z_n$，设 $f$ 在 $\Omega$ 中除这些点之外解析，在 $\bar{\Omega}$ 中除这些点之外连续，则：
-
-$$\int_{\partial\Omega} f(z)\mathrm{d}z = 2\pi\mathrm{i}\sum_{i=1}^n\mathrm{Res}_{z=z_k}f(z)$$
-{% end %}
-
-可从 Cauchy 公式推出。
-
-一种补充情况是，若 $f$ 在 $\bar{\Complex}$ 内除 $z_1, z_2, \dots, z_n$ 外解析，则
-
-$$\sum_{i=1}^n\mathrm{Res}_ {z=z_k}f(z) + \mathrm{Res}_ {z=\infty}f(z) = 0$$
-
-### 辐角原理
-{% admonition(type="theorem", title="辐角原理") %}
-$f$ 在区域 $D$ 内亚纯，$\Gamma = \partial \Omega, \Omega\subseteq D$ 是可求长简单闭曲线，且 $f$ 在 $\Gamma$ 上没有零点和极点，则
-
-$$\frac{1}{2\pi\mathrm{i}}\int_\Gamma \frac{f'(z)}{f(z)} \mathrm{d}z$$
-
-等于 $f$ 在 $\Gamma$ 内的零点个数减去极点个数（记重数）。
-{% end %}
-
-由 $f$ 在 $\Gamma$ 上没有零点和极点，在 $\Omega$ 内只有有限个零点和极点，设零点 $z_1, \dots, z_n$，极点 $w_1, \dots, w_k$，取充分小的 $r$ 使所有的 $D(z_i, r)$ 及 $D(w_j, r)$ 两两不交即可。
-
-实际上此定理说的是这个值等于 $w$ 沿着 $\gamma = f(\Gamma)$ 前进的辐角改变量 $\Delta_\gamma \operatorname{Arg} w$ 除以 $2\pi$.
-
-它的常用推论如下：
-
-{% admonition(type="theorem", title="Rouché 定理") %}
-$f$ 与 $g$ 在区域 $D$ 内解析，$\Gamma = \partial \Omega,\ \Omega\subseteq D$ 是可求长简单闭曲线，且在 $\Gamma$ 上 $|g(z)|<|f(z)|$，则 $f$ 与 $f+g$ 在 $\Gamma$ 内的零点个数（记重数）相同。
-{% end %}
-
-因为 $h=f+g$ 的零点个数减去 $f$ 的零点个数为：
-
-$$\frac{1}{2\pi\mathrm{i}}\int_\Gamma \left[\frac{h'(z)}{h(z)}-\frac{f'(z)}{f(z)}\right] \mathrm{d}z = \frac{1}{2\pi\mathrm{i}}\int_\Gamma \frac{(h/f)'(z)}{(h/f)(z)} \mathrm{d}z = \frac{1}{2\pi} \Delta_\Gamma \operatorname{Arg} \frac{h}{f} = 0$$
-
-{% admonition(type="theorem", title="分歧覆盖定理") %}
-$f$ 在区域 $D$ 内解析，$z_0\in D$ 的像是 $w_0$，$z_0$ 是 $f(z)-w_0$ 的 $m$ 阶零点，则存在 $\rho, \delta > 0$，对任意 $w\in \mathring{D}(w_0, \rho)$ 有 $f(z)-w$ 在 $\mathring{D}(z_0, \delta)$ 内恰有 $m$ 个一阶零点。
-{% end %}
-
-由零点孤立性，可取出 $\delta$ 使 $\mathring{D}(z_0, \delta)$ 上 $f(z)-w_0$ 与 $f'(z)$ 无零点，再取 $\rho = \min_{|z-z_0|=\delta} |f(z)-w_0| > 0$.
-
-有 $|z-z_0|=\delta$ 时，
-
-$$|(f(z)-w) - (f(z)-w_0)| < |f(z)-w_0|$$
-
-使用 Rouché 定理即可。
-
-这意味着，$f(z)-w_0$ 在 $z_0$ 附近的性质与 $z^m$ 在 $0$ 附近的性质近似。
-
-### 定积分计算
-许多 $\R$ 上难以处理的定积分问题可以放到 $\Complex$ 上来算。
-
-一个直接的例子是：
-
-$$\int_0^{2\pi} \frac{\mathrm{d}\theta}{a+b\cos\theta} = \frac{2}{\mathrm{i}}\int_{|z|=1} \frac{\mathrm{d}z}{bz^2+2az+b} = 4\pi \mathrm{Res}_{z=(-a+\sqrt{a^2-b^2})/b} \left(\frac{\mathrm{d}z}{bz^2+2az+b}\right) = \frac{2\pi}{\sqrt{a^2-b^2}}$$
-
 ---
-
-对 $f(z) = \frac{1}{(1+z^2)^{n+1}}$，计算 $\int_0^{+\infty} f(x)\mathrm{d}x$ 需要手动建立回路。令 $\gamma$ 是从 $R$ 顺时针转到 $-R$ 的路径，则：
-
-$$\int_{-R}^{R} f(z)\mathrm{d}z + \int_\gamma f(z)\mathrm{d}z = 2\pi\mathrm{i}\cdot\mathrm{Res}_{z=\mathrm{i}} f(z)\mathrm{d}z = \frac{1}{2\mathrm{i}}\cdot\frac{(2n-1)!!}{(2n)!!}$$
-
-令 $R\to+\infty$，则 $\left|\int_\gamma f(z)\mathrm{d}z\right|\to 0$，故结果为 $\frac{(2n-1)!!}{2(2n)!!} \pi$.
-
----
-
-对 $\int_0^{+\infty} \frac{\sin x}{x} \mathrm{d}x$，我们选取的回路是：
-
-![Residue Half Ring](/images/complex/res_half_ring.svg)
-
-对 $\int_0^{+\infty} \frac{x^{p-1}}{1+x} \mathrm{d}x,\ 0 < p < 1$，我们选取的回路是：
-
-![Residue Key Hole](/images/complex/res_keyhole.svg)
-
-## 调和函数
-### 性质
-我们回忆实函数 $u(x, y)$ 是调和的，如果 $\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = 0$.
-
-回顾这个结论：
-
-{% admonition(type="theorem", title="存在共轭调和") %}
-单连通区域 $D$ 上调和函数 $u$ 存在共轭调和函数 $v$，即 $v$ 使得：
-
-$$\frac{\partial v}{\partial x} = - \frac{\partial u}{\partial y},\ \frac{\partial v}{\partial y} = \frac{\partial u}{\partial x}$$
-{% end %}
-
-取定 $z_0 \in D$，考虑：
-
-$$\int_{z_0}^z - \frac{\partial u}{\partial y}\mathrm{d}x + \frac{\partial u}{\partial x}\mathrm{d}y$$
-
-那么存在：
-
-$$\mathrm{d}v = - \frac{\partial u}{\partial y}\mathrm{d}x + \frac{\partial u}{\partial x}\mathrm{d}y$$
-
-即是所求。共轭调和函数使得 $f = u + \mathrm{i}v$ 在 $D$ 内解析。
 
 {% admonition(type="theorem", title="平均值定理") %}
-$u$ 在圆盘 $|z-z_0| < R$ 内调和，则对 $0 \leq r < R$ 有：
+区域 $\Omega$ 上的解析函数 $f$，对任意 $z_0 \in \Omega, 0 < r < \mathrm{dist}(z_0, \partial \Omega)$，有：
 
-$$u(z_0) = \frac{1}{2\pi} \int_0^{2\pi} u(z_0 + re^{\mathrm{i}\theta}) \mathrm{d}\theta$$
+$$f(z_0) = \frac{1}{2\pi}\int_0^{2\pi} f(z_0+re^{i\theta})\mathrm{d}\theta$$
 {% end %}
 
-取解析函数 $f = u + \mathrm{i}v$，由 Cauchy 公式有：
+这可直接由 Cauchy 公式得到。
 
-$$u(z_0) = \operatorname{Re} \frac{1}{2\pi\mathrm{i}} \int_{|z-z_0|=r} \frac{u(z)+\mathrm{i}v(z)}{z-z_0} \mathrm{d}z = \operatorname{Re} \frac{1}{2\pi\mathrm{i}} \int_0^{2\pi} u(z_0 + re^{\mathrm{i}\theta})\mathrm{i} \mathrm{d}\theta - v(z_0 + re^{\mathrm{i}\theta}) \mathrm{d}\theta$$
+这给出**平均值不等式**：
 
-{% admonition(type="theorem", title="最大、最小值原理") %}
-$u$ 在区域 $\Omega$ 内调和且非常数，则它在 $\Omega$ 内取不到最大值和最小值。
+$$|f(z_0)| = \frac{1}{2\pi}\int_0^{2\pi} |f(z_0+re^{i\theta})|\mathrm{d}\theta$$
+
+进一步有：
+
+$$f(z_0) = \frac{1}{\pi R^2}\iint\limits_{D(z_0, R)} f(z) \mathrm{d}S$$
+
+### 平方可积解析函数
+这一节中我们假定区域 $\Omega$ 以有限条逐段光滑曲线为边界。
+
+对其上的复值函数 $f$，称它为**平方可积函数**，若 $|f(z)^2|$ 在 $\Omega$ 上广义可积，其全体记作 $A^2(\Omega)$.
+
+若 $f, g\in A^2(\Omega)$，就有 $|f(z)+g(z)|^2\leq 2 (|f(z)|^2 + |g(z)|^2)$，即 $f+g\in A^2(\Omega)$，从而易知 $A^2(\Omega)$ 是复线性空间。
+
+我们进一步在其上定义**内积**如下：
+
+$$(f, g) = \iint\limits_\Omega f(z)\overline{g(z)} \mathrm{d}S$$
+
+它满足对称性 $(f, g) = \overline{(g, f)}$ 及线性性、正定性。
+
+我们有 Cauchy 不等式 $(f, g)^2 < (f, f) (g, g)$.
+
+现在可以给出一个最大模原理的新证明：
+> 设 $z_0\in\Omega$ 是 $|f(z)|$ 最大值点，有
+> $$\iint\limits_{D(z_0, \epsilon)} (|f(z_0)|^2 - |f(z)|^2) \mathrm{d}S\geq 0$$
+> 使用 Cauchy 不等式，得到 $|f(z)|^2 \equiv |f(z_0)|^2$.
+
+有了内积，我们可以进一步典范地定义范数 $\\|f\\| = \sqrt{(f, f)}$、度量，它是完备的。
+
+我们称两函数**正交**，如果 $(f, g) = 0$，**单位正交函数系**是指一族 $(\varphi_i, \varphi_j) = \delta_{ij}$，如果不存在函数与它的元素都正交，则进一步称为**完备单位正交函数系**。
+
+我们考虑函数 $f$ 对于一族完备单位正交函数系的形式级数：
+
+$$f(z) \sim \sum_{n=1}^\infty (f, \varphi_n)\varphi_n(z)$$
+
+称为 $f$ 关于 $\\{\varphi_n\\}$ 的 Fourier 级数。它均方收敛且内闭收敛于 $f$.
+
+### 非欧几何
+{% admonition(type="theorem", title="Schwarz 引理") %}
+$f$ 是单位圆盘到自身的解析映射，且 $f(0) = 0$，则：
+1. 对圆盘内任一点，有 $|f(z)|\leq |z|$，这会使得 $|f'(0)|\leq 1$
+2. 存在 $z_0\neq 0$ 使 $|f(z_0)| = |z_0|$ 或 $|f'(0)| = 1$ 的充要条件是 $f(z)=e^{\mathrm{i}\theta}z$
 {% end %}
 
-令 $M = \sup_{z\in \Omega} u(z)$，不妨设 $M < +\infty$ 且在 $\Omega$ 内的 $z_0$ 处取到。
+考虑 $f$ 在 $z=0$ 处展开成的幂级数 $a_0+a_1z+\cdots$，常数项为 $0$，故 $\frac{f(z)}{z} = a_1+a_2z+\cdots$ 在单位圆盘内解析。
 
-则考虑 $D(z_0, R) \subseteq \Omega$，由平均值定理知该圆盘内 $u$ 的值恒为 $0$，然后我们可以选取新的中心的圆盘，这样做可以触及所有的点[^1][^2]。
-
-### Dirichlet 问题
-作为平均值公式的推广，我们证明：
-
-{% admonition(type="theorem", title="Poisson 公式") %}
-$u$ 在圆盘 $|z-z_0| < R$ 内调和，则对 $0 < r < R$ 及 $|z| < r$ 有：
-
-$$u(z) = \frac{1}{2\pi} \int_0^{2\pi} \frac{r^2-|z|^2}{|re^{\mathrm{i}\theta}-z|^2} u(re^{\mathrm{i}\theta}) \mathrm{d}\theta$$
-{% end %}
-
-使用 Cauchy 公式及 Cauchy 定理证明。
-
-其中 $1/2\pi \cdot (r^2-|z|^2)/|re^{\mathrm{i}\theta}-z|^2 > 0$ 称为 **Poisson 核**。
-
-**Dirichlet 问题**是说：对一个区域 $D$ 及它边界上定义的实连续函数 $u$，是否可给出一个 $\bar{D}$ 上的调和函数，使其在边界上是 $u$.
-
-对单位圆盘，可以由以下 Poisson 积分解决：
-
-$$u(z) = \frac{1}{2\pi} \int_0^{2\pi} \frac{1-|z|^2}{|e^{\mathrm{i}\theta}-z|^2} u(e^{\mathrm{i}\theta}) \mathrm{d}\theta$$
+对 $z_0$，取 $|z_0| < r < 1$，由最大模原理有 $\left|\frac{f(z)}{z}\right| \leq \left|\frac{f(r)}{r}\right| < \frac{1}{r}$，令 $r\to 1$ 即有 $|f(z_0)|\leq |z_0|$.
 
 ---
 
-[^1]: 我舍友给出的一个证法是：取一条道路，把命题加强为从一个圆心转移到另一个圆心，每次取参数的中点看哪一半没有取到，可使用闭区间套。
-[^2]: 另一个同学补充说可直接使用结论：对不相交的紧集和开集，它们的距离非 0.
+我们可以用 Schwarz 引理给出单位圆盘的解析自同胚群：因为 $f$ 与 $f'$ 均可经分式线性变换转为满足 Schwarz 引理的条件，它是保欧氏距离的，从而只能是分式线性变换，形如：
+
+$$f(z) = e^{\mathrm{i}\theta}\frac{z-z_0}{1-\bar{z_0}z}$$
+
+由于这些变换可以将单位圆盘中指定的一点变成另一指定的点，可以得到：
+
+{% admonition(type="theorem", title="更一般形式的 Schwarz 引理") %}
+$f$ 是单位圆盘到自身的解析映射，则对任意 $z_1, z_2\in D(0, 1)$ 有：
+
+$$\left|\frac{f(z_1)-f(z_2)}{1-\overline{f(z_1)}f(z_2)}\right|\leq \left|\frac{z_1-z_2}{1-\bar{z_1}z_2}\right|$$
+{% end %}
+
+其微分形式为：
+
+$$\frac{|\mathrm{d}f(z)|}{1-|f(z)|^2}\leq \frac{|\mathrm{d}z|}{1-|z|^2}$$
+
+我们在单位圆盘上定义新的弧长微元（称为 Poincaré 度量）：
+
+$$\mathrm{d}s = \frac{|\mathrm{d}z|}{1-|z|^2}$$
+
+就可定义分段光滑曲线的非欧长度，并依次定义非欧距离和测地线，此过程与一般的光滑流形上的做法相同。
