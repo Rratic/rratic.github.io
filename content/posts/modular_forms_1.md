@@ -328,7 +328,10 @@ $$a_n = e^{2\pi ny} \int_0^1 f(x + \mathrm{i}y) e^{-2\pi\mathrm{i}nx} \mathrm{d}
 ---
 
 [^im]: 命令 `\Im`，Zagier 讲义中显示的是以前的版本 $\mathfrak{J}$.
-[^fuchsian]: $\mathrm{SL}(2, \R)$ 的离散子群。
+[^fuchsian]: $\mathrm{SL}(2, \R)$ 的离散子群。而 $\mathrm{SL}(2, \Z)$ 的子群称为**同余子群**。而 $N$ 级的**主同余子群**指：
+
+$$\Gamma(N) = \set{\gamma \in \mathrm{SL}(2, \R) | \gamma \equiv \begin{pmatrix} 1 & 0 \\\\ 0 & 1 \end{pmatrix} \pmod N}$$
+
 [^elliptic-curve]: 某些代数几何结论指出亏格 1 的紧 Riemann 面可嵌入射影平面成为光滑三次曲线。实际上可以用 Weierstrass p 函数写出：
 
 $$\wp(z) = \frac{1}{z^2} + \sum_{\omega \in \Lambda \setminus \set{0}} \left(\frac{1}{(z-\omega)^2} - \frac{1}{\omega^2}\right)$$
