@@ -235,10 +235,10 @@ $n - 1$ 个 $n$ 元向量的外积是：
 
 $$
 \begin{vmatrix}
-\epsilon_1 & \cdots & \epsilon_n \cr
-v_1^1 & \cdots & v_n^1 \cr
-\vdots & & \vdots \cr
-v_1^{n-1} & \cdots & v_n^{n-1}
+	\varepsilon_1 & \cdots & \varepsilon_n \cr
+	v_1^1 & \cdots & v_n^1 \cr
+	\vdots & & \vdots \cr
+	v_1^{n-1} & \cdots & v_n^{n-1}
 \end{vmatrix}
 $$
 

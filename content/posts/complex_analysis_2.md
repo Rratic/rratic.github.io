@@ -26,7 +26,7 @@ $$\int_{\gamma} f(z) \mathrm{d}z = \int_a^b f(\gamma(z)) \mathrm{d}\gamma(z) = \
 
 或者直接对微分算子进行：
 
-$$\int_{\gamma} (u+\mathrm{i}v)(\mathrm{d}x+\mathrm{i}\cdot\mathrm{d}y) = \int_{\gamma} (u\mathrm{d}x-v\mathrm{d}y) + \mathrm{i}\int_{\gamma} (u\mathrm{d}y+v\mathrm{d}x)$$
+$$\int_{\gamma} (u + \mathrm{i}v)(\mathrm{d}x + \mathrm{i} \cdot \mathrm{d}y) = \int_{\gamma} (u\mathrm{d}x - v\mathrm{d}y) + \mathrm{i}\int_{\gamma} (u\mathrm{d}y + v\mathrm{d}x)$$
 
 例如说，对闭曲线 $\gamma$ 和 $n\neq -1$，有：
 
@@ -61,15 +61,15 @@ $$f(w) = f(z) + f'(z)(w - z) + o(w - z)$$
 
 若已知全纯，对 $z_0 \in \Omega$，取它在 $\Omega$ 中充分小的邻域 $\overline{D(z_0, r)}$，则由 Cauchy 公式：
 
-$$f(z) = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = r}\frac{f(w)}{w-z}\mathrm{d}w$$
+$$f(z) = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = r}\frac{f(w)}{w - z}\mathrm{d}w$$
 
 我们作以下展开：
 
-$$\frac{1}{w-z} = \frac{1}{w-z_0}\cdot\sum_{n=0}^{+\infty}\left(\frac{z-z_0}{w-z_0}\right)^n$$
+$$\frac{1}{w - z} = \frac{1}{w - z_0} \sum_{n=0}^{+\infty} \left(\frac{z - z_0}{w - z_0}\right)^n$$
 
 该级数是[一致收敛](@/posts/analysis_2_final.md)的，从而代入得：
 
-$$f(z) = \sum_{n=0}^{+\infty} \frac{1}{2\pi\mathrm{i}}(z-z_0)^n \int_{|w-z_0| = r} \frac{f(w)}{(w-z_0)^{n+1}} \mathrm{d}w$$
+$$f(z) = \sum_{n=0}^{+\infty} \frac{1}{2\pi\mathrm{i}}(z - z_0)^n \int_{|w-z_0| = r} \frac{f(w)}{(w - z_0)^{n+1}} \mathrm{d}w$$
 
 即所求的幂级数。可喜可贺！
 
@@ -266,22 +266,22 @@ $f$ 是单位圆盘到自身的解析映射，且 $f(0) = 0$，则：
 
 我们可以用 Schwarz 引理给出单位圆盘的解析自同胚群：因为 $f$ 与 $f'$ 均可经分式线性变换转为满足 Schwarz 引理的条件，它是保欧氏距离的，从而只能是分式线性变换，形如：
 
-$$f(z) = e^{\mathrm{i}\theta}\frac{z-z_0}{1-\bar{z_0}z}$$
+$$f(z) = e^{\mathrm{i}\theta} \frac{z - z_0}{1 - \bar{z_0}z}$$
 
 由于这些变换可以将单位圆盘中指定的一点变成另一指定的点，可以得到：
 
 {% admonition(type="theorem", title="更一般形式的 Schwarz 引理") %}
 $f$ 是单位圆盘到自身的解析映射，则对任意 $z_1, z_2\in D(0, 1)$ 有：
 
-$$\left|\frac{f(z_1)-f(z_2)}{1-\overline{f(z_1)}f(z_2)}\right|\leq \left|\frac{z_1-z_2}{1-\bar{z_1}z_2}\right|$$
+$$\left|\frac{f(z_1) - f(z_2)}{1 - \overline{f(z_1)}f(z_2)}\right| \leq \left|\frac{z_1 - z_2}{1 - \bar{z_1}z_2}\right|$$
 {% end %}
 
 其微分形式为：
 
-$$\frac{|\mathrm{d}f(z)|}{1-|f(z)|^2}\leq \frac{|\mathrm{d}z|}{1-|z|^2}$$
+$$\frac{|\mathrm{d}f(z)|}{1 - |f(z)|^2}\leq \frac{|\mathrm{d}z|}{1 - |z|^2}$$
 
 我们在单位圆盘上定义新的弧长微元（称为 Poincaré 度量）：
 
-$$\mathrm{d}s = \frac{|\mathrm{d}z|}{1-|z|^2}$$
+$$\mathrm{d}s = \frac{|\mathrm{d}z|}{1 - |z|^2}$$
 
 就可定义分段光滑曲线的非欧长度，并依次定义非欧距离和测地线，此过程与一般的光滑流形上的做法相同。

@@ -47,6 +47,8 @@
 
 恰当使用正体（用 `\mathrm`，在数学性不强时使用 `\text`），如果正体函数与参数之间需要空隙应用 `\operatorname`。
 
+几乎总是应该使用 `\varepsilon` 而不是 `\epsilon`，除非需要特别区分（如 Levi‑Civita 符号）。
+
 省略号使用形如 `a_1, \dots, a_n` 与 `A_1 \oplus \cdots \oplus A_n`。
 
 其它惯例，如极限变量使用 `\varepsilon`，矩阵转置使用 `^\top`。又如：

@@ -313,7 +313,7 @@ $$(f(a) - f(b)) (3\xi^2) = (a^3 - b^3) f'(\xi)$$
 在 $\R$ 上 $f(x)$ 有界且 $f'(x)$ 一致连续，证 $f'(x)$ 有界。
 {% end %}
 
-首先由一致连续定义知可取 $\epsilon, \delta$ 使得 $|x-y| < \delta$ 时 $|f'(x)-f'(y)| < \epsilon$.
+首先由一致连续定义知可取 $\varepsilon, \delta$ 使得 $|x-y| < \delta$ 时 $|f'(x)-f'(y)| < \varepsilon$.
 
 考虑 Lagrange 中值定理 $f(x+\delta) - f(x) = \delta f(\xi)$ 即可。
 
@@ -362,7 +362,7 @@ $$\frac{f(a+b)}{a+b} = \frac{a}{a+b} \frac{f(a+b)}{a+b} + \frac{b}{a+b} \frac{f(
 $$\lim_{n\to\infty} \frac{p_1a_n + p_2a_{n-1} + p_na_1}{p_1 + \cdots + p_n} = a$$
 {% end %}
 
-不妨 $a=0$. 对 $\epsilon > 0$ 取 $N$ 使 $n > N$ 时 $|a_n| < \epsilon$，则考虑：
+不妨 $a=0$. 对 $\varepsilon > 0$ 取 $N$ 使 $n > N$ 时 $|a_n| < \varepsilon$，则考虑：
 
 $$\lim_{n\to\infty} \frac{p_1a_n + p_2a_{n-1} + p_na_1}{p_1 + \cdots + p_n} = \frac{p_1a_n + p_2a_{n-1} + p_{n-N}a_{N+1}}{p_1 + \cdots + p_n} + \frac{p_{n-N+1}}{p_1 + \cdots + p_n}a_N + \cdots + \frac{p_n}{p_1 + \cdots + p_n}a_1$$
 
@@ -374,7 +374,7 @@ $f$ 在 $(0, +\infty)$ 上连续，且对任意 $a > 0$ 有 $\lim_{n\to\infty} f
 $$\lim_{x\to+\infty} f(x) = 0$$
 {% end %}
 
-假设结论不成立，存在 $\epsilon > 0$ 使得一列递增趋向于无穷的 $x_i$ 满足 $|f(x_i)| > \epsilon$，由连续性存在一列 $[x_i-\delta_i, x_i+\delta_i]$ 使 $|f(x)|$ 在其上大于 $\epsilon/2$.
+假设结论不成立，存在 $\varepsilon > 0$ 使得一列递增趋向于无穷的 $x_i$ 满足 $|f(x_i)| > \varepsilon$，由连续性存在一列 $[x_i-\delta_i, x_i+\delta_i]$ 使 $|f(x)|$ 在其上大于 $\varepsilon/2$.
 
 现在我们希望找到无穷多个不同的 $n_i$ 对应的 $[(x_i-r_i)/n_i, (x_i+r_i)/n_i]$ 包含某个 $a$. 先把 $[x_1-\delta_1, x_1+\delta_1]$ 移到 $(0, 1)$ 中，然后对充分大的 $x_i$ 存在对应的 $n_i$ 使得 $x_i/n_i$ 在其内部；不断作此操作，得到一闭区间套，使用闭区间套定理即可。
 

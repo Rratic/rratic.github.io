@@ -197,14 +197,14 @@ $$h(r) = \binom{n}{r} f^r(1-f)^{n-r}$$
 
 $$
 \begin{cases}
-    P(R_k|R_{k-1}C) = \frac{M}{N} + \epsilon \cr
+    P(R_k|R_{k-1}C) = \frac{M}{N} + \varepsilon \cr
     P(R_k|W_{k-1}C) = \frac{M}{N} - \delta
 \end{cases}
 $$
 
 通过使用矩阵对角化，可以算得：
 
-$$P(R_k|C) = \frac{(p-\delta)-(\epsilon+\delta)^{k-1}(p\epsilon-q\delta)}{1-\epsilon-\delta},\quad p=\frac{M}{N}, q=1-p$$
+$$P(R_k|C) = \frac{(p - \delta) - (\varepsilon + \delta)^{k-1}(p\varepsilon - q\delta)}{1 - \varepsilon - \delta},\quad p = \frac{M}{N}, q = 1 - p$$
 
 ## 初等假设检验
 ### 定义
