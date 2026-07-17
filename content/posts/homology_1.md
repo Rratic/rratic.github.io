@@ -57,7 +57,7 @@ $$
 
 我们称这些 $f_\sharp$ 是两个**链复形**的**链映射**。这会诱导对应同调群之间的同态。
 
-{% admonition(type="theorem", title="定理") %}
+{% admonition(type="theorem", title="同伦不变性") %}
 若 $f, g: X \to Y$ 同伦，则它们诱导相同的 $f_\ast = g_\ast: H_n(X) \to H_n(Y)$.
 {% end %}
 

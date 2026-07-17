@@ -78,7 +78,7 @@ $$\oplus/ \cdot \otimes/\ast \cdot \operatorname{tails} = \odot \rightarrow\\!\\
 现在就可以进行推导：
 
 $$
-\begin{align*} 
+\begin{align*}
 & \mathrm{mss} \cr
 = & \uparrow/ \cdot +/\ast \cdot \operatorname{segs} \cr
 = & \uparrow/ \cdot +/\ast \cdot +\\!\\!+ / \cdot \mathrm{tails} \ast \cdot \operatorname{inits} \cr
@@ -157,14 +157,14 @@ $$p\triangleleft = +\\!\\!+/ \cdot (p \to [\mathrm{id}]^o, []^o)\ast$$
 仍然从朴素的想法出发推导：
 
 $$
-\begin{align*} 
+\begin{align*}
 & \mathrm{lsp} \cr
 = & \uparrow _{\\#}/ \cdot (\mathrm{all}\ p)\triangleleft \cdot \operatorname{segs} \cr
 = & \uparrow _{\\#}/ \cdot (\uparrow _{\\#}/ \cdot (\mathrm{all}\ p)\triangleleft \cdot \operatorname{tails})\ast \cdot \operatorname{inits} \cr
 = & \uparrow _{\\#}/ \cdot (\uparrow _{\\#}/ \cdot (+\\!\\!+/ \cdot (p \to [\mathrm{id}]^o, K\ \omega)\ast) \ast \cdot \operatorname{tails})\ast \cdot \operatorname{inits} \cr
 = & \uparrow _{\\#}/ \cdot \odot \rightarrow\\!\\!\\!\\!\\!\\!/ _{\ []}\ast \cdot \operatorname{inits} \cr
 = & \uparrow _{\\#}/ \cdot \odot \rightarrow\\!\\!\\!\\!\\!\\!\\!/\\!\\!/ _{\ []}
-\end{align*} 
+\end{align*}
 $$
 
 其中 $x \odot a = (x +\\!\\!+ (p\ a \to [a], \omega)) \uparrow _{\\#} []$.

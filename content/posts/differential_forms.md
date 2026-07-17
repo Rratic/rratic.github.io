@@ -14,7 +14,7 @@ categories = ["知识"]
 tags = ["数学", "几何学"]
 +++
 
-我们希望了解 $\partial/\partial x$，$\mathrm{d}/\mathrm{d}x$ 及更复杂的记号本质上/在一般的流形上是什么。本文不涉及层论视角，也不考虑将 $\mathrm{d}f/\mathrm{d}x$ 看成缩并 $\iota_X(\mathrm{d}f)$ 或李导数 $\mathcal{L}_X f$.
+我们希望了解 $\partial/\partial x$，$\mathrm{d}/\mathrm{d}x$ 及更复杂的记号本质上/在一般的流形上是什么。本文不涉及层论视角。
 
 <!-- more -->
 
@@ -97,7 +97,7 @@ $$\frac{\mathrm{d}}{\mathrm{d}t} (f \circ \gamma_1) \Big| _{t=0} = \frac{\mathrm
 
 $$V_1^\ast \otimes \cdots \otimes V_k^\ast \cong L(V_1, \dots, V_k; \R)$$
 
-我们称 $V$ 上的**协变** $k$-张量是指 $\underbrace{V^\ast\otimes\cdots\otimes V^\ast}_k$，其全体记作 $T^k(V^\ast)$；称 $V$ 上的**反变** $k$-张量是指 $\underbrace{V\otimes\cdots\otimes V}_k$，其全体记作 $T^k(V)$；称 $(k, l)$-型混合张量是指 $\underbrace{V\otimes\cdots\otimes V}_k \otimes \underbrace{V^\ast\otimes\cdots\otimes V^\ast}_l$，其全体记作 $T^{(k, l)}(V)$.
+我们称 $V$ 上的**协变** $k$-张量是指 $\underbrace{V^\ast\otimes\cdots\otimes V^\ast}_k$，其全体记作 $T^k(V^\ast)$；称 $V$ 上的**逆变** $k$-张量是指 $\underbrace{V\otimes\cdots\otimes V}_k$，其全体记作 $T^k(V)$；称 $(k, l)$-型混合张量是指 $\underbrace{V\otimes\cdots\otimes V}_k \otimes \underbrace{V^\ast\otimes\cdots\otimes V^\ast}_l$，其全体记作 $T^{(k, l)}(V)$.
 
 一个协变 $k$-张量 $\alpha$ 被称为是**对称**的，如果 $\alpha(\cdots v_i\cdots v_j \cdots) = \alpha(\cdots v_j\cdots v_i \cdots)$，其全体称为 $\Sigma^k(V^\ast)$；我们有一个投射 $\mathrm{Sym}: T^k(V^\ast) \to \Sigma^k(V^\ast)$，它是：
 
@@ -134,7 +134,18 @@ $$\omega\wedge\eta = \frac{(k+l)!}{k!l!}\mathrm{Alt}(\omega\otimes\eta)$$
 
 作为一个例子，在 $\R^2$ 上有：
 
-$$(\mathrm{d}x\wedge \mathrm{d}y)(v, w) = (\mathrm{d}x\otimes \mathrm{d}y)(v, w) - (\mathrm{d}x\otimes \mathrm{d}y)(w, v) = \mathrm{d}x(v)\mathrm{d}y(w) - \mathrm{d}x(w)\mathrm{d}y(v) = v_1w_2 - v_2w_1$$
+$$
+\begin{align*}
+    & (\mathrm{d}x \wedge \mathrm{d}y)(v, w) \cr
+    = & (\mathrm{d}x \otimes \mathrm{d}y)(v, w) - (\mathrm{d}x \otimes \mathrm{d}y)(w, v) \cr
+    = & \mathrm{d}x(v)\mathrm{d}y(w) - \mathrm{d}x(w)\mathrm{d}y(v) \cr
+    = & v_1w_2 - v_2w_1
+\end{align*}
+$$
+
+对光滑映射 $F: M \to N$ 与协变 $k$-张量场 $A$ 我们定义拉回：
+
+$$(F^\ast A) _p(v _1, \dots, v_k) = A _{F(p)}(\mathrm{d}F(p)v _1, \dots, \mathrm{d}F(p)v_k)$$
 
 ---
 
@@ -146,17 +157,34 @@ $$T^{(k, l)}TM = \bigsqcup_{p\in M}T^{(k, l)}(T_pM)$$
 
 $$A = A_{j_1\cdots j_l}^{i_1\cdots i_k} \frac{\partial}{\partial x^{i_1}}\otimes\cdots\otimes\frac{\partial}{\partial x^{i_k}}\otimes\mathrm{d}x^{j_1}\otimes\cdots\otimes\mathrm{d}x^{j_l}$$
 
-我们称**微分 $k$-形式**是指：
+我们称**微分 $k$-形式**是指下式的截面，记 $\Omega^k(M) = \Gamma (\Lambda^kT^\ast M)$：
 
 $$\Lambda^kT^\ast M = \bigsqcup_{p\in M}\Lambda^k(T_p^\ast M)$$
 
-的截面，记 $\Omega^k(M) = \Gamma (\Lambda^kT^\ast M)$.
+根据交错条件，一个 $k$-形式 $\omega$ 可以被分解为 $\sum_I \omega_I \mathrm{d}x^I$，其中 $\mathrm{d}x^I$ 是 $\mathrm{d}x^{i_1} \wedge \cdots \wedge\mathrm{d}x^{i_m}$，$1 \leq i_1 < \cdots < i_m \leq n$.
 
-作为一个有关 $1$-形式与 $2$-形式的例子，我们考虑：
+对一般的 $f$ 是 $0$-形式，就有 $\mathrm{d}f$ 是 $1$-形式，且：
 
-$$\mathrm{d}x \wedge \mathrm{d}y = \mathrm{d}(r\cos\theta) \wedge \mathrm{d}(r\sin\theta) = (\cos\theta\mathrm{d}r - r\sin\theta\mathrm{d}\theta) \wedge (\sin\theta\mathrm{d}r + r\cos\theta\mathrm{d}\theta) = r\mathrm{d}r \wedge \mathrm{d}\theta$$
+$$\mathrm{d}f = \sum \frac{\partial f}{\partial x_i} \mathrm{d}x_i$$
 
-一个 $k$-形式 $\omega$ 可以被分解为 $\sum_I \omega_I \mathrm{d}x^I$，其中 $\mathrm{d}x^I$ 是 $\mathrm{d}x^{i_1}\wedge\cdots\wedge\mathrm{d}x^{i_1}$.
+在一维情形下，$\mathrm{d}f / \mathrm{d}x$ 被看成是一个 $0$-形式，可以定义为切映射的商。一般不会考虑多维情形的 $\mathrm{d}f / \mathrm{d}x_i$，有时它会定义为 [Fréchet 导数](@/posts/analysis_2_final.md)，结果是 $m\times n$ 的矩阵。
+
+作为一个有关 $1$-形式与 $2$-形式的例子，我们有：
+
+$$
+\begin{align*}
+    & \mathrm{d}x \wedge \mathrm{d}y \cr
+    = & \mathrm{d}(r\cos\theta) \wedge \mathrm{d}(r\sin\theta) \cr
+    = & (\cos\theta\mathrm{d}r - r\sin\theta\mathrm{d}\theta) \wedge (\sin\theta\mathrm{d}r + r\cos\theta\mathrm{d}\theta) \cr
+    = & r\mathrm{d}r \wedge \mathrm{d}\theta
+\end{align*}
+$$
+
+---
+
+$\mathrm{d}f / \mathrm{d}x$ 的另一种看法是**缩并** $\iota_X(\mathrm{d}f)$，其中取 $X = \partial / \partial x$，则运算 $\iota_X$ 或 $X \lrcorner$ 是：
+
+$$(\iota_X\omega)(Y_1, \dots, Y_{k-1}) = \omega(X, Y_1, \dots, Y_{k-1})$$
 
 ---
 
@@ -164,23 +192,33 @@ $$\mathrm{d}x \wedge \mathrm{d}y = \mathrm{d}(r\cos\theta) \wedge \mathrm{d}(r\s
 
 $$\frac{\mathrm{d}^2 f}{\mathrm{d} x^2} = \frac{\mathrm{d}\left(\frac{\mathrm{d} f}{\mathrm{d} x}\right)}{\mathrm{d} x}$$
 
-其中的 $\mathrm{d}$ 可以被看成**外微分** $\mathrm{d}: \Omega^k(M)\to\Omega^{k+1}(M)$，定义为在每个光滑坐标卡上是：
+其中的 $\mathrm{d}$ 可以被看成**外微分** $\mathrm{d}: \Omega^k(M) \to \Omega^{k+1}(M)$，定义为在每个光滑坐标卡上是：
 
-$$\mathrm{d}\left(\sum_J \omega_J \mathrm{d}x^J\right) = \sum_J \omega_J\wedge\mathrm{d}x^J$$
+$$\mathrm{d}\left(\sum_J \omega_J \mathrm{d}x^J\right) = \sum_J \mathrm{d}\omega_J\wedge\mathrm{d}x^J$$
 
-它满足：
-1. 在 $\R$ 上线性
-2. 对 $\omega\in\Omega^k(M)$ 及 $\eta\in\Omega^l(M)$，有 $\mathrm{d}(\omega\wedge\eta) = \mathrm{d}\omega\wedge\eta+(-1)^k\omega\wedge\mathrm{d}\eta$
-3. $\mathrm{d}\circ\mathrm{d} = 0$
-4. 对 $f\in\Omega^0(M) = C^\infty(M)$，有 $\mathrm{d}f$ 是 $f$ 的微分
+特别地，$k = 0$ 时，对 $f \in \Omega^0(M) = C^\infty(M)$，有 $\mathrm{d}f$ 是 $f$ 的微分：
+
+$$\mathrm{d}f = \sum_{i=1}^n \frac{\partial}{\partial x_i} \mathrm{d}x_i$$
+
+外微分在 $\R$ 上线性，满足 $\mathrm{d} \circ \mathrm{d} = 0$，且对 $\omega\in\Omega^k(M)$ 及 $\eta\in\Omega^l(M)$，有：
+
+$$\mathrm{d}(\omega \wedge \eta) = \mathrm{d}\omega \wedge \eta + (-1)^k\omega \wedge \mathrm{d}\eta$$
 
 我们称一个 $\omega \in \Omega^k(M)$ 是**闭**的，如果 $\mathrm{d}\omega = 0$，称它是**恰当**[^exact]的，如果存在 $\eta \in \Omega^{k-1}(M)$ 使 $\omega = \mathrm{d}\eta$.
 
 ---
 
-另外，$\mathrm{d}f / \mathrm{d}x$ 被看成是一个 $0$-形式。
+$\mathrm{d}f / \mathrm{d}x$ 也可看成**李导数** $\mathcal{L}_X f$，这里：
 
-在一维情形下，可以被定义为切映射的商。一般不会考虑多维情形的 $\mathrm{d}f / \mathrm{d}x_i$，有时它会定义为 Fréchet 导数，结果是 $m\times n$ 的矩阵。
+$$(\mathcal{L} _X A) _p = \lim _{t \to 0} \frac{(\phi _t^\ast A) _p - A _p}{t}$$
+
+其中 $\phi_t$ 是 $X$ 生成的局部流，满足 $\phi_0(p) = p$，$\phi_{s+t} = \phi_s \circ \phi_t$，及：
+
+$$\frac{\mathrm{d}}{\mathrm{d}t} \phi_t(p) = X_{\phi_t(p)}$$
+
+对 $A$ 是微分形式 $\omega$ 有 Cartan 魔法公式：
+
+$$\mathcal{L}_X \omega = \mathrm{d}(\iota_X \omega) + \iota_X(\mathrm{d}\omega)$$
 
 ---
 
