@@ -21,13 +21,9 @@ section>p>img {
 	padding-right: 1rem;
 }
 
-blockquote cite {
-	display: block;
+blockquote footer {
 	text-align: right;
-}
-
-blockquote cite em {
-	text-decoration: 1px underline;
+	font-style: normal;
 }
 
 footer .block-bg:not(.block-hover) {

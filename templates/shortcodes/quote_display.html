@@ -9,7 +9,8 @@
 		let entries = {{ pool | json_encode() | safe }};
 		let entry = entries[Math.floor(Math.random() * (entries.length))];
 		target.querySelector("p").innerHTML = entry.text;
-		target.querySelector("cite").innerHTML = "—" + entry.source;
+		let dash = entry.source.charCodeAt(0) < 256 ? "—" : "——";
+		target.querySelector("footer").innerHTML = dash + entry.source;
 	}
 </script>
 {% endif %}
@@ -17,5 +18,5 @@
 	<p>
 		{{ text }}
 	</p>
-	<cite></cite>
+	<footer></footer>
 </blockquote>
