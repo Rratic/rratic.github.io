@@ -67,11 +67,11 @@ $$\mathrm{Jac}(f) = \left(\frac{\partial f_j}{\partial x_i}\right)_{1\leq i\leq 
 
 我们称 $M$ 的**切丛**是指：
 
-$$TM=\bigsqcup_{p\in M}T_pM$$
+$$TM = \bigsqcup_{p\in M}T_pM$$
 
 又，我们定义点 $p$ 处的**余切空间** $T_p^\ast M$ 是指 $T_pM$ 的对偶空间，那么 $M$ 的**余切丛**是指：
 
-$$T^\ast M=\bigsqcup_{p\in M}T_p^\ast M$$
+$$T^\ast M = \bigsqcup_{p\in M} T_p^\ast M$$
 
 因此我们说整个 $\mathrm{d}F$ 实际上是余切丛的一个截面[^section]。
 
