@@ -195,9 +195,9 @@ $$Z = \lambda f.\ (\lambda x.\ f\ (\lambda y.\ (x\ x)\ y))\ (\lambda x.\ f\ (\la
 在 Lambda 演算中，我们可以这样定义：
 
 $$\mathrm{iszero}\ n = n\ (\lambda b.\ \mathrm{false})\ \mathrm{true}$$
-$$0=\lambda f.\ \lambda s.\ s$$
-$$1=\lambda f.\ \lambda s.\ f\ s$$
-$$2=\lambda f.\ \lambda s.\ f\ (f\ s)$$
+$$0 = \lambda f.\ \lambda s.\ s$$
+$$1 = \lambda f.\ \lambda s.\ f\ s$$
+$$2 = \lambda f.\ \lambda s.\ f\ (f\ s)$$
 
 ……诸如此类。自然数的信息被表现在 $f$ 的层叠数目上，对其计算只需用 $s$ 给出的接口添加层叠数即可。
 
@@ -223,6 +223,8 @@ $$\mathrm{mult}\ n_1\ n_2 = n_1\ (\mathrm{add}\ n_2)\ 0$$
 = 2
 ```
 
+Church 进一步构造了判定自然数是否相等的函数，从而能够编码 Diophantus 方程。[^d]
+
 ### 列表 {#datatype-list}
 构造基于这一思想：将“如何遍历列表”的问题放到使用列表时。
 ```rust
@@ -239,17 +241,25 @@ cons 1 (cons 2 (cons 3 nil)) // 构造列表示例
 
 在此之上，**重写系统**是由一个表达式的集合和表达式到表达式之间的重写关系组成的结构，类似于有向图。我们记表达式的集合 $E$，重写关系 $(\to) \subset E\times E$.
 
-用 $\stackrel{ * }{\to}$ 表示将 $\to$ 应用任意自然数次的版本。用双向箭头 $\stackrel{ * }{\leftrightarrow}$ 表示两边都可的版本。
+用 $\stackrel \ast \to$ 表示将 $\to$ 应用任意自然数次的版本。用双向箭头 $\stackrel \ast \leftrightarrow$ 表示两边都可的版本。
 
 ### 正规性 {#normalization}
-对于重写系统 $E$ 和 $a,b\in E$，若 $a\stackrel{*}{\to} b \iff a=b$，那么 $a$ 是一个**正规形式/既约形式**。我们可能希望避免 Ω 组合子 $(\lambda x.\ x\ x)(\lambda x.\ x\ x)$ 被认为是正规形式，因此可以进一步要求定义是不含 β-可归约式。
+对于重写系统 $E$ 和 $a,b\in E$，若 $a \stackrel \ast \to b \iff a = b$，那么 $a$ 是一个**正规形式/既约形式**。我们可能希望避免 Ω 组合子 $(\lambda x.\ x\ x)(\lambda x.\ x\ x)$ 被认为是正规形式，因此可以进一步要求定义是不含 β-可归约式。
 
 若重写系统中任意表达式都能通过某个特定的顺序重写为正规形式，那么该重写系统是**弱正规/弱停机**的。
 
 若重写系统中任意表达式都能通过任意顺序重写为正规形式，那么该重写系统是**强正规/强停机**的。
 
 ### 合流性 {#confluence}
-若对于重写系统 $E$ 和任意 $a, b, c\in E$，一旦成立 $b\stackrel{\*}{\gets} a \stackrel{\*}{\to} c$，就存在 $d$ 使得 $b\stackrel{\*}{\to} d \stackrel{\*}{\gets} c$，那么 $E$ 是合流的。
+若对于重写系统 $E$ 和任意 $a, b, c \in E$，一旦成立 $b \stackrel \ast \gets a \stackrel \ast \to c$，就存在 $d$ 使得 $b \stackrel \ast \to d \stackrel \ast \gets c$，那么 $E$ 是合流的。
+
+$$
+\begin{CD}
+    a @>\ast>> b \cr
+    @V\ast VV @VV\ast V \cr
+    c @>>\ast> d
+\end{CD}
+$$
 
 {% admonition(type="example", title="Church–Rosser 定理") %}
 λ 演算具有合流性。
@@ -282,4 +292,5 @@ cons 1 (cons 2 (cons 3 nil)) // 构造列表示例
 [^paper-invention]: Alonzo Church, *The Calculi of Lambda-Conversion* (Princeton, NJ: Princeton University Press, 1941).
 [^succeeds]: 其证明超出了本文范围，可参考标准教材如 *The Lambda Calculus: Its Syntax and Semantics* 中的证明。
 [^paper-proof]: Marco Gavanelli and Toni Mancini, "Preface," *Fundamenta Informaticae* 102, no. 3-4 (2010), <https://doi.org/10.3233/FI-2010-306>.
+[^d]: Alonzo Church, “An Unsolvable Problem of Elementary Number Theory,” *American Journal of Mathematics* 58 (1936): 345.
 [^prefix-tree]: 考虑对前缀闭（prefix-closed）的集合，对每个元素 $s$，均有 $s$ 的前缀在集合中。例如，使用 $\set{\epsilon, a, ab, ac, abd}$ 表示一个树的父子关系，其中 $\epsilon$ 表示空序列。
