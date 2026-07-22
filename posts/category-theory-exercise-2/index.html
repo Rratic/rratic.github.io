@@ -1,0 +1,407 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>Universals and Limits 习题选做 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="Universals and Limits 习题选做" />
+  <meta name="description" content="做一些 Mac Lane 书上 Ⅲ. Universals and Limits 的习题（从 2. The Yoneda Lemma 开始，前面的在一些泛性质使用的习题选做）。" />
+  <meta property="og:description" content="做一些 Mac Lane 书上 Ⅲ. Universals and Limits 的习题（从 2. The Yoneda Lemma 开始，前面的在一些泛性质使用的习题选做）。" />
+  <meta property="og:url" content="https://rratic.top/posts/category-theory-exercise-2/" />
+  <link rel="canonical" href="https://rratic.top/posts/category-theory-exercise-2/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-07-05T00:00:00+00:00" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="范畴论" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.top/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.top/style/shared.css?h=2dac71ecd418f5165c3d" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">Universals and Limits 习题选做</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2026-07-05T00:00:00+00:00">2026-07-05</time><span
+        class="middot"></span><time
+    datetime="PT0H6M0S">6&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+
+  <!-- Content -->
+  <section><p>做一些 Mac Lane 书上 Ⅲ. Universals and Limits 的习题（从 2. The Yoneda Lemma 开始，前面的在<a href="https://rratic.top/posts/category-theory-exercise-1/">一些泛性质使用的习题选做</a>）。</p>
+<span id="continue-reading"></span>
+<p>我们回顾 Yoneda Lemma 是指：</p>
+
+<link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" type="text/css">
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Yoneda Lemma</strong></span>
+  </div>
+  <div class="pl-4"><p>对范畴 $\mathcal{D}$ 有小 hom-sets 及其中对象 $r$ 与函子 $K: \mathcal{D} \to \mathbf{Set}$，存在双射：</p>
+<p>$$
+\begin{aligned}
+\Phi: \mathrm{Nat}(D(r, -), K) &amp; \cong Kr \cr
+\alpha &amp; \mapsto \alpha_r(\mathbf{1}_r)
+\end{aligned}
+$$</p>
+</div>
+</div>
+<p>如图可知我们能找到唯一的原像。</p>
+<p>$$
+\begin{CD}
+D(r, r) @&gt;\alpha_r&gt;&gt; K(r) \cr
+@VD(r, f)VV @VK(f)VV \cr
+D(r, d) @&gt;\alpha_d&gt;&gt; K(d)
+\end{CD}
+$$</p>
+<p>代入 $K = D(s, -)$，它给出推论 $\mathrm{Nat}(D(r, -), D(s, -)) \cong D(s, r)$，进而有：</p>
+<p>$$D(r, -) \cong D(s, -) \iff r \cong s$$</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>Ⅲ 2.3 (Kan; the coyoneda lemma)</strong></span>
+  </div>
+  <div class="pl-4"><p>For $K: \mathcal{D} \to \mathbf{Set}$, $(\ast \downarrow K)$ is the category of elements $x \in Kd$, $Q: (\ast \downarrow K) \to \mathcal{D}$ is the projection $x \in Kd \mapsto d$ and for each $a \in \mathcal{D}, a: (\ast \downarrow K) \to \mathcal{D}$ is the diagonal functor sending everything to the constant value $a$. Establish a natural isomorphism</p>
+<p>$$\mathrm{Nat}(K, D(a, -)) \cong \mathrm{Nat}(a, Q)$$</p>
+</div>
+</div>
+<p>更清晰地说，$(\ast \downarrow K)$ 中元素形如 $(d, x)$，对 $f: d \to d'$ 一个 $f_\ast: (d, x) \to (d', x')$ 满足 $K(f)(x) = x'$.</p>
+<p>观察如下两个交换图，考虑 $\alpha$ 被映到 $\beta_{(d, x)}(a) = \overline{\alpha_d(x)}(a)$，这里上划线表示任取一个元素。逆是 $\alpha_d = \set{\beta_{(d, x)} | x \in K(d)}$.</p>
+<p>$$
+\begin{CD}
+K(a) @&gt;\alpha_a&gt;&gt; D(a, a) @. a @&gt;\beta_{(a, x)}&gt;&gt; a \cr
+@VK(f)VV         @VD(a, f)VV @VVV      @VfVV \cr
+K(b) @&gt;\alpha_b&gt;&gt; D(a, b) @. a @&gt;\beta_{(b, y)}&gt;&gt; b
+\end{CD}
+$$</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>Ⅲ 3.3</strong></span>
+  </div>
+  <div class="pl-4"><p>In the category $\mathbf{Matr}_K$, describe the coequalizer of two $m \times n$ matrices $A, B$ (i.e., of two arrows $n \to m$ in $\mathbf{Matr}_K$).</p>
+</div>
+</div>
+<p>在满足 $CA = CB$ 的矩阵 $C$ 中按泛性质选取。由于可在同构意义下考虑，设 $\mathrm{Im}(A - B) = \mathrm{span}\set{v_1, \dots, v_{\mathrm{rank}(A - B)}}$，则这些需要被映到 $0$. 考虑余等化子箭头是到 $\mathrm{Im}(A - B)^\perp$ 上的投影，余等化子对象是 $m - \mathrm{rank}(A - B)$ 知成立，从而容易描述所有的余等化子。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>Ⅲ 3.5</strong></span>
+  </div>
+  <div class="pl-4"><p>If $E$ is an equivalent relation on a set $X$, show that the usual set $X/E$ of equivalence classes can be described by a coequalizer in $\mathbf{Set}$.</p>
+</div>
+</div>
+<p>我们回忆等价关系实际上是 $E \subseteq X \times X$. 我们有 $\pi_1, \pi_2: E \to X$，考虑它们的余等化子。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>Ⅲ 3.7</strong></span>
+  </div>
+  <div class="pl-4"><p>If $A$ is an abelian group, and $J_A$ the preorder with objects all finitely generated subgroups $S \subseteq A$ ordered by inclusion, show that $A$ is the colimit of the evident functor $J_A \to \mathrm{Ab}$. Generalize.</p>
+</div>
+</div>
+<p>我们用下标表示那个 evident functor $F$ 及余极限箭头在指定索引处的值。</p>
+<p>让余极限箭头 $u$ 是嵌入。若另有 $\braket{u', A'}$，我们希望找到 $f: A \to A'$ 使得 $f \circ u_i = u_i'$ 在每一 $i$ 处成立。</p>
+<p>考虑 $F(i)$ 是单个生成元 $a_i$ 生成的，我们可以写出 $f$ 在 $a_i$ 处的取值。由任意性可以拼出整个 $f$，易见 $f$ 满足条件。也就是说 $A$ 确实是余极限对象。</p>
+<p>结论的一般化略去。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>Ⅲ 4.3</strong></span>
+  </div>
+  <div class="pl-4"><p>If the category $J$ has an initial object $s$, prove that every functor $F: J \to C$ to any category $C$ has a limit, namely $F(s)$. Dualize.</p>
+</div>
+</div>
+<p>先验证 $F(s)$ 是极限。对 $i$ 有唯一箭头 $s \to i$ 提升成 $u_i: F(s) \to F(i)$，图表显然交换。若另有 $\braket{u', G}$，我们希望找到 $f: G \to F(s)$ 使得 $u_i \circ f = u_i'$ 在每一 $i$ 处成立。取 $f = u_s'$ 即可。</p>
+<p>对偶形式略去。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>Ⅲ 4.7</strong></span>
+  </div>
+  <div class="pl-4"><p>If $C$ has finite products and equalizers, show that the kernel pair of $f: a \to b$ may be expressed in terms of the projections $p_1, p_2: a \times a \to a$ as $p_1e, p_2e$, where $e$ is the equalizer of $fp_1, fp_2: a \times a \to b$. Dualize.</p>
+</div>
+</div>
+<p>首先验证以下图表确实交换：</p>
+<p>$$
+\begin{CD}
+c @&gt;p_1e&gt;&gt; a \cr
+@Vp_2eVV @VfVV \cr
+a @&gt;f&gt;&gt; b
+\end{CD}
+$$</p>
+<p>我们知道有唯一 $e: c \to a \times a$ 使图表交换。若另外有 $g_1, g_2: d \to a$ 使图表交换，则存在唯一 $e': d \to a \times a$ 使图表交换。现在对 $a \times a \rightrightarrows b$ 使用 equalizer 的泛性质知成立。</p>
+<p>对偶形式略去。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>Ⅲ 4.10</strong></span>
+  </div>
+  <div class="pl-4"><p>If $C$ has pullbacks and a terminal object, prove that $C$ has all finite products and equalizers.</p>
+</div>
+</div>
+<p>两个对象的积只需考虑 $A \to \mathbf{1}$ 与 $B \to \mathbf{1}$ 的拉回，从而有有限积。而 equalizer 则是 $\braket{1_A, f}, \braket{1_A, g}: A \to A \times B$ 的拉回。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-question);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/question.svg);"
+    >
+      question
+    </div>
+    <span><strong>Ⅲ 5.5</strong></span>
+  </div>
+  <div class="pl-4"><p>If $B$ has (finite) products show that any functor category $B^C$ also has (finite) products (calculated “pointwise”).</p>
+</div>
+</div>
+<p>对 $f, g: C \to B$，令 $h(c) = f(c) \times g(c)$ 即可。</p>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/范畴论/">范畴论</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <link rel="stylesheet" href="https://rratic.top/katex/katex.min.css?h=e189fd0238811989c364" />
+  <script defer src="https://rratic.top/katex/katex.min.js?h=6b909443e6c8f6e5d24c"></script>
+  <script defer src="https://rratic.top/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

@@ -1,0 +1,482 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>光滑流形上的定向与积分 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="光滑流形上的定向与积分" />
+  <meta name="description" content="在光滑流形上我们可以对微分形式作积分，其定义需要一些关于定向的说明。基于这一套语言可以给出 Stokes 定理。" />
+  <meta property="og:description" content="在光滑流形上我们可以对微分形式作积分，其定义需要一些关于定向的说明。基于这一套语言可以给出 Stokes 定理。" />
+  <meta property="og:url" content="https://rratic.top/posts/orientation-and-integration/" />
+  <link rel="canonical" href="https://rratic.top/posts/orientation-and-integration/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-07-20T00:00:00+00:00" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="几何学" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.top/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.top/style/shared.css?h=2dac71ecd418f5165c3d" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=80ece4d015818ae93fff" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">光滑流形上的定向与积分</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2026-07-20T00:00:00+00:00">2026-07-20</time><span
+        class="middot"></span><time
+    datetime="PT0H12M0S">12&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#ding-xiang">定向</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#liu-xing-shang-de-ji-fen">流形上的积分</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#wei-fen-xing-shi-de-ji-fen">微分形式的积分</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#stokes-ding-li">Stokes 定理</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#riemann-liu-xing-shang-de-ji-fen">Riemann 流形上的积分</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#mi-du">密度</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </details>
+</nav>
+
+  <!-- Content -->
+  <section><p>在光滑流形上我们可以对微分形式作积分，其定义需要一些关于定向的说明。基于这一套语言可以给出 Stokes 定理。</p>
+<span id="continue-reading"></span>
+<p>本文参考 <em>Introduction to Smooth Manifolds</em> (GTM 218)，读者可先参阅<a href="https://rratic.top/posts/differential-forms/">光滑流形上的微分与微分形式</a>。</p>
+<h2 id="ding-xiang">定向</h2>
+<p>对向量空间来说，考虑等价关系是两组有序基的变换矩阵行列式为正。一个 $V$ 的定向是指一个等价类。易知这对应于 $\Lambda^n(V^\ast) \setminus \set{0}$ 的两支。当我们指定一个定向是正的时，可以称另一个是负的。</p>
+<p>流形 $M$ 上的一个定向是指，对每一点处的切空间选择一个定向，且是连续的。此时称 $M$ 是<strong>可定向</strong>的。或者，也可以用不取零的光滑 $n$-形式定义。</p>
+<p>对于可定向光滑流形 $M_1, \dots, M_k$，有一个积定向对应于：</p>
+<p>$$\pi_1^\ast \omega_1 \wedge \cdots \wedge \pi_k^\ast \omega_k$$</p>
+<p>如果一个流形可平行化（有光滑的全局标架），则易见它可定向。</p>
+<hr />
+<p>考虑 $M$ 是光滑流形（可带边），$S \subseteq M$ 是浸入/嵌入的光滑子流形（可带边）。有一个沿着 $S$ 的向量场 $N: S \to TM$ 使得 $N_p \in T_pM$.</p>
+
+<link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" type="text/css">
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>超平面的定向</strong></span>
+  </div>
+  <div class="pl-4"><p>$M$ 是可定向光滑流形（可带边），$S$ 是的超平面（可带边），存在沿着 $S$ 的向量场 $N$ 处处与 $S$ 不相切，则 $S$ 可定向。</p>
+</div>
+</div>
+<p>对于 $M$ 的定向形式 $\omega$，考察 $S$ 上的 $(n-1)$-形式 $\sigma$，定义为 $\sigma_p(v_1, \dots, v_{n-1}) = \omega_p(N(p), v_1, \dots, v_{n-1})$. 由不相切有 $\sigma_p \neq 0$.</p>
+<p>其一个推论是 $\mathbb S^n$ 可定向，因为可以在 $\R^{n+1}$ 中让：</p>
+<p>$$N = \sum x^i \frac{\partial}{\partial x^i}$$</p>
+<p>此定向被作为 $\mathbb S^n$ 的标准定向。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>边界的定向</strong></span>
+  </div>
+  <div class="pl-4"><p>$M$ 是可定向的光滑带边流形（$n \geq 1$），则 $\partial M$ 可定向，且 $\partial M$ 所有向外的向量场决定相同的定向。</p>
+</div>
+</div>
+<p>同上一证明。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>Riemann 体积形式</strong></span>
+  </div>
+  <div class="pl-4"><p>$(M, g)$ 是可定向的 Riemann 流形（可带边；$n \geq 1$），则存在唯一的光滑定向形式（称为 <strong>Riemann 体积形式</strong>）$\omega_g \in \Omega^n(M)$，使得对任意局部定向标准正交标架 $(E_i)$ 有：</p>
+<p>$$\omega_g(E_1, \dots, E_n) = 1$$</p>
+</div>
+</div>
+<p>取 $(\varepsilon^1, \dots, \varepsilon^n)$ 是 $E_1, \dots, E_n$ 的对偶，只需：</p>
+<p>$$\omega_g = \varepsilon^1 \wedge \cdots \wedge \varepsilon^n$$</p>
+<p>对定向的光滑坐标 $x^i$ 如果考虑写为：</p>
+<p>$$\omega_g = f \mathrm{d}x^1 \wedge \cdots \wedge \mathrm{d}x^n$$</p>
+<p>则可以计算（设 $\partial / \partial x^i = A_i^j E_j$；遵循 Einstein 求和约定）：</p>
+<p>$$
+f = \omega_g\left(\frac{\partial}{\partial x^1}, \dots, \frac{\partial}{\partial x^n}\right) =
+\varepsilon^1 \wedge \cdots \wedge \varepsilon^n\left(\frac{\partial}{\partial x^1}, \dots, \frac{\partial}{\partial x^n}\right) =
+\det (A_i^j)
+$$</p>
+<p>$$
+g_{ij} = \left\langle\frac{\partial}{\partial x^i}, \frac{\partial}{\partial x^j}\right\rangle_g =
+\braket{A_i^k E_k, A_j^l E_l}_g =
+A_i^k A_j^l \braket{E_k, E_l}_g =
+A_i^k A_j^k
+$$</p>
+<p>故有 $f = \sqrt{\det (g_{ij})}$.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>覆盖的定向</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $\widetilde{M}$ 是连通、可定向的光滑流形（可带边），且 $\pi: \widetilde{M} \to M$ 是光滑正则复叠，则 $M$ 可定向当且仅当 $\mathrm{Aut}_\pi(\widetilde{M})$ 在 $\widetilde{M}$ 上的作用是保定向的。</p>
+</div>
+</div>
+<p>记 $\widetilde{M}$ 的给定定向 $\mathcal{O} _{\widetilde{M}}$. 假设 $M$ 可定向，任取其一点 $q$，由于 $M$ 连通，恰有两个定向，其一使得 $\mathrm{d}\pi _q: T _q\widetilde{M} \to T _{\pi(q)}M$ 保定向，记作 $\mathcal{O} _M$. 对 $\varphi \in \mathrm{Aut} _\pi(\widetilde{M})$ 由 $\pi \circ \varphi = \pi$ 知保定向。</p>
+<p>假设所有的作用都保定向，设 $p \in M$，$U$ 是 $p$ 的被均匀覆盖的邻域，则存在光滑截面 $\sigma: U \to \widetilde{M}$ 诱导一个 $U$ 上的定向。对另外的局部光滑截面 $\sigma_1: U \to \widetilde{M}$ 存在复叠变换 $\varphi$ 使得 $\sigma_1 = \varphi \circ \sigma$. 由此，可以用局部光滑截面诱导的拉回定向定义 $M$ 的定向。</p>
+<p>这典型的应用是 $\mathbb{RP}^n$ 可定向当且仅当 $n$ 为奇。</p>
+<h2 id="liu-xing-shang-de-ji-fen">流形上的积分</h2>
+<h3 id="wei-fen-xing-shi-de-ji-fen">微分形式的积分</h3>
+<p>在流形上，如果不附加 Riemann 度规这样的额外结构，没有办法独立于坐标系对实值函数积分。例如闭球的体积会被坐标系变换影响。而另一方面，我们可以沿着曲线对 $1$-形式积分：</p>
+<p>$$\int_{[a, b]} (f(t) \mathrm{d}t) = \int_a^b f(t) \mathrm{d}t$$</p>
+<p>为了符合关于体积的直觉，可以发现我们需要积的东西是线性、交错的，因此考虑对微分形式积分。</p>
+<p>先考虑在的积分域（边界零测的有界集）上积分。对其上的（连续）$n$-形式 $\omega$，我们用多元微积分定义：</p>
+<p>$$\int_D f \mathrm{d}x^1 \wedge \cdots \wedge \mathrm{d}x^n = \int_D f \mathrm{d}x^1 \cdots \mathrm{d}x^n$$</p>
+<p>而如果定义在 $\R^n$（或 $\mathbb{H}^n$）的子集 $U$ 上的 $\omega$ 有紧支集是积分域 $D$，则我们定义（与 $D$ 的选取无关）：</p>
+<p>$$\int_U \omega = \int_D \omega$$</p>
+<p>可以验证这样的性质：假设 $D, E$ 是 $\R^n$ 或 $\mathbb{H}^n$ 上的开积分域，$G: \bar D \to \bar E$ 是一个可以限制为 $D \to E$ 的保定向/反定向微分同胚的光滑映射；若 $\omega$ 是 $\bar E$ 上的 $n$-形式，则（符号取决于保定向还是反定向）：</p>
+<p>$$\int_D G^\ast \omega = \int_E \omega$$</p>
+<hr />
+<p>对 $M$ 是可定向光滑流形（可带边），若 $n$-形式 $\omega$ 在单个图卡 $(U, \varphi)$ 上被紧支撑，则可以定义 $\omega$ 在 $M$ 上的积分是（符号取决于图卡的定向）：</p>
+<p>$$\int_M \omega = \pm \int_{\varphi(U)} (\varphi^{-1})^\ast \omega$$</p>
+<p>一般地，对 $\omega$ 紧支，设 $\set{U_i}$ 是 $\operatorname{supp} \omega$ 的有限开覆盖，令 $\set{\psi_i}$ 是其单位分解<sup class="footnote-reference"><a href="#partition-of-unity">1</a></sup>，则可定义：</p>
+<p>$$\int_M \omega = \sum_i \int_M \psi_i \omega$$</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-example);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/example.svg);"
+    >
+      example
+    </div>
+    <span><strong>球面</strong></span>
+  </div>
+  <div class="pl-4"><p>考虑单位球面上由 $\R^3$ 给出的 $2$-形式：</p>
+<p>$$\omega = x\mathrm{d}y\wedge\mathrm{d}z + y\mathrm{d}z\wedge\mathrm{d}x + z\mathrm{d}x\wedge\mathrm{d}y$$</p>
+</div>
+</div>
+<p>令 $D = (0, \pi) \times (0, 2\pi)$，映射 $F: \bar D \to \mathbb S^2$，其中 $F(\varphi, \theta) = (\sin\varphi \cos\theta, \sin\varphi \sin\theta, \cos\varphi)$ 保定向，这使得：</p>
+<p>$$
+\begin{cases}
+F^\ast \mathrm{d}x = \cos\varphi \cos\theta \,\mathrm{d}\varphi - \sin\varphi \sin\theta \,\mathrm{d}\theta \cr
+F^\ast \mathrm{d}y = \cos\varphi \sin\theta \,\mathrm{d}\varphi + \sin\varphi \cos\theta \,\mathrm{d}\theta \cr
+F^\ast \mathrm{d}z = -\sin\varphi \,\mathrm{d}\varphi
+\end{cases}
+$$</p>
+<p>从而有：</p>
+<p>$$\int_{\mathbb S^2} \omega = \int_D \sin\varphi \,\mathrm{d}\varphi \wedge \mathrm{d}\theta = 4\pi$$</p>
+<h3 id="stokes-ding-li">Stokes 定理</h3>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Stokes 定理</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $M$ 是可定向光滑 $n$-维带边流形，$\omega$ 是其上的光滑紧支 $(n - 1)$ 形式，则：</p>
+<p>$$\int_M \mathrm{d}\omega = \int_{\partial M} \omega$$</p>
+</div>
+</div>
+<p>先假设 $M$ 是上半空间 $\mathbb{H}^n$，由 $\omega$ 紧支只需考虑某个 $A = [-R, R] \times \cdots \times [-R, R] \times [0, R]$. 我们设（用 hat 表示跳过）：</p>
+<p>$$\omega = \sum_{i=1}^n \omega_i \mathrm{d}x^1 \wedge \cdots \wedge \widehat{\mathrm{d}x^i} \wedge \cdots \wedge \mathrm{d}x^n$$</p>
+<p>然后强行计算即可，$\R^n$ 也是同理。对一般的带边流形，用图卡拆分即可。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>Green 定理</strong></span>
+  </div>
+  <div class="pl-4"><p>对 $\R^2$ 的紧正则区域 $D$，及其上光滑实值函数 $P, Q$，有：</p>
+<p>$$\int_D \left(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}\right) \mathrm{d}x\mathrm{d}y = \int_{\partial D} P\mathrm{d}x + Q\mathrm{d}y$$</p>
+</div>
+</div>
+<p>对 $P\mathrm{d}x + Q\mathrm{d}y$ 用 Stokes 定理即可。</p>
+<p>为了更广泛地使用 Stokes 定理，我们也会考虑带角落的流形，证法类似。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>路径无关性</strong></span>
+  </div>
+  <div class="pl-4"><p>对光滑流形 $M$ 及 $\gamma, \gamma': [a, b] \to M$ 是定端同伦的逐段光滑曲线，则对任意闭的 $1$-形式，有：</p>
+<p>$$\int_{\gamma} \omega = \int_{\gamma'} \omega$$</p>
+</div>
+</div>
+<p>考察光滑同伦 $H: [a, b] \times I \to M$，有：</p>
+<p>$$\int_{\partial ([a, b] \times I)} H^\ast \omega = \int_{[a, b] \times I} \mathrm{d}(H^\ast \omega) = \int_{[a, b] \times I} H^\ast \mathrm{d}\omega = 0$$</p>
+<p>然后分析即可。其推论是，在单连通的光滑流形上，所有闭的 $1$-形式是恰当的。</p>
+<h3 id="riemann-liu-xing-shang-de-ji-fen">Riemann 流形上的积分</h3>
+<p>我们将度规对应的 Riemann 体积形式 $\omega_g$ 写作 $\mathrm{d}V_g$，这并不意味着 $\omega_g$ 是恰当的，只是记号上的便利。</p>
+<p>回忆之前结论，对紧支的连续实值非负的 $f$，只需考虑 $f$ 在单个定向光滑图卡上被支撑，有：</p>
+<p>$$\int_M f \mathrm{d}V_g = \int_{\varphi(U)} f(x) \sqrt{\det (g_{ij})} \mathrm{d}x^1 \cdots \mathrm{d}x^n \geq 0$$</p>
+<h3 id="mi-du">密度</h3>
+<p>对 $n$ 维线性空间 $V$ 来说，其上的密度是函数：</p>
+<p>$$\mu: \underbrace{V \times \cdots \times V}_{n \text{ copies}} \to \R$$</p>
+<p>且满足对线性映射 $T$ 有 $\mu(Tv_1, \dots, Tv_n) = |\det T| \mu(v_1, \dots, v_n)$. 用 $\mathcal{D}(V)$ 表示 $V$ 上所有的密度。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>密度的性质</strong></span>
+  </div>
+  <div class="pl-4"><ol>
+<li>$\mathcal{D}(V)$ 是线性空间</li>
+<li>若某个基下 $\mu_1(e_1, \dots, e_n) = \mu_2(e_1, \dots, e_n)$，则 $\mu_1 = \mu_2$</li>
+<li>$\omega \in \Lambda^n(V^\ast)$ 诱导一个密度 $|\omega|$，其中 $|\omega|(v_1, \dots, v_n) = |\omega(v_1, \dots, v_n)|$</li>
+<li>$\mathcal{D}(V)$ 是一维的</li>
+</ol>
+</div>
+</div>
+<p>由此我们定义正密度是满足 $\mu(v_1, \dots, v_n) &gt; 0$ 的密度，负密度同理。我们定义密度丛：</p>
+<p>$$\mathcal{D}M = \bigsqcup_{p \in M} \mathcal{D}(T_pM)$$</p>
+<hr />
+<div class="footnote-definition" id="partition-of-unity"><sup class="footnote-definition-label">1</sup>
+<p>即让 $\sum \psi_\alpha = 1$，且每个 $\operatorname{supp} \psi_\alpha$ 含于某个 $U_i$.</p>
+</div>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/几何学/">几何学</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <link rel="stylesheet" href="https://rratic.top/katex/katex.min.css?h=e189fd0238811989c364" />
+  <script defer src="https://rratic.top/katex/katex.min.js?h=6b909443e6c8f6e5d24c"></script>
+  <script defer src="https://rratic.top/katex/contrib/auto-render.min.js?h=bb53eb953394531aae36"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>
