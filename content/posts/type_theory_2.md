@@ -63,7 +63,7 @@ Girard 证明了（移除排中律的）二阶逻辑中可以证明是全函数[
 纯类型系统与 λ-立方我们略去不谈。
 
 ### 构造主义
-Curry–Howard 对应的不完美之处在于排中律（Law of Excluded Middle (LEM)）。对于简单类型 λ-演算，可以观察语义考虑这样的模型：命题是开集，全集是真命题，空集是假命题，用并集与交集表示 $\vee$ 与 $\wedge$，将 $\neg p$ 看成与 $p$ 矛盾的命题中最弱的 $(X \setminus U)^\circ$，则排中律是 $X = U \cup (X \setminus U)^\circ$，这不一定成立。或者分析语法，没有条件的情况下 $p \vee q$ 必须确定地构造出哪一边是成立的，而对于 $p \vee \neg p$ 我们无法给出。
+Curry–Howard 对应的不完美之处在于排中律（Law of Excluded Middle, LEM）。对于简单类型 λ-演算，可以观察语义考虑这样的模型：命题是开集，全集是真命题，空集是假命题，用并集与交集表示 $\vee$ 与 $\wedge$，将 $\neg p$ 看成与 $p$ 矛盾的命题中最弱的 $(X \setminus U)^\circ$，则排中律是 $X = U \cup (X \setminus U)^\circ$，这不一定成立。或者分析语法，没有条件的情况下 $p \vee q$ 必须确定地构造出哪一边是成立的，而对于 $p \vee \neg p$ 我们无法给出。
 
 Hilbert 之前的大部分数学研究可以完全绕过排中律，而之后的数学也可以发展许多无需排中律的版本。我们认为排中律使得大量原先不等价的命题变得等价，因此可以说，
 
@@ -82,7 +82,7 @@ Bishop 则成功展示了数学的许多重要部分都能在构造主义中发�
 
 $$(f \sim_{A \implies B} g) \iff \forall x: f(x) \sim_B g(x)$$
 
-1970 年代，Martin-Löf 提出了[**构造主义类型论**](@/posts/type_theory_1.md)（Martin-Löf Type Theory (MLTT)）。
+1970 年代，Martin-Löf 提出了[**构造主义类型论**](@/posts/type_theory_1.md)（Martin-Löf Type Theory, MLTT）。
 
 ### 引入排中律
 我们考虑排中律能否有加入 Curry–Howard 对应而不是强行作为公理的方法。排中律等价于 Peirce 定律，这对应到**计算续体**（call-with-current-continuation (call/cc)）。其类型为 $((\alpha \to \beta) \to \alpha) \to \alpha$，作用是实现捕获续体，即 $u(\text{call/cc}(f)) = u(f(u))$.
@@ -101,16 +101,16 @@ $$(f \sim_{A \implies B} g) \iff \forall x: f(x) \sim_B g(x)$$
 
 $$\mathrm{J}: \prod _{P: \prod _{a, b: A} a = b \to \mathcal{U}} \left[\prod _{c: A} P\ c\ c\ \mathrm{refl} _c\right] \to \prod _{a, b: A} \prod _{p: a = b} P\ a\ b\ p$$
 
-这说的是，如果命题在自反情况下能被证明，那么在给予 $a =_A b$ 证明时在 $(a, b)$ 情况下也能被证明。这可以[证明](@/posts/agda_1.md)对称性、传递性、替换等，但不能证明函数的外延性（逐点相等推出相等）。
+这说的是，如果命题在自反情况下能被证明，那么在给予 $a =_A b$ 证明时在 $(a, b)$ 情况下也能被证明。这可以[证明对称性、传递性](@/posts/type_theory_1.md#path-induction)、替换等，但不能证明函数的外延性（逐点相等推出相等）。
 
 Martin-Löf 类型论的一个缺憾是，很难加入**商类型**，而让类型论仍具有好的性质。
 
 ### 宇宙
 在 Martin-Löf 类型论中，如果 $A: \mathcal{U} _i, B: \mathcal{U} _j$，那么就有 $A \to B: \mathcal{U} _{\max \set{i, j}}$，这使得它成为一种**直谓类型论**（predicative type theory）[^predicative]。这会带来关于应使用何宇宙层级的技术麻烦。
 
-**归纳构造演算**（Calculus of Inductive Constructions (CIC)）允许最底层的宇宙有非直谓性，即 $j = 1$ 时 $A \to B: \mathcal{U}_1$.
+**归纳构造演算**（Calculus of Inductive Constructions, CIC）允许最底层的宇宙有非直谓性，即 $j = 1$ 时 $A \to B: \mathcal{U}_1$.
 
-由于对宇宙的直谓性安排，容易证明 Martin-Löf 类型论有自洽性（不存在（没有自由变量）的 $u: \mathbf{0}$）。使用复杂的方法还可以证明 Martin-Löf 类型论有典范性。
+由于对宇宙的直谓性安排，容易证明 Martin-Löf 类型论有自洽性（不存在（没有自由变量）的 $u: \mathbf{0}$）。使用复杂的方法还可以证明 Martin-Löf 类型论有典范性[^translation]。
 
 ## 同伦类型论
 ### K 原理
@@ -142,7 +142,11 @@ $$\prod_{x, y: A} x = y$$
 $$\prod_{A: \mathcal{U}} \mathrm{isProp}(A) \to (A + \neg A)$$
 
 ### 泛等公理
-我们可以定义函数 $f: A \to B$ 是**等价**，对应于视作空间时的同伦等价。对每个 $f$，$\mathrm{isEquiv}(f)$ 是命题。我们定义 $X \simeq Y$ 为 $\sum_{f: X \to Y} \mathrm{isEquiv}(f)$. 显然有 $(X = Y) \to (X \simeq Y)$，Voevodsky 的**泛等公理**说的是，这个函数本身是一个等价，立即的推论是：
+我们可以定义函数 $f: A \to B$ 是**等价**，对应于视作空间时的同伦等价。使用类型论的方法定义为（$f \sim g$ 是 $\prod_{(x: A)} f(x) = g(x)$）：
+
+$$\mathrm{isEquiv}(f) \coloneqq \left(\sum _{(g: B \to A)} (f \circ g \sim \mathrm{id} _B)\right) \times \left(\sum _{(h: B \to A)} (h \circ f \sim \mathrm{id} _A)\right)$$
+
+我们定义 $X \simeq Y$ 为 $\sum_{f: X \to Y} \mathrm{isEquiv}(f)$. 显然有 $(X = Y) \to (X \simeq Y)$，Voevodsky 的**泛等公理**说的是，这个函数本身是一个等价，立即的推论是：
 
 $$(X = Y) \simeq (X \simeq Y)$$
 
@@ -161,18 +165,20 @@ data S¹ : Type where
 
 商类型也可以作为高阶归纳类型的特殊情况存在。Guillaume Brunerie 在类型论中证明了 $\pi_4(\mathbb S^3) = \Z/2\Z$，使得类型论变成了可以研究同伦论的工具。
 
-我们把包含泛等公理与一定量的高阶归纳类型的类型论统称为**同伦类型论**。
+我们把包含泛等公理与一定量的高阶归纳类型（其存在性也是公理）的类型论统称为**同伦类型论**。
 
 ![覆盖](/images/misc/2026_07_22.gif)
 
 ## 立方类型论
 泛等公理有很多好的结论，但作为强行加入的公理会破坏好的性质。2013 年 Marc Bezem，Thierry Coquand 与 Simon Huber 提出用立方集合构建同伦类型论的模型，其启发的类型论是**立方类型论**。立方类型论的典范性被 Sterling 等人证明。
 
-立方类型论引入了类型 $\mathbb I$ 表示同伦论的区间，它具有端点 $0, 1$，用 $i: \mathbb I$ 表示区间上的点。对于道路 $p: x =_A y$ 我们允许取出其上某一点 $p(i): A$.
+立方类型论引入了类型 $\mathbb I$ 表示同伦论的区间，它由构造规则给出端点 $0, 1$，而没有消去规则。道路 $p: x =_A y$ 被看成类似 $\mathbb I \to A$ 的东西，我们允许取出其上某一点 $p(i): A$.
 
 考虑用它证明 $x = y$ 推出 $f(x) = f(y)$. 取 $p: x = y$ 我们只需要定义 $q: \mathbb I \to B$ 是 $q(i) = f(p(i))$，就有 $q(0) = f(x), q(1) = f(y)$.
 
 类似地，对两个函数逐点相等，取出 $p: \prod_{x: A} f(x) =_B g(x)$，我们只需要定义 $q: \mathbb I \to (A \to B)$ 是 $q(i) = \lambda x.\ p(x)(i)$ 即可。
+
+更多内容可参考 [∞-type Café 暑期学校 2023](https://infinity-type-cafe.github.io/ntype-cafe-summer-school/) 的对应部分。
 
 ---
 
@@ -184,4 +190,5 @@ data S¹ : Type where
 [^bhk]: 关于这在逻辑上的体现可参考 [Brouwer-Heyting-Kolmogorov 释义](https://ncatlab.org/nlab/show/BHK+interpretation)。
 [^intuitionistic-real]: 因为不能证明实数一定成立 $(x < 0) \vee (x = 0) \vee (x > 0)$，Brouwer 采取的是分离性概念 $x \\# y \coloneqq \exists \varepsilon > 0: |x - y| > \varepsilon$，回忆这里需要具体构造出 $\varepsilon$. Brouwer 进一步提出了一些公理，由此出发会得到一些矛盾于经典逻辑的结论，如任何 $f: [0, 1] \to [0, 1]$ 都是一致连续函数。
 [^predicative]: “直谓”理解为，一个量词所界定的对象不能包含该量词自身所涵盖的全部范围。在这里即不再有所有类型，而是有开放的宇宙层级。
+[^translation]: 在另外的翻译选择中，这称为正规/既约。
 [^groupoid]: 乘法运算是 $\ast: \mathrm{Hom}(y, z) \times \mathrm{Hom}(x, y) \to \mathrm{Hom}(x, z)$，其余同理。未指定时默认乘法运算是复合，此时即所有态射可逆的范畴。

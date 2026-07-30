@@ -254,7 +254,7 @@ $$
 为了证明公理三独立于公理一、二和分离规则，我们考虑赋值 $f$ 使得对任意公式 $\varphi$ 有 $f(\neg \varphi) = F$, 且对任意公式 $\varphi, \psi$ 有 $f((\varphi \to \psi)) = T$ 当且仅当 $f(\varphi) = F$ 或 $f(\psi) = T$. 这称为否定恒假赋值。
 
 ### Remark
-实际上否并不是证明论和谐（引入/消去规则彼此精确匹配）的。真正和谐的是爆炸律 `Ex Falso`:
+实际上否并不是证明论和谐（引入/消去规则彼此精确匹配）的。真正和谐的是爆炸律（Ex Falso）：
 
 $$\frac{\varphi \quad \neg \varphi}{\psi} (\text{Ex Falso})$$
 
@@ -270,4 +270,4 @@ $$\frac{\bot}{\chi} (\bot E)$$
 ---
 
 [^implies]: 在其它领域中一般使用 $\implies$, 但在逻辑学中通常使用 $\to$.
-[^modus-tollens]: 与之对应的是“否定后件推理” `Modus Tollens`: 由 $(\varphi \to \psi)$ 与 $\neg\psi$ 推出 $\neg\varphi$. 这里不把它作为原始规则。
+[^modus-tollens]: 与之对应的是“否定后件推理”（Modus Tollens）：由 $(\varphi \to \psi)$ 与 $\neg\psi$ 推出 $\neg\varphi$. 这里不把它作为原始规则。
