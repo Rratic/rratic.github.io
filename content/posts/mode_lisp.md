@@ -142,7 +142,7 @@ second
 有另外一个函数记号使得函数能提及它本身，使我们能方便地定义递归函数。
 
 ### 递归记号 {#mark-for-recursive-functions}
-理论上说，引入新的记号是可以通过[组合子](@/posts/lambda_calculus.md#recursive-functions)避免的。
+理论上说，引入新的记号是可以通过[组合子](@/posts/lambda_calculus.md#combinator)避免的。
 
 不管是为了降低复杂性还是组合子提出太晚，让我们引入记号 `label`.
 

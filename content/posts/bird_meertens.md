@@ -39,7 +39,7 @@ $$(f\cdot)\cdot(g\cdot) = ((f\cdot g)\cdot)$$
 - 允许 sectioned $(a\oplus)\ b = (\oplus b)\ a = a \oplus b$
 - 用 $\mathrm{id}_\oplus$ 表示双边的单位元
 
-记常值函数 $K\ a\ b = a$，这和 [SKI 演算](@/posts/lambda_calculus.md#evaluation-rules)的约定相同。
+记常值函数 $K\ a\ b = a$，这和 [SKI 演算](@/posts/lambda_calculus.md#combinator)的约定相同。
 
 对列表来说：
 - $[]$ 是空列表，有一个把值映到 singleton 列表的映射 $[\cdot]\ a = [a]$

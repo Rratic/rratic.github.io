@@ -1,7 +1,7 @@
 +++
 title = "无类型 λ 演算与重写系统"
 date = 2025-03-22
-updated = 2026-03-23
+updated = 2026-07-30
 
 [extra]
 math = true
@@ -15,7 +15,7 @@ categories = ["知识"]
 tags = ["数学", "基石", "计算机", "计算理论"]
 +++
 
-本文讨论 Alonzo Church 发明的**无类型 λ 演算** Lambda Calculus. 这是一个类型论与函数式编程的基础模型。
+本文讨论 Alonzo Church 发明的**无类型 λ 演算**（Lambda Calculus）。这是一个类型论与计算理论的基础模型。
 
 <!-- more -->
 
@@ -59,17 +59,50 @@ E = x           // variables
 对上述 $f$，你可以传入少于全部参数个数的参数。例如代入 $g = f\ 1$ 将得到 $g = \lambda y.\ 1 + y$，这也是一个可用的函数。
 
 ## 求值 {#lambda-evaluation}
+### 替换 {#substitution}
+在 $\lambda x.\ M$ 中，$\lambda x$ 称为约束器，$M$ 是它的辖域。函数体 $M$ 中由这一层 $\lambda x$ 约束的 $x$ 称为约束出现；不受任何约束器约束的变量出现称为自由出现。例如在 $\lambda x.\ x\ y$ 中，$x$ 是约束出现的，而 $y$ 是自由出现的。
+
+若变量 $x$ 在表达式 $M$ 中有自由出现，则称 $x$ 是 $M$ 的自由变量；若 $x$ 由 $M$ 中的某个函数声明引入，则称 $x$ 是 $M$ 的约束/哑变量（bound/dummy variable）。分别记二者的集合为 $\mathrm{FV}(M)$ 与 $\mathrm{BV}(M)$，递归地定义：
+
+$$
+\begin{aligned}
+    \mathrm{FV}(x) &= \set{x}, \cr
+    \mathrm{FV}(M\ N) &= \mathrm{FV}(M) \cup \mathrm{FV}(N), \cr
+    \mathrm{FV}(\lambda x.\ M) &= \mathrm{FV}(M) \setminus \set{x}, \cr
+    \mathrm{BV}(x) &= \varnothing, \cr
+    \mathrm{BV}(M\ N) &= \mathrm{BV}(M) \cup \mathrm{BV}(N), \cr
+    \mathrm{BV}(\lambda x.\ M) &= \mathrm{BV}(M) \cup \set{x}.
+\end{aligned}
+$$
+
+记 $M[N/x]$ 为在 $M$ 中用 $N$ 替换 $x$ 的所有自由出现的结果。替换沿表达式的结构递归进行：
+
+$$
+\begin{aligned}
+    x[N/x] &= N, \cr
+    y[N/x] &= y && (y \neq x), \cr
+    (M\ P)[N/x] &= M[N/x]\ P[N/x], \cr
+    (\lambda x.\ M)[N/x] &= \lambda x.\ M, \cr
+    (\lambda y.\ M)[N/x] &= \lambda y.\ M[N/x] && (y \neq x,\ y \notin \operatorname{FV}(N)).
+\end{aligned}
+$$
+
+最后一种情形中，若 $y \in \mathrm{FV}(N)$，直接替换会使 $N$ 中自由出现的 $y$ 被 $\lambda y$ 捕获（capture）。此时先取一个在 $M, N$ 中均未出现且不同于 $x$ 的变量 $z$，将约束变量 $y$ 重命名为 $z$，再进行替换：
+
+$$(\lambda y.\ M)[N/x] = \lambda z.\ M[z/y][N/x]$$
+
+例如，若直接计算 $(\lambda y.\ x)[y/x]$，会错误地得到 $\lambda y.\ y$；正确做法是先重命名约束变量，从而得到 $(\lambda z.\ x)[y/x] = \lambda z.\ y$。这种不改变自由变量约束关系的替换称为捕获规避替换（capture-avoiding substitution）。
+
 ### 求值规则 {#evaluation-rules}
 求值规则包括：
-* $\alpha$-重命名，可任意改变变量名，如有歧义的 $\lambda x.\ x\ (\lambda x.\ x)$ 可改为 $\lambda x.\ x\ (\lambda y.\ y)$
-* $\beta$-归约（reduction），在应用时将声明展开，例如对 $(\lambda x.\ x)\ (\lambda y.\ y)$，将 $\lambda y.\ y$ 代入 $x$ 得到 $\lambda y.\ y$
-* $\eta$-等价，若 $x$ 不在 $f$ 中自由出现，则形如 $\lambda x.\ f\ x$ 的表达式可改为 $f$，这一般来说只是提前省略了一步 β-归约
+* $\alpha$-重命名，在避免变量捕获的前提下改变约束变量名。例如 $\lambda x.\ x\ (\lambda x.\ x)$ 可重命名为 $\lambda x.\ x\ (\lambda y.\ y)$；一般地，若 $y \notin \operatorname{FV}(M)$，则 $\lambda x.\ M$ 与 $\lambda y.\ M[y/x]$ 是 $\alpha$-等价的
+* $\beta$-归约（reduction），在应用时将实参代入函数体，即 $(\lambda x.\ M)\ N \to_\beta M[N/x]$，例如 $(\lambda x.\ x)\ (\lambda y.\ y)\to_\beta\lambda y.\ y$
+* $\eta$-归约，若 $x \notin \operatorname{FV}(M)$，则 $\lambda x.\ M\ x \to_\eta M$；两者对任意参数具有相同的作用，因而也称 $\eta$-等价
 
 这三者均可称为转换（conversion）。
 
----
-
-现在来看一些经典的例子：
+### 组合子 {#combinator}
+类似于 λ-演算但有所不同，组合子希望不使用变量来描述函数：
 
 {% admonition(type="example", title="SKI 演算") %}
 我们定义：
@@ -99,17 +132,18 @@ E = x           // variables
 {% end %}
 
 ### 求值顺序 {#evaluation-order}
-考虑函数应用 $(\lambda y.\ (\lambda x.\ x)\ y)\ E$。它有两种计算方法：
+考虑函数应用 $(\lambda y.\ (\lambda x.\ x)\ y)\ E$，它有两种计算方法：
 * 先求内层，得到 $(\lambda y.\ y)\ E$，然后得到 $E$
 * 先求外层，得到 $(\lambda x.\ x)\ E$，然后得到 $E$
 
-根据下下节的 [Church–Rosser 定理](#confluence)，这两种方法最终会得到相等的结果。我们在计算时选择其一，这诱导了两种常用的不同计算方式：
+根据后文 [Church–Rosser 定理](#confluence)，这两种方法最终会得到相等的结果。我们在计算时选择其一，这诱导了两种常用的不同计算方式：
 
 一种是在函数应用前，就计算函数参数的值。也被记作应用次序（Applicative Order）与紧迫求值（Eager Evaluation）。另一种是在函数应用前，不计算函数参数的值，直到需要时才求值。也被记作正则/标准次序（Normal Order），加上共享就是懒惰求值（Lazy Evaluation）。
 
 如果表达式可以被化简，那么标准次序总是能够将表达式成功化简[^succeeds]，使用应用次序则可能陷入无限递归。
 
-### 不动点 {#fixed-point}
+## 不动点 {#fixed-point}
+### 不动点组合子 {#fixed-point-combinator}
 事实上，对一般的函数 $f$，我们都可以找到不动点，此不动点与该函数的结构无关。
 
 可以参阅[此文章的启发式推导](https://zhuanlan.zhihu.com/p/547191928)。大意如下：
@@ -118,11 +152,11 @@ E = x           // variables
 
 可以看出 $p = Y\ f$ 展开后为形如无穷列 $f\ f\ f\ f\cdots$，不妨将该无穷列看成两段 $G\ G$，有 $G\ G = f\ (G\ G)$，可以看出一个构造 $G = \lambda x.\ f\ (x\ x)$.
 
-从而我们找到了：
+从而我们找到了如下 Y 组合子：
 
 $$Y = \lambda f.\ (\lambda x.\ f\ (x\ x))\ (\lambda x.\ f\ (x\ x))$$
 
-称为 Y 组合子（Y combinator）。不难验证：
+不难验证：
 
 ```txt
   Y f
@@ -223,7 +257,7 @@ $$\mathrm{mult}\ n_1\ n_2 = n_1\ (\mathrm{add}\ n_2)\ 0$$
 = 2
 ```
 
-Church 进一步构造了判定自然数是否相等的函数，从而能够编码 Diophantus 方程。[^d]
+Church 进一步构造了判定自然数是否相等的函数，从而能够编码 Diophantus 方程。[^diophantus]
 
 ### 列表 {#datatype-list}
 构造基于这一思想：将“如何遍历列表”的问题放到使用列表时。
@@ -291,6 +325,6 @@ $$
 
 [^paper-invention]: Alonzo Church, *The Calculi of Lambda-Conversion* (Princeton, NJ: Princeton University Press, 1941).
 [^succeeds]: 其证明超出了本文范围，可参考标准教材如 *The Lambda Calculus: Its Syntax and Semantics* 中的证明。
+[^diophantus]: Alonzo Church, “An Unsolvable Problem of Elementary Number Theory,” *American Journal of Mathematics* 58 (1936): 345.
 [^paper-proof]: Marco Gavanelli and Toni Mancini, "Preface," *Fundamenta Informaticae* 102, no. 3-4 (2010), <https://doi.org/10.3233/FI-2010-306>.
-[^d]: Alonzo Church, “An Unsolvable Problem of Elementary Number Theory,” *American Journal of Mathematics* 58 (1936): 345.
 [^prefix-tree]: 考虑对前缀闭（prefix-closed）的集合，对每个元素 $s$，均有 $s$ 的前缀在集合中。例如，使用 $\set{\epsilon, a, ab, ac, abd}$ 表示一个树的父子关系，其中 $\epsilon$ 表示空序列。
