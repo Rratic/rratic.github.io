@@ -274,9 +274,9 @@ $$i \equiv \sum_{l\leq B} u_l(i) \cdot \log_g(l) \pmod {p-1}$$
 
 $$
 \left(\frac{a}{p}\right) = \begin{cases}
-0 & p\mid a \cr
-1 & a \equiv c^2 \pmod p \cr
--1 & \text{else}
+    0 & p\mid a \cr
+    1 & a \equiv c^2 \pmod p \cr
+    -1 & \text{otherwise}
 \end{cases}
 $$
 
@@ -290,7 +290,7 @@ $$\left(\frac{-1}{b}\right) = \begin{cases} 1 & b \equiv 1 \pmod 4 \cr -1 & b \e
 
 $$\left(\frac{2}{b}\right) = \begin{cases} 1 & b \equiv 1, 7 \pmod 8 \cr -1 & b \equiv 3, 5 \pmod 8 \end{cases}$$
 
-$$\left(\frac{a}{b}\right)\left(\frac{b}{a}\right) = \begin{cases} 1 & \text{else} \cr -1 & a, b \equiv 3 \pmod 4 \end{cases}$$
+$$\left(\frac{a}{b}\right)\left(\frac{b}{a}\right) = \begin{cases} 1 & \text{otherwise} \cr -1 & a, b \equiv 3 \pmod 4 \end{cases}$$
 
 这样一来我们可以对任意两整数使用辗转相除求值。
 
@@ -302,7 +302,7 @@ $$\left(\frac{a}{b}\right)\left(\frac{b}{a}\right) = \begin{cases} 1 & \text{els
 2. Alice 公布 $N = pq$ 与 $a$
 
 Bob 对原文 $m \in \set{0, 1}$ 加密过程如下：
-1. 随机取 $1 < r < N$
+1. 在 $\Z_N^\times$ 中随机取 $r$
 2. 若 $m = 0$ 计算 $c \equiv r^2 \pmod N$, 否则计算 $c \equiv ar^2 \pmod N$
 3. 将 $c$ 发给 Alice
 
@@ -314,7 +314,7 @@ Alice 解密过程即计算 $(\frac{c}{p})$.
 ## 数字签名
 数字签名考虑的是一个不同的，在数字时代与 PKC 同等重要的问题。现在有一个文件 $D$，而 Susan 希望使用私钥创建一个额外的信息 $D^\text{Sus}$ 用来表达自己签字认可该文件，并且之后可以用一个公钥和验证算法来检验。
 
-一般来说，数字签名方案是作用于小的数据大小，如 80~100 bits. 因此对一般的文件需要先经过密码学安全的 hash. 本文中略去。关于盲签名，本文中也略去。
+数字签名通常先对消息作密码学哈希，再对摘要按签名方案规定的编码进行处理。现代方案通常至少使用 SHA-256 等 256-bit 摘要。关于盲签名，本文中略去。
 
 {% admonition(type="tip", title="RSA Digital Signatures") %}
 创建公钥过程与 RSA PKC 相同。
