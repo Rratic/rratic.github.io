@@ -47,7 +47,7 @@ $$E_n = -\frac{1}{2n^2}m_e\alpha^2 c^2 \tag{1.3}$$
 
 电动力学推导出，一个加速运动的电子辐射电磁波的功率为：
 
-$$P = \frac{e^2}{3\pi\epsilon_0 c^3}|\ddot{x}|^2 \tag{1.4}$$
+$$P = \frac{e^2}{6\pi\epsilon_0 c^3}|\ddot{x}|^2 \tag{1.4}$$
 
 其中 $x$ 是轨道。
 
@@ -81,7 +81,7 @@ $$x_{mn} = x_{0_{mn}} e^{-i\omega_{mn}t} \tag{1.5}$$
 如果 $A, B$ 都是 Hermitian 矩阵，则 $i[A, B]$ 也是 Hermitian 矩阵。
 {% end %}
 
-现在考虑哈密顿量对应的矩阵。我们知道它不能依赖于时间，因此它是对角矩阵。
+现在考虑哈密顿量对应的矩阵。我们知道它不能依赖于时间，因此以能量本征态为基它是对角矩阵。
 
 $$
 H = \begin{bmatrix}
@@ -132,7 +132,7 @@ $$[X_a, P_b] = i\hbar\delta_{ab}, [X_a, X_b] = 0, [P_a, P_b] = 0 \tag{1.10}$$
 
 $$A_{mn} = \braket{m | \hat{A} | n} \tag{1.11}$$
 
-那么就有 $\braket{m | \hat{A}^\dagger | n} = \braket{m | \hat{A} | n}^\ast$ 及 $\braket{m | n} = \braket{m | \mathbf{1} | n} = \delta_{mn}$.
+那么就有 $\braket{m | \hat{A}^\dagger | n} = \braket{n | \hat{A} | m}^\ast$ 及 $\braket{m | n} = \braket{m | \mathbf{1} | n} = \delta_{mn}$.
 
 不严格地说，可以把左态矢 $\bra{m}$ 看作行向量，把右态矢 $\ket{n}$ 看作列向量。
 
@@ -140,7 +140,7 @@ $$A_{mn} = \braket{m | \hat{A} | n} \tag{1.11}$$
 ### 量子力学基本原理
 我们现在讨论一般的可能性集（而非氢原子电子的定态）。
 
-让我们考虑 Feynman 改编的 Stern-Gerlach 实验。让一束非极化原子（每个原子总角动量取向完全随机）沿水平方向（记作 $y$ 方向）通过一个非均匀指向 $z$ 方向，且梯度也沿 $z$ 方向的磁场，它将分裂为分立的三束。
+让我们考虑 Feynman 改编的 Stern-Gerlach 思想实验。让一束非极化原子（每个原子总角动量取向完全随机）沿水平方向（记作 $y$ 方向）通过一个非均匀指向 $z$ 方向，且梯度也沿 $z$ 方向的磁场，它将分裂为分立的三束。
 
 对此的解释是：原子角动量的 $z$ 分量 $J_z$ 有三种量子化的可能，不妨记作 $+\hbar, 0, -\hbar$. 我们称它们构成一个可确定区分可能性完备集，其中完备意为它们占据全部可能性。
 
@@ -174,7 +174,7 @@ $$\braket{jR | iS} = \sum_k \braket{jR | kT} \braket{kT | iS} \tag{2.4}$$
 
 我们记左侧 $\psi = \braket{jR | iS}$, 右侧三项分别为 $\phi_+, \phi_0, \phi_-$, 将发现：
 
-$$P(iS \to jR) = |\phi_+ + \phi_0 + \phi_-|^2 > |\phi_+|^2 + |\phi_0|^2 + |\phi_-|^2 \tag{2.5}$$
+$$P(iS \to jR) = |\phi_+ + \phi_0 + \phi_-|^2 \not\equiv |\phi_+|^2 + |\phi_0|^2 + |\phi_-|^2 \tag{2.5}$$
 
 这是量子物理不同于经典物理的地方。并不能说：要么经过中间可能性 $+T$, 要么经过 $0T$, 要么经过 $-T$. 我们并没有对中间可能性进行观测。
 
@@ -275,7 +275,7 @@ $$i\hbar \frac{\mathrm{d}}{\mathrm{d}t} \ket{\psi(t)} = H \ket{\psi(t)} \tag{2.1
 
 ---
 
-如果一个态矢量 $\ket{u_n}$ 满足 $A \ket{u_n} = \lambda_n \ket{u_n}$ 则称它是算符 $A$ 的本征值，这个方程是算符 $A$ 的本征方程。
+如果一个非零态矢量 $\ket{u_n}$ 满足 $A \ket{u_n} = \lambda_n \ket{u_n}$，则称 $\ket{u_n}$ 是算符 $A$ 的本征向量（本征态），$\lambda_n$ 是对应的本征值；这个方程是算符 $A$ 的本征方程。
 
 哈密顿方程的本征方程叫做定态薛定谔方程，之后会看到其本征态就是能量有确定值的定态，因此定态薛定谔方程可以写成：
 

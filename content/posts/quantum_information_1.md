@@ -70,7 +70,7 @@ $$
 
 ![Table of Gates](/images/quantum/table_gates.png)
 
-在上图 $\mathrm{CNOT}$ 门中，用实心点 $\bullet$ 表示控制的 qubit，用 $\oplus$ 表示被控制的 qubit；在 $\mathrm{CPHASE}$ 门中，会在被控制的 qubit 观测到 $\ket{1}$ 时对被控制的 qubit 使用 $Z$ 门。
+在上图 $\mathrm{CNOT}$ 门中，用实心点 $\bullet$ 表示控制 qubit，用 $\oplus$ 表示目标 qubit；在 $\mathrm{CPHASE}$ 门中，控制 qubit 处于 $\ket{1}$ 分量时对目标 qubit 相干地施加 $Z$ 门。
 
 ---
 
@@ -133,7 +133,7 @@ $$
 \begin{pmatrix} \frac{1}{\sqrt{2}} \cr 0 \cr 0 \cr \frac{1}{\sqrt{2}} \end{pmatrix} \tag{1.3.3}
 $$
 
-这一结果称为 **Singlet/Bell Pair/EPR Pair**，它的一个有趣性质是观测第一个 qubit 将会使第二个 qubit 坍缩。称这种状态为**纠缠**。
+这一结果称为 **Bell Pair / EPR Pair**，它的一个有趣性质是观测第一个 qubit 将会使第二个 qubit 坍缩。称这种状态为**纠缠**。
 
 ---
 
@@ -167,7 +167,7 @@ $$\ket{\psi} = \cos \frac{\theta}{2} \ket{0} + e^{i\varphi} \sin \frac{\theta}{2
 
 此时，$X, Y, Z, H$ 门分别是绕着 $\ket{+}, \ket{i}, \ket{0}$ 与 $(\ket{0}+\ket{+})/(2\cos \pi/8)$ 对应轴旋转 $\pi$.
 
-易见任何混合状态都可以写成两个纯状态的复合。
+由此图容易发现，任意单 qubit 混合态都可以写成至多两个正交纯态的概率混合。
 
 ## 量子信息
 ### 不可复制定理
@@ -203,7 +203,7 @@ Molina, Vidick 与 Watrous 在 2012 年证明了，任何尝试把单个钞票�
 ### Quantum Key Distribution
 考虑一个典型的密码学场景：Alice 与 Bob 有一个共有的密钥（随机二进制串），则他们可以用 One-Time Pad 来交流：Alice 发出的消息是明文与密钥按位异或的结果，Bob 收到消息后再按位异或一遍。在经典世界中，Claude Shannon 证明了如果窃听者的算力没有上限，则只有在密钥至少有明文那么长时才能保证安全。而使用 **Quantum Key Distribution** 就可不对算力上限作假设。[^satellite-based-qkd]
 
-现在来介绍 **BB84 协议**：
+现在来介绍 **BB84 协议**的核心内容：
 1. Alice 随机生成两个字符串 $x, y \in \\{0, 1\\}^n$
 2. Alice 生成一个量子状态，其中每个 qubit 由 $y, x$ 的对应位分别决定使用标准基还是 Hadamard 基、是哪一个
 3. Alice 把该量子状态 $\ket{\psi}$ 发给 Bob
@@ -214,7 +214,7 @@ Molina, Vidick 与 Watrous 在 2012 年证明了，任何尝试把单个钞票�
 ### 量子密集编码
 Holevo 定理指出，一个 qubit 最多能传递一个经典 bit 的信息。
 
-**量子密集编码 Superdense Coding** 是一种在预先纠缠的情形下使用一个 qubit 传递两个经典 bit 的协议。现在我们假设 Alice 预先给 Bob 了一个 Bell pair $(\ket{00} + \ket{11}) / \sqrt{2}$，那么她可以考虑四种作用 $I \otimes I$，$X \otimes I$，$Z \otimes I$ 与 $(Z \otimes I)(X \otimes I)$ 并择其一将结果发给 Bob，然后 Bob 可以使用 $\mathrm{CNOT}$ 与 $H$ 解码。
+**量子密集编码**（Superdense Coding）是一种在预先纠缠的情形下使用一个 qubit 传递两个经典 bit 的协议。现在我们假设 Alice 预先给 Bob 了一个 Bell pair $(\ket{00} + \ket{11}) / \sqrt{2}$，那么她可以考虑四种作用 $I \otimes I$，$X \otimes I$，$Z \otimes I$ 与 $(Z \otimes I)(X \otimes I)$ 并择其一将结果发给 Bob，然后 Bob 可以使用 $\mathrm{CNOT}$ 与 $H$ 解码。
 
 所以现在我们有：
 
@@ -223,7 +223,7 @@ $$\text{1 qubit + 1 ebit} \geq \text{2 bits} \tag{3.1.1}$$
 但是把 $2$ 改成更大的整数是做不到的。
 
 ### 量子隐形传态
-**量子隐形传态 Quantum Teleportation** 所做的是：
+**量子隐形传态**（Quantum Teleportation）所做的是：
 
 $$\text{1 ebit + 2 bits} \geq \text{1 qubit} \tag{3.1.2}$$
 
@@ -249,10 +249,10 @@ $$(\alpha \ket{0} + \beta \ket{1}) \otimes \frac{\ket{00} + \ket{11}}{\sqrt{2}} 
 
 Bell pair 有一个 3-qubit 的版本 **GHZ 状态** $(\ket{000} + \ket{111}) / \sqrt{2}$，它具有一种类似三叶结的结构：只有把三个 qubit 放在一起才会体现出纠缠。
 
-**Monogamy of Entanglement** 指出，如果一个 qubit 与另一个 qubit 形成了最大混合状态，则它不能和其它一个 qubit 形成最大混合状态。
+**Monogamy of Entanglement** 指出，如果一个 qubit 与另一个 qubit 形成了最大纠缠纯态，则它不能和其它一个 qubit 形成最大混合状态。
 
 ### 纠缠的量化
-我们来考虑二分态（两个子系统组成的复合状态，可以是混合的），形如：
+我们先考虑二分纯态（两个子系统组成的复合状态），形如：
 
 $$\sum_{ij} \alpha_{ij} \ket{s_i} \ket{t_j} \tag{3.2.1}$$
 
