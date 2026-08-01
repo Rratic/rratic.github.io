@@ -79,7 +79,7 @@ $$\frac{\sqrt 3}{2} < \Im(z_2) = \frac{\Im(z_1)}{|cz_1 + d|^2} \leq \frac{\Im(z_
 
 $f$ 的[零点阶数](@/posts/complex_analysis_2.md) $\mathrm{ord}_z(f)$ 在 $z$ 的轨道上是一致的，从而对 $P \in \mathfrak{H}/\Gamma_1$ 有 $\mathrm{ord}_P(f)$ 是合法的。$\widetilde{\mathcal{F}_1}$ 有奇点/椭圆点，因为 $\omega = e^{2\pi\mathrm{i}/3}$ 在 $ST$ 作用下不动，$\mathrm{i}$ 在 $S$ 作用下不动，我们用 $n_P$ 表示 $P$ 在 $\overline{\Gamma_1}$ 中的稳定化子的阶数。$\mathfrak{H}/\Gamma_1$ 需要被紧化，这可以通过添加一个 $\infty$ 实现（此时 $\overline{\mathcal{F}_1} = (\mathfrak{H} \cup \mathbb{Q} \cup \set{\infty}) / \Gamma_1$）。
 
-我们定义 $\mathrm{ord}_\infty(f)$ 是 (3) 式中的最小非零 $a_n$，则：
+我们定义 $\mathrm{ord}_\infty(f)$ 是 (3) 式中满足 $a_n \neq 0$ 的最小指标 $n$，则：
 
 {% admonition(type="theorem", title="命题") %}
 设 $f \in M_k(\Gamma_1)$ 非零，则：
@@ -89,13 +89,13 @@ $$\sum _{P \in \widetilde{\mathcal{F} _1}} \frac{1}{n _P} \mathrm{ord} _P(f) + \
 
 ![挖去零点](/images/complex/modular_zeros.jpg)
 
-在 $\overline{\mathcal{F}_1}$ 中挖去所有零点与无穷的邻域（$\Im(z) > Y$），使这些邻域不交，设得到 $D$. 对 $\mathrm{d}(\ln z)$ 沿着 $D$ 的边界积分使用 Cauchy 定理知为 $0$.
+在 $\overline{\mathcal{F}_1}$ 中挖去所有零点与无穷的邻域（$\Im(z) > Y$），使这些邻域不交，设得到 $D$. 对 $\mathrm{d}(\ln f) = f'(z)/f(z) \mathrm{d}z$ 沿着 $D$ 的边界积分使用 Cauchy 定理知为 $0$.
 
 另一方面可以分段积分，两边的竖直线积分值被抵消。对水平线 $l$ 从 $-1/2+\mathrm{i}Y$ 到 $1/2+\mathrm{i}Y$，设在 $\infty$ 处 Fourier 展开写为 $q^{\mathrm{ord}_\infty (f)} \cdot h(q)$，其中 $h$ 在 $0$ 处全纯，则：
 
 $$
 \int _l \mathrm{d}(\ln f) =
-\int _l (\mathrm{ord} _\infty (f) + \ln h) \mathrm{d}q =
+\int _l \left(\mathrm{ord} _\infty (f) \frac{\mathrm{d}q} q + \frac{\mathrm{d}h} h\right) =
 2\pi\mathrm{i} \cdot \mathrm{ord} _\infty (f)
 $$
 
@@ -109,7 +109,7 @@ $$
 -\int _{a_2} \mathrm{d}(\ln f) - \int _{a_1} k\mathrm{d}z / z
 $$
 
-$$\int _{a_1} k\mathrm{d}z / z = k\int _{\pi/3}^{\pi/2} \mathrm{i} \mathrm{d}\theta = \mathrm{i} \frac \pi 6$$
+$$\int _{a_1} k\mathrm{d}z / z = k\int _{\pi/3}^{\pi/2} \mathrm{i} \mathrm{d}\theta = \mathrm{i} \frac {k\pi} 6$$
 
 整理得到 (5) 式。
 
@@ -273,7 +273,7 @@ $$\lim_{\varepsilon \to 0} G_{2, \varepsilon}(z) = G_2(z) - \frac \pi {2y}$$
 ### 判别函数
 我们定义判别函数（这来自于对应的椭圆曲线的判别式）为：
 
-$$\Delta(z) = q \prod_{n=1}^\infty (1-q)^{24} \tag{16}$$
+$$\Delta(z) = q \prod_{n=1}^\infty (1-q^n)^{24} \tag{16}$$
 
 {% admonition(type="theorem", title="命题") %}
 $\Delta$ 是 $\Gamma_1$ 的权 $12$ 的模形式。
@@ -284,7 +284,7 @@ $\Delta$ 是 $\Gamma_1$ 的权 $12$ 的模形式。
 $$
 \frac 1 {2\pi\mathrm{i}} \frac{\mathrm{d}}{\mathrm{d}z} \ln \Delta(z) =
 1 - 24\sum_{n=1}^\infty \frac{nq^n}{1 - q^n} =
-1 - 24\sum_{n=1}^\infty \sigma_1(m)q^m = E_2(z)
+1 - 24\sum_{n=1}^\infty \sigma_1(n)q^n = E_2(z)
 $$
 
 这会给出：
@@ -293,9 +293,9 @@ $$
 \frac 1 {2\pi\mathrm{i}} \frac{\mathrm{d}}{\mathrm{d}z} \ln \left(\frac{\Delta(\frac{az + b}{cz + d})}{(cz + d)^{12}\Delta(z)}\right) = 0
 $$
 
-我们回忆 $\dim M_{12}(\Gamma_1) = 2$，也就是说 $M_{12}(\Gamma_1) = \mathrm{span} \set{(E_4(z))^3, (E_6(z))^2}$，只需要观察两者 Fourier 展开的常数项及一次项即知：
+我们回忆 $\dim M_{12}(\Gamma_1) = 2$，也就是说 $M_{12}(\Gamma_1) = \mathrm{span} \set{E_4(z)^3, E_6(z)^2}$，只需要观察两者 Fourier 展开的常数项及一次项即知：
 
-$$\Delta(z) = \frac 1 {1728} ((E_4(z))^3 - (E_6(z))^2) \tag{17}$$
+$$\Delta(z) = \frac 1 {1728} (E_4(z)^3 - E_6(z)^2) \tag{17}$$
 
 回顾之前提及的到 $\mathbb{P}^1(\Complex)$ 的同构，我们可以取模函数，称为模不变量（系数表可见于 [A000521 - OEIS](https://oeis.org/A000521)）：
 
@@ -328,9 +328,9 @@ $$a_n = e^{2\pi ny} \int_0^1 f(x + \mathrm{i}y) e^{-2\pi\mathrm{i}nx} \mathrm{d}
 ---
 
 [^im]: 命令 `\Im`，Zagier 讲义中显示的是以前的版本 $\mathfrak{J}$.
-[^fuchsian]: $\mathrm{SL}(2, \R)$ 的离散子群。而 $\mathrm{SL}(2, \Z)$ 的子群称为**同余子群**。而 $N$ 级的**主同余子群**指：
+[^fuchsian]: Fuchsian 群是 $\mathrm{PSL}(2,\R)$ 的离散子群（也常通过 $\mathrm{SL}(2,\R)$ 中的原像描述）。$\mathrm{SL}(2,\Z)$ 包含某个主同余子群 $\Gamma(N)$ 的子群称为**同余子群**，其中：
 
-$$\Gamma(N) = \set{\gamma \in \mathrm{SL}(2, \R) | \gamma \equiv \begin{pmatrix} 1 & 0 \\\\ 0 & 1 \end{pmatrix} \pmod N}$$
+$$\Gamma(N) = \set{\gamma \in \mathrm{SL}(2, \Z) | \gamma \equiv \begin{pmatrix} 1 & 0 \\\\ 0 & 1 \end{pmatrix} \pmod N}$$
 
 [^elliptic-curve]: 某些代数几何结论指出亏格 1 的紧 Riemann 面可嵌入射影平面成为光滑三次曲线。实际上可以用 Weierstrass p 函数写出：
 

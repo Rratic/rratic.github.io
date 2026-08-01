@@ -63,7 +63,9 @@ $$
 
 由于角块（通过操作造成的）位置变化会改变朝向，角块群形如 $(Z_3)^7 \rtimes S_8$.
 
-整个魔方群是 $(Z_3^7 \rtimes S_8)\times (Z_2^{11} \rtimes S_{12}) / \sim$.
+棱块置换与角块置换的奇偶性必须相同，因此整个魔方群是：
+
+$$G\cong \set{(c, e) \in (Z_3^7 \rtimes S_8) \times (Z_2^{11} \rtimes S_{12}) | \mathrm{sgn}(\pi_c) = \mathrm{sgn}(\pi_e)}$$
 
 ## 解法
 ### 换位子

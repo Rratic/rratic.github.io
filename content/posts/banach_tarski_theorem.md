@@ -114,7 +114,7 @@ b = \begin{pmatrix}
 \end{pmatrix}
 $$
 
-则 $a(\Delta \setminus V_3) = V_1, b(\Delta \setminus V_4) = V_2, a(\Delta \setminus V_1) = V_3, b(\Delta \setminus V_2) = V_4$.
+则 $a(\Delta \setminus V_3) = V_1, b(\Delta \setminus V_4) = V_2, a^{-1}(\Delta \setminus V_1) = V_3, b^{-1}(\Delta \setminus V_2) = V_4$.
 
 这可以被做成 $\mathrm{SO}(3, \mathbb{Q}_5)$ 上的，进而做成 $\mathrm{SO}(3)$ 上的。
 
@@ -152,6 +152,6 @@ $$g^{-1}(\set{x, gx, g^2x, \dots}) = \set{x, gx, g^2x, \dots} \cup \set{g^{-1}x}
 
 其中集合 $\set{x, gx, g^2x, \dots}$ 可以取自已经成功处理的点集。多出的一个点可以平移到圆心，因此圆心总是可以被处理的。
 
-设某个球面上那些轨道有限的点构成集合 $D$. 我们可以取出一个对称轴和一个角度，使得这个旋转 $g$ 在 $D$ 上没有不动点。现在仍然可以使用前述事实，对应的集合 $\bigcup_{n \geq 1} g^n (D)$ 是已经成功处理的。
+设某个球面上那些轨道有限的点构成可数集 $D$，我们可以取出一个旋转轴和一个角度，使 $g^n(D)$ 两两不交。现在仍然可以使用前述事实，对应的集合 $\bigcup_{n \geq 1} g^n (D)$ 是已经成功处理的。
 
 这样一来，我们只划分了有限个集合（应当是 24 个）完成了复制。通过一些代数手段可以减少到 5 个。

@@ -423,7 +423,7 @@ $$\nabla^2 f \coloneqq \left(\frac{\partial^2 f}{\partial x_j \partial x_i}\righ
 定义 Laplace 算子 $\Delta = \operatorname{tr} \nabla^2$.
 {% end %}
 
-关于极值点、鞍点定义略去。当 $f$ 在 $x_0$ 处取到极小/大值，且在一个邻域内可微、一阶偏导可微，则其 Hesse 矩阵半正/负定。若在邻域内有二阶连续偏导数，则 Hesse 矩阵在邻域内均半正/负定是充分条件（用 Taylor 公式）。
+关于极值点、鞍点定义略去。当 $f$ 在 $x_0$ 处取到极小/大值，且在一个邻域内可微、一阶偏导可微，则其 Hesse 矩阵半正/负定。若在邻域内有二阶连续偏导数，且 $\nabla f(x_0) = 0$，则 Hesse 矩阵在邻域内均半正/负定是 $x_0$ 为极小/大值点的充分条件（用 Taylor 公式）。
 
 ### 隐函数存在定理
 {% admonition(type="theorem", title="隐函数存在定理（一元）") %}
@@ -443,7 +443,7 @@ $$f'(x) = -\left.\frac{F_x(x, y)}{F_y(x, y)}\right|_{y = f(x)}$$
 这使得 $x^2 + y^2 + z^2 = a^2 \implies x\mathrm{d}x + y\mathrm{d}y + z\mathrm{d}z$ 之类的事情是合理的。
 
 {% admonition(type="theorem", title="隐映射定理") %}
-设 $W \subseteq \R^n \times \R^m$ 为开集及其中 $(\mathbf{x}_0, \mathbf{y}_0)$，设 $F(\mathbf{x}, \mathbf{y}) = (F_1(\mathbf{x}, \mathbf{y}), \dots, F_m(\mathbf{x}, \mathbf{y}))$；若满足 $F(\mathbf{x}_0, \mathbf{y}_0) = 0$ 且 $\det J_y F(\mathbf{x}_0, \mathbf{y}_0) \neq 0$，其中：
+设 $W \subseteq \R^n \times \R^m$ 为开集及其中 $(\mathbf{x}_0, \mathbf{y}_0)$，设 $C^1$ 的 $F(\mathbf{x}, \mathbf{y}) = (F_1(\mathbf{x}, \mathbf{y}), \dots, F_m(\mathbf{x}, \mathbf{y}))$；若满足 $F(\mathbf{x}_0, \mathbf{y}_0) = 0$ 且 $\det J_y F(\mathbf{x}_0, \mathbf{y}_0) \neq 0$，其中：
 
 $$J_y F(\mathbf{x}, \mathbf{y}) = \left(\frac{\partial F_i}{\partial y_j}(\mathbf{x}, \mathbf{y})\right)_{m\times m}$$
 
@@ -455,7 +455,7 @@ $$J\psi(\mathbf{x}) = -(J_y F(\mathbf{x}, \psi(\mathbf{x})))^{-1} J_x F(\mathbf{
 对 $m$ 归纳，使用隐函数存在定理即可。
 
 {% admonition(type="theorem", title="逆映射定理") %}
-设 $D \subseteq \R^n$ 为开集，$f: D \to \R^n$ 是 $C^k (k \geq 1)$ 的；若 $Jf(\mathbf{x}_0) = 0$，则存在 $\mathbf{x}_0$ 的开邻域 $U$ 及 $\mathbf{y}_0$ 的开邻域 $V$，使得 $f|_U: U \to V$ 可逆，且其逆映射 $h$ 也是 $C^k$ 的，且：
+设 $D \subseteq \R^n$ 为开集，$f: D \to \R^n$ 是 $C^k (k \geq 1)$ 的；若 $\det Jf(\mathbf{x}_0) \neq 0$，则存在 $\mathbf{x}_0$ 的开邻域 $U$ 及 $\mathbf{y}_0$ 的开邻域 $V$，使得 $f|_U: U \to V$ 可逆，且其逆映射 $h$ 也是 $C^k$ 的，且：
 
 $$Jh(y) = (Jf(h(y)))^{-1}$$
 {% end %}

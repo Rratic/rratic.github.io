@@ -35,7 +35,7 @@ tags = ["数学", "基石", "分析学", "拓扑学"]
 ---
 
 {% admonition(type="definition", title="滤子 filter") %}
-集合 $X$ 上的滤子（filter）是 $\mathcal{F} \subseteq \mathcal{P}(X)$ 满足：
+集合 $X$ 上的滤子是非空集 $\mathcal{F} \subseteq \mathcal{P}(X)$ 满足：
 - 向上封闭：若 $A \in \mathcal{F}$ 且 $A \subset B$ 则 $B \in \mathcal{F}$
 - 对有限交封闭：若 $A, B \in \mathcal{F}$ 则 $A \cap B \in \mathcal{F}$
 
@@ -44,13 +44,13 @@ tags = ["数学", "基石", "分析学", "拓扑学"]
 
 滤子描述的是“满足所有要求”的元素。例如说对 $q \in \mathbb{Q}$ 它的邻域滤子是：
 
-$$\set{A \in \mathbb{Q} | \exists \varepsilon: (q-\varepsilon, q+\varepsilon) \cap \mathbb{Q} \subseteq A}$$
+$$\set{A \subseteq \mathbb{Q} | \exists \varepsilon>0: (q-\varepsilon, q+\varepsilon) \cap \mathbb{Q} \subseteq A}$$
 
 因此，我们称一个滤子 $\mathcal{F}$ 比另一个细 $\mathcal{F} \leq \mathcal{G}$ 如果 $\mathcal{F} \supseteq \mathcal{G}$. 这里“细”意为更精确。最精确的是 $\bot = \mathcal{P}(X)$ 包含空集；最模糊的是 $\top = \set{X}$.
 
 ---
 
-一个 $\mathbb{Q}$ 上的 Cauchy 滤子是满足对任意 $\varepsilon > 0$ 存在 $A \in \mathcal{F}$ 使得 $\operatorname{diam} A < \varepsilon$ 的滤子。记两个滤子 $\mathcal{F} \sim \mathcal{G}$ 等价，若 $\mathcal{F} \cap \mathcal{G}$ 仍是 Cauchy 滤子。
+一个 $\mathbb{Q}$ 上的 Cauchy 滤子是满足对任意 $\varepsilon > 0$ 存在 $A \in \mathcal{F}$ 使得 $\operatorname{diam} A < \varepsilon$ 的真滤子。记两个滤子 $\mathcal{F} \sim \mathcal{G}$ 等价，若 $\mathcal{F} \cap \mathcal{G}$ 仍是 Cauchy 滤子。
 
 此时，可以将实数 $\R$ 定义为 Cauchy 滤子的等价类。
 
@@ -132,7 +132,7 @@ $$\lim_{x \to 2} x^2 = 4$$
 仿照 $\varepsilon-\delta$ 语言的行为，读者容易写出描述趋向于正无穷和负无穷的极限过程的滤子（顶部滤子 `atTop` 与底部滤子 `atBot`）。
 
 {% admonition(type="definition", title="一致连续") %}
-对一致空间 $(X, \mathscr{U})$, $(Y, \mathscr{V})$, 称 $f: X \to Y$ 一致连续，若对任意 $V \in \mathscr{V}$ 有 $f^{-1}(V) \in \mathscr{U}$.
+对一致空间 $(X, \mathscr{U})$, $(Y, \mathscr{V})$, 称 $f: X \to Y$ 一致连续，若对任意 $V \in \mathscr{V}$ 有 $(f \times f)^{-1}(V) \in \mathscr{U}$.
 {% end %}
 
 考察度量诱导的一致结构，读者可见它与一般的定义一致。
@@ -155,18 +155,12 @@ protected def Frequently (p : α → Prop) (f : Filter α) : Prop :=
 
 我们可以把它们做成[模态逻辑](@/posts/logic_3.md)中的 $\Box$ 与 $\Diamond$.
 
-容易发现它除了满足系统 $K$ 还会满足持续性 $D$ 公理 $\Box p \to \Diamond p$, 传递性 $4$ 公理 $\Box p \to \Box \Box p$, 欧性 $5$ 公理 $\neg \Box p \to \Box \neg \Box p$.
-
----
-
 我自己的一点想法是，滤子可以用于知识逻辑。
 
 先看一个一般的知识逻辑讨论：
 
 {% admonition(type="note", title="Williamson (1992) 关于非精确知识的讨论") %}
-假设现在有一棵离你比较远的树，无法精确判断它有多高，假设性质：
-
-$$p_k: \text{这棵树} k \text{厘米高}$$
+假设现在有一棵离你比较远的树，无法精确判断它有多高，假设性质 $p_k$ 表示这棵树 $k$ 厘米高。
 
 由于无法判断精确高度，不妨假定：我们知道，如果树 $k+1$ 厘米高的话，我们无法知道树不是 $k$ 厘米高，即：
 

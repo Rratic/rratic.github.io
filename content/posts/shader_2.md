@@ -121,7 +121,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
 vec3 lightDirection = normalize(vec3(1.0, 1.0, 1.0));
 
 float height(vec2 uv) {
-    return pow(1.0 - pow(uv.x, 2.0) - pow(uv.y, 2.0), 0.1);
+    return pow(1.0 - dot(uv, uv), 0.1);
 }
 
 vec3 getNormal(vec2 uv) {
@@ -183,7 +183,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
 
 对 2D 场景来说，不重合的图形可以直接不断叠加颜色值。
 ```glsl
-vec3 finalColor;
+vec3 finalColor = ...;
 finalColor += ...
 finalColor += ...
 ```

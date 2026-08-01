@@ -110,7 +110,7 @@ $$
 
 先证明引理：对 $\mathcal{U} = \set{U_j}$ 满足它们的内部构成 $X$ 的一个开覆盖，令 $C_n^\mathcal{U}(X)$ 是由像只在单个 $U_j$ 中的 $\sigma$ 生成的自由 Abel 群，则嵌入 $\iota: C_n^\mathcal{U}(X) \hookrightarrow C_n(X)$ 是链同伦等价。
 
-首先定义单形 $[v_0, \dots, v_n]$ 的 Barycentric Subdivision. 我们令 barycenter $b$ 是重心，考虑单形 $[b, v_0, \dots, v_{i-1}, v_{i+1}, \dots, v_n]$. 然后归纳地对每个面作 Barycentric Subdivision 再分割……最终得到 $n!$ 个 $n$ 维流形，满足 $\mathrm{diam}[w_0, \dots, w_n] \leq n/(n+1) \mathrm{diam} [v_0, \dots, v_n]$. 之后会用到 $(n/(n+1))^r \to 0$.
+首先定义单形 $[v_0, \dots, v_n]$ 的 Barycentric Subdivision. 我们令 barycenter $b$ 是重心，考虑单形 $[b, v_0, \dots, v_{i-1}, v_{i+1}, \dots, v_n]$. 然后归纳地对每个面作 Barycentric Subdivision 再分割……最终得到 $(n+1)!$ 个 $n$ 维单形，满足 $\mathrm{diam}[w_0, \dots, w_n] \leq n/(n+1) \mathrm{diam} [v_0, \dots, v_n]$. 之后会用到 $(n/(n+1))^r \to 0$.
 
 接下来考虑欧氏空间中的凸集 $Y$，记线性映射 $\Delta^n \to Y$ 生成的自由 Abel 群为 $\mathrm{LC} _n(Y)$. 令 $\mathrm{LC} _{-1}(Y) = \Z$. 对 $b \in Y$ 诱导一个同态：
 
@@ -168,7 +168,7 @@ $$\partial D\sigma + D\partial\sigma = \sigma - [S^{m(\sigma)}\sigma + D_{m(\sig
 
 回到原定理，我们令 $\mathcal{U} = \set{A, X - Z}$，分析即可。
 
-其推论是，对 $X$ 与 $X$ 中某个邻域的非空、闭的形变收缩核 $A$，商映射诱导了 $H_n(X, A) \to H_n(X/A, A/A)$ 的同构，而后者同构于 $H_n(X/A)$.
+其推论是，对 $X$ 与 $X$ 中某个邻域的非空、闭的形变收缩核 $A$，商映射诱导了 $H_n(X, A) \to H_n(X/A, A/A)$ 的同构，而后者同构于 $\widetilde H_n(X/A)$.
 
 {% admonition(type="theorem", title="维数不变性") %}
 若非空开集 $U \subseteq \R^m$ 与 $V \subseteq \R^n$ 同胚，则 $m = n$.
@@ -177,8 +177,10 @@ $$\partial D\sigma + D\partial\sigma = \sigma - [S^{m(\sigma)}\sigma + D_{m(\sig
 使用 excision 及之前长正合列知：
 
 $$
-H _k(U, U - \set{x}) \cong H _k(\R^m, \R^m - \set{x}) \cong \tilde{H} _{k-1}(\R^m - \set{x}) \cong
-\tilde{H} _{k-1}(S^{m-1}) = \begin{cases} \Z & k=m \cr 0 & \text{else} \end{cases}
+H _k(U, U - \set{x}) \cong H _k(\R^m, \R^m - \set{x}) \cong
+\tilde{H} _{k-1}(\R^m - \set{x}) \cong
+\tilde{H} _{k-1}(S^{m-1}) =
+\begin{cases} \Z & k=m \cr 0 & \text{otherwise} \end{cases}
 $$
 
 一般地定义**局部同调群**是指 $H_n(X, X - \set{x})$. 由 excision 知它只和局部的拓扑有关。这可以用于考察局部的同胚情况。

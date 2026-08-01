@@ -98,23 +98,25 @@ It is impossible to have certainty in knowledge.
 
 ---
 
-如果文章到这里收尾，读者可能还是会觉得并无新意。因此我想补一个两周前学到的有趣结果（可在一定程度上对标弱怀疑论）：“凡为真者皆可被知”在 KT[^kt] 下会导出矛盾。
+如果文章到这里收尾，读者可能还是会觉得并无新意。因此我想补一个两周前学到的使用[模态逻辑](@/posts/logic_3.md)的有趣结果（可在一定程度上对标弱怀疑论）：
 
-{% admonition(type="tip", title="不可知性的基础") %}
+{% admonition(type="theorem", title="Fitch 可知性悖论") %}
+在 KT 中，假设“凡真者皆可知”，形式化为 $\psi \to \Diamond K_i \psi$；再假设“非全知性”存在某个命题 $p$ 满足 $p \wedge \neg K_i p$，会导出矛盾。
+{% end %}
+
 考察 Moore 句：
 
 $$\varphi \coloneqq p \wedge \neg K_i p$$
 
 那么 $K_i \varphi$ 在 KT 中不一致：
-1. 假设 $K_i (\varphi \coloneqq p \wedge \neg K_i p)$
-2. 对命题重言式用 NEC 有 $\vdash K_i((\varphi \coloneqq p \wedge \neg K_i p) \to p)$
+1. 假设 $K_i \varphi$，其中 $\varphi \coloneqq p \wedge \neg K_i p$
+2. 对命题重言式用 NEC 有 $\vdash K_i(\varphi \to p)$
 3. 使用 2 与 K 公理与假设与 Modus Ponens 得 $K_i p$
-4. 对命题重言式用 NEC 有 $\vdash K_i((\varphi \coloneqq p \wedge \neg K_i p) \to \neg K_i p)$
+4. 对命题重言式用 NEC 有 $\vdash K_i(\varphi \to \neg K_i p)$
 5. 使用 4 与 K 公理与假设与 Modus Ponens 得 $K_i \neg K_i p$
 6. 对 5 用 T 公理得 $\neg K_i p$
 
-这里第 3 步与第 6 步矛盾。
-{% end %}
+这里 3 与 6 矛盾。那么根据“凡真者皆可知”，$\varphi$ 不在任何世界为真，这与“非全知性”矛盾。
 
 Fitch 1963 据此论证，“凡真者皆可知”在逻辑上是有问题的。
 
@@ -127,5 +129,4 @@ Fitch 1963 据此论证，“凡真者皆可知”在逻辑上是有问题的。
 [^progress]: 我承认确实在极大改变了人类社会，但我说的是*终极意义上*的成果。
 [^witt]: 或许我应该用的 reference 是维特根斯坦《哲学研究》？
 [^certainty]: [Certainty (Stanford Encyclopedia of Philosophy)](https://plato.stanford.edu/entries/certainty/)
-[^kt]: 参考[【逻辑学】模态逻辑及其应用](@/posts/logic_3.md) 中“性质对应”表格及“极小系统”部分。
 [^care]: 即使哲学没有人文关怀，想必我从其中强行索取人文关怀也无人在意。

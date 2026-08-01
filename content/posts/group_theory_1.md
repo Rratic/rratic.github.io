@@ -46,7 +46,7 @@ $$
 
 记集合元素 $\alpha$ 在这一关系下的等价类 $\set{\alpha^x | x\in G}$ 为其**轨道** $\mathrm{Orb}(\alpha)$；全体不变映射 $\set{x | \alpha^x = \alpha}$ 为其**稳定化子** $\mathrm{Stab}(\alpha)$，易知 $|\mathrm{Orb}(\alpha)| = |G\colon \mathrm{Stab}(\alpha)|$.
 
-作为一个例子，对于正四面体（记顶点 $\set{A,B,C,D}$），设其旋转变换群为 $G$，则：任取一个顶点，它对应的稳定子群阶为 3，轨道为 $\set{A,B,C,D}$，故而 $G$ 是 $S_4$ 的 12 阶子群，必然是 $A_4\cong V_4\oplus Z_3\cong Z_2\oplus Z_2\oplus Z_3$.
+作为一个例子，对于正四面体（记顶点 $\set{A, B, C, D}$），设其旋转变换群为 $G$，则：任取一个顶点，它对应的稳定子群阶为 $3$，轨道为 $\set{A, B, C, D}$，故而 $G$ 是 $S_4$ 的 $12$ 阶子群，必然是 $A_4$.
 
 ## Pólya 计数法
 使用 Pólya 计数法是为了解决这样的问题：我们对所有的可能计数，并且将具有特定对称性的视作同一种（见下面的例子）。

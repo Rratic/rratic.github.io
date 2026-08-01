@@ -93,14 +93,14 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
 ```
 
 ## 噪声
-上述的随机生成确实保证了随机性，类似于白噪声，但我们通常希望看到更平滑的图像。
+上述确定性哈希生成的是视觉上近似随机的伪随机值，可形成类似白噪声的图像。但我们还希望看到更平滑的图像。
 
 噪声是算法生成的、具有随机性的图像，可以用于生成地形、纹理。
 
 ### 2D 噪声
-我们来看 Perlin 噪声 的 2D 版本的代码：
+我们来看 2D lattice value noise 的代码，在格点放置随机标量并作插值：
 ```glsl
-float perlin(vec2 st) {
+float valueNoise(vec2 st) {
     vec2 i = floor(st);
     vec2 f = fract(st);
 
@@ -126,6 +126,8 @@ float perlin(vec2 st) {
 * 另外可以进行优化：将 `smoothstep` 中调用的 $\mathrm{lerp}(x) = 3x^2-2x^3$ 改为 $6x^5-15x^4+10x^3$
 * 进行局部随机化
 
+它的一种变体 Perlin gradient noise 在格点放置随机梯度，并插值梯度与位移的点积。
+
 ### 应用技巧
 封面图的代码如下，使用了局部随机化（这产生了蜡笔效果），并引入了时间维度：
 ```glsl
@@ -135,13 +137,13 @@ float random(vec2 uv) {
 	return fract(sin(dot(uv.xy, vec2(11.143, 78.233))) * (43758.5453123 + iTime));
 }
 
-float perlin(vec2 st) { ... }
+float valueNoise(vec2 st) { ... }
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord)
 {
     vec2 uv = (fragCoord * 2.0 - iResolution.xy) / iResolution.y;
     vec2 uv2 = vec2(uv.x * 20.0, uv.y * 1000.0);
-    float fr = perlin(uv2 + random(uv2));
+    float fr = valueNoise(uv2 + random(uv2));
 
     float t = smoothstep(0.0, 1.0, fr);
     vec3 col = t * hsv2rgb(vec3((1.0 - uv.y) / 2.0, 1.0, 1.0)) + (1.0 - t) * vec3(1.0);
@@ -175,7 +177,7 @@ vec2 random2(vec2 uv) { ... }
 float worley(vec2 uv) {
 	vec2 grid = floor(uv);
     vec2 uv2 = fract(uv);
-    float m_dist = 1.;
+    float m_dist = 1e9;
     for (int y= -1; y <= 1; y++) {
         for (int x= -1; x <= 1; x++) {
             vec2 neighbor = vec2(float(x), float(y));
@@ -202,8 +204,8 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
 float voronoi(vec2 uv) {
     vec2 grid = floor(uv);
     vec2 uv2 = fract(uv);
-    float m_dist = 1.;
-    vec2 closest;
+    float m_dist = 1e9;
+    vec2 closest = vec2(0.0);
     for (int y = -1; y <= 1; y++) {
         for (int x = -1; x <= 1; x++) {
             vec2 neighbor = vec2(float(x), float(y));
@@ -232,17 +234,16 @@ $$\mathrm{fbm}(x, y) = \sum_{i=1}^n w^i \cdot \mathrm{noise}(s^ix, s^iy)$$
 ```glsl
 float random(vec2 uv) { ... }
 
-float perlin(vec2 uv) { ... }
+float valueNoise(vec2 uv) { ... }
 
 float fbm(vec2 uv) {
     float value = 0.0;
     float amplitude = .5;
-    float frequency = 0.;
-    float rotation = mat2(0.8, -0.6, 0.6, 0.8);
+    mat2 rotation = mat2(0.8, -0.6, 0.6, 0.8);
 
     for (int i = 0; i < 6; i++) {
-        value += amplitude * rotation * perlin(uv);
-        uv *= 2.;
+        value += amplitude * valueNoise(uv);
+        uv = rotation * uv * 2.0;
         amplitude *= .5;
     }
     return value;

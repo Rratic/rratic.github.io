@@ -82,7 +82,7 @@ writeBase64 :: Raw -> String
 writeBase64 = map ((base64Table !!) . readSized 6) . splits 6 . pad 6 (const False)
 ```
 
-有了这些东西我们已经可以实现 Challenge 1 了。为了后续 Challenge 6 的需要，这里顺带给出解码函数（会过滤空白字符与 `=` 补位符等）：
+有了这些东西我们已经可以实现 Challenge 1 了（虽然没有按 RFC 4648 标准实现）。为了后续 Challenge 6 的需要，这里顺带给出解码函数（会过滤空白字符与 `=` 补位符等）：
 
 ```hs
 readBase64 :: String -> Raw

@@ -180,14 +180,14 @@ $$\mathrm{Res}_{z = z_0} f(z)\mathrm{d}z = \frac 1 {(m - 1)!}g^{(m - 1)}(z_0)$$
 {% admonition(type="theorem", title="留数定理") %}
 $\Omega$ 是 $\bar{\Complex}$ 中以有限条逐段光滑曲线为边界的区域且 $\infty\notin\partial\Omega$，其内部有点 $z_1, z_2, \dots, z_n$，设 $f$ 在 $\Omega$ 中除这些点之外解析，在 $\bar{\Omega}$ 中除这些点之外连续，则：
 
-$$\int_{\partial\Omega} f(z)\mathrm{d}z = 2\pi\mathrm{i}\sum_{i=1}^n\mathrm{Res}_{z=z_k}f(z)$$
+$$\int_{\partial\Omega} f(z)\mathrm{d}z = 2\pi\mathrm{i}\sum_{i=1}^n\mathrm{Res}_{z=z_i}f(z)$$
 {% end %}
 
 可从 Cauchy 公式推出。
 
 一种补充情况是，若 $f$ 在 $\bar{\Complex}$ 内除 $z_1, z_2, \dots, z_n$ 外解析，则
 
-$$\sum_{i=1}^n\mathrm{Res}_ {z=z_k}f(z) + \mathrm{Res}_ {z=\infty}f(z) = 0$$
+$$\sum_{i=1}^n\mathrm{Res}_ {z=z_i}f(z) + \mathrm{Res}_ {z=\infty}f(z) = 0$$
 
 ### 辐角原理
 {% admonition(type="theorem", title="辐角原理") %}
@@ -211,7 +211,7 @@ $f$ 与 $g$ 在区域 $D$ 内解析，$\Gamma = \partial \Omega,\ \Omega\subsete
 $$\frac{1}{2\pi\mathrm{i}}\int_\Gamma \left[\frac{h'(z)}{h(z)}-\frac{f'(z)}{f(z)}\right] \mathrm{d}z = \frac{1}{2\pi\mathrm{i}}\int_\Gamma \frac{(h/f)'(z)}{(h/f)(z)} \mathrm{d}z = \frac{1}{2\pi} \Delta_\Gamma \operatorname{Arg} \frac{h}{f} = 0$$
 
 {% admonition(type="theorem", title="分歧覆盖定理") %}
-$f$ 在区域 $D$ 内解析，$z_0\in D$ 的像是 $w_0$，$z_0$ 是 $f(z)-w_0$ 的 $m$ 阶零点，则存在 $\rho, \delta > 0$，对任意 $w\in \mathring{D}(w_0, \rho)$ 有 $f(z)-w$ 在 $\mathring{D}(z_0, \delta)$ 内恰有 $m$ 个一阶零点。
+$f$ 在区域 $D$ 内解析，$z_0 \in D$ 的像是 $w_0$，$z_0$ 是 $f(z) - w_0$ 的 $m$ 阶零点，则存在 $\rho, \delta > 0$，对任意 $w \in \mathring{D}(w_0, \rho)$ 有 $f(z) - w$ 在 $\mathring{D}(z_0, \delta)$ 内恰有 $m$ 个零点（记重数）；当 $w \neq w_0$ 时，这些零点均为一阶零点。
 {% end %}
 
 由零点孤立性，可取出 $\delta$ 使 $\mathring{D}(z_0, \delta)$ 上 $f(z) - w_0$ 与 $f'(z)$ 无零点，再取 $\rho = \min_{|z-z_0|=\delta} |f(z) - w_0| > 0$.

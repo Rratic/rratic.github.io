@@ -34,7 +34,7 @@ tags = ["数学", "基石"]
 
 简单类型论的 **Henkin 模型**是对每个类型 $s$ 选取一个集合 $M_s$ 并要求 $M_{s_1 \to s_2} \subseteq \mathrm{Hom}(M_{s_1}, M_{s_2})$，它是可靠、完全的。标准模型进一步要求把“$\subseteq$”换成相等。
 
-如果单独研究其中函数的形成与使用部分，就得到我们熟悉的[无类型 λ 演算](@/posts/lambda_calculus.md)，而 Moses Schönfinkel 提出了组合子逻辑，不使用变量来描述函数。不过这不能直接用于逻辑，我们知道存在[不动点组合子](@/posts/lambda_calculus.md#fixed-point) $\mathrm{fix}$，考虑 $\neg$ 就会有 $\mathrm{fix} \neg = \neg (\mathrm{fix} \neg)$，导致不一致。
+如果单独研究其中函数的形成与使用部分，去除类型约束，就得到我们熟悉的[无类型 λ 演算](@/posts/lambda_calculus.md)，而 Moses Schönfinkel 提出了组合子逻辑，不使用变量来描述函数。不过这不能直接用于逻辑，我们知道存在[不动点组合子](@/posts/lambda_calculus.md#fixed-point) $\mathrm{fix}$，考虑 $\neg$ 就会有 $\mathrm{fix} \neg = \neg (\mathrm{fix} \neg)$，导致不一致。
 
 这个问题在简单类型论中不会出现，观察其区别，使用[重写系统](@/posts/lambda_calculus.md#rewriting-systems)可以说明它是弱停机的，而 Sterling 考虑了更广义的 normalization 概念。我们定义组合子演算中典范形式是不含 $\mathrm{S}ABC$ 或 $\mathrm{K}AB$ 的表达式。为它赋予类型 $(\alpha \to \beta \to \gamma) \to (\alpha \to \beta) \to (\alpha \to \gamma)$ 及 $\alpha \to \beta \to \alpha$，并定义基础类型 $\mathrm{t}, \mathrm{f}: \mathbb B$，则易见典范形式只有 $\mathrm{t}, \mathrm{f}$，在 Henkin 模型中对表达式长度归纳即知：简单类型组合子演算中，表达式都有等价的典范表达式。
 

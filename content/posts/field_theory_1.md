@@ -157,7 +157,7 @@ $$
 对域 $F$ 和非常数多项式 $f\in F[x]$，对应正规扩张 $E$，如果存在一列扩张 $F=K_0\subset K_1\subset \cdots K_t$ 满足 $K_{i+1} = K_i(u)$，其中 $u^k\in K_i, k\in\Z^+$，且 $E\subseteq K_t$，则称 $f$ 根式可解。
 
 {% admonition(type="theorem", title="性质") %}
-对 $F\subset K\subset E$，其中 $K/F, E/F$ 是正规扩张，则对任意 $\sigma\in \mathrm{Gal}(E/F)$，有
+对有限 Galois 扩张 $E/F$ 及中间域 $F\subset K\subset E$，若 $K/F$ 正规，则对任意 $\sigma\in \mathrm{Gal}(E/F)$，有：
 - $\sigma K = K$
 - $\mathrm{Gal}(E/K)\triangleleft \mathrm{Gal}(E/F)$
 - $\mathrm{Gal}(E/F)/\mathrm{Gal}(E/K)\cong \mathrm{Gal}(K/F)$

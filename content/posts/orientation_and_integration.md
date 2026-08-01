@@ -109,7 +109,7 @@ $$\int_U \omega = \int_D \omega$$
 
 可以验证这样的性质：假设 $D, E$ 是 $\R^n$ 或 $\mathbb{H}^n$ 上的开积分域，$G: \bar D \to \bar E$ 是一个可以限制为 $D \to E$ 的保定向/反定向微分同胚的光滑映射；若 $\omega$ 是 $\bar E$ 上的 $n$-形式，则（符号取决于保定向还是反定向）：
 
-$$\int_D G^\ast \omega = \int_E \omega$$
+$$\int_D G^\ast \omega = \mathrm{sgn}(G) \int_E \omega$$
 
 ---
 

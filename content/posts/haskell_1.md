@@ -311,12 +311,19 @@ instance Display a => Display (List a) where
 ```hs
 data Q = Q Integer Integer
 
+-- 原始的 Q 构造器需要对外隐藏
+mkQ :: Integer -> Integer -> Q
+mkQ _ 0 = error "zero denominator"
+mkQ a b = simp (Q a b)
+
 instance Show Q where
   show (Q a b) = concat [show a, "/", show b]
 
 simp :: Q -> Q
-simp (Q a b) = Q (a `div` c) (b `div` c)
+simp (Q _ 0) = error "zero denominator"
+simp (Q a b) = Q ((s * a) `div` c) (abs b `div` c)
   where c = gcd a b
+        s = signum b
 
 instance Eq Q where
   r1 == r2 = (a1 == a2) && (b1 == b2)

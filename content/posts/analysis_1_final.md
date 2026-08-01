@@ -550,12 +550,10 @@ $$\left|\frac{F(x_n)-F(y_n)}{x_n+y_n}\right| \leq \left|\frac{F(x_n)}{x_n}\right
 $I = [a, b]$ 是闭区间，$\\{f _k\\} _{k\geq 0}$ 是一列 $C^1(I)$ 的函数，设 $\sum _{k=0}^\infty f _k$ 在 $I$ 上逐点收敛，如果 $\sum _{k=0}^\infty f _k'(x)$ 在 $I$ 上一致收敛，那么 $f$ 可导并且 $f'(x) = \sum _{k=0}^\infty f _k'(x)$.
 {% end %}
 
-首先，一致收敛可以推出 $\sum _{k=0}^\infty \\|f _k'\\| _\infty$ 收敛（其中 $\\|f\\| _\infty = \sup _{x\in I} |f(x)|$），这可以通过一致收敛的定义与闭区间套定理得到。
-
-然后设 $g(x) = \sum _{k=0}^\infty f _k'(x)$，去讨论 $\int_x^{x_0} g(x)$. 没有找到不使用微积分基本定理的方法。
+首先可以推出 $\sum _{k=0}^\infty \lVert f _k'\rVert _\infty$ 收敛，然后设 $g(x) = \sum _{k=0}^\infty f _k'(x)$，去讨论 $\int_x^{x_0} g(x)$. 没有找到不使用微积分基本定理的方法。
 
 {% admonition(type="theorem", title="Émile Borel 引理") %}
-对任意给定数列 $\\{a_n\\}_{n\geq 0}$，存在光滑函数 $f$ 使得 $f^{(n)}=a_n$.
+对任意给定数列 $\\{a_n\\}_{n\geq 0}$，存在光滑函数 $f$ 使得 $f^{(n)}(0) = a_n$.
 {% end %}
 
 考虑函数：
@@ -593,9 +591,10 @@ $$f_k^{(n)}(x) = a_k \sum_{l=0}^n \binom{n}{l} \frac{t_k^{n-l}}{(k-l)!}x^{k-l}\c
 Peano 的想法是，考虑：
 
 $$
-\left(\frac{c_kx^k}{1+b_kx^2}\right)^{(n)}(0) = \begin{cases}
-n!(-1)^jc_{n-2j}b_{n-2j}^j & k = n - 2j, j \in \Z_{\geq 0} \cr
-0 & \text{else}
+\left(\frac{c_kx^k}{1+b_kx^2}\right)^{(n)}(0) =
+\begin{cases}
+	n! (-1)^j c_{n-2j} b_{n-2j}^j & k = n - 2j, j \in \Z_{\geq 0} \cr
+	0 & \text{otherwise}
 \end{cases}
 $$
 

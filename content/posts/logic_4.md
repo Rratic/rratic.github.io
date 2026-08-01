@@ -156,7 +156,7 @@ $$\forall x_1 \cdots \forall x_n ((\neg \psi \to \neg \varphi) \to (\varphi \to 
 
 $$\forall x_1 \cdots \forall x_n (t \dot{=} t)$$
 
-$$\forall x_1 \cdots \forall x_n ((s \dot{=} t) \to (\varphi[s/x] \dot{=} \varphi[t/x]))$$
+$$\forall x_1 \cdots \forall x_n ((s \dot{=} t) \to (\varphi[s/x] \to \varphi[t/x]))$$
 
 $$\forall x_1 \cdots \forall x_n (\forall x \varphi(x, x_1, \dots, x_n) \to \varphi(x, x_1, \dots, x_n)[t/x])$$
 
@@ -295,7 +295,7 @@ $$┌ \varphi ┐ \coloneqq \overline{\\# \varphi}$$
 {% admonition(type="theorem", title="事实") %}
 存在 PA 中的公式 $\mathrm{Diag}(x, y)$ 使得对任意自然数 $m, n$ 有：
 - 若 $\mathrm{diag}(m, n)$ 成立，则 $\text{PA} \vdash \mathrm{Diag}(\bar{m}, \bar{n}) \wedge \exists! x \mathrm{Diag}(x, \bar{n})$
-- 若 $\mathrm{diag}(m, n)$ 成立，则 $\text{PA} \vdash \neg \mathrm{Diag}(\bar{m}, \bar{n})$
+- 若 $\mathrm{diag}(m, n)$ 不成立，则 $\text{PA} \vdash \neg \mathrm{Diag}(\bar{m}, \bar{n})$
 {% end %}
 
 证明复杂略去。

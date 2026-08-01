@@ -51,7 +51,7 @@ $$
 
 $$\mathrm{d}f = \mathrm{d}u + \mathrm{i}\cdot\mathrm{d}v = \frac{\partial f}{\partial x}\mathrm{d}x + \frac{\partial f}{\partial y}\mathrm{d}y$$
 
-现在，我们可以定义：若函数 $f$ 在区域 $D$ 内每一点都是复可导的，则称其为 $D$ 上的**全纯函数**。用定义即知全纯函数是保角的，也就是说 $\gamma_1(t)$ 与 $\gamma_2(t)$ 的夹角等于 $f(\gamma_1(t))$ 与 $f(\gamma_2(t))$ 的夹角。
+现在，我们可以定义：若函数 $f$ 在区域 $D$ 内每一点都是复可导的，则称其为 $D$ 上的**全纯函数**。用定义即知全纯函数在 $f'(z_0) \neq 0$ 处是保角的，也就是说 $\gamma_1(t)$ 与 $\gamma_2(t)$ 的夹角等于 $f(\gamma_1(t))$ 与 $f(\gamma_2(t))$ 的夹角。
 
 若 $f$ 在区域 $D$ 内每一点 $z_0$，都可在它的邻域上展开为 $z-z_0$ 的幂级数，则称它在 $D$ 上是**解析**的。如果进一步在 $D$ 上是单的，则称它是**单叶解析**的。此时如果还是满的且逆 $f^{-1}$ 也是解析的，则称为**解析同胚/共形映射**。
 
@@ -111,13 +111,13 @@ $$\int_{\partial D} \omega = \int_{D}\mathrm{d}\omega = 0$$
 $$v(x, y) = \int_{(x_0, y_0)}^{(x, y)} \omega$$
 
 {% admonition(type="theorem", title="存在 $\ln f$") %}
-$f$ 为区域 $D$ 上的处处非零全纯函数，则存在 $g$ 使得 $e^g = f$.
+$f$ 为单连通区域 $D$ 上的处处非零全纯函数，则存在全纯函数 $g$ 使得 $e^g = f$.
 {% end %}
 
 令 $u = \ln |f|$，然后取 $v$ 为它的共轭调和，平移调整即可。
 
 {% admonition(type="theorem", title="存在 $\sqrt[n]{m}$") %}
-$f$ 为区域 $D$ 上的处处非零全纯函数，则存在 $g$ 使得 $g^n = f$.
+$f$ 为单连通区域 $D$ 上的处处非零全纯函数，则存在全纯函数 $g$ 使得 $g^n = f$.
 {% end %}
 
 取 $\exp(\ln(f) / n)$ 即可。

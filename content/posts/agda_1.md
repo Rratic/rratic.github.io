@@ -282,7 +282,7 @@ data Maybe {a} (A : Set a) : Set a where
 `with` 关键字可以提供更丰富的类型匹配，例如：
 
 ```agda
-length-filter : {a} {A : Set a} (p : A → B)(l : List A) →
+length-filter : {a} {A : Set a} (p : A → Bool)(l : List A) →
   length (filter p l) ≤ length l ≡ true
 length-filter p [] = refl
 length-filter p (x ∷ l) with p x

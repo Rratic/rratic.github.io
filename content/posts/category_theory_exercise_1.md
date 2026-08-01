@@ -181,13 +181,13 @@ Find a universal element for the contravariant power set function $\mathscr{P}: 
 
 这里 $\mathscr{P}$ 将 $X$ 映到 $\set{S | S \subseteq X}$，将 $f^\mathrm{op}: Y \to X$ 映到 $S \mapsto f^{-1}[S]$.
 
-我们取 $r = \set{a}$ 及 $e = \set{a}$ 即可。此时 $f$ 的选取方式是，若在 $x$ 中则映到 $a$，否则映到 $b$.
+我们取 $r = \set{a, b}$ 及 $e = \set{a}$ 即可。此时 $f$ 的选取方式是，若在 $x$ 中则映到 $a$，否则映到 $b$.
 
 ![反变幂集函子的泛元素](/images/diagram/universal_power_set.png)
 
 {% admonition(type="question", title="Ⅲ 1.4") %}
 Use only universality (of projections) to prove the following isomorphisms of group theory:
-1. For normal subgroups $M$, $N$ of $G$ with $M \subset N$, $(G/M)/(N/M) \cong (G/M)$.
+1. For normal subgroups $M$, $N$ of $G$ with $M \subset N$, $(G/M)/(N/M) \cong G/N$.
 2. For subgroups $S$ and $N$ of $G$, $N$ normal, with join $SN$, $SN/N \cong S/S\cap N$.
 {% end %}
 

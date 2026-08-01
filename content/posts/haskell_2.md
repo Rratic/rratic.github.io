@@ -498,7 +498,7 @@ Haskell 中还有更加强大的控制流。
 
 `Cont` 可以做 continuation-passing style 计算，可以实现任意跳转、提前返回、复杂错误处理。
 
-`Select` 是 `Cont` 的一个特化版本，可解决搜索和优化问题。
+`Select` 可解决搜索和优化问题。
 
 `Free` 可以将任意 `Functor` 提升为 `Monad`.
 

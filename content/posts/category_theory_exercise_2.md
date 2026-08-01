@@ -68,6 +68,10 @@ In the category $\mathbf{Matr}_K$, describe the coequalizer of two $m \times n$ 
 
 在满足 $CA = CB$ 的矩阵 $C$ 中按泛性质选取。由于可在同构意义下考虑，设 $\mathrm{Im}(A - B) = \mathrm{span}\set{v_1, \dots, v_{\mathrm{rank}(A - B)}}$，则这些需要被映到 $0$. 考虑余等化子箭头是到 $\mathrm{Im}(A - B)^\perp$ 上的投影，余等化子对象是 $m - \mathrm{rank}(A - B)$ 知成立，从而容易描述所有的余等化子。
 
+或者，把余等化子看成商映射：
+
+$$K^m \to K^m/\mathrm{Im}(A-B)$$
+
 {% admonition(type="question", title="Ⅲ 3.5") %}
 If $E$ is an equivalent relation on a set $X$, show that the usual set $X/E$ of equivalence classes can be described by a coequalizer in $\mathbf{Set}$.
 {% end %}

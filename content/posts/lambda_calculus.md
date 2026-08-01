@@ -15,24 +15,24 @@ categories = ["知识"]
 tags = ["数学", "基石", "计算机", "计算理论"]
 +++
 
-本文讨论 Alonzo Church 发明的**无类型 λ 演算**（Lambda Calculus）。这是一个类型论与计算理论的基础模型。
+本文讨论 Alonzo Church 发明的**无类型 λ 演算**（λ-calculus）。这是一个类型论与计算理论的基础模型。
 
 <!-- more -->
 
-本站提供了一个[在线演绎器](/playground/lambda-calculus/)，其中使用 `@eval` 命令会使用 [beta-reduction](#evaluation-rules) 按[正则次序](#evaluation-order)进行求值，使用 `@simp` 会额外尝试使用 [eta-等价](#evaluation-rules)进行简化，输出使用 de Brujin 无名表示（`#i` 表示从里到外第 $i$ 层函数声明对应的参数）。想要自行编写解释器的读者可参考其仓库 [Rratic/my-lam](https://github.com/Rratic/my-lam).
+本站提供了一个[在线演绎器](/playground/lambda-calculus/)，其中使用 `@eval` 命令仅会使用 [β-归约](#evaluation-rules)按[正则次序](#evaluation-order)进行求值，使用 `@simp` 会额外尝试使用 [η-等价](#evaluation-rules)进行简化。输出使用 de Brujin 无名表示（`#i` 表示从里到外第 $i$ 层函数声明对应的参数）。想要自行编写解释器的读者可参考其仓库 [Rratic/my-lam](https://github.com/Rratic/my-lam).
 
 ## 语法 {#grammar}
-Lambda 演算[^paper-invention]的语法形式极其简单。形式文法如下：
+一个 λ-表达式被递归定义为有限次使用以下规则得到的表达式：
+* 变量名是 λ-表达式，如 $x$
+* 函数声明是 λ-表达式，写作 $\lambda x.\ E$，其中 $x$ 是变量名，表示参数；$E$ 是 λ-表达式，表示函数体，理解为创建了一个匿名的函数，满足 $f(x) = E$
+* 函数应用是 λ-表达式，写作 $E_1\ E_2$，其中 $E_1, E_2$ 都是 λ-表达式，理解为把 $E_1$ 作用于 $E_2$，即一般语境所说的 $E_1(E_2)$
+
+写成形式文法即：
 ```c
 E = x           // variables
   | λx. E       // function creation (abstraction)
   | E1 E2       // function application
 ```
-
-其中，上面的 $E$ 称为 λ-表达式（λ-term），它的值有三种形式：
-* 变量，如 $x$
-* 函数声明或抽象：函数**有且仅有**一个参数，在 $\lambda x.\ E$ 中，$x$ 是参数，$E$ 是函数体，即一般语境所说的 $x\mapsto E$
-* 函数应用：在 $f\ x$ 中，是把 $f$ 作用于 $x$，即一般语境所说的 $f(x)$
 
 一些简单的例子：
 * 恒等函数 $\lambda x.\ x$
@@ -40,23 +40,23 @@ E = x           // variables
 * 表示复合的函数 $\circ = \lambda g.\ \lambda f.\ \lambda x.\ g\ (f\ x)$
 
 在书写时，常常省略括号。对此的惯例是：
-* 函数声明时，函数体尽可能向右扩展。
-* 函数应用时，从左到右结合（即“左结合”）。
+* 函数声明时，函数体尽可能向右扩展
+* 函数应用时，从左到右结合（即“左结合”）
 
 例如，$\lambda x.\ x\ \lambda y.\ x\ y\ z$ 应被理解为 $\lambda x.\ (x\ \lambda y.\ ((x\ y)\ z))$.
 
 ### Currying
-尽管在定义中，函数必须恰有一个参数，多个参数的函数仍然可以通过 currying 技术间接地表示。
+尽管在定义中，函数有且仅有一个参数，多个参数的函数仍然可以通过 currying 技术间接地表示。即，一般语境所说的 $f(x, y) = x + y$ 应被表达为：
 
-{% admonition(type="note", title="只有函数") %}
-实际上在 λ 演算中，如果不认为函数是恰有一个参数的，则没有办法说明一个 $f$ 有多少个参数。因为体系中所有的值都是函数，无论填入多少个参数都无法得到一个“最终”的结果。
-
-我们之后会看到，所谓自然数等等在 λ 演算中也是用函数表达的。
-{% end %}
-
-作为一个例子，一般语境所说的 $f(x, y) = x + y$ 应被表达为 $f = \lambda x.\ (\lambda y.\ x + y)$.
+$$f = \lambda x.\ (\lambda y.\ x + y)$$
 
 对上述 $f$，你可以传入少于全部参数个数的参数。例如代入 $g = f\ 1$ 将得到 $g = \lambda y.\ 1 + y$，这也是一个可用的函数。
+
+{% admonition(type="note", title="只有函数") %}
+实际上在 λ 演算中，如果不认为函数是恰有一个参数的，则没有办法说明一个 $f$ 有多少个参数。因为体系中所有的值（如果没有自由变量）都是函数，无论填入多少个参数都无法得到一个“最终”的结果。
+
+我们之后会看到，上例中所谓 $+$ 在 λ 演算中也是用函数表达的。
+{% end %}
 
 ## 求值 {#lambda-evaluation}
 ### 替换 {#substitution}
@@ -136,11 +136,11 @@ $$(\lambda y.\ M)[N/x] = \lambda z.\ M[z/y][N/x]$$
 * 先求内层，得到 $(\lambda y.\ y)\ E$，然后得到 $E$
 * 先求外层，得到 $(\lambda x.\ x)\ E$，然后得到 $E$
 
-根据后文 [Church–Rosser 定理](#confluence)，这两种方法最终会得到相等的结果。我们在计算时选择其一，这诱导了两种常用的不同计算方式：
+一般来说，有如下几种常用的不同计算方式：
 
-一种是在函数应用前，就计算函数参数的值。也被记作应用次序（Applicative Order）与紧迫求值（Eager Evaluation）。另一种是在函数应用前，不计算函数参数的值，直到需要时才求值。也被记作正则/标准次序（Normal Order），加上共享就是懒惰求值（Lazy Evaluation）。
+一种是在函数应用前先计算函数参数的值，称为应用次序（Applicative Order），在实际语言中对应 call-by-value / eager evaluation；另一种是不预先计算实参，代入函数体后在需要时求值，通常称为 call-by-name；加上共享可实现 call-by-need / lazy evaluation.
 
-如果表达式可以被化简，那么标准次序总是能够将表达式成功化简[^succeeds]，使用应用次序则可能陷入无限递归。
+每次归约最左最外的归约式的策略称为正则/标准次序（Normal Order）。如果表达式可以被归约到正规形式，那么标准次序总是能成功归约[^succeeds]，使用应用次序则可能陷入无限递归。
 
 ## 不动点 {#fixed-point}
 ### 不动点组合子 {#fixed-point-combinator}
@@ -169,7 +169,7 @@ $$Y = \lambda f.\ (\lambda x.\ f\ (x\ x))\ (\lambda x.\ f\ (x\ x))$$
 Y 组合子可以用于实现递归。
 
 如果我们希望定义一个递归函数，伪代码：
-$$f = \lambda \mathrm{fact}.\ \lambda n.\ \begin{cases} 1, & \text {if $n$ < 2} \cr n\times \mathrm{fact}(n-1), & \text{else} \end{cases}$$
+$$f = \lambda \mathrm{fact}.\ \lambda n.\ \begin{cases} 1 & n < 2 \cr n\times \mathrm{fact}(n-1) & \text{otherwise} \end{cases}$$
 
 那么，若使用正则次序，可得到正确的结果。
 ```txt
@@ -219,9 +219,7 @@ $$Z = \lambda f.\ (\lambda x.\ f\ (\lambda y.\ (x\ x)\ y))\ (\lambda x.\ f\ (\la
 ### 布尔值 {#datatype-boolean}
 布尔值支持二元逻辑运算，但其最重要的意义是实现条件判断。
 
-简单地定义 `true` 为 $\lambda x.\ \lambda y.\ x$，`false` 为 $\lambda x.\ \lambda y.\ y$.
-
-这样，`if e then u else v` 就可被重写为 $e\ u\ v$.
+我们可以简单地定义 `true` 为 $\lambda x.\ \lambda y.\ x$，`false` 为 $\lambda x.\ \lambda y.\ y$. 这样，`if e then u else v` 就可被重写为 $e\ u\ v$.
 
 ### 自然数 {#datatype-number}
 自然数可以被 Peano 公理所描述。其核心是，存在起点 0，并且每个自然数都有其后继。
@@ -263,7 +261,10 @@ Church 进一步构造了判定自然数是否相等的函数，从而能够编�
 构造基于这一思想：将“如何遍历列表”的问题放到使用列表时。
 ```rust
 let nil = λc. λn. n // 空列表
-let cons = λh. λt. λc. λn. c h (t c n) // h 表示在开头添加的元素，t 是之后的列表部分
+
+// h 表示在开头添加的元素
+// t 是之后的列表部分
+let cons = λh. λt. λc. λn. c h (t c n)
 
 cons 1 (cons 2 (cons 3 nil)) // 构造列表示例
 // = λc. λn. c 1 (λc. λn. c 2 (λc. λn. c 3 (λc. λn. n)))
@@ -278,7 +279,7 @@ cons 1 (cons 2 (cons 3 nil)) // 构造列表示例
 用 $\stackrel \ast \to$ 表示将 $\to$ 应用任意自然数次的版本。用双向箭头 $\stackrel \ast \leftrightarrow$ 表示两边都可的版本。
 
 ### 正规性 {#normalization}
-对于重写系统 $E$ 和 $a,b\in E$，若 $a \stackrel \ast \to b \iff a = b$，那么 $a$ 是一个**正规形式/既约形式**。我们可能希望避免 Ω 组合子 $(\lambda x.\ x\ x)(\lambda x.\ x\ x)$ 被认为是正规形式，因此可以进一步要求定义是不含 β-可归约式。
+对于重写系统 $E$ 和 $a \in E$，如果不存在 $b$ 使 $a \to b$，那么 $a$ 是一个**正规形式/既约形式**。因此 Ω 组合子虽然满足 $\Omega \stackrel{\ast}{\to} \psi \iff \psi = \Omega$，却不是正规形式。
 
 若重写系统中任意表达式都能通过某个特定的顺序重写为正规形式，那么该重写系统是**弱正规/弱停机**的。
 
@@ -303,9 +304,9 @@ $$
 
 以下将对证明思路进行摘要。
 
-首先，α-等价关系的刻画是易完成的。只需考虑 β-归约，全体的合法 Lambda 表达式记作 $\omega = \omega^{\*}/\sim _\alpha$.
+首先，α-等价关系的刻画是易完成的。只需考虑 β-归约，全体的合法 Lambda 表达式记作 $\omega = \omega^{\ast}/\sim _\alpha$.
 
-一步 β-归约是之前定义的 $(\lambda x.\ a)\ b\to a[b/x]$。多步归约就是之前定义的 $\stackrel{\*}{\to}$，我们重新记作 $\twoheadrightarrow$，它也可看作一步 β-归约的自反传递闭包。
+一步 β-归约是之前定义的 $(\lambda x.\ a)\ b\to a[b/x]$。多步归约就是之前定义的 $\stackrel{\ast}{\to}$，我们重新记作 $\twoheadrightarrow$，它也可看作一步 β-归约的自反传递闭包。
 
 证明中最大的难题是归约时，内部的可归约式结构可能被破坏。
 
@@ -317,7 +318,7 @@ $$
 
 容易证明并行归约是合流的。
 
-而后，存在包含关系 $(\to)\subset(\Longrightarrow)\subset(\twoheadrightarrow)=(\stackrel{\*}{\Longrightarrow})$ 其中最后一点可以分别说明两边的包含关系。
+而后，存在包含关系 $(\to)\subset(\Longrightarrow)\subset(\twoheadrightarrow)=(\stackrel{\ast}{\Longrightarrow})$ 其中最后一点可以分别说明两边的包含关系。
 
 由此，λ 演算具有合流性。
 

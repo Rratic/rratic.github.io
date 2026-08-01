@@ -73,11 +73,11 @@ $$TM = \bigsqcup_{p\in M}T_pM$$
 
 $$T^\ast M = \bigsqcup_{p\in M} T_p^\ast M$$
 
-因此我们说整个 $\mathrm{d}F$ 实际上是余切丛的一个截面[^section]。
+因此我们说对光滑的 $F: M \to \R$，整个 $\mathrm{d}F$ 实际上是余切丛的一个截面[^section]。一般的 $\mathrm{d}F$ 则是向量丛 $\mathrm{Hom}(TM, F^\ast TN)$ 的截面。
 
 ---
 
-$M$ 上的一个**曲线**是指连续映射 $\gamma: J \to M$，其中 $J \subseteq \R$ 是区间。曲线在 $t_0$ 处的**速率**是指：
+$M$ 上的一个**光滑曲线**是指光滑映射 $\gamma: J \to M$，其中 $J \subseteq \R$ 是区间。曲线在 $t_0$ 处的**速度**是指：
 
 $$\gamma '(t_ 0) = \mathrm{d}\gamma \left(\left.\frac{\mathrm{d}}{\mathrm{d}t}\right|_ {t_ 0}\right) \in T_ {\gamma(t_ 0)}M$$
 
@@ -93,7 +93,7 @@ $$\frac{\mathrm{d}}{\mathrm{d}t} (f \circ \gamma_1) \Big| _{t=0} = \frac{\mathrm
 
 首先，定义 $V_1 \otimes \cdots \otimes V_k = \mathcal{F}(V_1 \times \cdots \times V_k)/\mathcal{R}$，其中 $\mathcal{F}(S)$ 是指集合 $S$ 上的自由向量空间，$\mathcal{R}$ 是由形如 $(v_1\cdots av_i\cdots v_k)-a(v_1\cdots v_i\cdots v_k)$ 与 $(v_1\cdots v_i+v_i'\cdots v_k) - (v_1\cdots v_i\cdots v_k) - (v_1\cdots v_i'\cdots v_k)$ 的元素生成的子空间。
 
-读者可以验证此定义会使得：
+对有限维向量空间，读者可以验证此定义会使得：
 
 $$V_1^\ast \otimes \cdots \otimes V_k^\ast \cong L(V_1, \dots, V_k; \R)$$
 
@@ -188,17 +188,13 @@ $$(\iota_X\omega)(Y_1, \dots, Y_{k-1}) = \omega(X, Y_1, \dots, Y_{k-1})$$
 
 ---
 
-我们有时会遇到这样的记号：
-
-$$\frac{\mathrm{d}^2 f}{\mathrm{d} x^2} = \frac{\mathrm{d}\left(\frac{\mathrm{d} f}{\mathrm{d} x}\right)}{\mathrm{d} x}$$
-
-其中的 $\mathrm{d}$ 可以被看成**外微分** $\mathrm{d}: \Omega^k(M) \to \Omega^{k+1}(M)$，定义为在每个光滑坐标卡上是：
+**外微分** $\mathrm{d}: \Omega^k(M) \to \Omega^{k+1}(M)$ 被定义为在每个光滑坐标卡上是：
 
 $$\mathrm{d}\left(\sum_J \omega_J \mathrm{d}x^J\right) = \sum_J \mathrm{d}\omega_J\wedge\mathrm{d}x^J$$
 
 特别地，$k = 0$ 时，对 $f \in \Omega^0(M) = C^\infty(M)$，有 $\mathrm{d}f$ 是 $f$ 的微分：
 
-$$\mathrm{d}f = \sum_{i=1}^n \frac{\partial}{\partial x_i} \mathrm{d}x_i$$
+$$\mathrm{d}f = \sum_{i=1}^n \frac{\partial f}{\partial x_i} \mathrm{d}x_i$$
 
 外微分在 $\R$ 上线性，满足 $\mathrm{d} \circ \mathrm{d} = 0$，且对 $\omega\in\Omega^k(M)$ 及 $\eta\in\Omega^l(M)$，有：
 

@@ -259,7 +259,7 @@ $$\sqrt{(EG-F^2) \circ \tau} \cdot |\det J| = \sqrt{\tilde{E}\tilde{G}-\tilde{F}
 
 定义方向角 $\theta(s)$ 表示 $\alpha(s)$ 与 x 轴正向所成的角。这是多值的，因此我们让 $\kappa_r = \frac{\mathrm{d}\theta(s)}{\mathrm{d}s}$.
 
-令旋转指标 $i(C) = \frac{1}{2\pi}(\theta(b) - \theta(a))$. 旋转指标定理告诉我们平面上连续可微的闭曲线，旋转指标 $i(C) = \pm 1$.
+令旋转指标 $i(C) = \frac{1}{2\pi}(\theta(b) - \theta(a))$，这对平面上的正则闭曲线是整数。旋转指标定理进一步告诉我们，简单正则闭曲线的旋转指标为 $\pm 1$.
 
 ### 极小曲面
 给定边界条件下，面积极小的曲面满足平均曲率处处为 $0$.
@@ -301,7 +301,9 @@ $$\oint_C \kappa_g \mathrm{d}s + \iint_D K \mathrm{d}\sigma = 2\pi - \sum a_i$$
 {% end %}
 
 {% admonition(type="theorem", title="Gauss–Bonnet 公式") %}
-$$\iint_D K \mathrm{d}\sigma = 2\pi \chi(S)$$
+对紧的可定向闭曲面 $S$ 有：
+
+$$\iint_S K \mathrm{d}\sigma = 2\pi \chi(S)$$
 {% end %}
 
 ## 考试

@@ -57,7 +57,7 @@ $$\Diamond \varphi \coloneqq \neg \Box \neg \varphi$$
 
 指定世界 $w$ 的原子命题、否定、合取的满足关系是自然的。而我们说 $\mathcal{M}, w \models \Box \varphi$ 当且仅当对所有 $w$ 可达的世界 $u$, $\varphi$ 在 $u$ 上为真。
 
-现在，我们可以有严格蕴涵 $\varphi ⊰ \psi \coloneqq \Box (\varphi \to \psi)$. 这要强于实质蕴涵从而解决它的怪论，尽管它自身仍存在怪论（无法表达相关性）。
+现在，我们可以有严格蕴涵 $\varphi ⊰ \psi \coloneqq \Box (\varphi \to \psi)$. 这（在自反框架上）要强于实质蕴涵从而解决它的怪论，尽管它自身仍存在怪论（无法表达相关性）。
 
 我们称框架 $\mathcal{F} = \braket{W, R}$ 是去掉赋值函数后的模型骨架。有效性有多个层级：在模型上有效 $\mathcal{M} \models \varphi$; 在点框架上有效 $\mathcal{F}, w \models \varphi$; 在框架上有效 $\mathcal{F} \models \varphi$; 框架类（一类框架）有效 $\Complex \models \varphi$; 有效 $\models \varphi$.
 

@@ -24,7 +24,7 @@ tags = ["计算机", "算法"]
 
 Rust 中的 `Hash` trait 的实例能够被 `Hasher` 实例作用得到哈希值。对使用 `#[derive(Hash)]` 的结构将依次对每个字段作 `hash()` 并结合。有两个要求：
 - 如果还实现了 `Eq`，则必须满足若 `k1 == k2` 则 `hash(k1) == hash(k2)`
-- 前缀不重复，例如说 `("ab", "c")` 和 `("a", "bc")` 的哈希值不同
+- 写入 `Hasher` 的字节流应当是 prefix-free 的，如 `("ab", "c")` 与 `("a", "bc")` 不能产生互为前缀或相同的输入字节流
 
 这个 trait 的声明大致如下：
 ```rs
@@ -159,12 +159,12 @@ impl<K: Hash, V: Hash, A: Allocator + Clone> Hash for BTreeMap<K, V, A> {
 }
 ```
 
-Rust 默认使用的 `DefaultHasher` 包裹的是 [SipHash 1-3](https://131002.net/siphash) 算法，它兼顾了高效性和安全性。
+当前 Rust 标准库的 `DefaultHasher` 实现使用 SipHash 1-3 一类的带密钥哈希，以兼顾一般性能和对 HashDoS 的抵抗。
 
 ## Hashing
 我们先介绍一般的原理。在 Rust 中 `hash()` 的结果是一个 `u64` 值，但一般我们的 hash table 的容量远小于 `u64` 可表示的最大值，并且即使容量足够大也存在不同对象的哈希值相同（称为“哈希碰撞”）的可能。
 
-为了处理哈希碰撞，一种方式拉链法 chaining 是在每个编号对应位置放一个链表。C++ 的 `std::unordered_set` 就是这么做的，并且对遍历操作进行了优化：给链表尾额外链接到了下一个非空链表。
+为了处理哈希碰撞，一种方式拉链法 chaining 是在每个编号对应位置放一个链表。C++ 的许多 `std::unordered_set` 标准库实现就是这么做的，并且对遍历操作进行了优化：给链表尾额外链接到了下一个非空链表。
 
 另一种方法是开放寻址 open addressing，这会在目标槽被占据时寻找新的空槽（这最简单的方法是每次编号 +1 直到找到空槽）。这个算法在处理元素删除时会很麻烦：有两种简单的操作方式：（1）把后面的元素往前移（2）加标记，但都会导致元素变多时查找效率变差。
 
@@ -212,8 +212,6 @@ struct RawTableInner {
     items: usize,
 }
 ```
-
-一个槽中的东西（一个 `bucket`）实际上包含了存储的数据、控制字节或元信息及额外的控制字节。
 
 控制字节大致形如：
 ```rs
@@ -286,7 +284,7 @@ impl ProbeSeq {
             "Went past end of probe sequence"
         );
 
-        self.stride += Group::WIDTH; // 这个值是 8
+        self.stride += Group::WIDTH; // 宽度取决于实现与平台
         self.pos += self.stride;
         self.pos &= bucket_mask;
     }

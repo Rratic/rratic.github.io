@@ -159,7 +159,7 @@ fn using_a_macro() {
 
 ---
 
-注意在发布时使用发布模式 `cargo release` 编译. 如果希望获得最小的二进制文件，可启用 LTO.
+注意在发布时使用发布模式 `cargo build --release` 编译. 如果希望获得最小的二进制文件，可启用 LTO.
 ```toml
 [profile.release]
 lto = true
