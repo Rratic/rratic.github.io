@@ -25,7 +25,7 @@ tags = ["数学", "概率论", "统计学"]
 三门问题是最典型的例子，最早在美国电视节目 Let's Make a Deal 中由主持人 Monty Hall 推广。参赛者需从三扇门中选择一扇，背后可能是汽车（大奖）或山羊（安慰奖）。然后，主持人会打开一扇未被选择且藏有山羊的门，问参赛者是否要坚持原选择还是换门。读者可[在此模拟](/playground/three-door/)。
 
 {% admonition(type="info", title = "模拟的配置") %}
-随机源只支持默认随机源 `Math.random()`，其使用系统熵源，随机算法取决于具体实现，如 [xorshift128+](https://github.com/v8/v8/blob/master/src/base/utils/random-number-generator.cc)，`pcg32` 及 `arc4random_buf`.
+随机源只支持默认随机源 `Math.random()`，其使用系统熵源，随机算法取决于具体实现，如 [xorshift128+](https://github.com/v8/v8/blob/master/src/base/utils/random-number-generator.cc).
 
 两个方案中，方案一是：虚拟主持人一开始就知晓门的对应，依此选择开哪个门；方案二是：虚拟主持人一开始不知道门的对应，随机从未选的门挑，根据情况决定。
 {% end %}
@@ -84,7 +84,7 @@ tags = ["数学", "概率论", "统计学"]
 接下来推导出一些定量的规则：
 1. 乘法规则
 
-    我们希望决定 $A\wedge B$ 为真有两种途径：先决定其一，在接受它的条件下接受另一个。从合情推理原则 3.2 我们可以得出 $(C\implies A\wedge B) = F((C\implies B), (B\wedge C\implies A))$，同样地对 $(D\implies A\wedge B\wedge C)$ 使用合情推理原则 3.1 可推出 $F(F(x, y), z) = F(x, F(y, z))$；此外，$F$ 应当是连续且单调的。
+    我们希望决定 $A\wedge B$ 为真有两种途径：先决定其一，在接受它的条件下接受另一个。从合情推理原则 3.2 我们可以得出 $(C \Rightarrow A\wedge B) = F((C \Rightarrow B), (B\wedge C \Rightarrow A))$，同样地对 $(D \Rightarrow A\wedge B\wedge C)$ 使用合情推理原则 3.1 可推出 $F(F(x, y), z) = F(x, F(y, z))$；此外，$F$ 应当是连续且单调的。
 
     Aczél 在他的函数方程著作中用 11 页推导出了方程的一般解。如果我们进一步要求可微性，则证明可缩短。解被表示为 $F(x, y) = \omega^{-1}(\omega(x)\omega(y))$.
 
@@ -94,16 +94,17 @@ tags = ["数学", "概率论", "统计学"]
 
 3. 加法规则
 
-    考虑那些非真即假的命题，$A\wedge \bar{A}$ 总是假的。通过分析得到 $\exists m>0, \omega^m(B\implies A)+\omega^m(B\implies \bar{A})$，使用代替 $p(x)\equiv\omega^m(x)$ 是符合值域条件的，没有丧失一般性。
+    考虑那些非真即假的命题，$A\wedge \bar{A}$ 总是假的。通过分析得到存在 $m > 0$ 使得 $\omega^m(B \Rightarrow A) + \omega^m(B \Rightarrow \bar{A}) = 1$，使用 $p(x)$ 代替 $\omega^m(x)$ 是符合值域条件的，没有丧失一般性。
 
 4. 广义加法规则
 
-    由加法规则可进一步推导出 $p(C\implies A\vee B) = p(C\implies A) + p(C\implies B) - p(C\implies A\wedge B)$.
+    由加法规则可进一步推导出：
+    $$p(C \Rightarrow A \vee B) = p(C \Rightarrow A) + p(C \Rightarrow B) - p(C \Rightarrow A \wedge B)$$
 
 ### 填入数值
-下面将使用更简单的符号，用 $P|Q$ 表示 $Q\implies P$，用 $P+Q$ 表示 $P\vee Q$，用 $PQ$ 表示 $P\wedge Q$.
+下面将使用更简单的符号，用 $P \mid Q$ 表示 $Q \Rightarrow P$，用 $P+Q$ 表示 $P\vee Q$，用 $PQ$ 表示 $P\wedge Q$.
 
-实际上，我们的事实可以形如 $C\equiv (A\implies B)$，这同样可被恰当地赋值符合我们的体系。
+实际上，我们的事实可以形如 $C\equiv (A \Rightarrow B)$，这同样可被恰当地赋值符合我们的体系。
 
 我们假设 $B\equiv \left(p(A_iA_j | B) = p(A_i | B)\delta_{i, j}\right)$，其中 $\delta$ 是 Kronecker 符号。则有 $\sum_{i=1}^n p(A_i|B) = 1$，我们需要做的是将信息转换为 $p(A_i|B)$ 的值。
 
@@ -128,26 +129,17 @@ tags = ["数学", "概率论", "统计学"]
 对于现实问题，例如“摸到黑球”，我们可以将其分解为“今天在下雨并且摸到了黑球”和“今天不在下雨并且摸到了黑球”，但是这就成为了“空洞的形式化练习”。我们应当把 $AB$ 视作两者都为真的陈述，$P(AB|C)$ 是一个基本量，不一定可解析为更基本的量（尽管可以用于计算）。
 
 ### Kolmogorov 公理
-Kolmogorov 提出了一种用集合论（和测度论）语言表达概率论的方法。
+Kolmogorov 提出了一种用集合论（和测度论）语言表达概率论的方法。回顾其公理化定义：
 
-回顾 Kolmogorov 的公理化定义：
+给定集合 $\Omega$，称 $\mathfrak{F}\subset 2^\Omega$ 为 $\Omega$ 上的 σ-代数，如果满足：
+1. $\Omega \in \mathfrak{F}$
+2. 取逆封闭：若 $A \in \mathfrak{F}$ 则 $\bar{A} \in \mathfrak{F}$
+3. 可列并封闭：若 $\\{A_n\\}_{n\geq 1}\subset \mathfrak{F}$ 则其并 $\in \mathfrak{F}$
 
-给定集合 $\Omega$，如果 $\mathfrak{F}\subset 2^\Omega$ 满足：
-1. $\Omega\in\mathfrak{F}$
-2. 取逆封闭：若 $A\in\mathfrak{F}$ 则
-
-$$\bar{A}\in\mathfrak{F}$$
-
-3. 可列并封闭：若 $\\{A_n\\}_{n\geq 1}\subset \mathfrak{F}$ 则
-
-$$\bigcup\limits_{n=1}^{+\infty} A_n\in\mathfrak{F}$$
-
-则称 $\mathfrak{F}$ 为 $\Omega$ 上的 σ-代数。
-
-$\mathfrak{F}$ 上的概率 $P: 2^\Omega\to \R$ 满足
+$\mathfrak{F}$ 上的概率测度 $P: \mathfrak{F}\to [0, 1]$ 满足：
 1. 非负：$P(A)\geq 0$
-2. 规范性：$P(\Omega)=1$
-3. 可列可加性：对 $\\{A_n\\}_{n\geq 1}$ 两两不交
+2. 规范性：$P(\Omega) = 1$
+3. 可列可加性：对 $\\{A_n\\}_{n\geq 1}$ 两两不交，有：
 
 $$P\left(\bigcup\limits_{n=1}^{+\infty} A_n\right) = \sum_{n=1}^{+\infty} P(A_n)$$
 
@@ -170,15 +162,11 @@ $$P\left(\bigcup\limits_{n=1}^{+\infty} A_n\right) = \sum_{n=1}^{+\infty} P(A_n)
 
 $$h(r) = \frac{\binom{M}{r}\binom{N-M}{n-r}}{\binom{N}{n}}$$
 
-或许会有一些“反因果”的事情在其中发生。如果机器预先知道第二次抽取会取出红球，那么第一次抽取时的概率就会不同（如若 $M=1$ 则第一次不可能抽到红球）。我们不应该认为逻辑的 $\implies$ 与物理的因果一定有关。
+或许会有一些“反因果”的事情在其中发生。如果机器预先知道第二次抽取会取出红球，那么第一次抽取时的概率就会不同（如若 $M=1$ 则第一次不可能抽到红球）。我们不应该认为逻辑的蕴涵与物理的因果一定有关。
 
 如果一个概率分布中，概率只取决于单次试验的结果的出现次数，则称它是**可交换的**。超几何分布是可交换的，这从物理因果角度无法解释。
 
 而从逻辑推导可以算出 $P(R_k|R_jB) = \frac{M-1}{N-1}, P(R_k|W_jB) = \frac{M}{N-1}$，等同于“搁置”了一个红/白球到后面。
-
-如果机器预先知道的是“后面至少会抽取出一个红球”，但不知道是哪一次，结果是一样的。
-
-作为练习，读者可自行考虑 Fisher-Yates 算法作为例子，参见[洛谷日报：随机的艺术](https://www.luogu.com.cn/article/f3xefa5v)。
 
 ---
 
@@ -232,7 +220,7 @@ $$e(H|DX) = 10\log_{10} O(H|DX)$$
 
 $$e(A|X) = -10 \mathrm{dB}$$
 
-如果从盒子中取出一个部件，它是坏的，则 $B$ 增加的证据是下式，这在第一次时会使 $A$ 的证据增加 3dB，以直接的方式体现了概率“朝某个方向驱动”。
+如果从盒子中取出一个部件，它是坏的，则支持 $A$ 相对于 $B$ 的证据增量是下式，这在第一次时会使 $A$ 的证据增加约 3dB，以直接的方式体现了概率“朝某个方向驱动”。
 
 $$10(\log_{10} P(\text{坏}|AX) - \log_{10} P(\text{坏}|\bar{A}X)) \mathrm{dB}$$
 
@@ -280,8 +268,8 @@ $$P(N|DI) = P(N|I) \frac{P(D|NI)}{P(D|I)}$$
 
 $$
 P(N|DI) = \begin{cases}
-k \cdot P(N|I) & \text{ if } N \geq n\cr
-0 & \text{ else}
+    k \cdot P(N|I) & N \geq n \cr
+    0 & \text{otherwise}
 \end{cases}
 $$
 
@@ -306,12 +294,13 @@ $$\varphi(x) = \frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}$$
 
 $$
 \left(\int e^{-\frac{t^2}{2}} \mathrm{d}t \right)^2 =
-\iint e^{-\frac{x^2+y^2}{2}} \mathrm{d}x\mathrm{d}y \overset{(x,y)=(r\cos\theta,r\sin\theta)}{=}
-\iint e^{-\frac{r^2}{2}} r\mathrm{d}r\mathrm{d}\theta \overset{q=\frac{r^2}{2}}=
-2\pi \int_0^{+\infty} e^{-q} \mathrm{d}q = 2\pi
+\iint e^{-\frac{x^2+y^2}{2}} \mathrm{d}x\mathrm{d}y =
+\iint e^{-\frac{r^2}{2}} r\mathrm{d}r\mathrm{d}\theta = 2\pi
 $$
 
-一般是用累积高斯分布 $\Phi(x)=\int_{-\infty}^x \varphi(t) \mathrm{d}t = \frac{1}{2} [1+\mathrm{erf}(x)]$ 进行计算。
+一般进行计算时是用累积高斯分布：
+
+$$\Phi(x) = \int_{-\infty}^x \varphi(t) \mathrm{d}t = \frac 1 2 \left[1 + \mathrm{erf}\left(\frac x {\sqrt 2}\right)\right]$$
 
 ---
 
@@ -346,13 +335,3 @@ $$\frac{\partial p}{\partial \sigma^2} = \frac{1}{2} \frac{\partial^2 p}{\partia
 我们在书的之后部分研究最大熵时将发现，使用正态分布表示噪声实际上是在告诉机器人：我们唯一知道的是一阶矩和二阶矩，不要作出其它假设。
 
 正态分布另外的优势将在中心极限定理中体现。
-
-### 重要性质
-正态分布有这样的性质：
-1. 任何具有单一最大值的光滑函数提高到越来越高次幂将接近高斯函数
-2. 两个高斯函数的乘积是高斯函数
-3. 两个高斯函数的卷积是高斯函数
-4. 高斯函数的傅里叶变换是高斯函数
-5. 高斯分布的熵高于任何其它具有相同方差的分布的熵
-
-中心极限定理可以通过反复使用卷积得到。
