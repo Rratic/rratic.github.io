@@ -1,7 +1,6 @@
 +++
 title = "功能测试"
 date = 1900-01-01
-updated = 2026-04-19
 
 [extra]
 math = true
@@ -17,7 +16,8 @@ height = 450
 priority = "0.0"
 +++
 
-## Markdown
+## Zola
+### Markdown
 封面图来自 [Shadertoy: Planetary gears](https://www.shadertoy.com/view/MsGczV)
 
 你的系统支持 *italic* 的 **FontFace**，并且你的浏览器（或者别的什么东西）~~继承~~了这一特性。
@@ -64,7 +64,14 @@ impl SerializeWithRegistry for ComponentTypeLink {
 + }
 ```
 
-## HTML
+```agda
+module Agda.Builtin.Bool where
+
+data Bool : Set where
+  false true : Bool
+```
+
+### HTML
 <p>按下 <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>Delete</kbd> 以结束会话。</p>
 
 <style>
@@ -132,49 +139,6 @@ impl SerializeWithRegistry for ComponentTypeLink {
 	</div>
 </div>
 
-<style>
-.list-additions li::marker {
-	content: "+";
-	color: green;
-	font-weight: 800;
-	font-family: 'Courier New', Courier, monospace;
-}
-
-.list-modifications li::marker {
-	content: "*";
-	color: goldenrod;
-	font-weight: 800;
-	font-family: 'Courier New', Courier, monospace;
-}
-
-.list-deletions li::marker {
-	content: "-";
-	color: red;
-	font-weight: 800;
-	font-family: 'Courier New', Courier, monospace;
-}
-</style>
-
-<div class="list-deletions">
-	<ul>
-		<li>太易：只有无垠虚无。</li>
-		<li>太初：无形无质，只有先天一炁。</li>
-	</ul>
-</div>
-
-<div class="list-modifications">
-	<ul>
-		<li>太始：有形无质，开天辟地前。</li>
-	</ul>
-</div>
-
-<div class="list-additions">
-	<ul>
-		<li>太素：原始物质。</li>
-		<li>太极：阴阳未分。</li>
-	</ul>
-</div>
-
 <p>
 	<iframe width="640" height="360" frameborder="0" src="https://www.shadertoy.com/embed/MsGczV?gui=true&paused=true&muted=false" allowfullscreen></iframe>
 </p>
@@ -183,7 +147,8 @@ impl SerializeWithRegistry for ComponentTypeLink {
 	<iframe width="640" height="360" src="https://lazyfly.me/iframe" allowfullscreen></iframe>
 </p>
 
-## KaTeX
+## Linkita
+### KaTeX
 $\R^{1,3} \rtimes \operatorname{SO}(1,3)$ 是一个 $\set{A_n}$ 的 $\cancel{\boxed{~}}$.
 
 $$
@@ -201,7 +166,7 @@ $$
 \end{CD}
 $$
 
-## Shortcodes
+### Shortcodes
 {% mermaid() %}
 graph LR;
 	赤狐-->乙木;
@@ -214,58 +179,34 @@ graph LR;
 	{% end %}
 {% end %}
 
-## My Shortcodes
+## Custom
+### My Shortcodes
 {{ todo() }}
 
-{% quote(by = "《庄子·杂篇·列御寇》") %}
-庄子将死，弟子欲厚葬之。
-
-庄子曰：“吾以天地为棺椁，以日月为连璧，星辰为珠玑，万物为齎送。吾葬具岂不备邪？何以加此！”
-
-弟子曰：“吾恐乌鸢之食夫子也。”
-
-庄子曰：“在上为乌鸢食，在下为蝼蚁食，夺彼与此，何其偏也。”
-
-以不平平，其平也不平；以不徵徵，其徵也不徵。明者唯为之使，神者徵之。夫明之不胜神也久矣，而愚者恃其所见入于人，其功外也，不亦悲夫！
+{% quote(by="H. P. Lovecraft") %}
+That is not dead which can eternal lie,\
+And with strange aeons even death may die.
 {% end %}
 
-{{ quote_display(id="cat", text="生成引用") }}
-
-{{ quote_display(id="cat", text="再一次生成引用") }}
-
-{% shell(text="What is a fish without an eye?") %}
-A fsh.
+{% quote(by="《尚书·周书·洪范第四》") %}
+水曰润下，火曰炎上，木曰曲直，金曰从革，土爰稼穑。
 {% end %}
 
-{% shell(text="点击**展开**回答。") %}
-**展 开** 回 答。
+{% shell(text="What is a **fish** without an eye?") %}
+A **fsh**.
 {% end %}
 
-## 特殊情形测试
+## #Test
 ### 解析
+**谓词（predicate）**和**性质（property）**应该分别是粗体。
+
 $1*2+3*4$
 
-### 过长的内容
+$$\left\{x \in A \middle| |x| = 1 \right\}$$
+
+### 页面显示
 $$Y f = (\lambda x. f(x x))(\lambda x. f(x x)) = (\lambda x. f(x x))(\lambda x. f(x x))(\lambda x. f(x x)) = f(Y f) = f((\lambda x. f(x x))(\lambda x. f(x x))) = f((\lambda x. f(x x))(\lambda x. f(x x))(\lambda x. f(x x))) = f(f(Y f))$$
 
 {% admonition(type="abstract", title="摘要") %}
-- 猫猫垂怜（dyst die CATUS erny）
-	- 赠我真实（flux Rine Quosi）
-		- 铸铁的工作（αvek si jrol）
-			- 方解石的细屑（mδrn si alty）
-				- 水仙的精粹（rtof si wpriu）
-					- 素纸之上（groy sl ilver）
-						- 询疑加身（tin dyne uni）
-							- 安于原处（liy fotrii）
-								- 乞墨来应（gknot tinl rriv）
-									- 今日之俗世（Grndtk sl idin）
-										- 神秘之诠释（Smosi sl Mite）
-											- 神圣降临（Myth dyne frox）
-												- 应此福音（ccho fotrii Nox）
-													- 是为无名无相，超越时空和感觉经验的梵（cat）。
+$$Y f = (\lambda x. f(x x))(\lambda x. f(x x)) = (\lambda x. f(x x))(\lambda x. f(x x))(\lambda x. f(x x)) = f(Y f) = f((\lambda x. f(x x))(\lambda x. f(x x))) = f((\lambda x. f(x x))(\lambda x. f(x x))(\lambda x. f(x x))) = f(f(Y f))$$
 {% end %}
-
-### i18n
-**谓词（predicate）**和**性质（property）**应该分别是粗体。
-
-若 $\\{A_n\\}_{n\geq 1}\subset \mathfrak{F}$ 则 $\bigcup\limits_{n=1}^{+\infty} A_n\in\mathfrak{F}$
