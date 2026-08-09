@@ -21,10 +21,18 @@ tags = ["数学", "范畴论", "拓扑学"]
     }
 </style>
 
+无穷范畴用在类型论作为数学基础上，还体现了这样一种哲学诠释：如果一个命题有两个证明，而我们无法看出它们的关联，则没有真正理解它。
+
+{% quote(by = "Stefan Banach") %}
+A mathematician is a person who can find analogies between theorems; a better mathematician is one who can see analogies between proofs and the best mathematician can notice analogies between theories. One can imagine that the ultimate mathematician is one who can see analogies between analogies.
+{% end %}
+
+此诠释正文中不再赘述。
+
 ## 理论基础
 ### 单纯集的范畴
 {% admonition(type="definition", title="单形范畴（simplex category）") %}
-单形范畴 $\Delta$ 的对象是有限的 linear directed graph 的代表元。简单来说对 $n \in \N$ 我们取：
+单形范畴 $\Delta$ 的对象是有限的 linear directed graph 的代表元。简单来说对 $n \in \N$ 我们取（对 $i \leq j$ 给予箭头 $i \to j$）：
 
 $$[n] = \set{0 \leq 1 \leq \cdots \leq n}$$
 
@@ -135,7 +143,7 @@ $$
 一个范畴 $\mathcal C$ 的脉 $N(\mathcal C)$ 是一个单纯集 $\mathcal \Delta^{\text{op}} \to \mathbf{Set}$，将 $[n]$ 打到 $\mathrm{Fun}([n], \mathcal C)$.
 {% end %}
 
-考虑例子 $\mathcal{C}$ 是 $X \xrightarrow{f} Y$，则有如下诠释：
+考虑例子 $\mathcal{C}$ 是 $X \xrightarrow{f} Y$，则有如下不严格的诠释：
 
 | 维数 | 直观诠释 |
 | :-: | :-: |
