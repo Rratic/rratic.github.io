@@ -1,7 +1,7 @@
 +++
 title = "类型论导引与 Martin-Löf 类型论"
 date = 2026-03-09
-updated = 2026-07-30
+updated = 2026-08-13
 
 [extra]
 math = true
@@ -19,7 +19,7 @@ tags = ["数学", "基石"]
 
 <!-- more -->
 
-假定读者有简单类型论的基础（对象由类型（type）“分类”；项（term）$a$ 有类型 $A$ 记作 $a: A$）。
+本文涉及的 Martin-Löf 类型论（Martin-Löf Type Theory, MLTT）是内涵 Martin-Löf 类型论的一种版本的非完整描述。假定读者有简单类型论的基础（对象由类型（type）“分类”；项（term）$a$ 有类型 $A$ 记作 $a: A$）。
 
 ## 概述
 ### 推演系统
@@ -27,7 +27,7 @@ tags = ["数学", "基石"]
 
 在一阶逻辑（可以建立集合论）中只有一种判断：一个命题有证明。一个一阶逻辑的规则实际上是一种*证明构造*的规则。而类型论的基本判断是 $a: A$. 当 $A$ 表达的是命题时，$a$ 被称作一个 $A$ 可证性的见证（witness）或 $A$ 真的证据（evidence）。
 
-尽管 $a: A$ 与集合上说 $a \in A$ 有一些相似，前者是判断而后者是证明。我们不能说如果 $a: A$ 就没有 $b: B$，也不能*证否*判断 $a: A$，因为对象与它的类型是不可分割的。
+尽管 $a: A$ 与集合上说 $a \in A$ 有一些相似，前者是判断而后者是命题。我们不能说如果 $a: A$ 就没有 $b: B$，也不能*证否*判断 $a: A$，因为对象与它的类型是不可分割的。
 
 类型论中处理等同的方式也与集合论不同。对 $a, b: A$ 如果类型 $a =_A b$ 被居留（inhabited）就说它们**命题相等**。与此同时我们也需要关于相等的判断，称为**判值相等/定义相等**，写作 $a \equiv b : A$ 或者简写 $a \equiv b$. 例如说对 $f: \N \to \N, f(x) = x^2$ 有 $f(3) \equiv 3^2$ by definition. 这样的相等只是从定义延申出来的，尽管技术上需要一种外在的算法来判断。
 
@@ -46,7 +46,7 @@ $$x: A, f: A \to B \vdash f(x): B$$
 总之，现在 Martin-Löf 类型论的判断有三种：
 - $\Gamma \text{ context}$，表示 $\Gamma$ 是合法的语境
 - 形如 $a: A$ 的判断
-- 判断相等 $a \equiv b : A$
+- 判值相等 $a \equiv b : A$
 
 对推演我们有两类重要的规则。代换（substitution）规则是说，如果在语境 $\Gamma$ 下的的表达式中的自由变量能够被全部代换成语境 $\Delta$ 下的表达式，那么代换后的就是语境 $\Delta$ 下合法的表达式。弱化（weakening）规则是说，在某个语境 $\Delta$ 下的的表达式，仍然是将 $\Delta$ 做扩充之后得到的语境下的表达式。这两类规则并不需要明确假设，因为可以对所有可能的推导归纳来得出。
 
@@ -80,7 +80,7 @@ $$\frac{x: A \vdash M: B \quad N: A}{(\lambda x. M) N \equiv M[x \mapsto N]} \be
 $$\frac{f: A \to B}{f \equiv \lambda x. f x} \eta$$
 
 ## 宇宙与类
-在朴素集合论中并不能有一个包含所有类型，包括它自己的类型 $\mathcal{U}_\infty$. 这会导致悖论。[^COQ92]为此我们引入一组宇宙的层次：
+在朴素集合论中并不能有一个包含所有类型，包括它自己的类型 $\mathcal{U}_\infty$. 这会导致悖论。[^COQ92]我们可以考虑添加 $A \mathrm{ type}$ 这样的判断而不把宇宙放到理论内部。这里选取一个直谓、累积的 Russell 式宇宙的版本，引入一组宇宙的层级：
 
 $$\mathcal{U}_0: \mathcal{U}_1: \mathcal{U}_2: \cdots$$
 
@@ -112,7 +112,7 @@ $$\frac{\Gamma, x: A \vdash b: B \quad \Gamma \vdash a: A}{\Gamma \vdash (\lambd
 
 $$\frac{\Gamma \vdash f: \prod_{(x: A)} B}{\Gamma \vdash f \equiv (\lambda x. f(x))} \Pi\text{-Uniq}$$
 
-引入规则有对应的判断相等规则：
+引入规则有对应的判值相等规则：
 
 $$
 \frac{
@@ -122,7 +122,7 @@ $$
 }{\Gamma \vdash \lambda x. b \equiv \lambda x. b'} \Pi\text{-Intro-Eq}
 $$
 
-同样地，构造规则与消去规则也有关于判断相等的规则，这里略去。
+同样地，构造规则与消去规则也有关于判值相等的规则，这里略去。
 
 容易发现，$x$ 不在 $B$ 中自由出现时，实际上有 $A \to B :\equiv \prod_{(x: A)} B$，我们将它采取为普通函数类型的定义。
 
@@ -157,7 +157,7 @@ $$\mathrm{rec}_{A \times B}(C, g, (a, b)) :\equiv g(a)(b)$$
 
 之后就可以像 $\mathrm{pr}_1 :\equiv \mathrm{rec} _{A \times B}(A, \lambda a.\ \lambda b.\ a)$ 一样使用。
 
-我们称 $\mathrm{rec}_{A \times B}$ 是积类型的递归函数（recursor）. 这里没有明显体现递归，因为积类型是归纳类型的一个退化例子。
+我们称 $\mathrm{rec}_{A \times B}$ 是积类型的递归函数（recursor）。这里没有明显体现递归，因为积类型是归纳类型的一个退化例子。
 
 为了能够在积类型上定义依值函数，我们必须把递归函数一般化。可以从下式中通过 $f((x, y)) :\equiv g(x)(y)$ 定义出一个 $f: \prod_{(x: A \times B)} C(x)$:
 
@@ -220,7 +220,7 @@ $$\mathrm{ac}(g) :\equiv \left(\lambda x.\ \mathrm{pr}_1(g(x)), \lambda x.\ \mat
 
 $$\mathrm{Magma} :\equiv \sum_{A: \mathcal{U}} (A \to A \to A)$$
 
-最后，为了方便起见，我们使用符号 $(x, y, z) :\equiv (x, (y, z))$ 等等。
+最后，为了方便起见，我们使用符号 $(x, y, z) :\equiv (x, (y, z))$，以此类推。
 
 ### 余积类型
 对 $A, B: \mathcal{U}$ 可以有余积类型（coproduct type）$A + B: \mathcal{U}$ 对应于集合论中的无交并。我们也引入一个空版本：空类型（empty type）$\mathbf{0}: \mathcal{U}$.
@@ -323,7 +323,7 @@ $$
 
 $$f :\equiv \mathrm{rec}_{\N}(C, \Phi_0, \lambda n.\ \lambda r.\ \Phi_s')$$
 
-这种使用递归/归纳函数的方法非常方便，且在具体实现中作为语法糖存在，称为模式匹配（pattern matching）。当然它是有局限的，例如说 $f(\mathrm{succ}(n)) :\equiv$ 的右侧只能出现 $f(n)$ 而不能出现 $f(\mathrm{succ}(\mathrm{succ}(n)))$ 这样的东西。
+这种使用递归/归纳函数的方法非常方便，且在证明助手的具体实现中作为语法糖存在，称为模式匹配（pattern matching）。当然它是有局限的，例如说 $f(\mathrm{succ}(n)) :\equiv$ 的右侧只能出现 $f(n)$ 而不能出现 $f(\mathrm{succ}(\mathrm{succ}(n)))$ 这样的东西。
 
 ## 命题作为类型
 基于基本的观测有这样的对应：
@@ -345,8 +345,8 @@ $$f :\equiv \mathrm{rec}_{\N}(C, \Phi_0, \lambda n.\ \lambda r.\ \Phi_s')$$
 
 $$
 \begin{matrix}
-	f((x, y))(\mathrm{inl}(a)) :\equiv \Box : 0 \cr
-	f((x, y))(\mathrm{inr}(b)) :\equiv \Box : 0
+	f((x, y))(\mathrm{inl}(a)) :\equiv \Box : \mathbf 0 \cr
+	f((x, y))(\mathrm{inr}(b)) :\equiv \Box : \mathbf 0
 \end{matrix}
 $$
 
@@ -386,7 +386,7 @@ $$\mathrm{refl}: \prod_{a: A} (a =_A a)$$
 
 相等类型的归纳原则是类型论相当巧妙的部分。先考虑它的一个结论，称为不可区分同一性原理（Indiscernibility of identicals）：
 
-对任意类型类 $C: A \to \mathcal{U}$ 存在一个函数：
+对任意类型类 $C: A \to \mathcal{U}$ 存在一个函数，通常称为沿路径的传送（transport）：
 
 $$f: \prod_{(x, y: A)} \prod_{(p: x =_A y)} C(x) \to C(y)$$
 
@@ -397,7 +397,7 @@ $$f(x, x, \mathrm{refl}_x) :\equiv \mathrm{id} _{C(x)}$$
 ### 路径归纳 {#path-induction}
 相等类型的归纳原则被称为 J 原理或路径归纳（path induction）：
 
-$$\mathrm{J}: \prod _{C: \prod _{x, y: A} x = y \to \mathcal{U}} \left[\prod _{c: A} C\ c\ c\ \mathrm{refl} _c\right] \to \prod _{x, y: A} \prod _{p: x = y} C\ a\ b\ p$$
+$$\mathrm{J}: \prod _{C: \prod _{x, y: A} x = y \to \mathcal{U}} \left[\prod _{c: A} C\ c\ c\ \mathrm{refl} _c\right] \to \prod _{x, y: A} \prod _{p: x = y} C\ x\ y\ p$$
 
 也就是说，对类 $C: \prod_{x, y: A} (x =_A y) \to \mathcal{U}$ 及函数 $c: \prod _{x: A} C(x, x, \mathrm{refl}_x)$ 存在：
 
@@ -407,7 +407,9 @@ $$f: \prod_{(x, y: A)} \prod_{(p: x =_A y)} C(x, y, p)$$
 
 $$f(x, x, \mathrm{refl}_x) :\equiv c(x)$$
 
-关于把它打包成归纳函数的结果及 Based path induction 省略。
+这里 $C$ 称为消去动机（motive）。实际上可以理解为，要定义依赖于 $p$ 的结果，只需给出对角自反情形 $(x, x, \mathrm{refl}_x)$ 上的项。通常证明助手的模式匹配可以自动将 motive 推断出来。
+
+关于等价的规则式表述及 Based path induction 省略。
 
 {% admonition(type="example", title="对称性") %}
 $$\mathrm{sym}: (x = y) \to (y = x)$$
@@ -419,10 +421,59 @@ $$\mathrm{sym}: (x = y) \to (y = x)$$
 $$\mathrm{trans}: (x = y) \to (y = z) \to (x = z)$$
 {% end %}
 
-对 $p: x = y, q: y = z$ 取 $C(x, y, p)$ 是 $\prod_{(z: A)} (y = z) \to (x = z)$ 使用 J 原理即可。模式匹配写成 `trans sym q = q`.
+对 $p: x = y, q: y = z$ 取 $C(x, y, p)$ 是 $\prod_{(z: A)} (y = z) \to (x = z)$ 使用 J 原理即可。模式匹配写成 `trans refl q = q`.
+
+{% admonition(type="example", title="函数作用于相等") %}
+对 $f: A \to B$ 可以构造：
+
+$$\mathrm{ap} _f: \prod _{x, y: A}(x =_A y) \to (f(x) =_B f(y))$$
+{% end %}
+
+只需规定 $\mathrm{ap} _f(\mathrm{refl} _x): \equiv \mathrm{refl} _{f(x)}$. 若函数的陪域依赖于输入，相应的构造称为 $\mathrm{apd}$，需要用 transport 表述。
+
+将 $p: x = y$ 看成路径，我们还会关心其单位律（$\mathrm{refl}_x \cdot p = p$ 及另一边）、结合律（$(p \cdot q) \cdot r = p \cdot (q \cdot r)$）、逆元律（$p \cdot p^{-1} = \mathrm{refl}_x$ 及另一边）乃至更高阶的相等，它们都可反复使用 J 原理导出，这里具体过程略去。
 
 ### 不相等
 我们定义 $(x \neq_A y) :\equiv \neg (x =_A y)$，此时称 $x$ 与 $y$ 不相等（unequal）。同之前一样，不相等的否定无法推出相等。
+
+## 补充
+### 归纳类型
+在完整的 MLTT 中，自然数、余积等是归纳类型的特例。一个归纳类型由若干构造器生成（这要求归纳原则允许我们覆盖该类型的所有元素），并配有相应的依值消去（归纳）原则。
+
+构造器中的递归出现通常必须满足严格正性（strict positivity）。粗略地说，正在定义的类型不能出现在函数参数的左侧等负位置；否则归纳原则可能引入不终止计算乃至矛盾。实际理论可以采用不同强度的归纳类型机制，如一般归纳类型、索引随构造器变化的归纳族、相互归纳定义，这是 MLTT 版本设计的一部分。
+
+一种统一表达普通归纳类型的构造是 W-type. 给定 $A: \mathcal U$ 与 $B: A \to \mathcal U$，W-type 记作：
+
+$$\mathsf W_{(a: A)} B(a)$$
+
+它的元素可看成良基树：一个节点带有标签 $a: A$，并且对每个 $b: B(a)$ 恰有一棵直接子树。其构造器可以写作：
+
+$$\mathrm{sup}: \prod_{a: A} \left(B(a) \to \mathsf W_{(a: A)} B(a)\right) \to \mathsf W_{(a: A)} B(a)$$
+
+因而 $B(a)$ 描述标签为 $a$ 的节点具有哪些子节点位置，如 $B(a) \equiv \mathbf 0$ 时它是叶节点，$B(a) \equiv \mathbf 2$ 时它有两个分支。这里的“良基”更准确地被刻画为：一棵树由已经构成的子树向上生成，因此可以从所有子树上的结果构造整棵树上的结果。在经典数学并附加适当选择原则的语境中，可以将其理解为不存在无限向下的分支。
+
+{% admonition(type="example", title="自然数") %}
+可以使用 W-type 表达自然数类型，尽管额外需要函数外延性才能说明它就是自然数类型。
+{% end %}
+
+取 $A: \equiv \mathbf 2$，并定义类型类 $B: A \to \mathcal U$ 为：
+
+$$B(0_{\mathbf 2}): \equiv \mathbf 0, \qquad B(1_{\mathbf 2}): \equiv \mathbf 1$$
+
+令 $W: \equiv \mathsf W_{(a: \mathbf 2)} B(a)$. 标签 $0_{\mathbf 2}$ 没有子节点位置，故给出叶节点：
+
+$$\mathrm{zero} _W: \equiv \mathrm{sup}(0 _{\mathbf 2}, \mathrm{rec} _{\mathbf 0}(W)): W$$
+
+标签 $1 _{\mathbf 2}$ 恰有一个子节点位置，故每个 $w: W$ 给出：
+
+$$\mathrm{succ} _W(w): \equiv \mathrm{sup}(1 _{\mathbf 2}, \lambda (u: \mathbf 1).\ w): W$$
+
+许多普通的严格正归纳类型都可以编码为 W-type 或由它进一步构造，不过证明助手通常直接提供更方便的一般归纳声明，读者可参考[如何把模式匹配编译为归纳子](https://zhuanlan.zhihu.com/p/97737374)。
+
+### MLTT 的元性质
+MLTT 有许多重要的[元性质](@/posts/logic_1.md)。对带有通常计算规则的核心 MLTT，可以证明很强的[正规性](@/posts/lambda_calculus.md#jargon)结果，但具体定理依赖所采用的 $\eta$ 规则、宇宙和归纳类型等细节。
+
+通过复杂的方法可以证明 MLTT 的典范性（canonicity），这刻画典范形式的形态，如：若 $n: \N$ 没有自由变量，则 $n$ 应当计算到 $0$ 或有限次 $\mathrm{succ}$ 作用于 $0$ 得到的结果。典范性可以推出自洽性，因为空类型没有构造器。典范性也与可判定性密切相关。
 
 ---
 
