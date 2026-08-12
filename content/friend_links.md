@@ -1,8 +1,5 @@
 +++
 title = "友链"
-
-[extra]
-toc = true
 +++
 
 <style>
