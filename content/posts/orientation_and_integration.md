@@ -15,7 +15,7 @@ tags = ["数学", "几何学"]
 
 <!-- more -->
 
-本文参考 *Introduction to Smooth Manifolds* (GTM 218)，读者可先参阅[光滑流形上的微分与微分形式](@/posts/differential_forms.md)。
+本文参考 *Introduction to Smooth Manifolds* (GTM 218)，读者可先参阅[光滑流形上的切空间与微分形式](@/posts/differential_forms.md)。
 
 ## 定向
 对向量空间来说，考虑等价关系是两组有序基的变换矩阵行列式为正。一个 $V$ 的定向是指一个等价类。易知这对应于 $\Lambda^n(V^\ast) \setminus \set{0}$ 的两支。当我们指定一个定向是正的时，可以称另一个是负的。

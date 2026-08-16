@@ -1,5 +1,5 @@
 +++
-title = "光滑流形上的微分与微分形式"
+title = "光滑流形上的切空间与微分形式"
 date = 2025-11-19
 updated = 2025-11-24
 
@@ -74,6 +74,10 @@ $$TM = \bigsqcup_{p\in M}T_pM$$
 $$T^\ast M = \bigsqcup_{p\in M} T_p^\ast M$$
 
 因此我们说对光滑的 $F: M \to \R$，整个 $\mathrm{d}F$ 实际上是余切丛的一个截面[^section]。一般的 $\mathrm{d}F$ 则是向量丛 $\mathrm{Hom}(TM, F^\ast TN)$ 的截面。
+
+切丛的光滑截面则称为**向量场**，其全体记作：
+
+$$\mathfrak{X}(M) = \Gamma(TM)$$
 
 ---
 
