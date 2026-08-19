@@ -71,10 +71,6 @@ $$a_1a_1a_2a_2 \cdots a_ma_m \tag{P}$$
 这里说 $H$ 连续映射是指从积空间到 $Y$ 的按定义连续，而不是对两个参数分别连续。
 {% end %}
 
-{% admonition(type="note", title="2-同伦") %}
-我们还可以讨论 $H, K: f \simeq g$ 之间的同伦 $F: X \times I \times I \to Y$，称为“$2$-同伦”。注意这和“$2$ 阶同伦”是不同的东西。
-{% end %}
-
 对 $A \subseteq X$，如果 $H$ 还满足 $H(a, t) = f(a) = g(a)$，则称 $f$ 和 $g$ 相对于 $A$ 同伦 $f \simeq g \text{ rel } A$.
 
 设 $a, b$ 是 $X$ 上的两道路，如果 $a \simeq b \text{ rel } \set{0, 1}$，则称它们**定端同伦**。在此等价关系下 $X$ 所有道路的等价类称为 $X$ 的道路类。当起点、终点重合时称为基点。
@@ -98,10 +94,6 @@ $$a_1a_1a_2a_2 \cdots a_ma_m \tag{P}$$
 若 $X$ 道路连通，易见基本群（的同构型）与 $x$ 无关，记作 $\pi_1(X)$. 道路连通且基本群平凡的空间称为**单连通**的。
 
 易见同伦等价的空间的基本群是同构的。
-
-{% admonition(type="note", title="高阶同伦群") %}
-$n$ 阶同伦群 $\pi_n(X, x)$ 的元素是从 $S^n$ 到 $X$ 带基点 $x$ 的连续映射的同伦类。若把 $S^n$ 视作 $I^n/\partial I^n$，则乘积定义为在第一个坐标上拼接。在 $n \geq 2$ 时一定是交换群。
-{% end %}
 
 {% admonition(type="theorem", title="圈的基本群") %}
 $S^1$ 的基本群是 $\Z$.
@@ -305,9 +297,11 @@ $z \mapsto z^3$ 的映射柱（这带有 $2$-胞腔）的万有复叠如图：
 
 一般地在万有复叠构造上将特定的道路粘起来，知保持基点的复叠等价类与 $\pi_1(X, x)$ 的子群一一对应。
 
-{% admonition(type="note", title="自由群的子群是自由群") %}
-设自由群 $F$ 是图 $X$ 的基本群，取它的复叠对应 $F$ 的子群，这个复叠仍然是图。可以通过生成树证明图的基本群是自由群。
+{% admonition(type="theorem", title="Nielsen-Schreier 定理") %}
+自由群的子群是自由群。
 {% end %}
+
+设自由群 $F$ 是图 $X$ 的基本群，取它的复叠对应 $F$ 的子群，这个复叠仍然是图。可以通过生成树证明图的基本群是自由群。
 
 {% admonition(type="question", title="2024 P4") %}
 求 $\R\mathrm{P}^2 \vee \R\mathrm{P}^2$ 所有连通的复叠空间。
@@ -354,8 +348,7 @@ $$\Gamma(2) = \ker (\mathrm{SL}(2, \Z) \to \mathrm{SL}(2, \Z/2))$$
 有 $\mathrm{UHP} \to \mathrm{UHP}/\Gamma(2)$ 是正则复叠，商 $\mathrm{UHP}/\Gamma(2)$ 是一个“双曲曲面”。
 
 ## 补充
-一些与上半学期的联系。
-
+### 与上半学期的联系
 {% admonition(type="definition", title="几何结构") %}
 设 $(X, G)$ 是某种“几何”，流形 $M$ 上一个局部 $(X, G)$-几何结构是指一族图卡 $\set{U _\alpha, \varphi _\alpha} _{\alpha \in A}$ 满足 $\Phi _{\alpha\beta}: \varphi _\beta(U _\alpha \cap U _\beta) \to \varphi _\alpha(U _\alpha \cap U _\beta)$ 由 $G$ 中变换实现。
 {% end %}
@@ -373,3 +366,42 @@ $$\Gamma(2) = \ker (\mathrm{SL}(2, \Z) \to \mathrm{SL}(2, \Z/2))$$
 {% end %}
 
 存在。通过曲面论基本定理及紧知可以延拓，只需证明延拓与道路无关。取 $H: \gamma_0 \simeq \gamma_1$，用 $I \times I$ 的紧性即可。
+
+### 高阶同伦群
+我们也可以去讨论同伦之间的同伦。例如，设 $H, K: f \simeq g$，称 $H, K$ 之间的 $2$-同伦是一个：
+
+$$F: X \times I \times I \to Y$$
+
+使得 $F(x, t, 0) = H(x, t), F(x, t, 1) = K(x, t)$ 且 $F(x, 0, s) = f(x), F(x, 1, s) = g(x)$. 换言之，$F$ 是 $H$ 与 $K$ 之间相对于 $X \times \partial I$ 的同伦，最后两个等号保证变化过程始终得到一条从 $f$ 到 $g$ 的同伦。
+
+类似地还可以继续讨论同伦之间的同伦之间的同伦。
+
+{% admonition(type="definition", title="高阶同伦群") %}
+给定带基点空间 $(X, x)$，我们定义：
+
+$$\pi_n(X, x) = [(I^n, \partial I^n), (X, x)]$$
+
+其中元素是限制在 $\partial I^n$ 上恒等于 $x$ 的连续映射 $I^n \to X$ 的等价类。映射 $\alpha, \beta$ 等价，是指存在同伦 $\mathcal H: I^n \times I \to X$，满足：
+
+$$\mathcal H(-, 0) = \alpha, \qquad \mathcal H(-, 1) = \beta, \qquad \mathcal H(\partial I^n, s) = x$$
+
+群乘法由沿第一个坐标拼接给出。
+{% end %}
+
+特别地，$\pi_2(X, x)$ 的代表元可以看作边界恒为 $x$ 的 $2$-同伦，代表元之间的等价关系由保持边界不动的 $3$-同伦给出。
+
+当 $n \geq 2$ 时，可以分别沿前两个坐标定义拼接，由 Eckmann-Hilton 论证知 $\pi_n(X, x)$ 是交换群。
+
+由于 $I^n/\partial I^n \cong S^n$，定义也可以等价地写成：
+
+$$\pi_n(X, x) \cong [(S^n, \ast), (X, x)]$$
+
+还可以采取另一种看法。令环路空间：
+
+$$\Omega_p(X) = \set{\gamma: I \to X \mid \gamma(0) = \gamma(1) = p}$$
+
+取紧开拓扑，即，对紧集 $K \subseteq I$ 与开集 $U \subseteq X$，令 $V(K, U)$ 是所有 $f(K) \subseteq U$ 的映射的集合，让所有 $V(K, U)$ 构成拓扑子基。
+  
+定义 $c_p$ 为常值环路，并补充定义 $\pi_0(X)$ 为 $X$ 的道路连通分支构成的集合，$\pi_0(X, p)$ 表示特别挑出 $p$ 所在道路连通分支的结果，则有：
+
+$$\pi_{k+1}(X, p) \cong \pi_k(\Omega_p(X), c_p)$$

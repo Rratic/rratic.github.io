@@ -48,17 +48,9 @@ $$\mathcal F_x = \operatorname*{colim}_{U \ni x} \mathcal{F}(U)$$
 ## de Rham 理论
 本部分参考 *Introduction to Smooth Manifolds* (GTM 218) 及 Bott, Tu *Differential Forms in Algebraic Topology* 的引入。
 
-考虑同伦群的另一种理解方法。定义 $\pi_0(X)$ 为 $X$ 的道路连通分支构成的集合，用 $\pi_0(X, p)$ 表示特别挑出 $p$ 所在道路连通分支的结果，用 $\Omega_p(X)$ 表示基点在 $p$，从 $[0, 1] / \sim$ 到 $p$ 的连续映射构成的空间，称为环路空间，则：
+考虑[高阶同伦群的环路空间理解](@/posts/geometry_2_final.md)。由于同伦群不易计算，我们考虑对偶观点。一个连通分支满足这样的性质：所有局部常值函数都是常值的。我们让 $H^0(X)$ 是 $X$ 上局部常值实函数构成的向量空间。当 $X$ 的连通分支与道路连通分支一致且分支数有限时，有：
 
-$$\pi_1(X, p) \cong \pi_0(\Omega_p(X), \mathbf{1}_p)$$
-
-读者可验证定义是等价的。同理，我们有：
-
-$$\pi_{k+1}(X, p) \cong \pi_k(\Omega_p(X), \mathbf{1}_p)$$
-
-由于同伦群不易计算，我们考虑对偶观点。一个连通分支满足这样的性质：所有局部常值函数都是常值的。我们让 $H^0(X)$ 是 $X$ 上局部常值实函数构成的向量空间。当 $X$ 的连通分支与道路连通分支一致且分支数有限时，有：
-
-$$|\pi_0(X)| = \dim H^0(X)$$
+$$\operatorname{card} \pi_0(X) = \dim H^0(X)$$
 
 在光滑流形 $M$ 上，这个空间正是零阶 de Rham 上同调 $H^0_{\mathrm{dR}}(M)$. 更一般地，de Rham 定理给出自然同构：
 
@@ -177,7 +169,9 @@ $$\frac{\partial g_{jk}}{\partial x^i} = g_{lk} \Gamma_{ij}^l + g_{jl} \Gamma_{i
 
 $$2g_{lk} \Gamma_{ij}^l = \frac{\partial g_{ki}}{\partial x^j} + \frac{\partial g_{kj}}{\partial x^i} - \frac{\partial g_{ij}}{\partial x^k}$$
 
-故由 $g$ 唯一确定。将此式作为定义式也知存在性。
+故由 $g$ 唯一确定。将此式作为定义式也知存在性。可以整理成如下 Koszul 公式：
+
+$$\braket{D_X Y, Z} = \frac 1 2 (X \braket{Y, Z} + Y \braket{Z, X} - Z \braket{X, Y} + \braket{Z, [X, Y]} + \braket{Y, [Z, X]} - \braket{X, [Y, Z]})$$
 
 ## 配边理论
 两个 $n$ 维闭流形 $M, N$ 称为**配边**的，如果存在一个 $n + 1$ 维紧流形 $W$，使得：
