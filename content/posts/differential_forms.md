@@ -79,6 +79,8 @@ $$T^\ast M = \bigsqcup_{p\in M} T_p^\ast M$$
 
 $$\mathfrak{X}(M) = \Gamma(TM)$$
 
+这里光滑也可以采取这样的看法：对 $V \in \mathfrak{X}(M)$，对任意 $f$ 光滑均有 $V(p) f(p)$ 光滑。
+
 ---
 
 $M$ 上的一个**光滑曲线**是指光滑映射 $\gamma: J \to M$，其中 $J \subseteq \R$ 是区间。曲线在 $t_0$ 处的**速度**是指：
