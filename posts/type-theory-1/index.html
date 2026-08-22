@@ -1,0 +1,618 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>类型论导引与 Martin-Löf 类型论 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="类型论导引与 Martin-Löf 类型论" />
+  <meta name="description" content="发现到时候不一定要读数院的研，考虑可以做逻辑学或者是 AI for math. 仔细阅读本书 Homotopy Type Theory: Univalent Foundations of Mathematics. 这是上学期计概老师推荐的，但当时看得太粗略了。本文包含该书第一章内容。" />
+  <meta property="og:description" content="发现到时候不一定要读数院的研，考虑可以做逻辑学或者是 AI for math. 仔细阅读本书 Homotopy Type Theory: Univalent Foundations of Mathematics. 这是上学期计概老师推荐的，但当时看得太粗略了。本文包含该书第一章内容。" />
+  <meta property="og:url" content="https://rratic.top/posts/type-theory-1/" />
+  <link rel="canonical" href="https://rratic.top/posts/type-theory-1/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-03-09T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2026-08-13T00:00:00+00:00" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="基石" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.top/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.top/style/shared.css?h=2dac71ecd418f5165c3d" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=bb9bfcfdf723b8087416" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">类型论导引与 Martin-Löf 类型论</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2026-03-09T00:00:00+00:00">2026-03-09</time><span
+        class="middot"></span><time
+    datetime="PT0H34M0S">34&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#gai-shu">概述</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#tui-yan-xi-tong">推演系统</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#xin-lei-xing-de-yin-ru">新类型的引入</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#yu-zhou-yu-lei">宇宙与类</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#yi-zhi">依值</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#yi-zhi-han-shu-lei-xing">依值函数类型</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ji-lei-xing">积类型</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#yi-zhi-dui-lei-xing">依值对类型</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#yu-ji-lei-xing">余积类型</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#bu-er-lei-xing">布尔类型</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#zi-ran-shu">自然数</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#mo-shi-pi-pei-yu-di-gui">模式匹配与递归</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#ming-ti-zuo-wei-lei-xing">命题作为类型</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#xiang-deng-lei-xing">相等类型</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#refl">refl</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#path-induction">路径归纳</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#bu-xiang-deng">不相等</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#bu-chong">补充</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#gui-na-lei-xing">归纳类型</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#mltt-de-yuan-xing-zhi">MLTT 的元性质</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </details>
+</nav>
+
+  <!-- Content -->
+  <section><p>发现到时候不一定要读数院的研，考虑可以做逻辑学或者是 AI for math. 仔细阅读本书 <a href="https://homotopytypetheory.org/book/">Homotopy Type Theory: Univalent Foundations of Mathematics</a>. 这是上学期计概老师推荐的，但当时看得太粗略了。本文包含该书第一章内容。</p>
+<span id="continue-reading"></span>
+<p>本文涉及的 Martin-Löf 类型论（Martin-Löf Type Theory, MLTT）是内涵 Martin-Löf 类型论的一种版本的非完整描述。假定读者有简单类型论的基础（对象由类型（type）“分类”；项（term）$a$ 有类型 $A$ 记作 $a: A$）。</p>
+<h2 id="gai-shu">概述</h2>
+<h3 id="tui-yan-xi-tong">推演系统</h3>
+<p>我们需要先提一点关于推演系统（deductive system）的事情。不正式地说，推演系统是用于推导出<strong>判断</strong> （judgments）的一套规则（rules）。从逻辑观点看，判断可以被认为是<em>外在的</em>存在于<em>元理论</em>中的陈述。</p>
+<p>在一阶逻辑（可以建立集合论）中只有一种判断：一个命题有证明。一个一阶逻辑的规则实际上是一种<em>证明构造</em>的规则。而类型论的基本判断是 $a: A$. 当 $A$ 表达的是命题时，$a$ 被称作一个 $A$ 可证性的见证（witness）或 $A$ 真的证据（evidence）。</p>
+<p>尽管 $a: A$ 与集合上说 $a \in A$ 有一些相似，前者是判断而后者是命题。我们不能说如果 $a: A$ 就没有 $b: B$，也不能<em>证否</em>判断 $a: A$，因为对象与它的类型是不可分割的。</p>
+<p>类型论中处理等同的方式也与集合论不同。对 $a, b: A$ 如果类型 $a =_A b$ 被居留（inhabited）就说它们<strong>命题相等</strong>。与此同时我们也需要关于相等的判断，称为<strong>判值相等/定义相等</strong>，写作 $a \equiv b : A$ 或者简写 $a \equiv b$. 例如说对 $f: \N \to \N, f(x) = x^2$ 有 $f(3) \equiv 3^2$ by definition. 这样的相等只是从定义延申出来的，尽管技术上需要一种外在的算法来判断。</p>
+<p>我们现在使用符号 $:\equiv$ 来引入定义相等，如上例写成 $f(x) :\equiv x^2$. 这并不会产生符号上的歧义。</p>
+<p>判断可能会基于形如 $x: A$ 的假设（assumptions）。一组假设构成<em>有序列表</em>的称为<strong>语境/上下文</strong>（context），一般记作 $\Gamma$. 遵循<a href="https://rratic.top/posts/logic-1/">逻辑学</a>中的符号用法，用 $\Gamma \vdash \varphi$ 表示语境下推演出判断，如：</p>
+<p>$$x: A, f: A \to B \vdash f(x): B$$</p>
+<p>如果假设 $x: A$ 的类型 $A$ 是一个命题，那么这相当于是一个 hypothesis.</p>
+<p>一个假设可以假定一个命题相等，但是不能假定判值相等，因为 $x \equiv y$ 并不是一个类型，并不可以有元素。有时对于一个变量 $x: A$ 我们可以替换为另一个具体的对象 $a: A$，用词说“我们不妨设 $x \equiv a$”，这并不是假设。</p>
+<p>类似地我们也不能证明一个判值相等。有时我们说“存在一个 $f: A \to B$ 使得 $f(x) \equiv y$”，应该理解成两个分离的判断，一个是 $f: A \to B$, 另一个是 $f(x) \equiv y$.</p>
+<p>总之，现在 Martin-Löf 类型论的判断有三种：</p>
+<ul>
+<li>$\Gamma \text{ context}$，表示 $\Gamma$ 是合法的语境</li>
+<li>形如 $a: A$ 的判断</li>
+<li>判值相等 $a \equiv b : A$</li>
+</ul>
+<p>对推演我们有两类重要的规则。代换（substitution）规则是说，如果在语境 $\Gamma$ 下的的表达式中的自由变量能够被全部代换成语境 $\Delta$ 下的表达式，那么代换后的就是语境 $\Delta$ 下合法的表达式。弱化（weakening）规则是说，在某个语境 $\Delta$ 下的的表达式，仍然是将 $\Delta$ 做扩充之后得到的语境下的表达式。这两类规则并不需要明确假设，因为可以对所有可能的推导归纳来得出。</p>
+<h3 id="xin-lei-xing-de-yin-ru">新类型的引入</h3>
+<p>在规定一个类型时，我们需要规定如何形成这个类型、如何构造与使用这个类型的元素等规则。这些包括：</p>
+<ol>
+<li>形成规则（formation rules）</li>
+<li>构造器/引入规则（constructors/introduction rules）</li>
+<li>消去子/消去规则（eliminators/elimination rules）</li>
+<li>计算规则，表达消去子如何作用于构造器</li>
+</ol>
+<p>此外有一个可选的 uniqueness principle, 用于表达 uniqueness of maps into or out of that type, 例如判值相等 $f \equiv \lambda x.\ f(x)$; 有时并没有判值相等层面的这个规则，但可以由其它规则推出命题相等，此时称为 propositional uniqueness principle.</p>
+<p>作为例子，我们回顾简单类型 λ 演算。</p>
+<p>形成规则不必多言；函数类型使用 λ-表达式构造，构造规则写为：</p>
+<p>$$\frac{\Gamma, x: A \vdash M: B}{\Gamma \vdash \lambda (x: A). M : A \to B} \text{Lam}$$</p>
+<p>有时我们可以阅读上下文推断出 $x: A$，故可省略为 $\lambda x. M$ 或者使用方便的写法 $f(x) :\equiv M$.</p>
+<p>函数应用的规则，即函数类型的消去规则写为：</p>
+<p>$$\frac{\Gamma \vdash M: A \to B \quad \Gamma \vdash N: A}{\Gamma \vdash M N: B} \text{App}$$</p>
+<p>本文中之后使用一般数学的写法 $f(x)$ 表示函数应用。我们有以下计算规则（省略语境；用 $\mapsto$ 表示<a href="https://rratic.top/posts/lambda-calculus/#substitution">替换</a>）：</p>
+<p>$$\frac{x: A \vdash M: B \quad N: A}{(\lambda x. M) N \equiv M[x \mapsto N]} \beta$$</p>
+<p>我们额外引入一个规则描述函数的外延性：</p>
+<p>$$\frac{f: A \to B}{f \equiv \lambda x. f x} \eta$$</p>
+<h2 id="yu-zhou-yu-lei">宇宙与类</h2>
+<p>在朴素集合论中并不能有一个包含所有类型，包括它自己的类型 $\mathcal{U}_\infty$. 这会导致悖论。<sup class="footnote-reference"><a href="#COQ92">1</a></sup>我们可以考虑添加 $A \mathrm{ type}$ 这样的判断而不把宇宙放到理论内部。这里选取一个直谓、累积的 Russell 式宇宙的版本，引入一组宇宙的层级：</p>
+<p>$$\mathcal{U}_0: \mathcal{U}_1: \mathcal{U}_2: \cdots$$</p>
+<p>这些宇宙是累积的（cumulative），即 $\mathcal{U}_i$ 的元素也是 $\mathcal{U} _{i+1}$ 的元素。不过确会引入一些麻烦。</p>
+<p>上述两条写成规则是：</p>
+<p>$$\frac{\Gamma \text{ context}}{\Gamma \vdash \mathcal{U} _i: \mathcal{U} _{i+1}} \mathcal{U}\text{-Intro}$$</p>
+<p>$$\frac{\Gamma \vdash A: \mathcal{U} _i}{\Gamma \vdash A: \mathcal{U} _{i+1}} \mathcal{U}\text{-Cumul}$$</p>
+<p>我们说 $A$ 是一个类型，如果它在某个宇宙 $\mathcal{U}_i$ 中。我们通常想要避免特别指出 $i$ 是什么，假设可以正确给出层级，写作 $A: \mathcal{U}$. 这种写法被称作 typical ambiguity. 当我们指定某个宇宙 $\mathcal{U}$ 时，称它含有的类型是小类型（small types）。为了建模一组关于类型 $A$ 变动的类型，我们使用 $B: A \to \mathcal{U}$. 这些函数称为类型类（families of types）或依值类型（dependent types）。一个例子是 $\mathrm{Fin}: \N \to \mathcal{U}$ 其中 $\mathrm{Fin}(n)$ 是一个恰有 $n$ 个元素的类型。一个平凡的例子是 $(\lambda (x: A).\ B): A \to \mathcal{U}$. 而反例是并没有类型类 $\lambda (i: \N).\ \mathcal{U}_i$.</p>
+<h2 id="yi-zhi">依值</h2>
+<h3 id="yi-zhi-han-shu-lei-xing">依值函数类型</h3>
+<p>类型论中我们使用函数类型的更普遍版本：依值函数类型（Π-type/dependent function type）。依值函数的陪域类型可以随输入的值变动。对 $A: \mathcal{U}$ 及类 $B: A \to \mathcal{U}$ 我们将对应的依值函数类型写作：</p>
+<p>$$\prod_{(x: A)} B(x) \text{\quad or \quad} \Pi (x: A), B(x) \text{\quad or \quad} (x: A) \to B(x)$$</p>
+<p>我们列出其形成、构造、消去、计算、唯一性规则：</p>
+<p>$$\frac{\Gamma \vdash A: \mathcal{U} _i \quad \Gamma, x: A \vdash B: \mathcal{U} _i}{\Gamma \vdash \prod _{(x: A)} B: \mathcal{U} _i} \Pi\text{-Form}$$</p>
+<p>$$\frac{\Gamma, x: A \vdash b: B}{\Gamma \vdash \lambda (x: A).b: \prod_{(x: A)} B} \Pi\text{-Intro}$$</p>
+<p>$$\frac{\Gamma \vdash f: \prod_{(x: A)} B \quad \Gamma \vdash a: A}{\Gamma \vdash f(a): B[a/x]} \Pi\text{-Elim}$$</p>
+<p>$$\frac{\Gamma, x: A \vdash b: B \quad \Gamma \vdash a: A}{\Gamma \vdash (\lambda (x: A). b)(a) \equiv b[a/x]: B[a/x]} \Pi\text{-Comp}$$</p>
+<p>$$\frac{\Gamma \vdash f: \prod_{(x: A)} B}{\Gamma \vdash f \equiv (\lambda x. f(x))} \Pi\text{-Uniq}$$</p>
+<p>引入规则有对应的判值相等规则：</p>
+<p>$$
+\frac{
+\Gamma \vdash A: \mathcal{U} _i \quad
+\Gamma, x: A \vdash B: \mathcal{U} _i \quad
+\Gamma, x: A \vdash b \equiv b': B
+}{\Gamma \vdash \lambda x. b \equiv \lambda x. b'} \Pi\text{-Intro-Eq}
+$$</p>
+<p>同样地，构造规则与消去规则也有关于判值相等的规则，这里略去。</p>
+<p>容易发现，$x$ 不在 $B$ 中自由出现时，实际上有 $A \to B :\equiv \prod_{(x: A)} B$，我们将它采取为普通函数类型的定义。</p>
+<p>现在我们可以定义多态的（polymorphic）函数。这是说先传入一个参数表示类型，然后作用于这个类型的元素。例如：</p>
+<p>$$\mathrm{id}: \prod_{(A: \mathcal{U})} A \to A$$</p>
+<p>$$\mathrm{id} :\equiv \lambda (A: \mathcal{U}).\ \lambda (x: A).\ x$$</p>
+<p>定义也可简写为 $\mathrm{id}_A(x) :\equiv x$，由于可以阅读上下文推断类型，直接写为 $\mathrm{id}(x)$ 是无歧义的。</p>
+<p>一个更不那么平凡的例子是：</p>
+<p>$$\mathrm{swap}: \prod_{(A: \mathcal{U})} \prod_{(B: \mathcal{U})} \prod_{(C: \mathcal{U})} (A \to B \to C) \to (B \to A \to C)$$</p>
+<p>$$\mathrm{swap}_{A, B, C}(g)(b, a) :\equiv g(a, b)$$</p>
+<h3 id="ji-lei-xing">积类型</h3>
+<p>对类型 $A, B: \mathcal{U}$ 我们引入类型 $A \times B: \mathcal{U}$，其元素为满足 $a: A, b: B$ 的 $(a, b)$，不同于集合论，有序对在类型论是和函数一样的基础概念。</p>
+<p>所以我们如何<em>使用</em>有序对呢？对于 $f: A \times B \to C$, 我们可以发展出一个消去规则：对每个 $g: A \to B \to C$ 可以定义出一个函数 $f: A \times B \to C$ 为 $f((a, b)) :\equiv g(a)(b)$.</p>
+<p>也就是说，在类型论中，一个 $A \times B$ 上的函数在我们确定了其在有序对处的值时立即变得良定义，以此（更准确地说是从它的更一般的版本）我们能够<em>证明</em> $A \times B$ 的元素是有序对。从范畴论视角看我们可以说 $(-) \times B$ 是 $B \to (-)$ 的左伴随（left adjoint）。</p>
+<p>我们可以从这个消去规则推导出投射函数 $\mathrm{pr}_1((a, b)) :\equiv a$ 与 $\mathrm{pr}_2((a, b)) :\equiv b$.</p>
+<p>为了避免每次都使用这个规则，我们可以定义一个函数：</p>
+<p>$$\mathrm{rec}_{A \times B}: \prod _{C: \mathcal{U}} (A \to B \to C) \to A \times B \to C$$</p>
+<p>$$\mathrm{rec}_{A \times B}(C, g, (a, b)) :\equiv g(a)(b)$$</p>
+<p>之后就可以像 $\mathrm{pr}_1 :\equiv \mathrm{rec} _{A \times B}(A, \lambda a.\ \lambda b.\ a)$ 一样使用。</p>
+<p>我们称 $\mathrm{rec}_{A \times B}$ 是积类型的递归函数（recursor）。这里没有明显体现递归，因为积类型是归纳类型的一个退化例子。</p>
+<p>为了能够在积类型上定义依值函数，我们必须把递归函数一般化。可以从下式中通过 $f((x, y)) :\equiv g(x)(y)$ 定义出一个 $f: \prod_{(x: A \times B)} C(x)$:</p>
+<p>$$g: \prod_{(x: A)} \prod_{(y: B)} C((x, y))$$</p>
+<p>由此我们可以构建一个函数：</p>
+<p>$$\mathrm{uniq}_{A \times B}: \prod _{x: A \times B} ((\mathrm{pr}_1(x), \mathrm{pr}_2(x))) = _{A \times B} x$$</p>
+<p>关于相等类型具体的内容会在之后的节中介绍。现在我们只需知道对 $x: A$ 有 $\mathrm{refl}_x: x=_A x$. 由此可以定义：</p>
+<p>$$\mathrm{uniq}_{A \times B}((a, b)) :\equiv \mathrm{refl} _{(a, b)}$$</p>
+<p>这是因为存在判值相等 $(\mathrm{pr}_1((a, b)), \mathrm{pr}_2((a, b))) \equiv (a, b)$.</p>
+<p>更进一步可以有归纳（induction）函数：</p>
+<p>$$\mathrm{ind}_{A \times B}: \prod _{C: A \times B \to \mathcal{U}} \left(\prod _{(x: A)} \prod _{(y: B)} C((x, y))\right) \to \prod _{x: A \times B} C(x)$$</p>
+<p>可见递归只是归纳的一个特例。我们也称归纳为（依值）消去子（ (dependent) eliminator），递归为不依值消去子（non-dependent eliminator）。</p>
+<p>我们另外引入空积类型（nullary product type）或曰单位类型（unit type）$\mathbf{1}: \mathcal{U}$，其唯一元素 $\star: \mathbf{1}$. 关于它的讨论从略。</p>
+<h3 id="yi-zhi-dui-lei-xing">依值对类型</h3>
+<p>我们扩展积类型到依值对类型（Σ-type/dependent pair type）。这对应于集合论中一个指标集对应一组集合的无交并。给定类型 $A: \mathcal{U}$ 与类 $B: A \to \mathcal{U}$, 写作：</p>
+<p>$$\sum_{(x: A)} B(x) \text{\quad or \quad} \Sigma (x: A), B(x) \text{\quad or \quad} (x: A) \times B(x)$$</p>
+<p>其构造方法也是通过对 $a: A$ 与 $b: B(a)$ 配对 $(a, b)$.</p>
+<p>我们写出第一个的投射函数为：</p>
+<p>$$\mathrm{pr}_1: \left(\sum _{(x: A)} B(x)\right) \to A$$</p>
+<p>$$\mathrm{pr}_1((a, b)) :\equiv a$$</p>
+<p>第二个投射函数需要是一个依值函数，类型为：</p>
+<p>$$\mathrm{pr}_2: \prod _{p: \sum _{x: A} B(x)} B(\mathrm{pr}_1(p))$$</p>
+<p>为此我们需要一个用于 Σ-type 的归纳原则，也即希望从 $C: (\sum_{x: A} B(x)) \to \mathcal{U}$ 及：</p>
+<p>$$g: \prod_{a: A} \prod_{b: B(a)} C((a, b))$$</p>
+<p>推导出：</p>
+<p>$$f: \prod _{p: \sum _{x: A} B(x)} C(p)$$</p>
+<p>由于与积类型的情况类似，此处省略递归与归纳函数的内容。</p>
+<p>作为一个有趣的例子，对类型 $A, B$ 及 $R: A \to B \to \mathcal{U}$ 考察：</p>
+<p>$$\mathrm{ac}: \left(\prod_{(x: A)} \sum_{(y: B)} R(x, y)\right) \to \left(\sum_{(f: A \to B)} \prod_{(x: A)} R(x, f(x))\right)$$</p>
+<p>$$\mathrm{ac}(g) :\equiv \left(\lambda x.\ \mathrm{pr}_1(g(x)), \lambda x.\ \mathrm{pr}_2(g(x))\right)$$</p>
+<p>如果把 $\prod$ 读作“对任意”，把 $\sum$ 读作“存在”，那么这个类型表示：如果对任意 $x: A$ 存在一个 $y: B$ 满足 $R(x, y)$, 那么存在一个函数 $f: A \to B$ 使得对任意 $x: A$ 有 $R(x, f(x))$. 由于这和集合论中的选择公理比较像，这个函数传统上称为类型论版的选择公理。</p>
+<p>依值对类型通常用于表达一些有多片数据的数学结构。例如一个原群 magma 是 $(A, m)$, 其中 $A: \mathcal{U}$ 及 $m: A \to A \to A$. 因此说：</p>
+<p>$$\mathrm{Magma} :\equiv \sum_{A: \mathcal{U}} (A \to A \to A)$$</p>
+<p>最后，为了方便起见，我们使用符号 $(x, y, z) :\equiv (x, (y, z))$，以此类推。</p>
+<h3 id="yu-ji-lei-xing">余积类型</h3>
+<p>对 $A, B: \mathcal{U}$ 可以有余积类型（coproduct type）$A + B: \mathcal{U}$ 对应于集合论中的无交并。我们也引入一个空版本：空类型（empty type）$\mathbf{0}: \mathcal{U}$.</p>
+<p>$A + B$ 的元素有左、右嵌入（injection）两种构造方法:对 $a: A$ 的 $\mathrm{inl}(a): A + B$ 与对 $b: B$ 的 $\mathrm{inr}(b): A + B$.</p>
+<p>为了构造非依值函数 $f: A + B \to C$，需要函数 $g_0: A \to C$ 与 $g_1: B \to C$, 然后写：</p>
+<p>$$
+\begin{matrix}
+f(\mathrm{inl}(a)) :\equiv g_0(a) \cr
+f(\mathrm{inr}(b)) :\equiv g_1(b)
+\end{matrix}
+$$</p>
+<p>这种定义称为 case analysis. 如之前一样我们可以推导出递归和归纳函数。</p>
+<p>特别地 $\mathbf{0}$ 的递归函数是 $\mathrm{rec}_\mathbf{0}: \prod _{C: \mathcal{U}} \mathbf{0} \to C$，这对应于经典的<a href="https://rratic.top/posts/logic-2/#Remark">爆炸律</a>。</p>
+<h3 id="bu-er-lei-xing">布尔类型</h3>
+<p>布尔类型（boolean）希望形如 $0_{\mathbf{2}}, 1_{\mathbf{2}}: \mathbf{2}$ 的结构。它可以由 $\mathbf{1} + \mathbf{1}$ 给出，但为方便起见给出特别的讨论。</p>
+<p>递归函数对应于 if-then-else 结构：</p>
+<p>$$\mathrm{rec} _{\mathbf{2}}: \prod _{C: \mathcal{U}} C \to C \to \mathbf{2} \to C$$</p>
+<p>$$
+\begin{matrix}
+\mathrm{rec} _{\mathbf{2}}(C, c_0, c_1, 0 _{\mathbf{2}}) :\equiv c_0 \cr
+\mathrm{rec} _{\mathbf{2}}(C, c_0, c_1, 1 _{\mathbf{2}}) :\equiv c_1
+\end{matrix}
+$$</p>
+<p>把它打包成归纳原则如下：</p>
+<p>$$\mathrm{ind}_{\mathbf{2}}: \prod _{(C: \mathbf{2} \to \mathcal{U})} C(0 _{\mathbf{2}}) \to C(1 _{\mathbf{2}}) \to \prod _{x: \mathbf{2}} C(x)$$</p>
+<p>通过传入 $\mathrm{inl}(\mathrm{refl} _{0 _\mathbf{2}})$ 与 $\mathrm{inr}(\mathrm{refl} _{1 _\mathbf{2}})$ 可以构造出一个：</p>
+<p>$$\prod_{x: \mathbf{2}} (x = 0_\mathbf{2}) + (x = 1_\mathbf{2})$$</p>
+<p>布尔类型也可以用于定义二元的无交并（同集合论中所用的方法）：</p>
+<p>$$A + B :\equiv \sum_{x: \mathbf{2}} \mathrm{rec}_{\mathbf{2}}(\mathcal{U}, A, B, x)$$</p>
+<p>也可定义笛卡尔积：</p>
+<p>$$A \times B :\equiv \prod_{x: \mathbf{2}} \mathrm{rec}_{\mathbf{2}}(\mathcal{U}, A, B, x)$$</p>
+<p>我们常将 $0_{\mathbf{2}}, 1_{\mathbf{2}}$ 称作 <code>false</code> 与 <code>true</code>. 但我们不把 $\mathbf{2}$ 的元素视作真值或者命题。</p>
+<h3 id="zi-ran-shu">自然数</h3>
+<p>自然数 $\N$ 的元素是通过 $0: \N$ 与 $\mathrm{succ}: \N \to \N$ 定义的。现在其上的递归与归纳函数更符合常识上的“递归”、“归纳”含义了。</p>
+<p>使用素材 $c_0: C$ 与 $c_s: \N \to C \to C$ 可以定义：</p>
+<p>$$
+\begin{matrix}
+f(0) :\equiv c_0 \cr
+f(\mathrm{succ}(n)) :\equiv c_s(n, f(n))
+\end{matrix}
+$$</p>
+<p>这称为通过原始递归（primitive recursion）定义。通过原始递归定义的<em>显然</em>是<em>可计算的（computable）</em>。</p>
+<p>把原始递归打包成递归函数：</p>
+<p>$$\mathrm{rec}_{\N}: \prod _{C: \mathcal{U}} C \to (\N \to C \to C) \to \N \to C$$</p>
+<p>同样一般化为归纳法：</p>
+<p>$$\mathrm{ind}_{\N}: \prod _{(C: \N \to \mathcal{U})} C(0) \to \left(\prod _{(n: \N)} C(n) \to C(\mathrm{succ}(n))\right) \to \prod _{(n: \N)} C(n)$$</p>
+<p>一个自然数的性质（property）是由类型类 $P: \N \to \mathcal{U}$ 表达的。由此，上式即是数学归纳法。</p>
+<h2 id="mo-shi-pi-pei-yu-di-gui">模式匹配与递归</h2>
+<p>我们有时会这样定义函数：</p>
+<p>$$
+\begin{matrix}
+f(\mathrm{inl}(a)) :\equiv \Phi_0 \cr
+f(\mathrm{inr}(b)) :\equiv \Phi_1
+\end{matrix}
+$$</p>
+<p>这本质上是使用了递归函数：</p>
+<p>$$f :\equiv \mathrm{rec}_{A+B}(C, \lambda a.\ \Phi_0, \lambda b.\ \Phi_1)$$</p>
+<p>而对：</p>
+<p>$$
+\begin{matrix}
+f(0) :\equiv \Phi_0 \cr
+f(\mathrm{succ}(n)) :\equiv \Phi_s
+\end{matrix}
+$$</p>
+<p>则本质上是：</p>
+<p>$$f :\equiv \mathrm{rec}_{\N}(C, \Phi_0, \lambda n.\ \lambda r.\ \Phi_s')$$</p>
+<p>这种使用递归/归纳函数的方法非常方便，且在证明助手的具体实现中作为语法糖存在，称为模式匹配（pattern matching）。当然它是有局限的，例如说 $f(\mathrm{succ}(n)) :\equiv$ 的右侧只能出现 $f(n)$ 而不能出现 $f(\mathrm{succ}(\mathrm{succ}(n)))$ 这样的东西。</p>
+<h2 id="ming-ti-zuo-wei-lei-xing">命题作为类型</h2>
+<p>基于基本的观测有这样的对应：</p>
+<table><thead><tr><th style="text-align: center">逻辑</th><th style="text-align: center">类型论</th></tr></thead><tbody>
+<tr><td style="text-align: center">$\top$</td><td style="text-align: center">$\mathbf{1}$</td></tr>
+<tr><td style="text-align: center">$\bot$</td><td style="text-align: center">$\mathbf{0}$</td></tr>
+<tr><td style="text-align: center">$A \wedge B$</td><td style="text-align: center">$A \times B$</td></tr>
+<tr><td style="text-align: center">$A \vee B$</td><td style="text-align: center">$A + B$</td></tr>
+<tr><td style="text-align: center">$A \implies B$</td><td style="text-align: center">$A \to B$</td></tr>
+<tr><td style="text-align: center">$\neg A$</td><td style="text-align: center">$A \to \mathbf{0}$</td></tr>
+<tr><td style="text-align: center">$\exists_{x: A} B(x)$</td><td style="text-align: center">$\sum_{(x: A)} B(x)$</td></tr>
+<tr><td style="text-align: center">$\forall_{x: A} B(x)$</td><td style="text-align: center">$\prod_{(x: A)} B(x)$</td></tr>
+</tbody></table>
+<p>我们把 $\mathbf{0}$ 的实现称为一个矛盾（contradiction）。并不存在证明一个矛盾的方法。<sup class="footnote-reference"><a href="#contradiction">2</a></sup></p>
+<p>现在考虑实现 $(A \to \mathbf{0}) \times (B \to \mathbf{0}) \to (A + B \to \mathbf{0})$. 我们可以开“洞”然后整理：</p>
+<p>$$
+\begin{matrix}
+f((x, y))(\mathrm{inl}(a)) :\equiv \Box : \mathbf 0 \cr
+f((x, y))(\mathrm{inr}(b)) :\equiv \Box : \mathbf 0
+\end{matrix}
+$$</p>
+<p>此时就可以看出两个洞应该填入 $x(a)$ 与 $y(b)$.</p>
+<p>现在我们无法构造 $((A \to \mathbf{0}) \to \mathbf{0}) \to A$ 的实例，因为在直觉主义逻辑中并不成立它（双重否定消除）。直觉主义中并不存在经典逻辑的排中律或者通过矛盾来证明。需要额外引入公理或者 call/cc. 反过来的双重否定引入则是可以构造实例的。</p>
+<p>现在考虑一个带谓词的逻辑对应的例子：</p>
+<p>$$\left(\prod_{(x: A)} P(x) \times Q(x)\right) \to \left(\prod_{(x: A)} P(x)\right) \times \left(\prod_{(x: A)} Q(x)\right)$$</p>
+<p>同样通过开“洞”可以看出：</p>
+<p>$$f(p) :\equiv \left(\lambda x.\ \mathrm{pr}_1(p(x)), \lambda x.\ \mathrm{pr}_2(p(x))\right)$$</p>
+<p>在类型论中使用宇宙实际上可以表达“高阶逻辑”。如下命题表达对任意性质 $P: A \to \mathcal{U}$, 若 $P(a)$ 则 $P(b)$:</p>
+<p>$$\left(\prod_{P: A \to \mathcal{U}_i} P(a) \to P(b)\right): \mathcal{U} _{i+1}$$</p>
+<p>由于这个逻辑（构造主义逻辑）是与证明有关（proof-relevant）的（例如说，如果有一个 $A + B$ 的实例，那么我们知道它来自于 $A$ 还是 $B$）。按照定义可以验证 $\N \iff \mathbf{1}$ 是正确的。这只是告诉我们当看成纯命题时，它们表达的命题是相同（这里是“真”命题）。当 $A \iff B$ 时我们称它们<strong>逻辑相等</strong>。</p>
+<p>我们把“命题作为类型”反过来，任何类型可以看作命题，并以给出一个元素的方式证明。当我们给出一个元素时，称 $A$ 被居留；反之，给出 $\neg A$ 的一个元素时称 $A$ 不被居留。$\mathbf{0}$ 不被居留，因为 $\mathrm{id}_{\mathbf{0}}: \neg \mathbf{0}$. <sup class="footnote-reference"><a href="#consistent">3</a></sup></p>
+<h2 id="xiang-deng-lei-xing">相等类型</h2>
+<h3 id="refl">refl</h3>
+<p>$a, b: A$ 的命题相等由类型来表达。我们把相等类型（identity type）的类型类写作（或简记为作 $a =_A b$，下标可省略）：</p>
+<p>$$\mathrm{Id}_A: A \to A \to \mathcal{U}$$</p>
+<p>正如把命题作为类型时，其元素含有的信息比“这个命题是正确的”本身要多，类型 $a = b$ 也含有更多的信息（这是同伦解释的基石）。</p>
+<p>引入规则给出了表示自反性（reflexivity）的依值函数：</p>
+<p>$$\mathrm{refl}: \prod_{a: A} (a =_A a)$$</p>
+<p>如果 $a$ 与 $b$ 是判值相等的 $a \equiv b$，那么 $a =_A b$ 与 $a =_A a$ 是判值相等的，所以就有命题相等 $\mathrm{refl}_a: a =_A b$.</p>
+<p>相等类型的归纳原则是类型论相当巧妙的部分。先考虑它的一个结论，称为不可区分同一性原理（Indiscernibility of identicals）：</p>
+<p>对任意类型类 $C: A \to \mathcal{U}$ 存在一个函数，通常称为沿路径的传送（transport）：</p>
+<p>$$f: \prod_{(x, y: A)} \prod_{(p: x =_A y)} C(x) \to C(y)$$</p>
+<p>满足：</p>
+<p>$$f(x, x, \mathrm{refl}_x) :\equiv \mathrm{id} _{C(x)}$$</p>
+<h3 id="path-induction">路径归纳</h3>
+<p>相等类型的归纳原则被称为 J 原理或路径归纳（path induction）：</p>
+<p>$$\mathrm{J}: \prod _{C: \prod _{x, y: A} x = y \to \mathcal{U}} \left[\prod _{c: A} C\ c\ c\ \mathrm{refl} _c\right] \to \prod _{x, y: A} \prod _{p: x = y} C\ x\ y\ p$$</p>
+<p>也就是说，对类 $C: \prod_{x, y: A} (x =_A y) \to \mathcal{U}$ 及函数 $c: \prod _{x: A} C(x, x, \mathrm{refl}_x)$ 存在：</p>
+<p>$$f: \prod_{(x, y: A)} \prod_{(p: x =_A y)} C(x, y, p)$$</p>
+<p>满足：</p>
+<p>$$f(x, x, \mathrm{refl}_x) :\equiv c(x)$$</p>
+<p>这里 $C$ 称为消去动机（motive）。实际上可以理解为，要定义依赖于 $p$ 的结果，只需给出对角自反情形 $(x, x, \mathrm{refl}_x)$ 上的项。通常证明助手的模式匹配可以自动将 motive 推断出来。</p>
+<p>关于等价的规则式表述及 Based path induction 省略。</p>
+
+<link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" type="text/css">
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-example);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/example.svg);"
+    >
+      example
+    </div>
+    <span><strong>对称性</strong></span>
+  </div>
+  <div class="pl-4"><p>$$\mathrm{sym}: (x = y) \to (y = x)$$</p>
+</div>
+</div>
+<p>对 $p: x = y$ 取 $C(x, y, p)$ 是 $(y = x)$，$c(x)$ 是 $\mathrm{refl}_x$ 使用 J 原理即可。其模式匹配的结果（在 Agda 下）就是 <a href="https://rratic.top/posts/agda-1/"><code>sym refl = refl</code></a>.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-example);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/example.svg);"
+    >
+      example
+    </div>
+    <span><strong>传递性</strong></span>
+  </div>
+  <div class="pl-4"><p>$$\mathrm{trans}: (x = y) \to (y = z) \to (x = z)$$</p>
+</div>
+</div>
+<p>对 $p: x = y, q: y = z$ 取 $C(x, y, p)$ 是 $\prod_{(z: A)} (y = z) \to (x = z)$ 使用 J 原理即可。模式匹配写成 <code>trans refl q = q</code>.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-example);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/example.svg);"
+    >
+      example
+    </div>
+    <span><strong>函数作用于相等</strong></span>
+  </div>
+  <div class="pl-4"><p>对 $f: A \to B$ 可以构造：</p>
+<p>$$\mathrm{ap} _f: \prod _{x, y: A}(x =_A y) \to (f(x) =_B f(y))$$</p>
+</div>
+</div>
+<p>只需规定 $\mathrm{ap} _f(\mathrm{refl} _x): \equiv \mathrm{refl} _{f(x)}$. 若函数的陪域依赖于输入，相应的构造称为 $\mathrm{apd}$，需要用 transport 表述。</p>
+<p>将 $p: x = y$ 看成路径，我们还会关心其单位律（$\mathrm{refl}_x \cdot p = p$ 及另一边）、结合律（$(p \cdot q) \cdot r = p \cdot (q \cdot r)$）、逆元律（$p \cdot p^{-1} = \mathrm{refl}_x$ 及另一边）乃至更高阶的相等，它们都可反复使用 J 原理导出，这里具体过程略去。</p>
+<h3 id="bu-xiang-deng">不相等</h3>
+<p>我们定义 $(x \neq_A y) :\equiv \neg (x =_A y)$，此时称 $x$ 与 $y$ 不相等（unequal）。同之前一样，不相等的否定无法推出相等。</p>
+<h2 id="bu-chong">补充</h2>
+<h3 id="gui-na-lei-xing">归纳类型</h3>
+<p>在完整的 MLTT 中，自然数、余积等是归纳类型的特例。一个归纳类型由若干构造器生成（这要求归纳原则允许我们覆盖该类型的所有元素），并配有相应的依值消去（归纳）原则。</p>
+<p>构造器中的递归出现通常必须满足严格正性（strict positivity）。粗略地说，正在定义的类型不能出现在函数参数的左侧等负位置；否则归纳原则可能引入不终止计算乃至矛盾。实际理论可以采用不同强度的归纳类型机制，如一般归纳类型、索引随构造器变化的归纳族、相互归纳定义，这是 MLTT 版本设计的一部分。</p>
+<p>一种统一表达普通归纳类型的构造是 W-type. 给定 $A: \mathcal U$ 与 $B: A \to \mathcal U$，W-type 记作：</p>
+<p>$$\mathsf W_{(a: A)} B(a)$$</p>
+<p>它的元素可看成良基树：一个节点带有标签 $a: A$，并且对每个 $b: B(a)$ 恰有一棵直接子树。其构造器可以写作：</p>
+<p>$$\mathrm{sup}: \prod_{a: A} \left(B(a) \to \mathsf W_{(a: A)} B(a)\right) \to \mathsf W_{(a: A)} B(a)$$</p>
+<p>因而 $B(a)$ 描述标签为 $a$ 的节点具有哪些子节点位置，如 $B(a) \equiv \mathbf 0$ 时它是叶节点，$B(a) \equiv \mathbf 2$ 时它有两个分支。这里的“良基”更准确地被刻画为：一棵树由已经构成的子树向上生成，因此可以从所有子树上的结果构造整棵树上的结果。在经典数学并附加适当选择原则的语境中，可以将其理解为不存在无限向下的分支。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-example);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/example.svg);"
+    >
+      example
+    </div>
+    <span><strong>自然数</strong></span>
+  </div>
+  <div class="pl-4"><p>可以使用 W-type 表达自然数类型，尽管额外需要函数外延性才能说明它就是自然数类型。</p>
+</div>
+</div>
+<p>取 $A: \equiv \mathbf 2$，并定义类型类 $B: A \to \mathcal U$ 为：</p>
+<p>$$B(0_{\mathbf 2}): \equiv \mathbf 0, \qquad B(1_{\mathbf 2}): \equiv \mathbf 1$$</p>
+<p>令 $W: \equiv \mathsf W_{(a: \mathbf 2)} B(a)$. 标签 $0_{\mathbf 2}$ 没有子节点位置，故给出叶节点：</p>
+<p>$$\mathrm{zero} _W: \equiv \mathrm{sup}(0 _{\mathbf 2}, \mathrm{rec} _{\mathbf 0}(W)): W$$</p>
+<p>标签 $1 _{\mathbf 2}$ 恰有一个子节点位置，故每个 $w: W$ 给出：</p>
+<p>$$\mathrm{succ} _W(w): \equiv \mathrm{sup}(1 _{\mathbf 2}, \lambda (u: \mathbf 1).\ w): W$$</p>
+<p>许多普通的严格正归纳类型都可以编码为 W-type 或由它进一步构造，不过证明助手通常直接提供更方便的一般归纳声明，读者可参考<a href="https://zhuanlan.zhihu.com/p/97737374">如何把模式匹配编译为归纳子</a>。</p>
+<h3 id="mltt-de-yuan-xing-zhi">MLTT 的元性质</h3>
+<p>MLTT 有许多重要的<a href="https://rratic.top/posts/logic-1/">元性质</a>。对带有通常计算规则的核心 MLTT，可以证明很强的<a href="https://rratic.top/posts/lambda-calculus/#jargon">正规性</a>结果，但具体定理依赖所采用的 $\eta$ 规则、宇宙和归纳类型等细节。</p>
+<p>通过复杂的方法可以证明 MLTT 的典范性（canonicity），这刻画典范形式的形态，如：若 $n: \N$ 没有自由变量，则 $n$ 应当计算到 $0$ 或有限次 $\mathrm{succ}$ 作用于 $0$ 得到的结果。典范性可以推出自洽性，因为空类型没有构造器。典范性也与可判定性密切相关。</p>
+<hr />
+<div class="footnote-definition" id="COQ92"><sup class="footnote-definition-label">1</sup>
+<p>Thierry Coquand, "The Paradox of Trees in Type Theory," <em>BIT Numerical Mathematics</em> 32, no. 1 (1992): 10-14.</p>
+</div>
+<div class="footnote-definition" id="contradiction"><sup class="footnote-definition-label">2</sup>
+<p>如果我们的类型论是不自洽（inconsistent）的，则可能存在构造 $\mathbf{0}$ 的元素的复杂方法。</p>
+</div>
+<div class="footnote-definition" id="consistent"><sup class="footnote-definition-label">3</sup>
+<p>这不应与类型论是自洽的混淆。</p>
+</div>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/基石/">基石</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <link rel="stylesheet" href="https://rratic.top/katex/katex.min.css?h=0289a02cf451a44dd73a" />
+  <script defer src="https://rratic.top/katex/katex.min.js?h=a29d2961d3146de5949d"></script>
+  <script defer src="https://rratic.top/katex/contrib/auto-render.min.js?h=e5372d199bcdae8b4de7"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

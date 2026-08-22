@@ -1,0 +1,695 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>从单形到无穷范畴理论 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="从单形到无穷范畴理论" />
+  <meta name="description" content="本文主要为 ∞-type Café 暑期学校 2026 的“无穷范畴”课程前两次笔记，参考了 nLab 的资料及答疑群的回答。" />
+  <meta property="og:description" content="本文主要为 ∞-type Café 暑期学校 2026 的“无穷范畴”课程前两次笔记，参考了 nLab 的资料及答疑群的回答。" />
+  <meta property="og:url" content="https://rratic.top/posts/infty-category-1/" />
+  <link rel="canonical" href="https://rratic.top/posts/infty-category-1/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-08-09T00:00:00+00:00" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="范畴论" />
+  <meta property="article:tag" content="拓扑学" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <!-- Begin Head inject -->
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://rratic.top/favicon.svg" />
+<link rel="my stylesheet" as="style" href="https://rratic.top/style/shared.css?h=2dac71ecd418f5165c3d" />
+
+<link rel="stylesheet" type="text/css" href="/style/theme-light.css" media="(prefers-color-scheme: light)" />
+<link rel="stylesheet" type="text/css" href="/style/theme-dark.css" media="(prefers-color-scheme: dark)" />
+
+
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=bb9bfcfdf723b8087416" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=26975b146d48e6ff41af"></script>
+  <!-- Begin Head End inject -->
+  
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/posts/"
+          >文章</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/categories/"
+          >分类</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rratic.top/tags/"
+          >标签</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-2.5">从单形到无穷范畴理论</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2026-08-09T00:00:00+00:00">2026-08-09</time><span
+        class="middot"></span><time
+    datetime="PT0H14M0S">14&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+
+  </header>
+  <!-- TOC -->
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#li-lun-ji-chu">理论基础</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#dan-chun-ji-de-fan-chou">单纯集的范畴</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#dan-chun-fan-chou">单纯范畴</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ji-he-shi-xian">几何实现</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#wu-qiong-fan-chou">无穷范畴</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#kan-fu-xing">Kan 复形</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ni-fan-chou">拟范畴</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </details>
+</nav>
+
+  <!-- Content -->
+  <section><p>本文主要为 <a href="https://infinity-type-cafe.github.io/ntype-cafe-summer-school-2026/">∞-type Café 暑期学校 2026</a> 的“无穷范畴”课程前两次笔记，参考了 <a href="https://ncatlab.org/">nLab</a> 的资料及答疑群的回答。</p>
+<span id="continue-reading"></span><style>
+	img:where(.dark,.dark *) {
+        filter: invert(100%);
+    }
+</style>
+<p>无穷范畴用在类型论作为数学基础上，还体现了这样一种哲学诠释：如果一个命题有两个证明，而我们无法看出它们的关联，则没有真正理解它。</p>
+<blockquote>
+	<p>A mathematician is a person who can find analogies between theorems; a better mathematician is one who can see analogies between proofs and the best mathematician can notice analogies between theories. One can imagine that the ultimate mathematician is one who can see analogies between analogies.</p>
+
+	<footer>——Stefan Banach</footer>
+</blockquote>
+<p>此诠释正文中不再赘述。</p>
+<h2 id="li-lun-ji-chu">理论基础</h2>
+<h3 id="dan-chun-ji-de-fan-chou">单纯集的范畴</h3>
+
+<link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" type="text/css">
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>单形范畴（simplex category）</strong></span>
+  </div>
+  <div class="pl-4"><p>单形范畴 $\Delta$ 的对象是有限的 linear directed graph 的代表元。简单来说对 $n \in \N$ 我们取（对 $i \leq j$ 给予箭头 $i \to j$）：</p>
+<p>$$[n] = \set{0 \leq 1 \leq \cdots \leq n}$$</p>
+<p>并其态射 $[m] \to [n]$ 是此观点下的保序映射。</p>
+</div>
+</div>
+<p>有两类典型的态射。面映射（face map）$\delta_i: [n-1] \to [n]$ 是：</p>
+<p>$$\delta_i(k) = \begin{cases} k &amp; k &lt; i \cr k + 1 &amp; k \geq i \end{cases}$$</p>
+<p>退化映射（degeneracy map）$\sigma_i: [n+1] \to [n]$ 是：</p>
+<p>$$\sigma_i(k) = \begin{cases} k &amp; k \leq i \cr k - 1 &amp; k &gt; i \end{cases}$$</p>
+<p>容易发现实际上所有的态射由它们生成。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>预层（presheaf）</strong></span>
+  </div>
+  <div class="pl-4"><p>对小范畴 $\mathcal C$，其预层是一个 $\mathcal C \to \mathbf{Set}$ 的反变函子，也就是一个 $F: \mathcal C^{\mathrm{op}} \to \mathbf{Set}$. 以预层为对象，自然变换为态射的预层范畴在本文记作 $P(\mathcal C)$.</p>
+</div>
+</div>
+<p>易见对 $x \in \mathrm{Ob}(\mathcal C)$ 有一个可表预层是：</p>
+<p>$$\mathrm{Hom}_{\mathcal C}(-, x): \mathcal C^{\mathrm{op}} \to \mathbf{Set}$$</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>单纯集（simplicial set）</strong></span>
+  </div>
+  <div class="pl-4"><p>单纯集是指 $\Delta$ 上的一个预层。</p>
+</div>
+</div>
+<p>实际上，单纯集是单纯复形的概念推广，一个单纯集 $X$ 包含的信息是：</p>
+<ul>
+<li>对每个 $n \in \N$ 分配一个 $X_n = X([n])$，意味着 $n$-单形的集合</li>
+<li>对每个单射的 $\delta_i: [n-1] \to [n]$ 分配一个 $d_i: X_n \to X_{n-1}$</li>
+<li>对每个满射的 $\sigma_i: [n+1] \to [n]$ 分配一个 $s_i: X_n \to X_{n+1}$</li>
+</ul>
+<p>其中 $d_i, s_i$ 满足 <a href="https://ncatlab.org/nlab/show/simplicial+identities">simplicial identities</a>.</p>
+<p>参考以下来自 <a href="https://ncatlab.org/nlab/show/simplicial+set">nLab: simplicial set</a> 的示意图：</p>
+<p><img src="/images/misc/2026_08_08.jpg" alt="simplicial set" /></p>
+<p>我们取 $\Delta^n \in P(\Delta)$ 是 $\mathrm{Hom}_\Delta(-, [n])$，则：</p>
+<p>$$X \cong \operatorname*{colimit}_{[n] \in \Delta \downarrow X} \Delta^n$$</p>
+<p>这里<a href="https://rratic.top/posts/category-theory-exercise-2/">余极限</a>体现的是粘合。回忆 $J = \set{0 \to 1 \to 2 \to \cdots}$ 及 $F_1 \subseteq F_2 \subseteq \cdots$ 时 $\operatorname{colimit} F = \bigcup_i F_i$ 体现的“取整体”意。$\Delta \downarrow X$ 的对象是 $([n] \in \Delta, \alpha: \Delta^n \to X)$，后者依 Yoneda 引理对应到 $X_n$ 的元素。读者可自行验证等式成立。</p>
+<h3 id="dan-chun-fan-chou">单纯范畴</h3>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>引理</strong></span>
+  </div>
+  <div class="pl-4"><p>对 $X \in \mathrm{Ob}(P(\Delta))$，将 $Y$ 打到 $X \times Y$ 的函子 $P(\Delta) \to P(\Delta)$ 有一个右伴随 $\underline{\mathrm{Hom}}(X, -): P(\Delta) \to P(\Delta)$，由下式决定：</p>
+<p>$$\mathrm{Hom} _{P(\Delta)}(\Delta^n, \underline{\mathrm{Hom}}(X, Z)) = \mathrm{Hom} _{P(\Delta)}(\Delta^n \times X, Z)$$</p>
+</div>
+</div>
+<p>由于 Yoneda 引理给出 $\mathrm{Hom}_{P(\Delta)}(\Delta^n, X) \cong X_n$. 我们令 $(\underline{\mathrm{Hom}}(X, Z))_n = \mathrm{Hom} _{P(\Delta)}(\Delta^n \times X, Z)$ 然后诱导面映射和退化映射即可。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>充实范畴（enriched category）</strong></span>
+  </div>
+  <div class="pl-4"><p>充实范畴是范畴的推广。一个幺半范畴 $K$ 上的充实范畴拥有某个对象集 $\mathrm{Ob}(\mathcal{C})$；对两个对象 $X, Y$，有一个态射对象“hom-object” $\mathrm{Map}(X, Y) \in K$. 复合被定义为态射 $\circ: \mathrm{Map}(Y, Z) \otimes \mathrm{Map}(X, Y) \to \mathrm{Map}(X, Z)$，满足结合律、单位律公理。</p>
+</div>
+</div>
+<p>典型的例子是考虑简单类型论，让对象是类型，对象 $A, B$ 的态射是一个 $f: A \to B$，<a href="https://rratic.top/posts/haskell-2/">如此构成的范畴</a>是充实自身的。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>单纯范畴（simplicial category）</strong></span>
+  </div>
+  <div class="pl-4"><p>单纯范畴是指 $P(\Delta)$ 上的充实范畴。</p>
+</div>
+</div>
+<p>我们取对象集是 $\mathrm{Ob}(P(\Delta))$，然后让 $\mathrm{Map}(X, Y)$ 是引理得到的 $\underline{\mathrm{Hom}}(X, Y)$.</p>
+<p>现在定义态射如何复合。只需定义 $\circ_n: (\underline{\mathrm{Hom}}(Y, Z))_n \times (\underline{\mathrm{Hom}}(X, Y))_n \to (\underline{\mathrm{Hom}}(X, Z))_n$. 由引理，只需对 $\alpha: \Delta^n \times Y \to Z$ 及 $\beta: \Delta^n \times X \to Y$ 找到 $\gamma: \Delta^n \times X \to Z$，这是通过：</p>
+<p>$$\Delta^n \times X \xrightarrow{(\mathrm{diag}, \mathrm{id}_X)} \Delta^n \times \Delta^n \times X \xrightarrow{\mathrm{id} \times \beta} \Delta^n \times Y \xrightarrow{\alpha} Z$$</p>
+<p>如此得到的单纯范畴是 $\mathbf{sSet}$，它是充实自身的，即：</p>
+<p>$$\mathrm{Map}_{\mathbf{sSet}}(X, Y) \in \mathrm{Ob}(P(\Delta)) = \mathrm{Ob}(\mathbf{sSet})$$</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-note);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/note.svg);"
+    >
+      note
+    </div>
+    <span><strong>歧义</strong></span>
+  </div>
+  <div class="pl-4"><p>$\mathbf{sSet}$ 有时也指代上文 $P(\Delta)$，此时采取的观点是充实 $\mathbf{Set}$.</p>
+</div>
+</div>
+<h3 id="ji-he-shi-xian">几何实现</h3>
+<p>回忆拓扑 $n$-单形是 $\Delta^n_{\text{top}} = \set{(t_0, \dots, t_n) | \sum t_i = 1, t_i \geq 0}$，而一个拓扑空间 $X$ 上的奇异单纯集 $S(X) \in P(\Delta)$ 就是由<a href="https://rratic.top/posts/homology-1/">奇异单形</a> $S(X)_n = \mathrm{Hom} _{\mathbf{Top}}(\Delta^n _{\text{top}}, X)$ 给出的。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>几何实现</strong></span>
+  </div>
+  <div class="pl-4"><p>几何实现 $|\cdot| \in \mathrm{Fun}(P(\Delta), \mathbf{Top})$ 定义为唯一的保余极限的将 $\Delta^n$ 打到 $\Delta^n_{\mathrm{top}}$ 的函子。</p>
+</div>
+</div>
+<p>实际上存在一个结论，对拓扑空间 $Y$，由下述引理的伴随给出的 $\varepsilon_Y: |S(Y)| \to Y$ 是一个弱同伦等价。$|S(Y)|$ 必然是 CW 复形，由 Whitehead 定理，当 $Y$ 也是 CW 复形时它是一个<a href="https://rratic.top/posts/geometry-2-final/">同伦等价</a>。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>引理</strong></span>
+  </div>
+  <div class="pl-4"><p>$S(\cdot)$ 是 $|\cdot|$ 的右伴随，即：</p>
+<p>$$\mathrm{Hom} _{\mathbf{Top}}(|X|, Y) \cong \mathrm{Hom} _{P(\Delta)}(X, S(Y))$$</p>
+</div>
+</div>
+<p>$$
+\begin{align*}
+&amp; \text{LHS} \cr
+= &amp; \mathrm{Hom} _{\mathbf{Top}}(\operatorname*{colim} _{\Delta \downarrow X} |\Delta^n|, Y) \cr
+= &amp; \operatorname*{lim} _{\Delta \downarrow X} \mathrm{Hom} _{\mathbf{Top}}(|\Delta^n|, Y) \cr
+\cong &amp; \operatorname*{lim} _{\Delta \downarrow X} \mathrm{Hom} _{P(\Delta)}(\Delta^n, S(Y)) \cr
+= &amp; \mathrm{Hom} _{P(\Delta)}(\operatorname*{colim} _{\Delta \downarrow X} \Delta^n, S(Y)) \cr
+\cong &amp; \text{RHS}
+\end{align*}
+$$</p>
+<h2 id="wu-qiong-fan-chou">无穷范畴</h2>
+<h3 id="kan-fu-xing">Kan 复形</h3>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>脉（nerve）</strong></span>
+  </div>
+  <div class="pl-4"><p>一个范畴 $\mathcal C$ 的脉 $N(\mathcal C)$ 是一个单纯集 $\mathcal \Delta^{\text{op}} \to \mathbf{Set}$，将 $[n]$ 打到 $\mathrm{Fun}([n], \mathcal C)$.</p>
+</div>
+</div>
+<p>考虑例子 $\mathcal{C}$ 是 $X \xrightarrow{f} Y$，则有如下不严格的诠释：</p>
+<table><thead><tr><th style="text-align: center">维数</th><th style="text-align: center">直观诠释</th></tr></thead><tbody>
+<tr><td style="text-align: center">$N(\mathcal C)_0$</td><td style="text-align: center">其对象 $\mathrm{Ob}(\mathcal{C})$</td></tr>
+<tr><td style="text-align: center">$N(\mathcal C)_1$</td><td style="text-align: center">其态射 $\mathrm{Mor}(\mathcal{C})$</td></tr>
+<tr><td style="text-align: center">$N(\mathcal C)_2$</td><td style="text-align: center">态射复合的定义</td></tr>
+<tr><td style="text-align: center">$N(\mathcal C)_3$</td><td style="text-align: center">复合的结合律/复合间的相容性</td></tr>
+<tr><td style="text-align: center">$N(\mathcal C)_{\geq 4}$</td><td style="text-align: center">更复杂的律，尽管确实是结合律的衍生</td></tr>
+</tbody></table>
+<p>一个显然的例子是：</p>
+<p>$$\Delta^n \cong N([n])$$</p>
+<p>由此引出的问题是，什么样的单纯集恰好是某个范畴的脉？</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>Serre fibration</strong></span>
+  </div>
+  <div class="pl-4"><p>$f \in \mathrm{Hom}_{\mathbf{Top}}(X, Y)$ 是一个 Serre fibration，如果对所有形如下图的交换图表存在 $h: D^n \times I \to X$ 使图表交换：</p>
+<p>$$
+\begin{CD}
+D^n @&gt;&gt;&gt; X \cr
+@VV(\mathrm{id}, 0)V @VVfV \cr
+D^n \times I @&gt;&gt;&gt; Y
+\end{CD}
+$$</p>
+</div>
+</div>
+<p>Serre fibration 的单纯对应物是 Kan fibration，即将 $D^n \to D^n \times I$ 换成嵌入：</p>
+<p>$$\Lambda^n_j \hookrightarrow \Delta^n$$</p>
+<p>这里 $\Lambda^n_j\, (0 \leq j \leq n)$ 是角（horn）。$\Lambda^n_j$ 是去掉第 $j$ 个面得到的，即：</p>
+<p>$$\Lambda^n_j = \bigcup_{i \neq j} \delta_i(\Delta^{n-1})$$</p>
+<p>当 $0 &lt; j &lt; n$ 时称它是内角（inner horn），否则称为外角（outer horn）。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>Kan 复形</strong></span>
+  </div>
+  <div class="pl-4"><p>$X \in P(\Delta)$ 是 Kan 复形，如果 $X \to \set{\ast}$ 是 Kan 纤维化。即，对 $\Lambda^n_j \to X$ 及 $\Lambda^n_j \hookrightarrow \Delta^n$，存在 $\Delta^n \to X$ 使图表交换。</p>
+</div>
+</div>
+<p>作为例子，考虑 $n = 2$。取 $j = 1$，设 $0 \to 1$ 与 $1 \to 2$ 对应 $f, g$，则 $0 \to 2$ 被对应到 $g \circ f$，可见内角被填充成单形给出的是复合被更高的相容所验证。现在取 $j = 0$，设 $0 \to 1$ 与 $0 \to 2$ 对应 $f, h$，则不严格地说 $1 \to 2$ 被对应到的应当是 $h \circ f^{-1}$，故我们认为外角被填充成单形给出的是态射的逆。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>引理</strong></span>
+  </div>
+  <div class="pl-4"><p>对 $X \in \mathbf{Top}$，$S(X)$ 是 Kan 复形。</p>
+</div>
+</div>
+<p>只需证明对 $|\Lambda^n_j| \to X$ 及 $|\Lambda^n_j| \hookrightarrow |\Delta^n|$，存在 $|\Delta^n| \to X$ 使图表交换。由于 $|\Lambda^n_j|$ 是 $|\Delta^n|$ 的强形变收缩核，易见可以取出一个 $|\Delta^n| \to |\Lambda^n_j|$，复合后即是所求。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>定理</strong></span>
+  </div>
+  <div class="pl-4"><p>$N(\mathcal C)$ 是 Kan 复形当且仅当 $\mathcal C$ 是群胚（即所有的态射都是同构）。</p>
+</div>
+</div>
+<p>证明略。</p>
+<h3 id="ni-fan-chou">拟范畴</h3>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>spine</strong></span>
+  </div>
+  <div class="pl-4"><p>spine 是指 $[n]$ 忘却复合的结果，即：</p>
+<p>$$0 \to 1 \to \cdots \to n$$</p>
+<p>或记作：</p>
+<p>$$I^n = \Delta^{\set{0, 1}} \cup \cdots \cup \Delta^{\set{n-1, n}}$$</p>
+</div>
+</div>
+<p>把 Kan 复形定义中的角换成 spine，得到的东西称为 composer.</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>同伦</strong></span>
+  </div>
+  <div class="pl-4"><p>对 $X \in \mathbf{sSet}$，称 $f, g \in X_1$ 同伦 $f \simeq g$，如果存在 $\sigma: \Delta^2 \to X$ 使得：</p>
+<p>$$\sigma| _{\Delta^{\set{0, 1}}} = f, \sigma| _{\Delta^{\set{0, 2}}} = g, \sigma| _{\Delta^{\set{1, 2}}} = \mathrm{id} _y$$</p>
+<p>其中令 $x = d_1 f, y = d_0 f$，将 $f, g$ 看成 $x$ 到 $y$ 的箭头。</p>
+</div>
+</div>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-theorem);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/theorem.svg);"
+    >
+      theorem
+    </div>
+    <span><strong>等价关系的条件</strong></span>
+  </div>
+  <div class="pl-4"><p>上述同伦是等价关系，如果 $X$ 对 $3$ 维角的嵌入映射有提升关系（has the lifting property with 3-horn inclusion）。</p>
+</div>
+</div>
+<p>证明如图：</p>
+<p><img src="/images/misc/2026_08_09.jpg" alt="等价关系" /></p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>同伦范畴</strong></span>
+  </div>
+  <div class="pl-4"><p>对 $X \in \mathbf{sSet}$，其同伦范畴 $h(X)$ 是以 $X_0$ 为对象集，以 $X_1$ 中的同伦类为态射集的范畴。这需要 $X$ 中同伦是等价关系，且复合在同伦类意义下存在且唯一。</p>
+</div>
+</div>
+<p>在定义合法时，有 $h(N(\mathcal C))$ 到 $\mathcal C$ 的典范同构。</p>
+<p>我们不妨推广 extension property for 3-horn inclusion 得到：</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-definition);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/definition.svg);"
+    >
+      definition
+    </div>
+    <span><strong>拟范畴（quasi category）</strong></span>
+  </div>
+  <div class="pl-4"><p>一个单纯集 $X$ 称为拟范畴，如果对所有内角都有扩张性质（has the extension property for all inner horn）。</p>
+</div>
+</div>
+<p>我们把拟范畴及其等价的模型称为 $\infty$-范畴。</p>
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)"
+  style="--admonition-bg: var(--admonition-note);"
+>
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(icons/note.svg);"
+    >
+      note
+    </div>
+    <span><strong>(n, r)-范畴</strong></span>
+  </div>
+  <div class="pl-4"><p>为了和更古老的含义表示区分，这里的 $\infty$-范畴有时写作 $(\infty, 1)$-范畴。一个 $(n, r)$-范畴是指满足 $k &gt; n$ 的 $k$-态射平凡、$k &gt; r$ 的 $k$-态射可逆的高阶范畴。</p>
+<p>“高阶范畴”引入了态射之间的态射、态射之间的态射之间的态射等 $k$-态射，此词有“严格高阶范畴”与“弱高阶范畴”两个指代。前者的定义是递归地通过：一个严格 $(n+1, r+1)$-范畴是一个充实于严格 $(n, r)$-范畴的范畴得到的，这要求复合是严格唯一的。而现实中出现的高阶结构大多不是严格的，因此考虑弱高阶范畴。实际上弱 $(\infty, n)$-范畴的一种定义方式就是使用拟范畴的推广。</p>
+</div>
+</div>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/范畴论/">范畴论</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/拓扑学/">拓扑学</a>
+    
+  </div>
+</footer>
+
+  <!-- Comment -->
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- Begin Page End inject -->
+  
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  © <time datetime="2025">2025</time> - <time datetime="2026">2026</time> Rratic | <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <link rel="stylesheet" href="https://rratic.top/katex/katex.min.css?h=0289a02cf451a44dd73a" />
+  <script defer src="https://rratic.top/katex/katex.min.js?h=a29d2961d3146de5949d"></script>
+  <script defer src="https://rratic.top/katex/contrib/auto-render.min.js?h=e5372d199bcdae8b4de7"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天使与方格吞噬者（尚待修复）</title>
+    <meta name="description" content="天使与方格吞噬者问题 K = 2 策略的交互式演示。">
+    <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="/style/form.css" type="text/css">
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            background: #ffffff;
+        }
+
+        #viewport {
+            width: 100vw;
+            height: 100vh;
+            cursor: grab;
+            touch-action: none;
+        }
+
+        #viewport.dragging {
+            cursor: grabbing;
+        }
+
+        .operation-container {
+            position: fixed;
+            top: 12px;
+            right: 12px;
+            z-index: 10;
+            padding: 0;
+        }
+
+        #info-panel {
+            position: fixed;
+            top: 12px;
+            left: 12px;
+            z-index: 10;
+            max-width: 420px;
+            max-height: 70vh;
+            padding: 12px 14px;
+            border: 1px solid #d0d0d0;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #222;
+            line-height: 1.5;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        #info-panel.hidden {
+            display: none;
+        }
+
+        #status-panel {
+            position: fixed;
+            bottom: 12px;
+            left: 12px;
+            z-index: 10;
+            padding: 8px 12px;
+            border: 1px solid #d0d0d0;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #222;
+            font: 14px/1.4 system-ui, sans-serif;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        code {
+            padding: 1px 5px;
+            font-family: "Menlo", "Inconsolata", "Consolas", "Roboto Mono", "Ubuntu Mono", "Liberation Mono", "Courier New", monospace;
+            font-size: 0.9375em;
+            border: 1px solid #e8e8e8;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="operation-container form-area">
+        <button type="button" id="button-info" class="confirm-btn">说明</button>
+        <button type="button" id="button-clear" class="danger-btn">清空</button>
+    </div>
+    <div id="info-panel" class="hidden">
+        <strong>天使问题</strong>
+        <p>问题发生在一张无限大的整数网格棋盘上，天使初始在原点 <code>(0, 0)</code> 处。</p>
+        <p>每回合，先由魔鬼禁用掉任意一个格子，然后天使尝试移动到一个未被禁用的格子。</p>
+        <p>天使的移动受力量值 <code>K</code> 约束：若当前在 <code>(x, y)</code>，下一步到 <code>(x', y')</code> 必须满足
+            <code>|x' - x|, |y' - y| ≤ K</code>。
+        </p>
+        <p>胜负条件：若魔鬼能让天使无法移动，则魔鬼胜；若天使能永远移动下去，则天使胜。</p>
+        <p>本项目演示该问题在 <code>K = 2</code> 下的必胜策略思路。参考知乎文章 <a
+                href="https://www.zhihu.com/question/298657281/answer/1952324587753804479"
+                target="_blank">有哪些令人为之惊叹的数学题目？</a></p>
+        <hr />
+        <p>操作说明：点击空白方格将其禁用，然后天使会按照策略移动。</p>
+    </div>
+    <div id="status-panel">
+        回合 <code id="status-round">0</code> · 路径长度 L = <code id="status-l">0</code> · 规避值 n = <code
+            id="status-n">0</code>
+    </div>
+    <canvas id="viewport"></canvas>
+    <script type="module" src="./main.js"></script>
+</body>
+
+</html>
