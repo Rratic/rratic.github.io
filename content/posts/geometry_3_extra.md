@@ -153,15 +153,15 @@ $$
 这里 $[X, Y]$ 定义为 $[X, Y]f = X(Yf) - Y(Xf)$.
 {% end %}
 
-先证唯一性。在某个坐标邻域内（坐标函数 $x^i$）定义 $\Gamma_{ij}^k$ 为：
+先证唯一性。在某个坐标邻域内（坐标函数 $x^i$）定义 Christoffel 记号 $\Gamma_{ij}^k$ 为：
 
 $$D_{\partial / \partial x^i} \frac{\partial}{\partial x^j} = \Gamma_{ij}^k \frac{\partial}{\partial x^k}$$
 
-容易发现条件 (L2) 等价于 $\Gamma_{ij}^k = \Gamma_{ji}^k$. 我们再记：
+容易发现条件 $(\text L2)$ 等价于 $\Gamma_{ij}^k = \Gamma_{ji}^k$. 我们再记：
 
 $$g_{ij} \equiv \left\langle\frac{\partial}{\partial x^i}, \frac{\partial}{\partial x^j}\right\rangle$$
 
-那么由 (L1) 知：
+那么由 $(\text L1)$ 知：
 
 $$\frac{\partial g_{jk}}{\partial x^i} = g_{lk} \Gamma_{ij}^l + g_{jl} \Gamma_{ik}^l$$
 
@@ -172,6 +172,16 @@ $$2g_{lk} \Gamma_{ij}^l = \frac{\partial g_{ki}}{\partial x^j} + \frac{\partial 
 故由 $g$ 唯一确定。将此式作为定义式也知存在性。可以整理成如下 Koszul 公式：
 
 $$\braket{D_X Y, Z} = \frac 1 2 (X \braket{Y, Z} + Y \braket{Z, X} - Z \braket{X, Y} + \braket{Z, [X, Y]} + \braket{Y, [Z, X]} - \braket{X, [Y, Z]})$$
+
+考虑联络的另一种看法。设 $\gamma: [a, b] \to M$ 是一条嵌入曲线，称向量场 $X$ 是沿 $\gamma$ **平行**的，如果 $D_{\dot \gamma} X = 0$. 如若 $X(a) = v, X(b) = w$，称 $w$ 是 $v$ 沿 $\gamma$ 平行移动的结果。对于 $\R^n$ 上平坦度量给出的 Levi-Civita 联络，沿 $\gamma$ 平行表明 $X$ 是我们熟悉的平行向量场。
+
+对浸入曲线 $\gamma$，可以分段作上述平行移动，从而给出了一个同构，称为平移同构：
+
+$$\mathbf P^\gamma: M_{\gamma(a)} \to M_{\gamma(b)}$$
+
+这表明，联络联络的是切空间。读者可验证 $(\text L1)$ 等价于所有平移同构都是切空间作为内积空间的等距同构。
+
+我们称满足 $D_{\dot \gamma} \dot \gamma$ 的曲线为联络的**测地线**，这是直线的推广，使用 ODE 的结果有满足 $\gamma(0) = x, \dot \gamma(0) = v$ 的测地线是局部存在且唯一的。
 
 ## 配边理论
 两个 $n$ 维闭流形 $M, N$ 称为**配边**的，如果存在一个 $n + 1$ 维紧流形 $W$，使得：

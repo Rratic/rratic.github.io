@@ -122,4 +122,40 @@ $$
 $$T^{(ab)c}{} _{[de]} = \frac 1 4 [T^{abc}{} _{de} + T^{bac}{} _{de} - T^{abc}{} _{ed} - T^{bac}{} _{ed}]$$
 
 ## 曲率
-我们考虑[联络](@/posts/geometry_3_extra.md)的平行移动看法。
+朴素的对曲面弯曲的看法是嵌入 $\mathbb E^3$ 的外在视角看的弯曲。为了内蕴地看弯曲，我们考虑[联络](@/posts/geometry_3_extra.md)的平行移动看法。对于同伦的曲线 $\gamma_1, \gamma_2$，沿着它们平行移动的结果可能是不同的。
+
+我们稍微扩展一下导算子 $\nabla$ 的定义，让它接受 $(k, l)$ 型张量得到 $(k, l+1)$ 型张量。在指标记号中使用 $\nabla_a$，尽管它并不是对偶向量。它需要满足的是：
+
+1. 线性性，对 $A, B \in \mathscr T(k, l)$ 及 $\alpha, \beta \in \R$
+	$$
+	\begin{align*}
+		& \nabla_c(\alpha A^{a_1 \dots a_k}{} _{b_1 \dots b_l} + \beta B^{a_1 \dots a_k}{} _{b_1 \dots b_l}) \cr
+		=& \alpha \nabla_c A^{a_1 \dots a_k}{} _{b_1 \dots b_l} + \beta \nabla_c B^{a_1 \dots a_k}{} _{b_1 \dots b_l} \tag{3.1.1}
+	\end{align*}
+	$$
+2. Leibniz 律，对 $A \in \mathscr T(k, l), B \in \mathscr T(k', l')$
+	$$
+	\begin{align*}
+		&\nabla _e [A^{a _1 \dots a _k}{} _{b _1 \dots b _l} B^{c _1 \dots c _{k'}}{} _{d _1 \dots d _{l'}}] \cr
+		=& [\nabla _e A^{a _1 \dots a _k}{} _{b _1 \dots b _l}] B^{c _1 \dots c _{k'}}{} _{d _1 \dots d _{l'}} \cr
+		+& A^{a _1 \dots a _k}{} _{b _1 \dots b _l} [\nabla _e B^{c _1 \dots c _{k'}}{} _{d _1 \dots d _{l'}}] \tag{3.1.2}
+	\end{align*}
+	$$
+3. 与缩并交换，对 $A \in \mathscr T(k, l)$
+	$$\nabla_d (A^{a _1 \dots c \dots a _k}{} _{b _1 \dots c \dots b _l}) = \nabla_d A^{a _1 \dots c \dots a _k}{} _{b _1 \dots c \dots b _l} \tag{3.1.3}$$
+4. 与切向量作为导子一致，对 $f \in \mathscr F, t^a \in V_p$
+	$$t^a \nabla_a f = t(f) \tag{3.1.4}$$
+5. 无挠（等价于联络对称），对 $f \in \mathscr F$
+	$$\nabla_a \nabla_b f = \nabla_b \nabla_a f \tag{3.1.5}$$
+
+我们把 Levi-Civita 联络转为看成：
+
+$$\nabla_a g_{bc} = 0 \tag{3.2}$$
+
+对导算子 $\nabla_a$ 及对偶向量场 $\omega_a$ 及光滑函数 $f$，读者可验证：
+
+$$(\nabla_a \nabla_b - \nabla_b \nabla_a) (f \omega_c) = f (\nabla_a \nabla_b - \nabla_b \nabla_a) \omega_c$$
+
+故知 $\nabla_a \nabla_b - \nabla_b \nabla_a$ 是 $(0, 3)$ 型向量场。称下式 $R_{abc}{}^d$ 为 Riemann 曲率张量：
+
+$$\nabla_a \nabla_b \omega_c - \nabla_b \nabla_a \omega_c = R_{abc}{}^d \omega_d$$
