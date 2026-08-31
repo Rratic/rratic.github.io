@@ -1,6 +1,6 @@
 +++
-title = "广义相对论"
-draft = true
+title = "【草稿】广义相对论"
+date = 2026-08-31
 
 [extra]
 toc = true
@@ -13,6 +13,10 @@ priority = "0.8"
 categories = ["知识"]
 tags = ["物理"]
 +++
+
+据说 Karl Schwarzschild 在 Einstein 提出场方程后不久，在一战的战地医院中算出了第一个精确解，是一个静态、球对称解，即黑洞。
+
+<!-- more -->
 
 参考书是 Ward, *General Relativity*，采取符号 $(-, +, +, +)$.
 
@@ -66,6 +70,7 @@ $$
 故 $x_d = \sqrt{1 - v^2/c^2}$，即尺缩效应的结果，车库管理员所说正确。而对司机来说 $a', b'$ 不是同时的，说法不正确。
 
 ## 记号定义
+### 张量
 与[之前](@/posts/differential_forms.md)相同但换一种看法，我们说 $T$ 是 $(k, l)$ 型张量，如果它是多重线性的：
 
 $$T: \underbrace{V^\ast \times \dots \times V^\ast}_k \times \underbrace{V \times \dots \times V}_l \to \R$$
@@ -100,6 +105,7 @@ $$g = \sum_{\mu, \nu} g_{\mu \nu} \mathrm dx^\mu \otimes \mathrm dx^\nu \tag{2.3
 
 $g$ 有时也记作 $\mathrm ds^2$，体现“无穷小距离”的含义。
 
+### 抽象指标记号
 由于前述分量是基底相关的，Penrose 引入了一种不依赖基底的**抽象指标记号**：用 $T^{a_1 \dots a_k}{} _{b_1 \dots b_l}$ 表示 $(k, l)$ 型张量，用相同的字母表示同一个槽位。如 $T^{abc}{} _{be}$ 指代 $T^{abc}{} _{de}$ 关于第 $2, 1$ 个槽位缩并得到的 $(2, 1)$ 型张量。为了区分，我们在分量中用希腊字母，在抽象指标记号中用拉丁字母。
 
 对于 $g_{ab}$，它会给出一个 $V_p$ 与 $V_p^\ast$ 的同构，故不妨将 $\nu^a$ 对应的对偶向量 $g_{ab}\nu^b$ 就记作 $\nu^a$；将 $g_{ab}$ 的逆记作 $g^{ab}$，从而有 $g^{ab} g_{bc} = \delta^a_c$.
@@ -122,9 +128,10 @@ $$
 $$T^{(ab)c}{} _{[de]} = \frac 1 4 [T^{abc}{} _{de} + T^{bac}{} _{de} - T^{abc}{} _{ed} - T^{bac}{} _{ed}]$$
 
 ## 曲率
-朴素的对曲面弯曲的看法是嵌入 $\mathbb E^3$ 的外在视角看的弯曲。为了内蕴地看弯曲，我们考虑[联络](@/posts/geometry_3_extra.md)的平行移动看法。对于同伦的曲线 $\gamma_1, \gamma_2$，沿着它们平行移动的结果可能是不同的。
+### 导算子
+朴素的对曲面弯曲的看法是嵌入 $\mathbb E^3$ 的外在视角看的弯曲。为了内蕴地看弯曲，我们考虑[**联络**](@/posts/geometry_3_extra.md)的平行移动看法。对于同伦的曲线 $\gamma_1, \gamma_2$，沿着它们平行移动的结果可能是不同的。
 
-我们稍微扩展一下导算子 $\nabla$ 的定义，让它接受 $(k, l)$ 型张量得到 $(k, l+1)$ 型张量。在指标记号中使用 $\nabla_a$，尽管它并不是对偶向量。它需要满足的是：
+我们稍微扩展一下**导算子** $\nabla$ 的定义，让它接受 $(k, l)$ 型张量得到 $(k, l+1)$ 型张量。在指标记号中使用 $\nabla_a$，尽管它并不是对偶向量。它需要满足的是：
 
 1. 线性性，对 $A, B \in \mathscr T(k, l)$ 及 $\alpha, \beta \in \R$
 	$$
@@ -152,10 +159,61 @@ $$T^{(ab)c}{} _{[de]} = \frac 1 4 [T^{abc}{} _{de} + T^{bac}{} _{de} - T^{abc}{}
 
 $$\nabla_a g_{bc} = 0 \tag{3.2}$$
 
+### Riemann 曲率张量
 对导算子 $\nabla_a$ 及对偶向量场 $\omega_a$ 及光滑函数 $f$，读者可验证：
 
 $$(\nabla_a \nabla_b - \nabla_b \nabla_a) (f \omega_c) = f (\nabla_a \nabla_b - \nabla_b \nabla_a) \omega_c$$
 
-故知 $\nabla_a \nabla_b - \nabla_b \nabla_a$ 是 $(0, 3)$ 型向量场。称下式 $R_{abc}{}^d$ 为 Riemann 曲率张量：
+故知 $\nabla_a \nabla_b - \nabla_b \nabla_a$ 是 $(0, 3)$ 型向量场。称下式 $R_{abc}{}^d$ 为 **Riemann 曲率张量**：
 
-$$\nabla_a \nabla_b \omega_c - \nabla_b \nabla_a \omega_c = R_{abc}{}^d \omega_d$$
+$$\nabla_a \nabla_b \omega_c - \nabla_b \nabla_a \omega_c = R_{abc}{}^d \omega_d \tag{3.3}$$
+
+这实际上刻画的是，如果某 $v^c$ 在一个小的坐标邻域内沿如下路径搬运：
+
+$$
+\begin{CD}
+	(0, \Delta s) @<<< (\Delta t, \Delta s) \cr
+	@VVV @AAA \cr
+	(0, 0) @>>> (\Delta t, 0)
+\end{CD}
+$$
+
+则有：
+
+$$\delta v^a = v^d T^c S^b R_{cbd} {}^a + O(\Delta^3)$$
+
+$$
+\begin{align*}
+	R_{abc}{}^d &= -R_{bac}{}^d \tag{3.3.1} \cr
+	R_{[abc]}{}^d &= 0 \tag{3.3.2} \cr
+	\nabla_a g_{bc} = 0 \implies R_{abcd} &= -R_{abdc} \tag{3.3.3} \cr
+	\nabla_{[a} R_{bc]d} {}^e &= 0 \tag{3.3.4}
+\end{align*}
+$$
+
+我们将 Riemann 张量分解为迹部分与无迹部分。由反对称性迹部分会消没两个指标，我们定义对称的 Ricci 张量：
+
+$$R_{ac} = R_{abc}{}^b \tag{3.4}$$
+
+其迹 $R = R_a {}^a$ 称为标量曲率。无迹部分称为 Weyl 张量 $C_{abcd}$，在维数 $n \geq 3$ 时定义为：
+
+$$
+\begin{align*}
+	R_{abcd} &= C_{abcd} \cr
+	&+ \frac 2 {n-2} (g_{a[c} R_{d]b} - g_{b[c} R_{d]a}) \cr
+	&- \frac 2 {(n-1)(n-2)} R g_{a[c} g_{d]b} \tag{3.5}
+\end{align*}
+$$
+
+我们再定义一个 Einstein 张量（会满足 $\nabla^a G_{ab} = 0$）为：
+
+$$G_{ab} = R_{ab} - \frac 1 2 R g_{ab} \tag{3.6}$$
+
+### 测地线
+考虑测地线，可以看成是满足：
+
+$$T^a \nabla_a T^b = \alpha T^b \tag{3.7.1}$$
+
+这总是可以重参数化得到：
+
+$$T^a \nabla_a T^b = 0 \tag{3.7.2}$$
