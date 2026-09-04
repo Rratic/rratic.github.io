@@ -11,7 +11,7 @@ toc = true
 priority = "0.8"
 
 [taxonomies]
-categories = ["知识"]
+categories = ["知识", "课程"]
 tags = ["数学", "几何学"]
 +++
 

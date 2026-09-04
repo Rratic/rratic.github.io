@@ -11,7 +11,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["物理"]
+tags = ["物理学"]
 +++
 
 据说 Karl Schwarzschild 在 Einstein 提出场方程后不久，在一战的战地医院中算出了第一个精确解，是一个静态、球对称解，即黑洞。

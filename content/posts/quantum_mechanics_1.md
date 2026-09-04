@@ -11,7 +11,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["物理", "量子物理"]
+tags = ["物理学"]
 +++
 
 参考的是[《初识量子力学》](https://chaoli.club/index.php/10485)前三章，这是一个理顺量子力学理论的尝试。读者可先阅读[《初识经典力学》笔记](@/posts/classical_mechanics_1.md)。

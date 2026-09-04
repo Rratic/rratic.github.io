@@ -13,7 +13,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["计算机", "算法", "物理", "量子物理"]
+tags = ["计算机", "算法", "物理学"]
 +++
 
 参考的是 Scott Aaronson 的 [Introduction to Quantum Information Science](https://www.scottaaronson.com/qclec.pdf) 讲义。

@@ -12,7 +12,7 @@ priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
-tags = ["物理", "经典物理"]
+tags = ["物理学"]
 +++
 
 本文为[《初识经典力学》](https://chaoli.club/index.php/10248)笔记，其是一个创新性的，跳过拉格朗日力学直接从哈密顿力学开始的经典力学讲义。
