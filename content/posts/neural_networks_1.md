@@ -1,6 +1,6 @@
 +++
 title = "【草稿】从反向传播到小语言模型"
-date = 2026-09-04
+date = 2026-09-06
 
 [extra]
 math = true
@@ -227,6 +227,7 @@ vocab_size = 27
 block_size = 3 # 用于预测下一字符的字符数
 n_embd = 10 # 嵌入的维数
 n_hidden = 200 # 隐藏层的神经元个数
+max_steps = 200000
 batch_size = 32 # 批次大小
 g = torch.Generator().manual_seed(2147483647)
 
@@ -287,6 +288,7 @@ while True:
         break
 ```
 
+### 初始化
 我们稍微测试一下，会发现最开始的 loss 相当大，因此考虑初始化时让 `W1` 是原本初始化的 0.2 倍，`b1`、`W2` 是原本的 0.01 倍，`b2` 为零。我们希望避免这样的情况：
 
 以 ReLU 为例，如果一个神经元不会被任何一组数据激活（始终落在 $< 0$ 区域），则在训练时梯度会被归零，那么这个神经元的权重与偏置根本不会被改变，从满足这个条件开始可以视为这个神经元“已死”。对 tanh 等压缩函数，情况也类似（分布在 $\pm 1$ 附近）。
@@ -313,7 +315,10 @@ $$\text{std} = \frac{\text{gain}}{\sqrt{\text{fan\textunderscore mode}}} \tag{Ka
 W1 = torch.randn(...) * (5/3) / ((n_embd * block_size)**0.5)
 ```
 
-之后的技术，如 residue connections、使用 normalization layers、更先进的优化器，使得初始化可以不需要特别精细。考虑 [Batch Normalization](https://arxiv.org/abs/1502.03167)：直接将 `hpreact` 归一化，这是可微的操作。
+之后的技术，如 residue connections、使用 normalization layers、更先进的优化器，使得初始化可以不需要特别精细。
+
+### Batch Normalization
+考虑 [Batch Normalization](https://arxiv.org/abs/1502.03167)：直接将 `hpreact` 归一化，这是可微的操作。
 
 ```py
 hpreact = (hpreact - hpreact.mean(0, keepdim=True)) / hpreact.std(0, keepdim=True)
@@ -332,7 +337,7 @@ hpreact = bngain * ... + bnbias
 
 因为人们不希望前向传播的过程中 batch 的数据耦合起来，人们尝试弃用 batch normalization，转而采用其它归一化技术。
 
-现在讨论这个问题：训练时使用 batch normalization，那我们在使用时如何对单个样本作预测呢？
+现在讨论这个问题：训练时使用 batch normalization，那我们在使用时如何对单个样本作预测呢？在训练后使用训练数据单独进行一次：
 ```py
 # calibrate the batch norm at the end of training
 with torch.no_grad():
@@ -342,3 +347,26 @@ with torch.no_grad():
     bnmean = hpreact.mean(0, keepdim=True)
     bnstd = hpreact.std(0, keepdim=True)
 ```
+
+另一种方法是在训练时以滑动平均的发生动态估算均值和标准差。
+```py
+# bnmean_running = torch.zeros((1, n_hidden))
+# bnstd_running = torch.ones((1, n_hidden))
+bnmeani = hpreact.mean(0, keepdim=True)
+bnstdi = hpreact.std(0, keepdim=True)
+hpreact = bngain * (hpreact - bnmeani) / bnstdi + bnbias
+
+with torch.no_grad():
+    bnmean_running = 0.999 * bnmean_running + 0.001 * bnmeani
+    bnstd_running = 0.999 * bnstd_running + 0.001 * bnstdi
+```
+
+最后作两点补充。为了防止 `bnstdi` 为零导致除零错误，有时会给它加上一个小的常数（如 1e-5）；另外，这里偏置项是冗余的。
+
+读者可以参考 [PyTorch 的 Batch Normalization 文档](https://docs.pytorch.org/docs/2.14/generated/torch.nn.BatchNorm1d.html)：
+
+```py
+class torch.nn.BatchNorm1d(num_features, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True, device=None, dtype=None, *, bias=True)
+```
+
+$$y = \frac{x - \mathrm E[x]}{\sqrt{\mathrm{Var}[x] + \epsilon}} \ast \gamma + \beta$$
