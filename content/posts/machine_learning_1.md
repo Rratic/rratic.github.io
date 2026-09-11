@@ -59,7 +59,7 @@ $$\min_\theta \hat R(\theta)$$
 
 我们通常还会加上正则化项：
 
-$$J(\theta) = \hat R(\theta) + \lambda \underbrace{R(f_\theta)}_{\text{penalty}}$$
+$$J(\theta) = \hat R(\theta) + \lambda \underbrace{P(f_\theta)}_{\text{penalty}}$$
 
 $$\min_\theta J(\theta)$$
 
@@ -103,14 +103,52 @@ $$
 在整个过程中，Step 1 与 2 门槛最高，但核心是数据，清洗数据带来的效果可能比优化架构有用很多。
 
 ### 误差分解
-记 $\mathcal H_m$ 内最优：
+记假设空间 $\mathcal H_m = \set{f_\theta | \theta \in \R^m}$ 内最优：
 
 $$f_H^\ast \leftarrow \argmin_{f \in \mathcal H_m} R(f)$$
 
-则可以作分解：
+则可以作分解（$R(f^\ast) = 0$）：
 
 $$R(\hat f) - R(f^\ast) = \underbrace{R(\hat f) - R(f_H^\ast)} _{\text{estimation error}} + \underbrace{R(f_H^\ast) - R(f^\ast)} _{\text{approximation error}}$$
 
-这里估计误差来自于有限训练数据和优化过程，记作 $E(n, m)$；近似误差来自空间 $\mathcal H_m$ 的表达能力，记作 $A(m)$；总误差记为 $\mathcal E(n, m)$.
+这里估计误差来自于有限训练数据和优化过程，记作 $E_H(n, m)$，一般来说会随 $m$ 增大（表达能力增强后有更大的风险得到复杂而非真实的函数）；近似误差来自空间 $\mathcal H_m$ 的表达能力，记作 $A_H(m)$；总误差记为 $\mathcal E(n, m)$.
 
-增加数据主要有助于降低估计误差，而扩大模型的表达能力主要有助于降低近似误差。机器学习系统需要在这两者之间取得平衡。
+增加数据主要有助于降低估计误差，而扩大模型的表达能力主要有助于降低近似误差。朴素的看法认为误差会随 capacity $m$ 呈 U 型曲线，因此正则化作用是惩罚复杂性。现代深度学习会更复杂，如在 capacity 足够高时会出现二次下降。
+
+### 成本
+我们希望在 $\min_{m, n} R_H(m, n)$ 的同时让成本 $C_H(m, n) \leq B$.
+
+不妨考察：
+
+$$C_H(m, n) = n \cdot m \cdot \alpha_H$$
+
+$$R_H(m, n) = \frac 1 {m^\alpha} + \frac 1 {n^\beta} \tag{deepmind scaling law}$$
+
+$$\begin{cases} \min \frac 1 {m^\alpha} + \frac 1 {n^\beta} \cr m \cdot n \leq c \end{cases} \implies \begin{cases} m \sim C^{\frac \beta {\alpha+\beta}} \cr n \sim C^{\frac \alpha {\alpha+\beta}} \end{cases}$$
+
+现代来看，我们可以设计 $R$，从而给出对应 scaling law 结果，可以预测增加若干预算能有多少优化。由此我们离开了古法的“炼丹”情景。
+
+### 泛化
+我们希望从有限的数据推广到无限的数据。考察：
+
+$$
+\begin{align*}
+&\hat f(x) - f^\ast(x) \cr
+=& \hat f(x) - \hat f(x_k) + \hat f(x_k) - f^\ast(x_k) + f^\ast(x_k) - f^\ast(x) \cr
+\leq & \mathrm{Lip}(f) |x - x_k| + \mathrm{Lip}(f^\ast) |x - x_k| + \delta_k
+\end{align*}
+$$
+
+假设数据在 $[0, 1]$ 上均匀，有 $\min_j |x - x_j| \sim \frac 1 n$；对 $X = [0, 1]^d$ 则（考察网格情况及使用 sphere packing argument）：
+
+$$\min_j |x - x_j| \sim n^{-\frac 1 d} = Q_n$$
+
+对 $s$ 阶可微的函数：
+
+$$|\hat f(x) - f^\ast(x)| \sim n^{-\frac s d} = \varepsilon$$
+
+此现象（维数灾难）等价于，高维单位球面上的向量几乎都是正交的。
+
+假若希望 $\varepsilon \leq 0.1$，对 $d = 150000$ 就需要 $10^{150000}$ 的数据，这是不可接受的。因此，我们会利用一些数据的结构。
+
+如果假设空间是分片常值函数（在实际中确有，如 K-nearest neighbour (KNN)），想要去拟合线性函数，则读者可验证也会造成维数灾难。
