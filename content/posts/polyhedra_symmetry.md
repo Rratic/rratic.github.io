@@ -34,9 +34,9 @@ $$\mathbf{M}_{\alpha} \begin{pmatrix} x \cr y \cr z \end{pmatrix}$$
 
 旋转是不满足交换律的。
 
-{% admonition(type="theorem", title="旋转轴") %}
+{% <theorem title="旋转轴"> %}
 非平凡的旋转一定有旋转轴。
-{% end %}
+{% </theorem> %}
 
 旋转轴实际上是一维不变子空间，我们只需要求特征值 $|\lambda| = 1$ 对应的特征向量。
 
@@ -70,9 +70,9 @@ $$\mathbf{M}_{\alpha} \begin{pmatrix} x \cr y \cr z \end{pmatrix}$$
 ![正十二面体嵌入正方体](/images/polyhedra/dodecahedron_and_cube.svg)
 
 ### 对称性分析
-{% admonition(type="theorem", title="正多面体分类") %}
+{% <theorem title="正多面体分类"> %}
 正多面体只有前述五种。
-{% end %}
+{% </theorem> %}
 
 可以简单地根据每个顶点处至少 $2$ 个面、一圈的角度和小于 360° 的原则枚举「面的边数，顶点汇聚的面数」二元组。所有可能情况是 $(3, 3), (3, 4), (3, 5), (4, 3), (5, 3)$.
 
@@ -173,15 +173,15 @@ Johnson 多面体是指正多面体、半正多面体、棱柱、反棱柱之外
 
 理论上说，可以通过分析多面体对应的平面图来列举全部的 92 种。需要用到的结论包括：
 
-{% admonition(type="theorem", title="Steinitz 定理") %}
+{% <theorem title="Steinitz 定理"> %}
 每个 $3$-连通平面图都可以表示为某个凸多面体的图。
-{% end %}
+{% </theorem> %}
 
 此定理证明超出了本文范围；其逆定理易证。
 
-{% admonition(type="theorem", title="柯西刚性定理") %}
+{% <theorem title="柯西刚性定理"> %}
 若两个凸多面体对应面全等，则两个多面体也全等。
-{% end %}
+{% </theorem> %}
 
 如果能够实现不全等的凸多面体 $P, P'$，对每条边若二面角在 $P'$ 中比 $P$ 中大则染黑，在 $P$ 中比 $P'$ 中大则染白。由欧拉公式知存在一顶点与至少一条黑边或白边相邻，使得绕此顶点的边（按顺时针）经历最多两次颜色变化。
 

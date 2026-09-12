@@ -22,12 +22,12 @@ tags = ["数学", "代数学"]
 ### 定义
 内积一般是在 $F = \R \text{ or } \Complex$ 上说的。
 
-{% admonition(type="definition", title="内积") %}
+{% <definition title="内积"> %}
 $F$-线性空间 $V$ 上的内积是一个函数 $\langle \cdot, \cdot \rangle: V \times V \to F$ 满足：
 - $\braket{c\alpha + \beta, \gamma} = c\braket{\alpha, \gamma} + \braket{\beta, \gamma}$
 - $\braket{\beta, \alpha} = \overline{\braket{\alpha, \beta}}$
 - 对 $\alpha \neq 0$ 有 $\braket{\alpha, \alpha} > 0$
-{% end %}
+{% </definition> %}
 
 这里前两个条件称为“$1\frac{1}{2}$-线性”，第三个条件称为正定性。
 
@@ -37,11 +37,11 @@ $F^{n \times 1}$ 上的**标准内积**是 $\braket{\alpha, \beta} = \sum_{i=1}^
 
 这里 $A^\ast$ 指转置共轭。若 $A^\ast = A$，称 $A$ **Hermite**（$F = \R$ 时称 $A$ **对称**）。在此基础上若还对非零列向量 $\alpha$ 有 $\alpha^\ast A \alpha > 0$，称 $A$ **正定**。易见 $Q \in \mathrm{GL}_n(F)$ 时 $Q^\ast Q$ 正定。
 
-{% admonition(type="theorem", title="定理") %}
+{% <theorem title="定理"> %}
 给定 $\dim V = n$ 及一组基 $\mathcal{B}$, 对任一内积存在唯一正定矩阵 $A$ 使得：
 
 $$\braket{\alpha, \beta} = [\beta] _\mathcal{B}^\ast A [\alpha] _\mathcal{B}$$
-{% end %}
+{% </theorem> %}
 
 读者易证。
 
@@ -67,23 +67,23 @@ $$\left\langle \sum x_j \alpha_j, \sum y_j \alpha_j \right\rangle = \sum x_j \ba
 
 $$\beta = \sum \braket{\beta, \alpha_k} \alpha_k$$
 
-{% admonition(type="theorem", title="Gram–Schmidt 正交化") %}
+{% <theorem title="Gram–Schmidt 正交化"> %}
 设 $\set{\beta_1, \dots, \beta_n}$ 是 $V$ 的基，存在标准正交基 $\set{\alpha_1, \dots, \alpha_n}$ 且对任意 $k$ 均有：
 
 $$\mathrm{span}\set{\beta_1, \dots, \beta_k} = \mathrm{span}\set{\alpha_1, \dots, \alpha_k}$$
-{% end %}
+{% </theorem> %}
 
 只需要依次取：
 
 $$\alpha_m = \beta_m - \sum_{j=1}^{m-1} \frac{\braket{\beta_m, \alpha_j}}{\lVert\alpha_j\rVert^2} \alpha_j$$
 
-{% admonition(type="theorem", title="Bessel 不等式") %}
+{% <theorem title="Bessel 不等式"> %}
 对正交集 $S = \set{\alpha_1, \dots, \alpha_n}$ 不含零向量及 $\beta \in V$ 有：
 
 $$\sum_{k=1}^n |\braket{\beta, \alpha_k}|^2 \leq \lVert\beta\rVert^2$$
 
 等号成立当且仅当 $\beta \in \operatorname{span} S$.
-{% end %}
+{% </theorem> %}
 
 对 $S \subseteq V$，定义其**正交补** $S^\perp \coloneqq \set{\alpha \in V | \alpha \perp \beta, \forall \beta \in S}$. 对有限维内积空间与子空间 $W$ 有 $(W^\perp)^\perp = W$ 及 $V = W \oplus W^\perp$.
 
@@ -103,13 +103,13 @@ $$
 \end{aligned}
 $$
 
-{% admonition(type="definition", title="伴随") %}
+{% <definition title="伴随"> %}
 对任意 $T \in L(V)$，存在唯一的 $T^\ast \in L(V)$ 满足：
 
 $$\braket{T\alpha, \beta} = \braket{\alpha, T^\ast\beta}$$
 
 称为其（关于内积的）**伴随变换**。
-{% end %}
+{% </definition> %}
 
 在标准正交基 $\mathcal{B}$ 下有 $[T^\ast] _\mathcal{B} = [T] _\mathcal{B}^\ast$.
 
@@ -126,20 +126,20 @@ $$\braket{T\alpha, \beta} = \braket{\alpha, T^\ast\beta}$$
 
 对应地，在 $\Complex^{n \times n}$ 上我们依据 $A^\top A = I$ 定义正交群 $\mathrm{O}(n)$ 与复正交群 $\mathrm{O}(n, \Complex)$; 依据 $A^\ast A = I$ 定义酉群 $\mathrm{U}(n)$.
 
-{% admonition(type="theorem", title="QR 分解") %}
+{% <theorem title="QR 分解"> %}
 对 $A \in \mathrm{GL}_n(F)$ 存在唯一分解 $A = QR$, 其中 $Q \in \mathrm{O}(n)$ 或 $\mathrm{U}(n)$, $R$ 是正对角元的上三角阵。
-{% end %}
+{% </theorem> %}
 
 使用 Schmidt 正交化即可。进一步有 Iwasawa 分解 $A = A_k A_a A_n$, 其中 $A_k$ 是前面的 $Q$, $A_a$ 是正对角元的对角阵，$A_n$ 是对角元 $1$ 的上三角阵。
 
 ### 正规变换
 称 $T$ **正规**，如果 $T$ 与 $T^\ast$ 可交换。
 
-{% admonition(type="theorem", title="正交/酉对角化") %}
+{% <theorem title="正交/酉对角化"> %}
 对 $F$ 上的有限维内积空间 $V$ 与 $T \in L(V)$ 有：
 - $F = \R$ 时存在标准正交基 $\mathcal{B}$ 使 $[T]_\mathcal{B}$ 对角 $\iff$ $T$ 自伴
 - $F = \Complex$ 时存在标准正交基 $\mathcal{B}$ 使 $[T]_\mathcal{B}$ 对角 $\iff$ $T$ 正规
-{% end %}
+{% </theorem> %}
 
 左推右易证，考察右推左：
 
@@ -155,26 +155,26 @@ $T$ 正规时，一种方法是取 $T_1 = (T + T^\ast) / 2, T_2 = (T - T^\ast) /
 
 第三种证法先证明 Schur 三角化定理：设 $V$ 有限维复内积空间，$T \in L(V)$，存在有序标准正交基使得 $[T]_{\mathcal{B}}$ 上三角。我们知道存在 $T$-不变全旗，恰当取基使得标准正交即可（或者使用 QR 分解）。而正规的上三角矩阵只能是对角阵。
 
-{% admonition(type="theorem", title="特征值刻画") %}
+{% <theorem title="特征值刻画"> %}
 设 $V$ 有限维复内积空间，$T$ 正规，则：
 1. $T$ 自伴 $\iff \sigma(T) \subset \R$
 2. $T$ 反自伴 $\iff \sigma(T) \subset \mathrm{i}\R$
 3. $T$ 酉 $\iff \sigma(T) \subset \set{e^{\mathrm{i}\theta}}$
-{% end %}
+{% </theorem> %}
 
 取使 $T$ 对角的基来看。
 
-{% admonition(type="question", title="2021 P3") %}
+{% <question title="2021 P3"> %}
 求所有满足如下性质的正整数 $k$：对任意对称非对角矩阵 $A \in \R^{2021 \times 2021}$，矩阵 $A^k + A$ 总不是对角矩阵。
-{% end %}
+{% </question> %}
 
 $k$ 为偶时有反例：取 $A$ 每一元均为 $-1/n$，有 $A^2 = -A$.
 
 $k$ 为奇时令 $f(x) = x^k + x$，只需找 $g$ 使得 $g(f(A)) = A$. 考察正交对角化 $A = QDQ^{-1}$，只需对每个对角元 $c$ 有 $g(f(c)) = c$ 即可。
 
-{% admonition(type="question", title="2016 P6") %}
+{% <question title="2016 P6"> %}
 证明任意 $3 \times 3$ 复矩阵酉相似于形如的 $\begin{pmatrix} \ast & 0 & \ast \cr \ast & \ast & 0 \cr \ast & 0 & \ast \end{pmatrix}$ 矩阵。
-{% end %}
+{% </question> %}
 
 只需证对线性变换 $T$ 存在标准正交基满足 $\braket{T\alpha_2, \alpha_1} = \braket{T\alpha_2, \alpha_3} = \braket{T\alpha_3, \alpha_2} = 0$. 取特征向量 $\alpha_2$，只需再取出 $\alpha_3$ 即可。
 
@@ -194,9 +194,9 @@ $$[f] _{\mathcal{B}'} = P^\ast [f] _\mathcal{B} P$$
 
 在 Hermite 的基础上，我们可以依 $f(\alpha, \alpha)$ 取值定义正定、负定、半正定等。易见 $A$ 正定时 $A$ 可逆，且对 $P \in \mathrm{GL}_n(F)$ 有 $P^\ast AP$ 正定。
 
-{% admonition(type="theorem", title="Cholesky 分解") %}
+{% <theorem title="Cholesky 分解"> %}
 对 $A \in F^{n\times n}$ 正定，存在唯一正对角元上三角阵 $R$ 使得 $A = R^\ast R$.
-{% end %}
+{% </theorem> %}
 
 考察 $F^{n\times 1}$ 上的内积 $f(X, Y) = Y^\ast AX$ 及标准内积 $f_0(X, Y) = Y^\ast X$. 取内积空间的同构 $L_R: (F^{n\times 1}, f) \to (F^{n\times 1}, f_0)$ 就有 $A = R^\ast R$.
 
@@ -212,17 +212,17 @@ $$[f] _{\mathcal{B}'} = P^\ast [f] _\mathcal{B} P$$
 
 $$\Delta_k(A) \coloneqq \det(A_{1:k,1:k})$$
 
-{% admonition(type="theorem", title="LU 分解") %}
+{% <theorem title="LU 分解"> %}
 对任意域 $F$ 及 $A \in \mathrm{GL}_n(F)$ 以下条件等价：
 1. 对 $k = 1, \dots, n-1$ 有 $\Delta_k(A) \neq 0$
 2. 存在 $L, U \in \mathrm{GL}_n(F)$ 使得 $L$ 下三角，$U$ 对角元 $1$ 且上三角，满足 $A = LU$
-{% end %}
+{% </theorem> %}
 
 只需证 (1) 推 (2). 往证存在严格上三角阵 $N$ 使得 $A(N + I_n)$ 下三角。归纳写出即可。
 
-{% admonition(type="theorem", title="正定矩阵判定方法") %}
+{% <theorem title="正定矩阵判定方法"> %}
 对 $A \in F^{n\times n}$ Hermite 有 $A$ 正定当且仅当所有顺序主子式大于 $0$.
-{% end %}
+{% </theorem> %}
 
 只需证右推左。
 
@@ -257,9 +257,9 @@ $$f(\alpha, \beta) = \braket{T_f\alpha, \beta}$$
 
 我们定义 $T \in L(V)$ 正定，如果它自伴并且 $\braket{T\alpha, \alpha} > 0$.
 
-{% admonition(type="theorem", title="主轴定理") %}
+{% <theorem title="主轴定理"> %}
 对 $f \in \mathrm{Form}(V)$ Hermite 存在标准正交基使得 $[f]_\mathcal{B}$ 实对角。
-{% end %}
+{% </theorem> %}
 
 因为 $T_f$ 自伴。
 
@@ -270,11 +270,11 @@ $$f(\alpha, \beta) = \braket{T_f\alpha, \beta}$$
 若 $F = \Complex$，用 Schur 三角化定理知存在标准正交基使 $[f]_\mathcal{B}$ 上三角。
 
 ### 谱分解
-{% admonition(type="theorem", title="谱分解") %}
+{% <theorem title="谱分解"> %}
 设 $T$ 自伴（$F = \R$）或正规（$F = \Complex$），$\sigma(T) = \set{c_1, \dots, c_k}$，对任意 $f \in F[x]$ 有：
 
 $$f(T) = \sum_{i=1}^k f(c_i) P_i$$
-{% end %}
+{% </theorem> %}
 
 对 $\alpha = \sum \alpha_i$ 考察 $f(T) \alpha$ 即可。
 
@@ -302,12 +302,12 @@ $$
 
 特别地，这给出 $\ker \sqrt{T^\ast T} = \ker T$.
 
-{% admonition(type="theorem", title="极分解") %}
+{% <theorem title="极分解"> %}
 对 $T \in L(V)$ 有：
 1. 存在 $T = UN$ 使 $U$ 正交/酉，$N$ 半正定
 2. 必有 $N = \sqrt{T^\ast T}$
 3. $T$ 可逆当且仅当 $N$ 正定，此时 $U$ 唯一
-{% end %}
+{% </theorem> %}
 
 假设 $T$ 可逆，则 $N$ 可逆，对 $U = TN^{-1}$ 有：
 
@@ -315,25 +315,25 @@ $$\lVert U\alpha \rVert = \lVert T (N^{-1} \alpha) \rVert = \lVert N (N^{-1} \al
 
 对一般情况，存在 $U_1: \mathrm{Im}(N) \to \mathrm{Im}(T)$. 再任取 $U_2: \mathrm{Im}(N)^\perp \to \mathrm{Im}(T)^\perp$，令 $U = U_1 \oplus U_2$ 即可。
 
-{% admonition(type="question", title="2016 P7") %}
+{% <question title="2016 P7"> %}
 设 $V$ 有限维复内积空间，$S, T \in L(V)$ 正规，证明 $ST$ 正规的充要条件是 $TS$ 正规。
-{% end %}
+{% </question> %}
 
 考虑 $S = UN$，有 $U, N$ 可交换。验证 $T, N$ 可交换：令 $R = TS^\ast S - S^\ast ST$ 有 $\mathrm{tr}(R^\ast R) = 0$，从而 $R = 0$.
 
 故有 $U^{-1}STU = NTU = TUN = TS$.
 
-{% admonition(type="theorem", title="奇异值分解") %}
+{% <theorem title="奇异值分解"> %}
 对 $A \in F^{n\times n}$ 存在分解 $A = U_1DU_2$ 使 $D$ 是对角元非负实数的对角阵，$U_1, U_2$ 正交/酉。
-{% end %}
+{% </theorem> %}
 
 考虑极分解 $A = UN$ 再分解 $N = PDP^{-1}$.
 
-{% admonition(type="question", title="2024 P3") %}
+{% <question title="2024 P3"> %}
 证明对 $A, B \in \R^{n \times n}$ 以下两个条件等价：
 1. 存在 $X, Y \in \R^{n \times n}$ 使得 $\begin{pmatrix} A & X \cr Y & B \end{pmatrix} \in \mathrm{O}(2n)$
 2. 对任意 $\alpha \in \R^{n \times 1}$ 有 $\lVert A\alpha \rVert \leq \lVert \alpha \rVert$，并且存在 $P, Q \in \mathrm{O}(n)$ 使得 $A = PBQ$
-{% end %}
+{% </question> %}
 
 对 (1) 推 (2)，对大矩阵用定义知 $A^\top A + Y^\top Y = YY^\top + BB^\top = I$. 故 $\lVert A\alpha \rVert^2 = \lVert \alpha \rVert^2 - \lVert Y\alpha \rVert^2 \leq \lVert A\alpha \rVert^2$.
 
@@ -362,11 +362,11 @@ Q_\theta = \begin{pmatrix}
 \end{pmatrix}
 $$
 
-{% admonition(type="theorem", title="定理") %}
+{% <theorem title="定理"> %}
 设 $V$ 有限维实内积空间，$T \in L(V)$ 正规，则存在标准正交基使得：
 
 $$[T]_{\mathcal{B}} = \mathrm{diag}(a_1, \dots, a_l, r_1 Q _{\theta _1}, \dots, r_m Q _{\theta _m})$$
-{% end %}
+{% </theorem> %}
 
 法一：
 
@@ -386,9 +386,9 @@ $$[T]_{\mathcal{B}} = \mathrm{diag}(a_1, \dots, a_l, r_1 Q _{\theta _1}, \dots, 
 
 法三：
 
-{% admonition(type="theorem", title="QS 分解") %}
+{% <theorem title="QS 分解"> %}
 对酉阵 $U$ 存在分解 $U = QS$ 使得 $Q$ 实正交，$S$ 酉对称，且存在复多项式 $f$ 满足 $S = f(U^\top U)$.
-{% end %}
+{% </theorem> %}
 
 取 $f$ 满足 $f(c_i)^2 = c_i$ 有 $S^2 = U^\top U$.
 
@@ -428,32 +428,32 @@ $$L_f(\alpha)(\beta) = R_f(\beta)(\alpha) = f(\alpha, \beta)$$
 - 取 $\Phi(f)(\alpha) = f(\alpha, \alpha)$，则 $\Phi| _{S^2(V)}$ 是 $S^2(V) \to Q(V)$ 的线性同构，因为 $\ker \Phi = \Lambda^2(V)$，从而可以定义对称阵 $[q] _{\mathcal{B}}$
 - 对 $f \in S^2(V)$ 有极化恒等式 $f(\alpha,\beta) = (q(\alpha + \beta) - q(\alpha - \beta)) / 4$
 
-{% admonition(type="theorem", title="定理") %}
+{% <theorem title="定理"> %}
 - 对 $\operatorname{char} F \neq 2$ 及 $f \in S^2(V)$，存在有序基使 $[f]_{\mathcal{B}}$ 对角
 - 对 $f \in \Lambda^2(V)$ 存在有序基使 $[f]_{\mathcal{B}}$ 形如
 
 $$\mathrm{diag}\left(\begin{pmatrix} 0 & 1 \cr -1 & 0 \end{pmatrix} \cdots \begin{pmatrix} 0 & 1 \cr -1 & 0 \end{pmatrix}, 0, \dots, 0 \right)$$
-{% end %}
+{% </theorem> %}
 
 我们定义 $W^\perp = \set{\beta \in V | f(\alpha, \beta) = 0, \forall \alpha \in W}$，则若 $f|_W$ 非退化就有 $V = W \oplus W^\perp$. 讨论即可。
 
 称非退化交错双线性形式为**辛形式**，则在某个基下形如 $\begin{pmatrix} 0 & I_m \cr -I_m & 0 \end{pmatrix}$.
 
-{% admonition(type="theorem", title="合同标准形") %}
+{% <theorem title="合同标准形"> %}
 对 $f$ 对称：
 - 若 $F$ 代数闭且特征非 $2$，则存在有序基使 $[f]_{\mathcal{B}} = \mathrm{diag}(I_r, 0, \dots, 0)$
 - 若 $F = \R$，则存在有序基使 $[f] _{\mathcal{B}} = \mathrm{diag}(I _{r_1}, -I _{r_2}, 0, \dots, 0)$
-{% end %}
+{% </theorem> %}
 
 第二种情况的 $r_1, r_2$ 被 $f$ 决定，$r_1$ 为使 $f|_{W \times W}$ 正定的最大子空间维数。两者称为**正惯性指数**、**负惯性指数**，数对 $(r_1, r_2)$ 称为 $f$ 的符号。定理称 Sylvester 惯性定理。
 
-{% admonition(type="question", title="2025 P3 (2)") %}
+{% <question title="2025 P3 (2)"> %}
 考虑实线性空间 $\R^{3 \times 3}$ 上的对称双线性函数 $f(A, B) = \mathrm{tr}(AB)$，求 $f$ 的正惯性指数。
-{% end %}
+{% </question> %}
 
 取 $\R^{3 \times 3} = S \oplus A$，其中 $S$ 是那些对称矩阵，$A$ 是那些反对称矩阵。有 $S$ 使 $f|_{S \times S}$ 正定，维数最大，故正惯性指数 $6$.
 
-{% admonition(type="question", title="2023 P2") %}
+{% <question title="2023 P2"> %}
 设 $V$ 为 $2023$ 维实线性空间，$f$ 为 $V$ 上的非退化双线性函数，$T \in L(V)$满足：
 
 $$f(T\alpha, T\beta) = f(\alpha, \beta)$$
@@ -462,7 +462,7 @@ $$f(T\alpha, T\beta) = f(\alpha, \beta)$$
 2. 进一步假设 $f$ 对称并且 $T$（在 $\R$ 上）可对角化，证明：
 
 $$\mathrm{rank}(T^2 - I) \leq 2\min\set{r_1, r_2}$$
-{% end %}
+{% </question> %}
 
 对 (1)，由 $T^\top AT = A$ 知 $ATA^{-1} = (T^\top)^{-1}$. 由 $T^\top \sim T$ 知 $T \sim T^{-1}$. 用特征多项式知成立。
 
@@ -487,8 +487,8 @@ $$\mathrm{O}(p, q) = G_{\mathrm{diag}(I_p, -I_q)}$$
 
 $$\mathrm{Sp} _{2m}(F) = G _{\begin{pmatrix} 0 & I _m \cr -I _m & 0 \end{pmatrix}}$$
 
-{% admonition(type="question", title="2023 P4") %}
+{% <question title="2023 P4"> %}
 求实线性空间 $\R^{4\times 4}$ 的与 $\mathrm{O}(3, 1)$ 不相交的子空间的最大维数。
-{% end %}
+{% </question> %}
 
 取 $\set{A | a_{44} = 0}$ 即可。

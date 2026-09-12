@@ -25,7 +25,7 @@ tags = ["数学", "代数学"]
 </style>
 
 ## 往年题选做
-{% admonition(type="question", title="2019 P1") %}
+{% <question title="2019 P1"> %}
 考虑实线性空间：
 
 $$V = \set{f \in \R[x] | \deg (f) \leq 3}$$
@@ -35,29 +35,29 @@ $$V = \set{f \in \R[x] | \deg (f) \leq 3}$$
 $$T_1(f) = \sum_{k=0}^3 f(k) (x-2019)^k,\ T_2(f) = \sum_{k=0}^3 (D^kf)(x-2020)^k$$
 
 求 $\det T_1$ 和 $\det T_2$.
-{% end %}
+{% </question> %}
 
 对 $T_1$，取基 $\set{1, (x-2019), (x-2019)^2, (x-2019)^3}$，得到的是一个 Vandermonde 行列式，我们知道可化为 $\prod_{1 \leq i < j \leq n} (a_j - a_i)$.
 
 $T_2$ 同理，得到对角矩阵。
 
-{% admonition(type="question", title="2019 P2") %}
+{% <question title="2019 P2"> %}
 取定 $z \in \Complex$，有 $f, g \in \mathbb{Q}[x] \setminus \set{0}$ 满足 $f(z) = 0, g(z) \neq 0$，证：
 1. 存在 $h_1 \in \mathbb{Q}[x]$ 使 $h_1(z) = g(z)^{-1}$
 2. 存在 $h_2 \in \mathbb{Q}[x] \setminus \set{0}$ 使 $h_2(g(z)) = 0$
-{% end %}
+{% </question> %}
 
 (1) 是因为可以对 $f$ 与 $g$ 作辗转相除，得到 $p(z)f(z) - q(z)g(z) = 1$.
 
 (2) 是因为设 $\deg f = n$，则 $\set{h(z) | h \in \mathbb{Q}[x]} \subset \Complex$ 作为 $\mathbb{Q}$-线性空间是至多 $n$ 维的，从而 $1, g(z), \dots, [g(z)]^n$ 线性相关。
 
-{% admonition(type="question", title="2019 P5") %}
+{% <question title="2019 P5"> %}
 设 $V$ 有限维实线性空间，$W_1, \dots, W_m \subset V$ 子空间，$\alpha_1, \dots, \alpha_m \in V$，假设：
 
 $$\dim W_i = \dim V - 1, \quad \bigcap_{i=1}^m W_i = \set{0}, \quad \alpha_i \notin W_i$$
 
 设 $T(L(V))$ 满足如下条件：对任意 $i$ 存在 $j$ 使得 $T(\alpha_i + W_i) \subseteq \alpha_j + W_j$，证：$\det T = \pm 1$.
-{% end %}
+{% </question> %}
 
 我们来刻画 $W_i$，取 $f_i$ 使 $f_i(\alpha_i) = 1$ 且 $f_i|_{W_i} \equiv 0$. 由条件知 $f_1, \dots, f_m$ 构成 $V^\ast$ 的基，记它们构成集合 $E$.
 
@@ -65,9 +65,9 @@ $$\dim W_i = \dim V - 1, \quad \bigcap_{i=1}^m W_i = \set{0}, \quad \alpha_i \no
 
 现在我们知道 $T^t(E) = E$，故存在某个 $(T^t|_E)^k = \mathrm{id}$.
 
-{% admonition(type="question", title="2020 P4") %}
+{% <question title="2020 P4"> %}
 $A \in \Z^{n\times n}$ 满足 $|\det A| = 2$，证存在 $Z \in \Z^{n\times 1}$，使得对任意 $Y \in \Z^{n\times 1}$ 存在 $X \in \Z^{n\times 1}$ 使得 $AX - Y$ 为 $\mathbf{0}$ 或 $Z$.
-{% end %}
+{% </question> %}
 
 对 $n$ 维整列向量称 $v \sim w$ 如果 $v - w$ 是 $A$ 乘以某个 $n$ 维整列向量的值。考虑将 $\det A$ 视作体积考虑格点，知只有两个等价类。但是这不容易严格说明。
 
@@ -77,9 +77,9 @@ $A \in \Z^{n\times n}$ 满足 $|\det A| = 2$，证存在 $Z \in \Z^{n\times 1}$�
 
 此时 $AX = Y$ 有解即 $(PA)(QX) = PY$ 有解，易见。
 
-{% admonition(type="question", title="2022 P7") %}
+{% <question title="2022 P7"> %}
 设 $V$ 为实线性空间 $\R^{2022}$，求正整数 $r$ 的最小值，使得存在 $L \in M^r(V)$，当 $T \in L(V)$ 满足 $L(T\alpha_1, \dots, T\alpha_r) = L(\alpha_1, \dots, \alpha_r)$ 时总有 $\det T = 1$.
-{% end %}
+{% </question> %}
 
 $r = 1$ 时可强行分析。
 
@@ -91,31 +91,31 @@ $$\sum_{k=1}^n (T^t f_{2k-1}) \wedge (T^t f_{2k}) = \sum_{k=1}^n f_{2k-1} \wedge
 
 $$n! (T^t f_1)\wedge \cdots \wedge (T^t f_{2n}) = n! f_1\wedge \cdots \wedge f_{2n}$$
 
-{% admonition(type="question", title="2022 P8") %}
+{% <question title="2022 P8"> %}
 考虑 $\Complex[x]$ 的子空间 $V = \mathrm{span}\set{x^{k^2} | k \in \set{0, 1, \dots, 8}}$，求正整数 $n$ 的最小值，使得对 $\Complex$ 的任意 $n$ 元子集 $S$ 总存在 $z_1, \dots, z_9 \in S$ 与 $f_1, \dots, f_9 \in V$ 使得 $f_i(z_j) = \delta_{ij}$.
-{% end %}
+{% </question> %}
 
 记 $L_z(f) = f(z)$，则对 $|S| = 65$ 有 $\bigcap_{z \in S} \ker(L_z) = \set{0}$，从而 $\mathrm{span}\set{L_z | z \in S} = V^\ast$，存在 $L_{z_1}, \dots, L_{z_9}$ 为基。
 
 另一方面，取 $x^{64}-1$ 的根知 $|S| = 64$ 不行。
 
-{% admonition(type="question", title="2023 P1 (2)") %}
+{% <question title="2023 P1 (2)"> %}
 设 $f_1, \dots, f_4$ 是 $\R^4$ 的标准基的对偶基，线性映射 $T \in L(\R^4)$ 满足：
 
 $$(T^t f_1) \wedge (T^t f_2) + (T^t f_3) \wedge (T^t f_4) = f_1 \wedge f_3 + f_2 \wedge f_4$$
 
 求 $\det T$ 的所有可能值。
-{% end %}
+{% </question> %}
 
 易见 $T$ 交换 $e_2, e_3$ 是一解。
 
 考虑自己 $\wedge$ 自己，取 $L = f_1 \wedge f_3 \wedge f_2 \wedge f_4 \in \Lambda^4(\R^4)$，直接使用 $\det$ 定义知 $\det T = -1$.
 
-{% admonition(type="question", title="2023 P2") %}
+{% <question title="2023 P2"> %}
 $n = 2024$，对复线性空间 $V = \Complex^n$，求最大整数 $r$ 使得对任意线性映射 $T: V \to V^\ast$，存在 $V$ 的基 $\alpha_1, \dots, \alpha_n$ 使得：
 
 $$T(\alpha_i) \in \set{\alpha_{n-r+i}, \dots, \alpha_n}^0, \quad i = 1, \dots, r$$
-{% end %}
+{% </question> %}
 
 将 $T$ 看成双线性形式，则易见 $r = 2024, 2023$ 不行。
 
@@ -132,9 +132,9 @@ $$T(\alpha_i) \in \set{\alpha_{n-r+i}, \dots, \alpha_n}^0, \quad i = 1, \dots, r
 
 原题即证任意矩阵可通过合同变换变为主对角线上方略短对角线上方全为 $0$ 的矩阵。
 
-{% admonition(type="question", title="2023 P3") %}
+{% <question title="2023 P3"> %}
 $n = 2024$，$\alpha = (x_1, \dots, x_n) \in \Z^n$ 为非零向量且 $\gcd (x_1, \dots, x_n) = 1$. 证存在含 $\alpha$ 的 $n$ 元集合 $S$ 通过整系数线性组合可以构成 $\Z^n$.
-{% end %}
+{% </question> %}
 
 一个自然的想法是归纳。
 
@@ -154,13 +154,13 @@ $n = 2024$，$\alpha = (x_1, \dots, x_n) \in \Z^n$ 为非零向量且 $\gcd (x_1
 
 现在证存在 $A \in \Omega$ 使得 $\alpha A = e_1$. 考虑 $\alpha A$ 各分量出现的最小正整数值，设为 $d$. 我们可以让某个 $\beta = \alpha A$ 的第一个分量为 $d$，其余分量在 $0$ 到 $d-1$ 间，由最小性 $\beta = de_1$，现在易知 $d=1$.
 
-{% admonition(type="question", title="2023 P4") %}
+{% <question title="2023 P4"> %}
 矩阵 $A \in \R^{5\times 5}$，$A^2$ 是对角线均为 $1$ 的上三角矩阵，且：
 
 $$a_{11}=a_{12}=a_{21}=a_{55}=0 \quad a_{13}=a_{31}=a_{45}=a_{54}=1$$
 
 求 $a_{22}$ 的所有可能值。
-{% end %}
+{% </question> %}
 
 由条件知 $\det A = \pm 1$，考虑：
 
@@ -185,9 +185,9 @@ $$
 
 事后来看配一个几乎是下三角矩阵的东西是有道理的，但此题还是太难。
 
-{% admonition(type="question", title="2024 P4") %}
+{% <question title="2024 P4"> %}
 $n = 2024$，任意域 $F$，令 $V = \set{h \in F[x] | \deg h < n}$，设 $f, g$ 为首一 $n$ 次多项式，$T_1(h)$ 是 $fh$ 除以 $g$ 的余式，$T_2(h)$ 是 $gh$ 除以 $f$ 的余式。证：$\det T_1 = \det T_2$.
-{% end %}
+{% </question> %}
 
 考虑 $F$ 的代数闭包 $\bar{F}$，分解 $f(x) = (x-\alpha_1)\cdots(x-\alpha_n), g(x) = (x-\beta_1)\cdots(x-\beta_n)$.
 
@@ -372,13 +372,13 @@ $$\sum_{\sigma\in\Omega} \operatorname{sgn}(\sigma) a_{\sigma(1)\sigma(2)}a_{\si
 ## 考后总结
 还是炸了。填空题没什么可说的，第三题错估了条件的强度做了太久。
 
-{% admonition(type="question", title="2025 P1 (3)") %}
+{% <question title="2025 P1 (3)"> %}
 记 $\Lambda_d = \set{(x, y, z) \in \Z^3 | x+y+z \equiv 0 \pmod d}$，求数集 $\set{\det T | T \in L(\R^3), T(\Lambda_3) \subseteq \Lambda_5}$.
-{% end %}
+{% </question> %}
 
 是 $\frac{5}{3} \Z$. 因为可以 $(x, y, z) \to (x, y, x+y+z)$ 然后 $(x, y, 3k) \to (x, y, 5k)$ 然后 $(x, y, t) \to (x, 4x+y, 4y+t)$.
 
-{% admonition(type="question", title="2025 P4") %}
+{% <question title="2025 P4"> %}
 复矩阵 $A \in \Complex^{2n\times 2n}$ 满足 $A^2 = -3I_{2n}$，将它表示为分块矩阵（$A_{ij} \in \Complex^{n\times n}$）：
 
 $$
@@ -391,7 +391,7 @@ $$
 证明：
 
 $$\det (I_n + A_{11})^3 = \det (I_n - A_{22})^3$$
-{% end %}
+{% </question> %}
 
 首先注意到 $(I_{2n}+A)^3 = -8I_{2n}$.
 

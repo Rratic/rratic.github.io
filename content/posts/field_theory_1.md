@@ -23,9 +23,9 @@ tags = ["数学", "代数学"]
 
 ## 背景
 ### 代数基本定理
-{% admonition(type="theorem", title="代数基本定理") %}
+{% <theorem title="代数基本定理"> %}
 一个复系数 $n$ 次多项式 $P(z)$ 恰有 $n$ 个复根（计入重数）。
-{% end %}
+{% </theorem> %}
 
 只需证明非常值复系数多项式有根。以下给出 Frode Terkelsen 的一个简短且较为初等的证明。
 
@@ -84,15 +84,15 @@ Lagrange 在解方程时构造了辅助量。
 
 不那么平凡但重要的例子如下：
 
-{% admonition(type="example", title="p-进数域") %}
+{% <example title="p-进数域"> %}
 对 $q=p^n \frac{a}{b}$，其中 $a$，$b$ 与 $p$ 互素，定义 $p$-进绝对值 $|q|_p = p^{-n}$. $\mathbb{Q}$ 由 $p$-进绝对值完备化为 $\mathbb{Q}_p$.
-{% end %}
+{% </example> %}
 
 其特征为 $0$.
 
-{% admonition(type="example", title="形式 Laurent 级数域") %}
+{% <example title="形式 Laurent 级数域"> %}
 对域 $F$，$F(\\!(x)\\!)$ 是全体 $\sum_{n=k}^\infty a_nx^n, k\in\Z, a_n\in F$ 的域。
-{% end %}
+{% </example> %}
 
 其特征与 $F$ 一致。
 
@@ -112,9 +112,9 @@ Lagrange 在解方程时构造了辅助量。
 
 **Galois 扩张**是指正规且可分的扩张。
 
-{% admonition(type="theorem", title="0 特征域的扩张可分") %}
+{% <theorem title="0 特征域的扩张可分"> %}
 对 $0$ 特征域 $F$，每个扩张 $E/F$ 都可分。
-{% end %}
+{% </theorem> %}
 
 对不可约的 $f$，由于特征为 $0$，$f'$ 非零，从而 $\gcd(f, f')=1$，$f$ 没有重根。
 
@@ -126,9 +126,9 @@ Galois 理论给出了域的扩张与其自同构群的联系。
 
 以下讨论 $n$ 次首一多项式 $f\in F[x]$ 在 $E/F$ 中分裂，所有根 $\Omega = \set{z_i}$ 有序且 $E = F(\Omega)$.
 
-{% admonition(type="theorem", title="是置换") %}
+{% <theorem title="是置换"> %}
 对 $\sigma\in \mathrm{Aut}(E)$ 保持 $F$，它在 $\Omega$ 上是一个置换。
-{% end %}
+{% </theorem> %}
 
 因为 $f(\sigma(z_i)) = \sigma(f(z_i)) = 0, \sigma(z_i)\in\Omega$，且 $\sigma$ 是单射。
 
@@ -156,12 +156,12 @@ $$
 
 对域 $F$ 和非常数多项式 $f\in F[x]$，对应正规扩张 $E$，如果存在一列扩张 $F=K_0\subset K_1\subset \cdots K_t$ 满足 $K_{i+1} = K_i(u)$，其中 $u^k\in K_i, k\in\Z^+$，且 $E\subseteq K_t$，则称 $f$ 根式可解。
 
-{% admonition(type="theorem", title="性质") %}
+{% <theorem title="性质"> %}
 对有限 Galois 扩张 $E/F$ 及中间域 $F\subset K\subset E$，若 $K/F$ 正规，则对任意 $\sigma\in \mathrm{Gal}(E/F)$，有：
 - $\sigma K = K$
 - $\mathrm{Gal}(E/K)\triangleleft \mathrm{Gal}(E/F)$
 - $\mathrm{Gal}(E/F)/\mathrm{Gal}(E/K)\cong \mathrm{Gal}(K/F)$
-{% end %}
+{% </theorem> %}
 
 第一个结论由定义易得。从而给出结论二、三。
 
@@ -172,23 +172,23 @@ $$
 \end{aligned}
 $$
 
-{% admonition(type="theorem", title="根式扩张导出 Galois 群的次正规群列") %}
+{% <theorem title="根式扩张导出 Galois 群的次正规群列"> %}
 对一列扩张 $F = K_0\subset K_1\subset \cdots K_t$ 满足 $K_{i+1} = K_i(u)$，其中 $u^{p_i}\in K_i, p_i \in \mathbb{P}$，且 $K_t/F$ 正规，$F$ 包含所有 $p_i$ 阶单位根。
 
 则有子群列 $\set{e} = G_t \subset \cdots G_1\subset G_0 = \mathrm{Gal}(K_t/F)$，其中 $G_{i+1}\triangleleft G_i$，$G_i/G_{i+1}$ 为 $\set{e}$ 或 $p_{i+1}$ 阶循环群。
-{% end %}
+{% </theorem> %}
 
 令 $G_i = \mathrm{Gal}(K_t/K_i)$. 有 $G_i/G_{i+1} \cong \mathrm{Gal}(K_{i+1}/K_i)$ 知成立。
 
-{% admonition(type="theorem", title="n 次方程可解性问题") %}
+{% <theorem title="n 次方程可解性问题"> %}
 域 $F$ 和非常数多项式 $f\in F[x]$，正规扩张 $E$，若 $f$ 根式可解，则 $\mathrm{Gal}(E/F)$ 为可解群。
-{% end %}
+{% </theorem> %}
 
 上一个结论的推论。特别地，
 
-{% admonition(type="theorem", title="Abel-Ruffini 定理") %}
+{% <theorem title="Abel-Ruffini 定理"> %}
 五次方程不存在通用根式解。
-{% end %}
+{% </theorem> %}
 
 此时对应的 $\mathrm{Gal}(E/F)\cong S_n, n\geq 5$.
 

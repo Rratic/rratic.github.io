@@ -65,11 +65,11 @@ $$
 此矩阵的反对称性和对角元素为 $0$ 可由 Frenet 标架右手单位正交推得。
 
 ### 曲线论基本定理
-{% admonition(type="theorem", title="曲线论基本定理") %}
+{% <theorem title="曲线论基本定理"> %}
 假设 $\kappa, \tau$ 是开区间 $J$ 上的光滑函数，且 $\kappa$ 恒正，那么：
 1. 存在弧长参数曲线段 $\gamma: J \to \mathbb{E}^3$，使得曲率、挠率与 $\kappa, \tau$ 相对应
 2. 这样的曲线段在差一个刚体运动下唯一
-{% end %}
+{% </theorem> %}
 
 这是通过 ODE 证明的。
 
@@ -128,7 +128,7 @@ $$K = \frac{LN-M^2}{EG-F^2}$$
 
 称 $\lambda^2 - 2H\lambda + K = 0$ 的两根 $\kappa_1, \kappa_2$ 为主曲率。
 
-{% admonition(type="tip", title="几何直观") %}
+{% <tip title="几何直观"> %}
 考察曲面上的曲线 $\gamma(r) = \phi(u(r))$ 是弧长参数的。由于 $\ddot\gamma \bot \dot\gamma$ 存在分解：
 
 $$\ddot\gamma = \kappa_n\mathbf{n} + \kappa_g\mathbf{n} \times \dot\gamma$$
@@ -139,13 +139,13 @@ $$\ddot\gamma = (\dot s^2 \phi_{ss} + 2\dot s \dot t \phi_{st} + \dot t^2 \phi_{
 
 对两式均进行两边同乘 $\mathbf{n}$, 即得 $\kappa_n = L\dot s^2 + 2M\dot s \dot t + N\dot t^2$.
 
-{% admonition(type="note", title="理解") %}
+{% <note title="理解"> %}
 我们可以选取适当参数，使 $\phi$ 在该处的第一基本形式为 $\mathrm{d}s^2 + \mathrm{d}t^2$. 此时可推出 $\kappa_1, \kappa_2$ 是 $\kappa_n$ 的两个极值。对应线向就是主方向。
-{% end %}
+{% </note> %}
 
 称包含曲面在该点的法线的平面为**法截面**，与曲面交线为**法截线**。
 
-{% end %}
+{% </tip> %}
 
 考察 Gauss 映射：
 
@@ -175,9 +175,9 @@ $$\begin{pmatrix} \phi_s \cr \phi_t \cr \mathbf{n} \end{pmatrix} \cdot \begin{pm
 
 得到的矩阵首行中间列就是 Gauss 方程，前两行最右列就是 Codazzi 方程。
 
-{% admonition(type="theorem", title="Gauss 绝妙定理") %}
+{% <theorem title="Gauss 绝妙定理"> %}
 空间曲面的第一基本形式完全决定 Gauss 曲率。
-{% end %}
+{% </theorem> %}
 
 即证 $LN - M^2$ 可以由 $E, F, G$ 完全表示。
 
@@ -195,9 +195,9 @@ $$\begin{pmatrix} \phi_s & \phi_t & \mathbf{n} \end{pmatrix}_t = \begin{pmatrix}
 特别地，当 $F = 0$ 时可以使用 $(\phi_s, \phi_t, \mathbf{n})$ 构成正交标架来简化计算。
 
 ### 曲面论基本定理
-{% admonition(type="theorem", title="曲面论基本定理") %}
+{% <theorem title="曲面论基本定理"> %}
 若 $D \subset \R^2$ 上 $g, h$ 相容（即满足 Gauss-Codazzi 方程），则实现的曲面片局部存在，且在刚体运动下唯一。
-{% end %}
+{% </theorem> %}
 
 使用一些 PDE 之类的东西。
 
@@ -215,7 +215,7 @@ $$
 
 通过看 $\tilde{U} \to \mathbb{E}^3$ 及使用多元微积分，得：
 
-{% admonition(type="theorem", title="保长对应") %}
+{% <theorem title="保长对应"> %}
 $\tau$ 保长当且仅当：
 
 $$
@@ -227,9 +227,9 @@ J^\top \begin{pmatrix}
 	\tilde{F} & \tilde{G}
 \end{pmatrix}
 $$
-{% end %}
+{% </theorem> %}
 
-{% admonition(type="theorem", title="保角对应") %}
+{% <theorem title="保角对应"> %}
 $\tau$ 保角当且仅当存在恒正 $\rho: \tilde{U} \to \R$ 使得：
 
 $$
@@ -241,13 +241,13 @@ J^\top \begin{pmatrix}
 	\tilde{F} & \tilde{G}
 \end{pmatrix}
 $$
-{% end %}
+{% </theorem> %}
 
-{% admonition(type="theorem", title="保积对应") %}
+{% <theorem title="保积对应"> %}
 $\tau$ 保积当且仅当：
 
 $$\sqrt{(EG-F^2) \circ \tau} \cdot |\det J| = \sqrt{\tilde{E}\tilde{G}-\tilde{F}^2}$$
-{% end %}
+{% </theorem> %}
 
 ## 扩展
 写一些我认为可以了解的东西，部分来自陈维桓《微分几何初步》。这里没有写测地线与常（高斯）曲率曲面。
@@ -292,25 +292,25 @@ $$
 光滑流形上的定向是指在每个点处的切空间指定一个有序基，使这个指定是局部连续的。局部正则参数曲面片显然是存在定向的。
 
 ### Gauss–Bonnet 公式
-{% admonition(type="theorem", title="定理") %}
+{% <theorem title="定理"> %}
 设曲线 $C$ 是曲面 $S$ 上的分段光滑简单闭曲线，包围了单连通区域 $D$ 则：
 
 $$\oint_C \kappa_g \mathrm{d}s + \iint_D K \mathrm{d}\sigma = 2\pi - \sum a_i$$
 
 其中 $\sigma$ 表示面积微元，$a_i$ 表示角点处的外角。
-{% end %}
+{% </theorem> %}
 
-{% admonition(type="theorem", title="Gauss–Bonnet 公式") %}
+{% <theorem title="Gauss–Bonnet 公式"> %}
 对紧的可定向闭曲面 $S$ 有：
 
 $$\iint_S K \mathrm{d}\sigma = 2\pi \chi(S)$$
-{% end %}
+{% </theorem> %}
 
 ## 考试
 ### 往年题
-{% admonition(type="question", title="2022 P3") %}
+{% <question title="2022 P3"> %}
 给定空间曲面 $S_1: x^2+y^2+z^2 = 9$ 和 $S^2: x^2−2y = 0$，记 $c = S_1 \cap S_2$ 为它们的交线。求：点 $P(2, 2, 1)$ 处 $c$ 关于 $S_1$ 的法曲率。
-{% end %}
+{% </question> %}
 
 设 $c$ 的弧长参数方程 $\gamma(s)$ 满足 $\gamma(0) = (2, 2, 1), x'(0) > 0$. 通过对 $S_1$ 求两次导及弧长参数知：
 
@@ -318,15 +318,15 @@ $$2x''(0) + 2y''(0) + z''(0) = -1$$
 
 又法向量 $(\frac{2}{3}, \frac{2}{3}, \frac{1}{3})$ 知法曲率 $\gamma''(0) \cdot \mathbf{n} = -\frac{1}{3}$.
 
-{% admonition(type="question", title="2022 P4") %}
+{% <question title="2022 P4"> %}
 求证：如果空间正则曲面 $S \subset \mathbb{E}^3$ 包含一条直线 $l \subset S$，那么 $S$ 在 $l$ 上任意点的 Gauss 曲率都小于或等于 $0$.
-{% end %}
+{% </question> %}
 
 因为主曲率将满足 $\kappa_1 \leq 0 \leq \kappa_2$.
 
-{% admonition(type="question", title="2022 P5") %}
+{% <question title="2022 P5"> %}
 假设 $\Omega$ 是 $\mathbb{E}^3$ 中的区域，包含于单位球内部，且边界 $S = \partial \Omega$ 是正则曲面。求证：存在 $S$ 上某点，Gauss 曲率大于或等于 $1$.
-{% end %}
+{% </question> %}
 
 注意到单位球上 Gauss 曲率为 $1$.
 
@@ -346,9 +346,9 @@ $$1 + \gamma(0) \cdot \gamma''(0) + o(1) \leq 0$$
 
 $$\lVert \gamma''(0) \rVert \geq 1$$
 
-{% admonition(type="question", title="2023 P6") %}
+{% <question title="2023 P6"> %}
 设 $\phi: \R^2 \to \mathbb{E}^3$ 是正则（浸入）参数曲面片，且假设 $\phi(s, t) = \phi(s+1, t) = \phi(s, t+1)$ 对所有 $(s, t) \in \R^2$ 成立。问：$\phi$ 的 Gauss 映射是否一定满射单位球面？加以论证。
-{% end %}
+{% </question> %}
 
 否，例子大约是：
 
@@ -356,7 +356,7 @@ $$\mid 8$$
 
 这里“8”绕着轴转一圈，通过定向说明法向量只能在正向上、正向下中取其一。
 
-{% admonition(type="question", title="2025 P4") %}
+{% <question title="2025 P4"> %}
 设 $\phi: \R^2 \to \mathbb{E}^3$ 为正则参数曲面片，第一、第二基本形式处处为：
 
 $$E\mathrm{d}s^2 + 2F\mathrm{d}s\mathrm{d}t + G\mathrm{d}t^2 = \mathrm{d}s^2 + 4\mathrm{d}s\mathrm{d}t + 5\mathrm{d}t^2$$
@@ -364,17 +364,17 @@ $$E\mathrm{d}s^2 + 2F\mathrm{d}s\mathrm{d}t + G\mathrm{d}t^2 = \mathrm{d}s^2 + 4
 $$L\mathrm{d}s^2 + 2M\mathrm{d}s\mathrm{d}t + N\mathrm{d}t^2 = 2c\mathrm{d}s\mathrm{d}t$$
 
 其中 $c \in \R$ 是与参数 $(s, t)$ 无关的常数。求证 $c = 0$.
-{% end %}
+{% </question> %}
 
 等距变换到平面 $\phi(s, t) = (s+2t, t, 0)$. 有它的 Gauss 曲率 $0$.
 
 ### 今年题
-{% admonition(type="question", title="2026 P5 (2)") %}
+{% <question title="2026 P5 (2)"> %}
 假设正则参数曲面片 $\phi: U \to \mathbb{E}^3$ 的 Gauss 曲率处处为负，且坐标曲线构成渐进参数网。求证：若 Gauss 曲率还恒等于负常数，则二阶偏导数向量 $\phi_{st}$ 处处平行于 $\mathbf{n}$.
-{% end %}
+{% </question> %}
 
-{% admonition(type="question", title="2026 P6") %}
+{% <question title="2026 P6"> %}
 设 $f: \R^2 \to \R$ 为光滑函数，满足 $f(0, 0) = 1$, 且当 $s^2 + t^2 \geq 1$ 时 $f(s, t) = 0$. 记 $\phi: \R^2 \to \mathbb{E}^3$ 为正则参数曲面片 $\phi(s, t) = (s, t, f(s, t))$. 问：是否一定存在参数点 $(s_0, t_0) \in \R^2$ 使得 Gauss 曲率 $K(s_0, t_0) > 0$? 加以论证。
-{% end %}
+{% </question> %}
 
 取充分大正数 $M$ 考察离 $(0, 0, -M)$ 最远的点，使用往年题结论。

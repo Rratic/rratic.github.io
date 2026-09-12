@@ -55,9 +55,9 @@ $$M = \bigoplus_{x\in S} xR$$
 
 存在以下结论：
 
-{% admonition(type="definition", title="秩") %}
+{% <definition title="秩"> %}
 设 $R$ 是交换幺环，$M$ 是有限生成的自由 R-模，则它任意一族基的元素个数相等。称这个基的势为 $M$ 的**秩**，记作 $\mathrm{rank}_R(M)$.
-{% end %}
+{% </definition> %}
 
 易见 $M$ 的任意一组基只有有限个元素。
 
@@ -69,9 +69,9 @@ $$M = \bigoplus_{x\in S} xR$$
 ### 扭
 对整环 $R$ 和 R-模 $M$ 及 $x\in M$，如果存在 $R$ 中非零元素 $a$ 使 $xa=0$，则称 $x$ 为**扭元素**，否则称为**自由元素**。所有元素都是扭元素的称为**扭模**，所有非零元素都是自由元素的称为**无扭模**。
 
-{% admonition(type="theorem", title="自由与无扭") %}
+{% <theorem title="自由与无扭"> %}
 主理想整环上的有限生成模是自由的当且仅当它是无扭的。
-{% end %}
+{% </theorem> %}
 
 如果 R-模 $M$ 是自由的，不考虑零模，设有基 $x_1, \dots , x_n$ 及 $xa=0$，有 $x=x_1a_1+\cdots+x_na_n$ 推出 $0=x_1a_1a+\cdots+x_na_na$，故 $a_i$ 全为零，矛盾。
 
@@ -82,13 +82,13 @@ $$M = \bigoplus_{x\in S} xR$$
 ### 分解
 我们先证明：
 
-{% admonition(type="theorem", title="有限生成自由模的子模") %}
+{% <theorem title="有限生成自由模的子模"> %}
 主理想整环上的有限生成自由模的子模仍为有限生成自由模。
-{% end %}
+{% </theorem> %}
 
 先证子模是自由模，且秩不超过原来模的秩。
 
-{{ todo() }}
+{{ <todo /> }}
 
 ## 正合列
 由 R-模构成的**复形**是指一列 R-模及相邻两个的同态，形如下图：
@@ -99,4 +99,4 @@ $$\cdots\to W\to X\to Y\to Z\to\cdots$$
 
 复形在 $Y$ 处的**同调群**定义为 $\ker [Y\to Z] / \mathrm{Im}[X\to Y]$，如果 $\ker [Y\to Z] = \mathrm{Im}[X\to Y]$ 则称复形在 $Y$ 处正合，处处正合的称为**正合列**。
 
-{{ todo() }}
+{{ <todo /> }}

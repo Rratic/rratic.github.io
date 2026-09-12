@@ -40,23 +40,23 @@ tags = ["数学", "基石"]
 
 另外还会有一些非逻辑符号：常元符号、函数符号与关系符号。
 
-{% admonition(type="definition", title="项（term）") %}
+{% <definition title="项（term）"> %}
 对一个一阶逻辑形式语言 $\mathcal{L}$, 有穷次使用以下规则得到的符号串是 $\mathcal{L}$-项：
 - 个体变元是 $\mathcal{L}$-项
 - 常元符号是 $\mathcal{L}$-项
 - 如果 $F$ 是 $\mathcal{L}$ 中的 $n$ 元函数符号，而 $t_1, \dots, t_n$ 是 $n$ 个 $\mathcal{L}$-项，则 $F(t_1, \dots, t_n)$ 是 $\mathcal{L}$-项
-{% end %}
+{% </definition> %}
 
-{% admonition(type="definition", title="原子公式（atomic formula）") %}
+{% <definition title="原子公式（atomic formula）"> %}
 - 如果 $R$ 是 $\mathcal{L}$ 中的 $n$ 元关系符号，而 $t_1, \dots, t_n$ 是 $n$ 个 $\mathcal{L}$-项，则 $R(t_1, \dots, t_n)$ 是原子 $\mathcal{L}$-公式
 - 如果 $s, t$ 是 $\mathcal{L}$-项，则 $s \dot{=} t$ 是原子 $\mathcal{L}$-公式
-{% end %}
+{% </definition> %}
 
-{% admonition(type="definition", title="公式（formula）") %}
+{% <definition title="公式（formula）"> %}
 - 原子 $\mathcal{L}$-公式是 $\mathcal{L}$-公式
 - 如果 $\varphi$ 和 $\psi$ 是 $\mathcal{L}$-公式，那么 $\neg \varphi, (\varphi \wedge \psi), (\varphi \vee \psi), (\varphi \to \psi)$ 是 $\mathcal{L}$-公式
 - 如果 $\varphi$ 是 $\mathcal{L}$-公式且 $x$ 是个体变元，则 $\forall x \varphi$ 和 $\exists x \varphi$ 是 $\mathcal{L}$-公式
-{% end %}
+{% </definition> %}
 
 对 $\mathcal{L}$-公式 $\varphi$，若一部分 $\forall x \psi$, 称 $\forall x \psi$ 是量词 $\forall x$ 在这次出现的辖域（scope）。如果个体变元 $x$ 某次出现在量词的辖域中，则称其为约束出现，否则称为自由出现。至少一次自由出现的称为**自由变元**（free variable），否则称为约束变元（bounded variable）。
 
@@ -69,11 +69,11 @@ $\mathfrak{A}$ 上的一个指派（assignment）是一个从个体变元集合�
 
 仿照之前的文章，剩下的语义定义部分是自然的，读者可自行思考。语义后承、有效式、逻辑等价定义同理。
 
-{% admonition(type="theorem", title="合同引理") %}
+{% <theorem title="合同引理"> %}
 $\mathfrak{A}$ 与 $\mathfrak{B}$ 是论域相同的两个 $\mathcal{L}$-结构，分别有指派 $\nu$ 与 $\mu$ 使得对 $\varphi$ 中出现的常元符号、函数符号、关系符号对应相等，自由变元满足 $\nu(x) = \mu(x)$, 则：
 
 $$\mathfrak{A}, \nu \models \varphi \iff \mathfrak{B}, \mu \models \varphi$$
-{% end %}
+{% </theorem> %}
 
 ## 证明系统
 ### 自然演绎系统
@@ -193,11 +193,11 @@ Lindström 定理表明，一阶逻辑在紧致性和向下 Löwenheim-Skolem �
 
 ## 计算
 ### 理论
-{% admonition(type="definition", title="一阶逻辑的理论") %}
+{% <definition title="一阶逻辑的理论"> %}
 理论是一组一阶逻辑句子（集合），这些句子被称为这个理论的公理。这些句子用到的非逻辑符号（常量名字，谓词，函数）被称为这个理论的初始概念。
 
 对理论 $T$ 如果 $T \vdash \varphi$, 我们称 $\varphi$ 为 $T$ 的**定理**/逻辑后果/理论后果。
-{% end %}
+{% </definition> %}
 
 一个好的理论至少得是一致的，即 $x \neq x$ 不是这个理论的逻辑后果。
 
@@ -248,9 +248,9 @@ Church-Turing 论题认为，直观上可计算的函数恰好就是图灵可计
 
 从而我们知道停机问题是不可计算的，对此的形式化过程略去。而为了把图灵机运行编码进一阶逻辑，考虑经典的使用纸带的状态转移机，形式化过程略去。从而说明了一阶逻辑的有效性的不可计算性。
 
-{% admonition(type="theorem", title="Rice 定理") %}
+{% <theorem title="Rice 定理"> %}
 图灵机的每个非平凡的语义性质都不可判定。
-{% end %}
+{% </theorem> %}
 
 一个性质被称为语义的，如果仅依赖于机器所计算的函数；称为非平凡的，如果有些机器具备而有些不具备。
 
@@ -258,7 +258,7 @@ Church-Turing 论题认为，直观上可计算的函数恰好就是图灵可计
 我们称一个理论 $T$ 是一致的当且仅当不存在句子 $\varphi$ 使得 $T \vdash (\varphi \wedge \neg \varphi)$，这实际上和之前的定义等价。是完备的，当且仅当对任意句子 $\varphi$ 有 $T \vdash \varphi$ 或 $T \vdash \neg \varphi$.
 
 ### 算术
-{% admonition(type="definition", title="一阶皮亚诺算术 PA") %}
+{% <definition title="一阶皮亚诺算术 PA"> %}
 一阶算术语言包含非逻辑符号：常元符号 $0$；一元函数符号 $S$ 与二元函数符号 $+, \times$.
 
 在一阶逻辑希尔伯特演算证明系统外，还可使用非逻辑公理：
@@ -269,7 +269,7 @@ Church-Turing 论题认为，直观上可计算的函数恰好就是图灵可计
 - $\forall x (x \times 0 = 0)$
 - $\forall x (x \times S(y) = x \times y + x)$
 - 归纳公理 $(\varphi(0) \wedge \forall x (\varphi(x) \to \varphi(S(x)))) \to \forall x \varphi(x)$
-{% end %}
+{% </definition> %}
 
 关于如何用它证明一些基本的结果，可以在 The Natural Number Game 中看到。
 
@@ -292,19 +292,19 @@ $$┌ \varphi ┐ \coloneqq \overline{\\# \varphi}$$
 
 定义关系 $\mathrm{diag}(m, n)$ 当且仅当 $n = \\# \varphi$ 时 $m = \\# (\varphi(┌ \varphi ┐))$.
 
-{% admonition(type="theorem", title="事实") %}
+{% <theorem title="事实"> %}
 存在 PA 中的公式 $\mathrm{Diag}(x, y)$ 使得对任意自然数 $m, n$ 有：
 - 若 $\mathrm{diag}(m, n)$ 成立，则 $\text{PA} \vdash \mathrm{Diag}(\bar{m}, \bar{n}) \wedge \exists! x \mathrm{Diag}(x, \bar{n})$
 - 若 $\mathrm{diag}(m, n)$ 不成立，则 $\text{PA} \vdash \neg \mathrm{Diag}(\bar{m}, \bar{n})$
-{% end %}
+{% </theorem> %}
 
 证明复杂略去。
 
-{% admonition(type="theorem", title="不动点引理") %}
+{% <theorem title="不动点引理"> %}
 对任意只有一个自由变元的公式 $\varphi$，存在 $\psi$ 使得：
 
 $$\text{PA} \vdash \psi \leftrightarrow \varphi(┌ \psi ┐)$$
-{% end %}
+{% </theorem> %}
 
 $$\theta(y) \coloneqq \exists z (\mathrm{Diag}(z, y) \wedge \varphi(z))$$
 
@@ -321,11 +321,11 @@ $$\mathrm{Prov}(y) \coloneqq \exists x \mathrm{Prf}(x, y)$$
 
 Gödel 句是指满足 $\text{PA} \vdash G \leftrightarrow \neg \mathrm{Prov}(┌ G ┐)$ 的句子。易见若 PA 一致则 $\text{PA} \nvdash G$.
 
-{% admonition(type="definition", title="一阶算术语言") %}
+{% <definition title="一阶算术语言"> %}
 一阶算术语言的标准模型是结构：
 
 $$\mathcal{N} \coloneqq (\N; \mathbf{0}, \mathbf{S}, +, \times)$$
-{% end %}
+{% </definition> %}
 
 我们说 $\sigma$ 是算术真理，如果 $\mathcal{N} \models \sigma$.
 
@@ -334,9 +334,9 @@ $$\mathcal{N} \coloneqq (\N; \mathbf{0}, \mathbf{S}, +, \times)$$
 由此可见，PA 不能证明所有算术真命题。
 
 ### 非标准模型
-{% admonition(type="definition", title="Tarski 真不可定义性原理") %}
+{% <definition title="Tarski 真不可定义性原理"> %}
 不存在一阶算术语言的公式 $T(x)$ 使得对每个算术句子 $\mathcal{N} \models T(┌ \sigma ┐)$ 当且仅当 $\mathcal{N} \models \sigma$.
-{% end %}
+{% </definition> %}
 
 对 $\neg T$ 使用不动点引理。
 
@@ -354,22 +354,22 @@ $$\text{PA} \cup \set{c \neq \bar{0}, c \neq \bar{1}, \dots}$$
 
 通过定义 ω-一致性与罗塞尔句，可以证明：若 PA 一致，则 PA 不完备。更一般的结论是：
 
-{% admonition(type="theorem", title="第一不完备性定理") %}
+{% <theorem title="第一不完备性定理"> %}
 满足以下条件的理论 $T$ 是不完备的：
 1. $T$ 包含足够多初等算术公理（例如 PA 的公理）
 2. $T$ 是递归可公理化的
 3. $T$ 是一致的
-{% end %}
+{% </theorem> %}
 
 ### 第二不完备性定理
 我们用 $\mathrm{Con}(\text{PA})$ 指代句子 $\neg \mathrm{Prov}(┌ 0 = \bar{1} ┐)$.
 
-{% admonition(type="theorem", title="事实") %}
+{% <theorem title="事实"> %}
 对任意一阶算术语言的句子 $\varphi$ 有：
 1. 若 $\text{PA} \vdash \varphi$ 则 $\text{PA} \vdash \mathrm{Prov}(┌ \varphi ┐)$
 2. $\text{PA} \vdash \mathrm{Prov}(┌ \varphi \to \psi ┐) \to (\mathrm{Prov}(┌ \varphi ┐) \to \mathrm{Prov}(┌ \psi ┐))$
 3. $\text{PA} \vdash \mathrm{Prov}(┌ \varphi ┐) \to \mathrm{Prov}(\mathrm{Prov}(┌ \varphi ┐))$
-{% end %}
+{% </theorem> %}
 
 证明复杂略去。读者可以发现这一谓词在此成为了一个模态词。不严格地说，$\mathrm{Con}(\text{PA})$ 相当于 $\neg \Box \bot$.
 
@@ -377,9 +377,9 @@ $$\text{PA} \cup \set{c \neq \bar{0}, c \neq \bar{1}, \dots}$$
 
 更一般的结论是：
 
-{% admonition(type="theorem", title="第二不完备性定理") %}
+{% <theorem title="第二不完备性定理"> %}
 在同上条件下，$T$ 不能证明 $\mathrm{Con}(T)$，其中 $\mathrm{Con}(T)$ 是 $T$ 的一致性句子。
-{% end %}
+{% </theorem> %}
 
 ---
 

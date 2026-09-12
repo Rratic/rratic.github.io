@@ -21,16 +21,13 @@ name = "tags"
 paginate_by = 20
 
 [markdown]
-highlight_code = true
-highlight_theme = "css"
 render_emoji = false
 
-highlight_themes_css = [
-	{ theme = "ayu-light", filename = "style/theme-light.css" },
-	{ theme = "visual-studio-dark", filename = "style/theme-dark.css" },
-]
-
-extra_syntaxes_and_themes = ["syntaxes"]
+[markdown.highlighting]
+style = "class"
+light_theme = "ayu-light"
+dark_theme = "github-dark"
+extra_grammars = ["syntaxes/agda.json"]
 
 [extra]
 comment = true
@@ -70,9 +67,9 @@ tags = "在此阅读含有 $NAME 标签的页面。"
 
 [extra.menus]
 my_header_menu = [
-	{ url = "$BASE_URL/posts/", name = "文章" },
-	{ url = "$BASE_URL/categories/", name = "分类" },
-	{ url = "$BASE_URL/tags/", name = "标签" },
+	{ url = "@base/posts/", name = "文章" },
+	{ url = "@base/categories/", name = "分类" },
+	{ url = "@base/tags/", name = "标签" },
 ]
 
 [extra.profiles.rratic]

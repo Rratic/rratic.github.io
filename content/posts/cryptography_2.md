@@ -19,9 +19,9 @@ tags = ["数学", "数论", "计算机", "密码学"]
 <!-- more -->
 
 ## 离散对数
-{% admonition(type="question", title="离散对数问题") %}
+{% <question title="离散对数问题"> %}
 已知素数 $p$ 与与之互素的整数 $g, h$，已知存在 $g^x \equiv h \pmod p$，求 $x$.
-{% end %}
+{% </question> %}
 
 当前解决一般的离散对数问题的最优算法是 $O(\sqrt{p})$ 的。
 
@@ -31,13 +31,13 @@ tags = ["数学", "数论", "计算机", "密码学"]
 
 Diffie–Hellman Key Exchange 用于解决这样的困境：Alice 与 Bob 两人希望共有一个用于对称加密的密钥，但是他们间的交流方式是不安全的。
 
-{% admonition(type="tip", title="Diffie–Hellman Key Exchange") %}
+{% <tip title="Diffie–Hellman Key Exchange"> %}
 流程如下：
 1. 选取一个大素数 $p$ 和整数 $g$ 在 mod $p$ 意义下有较高的阶
 2. Alice 与 Bob 分别秘密地选取整数 $a, b$ 并在 mod $p$ 意义下计算 $A \equiv g^a, B \equiv g^b$
 3. Alice 与 Bob 分别告知对方 $B, A$ 的值
 4. 现在他们共有一个密钥 $K \equiv g^{ab}$
-{% end %}
+{% </tip> %}
 
 其中只用到最基础的 $O(\ln p)$ 快速幂算法（使用 Rust, 读者可在 [Rust Playground](https://play.rust-lang.org/) 中运行）：
 
@@ -72,7 +72,7 @@ where
 
 Diffie–Hellman Key Exchange 算法并不是一个完整的公钥密码体系。紧随此的最自然的密码体系是 Elgamal Public Key Cryptosystem.
 
-{% admonition(type="tip", title="Elgamal Public Key Cryptosystem") %}
+{% <tip title="Elgamal Public Key Cryptosystem"> %}
 创建公钥过程如下：
 1. 选取一个大素数 $p$ 和整数 $g$ 在 mod $p$ 意义下有较高的阶
 2. Alice 秘密地选取整数 $a$ 并在 mod $p$ 意义下计算 $A \equiv g^a$
@@ -84,7 +84,7 @@ Bob 对原文 $m$ 加密过程如下：
 3. 将 $(c_1, c_2)$ 发给 Alice
 
 Alice 解密过程即在 mod $p$ 意义下计算 $(c_1^a)^{-1} \cdot c_2$.
-{% end %}
+{% </tip> %}
 
 这里涉及 mod $p$ 意义下求逆，这并没有什么特别良好的算法，可以考虑计算 $a^{p-2}$ 或使用扩展 Euclid 算法。
 
@@ -122,20 +122,20 @@ where
 
 现在来看一些处理离散对数问题的算法：
 
-{% admonition(type="tip", title="Babystep–Giantstep Algorithm") %}
+{% <tip title="Babystep–Giantstep Algorithm"> %}
 对群 $G$ 中阶为 $N$ 的元素 $g$ 和另一元素 $h$，可用以下方法求得 $g^x = h$ 的解：
 1. 取 $n$ 满足 $n > \sqrt{N}$
 2. 建立列表 $e, g, g^2, \dots, g^n$ 与 $h, hg^{-n}, \dots, hg^{-n^2}$
 3. 找到其中相等的 $g^i = hg^{-jn}$，就有 $x = i + jn$
 
 其时间复杂度 $O(\sqrt{N} \cdot \ln N)$，空间复杂度 $O(\sqrt{N})$.
-{% end %}
+{% </tip> %}
 
 读者易证其正确性。时间复杂度是来源于找到相等的项，这可以通过排序实现。
 
 对 $G = \mathbb{F}_p^\times$，由 Lagrange 定理知 $N \mid p-1$，这可以用于推断 $N$ 的值。
 
-{% admonition(type="tip", title="Pohlig–Hellman Algorithm") %}
+{% <tip title="Pohlig–Hellman Algorithm"> %}
 对群 $G$ 若我们有一个算法 `oracle` 使得对阶是 $q^k, q \in \mathbb{P}$ 的元素可以以 $O(S_{q^k})$ 解决离散对数问题，则对一般的元素 $g$ 满足阶为：
 
 $$N = q_1^{k_1} \cdots q_t^{k_t}$$
@@ -148,10 +148,10 @@ $$O\left(\sum S_{q_i^{k_i}} + \ln N\right)$$
 1. 对每个 $i$ 计算 $g_i = g^{N/q_i^{k_i}}, h_i = h^{N/q_i^{k_i}}$
 2. 调用 `oracle` 解 $g_i^{y_i} = h_i$
 3. 使用中国剩余定理解 $x \equiv y_i \pmod {q_i^{k_i}}$
-{% end %}
+{% </tip> %}
 
 ## 整数分解
-{% admonition(type="tip", title="RSA Public Key Cryptosystem") %}
+{% <tip title="RSA Public Key Cryptosystem"> %}
 创建公钥过程如下：
 1. Alice 秘密地选取大素数 $p, q$ 及整数 $e$ 满足 $\gcd(e, (p-1)(q-1)) = 1$
 2. Alice 公布 $N = pq$ 与 $e$
@@ -161,7 +161,7 @@ Bob 对原文 $m$ 加密过程即计算 $c \equiv m^e \pmod N$.
 Alice 解密过程为：
 1. 计算 $d$ 使得 $de \equiv 1 \pmod {(p-1)(q-1)}$
 2. 求 $m' \equiv c^d \pmod N$ 即为结果
-{% end %}
+{% </tip> %}
 
 这是一个使用广泛的标准（标准文档是 RFC 8017, 标题为 PKCS #1: RSA Cryptography Specifications Version 2.2），如 2018 以前互联网使用的 TLS 1.2 是用 RSA 来交换用于生成 AES 密钥的密钥。当前推荐使用的最低要求是 RSA-2048, 即使用 2048 位密钥（可参考 RSA Factoring Challenge 的状态）。尽管现在已逐步推荐向椭圆曲线密码迁移。
 
@@ -181,12 +181,12 @@ Alice 解密过程为：
 
 一个想法是考虑是否对所有 $a$ 都成立 $a^n \equiv a \pmod n$. 但实际上这样的 $n$ 不一定是素数，反例如 561.
 
-{% admonition(type="tip", title="Miller–Rabin Test") %}
+{% <tip title="Miller–Rabin Test"> %}
 对整数 $n$ 使用 $a$ 作素性测试过程如下：
 1. 排除 $n$ 偶，及 $1 < \gcd(a, n) < n$ 的平凡情况
 2. 写成 $n - 1 = 2^kq$，其中 $q$ 为奇
 3. 如果 $a^q \not \equiv 1 \pmod n$，且对 $0 \leq i < k$ 皆有 $a^{2^i\cdot q} \not\equiv -1 \pmod n$，则 $n$ 是合数
-{% end %}
+{% </tip> %}
 
 其正确性易见。
 
@@ -201,13 +201,13 @@ Alice 解密过程为：
 
 如果存在一个 $L$ 使得 $p-1 \mid L, q-1 \nmid L$，则有 $p = \gcd(a^L-1, N)$. 依此 Pollard 的观察是：如果 $p-1$ 可以分解成小素数的乘积，那么可以考虑取 $L = n!$.
 
-{% admonition(type="tip", title="Pollard’s p − 1 Factorization Algorithm") %}
+{% <tip title="Pollard’s p − 1 Factorization Algorithm"> %}
 分解整数 $N$ 的流程如下：
 1. 令 $a = 2$ 或某个好算的值
 2. 考虑 $j = 2, 3, \dots$ 至某个特定的界，计算 $d = \gcd(a^{j!}-1, N)$，如果 $1 < d < N$ 则 $d$ 是一个因子
 
 为了增加效率，可以每次隔 $k$ 个再计算 $d$.
-{% end %}
+{% </tip> %}
 
 这给出的启示是：即使建立好了一个看起来很好的加密系统，也需要注意它在特殊情形下可能很容易解决。
 
@@ -296,7 +296,7 @@ $$\left(\frac{a}{b}\right)\left(\frac{b}{a}\right) = \begin{cases} 1 & \text{oth
 
 使用二次剩余可以给出：
 
-{% admonition(type="tip", title="Goldwasser–Micali Probabilistic Public Key Cryptosystem") %}
+{% <tip title="Goldwasser–Micali Probabilistic Public Key Cryptosystem"> %}
 创建公钥过程如下：
 1. Alice 秘密地选取大素数 $p, q$ 及整数 $a$ 满足 $(\frac{a}{p}) = (\frac{a}{q}) = -1$
 2. Alice 公布 $N = pq$ 与 $a$
@@ -307,7 +307,7 @@ Bob 对原文 $m \in \set{0, 1}$ 加密过程如下：
 3. 将 $c$ 发给 Alice
 
 Alice 解密过程即计算 $(\frac{c}{p})$.
-{% end %}
+{% </tip> %}
 
 这个算法并不实用，因为会导致信息大小的大约 $\log_2(N)$, 至少千倍的膨胀。
 
@@ -316,19 +316,19 @@ Alice 解密过程即计算 $(\frac{c}{p})$.
 
 数字签名通常先对消息作密码学哈希，再对摘要按签名方案规定的编码进行处理。现代方案通常至少使用 SHA-256 等 256-bit 摘要。关于盲签名，本文中略去。
 
-{% admonition(type="tip", title="RSA Digital Signatures") %}
+{% <tip title="RSA Digital Signatures"> %}
 创建公钥过程与 RSA PKC 相同。
 
 签名时，Susan 取 $d$ 使 $de \equiv 1 \pmod {(p-1)(q-1)}$，计算 $S \equiv D^d \pmod N$ 为签名。
 
 验证时只需验证 $S^e \equiv D \pmod N$.
-{% end %}
+{% </tip> %}
 
 实际上为了增加效率 $d$ 可以只满足：
 
 $$de \equiv 1 \pmod {\frac{(p-1)(q-1)}{\gcd(p-1, q-1)}}$$
 
-{% admonition(type="tip", title="Elgamal Digital Signature Algorithm") %}
+{% <tip title="Elgamal Digital Signature Algorithm"> %}
 创建公钥过程如下：
 1. 选取一个大素数 $p$ 和整数 $g$ 在 mod $p$ 意义下有较高的阶
 2. Susan 秘密地选取整数 $a$ 并在 mod $p$ 意义下计算 $A \equiv g^a$
@@ -340,11 +340,11 @@ Susan 对文件 $D$ 签名过程如下：
 3. $(S_1, S_2)$ 即是签名
 
 验证时只需验证 $A^{S_1}S_1^{S_2} \equiv g^D \pmod p$.
-{% end %}
+{% </tip> %}
 
 这里 $S_1$ 与 $S_2$ 是对不同的数取模，但 $S_2$ 是基于一个确定的 $S_1$ 值，读者可验证正确性。
 
-{% admonition(type="tip", title="The digital signature algorithm (DSA)") %}
+{% <tip title="The digital signature algorithm (DSA)"> %}
 创建公钥过程如下：
 1. 选取一个大素数 $p, q$ 满足 $p \equiv 1 \pmod q$
 2. 选取整数 $g$ 在 mod $p$ 下阶为 $q$
@@ -359,4 +359,4 @@ Susan 对文件 $D \pmod q$ 签名过程如下：
 验证过程如下：
 1. 计算 $V_1 \equiv DS_2^{-1} \pmod q$ 及 $V_2 \equiv S_1S_2^{-1} \pmod q$
 2. 验证 $(g^{V_1}A^{V_2} \pmod p) \pmod q = S_1$
-{% end %}
+{% </tip> %}

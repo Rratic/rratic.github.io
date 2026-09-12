@@ -1,0 +1,13 @@
+{% component _copyright(config: map, ctx: map, _ca_profile) %}
+{%- set current_year = now() | date(format=`%Y`) | int %}
+{%- if config.extra.footer?.since is number and config.extra.footer.since != current_year %}
+  {%- set copyright_years = config.extra.footer.since ~ `-` ~ current_year %}
+{%- else %}
+  {%- set copyright_years = current_year %}
+{%- endif %}
+&copy; {{ copyright_years }}
+{%- if _ca_profile?.name %} {{ <_profile_name username={_ca_profile.name} lang={ctx.lang} profiles={config.extra.profiles} /> }}{% endif %}
+{%- if config.extra.footer?.license_url is string %}
+ &vert; <a rel="license" href="{{ config.extra.footer.license_url }}">CC BY-SA 4.0</a>
+{%- endif %}
+{% endcomponent %}

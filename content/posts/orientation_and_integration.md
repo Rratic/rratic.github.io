@@ -32,9 +32,9 @@ $$\pi_1^\ast \omega_1 \wedge \cdots \wedge \pi_k^\ast \omega_k$$
 
 考虑 $M$ 是光滑流形（可带边），$S \subseteq M$ 是浸入/嵌入的光滑子流形（可带边）。有一个沿着 $S$ 的向量场 $N: S \to TM$ 使得 $N_p \in T_pM$.
 
-{% admonition(type="theorem", title="超平面的定向") %}
+{% <theorem title="超平面的定向"> %}
 $M$ 是可定向光滑流形（可带边），$S$ 是的超平面（可带边），存在沿着 $S$ 的向量场 $N$ 处处与 $S$ 不相切，则 $S$ 可定向。
-{% end %}
+{% </theorem> %}
 
 对于 $M$ 的定向形式 $\omega$，考察 $S$ 上的 $(n-1)$-形式 $\sigma$，定义为 $\sigma_p(v_1, \dots, v_{n-1}) = \omega_p(N(p), v_1, \dots, v_{n-1})$. 由不相切有 $\sigma_p \neq 0$.
 
@@ -44,17 +44,17 @@ $$N = \sum x^i \frac{\partial}{\partial x^i}$$
 
 此定向被作为 $\mathbb S^n$ 的标准定向。
 
-{% admonition(type="theorem", title="边界的定向") %}
+{% <theorem title="边界的定向"> %}
 $M$ 是可定向的光滑带边流形（$n \geq 1$），则 $\partial M$ 可定向，且 $\partial M$ 所有向外的向量场决定相同的定向。
-{% end %}
+{% </theorem> %}
 
 同上一证明。
 
-{% admonition(type="definition", title="Riemann 体积形式") %}
+{% <definition title="Riemann 体积形式"> %}
 $(M, g)$ 是可定向的 Riemann 流形（可带边；$n \geq 1$），则存在唯一的光滑定向形式（称为 **Riemann 体积形式**）$\omega_g \in \Omega^n(M)$，使得对任意局部定向标准正交标架 $(E_i)$ 有：
 
 $$\omega_g(E_1, \dots, E_n) = 1$$
-{% end %}
+{% </definition> %}
 
 取 $(\varepsilon^1, \dots, \varepsilon^n)$ 是 $E_1, \dots, E_n$ 的对偶，只需：
 
@@ -81,9 +81,9 @@ $$
 
 故有 $f = \sqrt{\det (g_{ij})}$.
 
-{% admonition(type="theorem", title="覆盖的定向") %}
+{% <theorem title="覆盖的定向"> %}
 设 $\widetilde{M}$ 是连通、可定向的光滑流形（可带边），且 $\pi: \widetilde{M} \to M$ 是光滑正则复叠，则 $M$ 可定向当且仅当 $\mathrm{Aut}_\pi(\widetilde{M})$ 在 $\widetilde{M}$ 上的作用是保定向的。
-{% end %}
+{% </theorem> %}
 
 记 $\widetilde{M}$ 的给定定向 $\mathcal{O} _{\widetilde{M}}$. 假设 $M$ 可定向，任取其一点 $q$，由于 $M$ 连通，恰有两个定向，其一使得 $\mathrm{d}\pi _q: T _q\widetilde{M} \to T _{\pi(q)}M$ 保定向，记作 $\mathcal{O} _M$. 对 $\varphi \in \mathrm{Aut} _\pi(\widetilde{M})$ 由 $\pi \circ \varphi = \pi$ 知保定向。
 
@@ -121,11 +121,11 @@ $$\int_M \omega = \pm \int_{\varphi(U)} (\varphi^{-1})^\ast \omega$$
 
 $$\int_M \omega = \sum_i \int_M \psi_i \omega$$
 
-{% admonition(type="example", title="球面") %}
+{% <example title="球面"> %}
 考虑单位球面上由 $\R^3$ 给出的 $2$-形式：
 
 $$\omega = x\mathrm{d}y\wedge\mathrm{d}z + y\mathrm{d}z\wedge\mathrm{d}x + z\mathrm{d}x\wedge\mathrm{d}y$$
-{% end %}
+{% </example> %}
 
 令 $D = (0, \pi) \times (0, 2\pi)$，映射 $F: \bar D \to \mathbb S^2$，其中 $F(\varphi, \theta) = (\sin\varphi \cos\theta, \sin\varphi \sin\theta, \cos\varphi)$ 保定向，这使得：
 
@@ -142,11 +142,11 @@ $$
 $$\int_{\mathbb S^2} \omega = \int_D \sin\varphi \\,\mathrm{d}\varphi \wedge \mathrm{d}\theta = 4\pi$$
 
 ### Stokes 定理
-{% admonition(type="theorem", title="Stokes 定理") %}
+{% <theorem title="Stokes 定理"> %}
 设 $M$ 是可定向光滑 $n$-维带边流形，$\omega$ 是其上的光滑紧支 $(n - 1)$ 形式，则：
 
 $$\int_M \mathrm{d}\omega = \int_{\partial M} \omega$$
-{% end %}
+{% </theorem> %}
 
 先假设 $M$ 是上半空间 $\mathbb{H}^n$，由 $\omega$ 紧支只需考虑某个 $A = [-R, R] \times \cdots \times [-R, R] \times [0, R]$. 我们设（用 hat 表示跳过）：
 
@@ -154,21 +154,21 @@ $$\omega = \sum_{i=1}^n \omega_i \mathrm{d}x^1 \wedge \cdots \wedge \widehat{\ma
 
 然后强行计算即可，$\R^n$ 也是同理。对一般的带边流形，用图卡拆分即可。
 
-{% admonition(type="theorem", title="Green 定理") %}
+{% <theorem title="Green 定理"> %}
 对 $\R^2$ 的紧正则区域 $D$，及其上光滑实值函数 $P, Q$，有：
 
 $$\int_D \left(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}\right) \mathrm{d}x\mathrm{d}y = \int_{\partial D} P\mathrm{d}x + Q\mathrm{d}y$$
-{% end %}
+{% </theorem> %}
 
 对 $P\mathrm{d}x + Q\mathrm{d}y$ 用 Stokes 定理即可。
 
 为了更广泛地使用 Stokes 定理，我们也会考虑带角落的流形，证法类似。
 
-{% admonition(type="theorem", title="路径无关性") %}
+{% <theorem title="路径无关性"> %}
 对光滑流形 $M$ 及 $\gamma, \gamma': [a, b] \to M$ 是定端同伦的逐段光滑曲线，则对任意闭的 $1$-形式，有：
 
 $$\int_{\gamma} \omega = \int_{\gamma'} \omega$$
-{% end %}
+{% </theorem> %}
 
 考察光滑同伦 $H: [a, b] \times I \to M$，有：
 
@@ -190,12 +190,12 @@ $$\mu: \underbrace{V \times \cdots \times V}_{n \text{ copies}} \to \R$$
 
 且满足对线性映射 $T$ 有 $\mu(Tv_1, \dots, Tv_n) = |\det T| \mu(v_1, \dots, v_n)$. 用 $\mathcal{D}(V)$ 表示 $V$ 上所有的密度。
 
-{% admonition(type="theorem", title="密度的性质") %}
+{% <theorem title="密度的性质"> %}
 1. $\mathcal{D}(V)$ 是线性空间
 2. 若某个基下 $\mu_1(e_1, \dots, e_n) = \mu_2(e_1, \dots, e_n)$，则 $\mu_1 = \mu_2$
 3. $\omega \in \Lambda^n(V^\ast)$ 诱导一个密度 $|\omega|$，其中 $|\omega|(v_1, \dots, v_n) = |\omega(v_1, \dots, v_n)|$
 4. $\mathcal{D}(V)$ 是一维的
-{% end %}
+{% </theorem> %}
 
 由此我们定义正密度是满足 $\mu(v_1, \dots, v_n) > 0$ 的密度，负密度同理。我们定义密度丛：
 

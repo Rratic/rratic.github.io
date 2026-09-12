@@ -32,9 +32,9 @@ $$\gamma: [\alpha, \beta] \to \Complex$$
 ### 全纯与解析
 在复数域 $\Complex$ 上，极限的表述可以参照数学分析中的表述：
 
-{% admonition(type="definition", title="极限") %}
+{% <definition title="极限"> %}
 称 $\lim_{z \to z_0} f(z) = w$，如果对任意 $\omega > 0$，存在 $\delta > 0$，对任意 $0<|z-z_0|<\delta$ 有 $|f(z)-w|<\omega$.
-{% end %}
+{% </definition> %}
 
 以类似的方式，我们可以定义导数。
 
@@ -94,9 +94,9 @@ $$
 \end{cases}
 $$
 
-{% admonition(type="theorem", title="共轭调和函数") %}
+{% <theorem title="共轭调和函数"> %}
 对单连通区域 $\Omega$ 及调和函数 $u$，存在函数 $v$ 为它的共轭调和，且在差一个常数下唯一。
-{% end %}
+{% </theorem> %}
 
 我们定义 $\omega = (\partial u / \partial x) \mathrm{d}y - (\partial u / \partial y) \mathrm{d}x$，就有：
 
@@ -110,22 +110,22 @@ $$\int_{\partial D} \omega = \int_{D}\mathrm{d}\omega = 0$$
 
 $$v(x, y) = \int_{(x_0, y_0)}^{(x, y)} \omega$$
 
-{% admonition(type="theorem", title="存在 $\ln f$") %}
+{% <theorem title=`存在 $\\ln f$`> %}
 $f$ 为单连通区域 $D$ 上的处处非零全纯函数，则存在全纯函数 $g$ 使得 $e^g = f$.
-{% end %}
+{% </theorem> %}
 
 令 $u = \ln |f|$，然后取 $v$ 为它的共轭调和，平移调整即可。
 
-{% admonition(type="theorem", title="存在 $\sqrt[n]{m}$") %}
+{% <theorem title=`存在 $\\sqrt[n]{m}$`> %}
 $f$ 为单连通区域 $D$ 上的处处非零全纯函数，则存在全纯函数 $g$ 使得 $g^n = f$.
-{% end %}
+{% </theorem> %}
 
 取 $\exp(\ln(f) / n)$ 即可。
 
 ### 幂级数
-{% admonition(type="theorem", title="Lucas 定理") %}
+{% <theorem title="Lucas 定理"> %}
 对多项式 $P$，$P'$ 的零点在 $P$ 的零点组成的凸包内。
-{% end %}
+{% </theorem> %}
 
 这依赖于代数基本定理。我们设 $P(z) = k\prod_{i=1}^n (z-z_i)$，则有：
 
@@ -133,12 +133,12 @@ $$\frac{P'(z)}{P(z)} = \sum_{i=1}^n \frac{1}{z - z_i}$$
 
 设 $w$ 是 $P'$ 的零点而不是 $P$ 的零点，代入上式，如果 $P$ 的零点均在半平面 $H: \operatorname{Im} (z - a) / b < 0$ 内，则 $\operatorname{Im} bP'(w) / P(w) = \sum_{i=1}^n \operatorname{Im} \frac{b}{w - z_i} = 0$，存在 $\operatorname{Im} (w - z_i) / b < 0$，从而 $w$ 在 $H$ 内。
 
-{% admonition(type="theorem", title="幂级数的收敛圆") %}
+{% <theorem title="幂级数的收敛圆"> %}
 对幂级数 $a_0 + a_1z + a_2z^2 + \cdots$，存在 $r \in [0, +\infty]$ 满足：
 1. 对 $|z| < r$，级数收敛
 2. 对 $|z| > r$，级数发散
 3. $|z| < r$ 内级数的和是解析函数，导数可由逐项微分得到，对应的收敛半径相同
-{% end %}
+{% </theorem> %}
 
 参考[数学分析](@/posts/analysis_2_midterm.md)的相关结论，这里有：
 
@@ -178,9 +178,9 @@ $$z\mapsto \frac{a\bar{z} + b}{c\bar{z} + d}$$
 
 $$\begin{pmatrix} z_1 \cr z_2 \end{pmatrix} \mapsto \begin{pmatrix} a & b \cr c & d \end{pmatrix} \begin{pmatrix} z_1 \cr z_2 \end{pmatrix}$$
 
-{% admonition(type="theorem", title="由三点的像确定") %}
+{% <theorem title="由三点的像确定"> %}
 对不同的三点 $z_i$ 及不同的三点 $w_i$，存在唯一的分式线性变换满足 $f(z_i) = w_i$.
-{% end %}
+{% </theorem> %}
 
 因为可以将 $1, 0, \infty$ 映到任意指定的不同 $z_1, z_2, z_3$，且分式线性变换可逆。
 

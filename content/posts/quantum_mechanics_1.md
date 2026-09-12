@@ -59,11 +59,11 @@ $$x_{mn} = x_{0_{mn}} e^{-i\omega_{mn}t} \tag{1.5}$$
 
 为了遍历所有的正整数 $(m, n)$，规定 $\omega_{mn}=-\omega_{nm}, \omega_{nn}=0$，我们有包含所有 $x_{mn}$ 的无穷大表格（尽管海森堡当时还不知道矩阵）。
 
-{% admonition(type="definition", title="Hermitian 矩阵") %}
+{% <definition title="Hermitian 矩阵"> %}
 我们称 Hermitian 共轭（有时被音译为厄米/埃尔米特共轭）是指 $A^\dagger = \left(A^\top\right)^\ast$，其中 $A^\top$ 是矩阵转置，$A^\ast$ 是（按分量）复共轭。
 
 一个矩阵是 Hermitian 矩阵，若 $A = A^\dagger$.
-{% end %}
+{% </definition> %}
 
 易验证上述表格构成 Hermitian 矩阵。
 
@@ -75,11 +75,11 @@ $$x_{mn} = x_{0_{mn}} e^{-i\omega_{mn}t} \tag{1.5}$$
 
 量子力学中还会用到对易子运算：
 
-{% admonition(type="definition", title="对易子") %}
+{% <definition title="对易子"> %}
 对易子定义为 $[A, B] = AB-BA$. 它满足双线性、反对称性和 Jacobi 恒等式，故构成李代数。
 
 如果 $A, B$ 都是 Hermitian 矩阵，则 $i[A, B]$ 也是 Hermitian 矩阵。
-{% end %}
+{% </definition> %}
 
 现在考虑哈密顿量对应的矩阵。我们知道它不能依赖于时间，因此以能量本征态为基它是对角矩阵。
 
@@ -109,9 +109,9 @@ $$H = \frac{P^2}{2m_e} + V(X) \tag{1.8}$$
 
 其中 $V(X)$ 使用 $V(x)$ 展开成幂级数的形式，就有 $[X, X^n] = X[X, X^{n-1}] + X[X, X^{n-1}]X = \cdots = 0$，故 $[X, V(X)] = 0$.
 
-{% admonition(type="note", title="为什么是合理的？") %}
+{% <note title="为什么是合理的？"> %}
 我同学的回答是，物理就是这样的。
-{% end %}
+{% </note> %}
 
 如果我们要求量子系统与相应的经典系统相对应，即将哈密顿正则方程改造为：
 
@@ -160,9 +160,9 @@ $$P(iS \to jT) = |\braket{jT | iS}|^2 \tag{2.3}$$
 
 不仅如此，我们还无法区分原子是处于三种 $S$ 可能性之一还是三种 $T$ 可能性之一。为了区分处于哪种可能性，我们需要让原子通过某个过滤器，但是由此判断出的状态可能是由另一种跃迁过来的。
 
-{% admonition(type="note", title="想法") %}
+{% <note title="想法"> %}
 或许这个性质就是对应到[量子信息](@/posts/quantum_information_1.md)中的在特定的基下观测？
-{% end %}
+{% </note> %}
 
 推广到一般情形，一个量子系统的两个不同的可确定区分可能性完备集是指标集 $\mathcal{I}, \mathcal{J}$ 满足存在 $(m) \in \mathcal{I}, (n') \in \mathcal{J}$ 使得 $\braket{n' | m} \neq 0, 1$.
 
@@ -180,11 +180,11 @@ $$P(iS \to jR) = |\phi_+ + \phi_0 + \phi_-|^2 \not\equiv |\phi_+|^2 + |\phi_0|^2
 
 如果我们在装置 $T$ 中对于分立的每一束都添加探测器，使得每通过一个原子有且仅有一盏灯会亮，情况就变得不同。此时确实满足 $P(iS \to jR) = |\phi_+|^2 + |\phi_0|^2 + |\phi_-|^2$.
 
-{% admonition(type="note", title="性质推导") %}
+{% <note title="性质推导"> %}
 考虑式子 $1 = \braket{i | i} = \sum_{j' \in \mathcal{J}} \braket{i | j'} \braket{j' | i}$ 及 $1 = \sum_{j' \in \mathcal{J}} |\braket{j' | i}|^2 = \sum_{j' \in \mathcal{J}} \braket{j' | i}^\ast \braket{j' | i}$. 它们同时成立的最简单条件是：
 
 $$\braket{i | j'} = \braket{j' | i}^\ast$$
-{% end %}
+{% </note> %}
 
 从式 (2.4) 的形式易见和矩阵乘法是一致的。我们可以让 $T$ 是任意的装置 $A$, 记作 $\braket{jR | \hat{A} | iS}$, 就有：
 

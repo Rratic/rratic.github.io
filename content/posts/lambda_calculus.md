@@ -52,11 +52,11 @@ $$f = \lambda x.\ (\lambda y.\ x + y)$$
 
 对上述 $f$，你可以传入少于全部参数个数的参数。例如代入 $g = f\ 1$ 将得到 $g = \lambda y.\ 1 + y$，这也是一个可用的函数。
 
-{% admonition(type="note", title="只有函数") %}
+{% <note title="只有函数"> %}
 实际上在 λ 演算中，如果不认为函数是恰有一个参数的，则没有办法说明一个 $f$ 有多少个参数。因为体系中所有的值（如果没有自由变量）都是函数，无论填入多少个参数都无法得到一个“最终”的结果。
 
 我们之后会看到，上例中所谓 $+$ 在 λ 演算中也是用函数表达的。
-{% end %}
+{% </note> %}
 
 ## 求值 {#lambda-evaluation}
 ### 替换 {#substitution}
@@ -104,7 +104,7 @@ $$(\lambda y.\ M)[N/x] = \lambda z.\ M[z/y][N/x]$$
 ### 组合子 {#combinator}
 类似于 λ-演算但有所不同，组合子希望不使用变量来描述函数：
 
-{% admonition(type="example", title="SKI 演算") %}
+{% <example title="SKI 演算"> %}
 我们定义：
 * $I = \lambda x.\ x$
 * $K = \lambda x.\ \lambda y.\ x$
@@ -117,19 +117,19 @@ $$(\lambda y.\ M)[N/x] = \lambda z.\ M[z/y][N/x]$$
 = λz. z
 = I
 ```
-{% end %}
+{% </example> %}
 
 使用这些组合子可以一般地表达 Lambda 表达式，因为：
 - $\lambda x.\ x$ 可写为 $I$
 - $\lambda x.\ A$ 其中 $A$ 不含有 $x$ 可写为 $K\ A$
 - $\lambda x.\ A\ B$ 可写为 $S\ (\lambda x.\ A)\ (\lambda x.\ B)$
 
-{% admonition(type="example", title="Iota 组合子") %}
+{% <example title="Iota 组合子"> %}
 我们定义 $\iota = \lambda f.\ ((f\ S)\ K)$，读者可自行验证：
 * $\iota\ \iota = I$
 * $\iota\ (\iota\ I) = K$
 * $\iota\ K = S$
-{% end %}
+{% </example> %}
 
 ### 求值顺序 {#evaluation-order}
 考虑函数应用 $(\lambda y.\ (\lambda x.\ x)\ y)\ E$，它有两种计算方法：
@@ -296,9 +296,9 @@ $$
 \end{CD}
 $$
 
-{% admonition(type="example", title="Church–Rosser 定理") %}
+{% <example title="Church–Rosser 定理"> %}
 λ 演算具有合流性。
-{% end %}
+{% </example> %}
 
 参考了文献 [D. Kozen/Church–Rosser Made Easy](https://www.cs.cornell.edu/~kozen/Papers/ChurchRosser.pdf)[^paper-proof] 列举的其它证明方式。其本身的证明包含了过多未声明含义的术语，且包含了今天看来不必要的步骤，例如，使用了包含序列的集合来定义树[^prefix-tree]，并混用术语。此外，你可以[在此](https://pauillac.inria.fr/~huet/PUBLIC/residuals.pdf)找到一个使用 Coq 形式化验证的证明。
 

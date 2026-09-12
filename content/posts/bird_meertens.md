@@ -59,9 +59,9 @@ $$\oplus \leftarrow\\!\\!\\!\\!\\!\\!\\!/\\!\\!/_e [a_1, \dots, a_n] = [a_1 \opl
 
 ### 推导示例
 现在来看一个具体的问题：
-{% admonition(type="question", title="Maximum Segment Sum Problem") %}
+{% <question title="Maximum Segment Sum Problem"> %}
 对一个整数序列，求所有连续子段的和的最大值。
-{% end %}
+{% </question> %}
 
 作为一个朴素的想法，我们定义 $\mathrm{inits} = (+\\!\\!+ \rightarrow\\!\\!\\!\\!\\!\\!\\!/\\!\\!/ _{\ []}) \cdot [\cdot] \ast$，效果是从空列表到整个列表列出所有前缀；定义 $\mathrm{tails} = (+\\!\\!+ \leftarrow\\!\\!\\!\\!\\!\\!\\!/\\!\\!/ _{\ []}) \cdot [\cdot] \ast$，效果是从整个列表到空列表列出所有后缀；现在 $\mathrm{segs} = +\\!\\!+ / \cdot \mathrm{tails} \ast \cdot \operatorname{inits}$ 给出所有连续子段。
 
@@ -96,19 +96,19 @@ $$
 半群到半群、幺半群到幺半群的同态即是数学上的定义。易见 $f\ast$ 与 $\oplus/$ 是同态。
 
 ### 性质
-{% admonition(type="theorem", title="Promotion Lemma") %}
+{% <theorem title="Promotion Lemma"> %}
 $h$ 是 $(\alpha, \oplus, \mathrm{id} _\oplus)$ 到 $(\beta, \otimes, \mathrm{id} _\otimes)$ 的同态当且仅当：
 
 $$h \cdot \oplus/ = \otimes/ \cdot h\ast$$
-{% end %}
+{% </theorem> %}
 
 易见。实际上这是因为列表是自由的。
 
-{% admonition(type="theorem", title="Existence Lemma") %}
+{% <theorem title="Existence Lemma"> %}
 列表函数 $h$ 是同态当且仅当总成立：
 
 $$h\ v = h\ x \wedge h\ w = h\ y \implies h\ (v +\\!\\!+ w) = h\ (x +\\!\\!+ y)$$
-{% end %}
+{% </theorem> %}
 
 从同态推下式是通过 $h = \odot/ \cdot f\ast$.
 
@@ -123,9 +123,9 @@ $$h\ v = h\ x \wedge h\ w = h\ y \implies h\ (v +\\!\\!+ w) = h\ (x +\\!\\!+ y)$
 2. 列表要么是空的，要么形如 $x +\\!\\!+ [a]$；对应计算方式是 `foldl`
 3. 列表要么是空的，要么形如 $[a] +\\!\\!+ x$；对应计算方式是 `foldr`
 
-{% admonition(type="theorem", title="Specialization Lemma") %}
+{% <theorem title="Specialization Lemma"> %}
 每一个列表上的同态都可表达为 left/right reduction.
-{% end %}
+{% </theorem> %}
 
 易见。
 
@@ -150,9 +150,9 @@ $$p\triangleleft = +\\!\\!+/ \cdot (p \to [\mathrm{id}]^o, []^o)\ast$$
 我们扩充一个列表 $\omega = \uparrow _{\\#}/ []$，规定 $\\#\omega = -\infty$，这成为 $+\\!\\!+$ 的一个 zero. 这里我们称一个 $\omega$ 是 left zero 如果对任意 $a$ 都有 $\omega \oplus a = \omega$.
 
 ### 推导示例
-{% admonition(type="question", title="Longest Segment Problem") %}
+{% <question title="Longest Segment Problem"> %}
 对一个序列，求满足性质 $p$ 的最长连续子段。
-{% end %}
+{% </question> %}
 
 仍然从朴素的想法出发推导：
 
@@ -169,26 +169,26 @@ $$
 
 其中 $x \odot a = (x +\\!\\!+ (p\ a \to [a], \omega)) \uparrow _{\\#} []$.
 
-{% admonition(type="question", title="The Minimax Problem") %}
+{% <question title="The Minimax Problem"> %}
 优化 $\downarrow/ \cdot \uparrow/\ast$.
-{% end %}
+{% </question> %}
 
 把同态改为 left reduction 即可。
 
 ## Fusion 与 Tupling
 ### 融合
-{% admonition(type="theorem", title="Foldr Fusion Lemma") %}
+{% <theorem title="Foldr Fusion Lemma"> %}
 若 $f\ (a \oplus r) = a \otimes f\ r$ 则：
 
 $$f \cdot \oplus \leftarrow\\!\\!\\!\\!\\!\\!/ _e = \otimes \leftarrow\\!\\!\\!\\!\\!\\!/ _{f\ e}$$
-{% end %}
+{% </theorem> %}
 
 其证明与应用易见。
 
 ### 元组化
 考虑一个典型问题：找到列表中所有那些比后面的元素大的元素。在 reduction 时除结果外还需要记录最大值。
 
-{% admonition(type="definition", title="Mutumorphism") %}
+{% <definition title="Mutumorphism"> %}
 称 $f_1, \dots, f_n$ 构成 mutumorphism 如果对每个 $f_i$ 有：
 
 $$f_i\ [] = e_i$$
@@ -197,7 +197,7 @@ $$f_i\ [a] +\\!\\!+ x = a \oplus_i (f_1\ x, \dots, f_n\ x)$$
 此时我们将 $f\ x = (f_1\ x, \dots, f_n\ x)$ 记作：
 
 $$f = [\\![ (e_1, \dots, e_n), (\oplus_1, \dots, \oplus_n) ]\\!]$$
-{% end %}
+{% </definition> %}
 
 关于它有一些易见的性质，此处从略。
 
@@ -205,20 +205,20 @@ $$f = [\\![ (e_1, \dots, e_n), (\oplus_1, \dots, \oplus_n) ]\\!]$$
 对列表来说，我们希望能够并行化指的是能够把问题 $h\ (x +\\!\\!+ y)$ 分解为 $h\ x \odot h\ y$. 典型的例子包括求和 `sum`，排序 `sort`.
 
 ### 第三同态定理
-{% admonition(type="theorem", title="第三同态定理") %}
+{% <theorem title="第三同态定理"> %}
 函数 $f$ 既可以被 `foldl` 又可以被 `foldr` 刻画，即：$h = \oplus \leftarrow\\!\\!\\!\\!\\!\\!/_e = \otimes \rightarrow\\!\\!\\!\\!\\!\\!/_e$，当且仅当存在 $\odot$ 使得 $h\ (x +\\!\\!+ y) = h\ x \odot h\ y$.
-{% end %}
+{% </theorem> %}
 
 通过 Existence Lemma 证明，两边分别用 right-to-left reduction 与 left-to-right reduction 的性质。
 
 ### 构造方法
 我们回顾 Existence Lemma 的证明方法，定义：
 
-{% admonition(type="definition", title="Weak (Right) Inverse") %}
+{% <definition title="Weak (Right) Inverse"> %}
 称 $g$ 是 $f$ 的 weak (right) inverse 如果对 $y \in \operatorname{Im} f$，有：
 
 $$g\ y = x \implies f\ x = y$$
-{% end %}
+{% </definition> %}
 
 weak inverse 总是存在，但不一定唯一。
 
@@ -226,9 +226,9 @@ weak inverse 总是存在，但不一定唯一。
 
 我们来考虑这个问题：
 
-{% admonition(type="question", title="Maximum Prefix Sum Problem") %}
+{% <question title="Maximum Prefix Sum Problem"> %}
 对一个序列，求所有前缀和的最大值。
-{% end %}
+{% </question> %}
 
 我们无法对它直接使用 weak inverse 的构造，因为它本身不能用 right-to-left reduction 刻画。但把它改造成 $f = \mathrm{mps} \triangle \mathrm{sum}$ 就可以了（这里 $f\ x = (\mathrm{mps}\ x, \mathrm{sum}\ x)$）。它的 weak inverse 是 $g\ (p, s) = [p, s-p]$.
 
@@ -241,9 +241,9 @@ weak inverse 总是存在，但不一定唯一。
 ### 定义
 这是一大类问题。一般的形式为：
 
-{% admonition(type="definition", title="Maximum Marking Problems") %}
+{% <definition title="Maximum Marking Problems"> %}
 有一个列表，满足某种性质 $p$ 地标记若干个元素，求被标记元素和的最大值。
-{% end %}
+{% </definition> %}
 
 一个朴素的想法是让：
 
@@ -251,18 +251,18 @@ $$\mathrm{mmp}\ p = \uparrow_{\mathrm{sum}}/ \cdot p\triangleleft \cdot \mathrm{
 
 其中 $\mathrm{gen}\ [a] = [\\![ (a, \mathrm{True}), (a, \mathrm{False}) ]\\!]$，$\mathrm{gen}\ x +\\!\\!+ y = \mathrm{gen}\ x X_{+\\!\\!+} \mathrm{gen}\ y$，这里 $X_\oplus$ 是叉积，取遍所有配对。
 
-{% admonition(type="theorem", title="定理") %}
+{% <theorem title="定理"> %}
 如果 $p = \mathrm{fst} \cdot h$，其中 $h$ 是值域有限的 right-to-left reduction, 那么可以找到一个 $O(|\operatorname{Im} h| \cdot n)$ 的算法。它形如 $\mathrm{mmp}\ p = \uparrow_{\mathrm{fst}}/ \cdot h'$，这里 $\mathrm{fst}$ 是取元组的第一个分量，$h'$ 也是 right-to-left reduction.
-{% end %}
+{% </theorem> %}
 
 相关论文见于 ICFP’00. [^ICFP00]
 
 ### 推导示例
 我们来考虑一个问题：
 
-{% admonition(type="question", title="Maximum Independent Sublist Sum Problem") %}
+{% <question title="Maximum Independent Sublist Sum Problem"> %}
 $p$ 的要求是不能有相邻的标记。
-{% end %}
+{% </question> %}
 
 可以写出 $h = p \triangle (\mathrm{marked} \cdot \operatorname{head})$. 优化结果从略（大致想法其实和多个变量递推的组合题差不多）。
 

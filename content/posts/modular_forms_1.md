@@ -60,11 +60,11 @@ $$f(-1/z) = z^k f(z), z \in \mathfrak{H} \tag{4}$$
 
 我们知道 $f$ 在一点处的值即可知道整个轨道上的值。我们引入**基本区域**是指一个开集 $\mathcal{F}$ 满足 $\mathcal{F}$ 中不同点不在一个轨道上；$z \in \mathfrak{H}$ 中的点都可等价到某个 $\mathcal{F}$ 的闭包中的点。
 
-{% admonition(type="theorem", title="全模群的基本区域") %}
+{% <theorem title="全模群的基本区域"> %}
 全模群的基本区域是：
 
 $$\mathcal{F}_1 = \set{z \in \mathfrak{H} | |z| > 1, |\Re(z)| < \frac 1 2}$$
-{% end %}
+{% </theorem> %}
 
 设 $\Lambda_z$ 中模长最小点 $cz + d$，则存在 $\gamma_1 = \begin{pmatrix} a & b \cr c & d \end{pmatrix} \in \Gamma_1$. 由 (1) 知 $\Im(\gamma_1z)$ 在轨道上最大。取 $n$ 使 $|\Re(\gamma_1z + n)| < 1/2$ 即知在 $\mathcal{F}_1$ 中。
 
@@ -81,11 +81,11 @@ $f$ 的[零点阶数](@/posts/complex_analysis_2.md) $\mathrm{ord}_z(f)$ 在 $z$
 
 我们定义 $\mathrm{ord}_\infty(f)$ 是 (3) 式中满足 $a_n \neq 0$ 的最小指标 $n$，则：
 
-{% admonition(type="theorem", title="命题") %}
+{% <theorem title="命题"> %}
 设 $f \in M_k(\Gamma_1)$ 非零，则：
 
 $$\sum _{P \in \widetilde{\mathcal{F} _1}} \frac{1}{n _P} \mathrm{ord} _P(f) + \mathrm{ord} _\infty(f) = \frac{k}{12} \tag{5}$$
-{% end %}
+{% </theorem> %}
 
 ![挖去零点](/images/complex/modular_zeros.jpg)
 
@@ -148,11 +148,11 @@ $$
 
 通过与 (5) 式类似的推导可以说明，对于一般的离散、使得基本区域体积有限的子群 $\Gamma \subseteq \mathrm{SL}(2, \R)$，右侧会被换成 $k \mathrm{Vol}(\mathfrak{H} / \Gamma) / 4\pi$（使用 Gauss‑Bonnet 来联系面积）。
 
-{% admonition(type="theorem", title="命题") %}
+{% <theorem title="命题"> %}
 设 $\Gamma$ 是 $\mathrm{SL}(2, \R)$ 的离散子群且基本区域体积有限，则：
 
 $$\dim M_k(\Gamma) \leq \frac{kV}{4\pi} + 1$$
-{% end %}
+{% </theorem> %}
 
 特别地，$k < 0$ 时 $M_k(\Gamma) = \set{0}$，$k = 0$ 时 $M_k(\Gamma) = \Complex$.
 
@@ -208,16 +208,16 @@ $$G_k(z) = \zeta(k)E_k(z) \tag{11}$$
 
 $$\mathbb{G}_k(z) = \frac{(k-1)!}{(2\pi\mathrm{i})^k} G_k(z) \tag{12}$$
 
-{% admonition(type="theorem", title="环的结构") %}
+{% <theorem title="环的结构"> %}
 环 $M_\ast(\Gamma_1) \coloneqq \bigoplus_k M_k(\Gamma)$ 由 $E_4$ 与 $E_6$ 中的 Eisenstein 级数自由生成。
-{% end %}
+{% </theorem> %}
 
 先证明线性无关性。假设存在 $E_6(z)^2 = \lambda E_4(z)^3$ 的关系，则权为 $2$ 的 $f(z) = E_6(z) / E_4(z)$ 满足 $f^2 = \lambda E_4$，从而是全纯的，与 $M_2(\Gamma_1) \leq 0$ 矛盾。这将说明 $E_4$ 与 $E_6$ 线性无关。
 
 然后使用式 (6) 分析维数即可，此结论说明式 (6) 实际上可以取等号。
 
 ### Fourier 展开
-{% admonition(type="theorem", title="Fourier 展开") %}
+{% <theorem title="Fourier 展开"> %}
 对偶数 $k > 2$，有 $\mathbb{G}_k(z)$ 的 Fourier 展开为：
 
 $$-\frac{B_k}{2k} + \sum_{n=1}^\infty \sigma_{k-1}(n) q^n \tag{13}$$
@@ -227,7 +227,7 @@ $$-\frac{B_k}{2k} + \sum_{n=1}^\infty \sigma_{k-1}(n) q^n \tag{13}$$
 $$\sum_{k=0}^\infty \frac{B_k}{k!} x^k = \frac{x}{e^x - 1}$$
 
 $\sigma_{k-1}(n)$ 表示 $n$ 的所有正因数的 $k-1$ 次方和。
-{% end %}
+{% </theorem> %}
 
 证明略。[^proof-expansion]
 
@@ -258,9 +258,9 @@ $$G_2(z) = \frac 1 2 \sum_{n \neq 0} \frac 1 {n^2} + \frac 1 2 \sum_{m \neq 0} \
 
 由于没有绝对收敛性，我们不再有 $G_2(-1/z) = z^2 G_2(z)$，而是：
 
-{% admonition(type="theorem", title="命题") %}
+{% <theorem title="命题"> %}
 $$G_2\left(\frac{az + b}{cz + d}\right) = (cz + d)^2 G_2(z) - \pi\mathrm{i}c(cz + d) \tag{15}$$
-{% end %}
+{% </theorem> %}
 
 我们考察以下 (10) 式的改造：
 
@@ -275,9 +275,9 @@ $$\lim_{\varepsilon \to 0} G_{2, \varepsilon}(z) = G_2(z) - \frac \pi {2y}$$
 
 $$\Delta(z) = q \prod_{n=1}^\infty (1-q^n)^{24} \tag{16}$$
 
-{% admonition(type="theorem", title="命题") %}
+{% <theorem title="命题"> %}
 $\Delta$ 是 $\Gamma_1$ 的权 $12$ 的模形式。
-{% end %}
+{% </theorem> %}
 
 由于 $\Delta \neq 0$ 我们可以考虑：
 
@@ -313,9 +313,9 @@ $\tau(n)$ 的值列表可以参考 [A000594](https://oeis.org/A000594). Ramanuja
 
 我们称一个模形式是**尖点形式**，如果 Fourier 展开中的常数项为 $0$. 从而可以声称模形式可以写成一个 Eisenstein 级数与一个尖点形式的线性组合。
 
-{% admonition(type="theorem", title="命题") %}
+{% <theorem title="命题"> %}
 若 $f(z) \in M_k(\Gamma_1)$ 是尖点形式，写成 $\sum_{n=1}^\infty a_n q^n$，则 $|a_n| \leq Cn^{k/2}$，其中 $C$ 只与 $f$ 有关。
-{% end %}
+{% </theorem> %}
 
 函数 $z \mapsto y^{k/2}|f(z)|$ 在 $\Gamma_1$ 下不变。由于 $f(z) = O(q)$ 可给出估计：
 

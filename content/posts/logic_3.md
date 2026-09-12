@@ -21,13 +21,13 @@ tags = ["数学", "基石", "哲学"]
 ## 形式语言
 模态逻辑提供的是各种不同模态概念（知识逻辑、道义逻辑、时态逻辑等）的统一范式。
 
-{% admonition(type="definition", title="命题模态逻辑语言 ML") %}
+{% <definition title="命题模态逻辑语言 ML"> %}
 对字母集合 $\mathbf{P}$, 语言 ML 的公式由以下规则归纳生成：
 - 原子公式：每个 $p \in \mathbf{P}$ 是公式
 - 否定：若 $\varphi$ 是公式，则 $\neg \varphi$ 是公式
 - 合取：若 $\varphi, \psi$ 是公式，则 $\varphi \wedge \psi$ 是公式
 - 必然算子：若 $\varphi$ 是公式，则 $\Box \varphi$ 是公式
-{% end %}
+{% </definition> %}
 
 这里用 `Box` 表示那个模态词。我们再定义：
 
@@ -73,21 +73,21 @@ $$\Diamond \varphi \coloneqq \neg \Box \neg \varphi$$
 | 欧性（5 公理） | $\Diamond p \to \Box \Diamond p$ | $\forall x \forall y \forall z ((xRy \wedge xRz) \to yRz)$ |
 | 逆良基（Löb 条件） | $\Box (\Box p \to p) \to \Box p$ | 传递且没有无穷下降链[^chain] |
 
-{% admonition(type="question", title="习题") %}
+{% <question title="习题"> %}
 证明稠密性的对应关系，即：公式 $\Diamond p \to \Diamond \Diamond p$ 在 $\mathcal{F}$ 上有效当且仅当 $\mathcal{F}$ 满足：
 
 $$\forall x \forall y (xRy \to \exists z (xRz \wedge zRy))$$
-{% end %}
+{% </question> %}
 
 先证充分性（设 $\mathcal{F}$ 满足上式）：对任意赋值 $V$ 与世界 $x$, 若 $\mathcal{M}, x \models \Diamond p$, 则存在 $y$ 使得 $xRy$ 且 $\mathcal{M}, y\models p$. 由稠密性，存在 $z$ 使得 $xRz$ 且 $zRy$, 从而 $\mathcal{M}, x \models \Diamond \Diamond p$. 因此 $\mathcal{M}, w \models \Diamond p \to \Diamond \Diamond p$. 由任意性知公式有效。
 
 再证必要性。设 $\mathcal{F}$ 不满足上式，则存在世界 $x, y \in W$ 使得 $xRy$ 且不存在 $z$ 满足 $xRz \wedge zRy$. 在该框架上定义赋值 $V(p) = \set{y}$, 有 $\mathcal{M}, x \models \Diamond p$, 但无法满足 $\mathcal{M}, x \models \Diamond \Diamond p$. 故 $\mathcal{M}, x \nvDash \Diamond \Diamond p$, 即 $\mathcal{M}, x \nvDash \Diamond p \to \Diamond \Diamond p$. 该公式在 $\mathcal{F}$ 上不有效，逆否命题成立。
 
-{% admonition(type="question", title="习题") %}
+{% <question title="习题"> %}
 证明合流性的对应关系，即：公式 $\Diamond \Box p \to \Box \Diamond p$ 在 $\mathcal{F}$ 上有效当且仅当 $\mathcal{F}$ 满足：
 
 $$\forall x \forall y \forall z ((xRy \wedge xRz) \to \exists t (yRt \wedge zRt))$$
-{% end %}
+{% </question> %}
 
 先证充分性（设 $\mathcal{F}$ 满足上式）：对任意赋值 $V$ 与世界 $x$, 若 $\mathcal{M}, x \models \Diamond \Box p$, 则存在 $y$ 使得 $xRy$ 且 $\mathcal{M},y\models\Box p$. 任取世界 $z$ 满足 $xRz$, 由合流性存在 $t$ 使得 $yRt \wedge zRt$. 因 $\mathcal{M}, y \models \Box p$, 得 $\mathcal{M}, t \models p$, 于是 $\mathcal{M}, z \models \Diamond p$. 由 $z$ 的任意性，$\mathcal{M}, x \models \Box \Diamond p$. 故 $\mathcal{M}, x \models \Diamond \Box p \to \Box \Diamond p$. 由任意性知公式有效。
 
@@ -101,11 +101,11 @@ $$\forall x \forall y \forall z ((xRy \wedge xRz) \to \exists t (yRt \wedge zRt)
 - MP 由 $\varphi$ 与 $\varphi \to \psi$ 推出 $\psi$
 - NEC 必然化规则：若 $\vdash \varphi$ 则 $\vdash \Box \varphi$
 
-{% admonition(type="question", title="习题") %}
+{% <question title="习题"> %}
 在 K 系统中证明：
 
 $$(\Box p \wedge \Box q) \to \Box (p \wedge q)$$
-{% end %}
+{% </question> %}
 
 我们有重言式：
 
@@ -123,9 +123,9 @@ $$p \to (q \to (p \wedge q))$$
 
 最理想的知识模型要求每个 $R_i$ 是等价关系。
 
-{% admonition(type="question", title="习题") %}
+{% <question title="习题"> %}
 是否可能出现这样的情况：成立 $\neg K_b K_a p$ 与 $K_b \neg K_a \neg K_b K_a p$.
-{% end %}
+{% </question> %}
 
 不可能。假设在世界 $w$ 上同时成立，则存在 $w$ 的 $b$-可达世界 $u$ 满足 $\neg K_a p$.
 

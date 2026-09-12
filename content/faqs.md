@@ -6,41 +6,45 @@ toc = true
 +++
 
 ## CHANGELOG
-{% shell(text = "2026/07/03 精修") %}
+{% <shell text = "2026/09/12 大更改"> %}
+- 更新 Zola 到 0.23 Breaking Change
+{% </shell> %}
+
+{% <shell text = "2026/07/03 精修"> %}
 - 修复了大量往期文章的问题
 - 移除了一些没有价值的文章
-{% end %}
+{% </shell> %}
 
-{% shell(text = "2026/06/22 大更改") %}
+{% <shell text = "2026/06/22 大更改"> %}
 - 移除了大量标签，重命名了少量标签
 - 更改了 playground 路径
-{% end %}
+{% </shell> %}
 
-{% shell(text = "2025/12/17 大更改") %}
+{% <shell text = "2025/12/17 大更改"> %}
 - 将 Linkita 更新到 v4
 - 修改了大量的路径，如 `category-theory-p1` 改为 `category-theory-1`；`category-theory-r1` 改为 `category-theory-exercise-1`
 - 新增了新的 `admonition` 类型并替换一些原有的使用
 - 改为以 `archive` 模板展示文章列表
 - 对此次更新之后**完成**的文章，参数 `date` 将由完成时间而非大纲产出时间而定，在此之前考虑使用参数 `draft = true`
-{% end %}
+{% </shell> %}
 
-{% shell(text = "2025/09/30 新域名") %}
+{% <shell text = "2025/09/30 新域名"> %}
 - 从阿里云获取的域名生效，现在 `https://rratic.github.io` 会重定向至 `https://rratic.top`
-{% end %}
+{% </shell> %}
 
-{% shell(text = "2025/04/06 建站") %}
+{% <shell text = "2025/04/06 建站"> %}
 相比旧的站点（已下线）：
 - 使用现成框架 Zola 及主题 Linkita
 - 移除了没有阅读价值的文章
 - 更换了索引方式
-{% end %}
+{% </shell> %}
 
 ## 命名 {#naming}
-{% shell(text = "“错行”的命名来自哪里？") %}
+{% <shell text = "“错行”的命名来自哪里？"> %}
 采自《中庸》中的“辟如天地之无不持载，无不覆帱。辟如四时之错行，如日月之代明。”
-{% end %}
+{% </shell> %}
 
-{% shell(text = "为何使用这一命名？") %}
+{% <shell text = "为何使用这一命名？"> %}
 希望命名满足：
 - 好的视觉结构（为保证（主要是标签页标题的）美观）
 	- 完全由中文字符组成
@@ -49,99 +53,99 @@ toc = true
 	- 具有独特性
 	- 仄平
 	- 输入法友好
-{% end %}
+{% </shell> %}
 
-{% shell(text = "有几重含义？为何含义？") %}
+{% <shell text = "有几重含义？为何含义？"> %}
 - 其本义为“交替运行”。
 - 汉代以后，又按字面含义泛化；又引申为“错乱”。
 - ~~“错”中“钅”为庚金，“龷”为黄，对应土，“日”为丙火，“行”作持续动作解对应乙木，拆为“彳亍”作犹豫不前解对应癸水，可见五行皆备，阴阳调和。~~
-{% end %}
+{% </shell> %}
 
-{% shell(text = "这和这个时代的现状/你有什么联系？") %}
+{% <shell text = "这和这个时代的现状/你有什么联系？"> %}
 希望自行联系。当你读到这个名称时，我已失去了解释权。
-{% end %}
+{% </shell> %}
 
 ## 维护 {#maintainence}
-{% shell(text = "为什么要采用 [Github Pages](https://docs.github.com/en/pages) 这样的静态网页？") %}
+{% <shell text = "为什么要采用 [Github Pages](https://docs.github.com/en/pages) 这样的静态网页？"> %}
 因为租服务器要钱，而且维护站点不受如今普遍的网络攻击会增添额外的成本；即使部署模板式的后端框架也会产生额外的心智负担。
-{% end %}
+{% </shell> %}
 
-{% shell(text = "为什么使用这个域名？") %}
+{% <shell text = "为什么使用这个域名？"> %}
 这个域名购买自阿里云，是含 rratic 的最便宜的。
-{% end %}
+{% </shell> %}
 
 ## 自动化 {#automation}
-{% shell(text = "为什么不继续使用自己的文档生成器 [DoctreePages](https://github.com/JuliaRoadmap/DoctreePages.jl)？") %}
+{% <shell text = "为什么不继续使用自己的文档生成器 [DoctreePages](https://github.com/JuliaRoadmap/DoctreePages.jl)？"> %}
 这个生成器在设计之初是针对文档，补充当时 [Documenter](https://github.com/JuliaDocs/Documenter.jl) 不具备的功能而设计的，不适用于当前这类站点。而且我现在意识到，个人的维护效率远低于团队，开源的难点恰在于长期维护。
-{% end %}
+{% </shell> %}
 
-{% shell(text = "为什么选用了 [Zola](https://www.getzola.org/) 作为生成器？") %}
+{% <shell text = "为什么选用了 [Zola](https://www.getzola.org/) 作为生成器？"> %}
 首先划定的范围是基于 [Rust](https://github.com/rust-lang)，这样可以保证其生命力，开发团队不那么可能突然放弃项目。而后，Zola 允许命令行操作，不需要手动编译。
-{% end %}
+{% </shell> %}
 
-{% shell(text = "为什么选用了 [Linkita](https://www.getzola.org/themes/linkita/) 作为主题？") %}
+{% <shell text = "为什么选用了 [Linkita](https://www.getzola.org/themes/linkita/) 作为主题？"> %}
 因为它简洁并且功能丰富。
-{% end %}
+{% </shell> %}
 
 ## 内容 {#content}
-{% shell(text = "这个站点主要发布什么领域的内容？") %}
+{% <shell text = "这个站点主要发布什么领域的内容？"> %}
 知识性的文章包含数学，可能会包含物理、计算机等。其它类型的文章则范围很广。
-{% end %}
+{% </shell> %}
 
-{% shell(text = "这个站点的定位是什么？") %}
+{% <shell text = "这个站点的定位是什么？"> %}
 ~~尚待观察。~~
 自己记录。并供给有兴趣的读者。
-{% end %}
+{% </shell> %}
 
-{% shell(text = "这个站点未来有什么变更计划？") %}
+{% <shell text = "这个站点未来有什么变更计划？"> %}
 ~~按照实情合理裁决。~~
 取决于精力。可能会开几个系列。
-{% end %}
+{% </shell> %}
 
-{% shell(text = "文章有哪些分类？有哪些子分类？") %}
+{% <shell text = "文章有哪些分类？有哪些子分类？"> %}
 由分类和标签两个模块控制，分类目前包括：
 * 项目：项目有关文章
 * 知识：知识为主的文章
 * 杂物：其它类型的文章
-{% end %}
+{% </shell> %}
 
-{% shell(text = "有哪些通用标签？") %}
+{% <shell text = "有哪些通用标签？"> %}
 以下标签依次序排布：
 * 相关学科分类，精细到最多第二级，如“分析”
 * 现实话题，如“游戏”
 * “可运行”表示存在可以运行的代码
-{% end %}
+{% </shell> %}
 
-{% shell(text = "标题中的‘草稿’意味着什么？") %}
+{% <shell text = "标题中的‘草稿’意味着什么？"> %}
 该文章未完成，可能只有开头或者只剩一些细节。这种文章会不定期更新，填充其中内容。
 
 未标注“草稿”的文章也可能更新。
-{% end %}
+{% </shell> %}
 
 ## 推广 {#popularize}
-{% shell(text = "如何订阅？") %}
+{% <shell text = "如何订阅？"> %}
 暂不支持。可能会在其它平台推广/发布。写作流程稳定后/存在 RSS 需求会开启 RSS。
-{% end %}
+{% </shell> %}
 
-{% shell(text = "哪些操作会被视作更新（这会更改文章的最后更新时间）？") %}
+{% <shell text = "哪些操作会被视作更新（这会更改文章的最后更新时间）？"> %}
 内容的更新。这不包括格式、样式、标签更改、错别字修改、语言微调等。甚至部分大的操作（如文章的拆分、合并）如果没有内容上的有效改动，也不会把最后更新时间设置为操作时间。
-{% end %}
+{% </shell> %}
 
-{% shell(text = "为什么不支持在微信等平台中以卡片形式转发？") %}
+{% <shell text = "为什么不支持在微信等平台中以卡片形式转发？"> %}
 需要以企业身份在相关平台中注册。
-{% end %}
+{% </shell> %}
 
 ## 条款 {#terms}
-{% shell(text = "这里的文章使用怎样的许可？") %}
+{% <shell text = "这里的文章使用怎样的许可？"> %}
 除特殊说明外，均按照 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/legalcode) 协议许可。
-{% end %}
+{% </shell> %}
 
 ## 贡献 {#contributing}
-{% shell(text = "如何给这个站点作贡献？") %}
+{% <shell text = "如何给这个站点作贡献？"> %}
 1. **积极评论**。否则我难以脱离出作者的视角，看到局限与不足所在。
 2. 可与我联系，讨论项目或文章撰写的合作。
-{% end %}
+{% </shell> %}
 
-{% shell(text = "如何与你联系？") %}
+{% <shell text = "如何与你联系？"> %}
 可通过邮箱 <rratic@163.com> 向我联系，确定合适的交流方式。
-{% end %}
+{% </shell> %}

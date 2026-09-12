@@ -18,7 +18,7 @@ priority = "0.0"
 
 ## Zola
 ### Markdown
-封面图来自 [Shadertoy: Planetary gears](https://www.shadertoy.com/view/MsGczV)
+封面图来自 [Shadertoy: Planetary gears](https://www.shadertoy.com/view/MsGczV) 作品。
 
 你的系统支持 *italic* 的 **FontFace**，并且你的浏览器（或者别的什么东西）~~继承~~了这一特性。
 
@@ -38,7 +38,8 @@ priority = "0.0"
 
 [^1]: 采自 [Ant Design](https://ant-design.antgroup.com/docs/spec/colors-cn)
 
-```rs
+### Codeblock
+```rs, linenos, hl_lines = 13
 #[derive(Reflect, Clone, Copy)]
 #[reflect(SerializeWithRegistry, DeserializeWithRegistry)]
 struct ComponentTypeLink(pub TypeId);
@@ -74,75 +75,6 @@ data Bool : Set where
 ### HTML
 <p>按下 <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>Delete</kbd> 以结束会话。</p>
 
-<style>
-.notifications-container {
-	width: 320px;
-	height: auto;
-	font-size: 0.875rem;
-	line-height: 1.25rem;
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
-}
-
-.flex-box {
-	display: flex;
-}
-
-.flex-shrink-0 {
-	flex-shrink: 0;
-}
-
-.alert {
-	background-color: rgb(254 252 232);
-	border-left-width: 4px;
-	border-color: rgb(250 204 21);
-	border-radius: 0.375rem;
-	padding: 1rem;
-}
-
-.alert-svg {
-	height: 1.25rem;
-	width: 1.25rem;
-	color: rgb(250 204 21);
-}
-
-.alert-prompt-wrap {
-	margin-left: 0.75rem;
-	color: rgb(202 138 4);
-}
-
-.alert-prompt-link {
-	font-weight: 500;
-	color: rgb(141, 56, 0);
-	text-decoration: underline;
-}
-
-.alert-prompt-link:hover {
-	color: rgb(202 138 4);
-}
-</style>
-
-<div class="notifications-container">
-	<div class="alert">
-		<div class="flex-box">
-			<div class="flex-shrink-0">
-				<svg aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 alert-svg"><path clip-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" fill-rule="evenodd"></path></svg>
-			</div>
-			<div class="alert-prompt-wrap">
-				<p class="text-sm text-yellow-700">
-					Earth Online v1.0 just crashed!<br>
-					<a class="alert-prompt-link" href="https://uiverse.io/kennyotsu/fast-emu-70">Click here for more details.</a>
-				</p>
-		</div>
-	</div>
-	</div>
-</div>
-
-<p>
-	<iframe width="640" height="360" frameborder="0" src="https://www.shadertoy.com/embed/MsGczV?gui=true&paused=true&muted=false" allowfullscreen></iframe>
-</p>
-
 <p>
 	<iframe width="640" height="360" src="https://lazyfly.me/iframe" allowfullscreen></iframe>
 </p>
@@ -167,34 +99,32 @@ $$
 $$
 
 ### Shortcodes
-{% mermaid() %}
+{% <mermaid> %}
 graph LR;
 	赤狐-->乙木;
 	赤狐-->丙火;
-{% end %}
-
-{% admonition(type="tip", title="提示") %}
-	{% admonition(type="warning", title="警告") %}
-		您的想法已被删除。
-	{% end %}
-{% end %}
+{% </mermaid> %}
 
 ## Custom
 ### My Shortcodes
-{{ todo() }}
+{% <tip> %}
+以玉作六器，以礼天地四方：以苍璧礼天，以黄琮礼地，以青圭礼东方，以赤璋礼南方，以白琥礼西方，以玄璜礼北方。
+{% </tip> %}
 
-{% quote(by="H. P. Lovecraft") %}
+{{ <todo /> }}
+
+{% <quote by="H. P. Lovecraft"> %}
 That is not dead which can eternal lie,\
 And with strange aeons even death may die.
-{% end %}
+{% </quote> %}
 
-{% quote(by="《尚书·周书·洪范第四》") %}
+{% <quote by="《尚书·周书·洪范第四》"> %}
 水曰润下，火曰炎上，木曰曲直，金曰从革，土爰稼穑。
-{% end %}
+{% </quote> %}
 
-{% shell(text="What is a **fish** without an eye?") %}
+{% <shell text="What is a **fish** without an eye?"> %}
 A **fsh**.
-{% end %}
+{% </shell> %}
 
 ## #Test
 ### 解析
@@ -207,6 +137,6 @@ $$\left\{x \in A \middle| |x| = 1 \right\}$$
 ### 页面显示
 $$Y f = (\lambda x. f(x x))(\lambda x. f(x x)) = (\lambda x. f(x x))(\lambda x. f(x x))(\lambda x. f(x x)) = f(Y f) = f((\lambda x. f(x x))(\lambda x. f(x x))) = f((\lambda x. f(x x))(\lambda x. f(x x))(\lambda x. f(x x))) = f(f(Y f))$$
 
-{% admonition(type="abstract", title="摘要") %}
+{% <note> %}
 $$Y f = (\lambda x. f(x x))(\lambda x. f(x x)) = (\lambda x. f(x x))(\lambda x. f(x x))(\lambda x. f(x x)) = f(Y f) = f((\lambda x. f(x x))(\lambda x. f(x x))) = f((\lambda x. f(x x))(\lambda x. f(x x))(\lambda x. f(x x))) = f(f(Y f))$$
-{% end %}
+{% </note> %}

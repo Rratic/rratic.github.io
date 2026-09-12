@@ -57,9 +57,9 @@ $$
 
 我们称这些 $f_\sharp$ 是两个**链复形**的**链映射**。这会诱导对应同调群之间的同态。
 
-{% admonition(type="theorem", title="同伦不变性") %}
+{% <theorem title="同伦不变性"> %}
 若 $f, g: X \to Y$ 同伦，则它们诱导相同的 $f_\ast = g_\ast: H_n(X) \to H_n(Y)$.
-{% end %}
+{% </theorem> %}
 
 对一个 $\Delta^n \times I$，令 $\Delta^n \times \set{0} = [v_0, \dots, v_n]$，$\Delta^n \times \set{1} = [w_0, \dots, w_n]$. 对 $F: f \simeq g$ 定义 prism operator $P: C_n(X) \to C_{n+1}(Y)$ 如下：
 
@@ -104,9 +104,9 @@ $$
 
 我们需要定义 $\partial: H_n(C) \to H_{n-1}(A)$. 考虑图中被框出群的元素 $a, b, \partial b, c$，有 $\partial [c] = [a]$ 是良定义的。从而可代入证明所需结论。
 
-{% admonition(type="theorem", title="Excision Theorem") %}
+{% <theorem title="Excision Theorem"> %}
 对 $X$ 的子空间 $\bar{Z} \subseteq A^{\circ}$，嵌入 $(X-Z, A-Z) \hookrightarrow (X, A)$ 诱导了同构 $H_n(X-Z, A-Z) \to H_n(X, A)$.
-{% end %}
+{% </theorem> %}
 
 先证明引理：对 $\mathcal{U} = \set{U_j}$ 满足它们的内部构成 $X$ 的一个开覆盖，令 $C_n^\mathcal{U}(X)$ 是由像只在单个 $U_j$ 中的 $\sigma$ 生成的自由 Abel 群，则嵌入 $\iota: C_n^\mathcal{U}(X) \hookrightarrow C_n(X)$ 是链同伦等价。
 
@@ -170,9 +170,9 @@ $$\partial D\sigma + D\partial\sigma = \sigma - [S^{m(\sigma)}\sigma + D_{m(\sig
 
 其推论是，对 $X$ 与 $X$ 中某个邻域的非空、闭的形变收缩核 $A$，商映射诱导了 $H_n(X, A) \to H_n(X/A, A/A)$ 的同构，而后者同构于 $\widetilde H_n(X/A)$.
 
-{% admonition(type="theorem", title="维数不变性") %}
+{% <theorem title="维数不变性"> %}
 若非空开集 $U \subseteq \R^m$ 与 $V \subseteq \R^n$ 同胚，则 $m = n$.
-{% end %}
+{% </theorem> %}
 
 使用 excision 及之前长正合列知：
 
@@ -186,9 +186,9 @@ $$
 一般地定义**局部同调群**是指 $H_n(X, X - \set{x})$. 由 excision 知它只和局部的拓扑有关。这可以用于考察局部的同胚情况。
 
 ### 单纯与奇异同调的等价
-{% admonition(type="theorem", title="等价性") %}
+{% <theorem title="等价性"> %}
 对 $\Delta$-复形 $X$ 与子复形 $A$，$H_n^\Delta(X, A)$ 与 $H_n(X, A)$ 总是同构。
-{% end %}
+{% </theorem> %}
 
 先归纳地考虑有限维，$A = \emptyset$ 情形。记 $X^k$ 是 $k$-骨架。
 

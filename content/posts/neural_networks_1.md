@@ -142,7 +142,7 @@ for k in range(20):
 
 有时使用 L2 正则化技术去增强泛化能力。
 
-{% admonition(type="tip", title="上上学期旁听元培的课听到的技巧") %}
+{% <tip title="上上学期旁听元培的课听到的技巧"> %}
 - 使用 Residual Connection，使得更深的层数不会变劣
 - 选择 ReLU
 - 进行好的初始化
@@ -150,7 +150,7 @@ for k in range(20):
 - 使用 weight decay，如加入 L2 正则
 - 依据 batch size 调整 learning rate
 - 使用 warm up 及 learning rate decay
-{% end %}
+{% </tip> %}
 
 ## Bigram
 作者提供的仓库在 [Makemore](https://github.com/karpathy/makemore)，是一个把字符视作基本元素，生成人名的模型。

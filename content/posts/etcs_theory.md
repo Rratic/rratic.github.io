@@ -25,33 +25,33 @@ ETCS 是 Lawvere 的集合范畴基本理论（Elementary Theory of the Category
 
 不同于一般公理化使用的集合和元素，我们使用集合和函数。假设存在单点集 $\mathbf{1} = \set{\bullet}$，那么一个函数 $\mathbf{1} \to X$ 本质上是 $X$ 的一个元素，此时求值可以看成函数的复合。这种观点并没有看起来的那么平凡：实际上大量的数学对象都是函数。
 
-{% admonition(type="info", title="公理 1") %}
+{% <info title="公理 1"> %}
 函数复合满足结合律、存在单位元。
-{% end %}
+{% </info> %}
 
 后者即，对任一集合 $X$ 存在一个函数 $\mathbf{1}_X: X \to X$ 使得对所有 $g: X \to Y$ 有 $g \circ \mathbf{1}_X = g$; 对所有 $f: W \to X$ 有 $\mathbf{1}_X \circ f = f$.
 
 请读者注意，等词是[一阶形式语言](@/posts/logic_4.md)自带的。容易证明这里的单位元唯一而不需要任何多于已有定义的东西。
 
-{% admonition(type="info", title="公理 2") %}
+{% <info title="公理 2"> %}
 存在一个 terminal set $T$, 即满足对任意 $X$ 都有唯一函数 $X \to T$.
-{% end %}
+{% </info> %}
 
 放在一般的理论中，也就是集合范畴的终对象，这一点读者应当很熟悉了。
 
-{% admonition(type="info", title="公理 3") %}
+{% <info title="公理 3"> %}
 存在一个没有元素的集合。
-{% end %}
+{% </info> %}
 
 我们熟悉的 $\emptyset$.
 
-{% admonition(type="info", title="公理 4") %}
+{% <info title="公理 4"> %}
 对 $f, g: X \to Y$, 若对所有 $x \in X$ 都有 $f(x) = g(x)$, 那么 $f = g$.
-{% end %}
+{% </info> %}
 
-{% admonition(type="info", title="公理 5") %}
+{% <info title="公理 5"> %}
 每对集合都有一个积。
-{% end %}
+{% </info> %}
 
 积不仅包含一个集合，还有两个投影映射。积的定义即[范畴论中的定义](@/posts/category_theory_1.md#product-and-coproduct)。
 
@@ -59,21 +59,21 @@ ETCS 是 Lawvere 的集合范畴基本理论（Elementary Theory of the Category
 
 对 $f: I \to X \times Y$, 可以与两个投影映射合成得到 $f_1$ 与 $f_2$.
 
-{% admonition(type="info", title="公理 6") %}
+{% <info title="公理 6"> %}
 对于所有集合 $X, Y$, 存在一个从 $X$ 到 $Y$ 的函数集。
-{% end %}
+{% </info> %}
 
 函数集是指集合 $F$ 与函数 $\epsilon: F \times X \to Y$, 满足：对任意集合 $I$ 和函数 $q: I \times X \to Y$ 存在唯一的函数 $\bar{q}: I \to F$ 使得对所有 $t \in I, x \in X$ 有 $q(t, x) = \epsilon(\bar{q}(t), x)$.
 
-{% admonition(type="info", title="公理 7") %}
+{% <info title="公理 7"> %}
 对任意函数 $f: X \to Y$ 及元素 $y \in Y$ 存在 $f$ 下 $y$ 的逆像。
-{% end %}
+{% </info> %}
 
 逆像是集合 $A$ 和一个函数 $j: A \to X$ 使得 $f(j(a)) = y, \forall a \in A$. 对同样满足此的 $I$ 和 $q: I \to X$ 存在唯一的函数 $\bar{q}: I \to A$ 使 $q = j \circ \bar{q}$.
 
-{% admonition(type="info", title="公理 8") %}
+{% <info title="公理 8"> %}
 存在一个子集分类器（subset classifier）。
-{% end %}
+{% </info> %}
 
 首先定义嵌入映射是指 $j: A \to X$ 满足对于 $a, a' \in A$ 有 $j(a) = j(a') \implies a = a'$.
 
@@ -89,9 +89,9 @@ $$
 
 读者可以看出 $\mathbf{2}$ 中元素表意为真假。定义中没有提及它必须有两个元素，但十条公理实际上暗示了这一点。
 
-{% admonition(type="info", title="公理 9") %}
+{% <info title="公理 9"> %}
 存在一个自然数系。
-{% end %}
+{% </info> %}
 
 一个自然数系是集合 $N$ 与其中元素 $0$ 及一个函数 $s: N \to N$ 满足：对集合 $X$ 与 $a \in X, r: X \to X$ 存在唯一的函数 $x: N \to X$ 使得 $x(0) = a$ 且 $x(s(n)) = r(x(n))$.
 
@@ -105,9 +105,9 @@ $$
 
 读者易见 $s$ 即是后继。
 
-{% admonition(type="info", title="公理 10") %}
+{% <info title="公理 10"> %}
 每个满射都有一个右逆。
-{% end %}
+{% </info> %}
 
 满射与右逆的定义显然。
 

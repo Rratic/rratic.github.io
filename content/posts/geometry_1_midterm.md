@@ -57,25 +57,25 @@ $$
 
 有以下重要仿射特征：
 
-{% admonition(type="definition", title="中心") %}
+{% <definition title="中心"> %}
 一个点 $(x_0, y_0)$ 称为二次曲线的**中心**，如果 $Ax_0+By_0+D=0$ 且 $Bx_0+Cy_0+E=0$.
-{% end %}
+{% </definition> %}
 
 中心是对称中心。
 
 只有椭圆型、双曲型曲线有中心。
 
-{% admonition(type="definition", title="渐进方向") %}
+{% <definition title="渐进方向"> %}
 一个向量 $(x_0, y_0)$ 对应的直线方向为二次曲线的**渐进方向**，如果 $Ax_0^2+2Bx_0y_0+Cy_0^2=0$.
-{% end %}
+{% </definition> %}
 
 我们定义**渐近线**是距离在无穷远处趋向于 $0$ 的直线[^asymptote]，那么渐近线如果存在，可由中心和渐进方向算得。
 
-{% admonition(type="definition", title="共轭直径") %}
+{% <definition title="共轭直径"> %}
 一个方向对应的**共轭直径**是所有与它平行的弦的中点的连线。
 
 方程为 $(Ax_0+By_0)x + (Bx_0+Cy_0)y + Dx_0 + Ey_0 = 0$.
-{% end %}
+{% </definition> %}
 
 两个直线方向共轭，如果 $\begin{pmatrix}x_0' & y_0'\end{pmatrix}\begin{pmatrix}A & B\cr B & C\end{pmatrix}\begin{pmatrix}x_0 \cr y_0\end{pmatrix}$，也就是一个是另一个的共轭直径的直线方向。
 
@@ -153,21 +153,21 @@ $$
 
 来看一些结论：
 
-{% admonition(type="definition", title="变积系数") %}
+{% <definition title="变积系数"> %}
 仿射变换将图形映到图形，面积比是一致的。
-{% end %}
+{% </definition> %}
 
-{% admonition(type="theorem", title="特征值") %}
+{% <theorem title="特征值"> %}
 实对称矩阵的特征值都是实的。
-{% end %}
+{% </theorem> %}
 
 设 $A\in \R^{n\times n}, A^\top=A$，有 $A\mathbf{v} = \lambda\mathbf{v}$，定义 $\Complex$ 上内积 $\langle x, y\rangle = y^\dagger x = \sum \overline{y_i}x_i$.
 
 则 $v^\dagger Av = \lambda \\|v\\|^2$，又 $(v^\dagger Av)^\dagger = v^\dagger Av$ 知它是实数，有 $\lambda$ 是实数。
 
-{% admonition(type="theorem", title="仿射变换分解") %}
+{% <theorem title="仿射变换分解"> %}
 一个仿射变换可以分解成一个保距变换复合上一族两两正交的正压缩。
-{% end %}
+{% </theorem> %}
 
 考虑单位球的像，它必然为椭球体，因为方程仍然是二次的，可使用 [Sylvester 惯性定理](@/posts/linear_algebra_2_final.md)或[保同伦群](@/posts/geometry_2_final.md)说明。
 
@@ -176,9 +176,9 @@ $$
 ## 考后总结
 一个证明题只得了部分分。场上采取了闭集套的证明，但我写的闭集并不相互嵌套。题面如下：
 
-{% admonition(type="question", title="2025 P6") %}
+{% <question title="2025 P6"> %}
 平面上给定平行四边形 $ABCD$（以线段 $AC, BD$ 为对角线）。设椭圆 $\Gamma$ 外接于三角形 $ABC$，椭圆 $\Gamma'$ 内切于三角形 $ACD$，平面仿射变换 $\phi$ 将 $\Gamma$（作为平面点集）变成 $\Gamma'$，问： $\phi$ 是否一定有不动点？
-{% end %}
+{% </question> %}
 
 个人认为最好的做法是看成椭圆旋转复合上旋转位似变换。
 

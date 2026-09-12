@@ -1,0 +1,11 @@
+{% component quote(by: string) %}
+{% set first = by[0] %}
+<blockquote>
+  {{ body | markdown | safe }}
+  {% if first >= " " and first <= "~" %}
+  <footer>— {{ by }}</footer>
+  {% else %}
+  <footer>——{{ by }}</footer>
+  {% endif %}
+</blockquote>
+{% endcomponent %}

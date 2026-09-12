@@ -109,9 +109,9 @@ Challenge 3 要求 do this by hand. 观察十六进制编码，分为两个一�
 
 英语词频分析的方法似乎有很多，包括[单/双/三/四字母组词频](http://practicalcryptography.com/cryptanalysis/text-characterisation/quadgrams/)、常用单词词频、首/末字母词频、双重字母词频。这里我们先使用单字母词频。
 
-{% admonition(type="warning", title="词频失真") %}
+{% <note> %}
 随着 AI 生成内容的大量出现，英文词频发生了较大的失真。
-{% end %}
+{% </note> %}
 
 这里的思路是直接计算赋值的和。
 

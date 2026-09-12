@@ -411,23 +411,23 @@ $$f(x, x, \mathrm{refl}_x) :\equiv c(x)$$
 
 关于等价的规则式表述及 Based path induction 省略。
 
-{% admonition(type="example", title="对称性") %}
+{% <example title="对称性"> %}
 $$\mathrm{sym}: (x = y) \to (y = x)$$
-{% end %}
+{% </example> %}
 
 对 $p: x = y$ 取 $C(x, y, p)$ 是 $(y = x)$，$c(x)$ 是 $\mathrm{refl}_x$ 使用 J 原理即可。其模式匹配的结果（在 Agda 下）就是 [`sym refl = refl`](@/posts/agda_1.md).
 
-{% admonition(type="example", title="传递性") %}
+{% <example title="传递性"> %}
 $$\mathrm{trans}: (x = y) \to (y = z) \to (x = z)$$
-{% end %}
+{% </example> %}
 
 对 $p: x = y, q: y = z$ 取 $C(x, y, p)$ 是 $\prod_{(z: A)} (y = z) \to (x = z)$ 使用 J 原理即可。模式匹配写成 `trans refl q = q`.
 
-{% admonition(type="example", title="函数作用于相等") %}
+{% <example title="函数作用于相等"> %}
 对 $f: A \to B$ 可以构造：
 
 $$\mathrm{ap} _f: \prod _{x, y: A}(x =_A y) \to (f(x) =_B f(y))$$
-{% end %}
+{% </example> %}
 
 只需规定 $\mathrm{ap} _f(\mathrm{refl} _x): \equiv \mathrm{refl} _{f(x)}$. 若函数的陪域依赖于输入，相应的构造称为 $\mathrm{apd}$，需要用 transport 表述。
 
@@ -452,9 +452,9 @@ $$\mathrm{sup}: \prod_{a: A} \left(B(a) \to \mathsf W_{(a: A)} B(a)\right) \to \
 
 因而 $B(a)$ 描述标签为 $a$ 的节点具有哪些子节点位置，如 $B(a) \equiv \mathbf 0$ 时它是叶节点，$B(a) \equiv \mathbf 2$ 时它有两个分支。这里的“良基”更准确地被刻画为：一棵树由已经构成的子树向上生成，因此可以从所有子树上的结果构造整棵树上的结果。在经典数学并附加适当选择原则的语境中，可以将其理解为不存在无限向下的分支。
 
-{% admonition(type="example", title="自然数") %}
+{% <example title="自然数"> %}
 可以使用 W-type 表达自然数类型，尽管额外需要函数外延性才能说明它就是自然数类型。
-{% end %}
+{% </example> %}
 
 取 $A: \equiv \mathbf 2$，并定义类型类 $B: A \to \mathcal U$ 为：
 

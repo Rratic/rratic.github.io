@@ -86,9 +86,9 @@ Kociemba Algorithm 则将群逐步化为：
 
 我们希望进行这样的操作：每次多固定一个集合上的元素，其稳定化子就是原变换群的真子群，如此下去可以得到一个链 $G = G_0 > G_1 > \cdots > G_n = \set{e}$，而由于我们要写出一个操作序列，设第 $i$ 个阶段可能的操作为 $r_{i_1}, r_{i_2}, \dots$ 有 $r_{i_1}G_{i+1}, r_{i_2}G_{i+1}, \dots$ 陪集族构成 $G_i$.
 
-{% admonition(type="theorem", title="Schreier 子群引理") %}
+{% <theorem title="Schreier 子群引理"> %}
 $G$ 是一个由集合 $S$ 中元素（置换）生成的群，有子群 $H$，设（左）陪集代表元构成集合 $R$，其中元素 $g$ 对应代表元为 $\bar{g}$，则 $H$ 是由 $\set{\overline{sr}^{-1}sr | r\in R, s\in S}$ 生成的。
-{% end %}
+{% </theorem> %}
 
 对 $H$ 的元素 $h = s_1s_2\cdots s_k$，其中 $s_i$ 为生成元，记 $t_i = \overline{s_{i+1}\cdots s_k}$，其中 $t_0 = t_k = e$，故有：
 
@@ -133,9 +133,9 @@ x^-1*y*w^-1*y^-1*w*y^-1*x*y*x*z*y*z^-1*y^-1*x^-1*y*x*y*z*y^-1*z^-1*x^-1*w*y*w^-1
 ### 可解群
 称群是**可解群**，如果在次正规群列中每个商 $G_{i-1}/G_i$（称为**合成因子**）都是交换群。
 
-{% admonition(type="definition", title="可解群的群列") %}
+{% <definition title="可解群的群列"> %}
 称**导群**是一个群所有的换位子生成的群，记作 $G'=G^{(1)}$，则一个群可解等价于它的若干阶导群 $G^{(k)} = \set{e}$.
-{% end %}
+{% </definition> %}
 
 一方面，所有的 $G^{(k)}$ 给出了这个群列的构造。可以证明 $G/G'$ 交换：考虑映射：
 
@@ -150,18 +150,18 @@ $$
 
 另一方面，我们可以与上类似地说明对 $H\triangleleft G$，$G/H$ 交换当且仅当 $G'\leq H$.
 
-{% admonition(type="theorem", title="Feit-Thompson 定理") %}
+{% <theorem title="Feit-Thompson 定理"> %}
 每一个奇阶的有限群都是可解群。
-{% end %}
+{% </theorem> %}
 
 此定理的证明长达 254 页，在此仅作告示之用。
 
 ### 合成群列
 如果次正规群列中每个商都是单群，则称为**合成群列**。
 
-{% admonition(type="theorem", title="Schreier 定理") %}
+{% <theorem title="Schreier 定理"> %}
 有限群的任何次正规群列可以加细为合成群列。
-{% end %}
+{% </theorem> %}
 
 取长度极大的次正规群列，假设不是合成群列，某个 $G_{i-1}/G_i$ 有非平凡正规子群 $H$.
 
@@ -176,14 +176,14 @@ $$
 
 进一步地，可解群的合成因子均为交换的单群，从而是素数阶循环群（利用了[交换群一定可以分解为循环群的直积](@/posts/group_theory_1.md)）。
 
-{% admonition(type="theorem", title="Jordan-Hölder 定理") %}
+{% <theorem title="Jordan-Hölder 定理"> %}
 两个合成群列
 
 $$G = G_0 \triangleright G_1 \triangleright G_2 \cdots G_n = \set{e}$$
 $$G = H_0 \triangleright H_1 \triangleright H_2 \cdots H_m = \set{e}$$
 
 可以以某种方式配对，使对应的合成因子同构。
-{% end %}
+{% </theorem> %}
 
 归纳。设 $G_1 \neq H_1$，令 $K = G_1 \cap H_1$. 由于 $G/G _1, G/H _1$ 单，有 $G _1 H _1 = G$. 故：
 

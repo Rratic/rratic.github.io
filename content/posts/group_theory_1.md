@@ -51,17 +51,17 @@ $$
 ## Pólya 计数法
 使用 Pólya 计数法是为了解决这样的问题：我们对所有的可能计数，并且将具有特定对称性的视作同一种（见下面的例子）。
 
-{% admonition(type="theorem", title="Burnside 引理") %}
+{% <theorem title="Burnside 引理"> %}
 $\varphi$ 对应的轨道数为 $\frac{1}{|G|} \sum_{g\in G}|X(g)|$，其中 $X(g) = \set{x | x^g = x}$.
-{% end %}
+{% </theorem> %}
 
 其本质是对所有满足 $x^g = x$ 的数对的算两次。
 - 对 $g$ 计数为 $\sum |\mathrm{Stab}(g)| = \sum\frac{|G|}{|\mathrm{Orb}(g)|} = |G|\cdot \text{ans}$
 - 对 $x$ 计数则为 $\sum_{g\in G}|X(g)|$
 
-{% admonition(type="question", title="立方体染色Ⅰ") %}
+{% <question title="立方体染色Ⅰ"> %}
 一个立方体六个面颜色不同，有多少种旋转下不同的染色？
-{% end %}
+{% </question> %}
 
 易知对称群大小 $|G| = |\mathrm{Orb}(x)|\cdot |\mathrm{Stab}(x)| = 24$.
 
@@ -69,9 +69,9 @@ $\varphi$ 对应的轨道数为 $\frac{1}{|G|} \sum_{g\in G}|X(g)|$，其中 $X(
 
 $X(g)$ 只在单位元处取到 $720$，其余情况为空集。故所求为 $30$.
 
-{% admonition(type="question", title="立方体染色Ⅱ") %}
+{% <question title="立方体染色Ⅱ"> %}
 一个立方体，使用三种颜料染色，有多少种旋转下不同的染色？
-{% end %}
+{% </question> %}
 定义同上。
 
 对 $G$ 中元素分类，算得 $57$.
@@ -105,9 +105,9 @@ $$|G| = |Z(G)| + \sum_{y_i \notin Z(G)} |G\colon C_G(y_i)|$$
 ## Sylow 定理
 对有限群 $G$ 和素数 $p$ 使 $p^l$ 恰整除 $|G|$，称 $G$ 的 $p^l$ 阶子群为其 **Sylow $p$-子群**。以下设 $|G| = p^l m$. 可以参考[启发式推导过程](https://zhuanlan.zhihu.com/p/358852225)。
 
-{% admonition(type="theorem", title="第一 Sylow 定理") %}
+{% <theorem title="第一 Sylow 定理"> %}
 对有限群 $G$ 和素数 $p$ 使 $p^k$ 整除 $|G|$，$G$ 存在 $p^k$ 阶子群。
-{% end %}
+{% </theorem> %}
 
 只需讨论阶大于 $p$ 的非交换群，因为交换群一定可以分解为循环群的直积。[^1]
 
@@ -115,9 +115,9 @@ $$|G| = |Z(G)| + \sum_{y_i \notin Z(G)} |G\colon C_G(y_i)|$$
 - 若 $p\mid Z(G)$，由于它是交换的，有 $p$ 阶子群；考察它和对应的商群，使用归纳假设
 - 若 $p\nmid Z(G)$，由类方程，存在一个 $p\nmid \mathrm{Orb}(y_i)$，有 $p^l\parallel C_G(y_i)$，使用归纳假设
 
-{% admonition(type="theorem", title="第二 Sylow 定理") %}
+{% <theorem title="第二 Sylow 定理"> %}
 对 $p^k$ 整除 $|G|$ 及 Sylow $p$-子群 $P$，$p^k$ 阶子群必为 $P$ 的某个共轭的子群。
-{% end %}
+{% </theorem> %}
 
 对一个 $p^k$ 阶子群 $H$，考察 $H$ 在 $P$ 上的作用 $\varphi(h) = (aP\mapsto haP)$. 有 $|\mathrm{Orb}(aP)|$ 整除 $|H|$，且：
 
@@ -125,9 +125,9 @@ $$|G:P| = \sum_{aP} 1 = \sum |\mathrm{Orb}(aP)|\not\equiv 0\pmod{p}$$
 
 故至少一个 $|\mathrm{Orb}(aP)| = 1$. 对应 $h\in aPa^{-1}$ 即满足 $H\subseteq aPa^{-1}$.
 
-{% admonition(type="theorem", title="第三 Sylow 定理") %}
+{% <theorem title="第三 Sylow 定理"> %}
 设 Sylow $p$-子群个数 $r$，则 $r\equiv 1\pmod{p}$ 且 $r\mid m$.
-{% end %}
+{% </theorem> %}
 
 称 $H$ 在 $G$ 中**正规化子** $N_G(H) = \set{G | gHg^{-1}=H}$. 则对 $G$ 的 Sylow $p$-子群 $P$，有 $P\unlhd N_G(P)\le G$.
 
@@ -139,9 +139,9 @@ $$r = \sum |\mathrm{Orb}(Q)|\equiv 1\pmod{p}$$
 
 由第二定理知 $G$ 在 $\Omega$ 上的共轭作用使 $\Omega$ 成为轨道，$|\Omega|$ 整除 $|G|$，即 $r\mid m$.
 
-{% admonition(type="theorem", title="p·q 阶群分类") %}
+{% <theorem title="p·q 阶群分类"> %}
 对素数 $p < q$，$pq$ 阶群在 $q\not\equiv 1\pmod{p}$ 时只有循环群。
-{% end %}
+{% </theorem> %}
 
 考察 Sylow $p$-子群及 Sylow $q$-子群，由第三定理知个数均为 $1$，从而分别是正规的。
 

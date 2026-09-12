@@ -16,4 +16,4 @@ tags = ["计算机"]
 - [洛谷日报](https://www.luogu.com.cn/article/collection/1)：主要为算法，但其它内容也很丰富
 
 ## 平台
-{{ todo() }}
+{{ <todo /> }}

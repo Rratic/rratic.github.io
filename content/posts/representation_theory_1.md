@@ -13,27 +13,27 @@ categories = ["知识"]
 tags = ["数学", "代数学"]
 +++
 
-{% admonition(type="definition", title="群表示") %}
+{% <definition title="群表示"> %}
 有限群 $G$ 在线性空间 $V$ 上的一个表示是一个 $G$ 到 $\mathrm{GL}(V)$ 的同态。
-{% end %}
+{% </definition> %}
 
 最简单的是群的一维表示，我们可以为每个群元素分配一个复数并保持乘法结构。给定群 $G$ 到置换群 $S_n$ 的同态，可以让 $V$ 的基是被置换的元 $e_i$，此时得到**置换表示**。我们也可以让 $V$ 的基形式地是群的元素，作用是左乘，此时得到**正则表示**。
 
 我们称两个表示同构，如果存在一个线性空间的同构保持群作用结构。
 
-{% admonition(type="definition", title="类函数") %}
+{% <definition title="类函数"> %}
 类函数是指满足下式的 $f: G \to \Complex$，其全体记为 $\mathrm{Cf}(G)$：
 
 $$f(s) = f(tst^{-1}),\quad \forall s, t \in G$$
-{% end %}
+{% </definition> %}
 
 一个重要的类函数是**特征标**。对一个群 $G$ 在有限维 $\Complex$-线性空间 $V$ 上的表示，记 $\rho(g)$ 是 $g$ 对应的线性映射，定义特征标为：
 
 $$\chi_V(g) = \mathrm{tr}(\rho(g))$$
 
-{% admonition(type="theorem", title="对偶空间的特征标") %}
+{% <theorem title="对偶空间的特征标"> %}
 $$\chi_{V^\ast}(g) = \overline{\chi_{V}(g)}$$
-{% end %}
+{% </theorem> %}
 
 这里 $V$ 上的表示诱导的 $V^\ast$ 上的表示需要满足 $gf(gv) = f(v)$，此时在取定的基下（用方括号表示对应的矩阵）：
 
@@ -41,19 +41,19 @@ $$[f]^\perp [\pi(g)]^\perp [\rho(g)] [v] = [f]^\perp [v]$$
 
 故 $[\pi(g)]^\perp [\rho(g)] = I$. 由于 $g$ 有限两个矩阵是幂零的，特征值是单位根，从而 $\mathrm{tr}([\pi(g)]) = \overline{\mathrm{tr}([\rho(g)])}$.
 
-{% admonition(type="theorem", title="张量积的特征标") %}
+{% <theorem title="张量积的特征标"> %}
 对有限维的 $V, W$：
 
 $$\chi_{V \otimes W}(g) = \chi_V(g) \chi_W(g)$$
-{% end %}
+{% </theorem> %}
 
 这里 $V \otimes W$ 上的表示是由 $g(v \otimes w) = gv \otimes gw$ 诱导的。同前一证明，考虑取基将张量积写成矩阵的方法强行计算即可。
 
-{% admonition(type="theorem", title="映射空间的特征标") %}
+{% <theorem title="映射空间的特征标"> %}
 对有限维的 $V, W$：
 
 $$\chi_{\mathrm{Hom}(V, W)}(g) = \overline{\chi_V(g)} \chi_W(g)$$
-{% end %}
+{% </theorem> %}
 
 $\mathrm{Hom}(V, W)$ 上的表示是由 $gF = g^{-1} \circ F \circ g$ 给出的，即按如下图表：
 
@@ -74,13 +74,13 @@ $$
 \end{aligned}
 $$
 
-{% admonition(type="definition", title="特征标的内积") %}
+{% <definition title="特征标的内积"> %}
 群 $G$ 的特征标 $\chi_V, \chi_W$ 的内积定义为：
 
 $$\braket{\chi_V, \chi_W} = \frac 1 {|G|} \sum_{g \in G} \chi_V(g) \overline{\chi_W(g)}$$
-{% end %}
+{% </definition> %}
 
-{% admonition(type="theorem", title="第一正交关系") %}
+{% <theorem title="第一正交关系"> %}
 对群 $G$ 的不可约表示 $X_1, X_2$ 有：
 
 $$
@@ -89,7 +89,7 @@ $$
 	0 & \text{otherwise}
 \end{cases}
 $$
-{% end %}
+{% </theorem> %}
 
 按定义有：
 
@@ -109,11 +109,11 @@ $$\operatorname{Im} P = \set{v \in V | \rho(g)v = v, \forall g}$$
 
 考虑将一个表示分解为不可约表示 $W = \bigoplus_{i=1}^n V_i^{n_i}$，则有 $\chi_W = \sum n_i \chi_{V_i}$，即 $n_i = \braket{\chi_{V_i}, \chi_W}$，这会使得 $W \cong W' \iff \chi_W = \chi_{W'}$.
 
-{% admonition(type="theorem", title="不可约表示与群阶数关系") %}
+{% <theorem title="不可约表示与群阶数关系"> %}
 用 $\mathrm{Irr}(G)$ 表示所有互不同构的复表示，则：
 
 $$\sum_{V \in \mathrm{Irr}(G)} (\dim V)^2 = |G|$$
-{% end %}
+{% </theorem> %}
 
 考虑正则表示 $V_{\mathrm{reg}}$，设 $V$ 不可约，则：
 
@@ -129,9 +129,9 @@ $$
 
 作为一个例子，考虑 $S^3$，有两个 $1$ 维表示分别是全部映到 $1$ 与映射到 $\mathrm{sgn}(g)$. 通过对正则表示分解 $V_{\mathrm{reg}} = \mathrm{span}\set{a + b + c} \oplus \mathrm{span}\set{a - b, b - c}$ 有一个二维表示将 $(1)$ 映到 $I$，将 $(1 \\; 2)$ 映到 $\begin{pmatrix} -1 & ~ \cr 1 & 1 \end{pmatrix}$，将 $(1 \\; 2 \\; 3)$ 映到 $\begin{pmatrix} ~ & 1 \cr -1 & -1 \end{pmatrix}$. 由定理知这些就是所有不同构的不可约复表示。
 
-{% admonition(type="theorem", title="不可约表示与共轭等价类") %}
+{% <theorem title="不可约表示与共轭等价类"> %}
 $$\\# \mathrm{Irr}(G) = \\# \set{[a] | a \sim gag^{-1}}$$
-{% end %}
+{% </theorem> %}
 
 我们知道 $\\# \set{[a] | a \sim gag^{-1}} = \dim \mathrm{Cf}(g)$，且 $\set{\chi_V | V \in \mathrm{Irr}(G)}$ 两两正交，现在证明它构成一组基。
 

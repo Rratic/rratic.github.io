@@ -95,9 +95,9 @@ $$
 
 另有一个使用 Ping-Pong Lemma 的证法，来自 [That trick where you embed the free group into a Lie group](https://sbseminar.wordpress.com/2007/09/17/that-trick-where-you-embed-the-free-group-into-a-lie-group/).
 
-{% admonition(type="theorem", title="二元版 Ping-Pong Lemma") %}
+{% <theorem title="二元版 Ping-Pong Lemma"> %}
 $G$ 可由 $a, b$ 生成，有在 $X$ 上的作用。若存在 $X$ 的不交的非空子集 $A^+, B^+$ 及非空子集 $A^-, B^-$，使得 $a(X\setminus A^-) \subseteq A^+, b(X\setminus B^-) \subseteq B^+, a^{-1}(X\setminus A^+) \subseteq A^-, b^{-1}(X\setminus B^+) \subseteq B^-$，则 $G = \langle a, b \rangle$ 是自由的。
-{% end %}
+{% </theorem> %}
 
 这是显然的。
 

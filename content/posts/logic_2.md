@@ -55,9 +55,9 @@ tags = ["数学", "基石"]
 - 若 $\emptyset \models \varphi$, 则称 $\varphi$ 是一个命题有效式/重言式 `propositional validity/tautology`
 - 若 $\\{\varphi\\} \models \psi$ 且 $\\{\psi\\} \models \varphi$, 则称 $\varphi$ 与 $\psi$ 逻辑等价 `logical equivalent`, 记为 $\varphi \equiv \psi$
 
-{% admonition(type="theorem", title="紧致性定理") %}
+{% <theorem title="紧致性定理"> %}
 对公式集 $\Gamma$, 若对其任一有穷子集，存在一个赋值满足它，则存在赋值满足 $\Gamma$.
-{% end %}
+{% </theorem> %}
 
 由于命题字母可数个，可以使用归纳法。对命题 $p_0$, 考虑所有赋值构成的集合，分为满足 $V(p_0) = T$ 的与满足 $V(p_0) = F$ 的两部分，必有一部分满足：对任一有穷子集，存在一个赋值满足它。取该对 $p_0$ 的赋值，之后同理。
 
@@ -163,11 +163,11 @@ $$
 
 ---
 
-{% admonition(type="question", title="习题") %}
+{% <question title="习题"> %}
 把如下推演补成正确的推演：
 
 ![P7](/images/misc/2026_04_13.png)
-{% end %}
+{% </question> %}
 
 左上那个推演是再引入一个条件 $[\neg \varphi]^2$, 由 $(\neg \text{I})$ 规则得到 $\neg \varphi$, 进而得到 $\varphi \vee \neg \varphi$.
 
@@ -181,15 +181,15 @@ $$
 ### 可靠性与完全性
 为了方便起见，只考虑 $\neg$ 和 $\to$ 两个命题联结词符号，因为具有真值函数完全性。
 
-{% admonition(type="theorem", title="强可靠性定理") %}
+{% <theorem title="强可靠性定理"> %}
 对任意公式集 $\Gamma$ 和公式 $\varphi$, 如果 $\Gamma \vdash^\text{ND} \varphi$ 则 $\Gamma \models \varphi$.
-{% end %}
+{% </theorem> %}
 
 对 $h(D)$ 归纳即可。
 
-{% admonition(type="theorem", title="弱完全性定理") %}
+{% <theorem title="弱完全性定理"> %}
 对任意公式 $\varphi$, 如果 $\emptyset \models \varphi$ 则 $\emptyset \vdash^\text{ND} \varphi$.
-{% end %}
+{% </theorem> %}
 
 我们先考虑一个例子。通过真值表我们知道 $\emptyset \models (p \to (q \to p))$. 首先希望证明 $\\{\neg p, \neg q\\} \vdash^\text{ND} (p \to (q \to p))$ 及另外三个情况也成立，然后用规则 $(\neg \text{I}), (\text{RAA})$ 拼成一个前提集 $\emptyset$ 的推演。
 
@@ -206,9 +206,9 @@ $$
 
 然后证明：对任意公式集 $\Gamma$ 和公式 $\varphi$ 和 $\psi$, 如果 $\Gamma \cup \\{\varphi\\} \vdash^\text{ND} \psi$ 且 $\Gamma \cup \\{\neg \varphi\\} \vdash^\text{ND} \psi$, 则 $\Gamma\vdash^\text{ND} \psi$.
 
-{% admonition(type="theorem", title="强完全性定理") %}
+{% <theorem title="强完全性定理"> %}
 对任意公式集 $\Gamma$ 和公式 $\varphi$, 如果 $\Gamma \models \varphi$ 则 $\Gamma \vdash^\text{ND} \varphi$.
-{% end %}
+{% </theorem> %}
 
 由定义，不存在赋值满足 $\Gamma \cup \set{\neg \varphi}$. 由紧致性定理知存在 $\psi_1, \dots, \psi_n$ 使得不存在赋值满足 $\set{\psi_1, \dots, \psi_n, \neg \varphi}$. 因此 $\emptyset \models (\psi_1 \to (\cdots (\psi_n \to \varphi) \cdots))$. 使用弱完全性定理再使用 $\to \text{E}$ 即可。
 
@@ -217,7 +217,7 @@ $$
 
 称一个公式集 $\Gamma$ 是**极大一致集** `maximal consistent set`, 如果它一致，且对任意公式 $\psi$, 要么 $\psi \in \Gamma$ 要么 $\neg \psi \in \Gamma$.
 
-{% admonition(type="theorem", title="真值引理") %}
+{% <theorem title="真值引理"> %}
 令 $\Delta$ 是极大一致集，定义一个赋值：
 
 $$
@@ -228,13 +228,13 @@ V^\Delta(\varphi) = \begin{cases}
 $$
 
 则 $V^\Delta \models \Delta$.
-{% end %}
+{% </theorem> %}
 
 归纳即可。
 
-{% admonition(type="theorem", title="Lindenbaum 引理") %}
+{% <theorem title="Lindenbaum 引理"> %}
 每一个一致集都是某个极大一致集的子集。
-{% end %}
+{% </theorem> %}
 
 将公式用自然数编号，依次考虑是否加入。
 

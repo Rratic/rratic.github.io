@@ -30,9 +30,9 @@ tags = ["哲学"]
 
 这里我选取强怀疑论的一个版本：
 
-{% admonition(type="definition", title="Radical skepticism 强怀疑论") %}
+{% <definition title="Radical skepticism 强怀疑论"> %}
 It is impossible to have certainty in knowledge.
-{% end %}
+{% </definition> %}
 
 这里“知识”暂按经典的“得到辩护的真信念”来理解；“确定”则指 indubitability / infallibility / inimitability / indefeasibility[^certainty] 的某种混合要求。
 
@@ -40,9 +40,9 @@ It is impossible to have certainty in knowledge.
 
 以下对一些反驳作出回应：
 
-{% admonition(type="question", title="可能的反驳") %}
+{% <question title="可能的反驳"> %}
 像 1 + 1 = 2 这种东西，是我们能够确定的知识，不是吗？
-{% end %}
+{% </question> %}
 
 首先，当我们说 1 + 1 = 2 时，总是依托某种背景：比如把它放在含 Peano 公理的形式系统里，或者放在更大的集合论框架里，或者干脆把 1 + 1 = 2 自身当作公理。此时我们的意思是：在该系统内，按既定规则推演是正确的（是[语形后承](@/posts/logic_1.md)）。
 
@@ -50,21 +50,21 @@ It is impossible to have certainty in knowledge.
 
 此外，我们如何确保整个过程中神经系统没有出错？即使我们对照他人结果，发现许多信任的人都认同“当 1 + 1 = 2 时，1 + 1 = 2”，这除了并不足以带来“确定性”外，也仍无法排除我们在对照环节本身出错。
 
-{% admonition(type="question", title="Pragmatism") %}
+{% <question title="Pragmatism"> %}
 考虑实用主义，在实践中，我们认同那些知识，对我们是*有用的*。
-{% end %}
+{% </question> %}
 
 我承认这一点，但是现在我并不是在讨论实用性。
 
-{% admonition(type="question", title="可能的反驳") %}
+{% <question title="可能的反驳"> %}
 你的论述本身就承认了某些确定的知识的存在。例如说你至少预设了最基础的逻辑的存在。
-{% end %}
+{% </question> %}
 
 我的论述只是自然语言，甚至只是一个字符串。它只是向读者传达想法的工具，只需完成这项功能；至于它依赖的“逻辑”等预设是否构成确定知识，并不是这段文字必须先行解决的问题。
 
-{% admonition(type="question", title="可能的反驳") %}
+{% <question title="可能的反驳"> %}
 那强怀疑论本身不是你能确定的知识吗？
-{% end %}
+{% </question> %}
 
 我只是声称“我*直觉*上认同这一点”，而没有认为这是我确定的知识。
 
@@ -100,9 +100,9 @@ It is impossible to have certainty in knowledge.
 
 如果文章到这里收尾，读者可能还是会觉得并无新意。因此我想补一个两周前学到的使用[模态逻辑](@/posts/logic_3.md)的有趣结果（可在一定程度上对标弱怀疑论）：
 
-{% admonition(type="theorem", title="Fitch 可知性悖论") %}
+{% <theorem title="Fitch 可知性悖论"> %}
 在 KT 中，假设“凡真者皆可知”，形式化为 $\psi \to \Diamond K_i \psi$；再假设“非全知性”存在某个命题 $p$ 满足 $p \wedge \neg K_i p$，会导出矛盾。
-{% end %}
+{% </theorem> %}
 
 考察 Moore 句：
 

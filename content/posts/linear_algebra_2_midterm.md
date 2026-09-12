@@ -55,9 +55,9 @@ $$M_T = \set{f \in F[x] | f(T) = 0}$$
 
 它存在唯一的首一生成元，称为 $T$ 的**极小多项式** $p_T$.
 
-{% admonition(type="theorem", title="Cayley-Hamilton 定理") %}
+{% <theorem title="Cayley-Hamilton 定理"> %}
 $$p_T \mid f_T$$
-{% end %}
+{% </theorem> %}
 
 我们考察 $F[x]$-模，对 $f \in F[x]$ 及 $\alpha \in V$ 定义：
 
@@ -71,9 +71,9 @@ $$(0, \dots, 0) = ((\alpha_1, \dots, \alpha_n)(xI_n - A)) B = (\alpha_1, \dots, 
 
 又 $f_T$ 符合断言中的条件，因为可以取 $B = \operatorname{adj} (xI_n - A)$. 从而 $f_T \in M_T$.
 
-{% admonition(type="theorem", title="可对角化") %}
+{% <theorem title="可对角化"> %}
 $T$ 可对角化，当且仅当 $p_T$ 为 $F[x]$ 中互不相同首一一次式乘积。
-{% end %}
+{% </theorem> %}
 
 容易证明（读者注意采取线性映射视角！）。
 
@@ -90,9 +90,9 @@ $$\operatorname{lcm}(p_{T_W}, p_{T_{V/W}}) \mid p_T \mid p_{T_W} \cdot p_{T_{V/W
 
 这可以直接用于解决 2024 P3 (2).
 
-{% admonition(type="theorem", title="可同时对角化") %}
+{% <theorem title="可同时对角化"> %}
 $T, U$ 可同时对角化当且仅当它们分别可对角化且交换。
-{% end %}
+{% </theorem> %}
 
 只需证后推前。对 $\dim V$ 归纳。
 
@@ -102,12 +102,12 @@ $$V = \bigoplus V_{c_i}$$
 
 由交换知每个 $V_{c_i}$ 都是 $U$-不变的，分别使用归纳假设。
 
-{% admonition(type="theorem", title="可三角化") %}
+{% <theorem title="可三角化"> %}
 以下条件等价：
 1. $T$ 可（上）三角化
 2. $f_T$ 为 $F[x]$ 中一次式之积（无需互异）
 3. $p_T$ 为 $F[x]$ 中一次式之积（无需互异）
-{% end %}
+{% </theorem> %}
 
 只需证 (3) 推 (1) 成立。往证存在 $T$-不变（全）旗，即：
 
@@ -119,9 +119,9 @@ $$p_{T_{V/W_{k-1}}} \mid p_T$$
 
 在 $F$ 中有根，即是特征值，故有特征向量。
 
-{% admonition(type="theorem", title="可同时三角化") %}
+{% <theorem title="可同时三角化"> %}
 $F$ 代数闭域，其上 $\mathcal{F} \subseteq L(V)$ 中的映射两两交换，则 $\mathcal{F}$ 可同时三角化。
-{% end %}
+{% </theorem> %}
 
 只需证在该条件下存在公共特征向量。不妨设 $\mathcal{F}$ 有限（取 $\operatorname{span} \mathcal{F}$ 的基）对 $\mathcal{F}$ 归纳。
 
@@ -146,13 +146,13 @@ $$\operatorname{Im} T = \bigoplus \operatorname{Im} T_i$$
 ### 准素分解
 当 $p_T$ 为素多项式的幂时，称 $T$ 准素。
 
-{% admonition(type="theorem", title="准素分解") %}
+{% <theorem title="准素分解"> %}
 设 $p_T = \prod_{i=1}^k p_i^{r_i}$ 其中 $r_i \geq 1$, $p_i$ 为不同的首一素多项式，记 $W_i = \ker (p_i^{r_i}(T))$, 则：
 
 $W_i$ 非零，且 $T$-不变，且 $T_{W_i}$ 极小多项式 $p_i^{r_i}$. 且：
 
 $$V = \bigoplus_{i=1}^k W_i$$
-{% end %}
+{% </theorem> %}
 
 记 $f_i = p_T / p_i^{r_i}$, 则有：
 
@@ -174,9 +174,9 @@ $$R_\alpha = \set{f\alpha | f \in R}$$
 
 记 $M(\alpha) = \set{f \in R | f\alpha = 0}$ 的唯一首一生成元为 $\alpha$ 的**零化子** $p_\alpha$. 易见 $\dim R_\alpha = \deg p_\alpha$.
 
-{% admonition(type="theorem", title="引理") %}
+{% <theorem title="引理"> %}
 存在 $\alpha$ 使得 $p_\alpha = p_T$.
-{% end %}
+{% </theorem> %}
 
 $F$ 为无限域时，易知以下集合非空（由去掉的均低一维）：
 
@@ -200,13 +200,13 @@ $$
 
 这可以给出 Cayley-Hamilton 的另一证明。
 
-{% admonition(type="theorem", title="循环分解") %}
+{% <theorem title="循环分解"> %}
 对 $T \in L(V)$ 存在 $T$-不变分解 $V = \bigoplus V_i$ 满足 $V_i$ 非零，$T_{V_i}$ 循环，且记**不变因子** $p_i = p_{T_{V_i}}$ 有：
 
 $$p_r \mid \cdots \mid p_1$$
 
 这些不变因子的数量与内容被 $T$ 决定，且 $p_T = p_1, f_T = p_1 \cdots p_r$.
-{% end %}
+{% </theorem> %}
 
 先证一个引理：设 $\alpha$ 满足 $p_\alpha = p_T$ 则对任意 $L \in V/R\alpha$ 存在 $\beta \in L$ 使得 $fL = \bar{0} \implies f\beta = 0$.
 
@@ -242,23 +242,23 @@ $$\dim Rp_t\alpha_i = \deg \left(\frac{p_i}{p_t}\right) = \dim Rp_t\beta_i$$
 
 而 $i \geq t$ 时 $p_t\alpha_i = 0$, 故 $p_t\beta_i = 0$, 从而 $q_t \mid p_t$. 同理对称得到 $p_t \mid q_t$ 知矛盾。
 
-{% admonition(type="definition", title="有理标准型") %}
+{% <definition title="有理标准型"> %}
 使用循环分解，将友阵沿着对角线排出的就是有理标准型（从上到下编号 $1 \cdots r$ 要求 $p_r \mid \cdots \mid p_1$）。
-{% end %}
+{% </definition> %}
 
 对任意矩阵存在且唯一。
 
-{% admonition(type="theorem", title="定理") %}
+{% <theorem title="定理"> %}
 $A$ 与 $A^\top$ 相似。
-{% end %}
+{% </theorem> %}
 
 写成有理标准型，使用：
 
 $$\det (xI_k - C_g)^\top = \det (xI_k - C_g)$$
 
-{% admonition(type="example", title="求有理标准型") %}
+{% <example title="求有理标准型"> %}
 $$A = \begin{pmatrix} 5 & -6 & -6 \cr -1 & 4 & 2 \cr 3 & -6 & -4 \end{pmatrix} = \mathbb{Q}^{3\times 3}$$
-{% end %}
+{% </example> %}
 
 算得 $f_A = (x-1)(x-2)^2$ 从而 $p_A = (x-1)(x-2)$. 故 $p_1 = (x-1)(x-2), p_2 = x-2$.
 
@@ -279,29 +279,29 @@ $$
 ### 准素循环分解
 回顾 $T$ 准素的等价条件是 $p_T$ 准素（这等价于 $f_T$ 准素）；而 $T$ 循环的等价条件是 $p_T = f_T$.
 
-{% admonition(type="theorem", title="定理") %}
+{% <theorem title="定理"> %}
 $T$ 不可分解当且仅当 $T$ 准素循环。
-{% end %}
+{% </theorem> %}
 
 只需证准素循环时不可分解。假设可分解为非平凡的 $V_1 \oplus V_2$ 则：
 
 $$f_1f_2 = f_T = p_T = \operatorname{lcm}(p_1, p_2) \mid \operatorname{lcm}(f_1, f_2)$$
 
-{% admonition(type="theorem", title="准素循环分解") %}
+{% <theorem title="准素循环分解"> %}
 存在 $T$-不变分解使得 $T_{V_i}$ 准素循环分解。记 $q_i = p_{T_{v_i}} = f_{T_{v_i}}$, 则**初等因子**序列 $q_1, \dots q_s$ 在不计次序意义下唯一。
-{% end %}
+{% </theorem> %}
 
 由于准素分解是严格唯一的，我们可以直接使用准素分解对应子空间与循环分解对应子空间的交。
 
-{% admonition(type="theorem", title="定理") %}
+{% <theorem title="定理"> %}
 循环子空间的不变子空间循环。
-{% end %}
+{% </theorem> %}
 
 $$p_T \mid p_{T_W} \cdot p_{T_{R\alpha/W}} \mid f_{T_W} \cdot f_{T_{R\alpha/W}} \mid f_T$$
 
 取等，故 $p_{T_W} = f_{T_W}$.
 
-{% admonition(type="definition", title="Jordan 标准型") %}
+{% <definition title="Jordan 标准型"> %}
 Jordan 块 $J_n(c)$ 是指 $n$ 阶方阵：
 
 $$
@@ -317,7 +317,7 @@ $$
 其满足 $f_T = p_T = (x-c)^n$.
 
 将 Jordan 块沿着对角线排出的就是 Jordan 标准型。
-{% end %}
+{% </definition> %}
 
 当 $f_T$ 为一次式之积时可由准素循环分解写出 Jordan 标准型。
 
@@ -331,9 +331,9 @@ $$W_i = \ker [(T - c_i \cdot I)^{r_i}] = \ker [(T - c_i \cdot I)^n]$$
 
 称为**广义特征子空间/根子空间**。
 
-{% admonition(type="theorem", title="Jordan 分解") %}
+{% <theorem title="Jordan 分解"> %}
 若 $V$ 是代数闭的域 $F$ 上的线性空间，则对 $T \in L(V)$ 存在唯一 $D, N \in L(V)$ 使得 $T = D + N$, 其中 $D$ 可对角化，$N$ 幂零且 $D, N$ 可交换。
-{% end %}
+{% </theorem> %}
 
 先证存在性。若写成 Jordan 标准型则易见；另一种取法是：设 $p_T = \prod (x-c_i)^{r_i}$, 记 $q_i = (x-c_i)^{r_i}$, 则由中国剩余定理存在多项式 $f$ 满足：
 
@@ -349,20 +349,20 @@ $$f \equiv c_i \pmod {q_i}$$
 
 这一结论可以推广到完全域（$K$ 完全域等价于 $K[x]$ 中无平方因子式在 $\bar{K}$ 中无重根，即 $a \in K \iff \sigma(a) = a, \forall \sigma \in \operatorname{Gal}(\bar{K}/K)$），因为可写作 $\sigma(A) = \sigma(D) + \sigma(N)$.
 
-{% admonition(type="definition", title="单纯") %}
+{% <definition title="单纯"> %}
 对有限维 $F$-线性空间 $V$ 及 $T \in L(V)$ 我们称：
 1. $T$ **半单**，若 $V$ 的任一 $T$-不变子空间有 $T$-不变补空间
 2. $T$ **单纯**，若 $V$ 无非平凡 $T$-不变子空间
-{% end %}
+{% </definition> %}
 
 实际上 $T$ 半单等价于 $p_T$ 无平方因式；$T$ 单纯等价于 $f_T$ 为素多项式。
 
 ### 小结论
 据说这个结论之后不会再考，因此不在本文涉及往年题中包含。
 
-{% admonition(type="theorem", title="结论") %}
+{% <theorem title="结论"> %}
 若 $T$ 不变因子个数 $r$, 则 $V$ 作为 $F[x]$-模至少由 $r$ 个元素生成。
-{% end %}
+{% </theorem> %}
 
 考察其对偶形式。转化为命题：若子空间 $W$ 维数满足 $\dim W \geq n - r + 1$ 则其中存在非零 $T$-不变子空间 $Z$.
 
@@ -376,23 +376,23 @@ $$\dim \left(\bigcap_{k=0}^{\deg p - 1} T^{-k}(W')\right) \geq \dim V' - (r-1)\d
 
 ## 考试
 ### 往年题
-{% admonition(type="question", title="2017 P4") %}
+{% <question title="2017 P4"> %}
 设 $\operatorname{char} F = 0$, $A \in F^{n\times n}$ 的特征多项式为 $(x - 1)^n$. 证明对任意正整数 $k$, $A^k$ 与 $A$ 相似。
-{% end %}
+{% </question> %}
 
 不妨设 $A$ 循环，有 $p_A = (x - 1)^n$ 从而 $p_{A^k} = (x - 1)^n = f_{A^k}$.
 
-{% admonition(type="question", title="2017 P5") %}
+{% <question title="2017 P5"> %}
 $T, U \in L(V)$ 不可逆，并且 $TU$ 可对角化，证明 $(UT)^2$ 可对角化。
-{% end %}
+{% </question> %}
 
 设 $TU$ 有极小多项式 $p$ 为一次式之积，则存在零化多项式 $g = x (x^2 - c_1^2) \cdots (x^2 - c_r^2)$. 有：
 
 $$(xg)(UT) = UTg(UT) = Ug(TU)T = 0$$
 
-{% admonition(type="question", title="2017 P6") %}
+{% <question title="2017 P6"> %}
 设 $V$ 是 $n$ 维复线性空间，$T, U \in L(V)$ 满足 $\operatorname{rank}(TU - UT) = 1$. 证明存在 $V$ 的有序基 $\mathcal{B}$ 使得 $[T] _\mathcal{B}$ 和 $[U] _\mathcal{B}$ 同时为上三角矩阵。
-{% end %}
+{% </question> %}
 
 仿照同时三角化的证明。
 
@@ -400,9 +400,9 @@ $$(xg)(UT) = UTg(UT) = Ug(TU)T = 0$$
 
 假设最长的旗不是全旗，则存在 $\dim W_i/W_{i-1}$. 限制在 $W_i/W_{i-1}$ 上使用结论即得矛盾。
 
-{% admonition(type="question", title="2022 P2") %}
+{% <question title="2022 P2"> %}
 对 $A \in \Complex^{2022\times 2022}$ 中至多十个非零矩阵元，求其最小多项式的最大次数。
-{% end %}
+{% </question> %}
 
 易见 $11$ 可以取到，再证至多 $11$. 设 $T = L_A, W = \ker A$ 有 $p_{T_W} = x$, 则：
 
@@ -410,29 +410,29 @@ $$p_T \mid xf_{T_{V/W}}$$
 
 而 $\deg f_{T_{V/W}} = \dim V/W \leq 10$. 故 $\deg p_T \leq 11$.
 
-{% admonition(type="question", title="2022 P3") %}
+{% <question title="2022 P3"> %}
 $V$ 为有限维 $F$-线性空间，对于 $V$ 的 $T$-不变子空间 $W$, 证明下面两个条件等价：
 1. 存在唯一的 $T$-不变子空间 $Z$ 使得 $V = W \oplus Z$
 2. $T_W$ 的特征多项式与 $T_{V/W}$ 的特征多项式互素
-{% end %}
+{% </question> %}
 
 假设 (1) 成立但 (2) 不成立，设素多项式 $p$ 为 $f_{T_W}$ 与 $f_{T_Z}$ 公因式，作准素分解 $W = W_0 \oplus R\alpha, Z = Z_0 \oplus R\beta$. 设 $p_\alpha = p^r, p_\beta = p^s$. 考察 $\gamma = \beta + p^{r-1}\alpha$ 就有 $V = W \oplus (Z_0 \oplus R\gamma)$.
 
 (2) 成立时 $p_{T_W}$ 与 $f_{T_{V/W}}$ 互素。可证 $W = \ker p_{T_W}(T)$ 且 $Z = \ker p_{T_{V/W}}(T)$ 是不变补空间，且是唯一的。
 
-{% admonition(type="question", title="2023 P2") %}
+{% <question title="2023 P2"> %}
 设 $n$ 为正整数，对于 $A \in \Complex^{n\times n}$ 证明以下两个条件等价：
 1. $A$ 可对角化
 2. 对任意非纯量多项式 $f \in \Complex[x]$ 存在 $B \in \Complex^{n\times n}$ 使得 $f(B) = A$
-{% end %}
+{% </question> %}
 
 我们证 (2) 推 (1). 取 $\lambda$ 为 $A$ 的特征值，考虑 $B^n = A - \lambda I$. 考虑 $B$ 的 Jordan 标准型中 $0$ 对应的 Jordan 块，$n$ 次后会变为 $0$. 从而 $A$ 对应部分只有对角线上有 $\lambda$, 对应代数重数等于几何重数。
 
-{% admonition(type="question", title="2023 P3") %}
+{% <question title="2023 P3"> %}
 设 $F$ 为任意域，$V$ 为有限维非零 $F$-线性空间。对于 $T \in L(V)$ 证明以下两个条件等价：
 1. $p_T$ 为素多项式
 2. 对任意非零向量 $\alpha, \beta$ 存在与 $T$ 交换的线性同构 $S \in \mathrm{GL}(V)$ 使得 $S\alpha = \beta$
-{% end %}
+{% </question> %}
 
 将 $V$ 视作 $F[x]$-模。
 
@@ -442,17 +442,17 @@ $$\alpha_i \mapsto g_if_i^{-1}\alpha_i$$
 
 条件 (2) 成立时，我们排除 $F[x]/p^k$ 与 $(F[x]/p) \oplus (F[x]/q) \simeq (F[x]/pq)$ 的情况。在此意义下 $T\alpha$ 就是将 $\alpha$ 对应多项式乘上 $x$, 而 $S, T$ 交换可知 $S\alpha$ 就是乘以 $S(1)$. 两种情况的反例是 $p \mapsto 1$ 与 $p \mapsto q$.
 
-{% admonition(type="question", title="2024 P2 (1)") %}
+{% <question title="2024 P2 (1)"> %}
 判断：设实矩阵 $A \in \R^{2\times 2}$ 满足 $A^2$ 与 $A$ 相似，则 $A^3$ 与 $A$ 也相似。
-{% end %}
+{% </question> %}
 
 不正确。取：
 
 $$A \sim \begin{pmatrix} \omega \cr & \omega^2 \end{pmatrix} \sim \begin{pmatrix} -\frac{1}{2} & -\frac{\sqrt{3}}{2} \cr \frac{\sqrt{3}}{2} & -\frac{1}{2} \end{pmatrix}$$
 
-{% admonition(type="question", title="2024 P4 (2)") %}
+{% <question title="2024 P4 (2)"> %}
 是否存在 $A, B \in \Complex^{9\times 9}$, 使得 $AB$ 相似于 $\operatorname{diag}(J_3(0), J_3(0), J_3(0))$, 且 $BA$ 相似于 $\operatorname{diag}(J_4(0), J_4(0), J_1(0))$.
-{% end %}
+{% </question> %}
 
 设 $C = \begin{pmatrix} 0 & A \cr B & 0 \end{pmatrix}$ 则 $C^2 = \begin{pmatrix} AB & 0 \cr 0 & BA \end{pmatrix}$.
 
@@ -460,21 +460,21 @@ $$A \sim \begin{pmatrix} \omega \cr & \omega^2 \end{pmatrix} \sim \begin{pmatrix
 
 注：实际上存在很精细的结论：[非零特征值 Jordan 块对应相同，零特征值 Jordan 块可配对使阶数差 ≤ 1](https://zhuanlan.zhihu.com/p/707641120)
 
-{% admonition(type="question", title="2025 P2") %}
+{% <question title="2025 P2"> %}
 判断：
 1. 对 $A, B \in \R^{2\times 2}$, 若存在 $P \in \mathrm{SL}_2(\Complex)$ 满足 $B = P^{-1}AP$, 则存在 $Q \in \mathrm{SL}_2(\R)$ 满足 $B = Q^{-1}AQ$.
 2. 设 $V$ 为有限维复线性空间，则对任意 $T \in L(V)$ 和任意 $T$-不变子空间 $W \subseteq V$, 总存在有限多个向量 $\alpha_1, \dots, \alpha_r \in V$ 和 $\beta_1, \dots, \beta_s \in W$ 同时满足：
 	- $V = \bigoplus R\alpha_i, W = \bigoplus R\beta_j$
 	- 对任意 $j$ 存在 $i$ 使得 $R\beta_j \subseteq R\alpha_i$
-{% end %}
+{% </question> %}
 
 (1) 不正确，这里问题出在 $\mathrm{SL}$ 上，我们让实矩阵 $Q$ 形如 $\operatorname{diag}(-1, 1)$ 给出 $A, B$ 关系，现在希望 $A$ 的中心化子行列式恒正，取 $\begin{pmatrix} 0 & 0 \cr 1 & 0 \end{pmatrix}$.
 
 (2) 不正确。考虑 $T = \operatorname{diag}(J_3(0), J_1(0)), W = \operatorname{span}\set{e_3, e_2 + e_4}$.
 
-{% admonition(type="question", title="2025 P3 (3)") %}
+{% <question title="2025 P3 (3)"> %}
 设 $n = 2025$, $A = J_n(1) \in \Complex^{n\times n}$. 设 $c$ 满足：存在 $\Complex^{n\times 1}$ 的“非 $L_A$ 不变”的 $L_{A^2+cA}$-不变子空间，求 $c$ 的所有可能值。
-{% end %}
+{% </question> %}
 
 考虑 $V \simeq \Complex[x]/(x-1)^n$. 子空间 $W$ 是 $A^2 + cA$-不变的即：
 
@@ -489,13 +489,13 @@ $c = -2$ 时，取 $W = \operatorname{span}\set{1, (x-1)^2, (x-1)^4, \dots}$ 即
 ### 今年题
 完全炸了。
 
-{% admonition(type="question", title="2026 P2") %}
+{% <question title="2026 P2"> %}
 复线性空间 $\Complex^{n\times n}$ 的子空间 $W$ 满足：
 - $W$ 中的矩阵均可对角化
 - 对任意 $A, B \in W$ 总有 $AB - BA \in W$
 
 证明 $W$ 中矩阵可同时对角化。
-{% end %}
+{% </question> %}
 
 只需证 $W$ 中矩阵两两交换。
 

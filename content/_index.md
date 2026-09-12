@@ -1,7 +1,7 @@
 +++
 title = "主页"
 description = "Rratic 的站点主页。"
-template = "my_index.html"
+template = "index.html"
 
 [extra]
 profile = "rratic"
@@ -9,7 +9,7 @@ profile = "rratic"
 
 [本站说明](about/) | [FAQs](faqs/) | [友链](friend-links/) | [交互页面索引](playgrounds/)
 
-{{ quote_display(id="main", text="点此生成引用。") }}
+{{ <quote_display id="main" text="点此生成引用。" /> }}
 
 ---
 

@@ -54,19 +54,19 @@ $$\mathcal{M} \models \text{All } X \text{ are } Y \iff I(X) \subseteq I(Y)$$
 
 现在证明 $\mathrm{Sys} _{\text{all}}^S$ 相对于 $L _{\text{all}}^S$ 的两个元性质（称为元定理（metatheorem））：
 
-{% admonition(type="theorem", title="可靠性（soundness）") %}
+{% <theorem title="可靠性（soundness）"> %}
 对任意 $\Gamma, \varphi$ 有：
 
 $$\Gamma \vdash \varphi \implies \Gamma \models \varphi$$
-{% end %}
+{% </theorem> %}
 
 回忆推演定义为 $\varphi_1, \dots, \varphi_n = \varphi$，对 $i$ 归纳证明 $\Gamma \models \varphi_i$ 即可。
 
-{% admonition(type="theorem", title="完全性（completeness）") %}
+{% <theorem title="完全性（completeness）"> %}
 对任意 $\Gamma, \varphi$ 有：
 
 $$\Gamma \models \varphi \implies \Gamma \vdash \varphi$$
-{% end %}
+{% </theorem> %}
 
 考虑证其逆否 $\Gamma \nvdash \varphi \implies \Gamma \nvDash \varphi$. 为此构造一个典范模型（canonical model）$\mathcal{M}^\Gamma$ 为：
 - $O = S$
@@ -92,9 +92,9 @@ $$\frac{\text{Some } X \text{ is } Y}{\text{Some } X \text{ is } X} \mathrm{Ex}$
 
 $$\mathcal{M} \models \text{Some } X \text{ is } Y \iff I(X) \cap I(Y) \neq \emptyset$$
 
-{% admonition(type="question", title="习题") %}
+{% <question title="习题"> %}
 在 $\mathrm{Sys}_{\text{some}}^S$ 中分别用树形和线性推演证明 $\text{Some } X \text{ is } Y$ 可以推出 $\text{Some } Y \text{ is } Y$.
-{% end %}
+{% </question> %}
 
 主要是记住格式：
 
@@ -112,15 +112,15 @@ $$
 \end{align*}
 $$
 
-{% admonition(type="question", title="习题") %}
+{% <question title="习题"> %}
 证明 $\mathrm{Sys}_{\text{some}}^S$ 相对于给定的语义可靠，即两个推理规则保真。
-{% end %}
+{% </question> %}
 
 略。
 
-{% admonition(type="question", title="习题") %}
+{% <question title="习题"> %}
 证明 $\mathrm{Sys}_{\text{some}}^S$ 完全。
-{% end %}
+{% </question> %}
 
 回顾在构造 $\mathrm{Sys}_{\text{all}}^S$ 的典范模型时是看成有向图，模型是考虑前驱集。
 
@@ -128,9 +128,9 @@ $$
 - $O = \set{\set{A, B} \in \mathcal{P}(S) | \Gamma \vdash \text{Some } A \text{ is } B}$
 - $I(X) = \set{\set{A, B} \in O | (X = A) \vee (X = B)}$
 
-{% admonition(type="question", title="习题") %}
+{% <question title="习题"> %}
 尝试为语言 $L_{\text{all, some}}^S$ 设计一个可靠的形式系统，然后思考：你设计的系统是否完全？如果暂时证明不出来，请至少说明你认为困难在哪里。
-{% end %}
+{% </question> %}
 
 在各自规则基础上加入：
 

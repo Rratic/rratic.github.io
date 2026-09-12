@@ -41,19 +41,19 @@ $$f(z) = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = R'}\frac{f(w)}{w-z}\mathrm{d}w 
 
 例如，对 $f(z) = 1 / \sin (1/z)$，有 $1 / k\pi$ 与 $\infty$ 是它的孤立奇点，但 $0$ 不是。你可以在 [Classification of Singularities](https://complex-analysis.com/content/classification_of_singularities.html) 看到很多与奇点有关的函数的彩色绘制；也可阅读[基于 GLSL 的色彩与数学绘制](@/posts/shader_2.md)中对应的内容。
 
-{% admonition(type="definition", title="孤立奇点分类") %}
+{% <definition title="孤立奇点分类"> %}
 如果存在 $g$ 补上 $z_0$ 处的值，使得它在 $z_0$ 的邻域上解析，则称 $f$ 可以解析开拓到 $z_0$，且 $z_0$ 称为它的**可去奇点**。否则，若 $1 / f(z)$ 可解析开拓到 $z_0$，则称 $z_0$ 为它的**极点**。
 
 其余情况称 $z_0$ 为**本性奇点**。
-{% end %}
+{% </definition> %}
 
-{% admonition(type="theorem", title="可去奇点") %}
+{% <theorem title="可去奇点"> %}
 以下条件等价：
 1. $z_0$ 是可去奇点
 2. $\lim_{z \to z_0} f(z)$ 在 $\Complex$ 上存在
 3. $f(z)$ 在 $z_0$ 邻域上有界
 4. $f(z)$ 在 $z_0$ 的 Laurent 展式的主部为 $0$
-{% end %}
+{% </theorem> %}
 
 其中 (3) 推 (4) 是不平凡的。设展式为 $f(z) = \sum_{-\infty}^{+\infty} a_n (z-z_0)^n$，取 $\varepsilon$ 则：
 
@@ -61,48 +61,48 @@ $$a_n = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = \varepsilon}\frac{f(w)}{(w-z_0)^
 
 设 $f$ 在 $z_0$ 的（去心）邻域上有界 $M$，则有 $a_{-n} \leq M \cdot \varepsilon^n$，令 $\varepsilon\to 0$ 知主部为零。
 
-{% admonition(type="theorem", title="极点") %}
+{% <theorem title="极点"> %}
 以下条件等价：
 1. $z_0$ 是极点
 2. $z_0$ 是 $1 / f(z)$ 的零点
 3. $\lim_{z\to z_0} f(z) = \infty$
 4. $f(z)$ 在 $z_0$ 的 Laurent 展式的主部有且仅有有限项非 $0$
-{% end %}
+{% </theorem> %}
 
 证明 (3) 推 (4) 只需要考虑，对 $z_0$ 是 $1 / f(z)$ 的 $m$ 阶零点（补充定义后），设在邻域内 $(z - z_0)^m g(z)$，则由 $1 / g(z)$ 解析即可。
 
-{% admonition(type="theorem", title="本性奇点") %}
+{% <theorem title="本性奇点"> %}
 以下条件等价：
 1. $z_0$ 是本性奇点
 2. $\lim_{z\to z_0} f(z)$ 在 $\bar{\Complex}$ 中不存在
 3. $f(z)$ 在 $z_0$ 的 Laurent 展式的主部有无穷多项非 $0$
-{% end %}
+{% </theorem> %}
 
 这是根据前两个结论得到的。
 
-{% admonition(type="theorem", title="Weierstrass 定理") %}
+{% <theorem title="Weierstrass 定理"> %}
 若 $z_0$ 是 $f$ 的一个本性奇点，则对任意 $\varepsilon > 0$，$f(\mathring{D}(z_0, \varepsilon))$ 在 $\Complex$ 中稠密。
-{% end %}
+{% </theorem> %}
 
 我们知道 $\Complex \setminus \overline{f(\mathring{D}(z_0, \varepsilon))}$ 是开集，存在 $D(z^\ast, \delta)$ 在其内。
 
 令 $g(z) = 1 / (f(z) - z^\ast)$，有 $|g(z)| \leq 1 / \delta$，从而 $z_0$ 是 $g$ 的可去奇点，只能是 $f$ 的可去奇点或极点，与条件矛盾。
 
-{% admonition(type="theorem", title="Picard 大定理") %}
+{% <theorem title="Picard 大定理"> %}
 若 $z_0$ 是 $f$ 的一个本性奇点，则对任意 $\varepsilon > 0$，$\Complex \setminus f(\mathring{D}(z_0, \varepsilon))$ 至多包含一个点。
-{% end %}
+{% </theorem> %}
 
 证明略。
 
-{% admonition(type="theorem", title="Julia 定理") %}
+{% <theorem title="Julia 定理"> %}
 $z_0$ 是 $f$ 的一个本性奇点，则存在 $\theta\in [0, 2\pi)$，对任意 $\varepsilon > 0$ 及 $\omega \in \Complex$（至多存在一个例外），在 $|\arg (z-z_0) - \theta| < \varepsilon$ 中 $f(z) = \omega$ 有无穷多解。
-{% end %}
+{% </theorem> %}
 
 证明略。
 
-{% admonition(type="theorem", title="全纯自同胚") %}
+{% <theorem title="全纯自同胚"> %}
 $f: \Complex \to \Complex$ 是全纯自同胚当且仅当它形如 $az + b$（$a$ 非零）。
-{% end %}
+{% </theorem> %}
 
 只需证左推右。我们知道 $f$ 是整函数，且 $\infty$ 是孤立奇点。
 
@@ -113,13 +113,13 @@ $f: \Complex \to \Complex$ 是全纯自同胚当且仅当它形如 $az + b$（$a
 ### 亚纯函数
 对 $\bar{\Complex}$ 中区域 $\Omega$ 上的函数 $f$，若除了（可能）有极点外处处解析，则称它是**亚纯**的。记亚纯函数全体构成的域为 $m(\Omega)$.
 
-{% admonition(type="theorem", title="Mittag-Leffler 问题的 $\Complex$ 版本") %}
+{% <theorem title=`Mittag-Leffler 问题的 $\\Complex$ 版本`> %}
 设 $\\{z_n\\}$ 是无重复项的点列，且 $\lim_{n \to +\infty} z_n = \infty$，每个 $n$ 对应一个：
 
 $$L_n(z) = \frac{a_{n_1}}{z-z_n} + \frac{a_{n_2}}{(z-z_n)^2} + \cdots + \frac{a_{n_{m_n}}}{(z-z_n)^{m_n}}$$
 
 则存在 $\Complex$ 上亚纯函数 $f$，使极点集为 $\\{z_n\\}$，且在 $z_n$ 处的 Laurent 展式的主部为 $L_n(z)$.
-{% end %}
+{% </theorem> %}
 
 不妨设 $z_n \in D(0, n, n+1)$，取序列 $\\{a_n\\}$ 使 $a_n > 0$ 且和收敛，设对 $z_1, \dots, z_{n-1}$ 已取到 $P_1(z), \dots, P_{n-1}(z)$，使对任意 $k = 1, 2, \dots, n-1$ 有：
 
@@ -129,9 +129,9 @@ $$\max_{z \in \overline{D(0, k)}} \set{|L_k(z)-P_k(z)|} < a_k$$
 
 令 $f(z) = \sum_{k=1}^{+\infty} [L_k(z) - P_k(z)]$，它即是所求。
 
-{% admonition(type="theorem", title="有理函数") %}
+{% <theorem title="有理函数"> %}
 $\bar{\Complex}$ 上的亚纯函数都是有理函数。
-{% end %}
+{% </theorem> %}
 
 设亚纯函数 $f$，有极点 $z_1, \dots, z_l, \infty$，且对应的 Laurent 展式主部：
 
@@ -143,9 +143,9 @@ $$L_\infty(z) = b_1z + b_2z^2 + \cdots + b_mz^m$$
 
 利用此可以说明 $\bar{\Complex}$ 到 $\bar{\Complex}$ 的全纯自同胚只能是分式线性变换，这是因为考虑 $P(z)/Q(z)$，一一映射要求 $P$ 与 $Q$ 都是一次的。
 
-{% admonition(type="theorem", title="Cousin 问题 2 的 $\Complex$ 版本") %}
+{% <theorem title=`Cousin 问题 2 的 $\\Complex$ 版本`> %}
 $\\{z_n\\}$ 是无重复项的点列，且 $\lim_{n\to+\infty}z_n = \infty$，又正整数列 $\\{m_n\\}$，则存在解析函数 $f$，使 $f$ 所有零点是 $\\{z_n\\}$，且在 $z_n$ 处零点的阶数是 $m_n$.
-{% end %}
+{% </theorem> %}
 
 证明过程用到无穷乘积，此处略过。
 
@@ -177,11 +177,11 @@ $$\sum_{n=0}^{+\infty} \frac 1 {n!} g^{(n)}(z_0)(z - z_0)^n$$
 
 $$\mathrm{Res}_{z = z_0} f(z)\mathrm{d}z = \frac 1 {(m - 1)!}g^{(m - 1)}(z_0)$$
 
-{% admonition(type="theorem", title="留数定理") %}
+{% <theorem title="留数定理"> %}
 $\Omega$ 是 $\bar{\Complex}$ 中以有限条逐段光滑曲线为边界的区域且 $\infty\notin\partial\Omega$，其内部有点 $z_1, z_2, \dots, z_n$，设 $f$ 在 $\Omega$ 中除这些点之外解析，在 $\bar{\Omega}$ 中除这些点之外连续，则：
 
 $$\int_{\partial\Omega} f(z)\mathrm{d}z = 2\pi\mathrm{i}\sum_{i=1}^n\mathrm{Res}_{z=z_i}f(z)$$
-{% end %}
+{% </theorem> %}
 
 可从 Cauchy 公式推出。
 
@@ -190,29 +190,29 @@ $$\int_{\partial\Omega} f(z)\mathrm{d}z = 2\pi\mathrm{i}\sum_{i=1}^n\mathrm{Res}
 $$\sum_{i=1}^n\mathrm{Res}_ {z=z_i}f(z) + \mathrm{Res}_ {z=\infty}f(z) = 0$$
 
 ### 辐角原理
-{% admonition(type="theorem", title="辐角原理") %}
+{% <theorem title="辐角原理"> %}
 $f$ 在区域 $D$ 内亚纯，$\Gamma = \partial \Omega, \Omega\subseteq D$ 是可求长简单闭曲线，且 $f$ 在 $\Gamma$ 上没有零点和极点，则
 
 $$\frac{1}{2\pi\mathrm{i}}\int_\Gamma \frac{f'(z)}{f(z)} \mathrm{d}z$$
 
 等于 $f$ 在 $\Gamma$ 内的零点个数减去极点个数（记重数）。
-{% end %}
+{% </theorem> %}
 
 由 $f$ 在 $\Gamma$ 上没有零点和极点，在 $\Omega$ 内只有有限个零点和极点，设零点 $z_1, \dots, z_n$，极点 $w_1, \dots, w_k$，取充分小的 $r$ 使所有的 $D(z_i, r)$ 及 $D(w_j, r)$ 两两不交即可。
 
 实际上此定理说的是这个值等于 $w$ 沿着 $\gamma = f(\Gamma)$ 前进的辐角改变量 $\Delta_\gamma \operatorname{Arg} w$ 除以 $2\pi$.
 
-{% admonition(type="theorem", title="Rouché 定理") %}
+{% <theorem title="Rouché 定理"> %}
 $f$ 与 $g$ 在区域 $D$ 内解析，$\Gamma = \partial \Omega,\ \Omega\subseteq D$ 是可求长简单闭曲线，且在 $\Gamma$ 上 $|g(z)|<|f(z)|$，则 $f$ 与 $f+g$ 在 $\Gamma$ 内的零点个数（记重数）相同。
-{% end %}
+{% </theorem> %}
 
 因为 $h = f + g$ 的零点个数减去 $f$ 的零点个数为：
 
 $$\frac{1}{2\pi\mathrm{i}}\int_\Gamma \left[\frac{h'(z)}{h(z)}-\frac{f'(z)}{f(z)}\right] \mathrm{d}z = \frac{1}{2\pi\mathrm{i}}\int_\Gamma \frac{(h/f)'(z)}{(h/f)(z)} \mathrm{d}z = \frac{1}{2\pi} \Delta_\Gamma \operatorname{Arg} \frac{h}{f} = 0$$
 
-{% admonition(type="theorem", title="分歧覆盖定理") %}
+{% <theorem title="分歧覆盖定理"> %}
 $f$ 在区域 $D$ 内解析，$z_0 \in D$ 的像是 $w_0$，$z_0$ 是 $f(z) - w_0$ 的 $m$ 阶零点，则存在 $\rho, \delta > 0$，对任意 $w \in \mathring{D}(w_0, \rho)$ 有 $f(z) - w$ 在 $\mathring{D}(z_0, \delta)$ 内恰有 $m$ 个零点（记重数）；当 $w \neq w_0$ 时，这些零点均为一阶零点。
-{% end %}
+{% </theorem> %}
 
 由零点孤立性，可取出 $\delta$ 使 $\mathring{D}(z_0, \delta)$ 上 $f(z) - w_0$ 与 $f'(z)$ 无零点，再取 $\rho = \min_{|z-z_0|=\delta} |f(z) - w_0| > 0$.
 

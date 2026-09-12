@@ -1,0 +1,18 @@
+{
+  "name": "Agda",
+  "scopeName": "source.agda",
+  "fileTypes": ["agda"],
+  "patterns": [
+    {"name":"comment.line.agda","match":"--.*$"},
+    {"name":"comment.block.agda","begin":"\\{-(?!#)","end":"-\\}"},
+    {"name":"keyword.control.agda","match":"\\b(module|where|open|import|private|public|abstract|instance|macro|record|data|codata|module|let|in|do|case|of)\\b"},
+    {"name":"keyword.other.agda","match":"\\b(Set|Prop|Type|forall|∀)\\b"},
+    {"name":"storage.type.agda","match":"\\b(data|record|field)\\b"},
+    {"name":"entity.name.type.agda","match":"(?m)^\\s*([A-Z][A-Za-z0-9_.']*)\\s*(?:::)"},
+    {"name":"entity.name.function.agda","match":"(?m)^\\s*([a-zA-Z_][A-Za-z0-9_.']*)\\s*(?::|=)"},
+    {"name":"constant.numeric.agda","match":"\\b(0[xX][0-9A-Fa-f]+|[0-9]+)\\b"},
+    {"name":"string.quoted.double.agda","begin":"\"","end":"\"","patterns":[{"name":"constant.character.escape.agda","match":"\\\\."}]},
+    {"name":"keyword.operator.agda","match":"(::|->|→|←|=>|≡|\\\\|/\\\\|=|λ|\\\\b)"},
+    {"name":"punctuation.definition.pragma.agda","begin":"\\{#","end":"#\\}"}
+  ]
+}

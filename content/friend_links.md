@@ -34,10 +34,10 @@ title = "友链"
 
 <div class="friend-links">
 
-{{ friend_link(name="乌鸡卷", url="https://wjjpku.github.io/", desc="睡觉提高工作效率，午睡提高睡觉效率。", avatar = "https://wjjpku.github.io/img/headelephant.jpg") }}
+{{ <friend_link name="乌鸡卷" url="https://wjjpku.github.io/" desc="睡觉提高工作效率，午睡提高睡觉效率。" avatar = "https://wjjpku.github.io/img/headelephant.jpg" /> }}
 
-{{ friend_link(name="383494", url="https://blog.383494.xyz/", avatar = "https://blog.383494.xyz/favicon.png") }}
+{{ <friend_link name="383494" url="https://blog.383494.xyz/" avatar = "https://blog.383494.xyz/favicon.png" /> }}
 
-{{ friend_link(name="Plenilune Liao", url="https://plen09.github.io/", avatar = "https://plen09.github.io/image/avatar.png") }}
+{{ <friend_link name="Plenilune Liao" url="https://plen09.github.io/" avatar = "https://plen09.github.io/image/avatar.png" /> }}
 
 </div>

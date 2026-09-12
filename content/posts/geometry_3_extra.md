@@ -56,11 +56,11 @@ $$\operatorname{card} \pi_0(X) = \dim H^0(X)$$
 
 $$H^p_{\mathrm{dR}}(M) \cong H^p_{\mathrm{sing}}(M; \R)$$
 
-{% admonition(type="definition", title="de Rham 上同调") %}
+{% <definition title="de Rham 上同调"> %}
 光滑流形 $M$ 的 $p$ 阶 de Rham 上同调是向量空间（按向量加法构成上同调群）：
 
 $$H^p_{\mathrm{dR}}(M) = \frac{\ker(\mathrm d:\Omega^p(M)\to\Omega^{p+1}(M))}{\operatorname{im}(\mathrm d:\Omega^{p-1}(M)\to\Omega^p(M))}.$$
-{% end %}
+{% </definition> %}
 
 一个非平凡上同调群的例子是，在 $\R^2 \setminus \set{0}$ 中存在闭但非恰的 $1$-形式：
 
@@ -80,9 +80,9 @@ $$
 
 $$\mathrm{d}h + h\mathrm{d} = g^\ast - f^\ast$$
 
-{% admonition(type="theorem", title="同伦不变性") %}
+{% <theorem title="同伦不变性"> %}
 若 $f, g: M \to N$ 光滑同伦，则它们诱导相同的 $f^\ast = g^\ast: H^p_{\mathrm{dR}}(N) \to H^p_{\mathrm{dR}}(M)$.
-{% end %}
+{% </theorem> %}
 
 令 $i_t: M \to M \times I, i_t(x) = (x, t)$，令 $M \times \R$ 上的向量场 $S$ 是 $S_{(q, s)} = (0, \partial / \partial s|_s)$. 则 $i_0^\ast, i_1^\ast: \Omega^\ast(M \times I) \to \Omega^\ast(M)$ 间存在同伦算子：
 
@@ -122,9 +122,9 @@ $$\mathrm d\theta^j + \omega_i^{\ j} \wedge \theta^i = 0, \qquad \mathrm d\omega
 ## Levi-Civita 联络
 从联络开始，考虑这种定义方式：
 
-{% quote(by = "伍鸿熙、沈纯理、虞言林《黎曼几何初步》") %}
+{% <quote by = "伍鸿熙、沈纯理、虞言林《黎曼几何初步》"> %}
 ……所以想要定义出 $M$ 上的 $D_V X$，无疑要在 $M$ 上附加一个异于微分结构的结构。干脆设想这个附加结构不多不少正是 $D_V X$.
-{% end %}
+{% </quote> %}
 
 光滑流形 $M$ 上的一个**联络**就是对每一对（光滑）向量场 $V, X$，指定一个新的（光滑）向量场 $D_V X$，满足（其中 $f, g\in C^\infty(M)$）：
 
@@ -140,7 +140,7 @@ $$
 
 由于对一组联络 $D^i$ 和满足 $\sum f_i = 1$ 的光滑函数 $f_i$ 有 $\sum f_i D^i$ 也是联络，在局部上使用 $\R^n$ 的方向导数，知整体上联络一定存在。
 
-{% admonition(type="theorem", title="Levi-Civita 联络") %}
+{% <theorem title="Levi-Civita 联络"> %}
 对 $M$ 上给定的黎曼度量 $g$，存在唯一的联络 $D$ 满足，对任意向量场 $X, Y, Z$ 有：
 
 $$
@@ -151,7 +151,7 @@ $$
 $$
 
 这里 $[X, Y]$ 定义为 $[X, Y]f = X(Yf) - Y(Xf)$.
-{% end %}
+{% </theorem> %}
 
 先证唯一性。在某个坐标邻域内（坐标函数 $x^i$）定义 Christoffel 记号 $\Gamma_{ij}^k$ 为：
 

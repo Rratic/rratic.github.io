@@ -30,9 +30,9 @@ tags = ["数学", "几何学"]
 
 射影平面的射影变换由一般位置 4 点的像唯一决定。
 
-{% admonition(type="definition", title="交比") %}
+{% <definition title="交比"> %}
 在线把模型的 $\R^3$ 中，四个共面的向量的**交比** $(\vec{a_1}, \vec{a_2}; \vec{a_3}, \vec{a_4})$ 为 $\frac{s_2t_1}{s_1t_2}$，其中 $\vec{a_3} = s_1\vec{a_1} + t_1\vec{a_2}$，$\vec{a_4} = s_2\vec{a_1} + t_2\vec{a_2}$.
-{% end %}
+{% </definition> %}
 
 如果射影平面是通过对一个普通平面进行线面完备化得到的，那么其上有度量，共线的四点交比 $(A, B; C, D)$ 为 $\frac{(A, B; C)}{(A, B; D)} = \frac{AC/CB}{AD/DB}$. 称交比是 $-1$ 的为**调和**点组。
 
@@ -42,29 +42,29 @@ tags = ["数学", "几何学"]
 
 这可以说明交比在射影变换下不变。以矩阵视角（有实特征值）知射影变换有不动点 $O$，然后对 $OA, OB, OC, OD$ 使用保点线关联。
 
-{% admonition(type="theorem", title="射影变换分解") %}
+{% <theorem title="射影变换分解"> %}
 射影平面的所有射影变换由：
 1. 仿射射影变换（由仿射变换唯一地延拓）
 2. 两个中心投影的复合
 
 两类变换生成。
-{% end %}
+{% </theorem> %}
 
 设 $AB$ 与 $CD$ 交于点 $P$，$AD$ 与 $BC$ 交于点 $Q$. 考虑将 $PQ$ 映成无穷远线的射影变换，此时 $ABCD$ 构成平行四边形。这个射影变换可以由两个中心投影的复合得到。
 
 现在只需考虑平行四边形映成平行四边形的射影变换，这是仿射射影变换。
 
-{% admonition(type="definition", title="射影圆锥曲线") %}
+{% <definition title="射影圆锥曲线"> %}
 **射影圆锥曲线**是线把模型上由齐次方程 $Ax^2 + 2Bxy + Cy^2 + 2Dxz + 2Eyz + Fz^2 = 0$ 决定的。
-{% end %}
+{% </definition> %}
 
 这将会长成：仿射圆锥曲线及其渐进线向。
 
 非退化圆锥曲线在射影变换下等价。剩下的非空图形是：单点、两直线、一直线。
 
-{% admonition(type="theorem", title="唯一决定") %}
+{% <theorem title="唯一决定"> %}
 一般位置 5 点决定唯一的圆锥曲线。
-{% end %}
+{% </theorem> %}
 
 先证唯一性：只需考虑圆的情形。确定圆上四点 $A_1, A_2, A_3, A_4, Q$，考虑对一动点 $P$ 对应的 $(PA_1, PA_2; PA_3, PA_4)$ 的值。通过延长后交一直线于 $B_1, B_2, B_3, B_4$ 使用 $\triangle B_iPB_j$ 的面积计算得它是 $\frac{\sin \angle A_1PA_3 \sin \angle A_2PA_4}{\sin \angle A_1PA_4 \sin \angle A_2PA_3}$，不随 $P$ 位置改变。
 
@@ -76,9 +76,9 @@ tags = ["数学", "几何学"]
 
 有一个额外的性质：6 个点共圆锥曲线等价于它们的某个顺序符合 Pascal 定理的条件。如果能够方便地说明可能的圆锥曲线的形状（及其上点的次序），或许可以用于判断是否共圆锥曲线。
 
-{% admonition(type="definition", title="极线") %}
+{% <definition title="极线"> %}
 对一圆锥曲线 $\Gamma$ 及一点 $P$，过 $P$ 作直线交 $\Gamma$ 于 $A, B$，取 $Q$ 使 $(A, B; P, Q)$ 调和。这样的 $Q$ 轨迹为一直线，称为 $P$ 的**极线**；反过来称 $P$ 是该直线的**极点**。
-{% end %}
+{% </definition> %}
 
 点 $[(x_0, y_0, z_0)^\top]$ 对应的极线为：
 
@@ -93,31 +93,31 @@ $$Ax_0x + B(x_0y+y_0x) + Cy_0y + D(x_0z+z_0x) + E(y_0z+z_0y) + Fz_0z = 0$$
 ## 反演几何
 反演几何的一个典型用例是 Steiner 圆族定理。考虑内含的两球间旋转对称地切了一圈球，然后作球极投影。
 
-{% admonition(type="definition", title="反演变换") %}
+{% <definition title="反演变换"> %}
 中心在 $O$ 半径为 $r$ 的反演变换将 $P$ 映到射线 $OP$ 上的点 $\sigma(P)$，满足 $|OP| \cdot |O\sigma(P)| = r^2$.
-{% end %}
+{% </definition> %}
 
 反演变换把复交比变成其复共轭。这可以说明复交比为实数等价于共圆（包括“无穷大圆”，即直线）。
 
-{% admonition(type="theorem", title="反演变换反向保角") %}
+{% <theorem title="反演变换反向保角"> %}
 反演变换保持相交圆的夹角的大小，但反转其时针方向。
-{% end %}
+{% </theorem> %}
 
 设 $P$ 是圆 $\Gamma_1$ 与 $\Gamma_2$ 的一个交点，作 $P$ 处的切线 $l_1, l_2$，取射线 $l_1^+, l_2^+$ 指向图形内部。
 
 在反演变换下 $l_1$ 与 $l_2$ 映成圆，且两个交点是 $\sigma(P)$ 与反演中心 $O$. 由对称性 $\sigma(l_i)$ 在 $O$ 的切线平行于 $l_i$.
 
-{% admonition(type="definition", title="Möbius 变换") %}
+{% <definition title="Möbius 变换"> %}
 扩充平面上有限个反演变换复合成的变换称为 **Möbius 变换**。记全体 Möbius 变换构成的群 $\mathcal{M}_2$，其中偶数个反演变换复合成的构成保向 Möbius 变换群 $\mathcal{M}_2^+$. 这里的反演变换包含“关于无穷大圆的反演变换”，即关于直线反射，无穷远点不动。
-{% end %}
+{% </definition> %}
 
 我们作 $\bar{\Complex} \cong \Complex\mathbf{P}^1$，就有 $\mathcal{M}_2^+ \cong \mathrm{PGL}(2, \Complex)$. 就有所有保向的 Möbius 变换是所有分式线性变换，所有反向的是所有共轭分式线性变换。
 
 扩充平面的 Möbius 变换由是否保向与 3 点的像唯一决定。
 
-{% admonition(type="theorem", title="Möbius 变换分解") %}
+{% <theorem title="Möbius 变换分解"> %}
 一个 Möbius 变换可以写成至多 4 个反演变换的复合。
-{% end %}
+{% </theorem> %}
 
 设单位圆在变换下的原像是 $\odot H$，先取反演变换将它映到单位圆。现在只需考虑单位圆内的 Möbius 变换。
 
@@ -163,9 +163,9 @@ $$e^{\mathrm{i}\theta} \frac{z - a}{z - \bar{a}}$$
 ## 杂项
 看一些 2024 的题（不同教师）：
 
-{% admonition(type="question", title="2024 P4") %}
+{% <question title="2024 P4"> %}
 设 $A$ 是度量空间 $X$ 的闭子集，证明任意连续函数 $f: A \to \mathbb{S}^2$ 可以连续延拓到 $A$ 的一个开邻域。
-{% end %}
+{% </question> %}
 
 这用到一个引理 Tietze 延拓定理：此结论对于 $f: A \to \R$ 成立。
 
@@ -173,9 +173,9 @@ $$e^{\mathrm{i}\theta} \frac{z - a}{z - \bar{a}}$$
 
 $$f(a) = \frac{(f_1(a), f_2(a), f_3(a))}{\sqrt{f_1^2(a) + f_2^2(a) + f_3^2(a)}}$$
 
-{% admonition(type="question", title="2024 P6") %}
+{% <question title="2024 P6"> %}
 拓扑空间 $X$ 是一列圆 $(x-\frac{1}{n})^2 + y^2 = \frac{1}{n^2}$ 的并，赋予 $\mathbb{E}^2$ 的子空间拓扑（称为“夏威夷耳环”）。记 $Y$ 是把 $\R$ 的所有整点粘在一起所得的商拓扑。求证：$X$ 与 $Y$ 不同胚。
-{% end %}
+{% </question> %}
 
 我们来证明 $X$ 是紧的，同时易知 $Y$ 不是紧的。
 
@@ -185,9 +185,9 @@ $$f(a) = \frac{(f_1(a), f_2(a), f_3(a))}{\sqrt{f_1^2(a) + f_2^2(a) + f_3^2(a)}}$
 
 这个题卡了：
 
-{% admonition(type="question", title="2025 P6") %}
+{% <question title="2025 P6"> %}
 令 $S_1$ 为单叶双曲面 $x^2+y^2-z^2 = 1$，$S_2$ 为双叶双曲面 $x^2-y^2-z^2 = 1$，相应的仿射变换群记作 $G_1$ 与 $G_2$. 问它们是否同构。
-{% end %}
+{% </question> %}
 
 不妨设后者为 $x^2+y^2-z^2 = -1$.
 

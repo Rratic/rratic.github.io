@@ -26,16 +26,16 @@ $(\Omega, \mathcal F)$ 上的测度是非负、可数可加的 $\mu: \mathcal F 
 
 在 $\R^d$ 上用 $\mathcal R^d$ 表示 Borel 集（包含所有开集的最小 $\sigma$-field）。
 
-{% admonition(type="theorem", title="一维的测度") %}
+{% <theorem title="一维的测度"> %}
 每个 Stieltjes 测度函数（不降、右连续）$F$ 对应唯一的一个 $(R, \mathcal R)$ 上的测度 $\mu((a, b]) = F(b) - F(a)$.
-{% end %}
+{% </theorem> %}
 
 证明略。在 $F(x) = x$ 时对应的就是 Lebesgue 测度。
 
-{% admonition(type="theorem", title="d 维的测度") %}
+{% <theorem title="d 维的测度"> %}
 $F: \R^d \to [0, 1]$ 满足以下 4 个条件时对应唯一概率测度 $\mu(A) = \Delta_A F$：
 - 对所有分量不降
 - 对所有分量右连续
 - $x_n \downarrow -\infty \implies F(x_n) \downarrow 0$ 及 $x_n \uparrow +\infty \implies F(x_n) \uparrow 1$
 - 对所有矩形 $A$ 有 $\Delta_A F \geq 0$
-{% end %}
+{% </theorem> %}

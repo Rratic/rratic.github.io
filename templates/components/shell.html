@@ -1,0 +1,8 @@
+{% component shell(text: string) %}
+<blockquote class="folder" onclick="this.nextElementSibling.classList.toggle('folded')">
+  {{ text | markdown | safe }}
+</blockquote>
+<div class="folded">
+  {{ body | markdown | safe }}
+</div>
+{% endcomponent %}
