@@ -1,0 +1,360 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola v0.23.4" />
+  <title>【草稿】Morse 理论（一） | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="【草稿】Morse 理论（一）" />
+  <meta name="description" content="此系列为讨论班的复习笔记，这一部分参考 Milnor 的 Morse Theory 第一部分。" />
+  <meta property="og:description" content="此系列为讨论班的复习笔记，这一部分参考 Milnor 的 Morse Theory 第一部分。" />
+  <meta property="og:url" content="https://rratic.top/posts/morse-theory-1/" />
+  <link rel="canonical" href="https://rratic.top/posts/morse-theory-1/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-09-15T00:00:00+00:00" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="拓扑学" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <meta name="msvalidate.01" content="9BE559916FDB06A7A09EA17370F0ED09" />
+<link rel="icon" type="image/svg+xml" href="https://rratic.top/favicon.svg" />
+<link rel="stylesheet" href="https://rratic.top/style/shared.css?h=2dac71ecd418f5165c3d" />
+
+  <link rel="stylesheet" href="https://rratic.top/giallo-light.css?h=396eaa20499714fdb600" media="(prefers-color-scheme: light)" />
+  <link rel="stylesheet" href="https://rratic.top/giallo-dark.css?h=536598ee42e9e9a795bc" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=f166037ad671ba6bfd13" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=11a0f44fbe01f53dbaf9"></script>
+  <!-- head_end inject -->
+
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      
+<menu
+  class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/posts/"
+    >文章</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/categories/"
+    >分类</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/tags/"
+    >标签</a>
+  </li>
+</menu>
+
+      <!-- header_nav inject -->
+
+    </nav>
+  </div>
+</header>
+
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    <!-- body_start inject -->
+
+    
+<article>
+  <!-- page_start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-3">【草稿】Morse 理论（一）</h1>
+    <div class="text-sm antialiased opacity-80"><time
+      datetime="2026-09-15T00:00:00+00:00">2026-09-15</time><span
+        class="middot"></span><time
+    datetime="PT0H8M0S">8&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+  </header>
+  
+  
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#ding-yi">定义</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#tong-lun-xing">同伦型</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#li-zi">例子</a>
+      </li>
+    </ul>
+  </details>
+</nav>
+  <!-- Content -->
+  <section><p>此系列为讨论班的复习笔记，这一部分参考 Milnor 的 <em>Morse Theory</em> 第一部分。</p>
+<span id="continue-reading"></span>
+<p>Morse 理论的想法可参考如下例子：</p>
+<p><img src="/images/geometry/morse_theory_intro.jpeg" alt="导引" /></p>
+<h2 id="ding-yi">定义</h2>
+<p>考虑光滑流形。对 $f: M \to \R$，称 $p$ 是其<strong>临界点</strong>，如果其诱导的 $f_\ast: TM_p  \to T\R_{f(p)}$ 为零，也即对局部坐标：</p>
+<p>$$\frac{\partial f}{\partial x^i} = 0, \quad \forall i$$</p>
+<p>用 $M^a$ 表示 $\set{x \in M | f(x) \leq a}$，由隐函数定理，在 $a$ 不是临界点时，$M^a$ 是光滑带边流形，$f^{-1}(a)$ 是光滑子流形。</p>
+<p>称临界点 $p$ 是<strong>非退化</strong>的，如果以下矩阵非奇异：</p>
+<p>$$\left(\frac{\partial^2 f}{\partial x^i \partial x^j}(p)\right)$$</p>
+<p>我们定义一个 $TM_p$ 上的双线性形式 $f_{\ast\ast}$，设 $v, w$ 拓展到向量场 $\tilde v, \tilde w$，令：</p>
+<p>$$f_{\ast\ast} \coloneqq \tilde v_p(\tilde w(f))$$</p>
+<p>对临界点 $p$，有 $[\tilde v, \tilde w]_p(f) = \mathrm df_p([\tilde v, \tilde w]_p) = 0$，故 $f$ 对称；又，由表达式形式知与 $\tilde v, \tilde w$ 选取无关。</p>
+<p>称 $f$ 在 $p$ 处的指数（index）是 $f_{\ast\ast}|_p$ 的负惯性指数。</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>Morse 引理</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $p$ 是 $f$ 的非退化临界点，则存在 $p$ 邻域 $U$ 及其上坐标系 $(y^1, \dots, y^n), y^i(p) = 0$，使得：</p>
+<p>$$f = f(p) - (y^1)^2 - \cdots - (y^\lambda)^2 + (y^{\lambda+1})^2 + \cdots + (y^n)^2$$</p>
+</div>
+</div>
+<p>在此种形式下，由 $p$ 处的 Hessian 矩阵可得 $\lambda$ 即 $f$ 在 $p$ 处的指数。</p>
+<p>在一个邻域内取坐标卡 $(x_1, \dots, x_n)$，令：</p>
+<p>$$g_j(x_1, \dots, x_n) = \int_0^1 \frac{\partial f}{\partial x_j} f(tx_1, \dots, tx_n) \mathrm dt$$</p>
+<p>$$h_{ij}(x_1, \dots, x_n) = \int_0^1 \frac{\partial g_j}{\partial x_i} g(tx_1, \dots, tx_n) \mathrm dt$$</p>
+<p>可以取 $\overline{h_{ij}} = \frac 1 2 (h_{ij} + h_{ji})$ 使之对称，则：</p>
+<p>$$(\bar h_{ij}) = \left(\frac 1 2 \frac{\partial^2 f}{\partial x^i \partial x^j}(0)\right)$$</p>
+<p>现在进行合同变换即可。其推论是，非退化的临界点是孤立的。</p>
+<h2 id="tong-lun-xing">同伦型</h2>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>定理</strong></span>
+  </div>
+  <div class="pl-4"><p>对 $f: M \to \R$，若 $f^{-1}[a, b]$ 紧且不含临界点，则 $M^a$ 是 $M^b$ 的形变收缩。</p>
+</div>
+</div>
+<p>选取 $M$ 是一个 Riemann 度量，记切向量内积 $\braket{X, Y}$，梯度 $\mathrm{grad}$ 满足 $\braket{X, \operatorname{grad} f} = X(f)$，此向量场恰在 $f$ 的临界点消没。</p>
+<p>令光滑 $\rho: M \to \R$ 在 $f^{-1}[a, b]$ 是 $1 / \braket{\operatorname{grad} f, \operatorname{grad} f}$，在一个紧邻域外消没，令向量场：</p>
+<p>$$X_q = \rho(q) (\operatorname{grad} f)_q$$</p>
+<p>这会生成一个单参数群<sup class="footnote-reference"><a href="#flow">1</a></sup> $\varphi_t: M \to M$，生成是指满足：</p>
+<p>$$X_q(f) = \lim_{h \to 0} \frac{f(\varphi_h(q)) - f(q)}{h}$$</p>
+<p>从而有：</p>
+<p>$$\frac{\mathrm df(\varphi_p(q))}{\mathrm dt} = \left\langle\frac{\mathrm d\varphi_p(q)}{\mathrm dt}, \operatorname{grad} f\right\rangle = \braket{X, \operatorname{grad} f} = 1$$</p>
+<p>故 $f(\varphi_t(q)) = f(q) + t$，知 $\varphi_{b-a}$ 给出 $M^a \to M^b$ 微分同胚。进一步定义 $r_t: M^b \to M^b$，</p>
+<p>$$r_t(q) = \begin{cases} q &amp; \text{if } f(q) \leq a \cr \varphi_{t(a-f(q))}(q) &amp; \text{if } a \leq f(q) \leq b \end{cases}$$</p>
+<p>则 $r$ 给出所求形变收缩。</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>定理</strong></span>
+  </div>
+  <div class="pl-4"><p>对 $f: M \to \R$，$p$ 是指数 $\lambda$ 的非退化临界点，设 $f(p) = c$，对某个 $\varepsilon$ 有 $f^{-1}[c-\varepsilon, c+\varepsilon]$ 紧且不含 $p$ 外临界点，则对充分小的 $\varepsilon$，$M^{c+\varepsilon}$ 的同伦型是 $M^{c-\varepsilon}$ 附加上一个 $\lambda$-胞腔。</p>
+</div>
+</div>
+<p>证明思路如下：</p>
+<p><img src="/images/geometry/morse_theory_attach.png" alt="证明思路" /></p>
+<p>取 $p$ 处坐标系使得：</p>
+<p>$$f = c - (u^1)^2 - \cdots - (u^\lambda)^2 + (u^{\lambda+1})^2 + \cdots + (u^n)^2$$</p>
+<p>取充分小的 $\varepsilon$，并让 $e^\lambda$ 是：</p>
+<p>$$\set{p \in U | (u^1)^2 + \cdots + (u^\lambda)^2 \leq \varepsilon,\, u^{\lambda+1} = \cdots = u^n = 0}$$</p>
+<p>现在就有 $e^\lambda \cap M^{c-\varepsilon} = \partial e^\lambda$，只需 $M^{c-\varepsilon} \cup e^\lambda$ 是 $M^{c+\varepsilon}$ 的形变收缩。</p>
+<p>取 $\mu \in C^\infty(\R)$ 满足 $\mu(0) &gt; \varepsilon$，在 $r \geq 2\varepsilon$ 时 $\mu(r) = 0$，且 $-1 &lt; \mu'(r) &lt; 0$，记 $\xi = (u^1)^2 + \cdots + (u^\lambda)^2$ 及 $\eta = (u^{\lambda+1})^2 + \cdots + (u^n)^2$，令：</p>
+<p>$$F(q) = \underbrace{c - \xi(q) + \eta(q)}_{f(q)} - \mu(\xi(q) + 2\eta(q))$$</p>
+<ul>
+<li>$F^{-1}(-\infty, c+\varepsilon] = M^{c+\varepsilon}$</li>
+<li>$F$ 与 $f$ 有相同的临界值</li>
+<li>$F^{-1}(-\infty, c-\varepsilon]$ 是 $M^{c+\varepsilon}$ 的形变收缩</li>
+<li>$M^{c-\varepsilon} \cup e^\lambda$ 是 $F^{-1}(-\infty, c-\varepsilon] = M^{c-\varepsilon} \cup H$ 的形变收缩</li>
+</ul>
+<p>实际上可以稍微修改一下证明，说明 $M^{c-\varepsilon} \cup e^\lambda$ 是 $M^c$ 的形变收缩，且 $M^c$ 是 $M^{c+\varepsilon}$ 的形变收缩。</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>定理</strong></span>
+  </div>
+  <div class="pl-4"><p>对 $f$ 是 $M$ 上可微函数，无退化临界点，且所有 $M^a$ 紧，则 $M$ 有一个 CW-复形的同伦型，其中每个指数 $\lambda$ 临界点对应一个 $\lambda$ 维胞腔。</p>
+</div>
+</div>
+<p>有限情形容易，无限情形可以用 Whitehead [Whi49]<sup class="footnote-reference"><a href="#Whi49">2</a></sup> 的定理一。</p>
+<h2 id="li-zi">例子</h2>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>(Reeb)</strong></span>
+  </div>
+  <div class="pl-4"><p>$M$ 是紧流形，$f$ 是 $M$ 上恰有两个临界点（且均非退化）的可微函数，则 $M$ 与一个球面同胚。</p>
+</div>
+</div>
+<p>两个临界点必为最小值与最大值点，不妨是 $f(p) = 0, f(q) = 1$，取充分小的 $\varepsilon$ 则 $f^{-1}[0, \varepsilon]$ 与 $f^{-1}[1-\varepsilon, 1]$ 是闭 $n$-胞腔（Morse 引理给出 $f = f(p) + (y^1)^2 + \cdots + (y^n)^2$）。</p>
+<p>又 $M^\varepsilon \cong M^{1-\varepsilon}$，故 $M \cong \mathbb S^n$.</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-example);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/example.svg)">example</div>
+    <span><strong>7 维怪球</strong></span>
+  </div>
+  <div class="pl-4"><p>考虑底空间 $\mathbb S^4$，看成 $\R^4 \cup_{\R^4 \setminus \set{0}} \R^4$，分别在两个 $\R^4$ 上取平凡 $\mathbb S^3$-丛，</p>
+<p>拼接方式（$u \in \R^4 \setminus \set{0}, v \in \mathbb S^3$ 均看作四元数）以：</p>
+<p>$$(u, v) \leftrightarrow (u', v') = \left(\frac u {\lVert u \rVert^2}, \frac{u^h v u^j}{\lVert u \rVert}\right)$$</p>
+<p>对整数 $h, j$ 满足 $h + j = 1$，得到的 $M$ 同胚于 $\mathbb S^7$.</p>
+</div>
+</div>
+<p>注：但并不微分同胚，这是其重要历史意义。</p>
+<p>记 $u'' = u' \cdot (v')^{-1} = u^h v^{-1} u^{-h} / \lVert u \rVert$，令：</p>
+<p>$$f(x) = \frac{\Re(u'')}{(1 + \lVert u'' \rVert^2)^{\frac 1 2}}$$</p>
+<p>计算知其临界点只有 $(0, 1)$ 与 $(0, -1)$.</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-example);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/example.svg)">example</div>
+    <span><strong>复射影空间</strong></span>
+  </div>
+  <div class="pl-4"><p>$$\Complex\mathbf P^n \simeq e^0 \cup e^2 \cup \cdots \cup e^{2n}$$</p>
+</div>
+</div>
+<p>记空间的元素形如 $(z_0 : z_1 : \dots : z_n)$，其中 $\sum |z_j|^2 = 1$；</p>
+<p>$$f(z_0 : z_1 : \dots : z_n) = \sum c_j |z_j|^2, \quad c_i \neq c_j$$</p>
+<p>考虑 $U_0$ 是 $z_0 \neq 0$ 对应集合，在其中令：</p>
+<p>$$|z_0| \frac{z_j}{z_0} = x_j + \mathrm i y_j$$</p>
+<p>那么有：</p>
+<p>$$f = c_0 + \sum_{j=1}^n (c_j - c_0) (x_j^2 + y_j^2)$$</p>
+<p>其临界点只有 $(1 : 0 : \cdots : 0)$，对应指数是两倍的 $c_j &lt; c_0$ 个数。同理讨论 $U_k$ 是 $z_k \neq 0$ 对应集合即可。</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-example);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/example.svg)">example</div>
+    <span><strong>Grassmannian 流形</strong></span>
+  </div>
+  <div class="pl-4"><p>令 $G_k(\R^n)$ 是所有 $k$ 维线性子空间，考察其胞腔分解（称为 Schubert 分解）。</p>
+</div>
+</div>
+<p>对 $k$ 维线性子空间，记 $P_V: \R^n \to V$ 是投影映射；$A$ 自伴且有特征值 $\lambda_1 &lt; \cdots &lt; \lambda_n$，</p>
+<p>$$
+\begin{aligned}
+f: G_k(\R^n) &amp; \to \R \cr
+V &amp; \mapsto \mathrm{tr}(AP_V)
+\end{aligned}
+$$</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-todo);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/todo.svg)"></div>
+    <span><strong>TODO</strong></span>
+  </div>
+  <div class="pl-4"><p>尚待完成。</p></div>
+</div>
+<hr />
+<div class="footnote-definition" id="flow"><sup class="footnote-definition-label">1</sup>
+<p>对光滑向量场 $X$，其流是一族映射 $\varphi_t: M \to M$，满足 $\varphi_0(q) = q$ 及 $\frac{\mathrm d}{\mathrm dt} \varphi_t(q) = X(\varphi_t(q))$.</p>
+<p>由 ODE，其局部存在唯一且光滑；在 $X$ 有紧支集时是全局的。流有定义的地方具备群性质；在流是全局的时 $\varphi_t$ 是微分同胚。</p>
+</div>
+<div class="footnote-definition" id="Whi49"><sup class="footnote-definition-label">2</sup>
+<p>J. H. C. Whitehead. Combinatorial Homotopy. I. <em>Bull. Amer. Math. Soc.</em>, 55:213–245, 1949.</p>
+</div>
+</section>
+  <hr />
+  
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/拓扑学/">拓扑学</a>
+    
+  </div>
+</footer>
+
+  
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- page_end inject -->
+
+</article>
+
+  </main>
+  <footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+    <div class="mr-auto basis-full lg:basis-1/2">
+      
+&copy; 2025-2026 Rratic
+ &vert; <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+
+    </div>
+    <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+      
+  <span class="mr-6 lg:ml-6">
+    <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+  </span>
+  <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+
+    </div>
+  <!-- footer inject -->
+
+  </footer>
+  
+  <link rel="stylesheet" href="https://rratic.top/katex/katex.min.css?h=180c2d77d434d7da51d6" />
+  <script defer src="https://rratic.top/katex/katex.min.js?h=2ec5916941ef4383e031"></script>
+  <script defer src="https://rratic.top/katex/contrib/auto-render.min.js?h=e5372d199bcdae8b4de7"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+  
+
+  <!-- body_end inject -->
+
+</body>
+
+</html>
