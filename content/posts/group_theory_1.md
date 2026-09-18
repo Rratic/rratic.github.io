@@ -40,11 +40,17 @@ f \colon G\times S & \longrightarrow S \cr
 \end{aligned}
 $$
 
-但前一种更直观一些。
+个人认为前一种看法更直观一些。
 
 显然有 $\varphi$ 是从 $G$ 到 $\Omega$ 上对称群的同态。
 
-记集合元素 $\alpha$ 在这一关系下的等价类 $\set{\alpha^x | x\in G}$ 为其**轨道** $\mathrm{Orb}(\alpha)$；全体不变映射 $\set{x | \alpha^x = \alpha}$ 为其**稳定化子** $\mathrm{Stab}(\alpha)$，易知 $|\mathrm{Orb}(\alpha)| = |G\colon \mathrm{Stab}(\alpha)|$.
+记集合元素 $\alpha$ 在这一关系下的等价类为其**轨道**：
+
+$$\mathrm{Orb}(\alpha) = \set{\alpha^x | x\in G}$$
+
+记全体不变映射为其**稳定化子**，满足 $|\mathrm{Orb}(\alpha)| = |G\colon \mathrm{Stab}(\alpha)|$：
+
+$$\mathrm{Stab}(\alpha) = \set{x | \alpha^x = \alpha}$$
 
 作为一个例子，对于正四面体（记顶点 $\set{A, B, C, D}$），设其旋转变换群为 $G$，则：任取一个顶点，它对应的稳定子群阶为 $3$，轨道为 $\set{A, B, C, D}$，故而 $G$ 是 $S_4$ 的 $12$ 阶子群，必然是 $A_4$.
 
@@ -150,7 +156,7 @@ $$r = \sum |\mathrm{Orb}(Q)|\equiv 1\pmod{p}$$
 ---
 
 [^1]: 通过以下步骤证明：
-* 将 $G$ 用自由群表示法表示为 $<g_1, g_2\cdots g_n\mid \text{rules}>$
+* 将 $G$ 用自由群表示法表示为 $\braket{g_1, g_2, \dots, g_n \mid \text{rules}}$
 * 由于是交换群，可以将一个规则（形如 $g_1 g_2^{-1} g_1^2$）任意交换顺序写成 $3x_1-x_2=0$ 的形式
 * 所有的规则写成线性方程组，表示为
 $$M \begin{pmatrix} g_1 \cr \vdots \cr g_n \end{pmatrix} = \mathbf{0}$$

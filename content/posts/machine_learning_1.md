@@ -152,3 +152,61 @@ $$|\hat f(x) - f^\ast(x)| \sim n^{-\frac s d} = \varepsilon$$
 假若希望 $\varepsilon \leq 0.1$，对 $d = 150000$ 就需要 $10^{150000}$ 的数据，这是不可接受的。因此，我们会利用一些数据的结构。
 
 如果假设空间是分片常值函数（在实际中确有，如 K-nearest neighbour (KNN)），想要去拟合线性函数，则读者可验证也会造成维数灾难。
+
+## 线性方法
+### 模型
+线性方法比较 robust，同时完全可解释、可计算，因此学习时不能当黑箱来看。
+
+线性方法的假设空间即：
+
+$$\mathcal H = \set{x \mapsto \beta^\top x + \beta_0 | \beta \in \R^d, \beta_0 \in \R}$$
+
+有时我们会作简化，将它看成：
+
+$$\underbrace{\begin{pmatrix}\beta^\top & \beta_0\end{pmatrix}}_\beta \underbrace{\begin{pmatrix}x \cr 1\end{pmatrix}}_x$$
+
+$$\mathcal H = \set{x \mapsto \beta^\top x | \beta \in \R^d}$$
+
+考察以下经典的 risk，注意使用 square loss 并不是天然的：这会带来解析解，在噪声 $\varepsilon_i \sim N(0, \sigma^2)$ 时适用，但在 $P(|\varepsilon_i| \geq R) \propto R^{-\beta}$ 这样尾部较大的情形可能不适用。
+
+$$\hat R(\beta) = \frac 1 {2n} \lVert x\beta - y \rVert^2$$
+
+这里 $x$ 是 $n \times d$ 的。容易解出：
+
+$$
+\begin{align*}
+    &\min_\beta \frac 1 {2n} \lVert x\beta - y \rVert^2 \cr
+    \iff& \frac 1 n x^\top (x\beta - y) = 0 \cr
+    \iff& x^\top x\beta = x^\top y \cr
+    \iff& \hat \beta_{\text{OLS}} = (x^\top x)^{-1} x^\top y
+\end{align*}
+$$
+
+但实际中几乎不会直接用这个解。一方面需要 $x^\top x$ 可逆，这需要样本数大于维数。另一方面，这个解对标签噪声（label noise）和异常值敏感，因此需要改为：
+
+$$\min_\beta \hat R(\beta) + \underbrace\lambda_{\text{hyper parameter}} r(\beta)$$
+
+所谓“调参”，就是调整这里的 hyper parameter，这没有什么一般的方法，但可以参考一些原则：
+- $n$ 变大，左边更接近真实，应当 $\lambda$ 变小
+    - 对大模型来说假设有一个 scaling law $\lambda \propto n^{-r}$，先在小模型上拟合然后推广
+- 准备一个 validation set，设 $\beta(\lambda)$ 是一个 $\lambda$ 对应的 $\argmax$，
+    $$\lambda \leftarrow \argmin \frac 1 {|n_{\text{val}}|} \sum |x\beta(\lambda) - y|^2$$
+
+### Ridge Regression
+岭回归是指使用 L2 正则化：
+$$\min_\beta \frac 1 n \lVert x\beta - y \rVert^2 + \lambda \lVert \beta \rVert^2$$
+
+$$\hat \beta_\lambda = \left(\frac 1 n x^\top x + \lambda I_n\right)^{-1} \frac 1 n x^\top y$$
+
+假设 $\varepsilon_i \sim N(0, \sigma^2)$，并令 $\Sigma = \frac 1 n x^\top x$ 及 $\Delta = \beta^\ast - \hat \beta_\lambda$，则：
+
+### LASSO
+思考上面在使用 $\lambda \lVert \beta \rVert_2^q$ 时为什么选取 $q = 2$？一方面是为了更好算，另一方面是为了让量纲一致。
+
+考虑 L0 正则化（相当于 sparsity）：
+
+$$\lVert\beta\rVert_0 \coloneqq \\#\set{\beta_j \neq 0 | j \in [d]}$$
+
+最终会有 $\lVert\beta\rVert_0 \ll d$，这使得结果有较好的可解释性。但 L0 正则化不连续且非凸，无法梯度下降，因此考虑用一般的 $p$ norm，由于 $p = 1$ 时函数才凸，考虑 L1 正则化。
+
+一般用 L1 正则化的时候不会平方。原因不明，一方面可能因为实际中会把数据归一化，另一方面 L0 正则化是没有量纲的，我们本质上考虑的是 L0 而不是 $\lambda \lVert \beta \rVert_2^2$.

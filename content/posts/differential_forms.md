@@ -1,10 +1,11 @@
 +++
 title = "光滑流形上的切空间与微分形式"
 date = 2025-11-19
-updated = 2025-11-24
+updated = 2026-09-18
 
 [extra]
 math = true
+toc = true
 
 [extra.sitemap]
 priority = "0.8"
@@ -14,14 +15,14 @@ categories = ["知识"]
 tags = ["数学", "几何学"]
 +++
 
-我们希望了解 $\partial/\partial x$，$\mathrm{d}/\mathrm{d}x$ 及更复杂的记号本质上/在一般的流形上是什么。本文不涉及层论视角。
+我们来看了解 $\partial/\partial x$，$\mathrm{d}/\mathrm{d}x$ 及更复杂的记号在一般的流形上的推广是什么。
 
 <!-- more -->
 
 参考阅读 *Introduction to Smooth Manifolds* (GTM 218).
 
----
-
+## 切空间
+### 两种看法
 我们回顾**光滑流形**是在普通的拓扑流形上加上一个（最大的）光滑结构（包含一组光滑坐标卡）。
 
 一个 $f: M \to \R$ 是**光滑函数**指在每个光滑坐标卡 $(U, \varphi)$ 处，有 $f \circ \varphi^{-1}$ 在 $\R^n$ 的多元微积分意义下是光滑的。全体光滑函数构成的 $\R$-线性空间记作 $C^\infty(M)$.
@@ -42,44 +43,9 @@ $p$ 处 $C^\infty (M)$ 的全体导子构成 $M$ 在 $p$ 处的**切空间**，�
 
 使用此可进一步证明：若 $M$ 是 $n$ 维光滑流形，则任一 $T_pM$ 都是 $n$ 维向量空间，此结论甚至可以推广到带边光滑流形的边界上。
 
-因此，我们可以说把这个向量空间里的*向量作用到函数*上：
+因此，我们可以说把这个向量空间里的*向量 $V$ 作用到函数 $f$*上，记作 $V(f)$，有所谓的：
 
 $$\frac{\partial f}{\partial x_ i} = \frac{\partial}{\partial x_ i}(f)$$
-
----
-
-对光滑流形（或带边光滑流形）$M$ 与 $N$ 及光滑映射 $F: M\to N$，在 $M$ 上每一点 $p$ 我们定义 $F$ 在 $p$ 处的**微分**为：
-
-$$
-\begin{aligned}
-\mathrm{d}F|_ p \colon T_pM & \to T_{F(p)}N \cr
-    v & \mapsto (f \mapsto v(f \circ F))
-\end{aligned}
-$$
-
-如果我们选取一个指定的坐标卡，继而把 $x_i$ 看作投射函数，那么 $\mathrm{d}x_i|_ p$ 就是指对应的 $\mathrm{d}\pi_i|_ p$，其中 $\pi_i(x_1, \dots, x_n) = x_i$.
-
-例如对于 $\mathrm{d}f|_ p: T_p\R^n \to T_p\R^m$，考虑 $T_p\R^k \cong \R^k$ 可以将它表示成 [**Jacobi 矩阵**](@/posts/analysis_2_final.md)：
-
-$$\mathrm{Jac}(f) = \left(\frac{\partial f_j}{\partial x_i}\right)_{1\leq i\leq n, 1\leq j\leq m}$$
-
----
-
-我们称 $M$ 的**切丛**是指：
-
-$$TM = \bigsqcup_{p\in M}T_pM$$
-
-又，我们定义点 $p$ 处的**余切空间** $T_p^\ast M$ 是指 $T_pM$ 的对偶空间，那么 $M$ 的**余切丛**是指：
-
-$$T^\ast M = \bigsqcup_{p\in M} T_p^\ast M$$
-
-因此我们说对光滑的 $F: M \to \R$，整个 $\mathrm{d}F$ 实际上是余切丛的一个截面[^section]。一般的 $\mathrm{d}F$ 则是向量丛 $\mathrm{Hom}(TM, F^\ast TN)$ 的截面。
-
-切丛的光滑截面则称为**向量场**，其全体记作：
-
-$$\mathfrak{X}(M) = \Gamma(TM)$$
-
-这里光滑也可以采取这样的看法：对 $V \in \mathfrak{X}(M)$，对任意 $f$ 光滑均有 $V(p) f(p)$ 光滑。
 
 ---
 
@@ -95,6 +61,64 @@ $$\frac{\mathrm{d}}{\mathrm{d}t} (f \circ \gamma_1) \Big| _{t=0} = \frac{\mathrm
 
 ---
 
+对光滑流形（或带边光滑流形）$M$ 与 $N$ 及光滑映射 $F: M\to N$，在 $M$ 上每一点 $p$ 我们定义 $F$ 在 $p$ 处的**微分**为：
+
+$$
+\begin{aligned}
+\mathrm{d}F|_ p \colon T_pM & \to T_{F(p)}N \cr
+    v & \mapsto (f \mapsto v(f \circ F))
+\end{aligned}
+$$
+
+如果我们选取一个指定的坐标卡，继而把 $x^i$ 看作投射函数，那么 $\mathrm{d}x^i|_ p$ 就是指对应的 $\mathrm{d}(\pi_i \circ \varphi)|_ p$，其中 $\pi_i(x_1, \dots, x_n) = x_i$.
+
+例如对于 $\mathrm{d}f|_ p: T_p\R^n \to T_{f(p)}\R^m$，考虑 $T_p\R^n \cong \R^n$ 可以将它表示成 [**Jacobi 矩阵**](@/posts/analysis_2_final.md)：
+
+$$\mathrm{Jac}(f) = \left(\frac{\partial f^a}{\partial x^i}\right)_{1\leq a\leq m, 1\leq i\leq n}$$
+
+### 切丛
+我们称 $M$ 的**切丛**是指：
+
+$$TM = \bigsqcup_{p\in M}T_pM$$
+
+又，我们定义点 $p$ 处的**余切空间** $T_p^\ast M$ 是指 $T_pM$ 的对偶空间，那么 $M$ 的**余切丛**是指：
+
+$$T^\ast M = \bigsqcup_{p\in M} T_p^\ast M$$
+
+因此我们说对光滑的 $F: M \to \R$，整个 $\mathrm{d}F$ 实际上是余切丛的一个截面[^section]。一般的 $\mathrm{d}F$ 则是向量丛 $\mathrm{Hom}(TM, F^\ast TN)$ 的截面。
+
+切丛的光滑截面则称为**向量场**，其全体记作：
+
+$$\mathfrak{X}(M) = \Gamma(TM)$$
+
+这里光滑也可以采取这样的看法：对 $V \in \mathfrak{X}(M)$，对任意 $f$ 光滑均有 $V(f)$ 光滑。
+
+### 局部坐标系
+为了具体描述这些空间，我们在 $p \in M$ 附近选取一个局部坐标卡 $(U, \varphi)$，其中 $p \in U$，且有微分同胚：
+
+$$\varphi: U \to \varphi(U) \subseteq \R^n$$
+
+若记 $\varphi = (x^1, \dots, x^n)$，则 $x^i$ 是 $U$ 上的坐标函数，并且在 $q \in U$ 有：
+
+$$
+\left.\frac{\partial}{\partial x^i}\right|_q(f)
+= \frac{\partial(f\circ\varphi^{-1})}{\partial x^i}(\varphi(q))
+$$
+
+这些导子构成 $T_qM$ 的一组基，因此每个 $v \in T_qM$ 都可以唯一写成：
+
+$$v = \sum_{i=1}^n v^i\left.\frac{\partial}{\partial x^i}\right|_q$$
+
+这些局部的基可以拼成局部向量场：
+
+$$\frac{\partial}{\partial x^i} \in \Gamma(TU)$$
+
+另一方面，每个坐标函数 $x^i: U \to \R$ 都可以取前述微分，得到 $\mathrm{d}x^i$，这与上式局部向量场互为对偶基：
+
+$$\mathrm{d}x^i \left(\frac{\partial}{\partial x^j}\right) = \delta^i_j$$
+
+## 微分形式
+### 张量
 为了定义微分形式，让我们先回顾张量的定义（注：在讨论张量时，会把一些下标写成上标来便于阅读，由于不会出现幂次，一般不会产生歧义）：
 
 首先，定义 $V_1 \otimes \cdots \otimes V_k = \mathcal{F}(V_1 \times \cdots \times V_k)/\mathcal{R}$，其中 $\mathcal{F}(S)$ 是指集合 $S$ 上的自由向量空间，$\mathcal{R}$ 是由形如 $(v_1\cdots av_i\cdots v_k)-a(v_1\cdots v_i\cdots v_k)$ 与 $(v_1\cdots v_i+v_i'\cdots v_k) - (v_1\cdots v_i\cdots v_k) - (v_1\cdots v_i'\cdots v_k)$ 的元素生成的子空间。
@@ -153,21 +177,20 @@ $$
 
 $$(F^\ast A) _p(v _1, \dots, v_k) = A _{F(p)}(\mathrm{d}F(p)v _1, \dots, \mathrm{d}F(p)v_k)$$
 
----
-
+### 微分形式
 回到流形上来，我们定义：
 
 $$T^{(k, l)}TM = \bigsqcup_{p\in M}T^{(k, l)}(T_pM)$$
 
 就有对 $\Gamma(T^{(k, l)}TM)$ 的元素 $A$，它将形如：
 
-$$A = A_{j_1\cdots j_l}^{i_1\cdots i_k} \frac{\partial}{\partial x^{i_1}}\otimes\cdots\otimes\frac{\partial}{\partial x^{i_k}}\otimes\mathrm{d}x^{j_1}\otimes\cdots\otimes\mathrm{d}x^{j_l}$$
+$$A = \sum A_{j_1\cdots j_l}^{i_1\cdots i_k} \frac{\partial}{\partial x^{i_1}}\otimes\cdots\otimes\frac{\partial}{\partial x^{i_k}}\otimes\mathrm{d}x^{j_1}\otimes\cdots\otimes\mathrm{d}x^{j_l}$$
 
 我们称**微分 $k$-形式**是指下式的截面，记 $\Omega^k(M) = \Gamma (\Lambda^kT^\ast M)$：
 
 $$\Lambda^kT^\ast M = \bigsqcup_{p\in M}\Lambda^k(T_p^\ast M)$$
 
-根据交错条件，一个 $k$-形式 $\omega$ 可以被分解为 $\sum_I \omega_I \mathrm{d}x^I$，其中 $\mathrm{d}x^I$ 是 $\mathrm{d}x^{i_1} \wedge \cdots \wedge\mathrm{d}x^{i_m}$，$1 \leq i_1 < \cdots < i_m \leq n$.
+根据交错条件，一个 $k$-形式 $\omega$ 可以被分解为 $\sum_I \omega_I \mathrm{d}x^I$，其中 $\mathrm{d}x^I$ 是 $\mathrm{d}x^{i_1} \wedge \cdots \wedge\mathrm{d}x^{i_k}$，$1 \leq i_1 < \cdots < i_k \leq n$.
 
 对一般的 $f$ 是 $0$-形式，就有 $\mathrm{d}f$ 是 $1$-形式，且：
 
@@ -186,8 +209,7 @@ $$
 \end{align*}
 $$
 
----
-
+## 补充
 $\mathrm{d}f / \mathrm{d}x$ 的另一种看法是**缩并** $\iota_X(\mathrm{d}f)$，其中取 $X = \partial / \partial x$，则运算 $\iota_X$ 或 $X \lrcorner$ 是：
 
 $$(\iota_X\omega)(Y_1, \dots, Y_{k-1}) = \omega(X, Y_1, \dots, Y_{k-1})$$
@@ -224,8 +246,8 @@ $$\mathcal{L}_X \omega = \mathrm{d}(\iota_X \omega) + \iota_X(\mathrm{d}\omega)$
 
 ---
 
-[^section]: 我们说底空间 $B$ 上的**向量丛**是连续映射 $\pi: E \to B$，对任意 $b \in B$ 有邻域 $U$，自然数 $n$ 及 $h: U \times \R^n \to \pi^{-1}(U)$，使得 $h(b, \cdot)$ 是 $\R^n$ 与 $\pi^{-1}(b)$ 作为向量空间的同构。
-            
-    此时，一个 $s: B \to E$ 是**截面**，如果 $\pi \circ s = \mathrm{id}_B$. 用 $\Gamma(E)$ 表示所有光滑截面的集合。
+[^section]: 我们说底空间 $B$ 上的**向量丛**是连续映射 $\pi: E \to B$，对任意 $b \in B$ 有邻域 $U$，自然数 $n$ 及微分同胚 $h: U \times \R^n \to \pi^{-1}(U)$，使得 $h(b, \cdot)$ 是 $\R^n$ 与 $\pi^{-1}(b)$ 作为向量空间的同构，且 $\pi \circ h = \operatorname{pr}_1$.
+
+    在此基础上，一个 $s: B \to E$ 是**截面**，如果 $\pi \circ s = \mathrm{id}_B$. 我们用 $\Gamma(E)$ 表示所有光滑截面的集合。
 
 [^exact]: 英文为 exact，但没有正合的含义。
