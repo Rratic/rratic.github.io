@@ -1,5 +1,5 @@
 +++
-title = "嵌入"
+title = "光滑流形（三）：嵌入"
 draft = true
 
 [extra]
@@ -58,7 +58,31 @@ $$|F(x) - F(a_i)| \leq A' |x - a_i|^{k+1}$$
 
 $$\mathrm{Vol}(F(C_k \cap E)) \leq A'' K^{m - n - nk}$$
 
-## Whitney 定理
+## 嵌入
+### 定义
+考虑光滑流形 $M, N$ 及光滑映射 $f: M \to N$，其微分：
+
+$$\mathrm df| _p: T _p M \to T _{f(p)} N$$
+
+{% <definition title="浸入（immersion）"> %}
+称 $f$ 是浸入，如果对每个 $p$，有 $\mathrm df|_p$ 是单射。
+{% </definition> %}
+
+这等价于说：
+
+$$\operatorname{rank} J(\mathrm df|_p) = \dim M$$
+
+{% <definition title="嵌入（embedding）"> %}
+称 $f$ 是嵌入，如果它是浸入，且 $M \to f(M)$ 是同胚（后者取子空间拓扑）。
+{% </definition> %}
+
+所谓正则嵌入（regular/proper embedding）是指对每个 $N$ 的紧集 $K$，其原像 $f^{-1}(K)$ 在 $M$ 中是紧的。注意有紧流形 $M$ 到 Hausdorff 的 $N$ 的单射浸入一定是嵌入，嵌入一定是正则嵌入。
+
+{% <definition title="浸没（submersion）"> %}
+称 $f$ 是浸没，如果 $f$ 在每一点都是正则点（不是临界点），也即 $\mathrm df|_p$ 处处满射。
+{% </definition> %}
+
+### Whitney 定理
 {% <theorem title="引理"> %}
 设 $M \subseteq \R^N$ 是紧致光滑 $n$ 维子流形。若 $N > 2n + 1$，则存在满秩线性映射 $\pi: \R^N \to \R^{N-1}$，使得 $\pi|_M$ 仍是光滑嵌入。
 {% </theorem> %}
@@ -84,11 +108,35 @@ $$
 
 $$T_R(S) = \set{x \in \R^N | d(x, y) < R, \\, \exists y \in S}$$
 
+设 $F: M \to \R^N$ 是一个光滑嵌入，$G: \R^N \to \mathbb B^N$ 是微分同胚，$f: M \to \R$ 是光滑穷竭函数[^exhaustion]，令：
+
+$$
+\begin{aligned}
+\Psi: M & \longrightarrow \R^N \times \R \cr
+    p & \longmapsto (G \circ F(p), f(p))
+\end{aligned}
+$$
+
+那么 $\Psi$ 是一个单射浸入。
+
 {{ <todo /> }}
 
 {% <theorem title="Whitney 嵌入定理"> %}
-所有 $n$ 维光滑流形同胚于一个正则嵌入 $\R^{2n+1}$ 的子流形。
+$n$ 维光滑流形可以正则嵌入 $\R^{2n+1}$.
 {% </theorem> %}
+
+只需证可以光滑嵌入某个 $\R^N$. 先考虑 $M$ 紧情形。取有限覆盖 $\set{B_1, \dots, B_m}$，其中 $B_i$ 是某个局部坐标系 $B_i' \supseteq \bar B_i$ 的球。令 $\rho_i: M \to \R$ 在 $\bar B_i$ 上为 $1$，被 $B_i'$ 支撑。定义 $F: M \to \R^{nm + m}$ 是：
+
+$$F(p) = (\rho_1(p)\varphi_1(p), \dots, \rho_m(p)\varphi_m(p), \rho_1(p), \dots, \rho_m(p))$$
+
+读者易验证这是单射浸入，从而是嵌入。
+
+现在考虑 $M$ 不紧。对光滑穷竭函数 $f$ 由 Sard 定理，对 $i$ 有正则值（原像均是正则点）$a_i, b_i$ 在 $(i, i+1)$ 中。定义：
+
+$$
+D_0 = f^{-1}((-\infty, 1]), \\, D_i = f^{-1}([i, i+1]) \\\\
+E_0 = f^{-1}((-\infty, a_1]), \\, E_i = f^{-1}([b_{i-1}, a_{i+1}])
+$$
 
 {{ <todo /> }}
 
@@ -101,3 +149,9 @@ $$T_R(S) = \set{x \in \R^N | d(x, y) < R, \\, \exists y \in S}$$
 {% </theorem> %}
 
 上面两定理通过很精密的代拓技巧得到，超出本文范围。关于浸入的最优界是 $\R^{2n-a(n)}$，其中 $a(n)$ 是 $n$ 的二进制展开中 $1$ 的数量。关于嵌入，$3$ 维流形最优界是嵌入 $\R^5$，但仍有很多最优界尚未知晓。
+
+---
+
+[^exhaustion]: 拓扑空间 $M$ 上的穷竭函数 $f$ 是连续的 $M \to \R$，满足对任意 $c$，$f^{-1}(-\infty, c]$ 紧。对光滑流形，取可数基 $\set{V_j}_{j=1}^\infty$ 及对应单位分解 $\set{\psi_i}$，令：
+
+$$f(p) = \sum_{j=1}^\infty j \psi_j(p)$$

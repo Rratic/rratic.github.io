@@ -71,7 +71,7 @@ $$
 
 ## 记号定义
 ### 张量
-与[之前](@/posts/differential_forms.md)相同但换一种看法，我们说 $T$ 是 $(k, l)$ 型张量，如果它是多重线性的：
+与[之前](@/posts/smooth_manifolds_1.md)相同但换一种看法，我们说 $T$ 是 $(k, l)$ 型张量，如果它是多重线性的：
 
 $$T: \underbrace{V^\ast \times \dots \times V^\ast}_k \times \underbrace{V \times \dots \times V}_l \to \R$$
 
