@@ -115,7 +115,7 @@ $$F(q) = \underbrace{c - \xi(q) + \eta(q)}_{f(q)} - \mu(\xi(q) + 2\eta(q))$$
 
 实际上可以稍微修改一下证明，说明 $M^{c-\varepsilon} \cup e^\lambda$ 是 $M^c$ 的形变收缩，且 $M^c$ 是 $M^{c+\varepsilon}$ 的形变收缩。
 
-{% <theorem> %}
+{% <theorem title="核心定理"> %}
 对 $f$ 是 $M$ 上可微函数，无退化临界点，且所有 $M^a$ 紧，则 $M$ 有一个 CW-复形的同伦型，其中每个指数 $\lambda$ 临界点对应一个 $\lambda$ 维胞腔。
 {% </theorem> %}
 

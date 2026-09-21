@@ -200,6 +200,34 @@ $$\hat \beta_\lambda = \left(\frac 1 n x^\top x + \lambda I_n\right)^{-1} \frac 
 
 假设 $\varepsilon_i \sim N(0, \sigma^2)$，并令 $\Sigma = \frac 1 n x^\top x$ 及 $\Delta = \beta^\ast - \hat \beta_\lambda$，则：
 
+$$\hat \beta_\lambda = (\Sigma + \lambda)^{-1} \Sigma \beta^\ast + (\Sigma + \lambda)^{-1} \frac 1 n x^\top \varepsilon$$
+
+$$\Delta = \lambda (\Sigma + \lambda)^{-1} \beta^\ast - (\Sigma + \lambda)^{-1} \frac 1 n x^\top \varepsilon$$
+
+
+$$
+\begin{align*}
+&\mathbb E \lVert \Delta \rVert^2 \cr
+=& \lambda^2 \beta^\ast (\Sigma + \lambda)^{-2} \beta^\ast + \frac 1 {n^2} \mathbb E[\varepsilon^\top x (\Sigma + \lambda)^{-2} x^\top \varepsilon] \cr
+=& \lambda^2 \beta^\ast (\Sigma + \lambda)^{-2} \beta^\ast + \frac{\sigma^2}{n} \mathrm{tr}[(\Sigma + \lambda)^{-2} \Sigma]
+\end{align*}
+$$
+
+作特征值分解：
+
+$$
+\Sigma = \sum_{j=1}^d \lambda_j u_j u_j^\top \\\\
+\beta^\ast = \sum_{j=1}^d \beta_j^\ast u_j
+$$
+
+$$\mathbb E \lVert \Delta \rVert^2 = \lambda^2 \sum_{j=1}^d \frac{|\beta_j^\ast|^2}{\lambda_j + \lambda} + \frac{\sigma^2}{n} \sum_{j=1}^d \frac{\lambda_j}{(\lambda_j + \lambda)^2}$$
+
+假设各向同性 $\lambda_i = 1$，则算得：
+
+$$\lambda_{\text{opt}} \propto \frac 1 n$$
+
+另外可分析得绝大部分误差来自于 $\lambda_j \ll \lambda$ 的方向的噪声。这样看正则化可以降低该部分误差。
+
 ### LASSO
 思考上面在使用 $\lambda \lVert \beta \rVert_2^q$ 时为什么选取 $q = 2$？一方面是为了更好算，另一方面是为了让量纲一致。
 
