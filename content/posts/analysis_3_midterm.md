@@ -68,3 +68,34 @@ $$\int_0^{2\pi} \mathrm d\theta \int_0^R f(r\cos\theta, r\sin\theta) r \mathrm d
 
 ### 广义重积分
 称一列有界可求面积闭集 $\\{D_n\\}_{n=1}^\infty$ 为闭集 $D$ 的穷竭，如果 $D_1 \subset D_2 \subset \cdots \subset D$，且任意有界闭集 $F \subset D$ 存在 $D_i \supset F$.
+
+{% <definition title="广义重积分"> %}
+“内闭可积”即在任意可求面积有界闭子集上可积。在此及任意 $B(0, R) \cap D$ 可求面积的基础上，如果对 $D$ 的任意穷竭列 $\set{D_n}$ 都有右式存在且唯一，则定义：
+
+$$\iint_D f(\mathbf x) \mathrm d\sigma \coloneqq \lim_{n \to \infty} \iint_{D_n} f(\mathbf x) \mathrm d\sigma$$
+{% </definition> %}
+
+任意 $B(0, R) \cap D$ 可求面积即有界范围内边界集零体积。绝对收敛的定义易见。
+
+注意这和[之前的一元函数广义积分定义](@/posts/analysis_2_midterm.md)不同，有以下结论：
+
+{% <theorem> %}
+在前一定义条件下，广义重积分收敛当且仅当其绝对收敛。
+{% </theorem> %}
+
+证明略。
+
+在前一定义条件下，若 $f(x, y) \geq 0$，则广义重积分收敛当且仅当存在一个穷竭列对应极限存在。且存在时二者相等。
+
+累次广义积分和广义重积分的关系略去。
+
+### 曲线积分
+对可求长简单曲线，仿照 Riemann 和容易定义Ⅰ型曲线积分：
+
+$$\int_{\Gamma} f(\mathbf x) \mathrm ds$$
+
+两端点重合时，也记作：
+
+$$\oint_{\Gamma} f(\mathbf x) \mathrm ds$$
+
+分段光滑曲线是可求长的。对可求长简单曲线 $\Gamma$ 及 $f \in C(\Gamma)$ 有曲线积分存在。

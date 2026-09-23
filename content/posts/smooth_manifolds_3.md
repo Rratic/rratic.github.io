@@ -76,7 +76,7 @@ $$\operatorname{rank} J(\mathrm df|_p) = \dim M$$
 称 $f$ 是嵌入，如果它是浸入，且 $M \to f(M)$ 是同胚（后者取子空间拓扑）。
 {% </definition> %}
 
-所谓正则嵌入（regular/proper embedding）是指对每个 $N$ 的紧集 $K$，其原像 $f^{-1}(K)$ 在 $M$ 中是紧的。注意有紧流形 $M$ 到 Hausdorff 的 $N$ 的单射浸入一定是嵌入，嵌入一定是正则嵌入。
+所谓正则嵌入（regular/proper embedding）是指对每个 $N$ 的紧集 $K$，其原像 $f^{-1}(K)$ 在 $M$ 中是紧的。注意有紧流形 $M$ 到 Hausdorff 的 $N$ 的单射浸入一定是嵌入，嵌入一定是正则嵌入。如果单射浸入是正则（proper）的，则它是嵌入。
 
 {% <definition title="浸没（submersion）"> %}
 称 $f$ 是浸没，如果 $f$ 在每一点都是正则点（不是临界点），也即 $\mathrm df|_p$ 处处满射。
@@ -117,9 +117,7 @@ $$
 \end{aligned}
 $$
 
-那么 $\Psi$ 是一个单射浸入。
-
-{{ <todo /> }}
+那么 $\Psi$ 是一个单射浸入。将 $M$ 对应到它的像，则可以视作 $\R^{N+1}$ 的一个正则光滑嵌入子流形，且包含在某个管中。用前一引理找到合适的投影方向，我们知道两个轴不平行的管的交是有界的，故可以不断操作至 $2n + 1$ 维。
 
 {% <theorem title="Whitney 嵌入定理"> %}
 $n$ 维光滑流形可以正则嵌入 $\R^{2n+1}$.
@@ -138,7 +136,17 @@ D_0 = f^{-1}((-\infty, 1]), \\, D_i = f^{-1}([i, i+1]) \\\\
 E_0 = f^{-1}((-\infty, a_1]), \\, E_i = f^{-1}([b_{i-1}, a_{i+1}])
 $$
 
-{{ <todo /> }}
+取 $\varphi_i: E_i \to \R^{2n+1}$；$\rho_i: M \to \R$ 在 $D_i$ 为 $1$ 被 $E_i$ 支撑。定义 $F: \R^{2n+1} \times \R^{2n+1} \times \R$ 为：
+
+$$F(p) = \left(\sum_{i \text{ even}} \rho_i(p) \varphi_i(p), \sum_{i \text{ odd}} \rho_i(p) \varphi_i(p), f(p)\right)$$
+
+易见 $F$ 是单射浸入且正则，故是嵌入。
+
+{% <theorem title="Whitney 浸入定理"> %}
+$n$ 维光滑流形可以浸入 $\R^{2n}$.
+{% </theorem> %}
+
+证明略。
 
 {% <theorem title="强 Whitney 嵌入定理"> %}
 对 $n > 0$，所有 $n$ 维光滑流形可以光滑嵌入 $\R^{2n}$.
