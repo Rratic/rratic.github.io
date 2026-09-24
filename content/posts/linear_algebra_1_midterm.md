@@ -64,11 +64,11 @@ $$E_{ii}-E_{i+1,i+1} = E_{i,i+1}(E_{i,i+1}+E_{i+1,i}) - (E_{i,i+1}+E_{i+1,i})E_{
 $V$ 为 $n$ 维 $F$-线性空间，$T_1, T_2\in L(V)$，证 $|\dim\ker (T_1T_2) - \dim\ker (T_2T_1)|\leq \frac{n}{2}$.
 {% </question> %}
 
-此题只是形式上吓人，考虑
+此题只是形式上吓人，考虑下式即可。
 
 $$\dim\ker (T_1T_2)\leq \dim\ker (T_1) + \dim\ker (T_2)\leq 2\dim\ker (T_2T_1)$$
 
-即可。我们回顾前一个不等号是因为：
+我们回顾前一个不等号是因为：
 
 令 $T_0=T_2|_{\ker (T_1T_2)}$，则 $\dim\ker (T_1T_2) = \dim\ker(T_0) + \dim\mathrm{Im}(T_0)$，而 $\ker(T_0)=\ker(T_2)$ 且 $\mathrm{Im}(T_0)\subseteq\ker(T_1)$.
 

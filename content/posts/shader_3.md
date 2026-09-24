@@ -78,7 +78,7 @@ float crayon(vec2 uv) {
 float random(vec2 uv) { ... }
 
 // truchet tiling
-vec2 transform(vec2 uv, float rnd){
+vec2 transform(vec2 uv, float rnd) {
     if (rnd > 0.5) uv.x = 1.0 - uv.x;
     if (mod(rnd, 0.5) > 0.25) uv.y = 1.0 - uv.y;
     return uv;

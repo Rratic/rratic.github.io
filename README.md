@@ -3,17 +3,6 @@
 
 本地预览：
 
-```bash
+```sh
 zola serve
-```
-
-## 约定
-### 交互
-目录结构如下：
-
-```
-static/playground/
-  <project-name>/
-    index.html          # 页面入口
-    ...                 # 该项目 JS / Lua / WASM 等资源
 ```
