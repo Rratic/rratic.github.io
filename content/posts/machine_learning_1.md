@@ -238,3 +238,110 @@ $$\lVert\beta\rVert_0 \coloneqq \\#\set{\beta_j \neq 0 | j \in [d]}$$
 最终会有 $\lVert\beta\rVert_0 \ll d$，这使得结果有较好的可解释性。但 L0 正则化不连续且非凸，无法梯度下降，因此考虑用一般的 $p$ norm，由于 $p = 1$ 时函数才凸，考虑 L1 正则化。
 
 一般用 L1 正则化的时候不会平方。原因不明，一方面可能因为实际中会把数据归一化，另一方面 L0 正则化是没有量纲的，我们本质上考虑的是 L0 而不是 $\lambda \lVert \beta \rVert_2^2$.
+
+可解释是指对于人类可解释，如 $\beta = (1, 0, 0, 0)$ 误差 $0.02$，$\beta = (0.6, 0.15, 0.15, 0.1)$ 误差 $0.01$，则人类心智偏向于前者。也许对 AI 来说并不如此。
+
+考察一下为什么会让 $\beta$ 稀疏：
+
+$$S_\lambda(y) = \min_\beta \frac 1 2 (\beta - y)^2 + \lambda |\beta|$$
+
+$$
+S_\lambda(y) = \begin{cases}
+    y + \lambda & y < -\lambda \cr
+    y - \lambda & y > \lambda \cr
+    0 & \text{otherwise}
+\end{cases}
+$$
+
+因此，较小的参数会直接变为零。相反地，
+
+$$\hat \beta_{\text{ridge}} = \frac{y}{\lambda + 1}$$
+
+可参考如下几何直观。可见只需要让单位圆是尖的。实际中有时把 $p = 1$ 换成 $0.5, 0.6$ 会更好用。
+
+![几何直观](/images/misc/2026_09_24.png)
+
+### 压缩感知
+Compressive sensing 是说，数据在某个 $d$ 维空间中，但我们的数据量 $n \ll d$. 考察：
+
+$$y = x\beta^\ast, \quad x \in \R^{n \times d}$$
+
+并要求 $\beta^\ast$ 是稀疏的。当 $\lVert\beta^\ast\rVert_0 = k$ 时称 $\beta^\ast$ 为 $k$-稀疏的。为了能够唯一地恢复信号，我们不妨要求：
+
+$$\lVert x\beta - y\rVert = \lVert x(\beta - \beta^\ast)\rVert = \lVert\beta - \beta^\ast\rVert$$
+
+这个在稀疏向量上保距的性质称为 Restricted Isometry Property (RIP). 我们有以下结论：
+
+{% <theorem title="Candes-Tao (2006)"> %}
+设 $X \in \R^{n\times p}, \beta_0 \in \R^p$，若 $X$ 满足 $2k$ 阶限制等距性质，即存在 $\delta_{2k} \in (0, 1)$，使得对所有 $2k$-稀疏向量 $\beta$ 有：
+
+$$(1 - \delta_{2k}) \lVert\beta\rVert_2^2 \leq \lVert X\beta\rVert_2^2 \leq (1 + \delta_{2k}) \lVert\beta\rVert_2^2$$
+
+且 $\delta_{2k} < \sqrt 2 - 1$；给定无噪声观测 $y = X\beta_0$，令 $\beta_1$ 为 $\ell_1$ 最小化问题的解：
+
+$$\beta_1 = \argmin_{\beta \in \R^p}\lVert\beta\rVert_1 \quad \text{s.t.} \quad X\beta = y$$
+
+则有下式成立，其中 $T_k$ 是 top-$k$ 稀疏近似，即保留绝对值最大的 $k$ 个分量，其余分量置零：
+
+$$\lVert\beta_1 - \beta_0\rVert_2 \leq C_k \\, \lVert\beta_0 - T_k(\beta_0)\rVert_2,$$
+{% </theorem> %}
+
+### 核方法
+将线性方法推广到非线性时一个方法是引入基函数：
+
+$$f_\theta(x) = \theta^\top \varphi(x)$$
+
+做机器学习的人进一步把它看成：
+
+$$f_\theta(x) = \braket{\theta, \varphi(x)}$$
+
+这里 $\varphi$ 是一个 feature map，将数据打到某个 Hilbert 空间 $\mathcal H$，
+
+$$\varphi: X \to \underbrace{\mathcal H}_{\text{feature space}}$$
+
+总体图景如下：
+
+$$X \xrightarrow{\varphi} \mathcal H \xrightarrow{\text{linear}} \R$$
+
+“特征”的直观在于，我们看到人的时候并不是看对应的像素点，而是考虑纹理、局部形状；手之类的特征。
+
+在特征空间 $m \gg 1$ 时，朴素地按下式计算有很高的成本：
+
+$$\min_\theta \frac 1 n \sum_{i=1}^n (\braket{\varphi(x_i), \theta} - y_i)^2 + \lambda \lVert\theta\rVert^2$$
+
+{% <theorem title="Representer Theorem"> %}
+最优解一定如下在 $\varphi(x_i)$ 张成空间中：
+
+$$V_n = \operatorname{span}\set{\varphi(x_1), \dots, \varphi(x_n)}$$
+{% </theorem> %}
+
+考虑正交分解 $\theta = \theta^\parallel + \theta^\perp$，
+
+$$f_\theta(x_i) = \braket{\theta, \varphi(x_i)} = \braket{\theta^\parallel, \varphi(x_i)} = f_{\theta^\parallel}(x_i)$$
+
+因此我们可以只考虑：
+
+$$\hat\theta = \sum_{i=1}^n \alpha_i \varphi(x_i)$$
+
+我们定义以下核函数，并令矩阵 $K_{ij} = k(x_i, x_j)$，
+
+$$k(x_i, x_j) \coloneqq \braket{\varphi(x_i), \varphi(x_j)}$$
+
+因此只需要考虑以下问题（Kernel Ridge Regression, KRR）：
+
+$$\min_{\alpha \in \R^n} \frac 1 n \lVert K\alpha -y \rVert^2 + \lambda \alpha^\top K\alpha$$
+
+常见的核函数有：
+
+| 名称 | 表达式 |
+| :-: | :-: |
+| linear | $x^\top x'$ |
+| poly | $(x^\top x' + c)^p$ |
+| Gaussian | $\exp(- \lVert x-x'\rVert^2 / 2\sigma^2)$ |
+| Laplace | $\exp(- \lVert x-x'\rVert_2 / \sigma)$ |
+
+核函数的判别法是：对称、半正定。以以下 Gaussian kernel 为例：
+
+$$k(x, x') = e^{-\frac{(x-x')^2} 2}$$
+
+$$\varphi(x) = e^{-\frac{x^2}{2}} \left(1, x, \frac{x^2}{\sqrt 2}, \frac{x^3}{\sqrt {3!}}, \dots\right)$$

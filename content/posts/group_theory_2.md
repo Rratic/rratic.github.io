@@ -1,7 +1,7 @@
 +++
-title = "魔方与次正规群列"
+title = "群论（二）：合成群列与可解群"
 date = 2025-06-16
-updated = 2026-02-02
+updated = 2026-09-25
 
 [extra]
 math = true
@@ -15,16 +15,142 @@ categories = ["知识"]
 tags = ["数学", "代数学"]
 +++
 
-有许多群论的科普文章以魔方为例，但停留在将它作为例子。本文对三阶魔方进行详细说明，讨论其通用解法。
+本文经过大幅重新组织。原本主要通过三阶魔方的例子及导群来引入，现在参考代数学Ⅰ的讲授方式，将合成群列作为第一部分并在之后展现关联。
 
 <!-- more -->
 
+## 群的分类
+### Hölder 纲领
+分类问题是数学中基本的问题。对群来说，分类就是讨论所有同构意义下不相同的群，然而这个目标过于难以实现。
+
+我们不妨退一步，回忆如果 $N \triangleleft G$ 就可以有商群 $G/N$，这两者可以拼凑出群的部分信息。可以递归地做此操作，直到剩下的是：
+
+{% <definition title="单群"> %}
+一个非平凡群称为单群，如果它没有平凡子群及自身之外的正规子群。
+{% </definition> %}
+
+Hölder 最早提出对有限单群的分类计划，这跨越了漫长的时间，最终在本世纪（我们倾向于认为）完成。分类包括 18 个单群族（素数阶循环群、交错群及 16 族 Lie 型单群）与 26 个散在单群。
+
+{% <theorem> %}
+$A_n \\, (n \geq 5)$ 是单群。
+{% </theorem> %}
+
+强行讨论即可。
+
+### 合成群列
+我们将如下序列称为次正规群列，其中在每个商都是单群时称为**合成群列**（此时这些商称为**合成因子**）：
+
+$$\set{e} = G_0 \triangleleft G_1 \triangleleft \cdots \triangleleft G_n = G$$
+
+{% <theorem title="Schreier 定理"> %}
+有限群的任何次正规群列可以加细为合成群列。
+{% </theorem> %}
+
+假设某群列中 $G_i/G_{i-1}$ 有非平凡正规子群 $H$，取其在以下典范同态下的原像，可以插在序列中：
+
+$$
+\begin{aligned}
+\sigma: G_i & \longrightarrow G_i/G_{i-1} \cr
+	g & \longmapsto gG_{i-1}
+\end{aligned}
+$$
+
+{% <theorem title="Jordan-Hölder 定理"> %}
+对两个合成群列：
+
+$$
+\set{e} = A_0 \triangleleft A_1 \triangleleft \cdots \triangleleft A_m = G \\\\
+\set{e} = B_0 \triangleleft B_1 \triangleleft \cdots \triangleleft B_n = G \\\\
+$$
+
+有 $m = n$，且存在 $[n] \to [m]$ 的双射 $\sigma$，使 $A_{\sigma(i)} / A_{\sigma(i) - 1} = B_i / B_{i - 1}$.
+{% </theorem> %}
+
+我们先证明 Zassenhaus 引理：
+
+$$\frac{A_{i-1}(A_i \cap B_j)}{A_{i-1}(A_i \cap B_{j-1})} \cong \frac{(A_i \cap B_j)B_{j-1}}{(A_{i-1} \cap B_j)B_{j-1}}$$
+
+考虑如下函数：
+
+$$\phi: A_i \cap B_j \to A_{i-1}(A_i \cap B_j) \twoheadrightarrow \frac{A_{i-1}(A_i \cap B_j)}{A_{i-1}(A_i \cap B_{j-1})}$$
+
+使用第一同构定理即有下式，然后用对称性即可。
+
+$$\frac{A_{i-1}(A_i \cap B_j)}{A_{i-1}(A_i \cap B_{j-1})} \cong \frac{A_i \cap B_j}{(A_{i-1} \cap B_j) \cdot (A_i \cap B_{j-1})}$$
+
+回到原定理，令 $A_{ij}' = A_{i-1}(A_i \cap B_j), B_{ij}' = (A_i \cap B_j)B_{j-1}$，则：
+
+$$
+\set{e} = A_0 = A_{10}' \trianglelefteq A_{11}' \trianglelefteq \cdots \trianglelefteq A_{1n}' = A_1 = \cdots = A_m = G \\\\
+\set{e} = B_0 = B_{01}' \trianglelefteq B_{11}' \trianglelefteq \cdots \trianglelefteq B_{m1}' = B_1 = \cdots = B_n = G
+$$
+
+我们去找突变的位置，设 $A_i / A_{i-1} \cong A_{i, \sigma(i)}' / A_{i, \sigma(i)-1}'$ 及 $B_j / B_{j-1} \cong B_{\tau(j), j}' / B_{\tau(j)-1, j}'$，有 $\sigma$ 与 $\tau$ 互逆，且据引理，
+
+$$A_i / A_{i-1} = B_{\sigma(i)} / B_{\sigma(i)-1}$$
+
+### 可解群
+一个群称为**可解群**，如果它有一个次正规群列，每一个商都是交换群。回顾[交换群可以分解为循环群的直积](@/posts/group_theory_1.md)，此定义对有限群即所有合成因子均是素数阶循环群。
+
+“可解”名称来自于之后会看到的[关于方程可解性的工作](@/posts/field_theory_1.md)。
+
+{% <example> %}
+以下上三角可逆矩阵构成的群是可解群：
+
+$$
+G = \left\\{
+	\begin{pmatrix}
+		\ast & \ast & \ast \cr
+		0 & \ast & \ast \cr
+		0 & 0 & \ast
+	\end{pmatrix}
+	\in \mathrm{GL}_3(\Complex)
+\right\\}
+$$
+{% </example> %}
+
+考虑下式，有 $G/N \cong (\Complex^\times, \cdot)^3$，$N/N' \cong (\Complex, +)^2$ 及 $N' \cong (\Complex, +)$：
+
+$$
+N = \left\\{
+	\begin{pmatrix}
+		1 & \ast & \ast \cr
+		0 & 1 & \ast \cr
+		0 & 0 & 1
+	\end{pmatrix}
+	\in \mathrm{GL}_3(\Complex)
+\right\\}
+$$
+
+$$
+N' = \left\\{
+	\begin{pmatrix}
+		1 & 0 & \ast \cr
+		0 & 1 & 0 \cr
+		0 & 0 & 1
+	\end{pmatrix}
+	\in \mathrm{GL}_3(\Complex)
+\right\\}
+$$
+
+{% <theorem title="Hall 定理"> %}
+有限群 $G$ 可解当且仅当对所有满足 $\gcd(n, |G|/n) = 1$ 的 $n \mid |G|$，$G$ 有 $n$ 阶子群。
+{% </theorem> %}
+
+证明超出本文范围。
+
+{% <theorem title="Feit-Thompson 定理"> %}
+每一个奇阶的有限群都是可解群。
+{% </theorem> %}
+
+此定理的证明长达 254 页，在此仅作告示之用。
+
+## 换位子
+### 魔方
 不妨设每个面的中心固定，令 $G$ 表示魔方的变换群。
 
 我们记六个面为上面 U，下面 D，左面 L，右面 R，前面 F 和后面 B（取首字母），以大写字母表示将该面顺时针旋转 90°. 显然有 $G \leq \braket{U, R, F, D, L, B}$.
 
-## 群结构
-### 大小
 魔方剩余可动的有两类：角块和棱块，它们两两不同，由于分别有位置和旋转状态，有：
 
 $$G\leq Z_3^8\times S_8 \times Z_2^{12}\times S_{12}$$
@@ -33,43 +159,20 @@ $$G\leq Z_3^8\times S_8 \times Z_2^{12}\times S_{12}$$
 
 先讨论角块，一个角块的标准状态是一个（或三个）面上与中心块颜色相同，将其记作 0，顺时针转 120° 的状态记作 1，顺时针转 240° 的状态记作 2，那么所有标记之和在 mod 3 下不变。同理，棱块的标记之和在 mod 2 下不变。此外，角块的置换奇偶性与棱块的置换奇偶性一致。
 
-同时，我们可以说明符合上述要求的是合法的。
+同时，我们可以说明符合上述要求的是合法的。因此有：
+
+$$|G| = \frac{1}{12} |Z_3^8\times S_8 \times Z_2^{12}\times S_{12}| = 43252003274489856000$$
+
+回忆[半直积](@/posts/group_theory_1.md)理论，可以进一步将整个魔方群写为：
+
+$$G\cong \set{(c, e) \in (Z_3^7 \rtimes S_8) \times (Z_2^{11} \rtimes S_{12}) | \mathrm{sgn}(\pi_c) = \mathrm{sgn}(\pi_e)}$$
+
+### 换位子
+考察如何解魔方。
 
 定义**换位子**是 $[a, b] = aba^{-1}b^{-1}$. 它将满足：如果 $x^{[a, b]}\neq x$，则要么 $a\notin \mathrm{Stab}(x), b\notin \mathrm{Stab}(x^a)$，要么 $b\notin \mathrm{Stab}(x), a\notin \mathrm{Stab}(x^b)$.
 
 例如，我们构造操作：$[[R, U], D] = RUR'U'DURU'R'D'$，这只会改变三个角块的状态。
-
-因此有：
-
-$$|G| = \frac{1}{12} |Z_3^8\times S_8 \times Z_2^{12}\times S_{12}| = 43252003274489856000$$
-
-### 半直积
-为更好地描述角块群与棱块群，我们定义直积的扩展。
-
-群 $N, H$，$H$ 在 $N$ 上的作用 $\varphi$，定义半直积 $N\rtimes_\varphi H$ 为：
-- 集合是 $N\times H$
-- 运算 $(n_1, h_1)\cdot (n_2, h_2) = (n_1n_2^{h_1}, h_1h_2)$
-- 单位元 $(e_N, e_H)$
-- 逆元 $(n^{-h^{-1}}, h^{-1})$
-
-例如，$D_{2n} = Z_n \rtimes Z_2$，其中：
-
-$$
-\varphi: \begin{cases}
-	e \mapsto (g \mapsto g) \cr
-	a \mapsto (g \mapsto g^{-1})
-\end{cases}
-$$
-
-由于角块（通过操作造成的）位置变化会改变朝向，角块群形如 $(Z_3)^7 \rtimes S_8$.
-
-棱块置换与角块置换的奇偶性必须相同，因此整个魔方群是：
-
-$$G\cong \set{(c, e) \in (Z_3^7 \rtimes S_8) \times (Z_2^{11} \rtimes S_{12}) | \mathrm{sgn}(\pi_c) = \mathrm{sgn}(\pi_e)}$$
-
-## 解法
-### 换位子
-现在人类的方法大致如此逐层复原，在后半部分使用预设的小阶数置换的公式。
 
 Thislethwaite Method 将群逐步化为：
 - $\braket{U, R, F^2, D, L, B^2}$
@@ -81,7 +184,7 @@ Kociemba Algorithm 则将群逐步化为：
 - $\braket{U, R^2, F^2, D, L^2, B^2}$
 - $\set{e}$
 
-### Schreier-Sims-Minkwits 算法
+### 一般算法
 以上的解法依赖于具体的结构，这里提供一个通用方法：Schreier-Sims-Minkwits 算法。[^1]
 
 我们希望进行这样的操作：每次多固定一个集合上的元素，其稳定化子就是原变换群的真子群，如此下去可以得到一个链 $G = G_0 > G_1 > \cdots > G_n = \set{e}$，而由于我们要写出一个操作序列，设第 $i$ 个阶段可能的操作为 $r_{i_1}, r_{i_2}, \dots$ 有 $r_{i_1}G_{i+1}, r_{i_2}G_{i+1}, \dots$ 陪集族构成 $G_i$.
@@ -124,72 +227,32 @@ gap> PreImagesRepresentative(hom, (10,14)(12,24));
 x^-1*y*w^-1*y^-1*w*y^-1*x*y*x*z*y*z^-1*y^-1*x^-1*y*x*y*z*y^-1*z^-1*x^-1*w*y*w^-1*y^-1*x^-1*w*x^2*z*x^-1*z^-1*w*x*w^-2*y^-1*x^-1
 ```
 
-## 群列
-### 次正规群列
-仍考虑前述的链 $G = G_0 > G_1 > G_2 \cdots G_n = \set{e}$，我们希望它的性质足够好。
+## 可解群
+### 换位子群
+称**换位子群/导群**是一个群所有的换位子生成的群，记作 $G' = G^{(1)}$，取 $k$ 次导群的结果记为 $G^{(k)}$.
 
-称序列 $G = G_0 \triangleright G_1 \triangleright G_2 \cdots G_n = \set{e}$ 为 $G$ 的**次正规群列**。
+易见 $G/G'$ 是 Abel 的。实际上其中的想法可以被表达为：对 Abel 群 $A$ 及同态 $\phi: G \to A$，可以将它分解为：
 
-### 可解群
-称群是**可解群**，如果在次正规群列中每个商 $G_{i-1}/G_i$（称为**合成因子**）都是交换群。
+$$G \stackrel{\pi}{\twoheadrightarrow} G/G' \stackrel{\bar \phi}{\to} A$$
 
-{% <definition title="可解群的群列"> %}
-称**导群**是一个群所有的换位子生成的群，记作 $G'=G^{(1)}$，则一个群可解等价于它的若干阶导群 $G^{(k)} = \set{e}$.
-{% </definition> %}
-
-一方面，所有的 $G^{(k)}$ 给出了这个群列的构造。可以证明 $G/G'$ 交换：考虑映射：
-
-$$
-\begin{aligned}
-\sigma \colon G & \longrightarrow G/G' \cr
-	g & \longmapsto gG'
-\end{aligned}
-$$
-
-有 $\ker\sigma = G'$，即 $\sigma(xyx^{-1}y^{-1})=e$，从而 $\sigma(x)\sigma(y)=\sigma(y)\sigma(x)$，$\mathrm{Im}\\:\sigma = G/G'$ 交换。
-
-另一方面，我们可以与上类似地说明对 $H\triangleleft G$，$G/H$ 交换当且仅当 $G'\leq H$.
-
-{% <theorem title="Feit-Thompson 定理"> %}
-每一个奇阶的有限群都是可解群。
+{% <theorem> %}
+一个群可解等价于它的某个有限阶导群 $G^{(n)} = \set{e}$.
 {% </theorem> %}
 
-此定理的证明长达 254 页，在此仅作告示之用。
+右推左容易。对左推右，考虑一个合成群列，由 $[H_i, H_i] \subseteq H_{i-1}$ 知 $G^{(i)} \leq H_{n-i+1}$.
 
-### 合成群列
-如果次正规群列中每个商都是单群，则称为**合成群列**。
+### 性质
+作为综合练习，我们列出可解群的一些性质：
 
-{% <theorem title="Schreier 定理"> %}
-有限群的任何次正规群列可以加细为合成群列。
-{% </theorem> %}
-
-取长度极大的次正规群列，假设不是合成群列，某个 $G_{i-1}/G_i$ 有非平凡正规子群 $H$.
-
-取其在以下典范同态下的原像，可以插在序列中，与极大矛盾。
-
-$$
-\begin{aligned}
-\sigma \colon G_{i-1} & \longrightarrow G_{i-1}/G_i \cr
-	g & \longmapsto gG_i
-\end{aligned}
-$$
-
-进一步地，可解群的合成因子均为交换的单群，从而是素数阶循环群（利用了[交换群一定可以分解为循环群的直积](@/posts/group_theory_1.md)）。
-
-{% <theorem title="Jordan-Hölder 定理"> %}
-两个合成群列
-
-$$G = G_0 \triangleright G_1 \triangleright G_2 \cdots G_n = \set{e}$$
-$$G = H_0 \triangleright H_1 \triangleright H_2 \cdots H_m = \set{e}$$
-
-可以以某种方式配对，使对应的合成因子同构。
-{% </theorem> %}
-
-归纳。设 $G_1 \neq H_1$，令 $K = G_1 \cap H_1$. 由于 $G/G _1, G/H _1$ 单，有 $G _1 H _1 = G$. 故：
-
-$$G/G_1 \cong G_1H_1/G_1 \cong H_1/K, \quad G/H_1 \cong G_1H_1/H_1 \cong G_1/K$$
-
-取 $K$ 的合成列，然后比较 $4$ 个合成列。
+| 性质 | 解释 |
+| :-: | :-: |
+| 子群可解 | $H^{(n)} \leq G^{(n)}$ |
+| 商群可解 | 用合成群列观点 |
+| 发出的同态的像可解 | 由上一条 |
+| $N, G/N$ 可解则 $G$ 可解 | 把合成群列拼起来 |
+| 有限直积可解 | $(G \times H)^{(n)} = G^{(n)} \times H^{(n)}$ |
+| 半直积可解 | $G/N \cong H$ |
+| 可解正规子群乘积可解 | $AB/B \cong A/(A \cap B)$ |
 
 ---
 

@@ -1,5 +1,5 @@
 +++
-title = "群在集合上的作用讨论"
+title = "群论（一）：群在集合上的作用"
 date = 2025-06-09
 updated = 2025-06-11
 
@@ -54,11 +54,36 @@ $$\mathrm{Stab}(\alpha) = \set{x | \alpha^x = \alpha}$$
 
 作为一个例子，对于正四面体（记顶点 $\set{A, B, C, D}$），设其旋转变换群为 $G$，则：任取一个顶点，它对应的稳定子群阶为 $3$，轨道为 $\set{A, B, C, D}$，故而 $G$ 是 $S_4$ 的 $12$ 阶子群，必然是 $A_4$.
 
+## 半直积
+对于 $\phi: H \to \mathrm{Aut}(N)$，我们定义半直积 $N\rtimes_\phi H$ 是：
+
+$$
+N\rtimes_\phi H \coloneqq \set{(n, h) | n \in N, h \in H} \\\\
+(n_1, h_1) \cdot (n_2, h_2) = (n_1 \cdot \phi_{h_1}(n_2), h_1 h_2)
+$$
+
+典型的例子是 $D_{2n} = Z_n \rtimes Z_2$.
+
+我们有 $N$ 是如下满同态的核，故 $N$ 是正规子群：
+
+$$
+\begin{aligned}
+\pi: N\rtimes H & \longrightarrow H \cr
+    (n, h) & \longmapsto h
+\end{aligned}
+$$
+
+{% <theorem title="识别半直积"> %}
+对群 $G$ 的正规子群 $N$ 及子群 $H$，若 $N \cap H = \set{e}$，则 $NH \cong N\rtimes H$.
+{% </theorem> %}
+
+$$\mathrm{Ad}_h(n) = hnh^{-1}$$
+
 ## Pólya 计数法
 使用 Pólya 计数法是为了解决这样的问题：我们对所有的可能计数，并且将具有特定对称性的视作同一种（见下面的例子）。
 
 {% <theorem title="Burnside 引理"> %}
-$\varphi$ 对应的轨道数为 $\frac{1}{|G|} \sum_{g\in G}|X(g)|$，其中 $X(g) = \set{x | x^g = x}$.
+$\varphi$ 对应的轨道数为 $\sum_{g \in G} |X(g)| / |G|$，其中 $X(g) = \set{x | x^g = x}$.
 {% </theorem> %}
 
 其本质是对所有满足 $x^g = x$ 的数对的算两次。
