@@ -1,0 +1,376 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola v0.23.4" />
+  <title>【草稿】光滑流形（三）：嵌入 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="【草稿】光滑流形（三）：嵌入" />
+  <meta property="og:url" content="https://rratic.top/posts/smooth-manifolds-3/" />
+  <link rel="canonical" href="https://rratic.top/posts/smooth-manifolds-3/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-09-23T00:00:00+00:00" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="几何学" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <meta name="msvalidate.01" content="9BE559916FDB06A7A09EA17370F0ED09" />
+<link rel="icon" type="image/svg+xml" href="https://rratic.top/favicon.svg" />
+<link rel="stylesheet" href="https://rratic.top/style/shared.css?h=2dac71ecd418f5165c3d" />
+
+  <link rel="stylesheet" href="https://rratic.top/giallo-light.css?h=396eaa20499714fdb600" media="(prefers-color-scheme: light)" />
+  <link rel="stylesheet" href="https://rratic.top/giallo-dark.css?h=536598ee42e9e9a795bc" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=f166037ad671ba6bfd13" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=11a0f44fbe01f53dbaf9"></script>
+  <!-- head_end inject -->
+
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      
+<menu
+  class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/posts/"
+    >文章</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/categories/"
+    >分类</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/tags/"
+    >标签</a>
+  </li>
+</menu>
+
+      <!-- header_nav inject -->
+
+    </nav>
+  </div>
+</header>
+
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    <!-- body_start inject -->
+
+    
+<article>
+  <!-- page_start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-3">【草稿】光滑流形（三）：嵌入</h1>
+    <div class="text-sm antialiased opacity-80"><time
+      datetime="2026-09-23T00:00:00+00:00">2026-09-23</time><span
+        class="middot"></span><time
+    datetime="PT0H7M0S">7&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+  </header>
+  
+  
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#ling-ce-ji">零测集</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#qian-ru">嵌入</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ding-yi">定义</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#whitney-ding-li">Whitney 定理</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </details>
+</nav>
+  <!-- Content -->
+  <section><h2 id="ling-ce-ji">零测集</h2>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>引理</strong></span>
+  </div>
+  <div class="pl-4"><p>若 $A \subset \R^n$ 紧，且对任意 $c$，$A \cap \set{c} \times \R^{n-1}$ 在 $(n - 1)$ 维零测，则 $A$ 零测。</p>
+</div>
+</div>
+<p>分析即可。</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>定理</strong></span>
+  </div>
+  <div class="pl-4"><p>若 $A \subset \R^n$ 零测，$F: A \to \R^n$ 光滑，则 $F(A)$ 零测。</p>
+</div>
+</div>
+<p>这里光滑定义为开集 $U \supset A$ 上光滑映射（也记为 $F$）的限制。对每一点 $p$，存在 $B_p$ 使得 $F$ 在其上是 Lipschitz 的。由 $\R^n$ 的第二可数性，$\set{B_p}$ 有可数子覆盖，记为 $\set{B_i}$. 令 $A_i = B_i \cap A$.</p>
+<p>对每个 $A_i$ 设对应 Lipschitz 常数 $L_i$，依零测定义分析知像零测，其可数并也零测。</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-definition);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/definition.svg)">definition</div>
+    <span><strong>零测</strong></span>
+  </div>
+  <div class="pl-4"><p>$A$ 在光滑流形 $M$ 上零测，如果对每个光滑图册 $(U, \varphi)$ 有 $\varphi(A \cap U)$ 零测。</p>
+</div>
+</div>
+<p>实际上只需要对一族可以覆盖 $A$ 的图卡检查即可。由此，之前定理的结论容易推广到光滑流形间的光滑映射。</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>Sard 定理</strong></span>
+  </div>
+  <div class="pl-4"><p>设光滑流形 $M, N$，光滑映射 $F: M \to N$，则临界值集在 $N$ 中零测。</p>
+</div>
+</div>
+<p>这里临界点是指 Jacobi 矩阵秩小于 $n$ 的点。此定理一个推论是 $\dim M &lt; \dim N$ 时 $F(M)$ 在 $N$ 中零测（光滑改为连续时这个结果不正确，反例是空间填充曲线）。</p>
+<p>对 $m = \dim M$ 归纳（$m = 0$ 时平凡）。</p>
+<p>对 $m \geq 1$，考察 $F$ 是从 $\R^m$ 的开集 $U$ 到 $\R^n$ 的光滑映射，令 $U$ 的坐标系 $(x^1, \dots, x^m)$，陪域的坐标系 $(y^1, \dots, y^n)$. 我们记临界值集 $C$，并令：</p>
+<p>$$C_k = \left\{x \in C \middle| \frac {\partial f_j} {\partial x_i} = 0, \, 1 \leq i \leq k\right\}$$</p>
+<p>$$C \supseteq C_1 \supseteq C_2 \supseteq \cdots$$</p>
+<p>由连续性，$C$ 及所有的 $C_k$ 在 $U$ 中闭。先证明 $F(C \setminus C_1)$ 零测：考虑 $F$ 限制在 $C \setminus C_1$ 上，对其中一点 $a$，不妨设 $\partial F^1 / \partial x^1 (a) \neq 0$. 这意味着可以在 $a$ 的某个邻域上定义新的光滑坐标 $(F^1, x^2, \dots, x^m)$，其中：</p>
+<p>$$\operatorname{Jac} F = \begin{pmatrix} 1 &amp; 0 \cr \ast &amp; \frac {\partial F^i} {\partial v^j} \end{pmatrix}$$</p>
+<p>使用归纳条件，再用引理，再取可数并即可。类似地可以证明 $F(C_k \setminus C_{k+1})$ 零测。</p>
+<p>最后证明 $k &gt; m / n - 1$ 时 $F(C_k)$ 零测。对 $a \in U$ 考察包含它的闭方块 $E \subseteq U$. 取待定的 $K$ 将 $E$ 分成 $K^m$ 块。对一块 $E_i \ni x$ 及 $a_i \in C_k \cap E_i$，令 $A$ 为 $F$ 在 $E$ 中所有 $(k+1)$ 阶导绝对值的上界，用 Taylor 定理有：</p>
+<p>$$|F(x) - F(a_i)| \leq A' |x - a_i|^{k+1}$$</p>
+<p>$$\mathrm{Vol}(F(C_k \cap E)) \leq A'' K^{m - n - nk}$$</p>
+<h2 id="qian-ru">嵌入</h2>
+<h3 id="ding-yi">定义</h3>
+<p>考虑光滑流形 $M, N$ 及光滑映射 $f: M \to N$，其微分：</p>
+<p>$$\mathrm df| _p: T _p M \to T _{f(p)} N$$</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-definition);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/definition.svg)">definition</div>
+    <span><strong>浸入（immersion）</strong></span>
+  </div>
+  <div class="pl-4"><p>称 $f$ 是浸入，如果对每个 $p$，有 $\mathrm df|_p$ 是单射。</p>
+</div>
+</div>
+<p>这等价于说：</p>
+<p>$$\operatorname{rank} J(\mathrm df|_p) = \dim M$$</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-definition);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/definition.svg)">definition</div>
+    <span><strong>嵌入（embedding）</strong></span>
+  </div>
+  <div class="pl-4"><p>称 $f$ 是嵌入，如果它是浸入，且 $M \to f(M)$ 是同胚（后者取子空间拓扑）。</p>
+</div>
+</div>
+<p>所谓正则嵌入（regular/proper embedding）是指对每个 $N$ 的紧集 $K$，其原像 $f^{-1}(K)$ 在 $M$ 中是紧的。注意有紧流形 $M$ 到 Hausdorff 的 $N$ 的单射浸入一定是嵌入，嵌入一定是正则嵌入。如果单射浸入是正则（proper）的，则它是嵌入。</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-definition);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/definition.svg)">definition</div>
+    <span><strong>浸没（submersion）</strong></span>
+  </div>
+  <div class="pl-4"><p>称 $f$ 是浸没，如果 $f$ 在每一点都是正则点（不是临界点），也即 $\mathrm df|_p$ 处处满射。</p>
+</div>
+</div>
+<h3 id="whitney-ding-li">Whitney 定理</h3>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>引理</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $M \subseteq \R^N$ 是紧致光滑 $n$ 维子流形。若 $N &gt; 2n + 1$，则存在满秩线性映射 $\pi: \R^N \to \R^{N-1}$，使得 $\pi|_M$ 仍是光滑嵌入。</p>
+</div>
+</div>
+<p>把 $\pi$ 取成沿某条直线 $L$ 到超平面的投影。它在 $M$ 上不是单射，当且仅当 $L$ 平行于某条割线 $p-q$；它不是浸入，当且仅当 $L$ 平行于某个非零切向量。因而只需在 $\R\mathrm P^{N-1}$ 中避开以下两个集合：</p>
+<p>$$
+\begin{align*}
+\kappa &amp;: M \times M \setminus \Delta_M \to \R\mathrm P^{N-1} &amp;
+\kappa(p, q) &amp;= [p - q] \cr
+\tau &amp;: TM \setminus (M \times \set{\mathbf 0}) \to \R\mathrm P^{N-1} &amp;
+\tau(p, w) &amp;= [w]
+\end{align*}
+$$</p>
+<p>前一个定义域维数为 $2n$，后一个定义域维数为 $2n-1$，而陪域维数 $N-1$. 由 Sard 定理的推论，它们的像都是零测集，故可以取像外的一条直线作投影方向，所得限制既单又是浸入；由于 $M$ 紧，它就是嵌入。</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>引理</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $M$ 是光滑 $n$ 维流形，若对某个 $N$ 它可以光滑嵌入到 $\R^N$，则它可以正则光滑嵌入到 $\R^{2n+1}$.</p>
+</div>
+</div>
+<p>对 $\R^n$ 中的 $1$ 维线性子空间 $S$ 及 $R &gt; 0$，定义以 $S$ 为轴、$R$ 为半径的管：</p>
+<p>$$T_R(S) = \set{x \in \R^N | d(x, y) &lt; R, \, \exists y \in S}$$</p>
+<p>设 $F: M \to \R^N$ 是一个光滑嵌入，$G: \R^N \to \mathbb B^N$ 是微分同胚，$f: M \to \R$ 是光滑穷竭函数<sup class="footnote-reference"><a href="#exhaustion">1</a></sup>，令：</p>
+<p>$$
+\begin{aligned}
+\Psi: M &amp; \longrightarrow \R^N \times \R \cr
+p &amp; \longmapsto (G \circ F(p), f(p))
+\end{aligned}
+$$</p>
+<p>那么 $\Psi$ 是一个单射浸入。将 $M$ 对应到它的像，则可以视作 $\R^{N+1}$ 的一个正则光滑嵌入子流形，且包含在某个管中。用前一引理找到合适的投影方向，我们知道两个轴不平行的管的交是有界的，故可以不断操作至 $2n + 1$ 维。</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>Whitney 嵌入定理</strong></span>
+  </div>
+  <div class="pl-4"><p>$n$ 维光滑流形可以正则嵌入 $\R^{2n+1}$.</p>
+</div>
+</div>
+<p>只需证可以光滑嵌入某个 $\R^N$. 先考虑 $M$ 紧情形。取有限覆盖 $\set{B_1, \dots, B_m}$，其中 $B_i$ 是某个局部坐标系 $B_i' \supseteq \bar B_i$ 的球。令 $\rho_i: M \to \R$ 在 $\bar B_i$ 上为 $1$，被 $B_i'$ 支撑。定义 $F: M \to \R^{nm + m}$ 是：</p>
+<p>$$F(p) = (\rho_1(p)\varphi_1(p), \dots, \rho_m(p)\varphi_m(p), \rho_1(p), \dots, \rho_m(p))$$</p>
+<p>读者易验证这是单射浸入，从而是嵌入。</p>
+<p>现在考虑 $M$ 不紧。对光滑穷竭函数 $f$ 由 Sard 定理，对 $i$ 有正则值（原像均是正则点）$a_i, b_i$ 在 $(i, i+1)$ 中。定义：</p>
+<p>$$
+D_0 = f^{-1}((-\infty, 1]), \, D_i = f^{-1}([i, i+1]) \\
+E_0 = f^{-1}((-\infty, a_1]), \, E_i = f^{-1}([b_{i-1}, a_{i+1}])
+$$</p>
+<p>取 $\varphi_i: E_i \to \R^{2n+1}$；$\rho_i: M \to \R$ 在 $D_i$ 为 $1$ 被 $E_i$ 支撑。定义 $F: \R^{2n+1} \times \R^{2n+1} \times \R$ 为：</p>
+<p>$$F(p) = \left(\sum_{i \text{ even}} \rho_i(p) \varphi_i(p), \sum_{i \text{ odd}} \rho_i(p) \varphi_i(p), f(p)\right)$$</p>
+<p>易见 $F$ 是单射浸入且正则，故是嵌入。</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>Whitney 浸入定理</strong></span>
+  </div>
+  <div class="pl-4"><p>$n$ 维光滑流形可以浸入 $\R^{2n}$.</p>
+</div>
+</div>
+<p>证明略。</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>强 Whitney 嵌入定理</strong></span>
+  </div>
+  <div class="pl-4"><p>对 $n &gt; 0$，所有 $n$ 维光滑流形可以光滑嵌入 $\R^{2n}$.</p>
+</div>
+</div>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>强 Whitney 浸入定理</strong></span>
+  </div>
+  <div class="pl-4"><p>对 $n &gt; 1$，所有 $n$ 维光滑流形可以光滑浸入 $\R^{2n-1}$.</p>
+</div>
+</div>
+<p>上面两定理通过很精密的代拓技巧得到，超出本文范围。关于浸入的最优界是 $\R^{2n-a(n)}$，其中 $a(n)$ 是 $n$ 的二进制展开中 $1$ 的数量。关于嵌入，$3$ 维流形最优界是嵌入 $\R^5$，但仍有很多最优界尚未知晓。</p>
+<hr />
+<div class="footnote-definition" id="exhaustion"><sup class="footnote-definition-label">1</sup>
+<p>拓扑空间 $M$ 上的穷竭函数 $f$ 是连续的 $M \to \R$，满足对任意 $c$，$f^{-1}(-\infty, c]$ 紧。对光滑流形，取可数基 $\set{V_j}_{j=1}^\infty$ 及对应单位分解 $\set{\psi_i}$，令：</p>
+</div>
+<p>$$f(p) = \sum_{j=1}^\infty j \psi_j(p)$$</p>
+</section>
+  <hr />
+  
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/几何学/">几何学</a>
+    
+  </div>
+</footer>
+
+  
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- page_end inject -->
+
+</article>
+
+  </main>
+  <footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+    <div class="mr-auto basis-full lg:basis-1/2">
+      
+&copy; 2025-2026 Rratic
+ &vert; <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+
+    </div>
+    <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+      
+  <span class="mr-6 lg:ml-6">
+    <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+  </span>
+  <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+
+    </div>
+  <!-- footer inject -->
+
+  </footer>
+  
+  <link rel="stylesheet" href="https://rratic.top/katex/katex.min.css?h=180c2d77d434d7da51d6" />
+  <script defer src="https://rratic.top/katex/katex.min.js?h=2ec5916941ef4383e031"></script>
+  <script defer src="https://rratic.top/katex/contrib/auto-render.min.js?h=e5372d199bcdae8b4de7"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+  
+
+  <!-- body_end inject -->
+
+</body>
+
+</html>
