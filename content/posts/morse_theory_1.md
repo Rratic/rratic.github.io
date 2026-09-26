@@ -1,6 +1,6 @@
 +++
-title = "【草稿】Morse 理论（一）"
-date = 2026-09-15
+title = "Morse 理论（一）：非退化光滑函数"
+date = 2026-09-26
 
 [extra]
 math = true
@@ -14,7 +14,7 @@ categories = ["知识"]
 tags = ["数学", "拓扑学"]
 +++
 
-此系列为讨论班的复习笔记，这一部分参考 Milnor 的 *Morse Theory* 第一部分。
+此系列为讨论班的复习笔记，这一部分参考 Milnor 的 *Morse Theory* 第一部分，这其中 Chapter 7 涉及一些复几何与代数几何，故不包含。
 
 <!-- more -->
 
@@ -102,7 +102,7 @@ $$f = c - (u^1)^2 - \cdots - (u^\lambda)^2 + (u^{\lambda+1})^2 + \cdots + (u^n)^
 
 $$\set{p \in U | (u^1)^2 + \cdots + (u^\lambda)^2 \leq \varepsilon,\\, u^{\lambda+1} = \cdots = u^n = 0}$$
 
-现在就有 $e^\lambda \cap M^{c-\varepsilon} = \partial e^\lambda$，只需 $M^{c-\varepsilon} \cup e^\lambda$ 是 $M^{c+\varepsilon}$ 的形变收缩。
+现在就有 $e^\lambda \cap M^{c-\varepsilon} = \dot e^\lambda$，只需 $M^{c-\varepsilon} \cup e^\lambda$ 是 $M^{c+\varepsilon}$ 的形变收缩。
 
 取 $\mu \in C^\infty(\R)$ 满足 $\mu(0) > \varepsilon$，在 $r \geq 2\varepsilon$ 时 $\mu(r) = 0$，且 $-1 < \mu'(r) < 0$，记 $\xi = (u^1)^2 + \cdots + (u^\lambda)^2$ 及 $\eta = (u^{\lambda+1})^2 + \cdots + (u^n)^2$，令：
 
@@ -167,7 +167,9 @@ $$f = c_0 + \sum_{j=1}^n (c_j - c_0) (x_j^2 + y_j^2)$$
 其临界点只有 $(1 : 0 : \cdots : 0)$，对应指数是两倍的 $c_j < c_0$ 个数。同理讨论 $U_k$ 是 $z_k \neq 0$ 对应集合即可。
 
 {% <example title="Grassmannian 流形"> %}
-令 $G_k(\R^n)$ 是所有 $k$ 维线性子空间，考察其胞腔分解（称为 Schubert 分解）。
+令 $G_k(\R^n)$ 是所有 $k$ 维线性子空间。对 $L \in G_k(\R^n)$，选择 $V$ 是 $L$ 的补空间，所有与 $V$ 横截的 $k$ 维线性子空间 $G_k^V(\R^n)$ 构成 $L$ 的坐标邻域。
+
+考察其胞腔分解（称为 Schubert 分解）。
 {% </example> %}
 
 对 $k$ 维线性子空间，记 $P_V: \R^n \to V$ 是投影映射；$A$ 自伴且有特征值 $\lambda_1 < \cdots < \lambda_n$，
@@ -179,7 +181,161 @@ f: G_k(\R^n) & \to \R \cr
 \end{aligned}
 $$
 
-{{ <todo /> }}
+通过*虚张声势的线性代数*，可得到有 $\binom{n}{k}$ 个临界点，对应于 $\set{1, \dots, n}$ 的 $k$ 元子集。
+
+## Morse 不等式
+本节较为独立，是有 Whitehead 定理之前所使用的技术。
+
+对 $S$ 是从特定空间打到整数的函数，我们称次可加性是指对 $X \supset Y \supset Z$ 有 $S(X, Z) \leq S(X, Y) + S(Y, Z)$ 的性质，取等时称为可加性。
+
+对于域 $\mathbb F$，我们令：
+
+$$R_\lambda(X, Y) = \text{rank over } \mathbb F \text{ of } \mathsf H_\lambda(X, Y; \mathbb F)$$
+
+考虑如下正合列（对链复形短正合列用同调长正合列定理）：
+
+$$\cdots \to \mathsf H_\lambda(Y, Z) \xrightarrow{i} \mathsf H_\lambda(X, Z) \xrightarrow{j} \mathsf H_\lambda(X, Y) \to \cdots$$
+
+$$R_\lambda(X, Z) = \operatorname{rank} \ker j + \operatorname{rank} \operatorname{im} j = \operatorname{rank} \operatorname{im} i + \operatorname{rank} \operatorname{im} j \leq R_\lambda(X, Y) + R_\lambda(Y, Z)$$
+
+用完整的正合列易说明欧拉示性数 $\chi(X, Y)$ 是可加的，其中：
+
+$$\chi(X, Y) = \sum (-1)^\lambda R_\lambda(X, Y)$$
+
+{% <theorem title="弱 Morse 不等式"> %}
+$M$ 是紧流形，记 $C_\lambda$ 为指数 $\lambda$ 的临界点数量，则：
+
+$$
+\begin{align}
+R_\lambda(M) &\leq C_\lambda \tag{1} \\\\
+\sum (-1)^\lambda R_\lambda(M) &= \sum (-1)^\lambda C_\lambda \tag{2}
+\end{align}
+$$
+{% </theorem> %}
+
+取 $a_1 < \cdots < a_k$ 使得 $M^{a_i}$ 恰含 $i$ 个临界点，$M^{a_k} = M$，则用切除引理有：
+
+$$
+\begin{align*}
+    &H_\ast(M^{a_i}, M^{a_{i-1}}) \cr
+    =& H_\ast(M^{a_{i-1}} \cup e^{\lambda_i}, M^{a_{i-1}}) \cr
+    =& H_\ast(e^{\lambda_i}, \dot e^{\lambda_i}) \cr
+\end{align*}
+$$
+
+使用次可加性的性质即得 (1) 式，(2) 式同理。
+
+$$R_\lambda(M) \leq \sum_{i=1}^n R_\lambda(M^{a_i}, M^{a_{i-1}}) = C_\lambda$$
+
+{% <theorem title="强 Morse 不等式"> %}
+$$R_\lambda(M) - R_{\lambda-1}(M) + \cdots \pm R_0(M) \leq C_\lambda(M) - C_{\lambda-1}(M) + \cdots \pm C_0(M)$$
+{% </theorem> %}
+
+证明略，也是用长正合列搞来搞去。其推论是，若 $C_{\lambda+1} = C_{\lambda-1} = 0$，则 $R_\lambda = C_\lambda$ 且 $R_{\lambda+1} = R_{\lambda-1} = 0$，对于 $\Complex\mathbf P^n$ 就有 $R_0 = R_2 = \cdots = R_{2n} = 1$.
+
+## 嵌入的流形
+我们回过头来讨论没有退化临界点的函数是否存在。考虑嵌入 $\R^n$ 的流形及，
+
+$$
+\begin{aligned}
+L_p: M &\longrightarrow \R \cr
+    q &\longmapsto \lVert p-q\rVert^2
+\end{aligned}
+$$
+
+我们将说明这样的 $f$ 几乎总是满足条件的。
+
+对 $k < n$ 维的 $M$ 嵌入 $\R^n$，我们考虑如下法丛，也是嵌入 $2n$ 维的 $n$ 维流形：
+
+$$N = \set{(q, v) | q \in M, v \text{ perpendicular to } M \text{ at } q}$$
+
+并令 $N \to \R^n$ 端点映射：
+
+$$E(q, v) = q + v$$
+
+{% <definition title="焦点"> %}
+称 $e \in \R^n$ 是 $(M, q)$ 的重数-$\mu$ 的焦点，如果 $e = E(q, v)$，且：
+
+$$\operatorname{null} J(E)|_{(q, v)} = \mu > 0$$
+{% </definition> %}
+
+由 [Sard 定理](@/posts/smooth_manifolds_3.md)知焦点集在 $M$ 中是零测的。
+
+为了更好地理解焦点，我们考虑嵌入的流形上的“第二基本形式”。设 $M$ 的局部坐标系 $u^1, \dots, u^k$，嵌入映射决定了光滑函数 $\vec x = (x_1, \dots, x_k)$，回忆[“第一基本形式”](@/posts/geometry_2_midterm.md)是：
+
+$$(g_{ij}) = \left(\frac{\partial \vec x}{\partial u_i} \cdot \frac{\partial \vec x}{\partial u_j}\right)$$
+
+记 $\vec l_{ij}$ 是 $\partial^2 \vec x / \partial u^i \partial u^j$ 的法于 $M$ 的部分，取在 $q$ 法于 $M$ 的单位向量 $\vec v$，则下式称为 $M$ 在 $\vec q$ 处沿 $\vec v$ 方向的第二基本形式：
+
+$$\left(\vec v \cdot \frac{\partial^2 \vec x}{\partial u^i \partial u^j}\right) = \left(\vec v \cdot \vec l_{ij}\right)$$
+
+不妨设选取的坐标满足 $g_{ij}$ 在 $q$ 是单位矩阵，则第二基本形式的特征值 $\kappa_1, \dots, \kappa_k$ 称为 $M$ 在 $\vec q$ 处沿 $\vec v$ 方向的主曲率。对应的有定义的 $\kappa_i^{-1}$ 就称为主曲率半径。
+
+{% <theorem title="焦点的分布"> %}
+$(M, \vec q)$ 的 $\vec p$ 线向上的焦点恰是那些 $\vec q + \kappa_i^{-1} \vec v$.
+{% </theorem> %}
+
+取向量场 $\vec w_1, \dots, \vec w_{n-k}$，使向量都是单位向量、两两正交且正交于 $M$.
+
+让 $N$ 坐标系 $(u^1, \dots, u^k, t^1, \dots, t^{n-k})$，使得 $E: N \to \R^n$ 将它打到：
+
+$$\vec x(u^1, \dots, u^k) + \sum_{\alpha=1}^{n-k} t^\alpha \vec w_\alpha(u^1, \dots, u^k)$$
+
+有 $E$ 的 Jacobi 矩阵形如：
+
+$$
+\begin{pmatrix}
+    \frac{\partial \vec x}{\partial u_i} \cdot \frac{\partial \vec x}{\partial u_j} +
+    \sum_\alpha t^\alpha \frac{\partial \vec w_\alpha}{\partial u^i} \cdot \frac{\partial \vec x}{\partial u^j} &
+    \ast \cr 0 & I
+\end{pmatrix}
+$$
+
+由于我们有：
+
+$$0 = \frac{\partial}{\partial u^i} \left(\vec w_\alpha \cdot \frac{\partial \vec x}{\partial u_j}\right) = \frac{\partial \vec w_\alpha}{\partial u^i} \cdot \frac{\partial \vec x}{\partial u^j} + \vec w_\alpha \cdot \frac{\partial^2 \vec x}{\partial u_i \partial u_j}$$
+
+故，左上块就是：
+
+$$\left(g_{ij} - \sum_\alpha t^\alpha \vec w_\alpha \cdot \vec l_{ij}\right)$$
+
+从而焦点的条件中的 $\operatorname{null} J(E)| _{(q, v)}$ 就是 $\operatorname{null} (g _{ij} - t \vec v \cdot \vec l _{ij})$，完成证明。
+
+{% <theorem title="焦点的用意"> %}
+$\vec q$ 是 $L_{\vec p}$ 的退化临界点当且仅当 $\vec p$ 是 $(M, \vec p)$ 的焦点，且其作为临界点的零化度等于作为焦点的重数。
+{% </theorem> %}
+
+$$\frac{\partial f}{\partial u^i} = 2\frac{\partial \vec x}{\partial u^i} \cdot (\vec x - \vec p)$$
+
+故有临界点 $\vec q$，如果 $\vec q - \vec p$ 在 $\vec p$ 处与 $M$ 垂直。对 $\vec p = \vec x + t\vec v$ 即有：
+
+$$\frac{\partial^2 f}{\partial u^i \partial u^j} = 2(g _{ij} - t \vec v \cdot \vec l _{ij})$$
+
+将这个结论与焦点的零测性结合，即有几乎所有 $L_p$ 满足条件。存在性与同伦型相关核心定理立即得到推论：
+
+{% <theorem> %}
+光滑流形有某个 CW-复形的同伦型。
+{% </theorem> %}
+
+{% <theorem title="推论"> %}
+任意有界光滑函数 $f: M \to \R$ 可以被某个没有退化临界点的光滑函数 $g$ 一致逼近。进一步可以在紧集 $K$ 上让 $g$ 的第 $i$ 个导数一致逼近 $f$ 的对应导数。
+{% </theorem> %}
+
+取 $h: M \to \R^n$ 把 $M$ 嵌入成有界子集，并让 $h_1 = f$，取大数 $c$ 及 $p = (-c, 0, \dots, 0) + \varepsilon$，让：
+
+$$g(x) = \frac{L_p(x) - c^2}{2c}$$
+
+则可计算知：
+
+$$g(x) - f(x) = \sum_{i=1}^n \frac{h_i(x)^2}{2c} - \sum_{i=1}^n \frac{\varepsilon_i h_i(x)}{c} + \sum_{i=1}^n \frac{\varepsilon_i^2}{2c} - \varepsilon_1$$
+
+{% <theorem title="Lp 的指数定理"> %}
+$L_p$ 在某个非退化临界点 $q$ 的指数等于 $(M, q)$ 从 $q$ 到 $p$ 的线段上的焦点数（计重数）。
+{% </theorem> %}
+
+再一次使用：
+
+$$\frac{\partial^2 f}{\partial u^i \partial u^j} = 2(g _{ij} - t \vec v \cdot \vec l _{ij})$$
 
 ---
 

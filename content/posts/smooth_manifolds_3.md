@@ -1,6 +1,6 @@
 +++
-title = "光滑流形（三）：嵌入"
-draft = true
+title = "【草稿】光滑流形（三）：嵌入"
+date = 2026-09-23
 
 [extra]
 math = true
