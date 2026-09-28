@@ -14,7 +14,7 @@ categories = ["知识"]
 tags = ["数学", "几何学"]
 +++
 
-在暑假初的时候阅读丘赛几何与拓扑的考纲，发现自己什么都不会，打算好好学习重新做人（然而并没有）。当时参考了知乎上一篇[学习建议](https://zhuanlan.zhihu.com/p/40333692)。本文为一些碎片学习的整合。
+在暑假初的时候阅读丘赛几何与拓扑的考纲，发现自己什么都不会，打算好好学习重新做人（然而并没有）。当时参考了知乎上一篇[学习建议](https://zhuanlan.zhihu.com/p/40333692)。本文为一些碎片学习的整合，部分内容被重新整理到其它文章中。
 
 <!-- more -->
 
@@ -118,70 +118,6 @@ $$\mathrm df = e_i\theta^i, \qquad \mathrm de_i = e_j\omega_{ij}$$
 $$\mathrm d\theta^j + \omega_i^{\ j} \wedge \theta^i = 0, \qquad \mathrm d\omega_i^{\ j} + \omega_k^{\ j} \wedge \omega_i^{\ k} = 0 \tag{Cartan}$$
 
 若令矩阵值 $1$-形式 $A$ 的第 $(j, i)$ 个分量为 $A_{ji} = \omega_i^{\ j}$，则第二式也可写成 $\mathrm dA + A\wedge A = 0$. 活动标架的主要计算都来自这两个方程。
-
-## Levi-Civita 联络
-从联络开始，考虑这种定义方式：
-
-{% <quote by = "伍鸿熙、沈纯理、虞言林《黎曼几何初步》"> %}
-……所以想要定义出 $M$ 上的 $D_V X$，无疑要在 $M$ 上附加一个异于微分结构的结构。干脆设想这个附加结构不多不少正是 $D_V X$.
-{% </quote> %}
-
-光滑流形 $M$ 上的一个**联络**就是对每一对（光滑）向量场 $V, X$，指定一个新的（光滑）向量场 $D_V X$，满足（其中 $f, g\in C^\infty(M)$）：
-
-$$
-\begin{align*}
-	D_{fV + gW} X = fD_V X + gD_W X \tag{C1} \cr
-	D_V fX = (Vf) X + fD_V X \tag{C2} \cr
-	D_V (X+Y) = D_V X + D_V Y \tag{C3}
-\end{align*}
-$$
-
-指定一个联络后，称 $D_V X$ 为 $X$ 沿 $V$ 的协变导数。$D$ 有时也用记号 $\nabla$.
-
-由于对一组联络 $D^i$ 和满足 $\sum f_i = 1$ 的光滑函数 $f_i$ 有 $\sum f_i D^i$ 也是联络，在局部上使用 $\R^n$ 的方向导数，知整体上联络一定存在。
-
-{% <theorem title="Levi-Civita 联络"> %}
-对 $M$ 上给定的黎曼度量 $g$，存在唯一的联络 $D$ 满足，对任意向量场 $X, Y, Z$ 有：
-
-$$
-\begin{align*}
-	X \braket{Y, Z} = \braket{D_X Y, Z} + \braket{Y, D_X Z} \tag{L1} \cr
-	D_X Y - D_Y X - [X, Y] = 0 \tag{L2}
-\end{align*}
-$$
-
-这里 $[X, Y]$ 定义为 $[X, Y]f = X(Yf) - Y(Xf)$.
-{% </theorem> %}
-
-先证唯一性。在某个坐标邻域内（坐标函数 $x^i$）定义 Christoffel 记号 $\Gamma_{ij}^k$ 为：
-
-$$D_{\partial / \partial x^i} \frac{\partial}{\partial x^j} = \Gamma_{ij}^k \frac{\partial}{\partial x^k}$$
-
-容易发现条件 $(\text L2)$ 等价于 $\Gamma_{ij}^k = \Gamma_{ji}^k$. 我们再记：
-
-$$g_{ij} \equiv \left\langle\frac{\partial}{\partial x^i}, \frac{\partial}{\partial x^j}\right\rangle$$
-
-那么由 $(\text L1)$ 知：
-
-$$\frac{\partial g_{jk}}{\partial x^i} = g_{lk} \Gamma_{ij}^l + g_{jl} \Gamma_{ik}^l$$
-
-使用一个经典的技巧，考虑上式的轮换对称，就可得到：
-
-$$2g_{lk} \Gamma_{ij}^l = \frac{\partial g_{ki}}{\partial x^j} + \frac{\partial g_{kj}}{\partial x^i} - \frac{\partial g_{ij}}{\partial x^k}$$
-
-故由 $g$ 唯一确定。将此式作为定义式也知存在性。可以整理成如下 Koszul 公式：
-
-$$\braket{D_X Y, Z} = \frac 1 2 (X \braket{Y, Z} + Y \braket{Z, X} - Z \braket{X, Y} + \braket{Z, [X, Y]} + \braket{Y, [Z, X]} - \braket{X, [Y, Z]})$$
-
-考虑联络的另一种看法。设 $\gamma: [a, b] \to M$ 是一条嵌入曲线，称向量场 $X$ 是沿 $\gamma$ **平行**的，如果 $D_{\dot \gamma} X = 0$. 如若 $X(a) = v, X(b) = w$，称 $w$ 是 $v$ 沿 $\gamma$ 平行移动的结果。对于 $\R^n$ 上平坦度量给出的 Levi-Civita 联络，沿 $\gamma$ 平行表明 $X$ 是我们熟悉的平行向量场。
-
-对浸入曲线 $\gamma$，可以分段作上述平行移动，从而给出了一个同构，称为平移同构：
-
-$$\mathbf P^\gamma: M_{\gamma(a)} \to M_{\gamma(b)}$$
-
-这表明，联络联络的是切空间。读者可验证 $(\text L1)$ 等价于所有平移同构都是切空间作为内积空间的等距同构。
-
-我们称满足 $D_{\dot \gamma} \dot \gamma$ 的曲线为联络的**测地线**，这是直线的推广，使用 ODE 的结果有满足 $\gamma(0) = x, \dot \gamma(0) = v$ 的测地线是局部存在且唯一的。
 
 ## 配边理论
 两个 $n$ 维闭流形 $M, N$ 称为**配边**的，如果存在一个 $n + 1$ 维紧流形 $W$，使得：

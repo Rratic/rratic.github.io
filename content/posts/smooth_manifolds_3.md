@@ -158,6 +158,47 @@ $n$ 维光滑流形可以浸入 $\R^{2n}$.
 
 上面两定理通过很精密的代拓技巧得到，超出本文范围。关于浸入的最优界是 $\R^{2n-a(n)}$，其中 $a(n)$ 是 $n$ 的二进制展开中 $1$ 的数量。关于嵌入，$3$ 维流形最优界是嵌入 $\R^5$，但仍有很多最优界尚未知晓。
 
+## 逼近
+### Whitney 逼近定理
+我们称 $F, \tilde F: M \to \R^k$ 是 $\delta$-邻近的，如果 $|F(x) - \tilde F(x)| < \delta(x)$.
+
+{% <theorem title="Whitney 逼近定理"> %}
+对光滑流形 $M$ 和连续函数 $f: M \to \R$，对任意正连续函数 $\delta$，存在光滑函数 $\tilde F$ 与 $F$ 是 $\delta$-邻近的。进一步若 $F$ 在某个闭子集 $A$ 上光滑，则 $\tilde F$ 可以在其上与 $F$ 一致。
+{% </theorem> %}
+
+取光滑函数 $F_0$ 与 $F$ 在 $A$ 上一致。有如下含 $A$ 的开集：
+
+$$U_0 = \set{y \in M | |F_0(M) - F(y)| < \delta(y)}$$
+
+对 $x \in M \setminus A$，取充分小的邻域 $U_x$ 使得其中的 $\delta(y) > \delta(x) / 2$，$|F(y) - F(x)| < \delta(x) / 2$. 所有这样的 $U_x$ 构成一族开覆盖，有可数子覆盖。
+
+设 $\set{\varphi_0, \varphi_i}$ 是对应的单位分解，我们让：
+
+$$\tilde F(y) = \varphi_0(y)F_0(y) + \sum_{i \geq 1} \varphi_i(y)F(x_i)$$
+
+其推论是，我们可以给出光滑函数 $e$ 使得恒有 $0 < e(x) < \delta(x)$.
+
+### 管状邻域定理
+设 $M^m \subseteq \R^N$ 是嵌入子流形，称 $M$ 在 $x$ 处的**法空间**是：
+
+$$N_xM = \set{p \in T_x\R^n | p \perp T_xM}$$
+
+相应地定义**法丛** $NM$.
+
+{% <theorem> %}
+$NM$ 是嵌入 $T\R^n \sim \R^n \times \R^n$ 的 $n$ 维流形。
+{% </theorem> %}
+
+读者自证不难。
+
+我们定义 $E: NM \to \R^n$ 是 $E(x, v) = x + v$，称 $M$ 的**管状邻域**是 $M$ 在 $\R^n$ 的某个邻域，且是某个形如下式的开子集 $V \subseteq NM$ 在 $E$ 下的像，且是微分同胚：
+
+$$V = \set{(x, v) \in NM | |v| < \delta(x)}$$
+
+{% <theorem title="管状邻域定理"> %}
+所有嵌入子流形都有管状邻域。
+{% </theorem> %}
+
 ---
 
 [^exhaustion]: 拓扑空间 $M$ 上的穷竭函数 $f$ 是连续的 $M \to \R$，满足对任意 $c$，$f^{-1}(-\infty, c]$ 紧。对光滑流形，取可数基 $\set{V_j}_{j=1}^\infty$ 及对应单位分解 $\set{\psi_i}$，令：
