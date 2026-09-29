@@ -1,6 +1,6 @@
 +++
-title = "【草稿】光滑流形（三）：嵌入"
-date = 2026-09-23
+title = "光滑流形（三）：嵌入相关的讨论"
+date = 2026-09-29
 
 [extra]
 math = true
@@ -10,6 +10,10 @@ toc = true
 categories = ["知识"]
 tags = ["数学", "几何学"]
 +++
+
+能够嵌入欧氏空间是光滑流形的重要性质。嵌入后我们就成功获得了外蕴观点。
+
+<!-- more -->
 
 ## 零测集
 {% <theorem title="引理"> %}
@@ -186,7 +190,7 @@ $$N_xM = \set{p \in T_x\R^n | p \perp T_xM}$$
 相应地定义**法丛** $NM$.
 
 {% <theorem> %}
-$NM$ 是嵌入 $T\R^n \sim \R^n \times \R^n$ 的 $n$ 维流形。
+$NM$ 是嵌入 $T\R^n \approx \R^n \times \R^n$ 的 $n$ 维流形。
 {% </theorem> %}
 
 读者自证不难。
@@ -198,6 +202,65 @@ $$V = \set{(x, v) \in NM | |v| < \delta(x)}$$
 {% <theorem title="管状邻域定理"> %}
 所有嵌入子流形都有管状邻域。
 {% </theorem> %}
+
+证明略。可发现 $r = \pi_{NM} \circ E^{-1}$ 是一个收缩且是一个浸没。
+
+{% <theorem title="Whitney 逼近定理"> %}
+设 $F: N \to M$ 连续映射，则 $F$ 同伦于一个光滑映射。如果 $F$ 已在某个闭集 $A$ 上光滑，则可以让同伦是相对于 $A$ 的。
+{% </theorem> %}
+
+设 $M$ 是 $\R^n$ 的正则嵌入子流形，取 $M$ 的管状邻域 $U$，设 $r: U \to M$ 是前述收缩。对 $x \in M$ 定义：
+
+$$\delta(x) = \sup \set{\varepsilon \leq 1 | B(x; \varepsilon) \subseteq U}$$
+
+$\delta$ 是连续的，由之前定理存在 $\tilde F: N \to \R^n$ 与 $F$ 是 $(\delta \circ F)$-接近的。我们令 $H: N \times I \to M$ 是：
+
+$$H(p, t) = r((1-t)F(p) + t\tilde F(p))$$
+
+{% <theorem title="光滑映射的延拓定理"> %}
+设 $F: A \to M$ 连续映射，其中 $A \subseteq N$ 闭子集，则 $f$ 可以光滑延拓到 $N$ 当且仅当有这样的连续延拓。
+{% </theorem> %}
+
+前述定理的推论。
+
+## 横截性
+对两个嵌入 $M$ 的流形 $S, S'$，称它们横截相交，如果对所有 $p \in S \cap S'$，都有 $T_pS$ 与 $T_pS'$ 共同张成 $T_pM$.
+
+考虑更一般的定义。设 $F: N \to M$ 光滑，$S \subseteq M$ 嵌入，称 $F$ **横截**于 $S$ $F\pitchfork S$，如果对任意 $x \in F^{-1}(S)$，有 $T_{F(x)} S$ 与 $\mathrm dF_x (T_x N)$ 共同张成 $T_{F(x)} M$.
+
+{% <theorem title="横截原像定理"> %}
+对 $S \subseteq M$ 嵌入，光滑流形 $N$：
+1. 若 $F: N \to M$ 是横截于 $S$ 的光滑映射，则 $F^{-1}(S)$ 是 $N$ 的嵌入子流形，且余维数相同
+2. 若 $S' \subseteq M$ 是横截于 $S$ 的嵌入子流形，则 $S \cap S'$ 是 $M$ 的嵌入子流形，且余维数为 $S, S'$ 余维数之和
+{% </theorem> %}
+
+对 $F(x)$，取其在 $M$ 中邻域 $U$ 及函数 $\varphi: U \to \R^{\operatorname{codim} S}$，使得 $S \cap U = \varphi^{-1}(0)$，这使得：
+
+$$(\varphi \circ F|_{F^{-1}(U)})(F^{-1}(S) \cap F^{-1}(U)) = 0$$
+
+有 $0$ 是正则值，故对 $p \in (\varphi \circ F)^{-1}(0)$，有 $\mathrm d\varphi_{F(p)}$ 是满的。
+
+由横截性，$y \in T_{F(p)} M$ 可以写成某个 $y_0 \in T_{F(p)} S$ 与 $\mathrm dF_p(v)$ 的和，故有 $\mathrm d(\varphi \circ F) _p(v) = \mathrm d\varphi _{F(p)}(y)$，也满。
+
+{% <theorem title="参数横截性定理"> %}
+对 $X \subseteq M$ 嵌入，光滑流形 $N$，光滑映射族 $\set{F_s: N \to M | s \in S}$（这里 $S$ 光滑流形，光滑定义为 $N \times S \to M$ 光滑），若 $F: N \times S \to M$ 与 $X$ 横截，则满足 $F_s$ 与 $X$ 横截的 $s \in S$ 是满测的。
+{% </theorem> %}
+
+只需 $s$ 是 $\pi_S |_{F^{-1}(M)}$ 的正则值。证明略。
+
+{% <theorem title="横截性同伦定理"> %}
+对 $S \subseteq M$ 嵌入，光滑流形 $N$，任意光滑映射 $f: N \to M$ 同伦于一个横截于 $X$ 的 $g: N \to M$.
+{% </theorem> %}
+
+去构造横截于 $X$，$F_0 = f$ 的 $F: N \times \mathbb B^k \to M$.
+
+取 $M$ 在 $\R^k$ 的管状邻域 $U$ 及 $r: U \to M$，仍然定义 $\delta(x)$ 是：
+
+$$\delta(x) = \sup \set{\varepsilon \leq 1 | B(x; \varepsilon) \subseteq U}$$
+
+有光滑函数 $e$ 处处 $0 < e(p) < \delta(f(p))$，令：
+
+$$F(p, s) = r(f(p) + e(p)s)$$
 
 ---
 
