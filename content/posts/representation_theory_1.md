@@ -1,6 +1,6 @@
 +++
-title = "群表示论"
-draft = true
+title = "群表示论（一）：初步的理论"
+date = 2026-07-19
 
 [extra]
 math = true
@@ -12,6 +12,10 @@ priority = "0.8"
 categories = ["知识"]
 tags = ["数学", "代数学"]
 +++
+
+本文的内容是我的同学听“代数与数论”暑校相关课程后教我的。
+
+<!-- more -->
 
 {% <definition title="群表示"> %}
 有限群 $G$ 在线性空间 $V$ 上的一个表示是一个 $G$ 到 $\mathrm{GL}(V)$ 的同态。
