@@ -1,0 +1,342 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola v0.23.4" />
+  <title>群表示论（一）：初步的理论 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="群表示论（一）：初步的理论" />
+  <meta name="description" content="本文的内容是我的同学听“代数与数论”暑校相关课程后教我的。" />
+  <meta property="og:description" content="本文的内容是我的同学听“代数与数论”暑校相关课程后教我的。" />
+  <meta property="og:url" content="https://rratic.top/posts/representation-theory-1/" />
+  <link rel="canonical" href="https://rratic.top/posts/representation-theory-1/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-07-19T00:00:00+00:00" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="代数学" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <meta name="msvalidate.01" content="9BE559916FDB06A7A09EA17370F0ED09" />
+<link rel="icon" type="image/svg+xml" href="https://rratic.top/favicon.svg" />
+<link rel="stylesheet" href="https://rratic.top/style/shared.css?h=2dac71ecd418f5165c3d" />
+
+  <link rel="stylesheet" href="https://rratic.top/giallo-light.css?h=396eaa20499714fdb600" media="(prefers-color-scheme: light)" />
+  <link rel="stylesheet" href="https://rratic.top/giallo-dark.css?h=536598ee42e9e9a795bc" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=f166037ad671ba6bfd13" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=11a0f44fbe01f53dbaf9"></script>
+  <!-- head_end inject -->
+
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      
+<menu
+  class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/posts/"
+    >文章</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/categories/"
+    >分类</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/tags/"
+    >标签</a>
+  </li>
+</menu>
+
+      <!-- header_nav inject -->
+
+    </nav>
+  </div>
+</header>
+
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    <!-- body_start inject -->
+
+    
+<article>
+  <!-- page_start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-3">群表示论（一）：初步的理论</h1>
+    <div class="text-sm antialiased opacity-80"><time
+      datetime="2026-07-19T00:00:00+00:00">2026-07-19</time><span
+        class="middot"></span><time
+    datetime="PT0H6M0S">6&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+  </header>
+  
+  
+  <!-- Content -->
+  <section><p>本文的内容是我的同学听“代数与数论”暑校相关课程后教我的。</p>
+<span id="continue-reading"></span><div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-definition);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/definition.svg)">definition</div>
+    <span><strong>群表示</strong></span>
+  </div>
+  <div class="pl-4"><p>有限群 $G$ 在线性空间 $V$ 上的一个表示是一个 $G$ 到 $\mathrm{GL}(V)$ 的同态。</p>
+</div>
+</div>
+<p>最简单的是群的一维表示，我们可以为每个群元素分配一个复数并保持乘法结构。给定群 $G$ 到置换群 $S_n$ 的同态，可以让 $V$ 的基是被置换的元 $e_i$，此时得到<strong>置换表示</strong>。我们也可以让 $V$ 的基形式地是群的元素，作用是左乘，此时得到<strong>正则表示</strong>。</p>
+<p>我们称两个表示同构，如果存在一个线性空间的同构保持群作用结构。</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-definition);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/definition.svg)">definition</div>
+    <span><strong>类函数</strong></span>
+  </div>
+  <div class="pl-4"><p>类函数是指满足下式的 $f: G \to \Complex$，其全体记为 $\mathrm{Cf}(G)$：</p>
+<p>$$f(s) = f(tst^{-1}),\quad \forall s, t \in G$$</p>
+</div>
+</div>
+<p>一个重要的类函数是<strong>特征标</strong>。对一个群 $G$ 在有限维 $\Complex$-线性空间 $V$ 上的表示，记 $\rho(g)$ 是 $g$ 对应的线性映射，定义特征标为：</p>
+<p>$$\chi_V(g) = \mathrm{tr}(\rho(g))$$</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>对偶空间的特征标</strong></span>
+  </div>
+  <div class="pl-4"><p>$$\chi_{V^\ast}(g) = \overline{\chi_{V}(g)}$$</p>
+</div>
+</div>
+<p>这里 $V$ 上的表示诱导的 $V^\ast$ 上的表示需要满足 $gf(gv) = f(v)$，此时在取定的基下（用方括号表示对应的矩阵）：</p>
+<p>$$[f]^\perp [\pi(g)]^\perp [\rho(g)] [v] = [f]^\perp [v]$$</p>
+<p>故 $[\pi(g)]^\perp [\rho(g)] = I$. 由于 $g$ 有限两个矩阵是幂零的，特征值是单位根，从而 $\mathrm{tr}([\pi(g)]) = \overline{\mathrm{tr}([\rho(g)])}$.</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>张量积的特征标</strong></span>
+  </div>
+  <div class="pl-4"><p>对有限维的 $V, W$：</p>
+<p>$$\chi_{V \otimes W}(g) = \chi_V(g) \chi_W(g)$$</p>
+</div>
+</div>
+<p>这里 $V \otimes W$ 上的表示是由 $g(v \otimes w) = gv \otimes gw$ 诱导的。同前一证明，考虑取基将张量积写成矩阵的方法强行计算即可。</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>映射空间的特征标</strong></span>
+  </div>
+  <div class="pl-4"><p>对有限维的 $V, W$：</p>
+<p>$$\chi_{\mathrm{Hom}(V, W)}(g) = \overline{\chi_V(g)} \chi_W(g)$$</p>
+</div>
+</div>
+<p>$\mathrm{Hom}(V, W)$ 上的表示是由 $gF = g^{-1} \circ F \circ g$ 给出的，即按如下图表：</p>
+<p>$$
+\begin{CD}
+V @&gt;F&gt;&gt; W \cr
+@V\rho(g)VV @VV\pi(g)V \cr
+V @&gt;&gt;gF&gt; W
+\end{CD}
+$$</p>
+<p>考虑以如下方式诱导出的同构，通过图上追猎即知与定义一致：</p>
+<p>$$
+\begin{aligned}
+\Phi: V^\ast \otimes W &amp;\to \mathrm{Hom}(V, W) \cr
+f \otimes w &amp;\mapsto (v \mapsto f(v) \cdot w)
+\end{aligned}
+$$</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-definition);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/definition.svg)">definition</div>
+    <span><strong>特征标的内积</strong></span>
+  </div>
+  <div class="pl-4"><p>群 $G$ 的特征标 $\chi_V, \chi_W$ 的内积定义为：</p>
+<p>$$\braket{\chi_V, \chi_W} = \frac 1 {|G|} \sum_{g \in G} \chi_V(g) \overline{\chi_W(g)}$$</p>
+</div>
+</div>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>第一正交关系</strong></span>
+  </div>
+  <div class="pl-4"><p>对群 $G$ 的不可约表示 $X_1, X_2$ 有：</p>
+<p>$$
+\braket{\chi_{X_1}, \chi_{X_2}} = \begin{cases}
+1 &amp; X_1 \cong X_2 \cr
+0 &amp; \text{otherwise}
+\end{cases}
+$$</p>
+</div>
+</div>
+<p>按定义有：</p>
+<p>$$\braket{\chi_{X_1}, \chi_{X_2}} = \frac 1 {|G|} \sum_{g \in G} \chi_{\mathrm{Hom}(W, V)}(g)$$</p>
+<p>然后我们考虑对 $V$ 上表示定义以下 $V \to V$ 线性映射：</p>
+<p>$$P = \frac 1 {|G|} \sum_{g \in G} \rho(g)$$</p>
+<p>展开知 $P^2 = P$ 是投影映射，且由 $\rho(h) \cdot P = P$ 知：</p>
+<p>$$\operatorname{Im} P = \set{v \in V | \rho(g)v = v, \forall g}$$</p>
+<p>考虑 $V = \operatorname{Im} P \oplus \ker P$ 有 $\mathrm{tr}(P) = \dim (\operatorname{Im} P)$，现在代入 $\mathrm{Hom}(W, V)$ 即可。</p>
+<hr />
+<p>考虑将一个表示分解为不可约表示 $W = \bigoplus_{i=1}^n V_i^{n_i}$，则有 $\chi_W = \sum n_i \chi_{V_i}$，即 $n_i = \braket{\chi_{V_i}, \chi_W}$，这会使得 $W \cong W' \iff \chi_W = \chi_{W'}$.</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>不可约表示与群阶数关系</strong></span>
+  </div>
+  <div class="pl-4"><p>用 $\mathrm{Irr}(G)$ 表示所有互不同构的复表示，则：</p>
+<p>$$\sum_{V \in \mathrm{Irr}(G)} (\dim V)^2 = |G|$$</p>
+</div>
+</div>
+<p>考虑正则表示 $V_{\mathrm{reg}}$，设 $V$ 不可约，则：</p>
+<p>$$
+\begin{align*}
+&amp; \braket{\chi_V, \chi_{V_{\mathrm{reg}}}} \cr
+= &amp; \frac 1 {|G|} \sum_{g \in G} \chi_V(g) \overline{\chi_{V_{\mathrm{reg}}}(g)} \cr
+= &amp; \frac 1 {|G|} \chi_V(1) \overline{\chi_{V_{\mathrm{reg}}}(1)} \cr
+= &amp; \chi_V(1) \cr
+= &amp; \dim V
+\end{align*}
+$$</p>
+<p>作为一个例子，考虑 $S^3$，有两个 $1$ 维表示分别是全部映到 $1$ 与映射到 $\mathrm{sgn}(g)$. 通过对正则表示分解 $V_{\mathrm{reg}} = \mathrm{span}\set{a + b + c} \oplus \mathrm{span}\set{a - b, b - c}$ 有一个二维表示将 $(1)$ 映到 $I$，将 $(1 \; 2)$ 映到 $\begin{pmatrix} -1 &amp; ~ \cr 1 &amp; 1 \end{pmatrix}$，将 $(1 \; 2 \; 3)$ 映到 $\begin{pmatrix} ~ &amp; 1 \cr -1 &amp; -1 \end{pmatrix}$. 由定理知这些就是所有不同构的不可约复表示。</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>不可约表示与共轭等价类</strong></span>
+  </div>
+  <div class="pl-4"><p>$$\# \mathrm{Irr}(G) = \# \set{[a] | a \sim gag^{-1}}$$</p>
+</div>
+</div>
+<p>我们知道 $\# \set{[a] | a \sim gag^{-1}} = \dim \mathrm{Cf}(g)$，且 $\set{\chi_V | V \in \mathrm{Irr}(G)}$ 两两正交，现在证明它构成一组基。</p>
+<p>假设不是基，取类函数 $f$ 使得 $\braket{f, \overline{\chi_V}}$ 均为零，令：</p>
+<p>$$P_f = \sum_{g \in G} f(g) \rho(g)$$</p>
+<p>这会使得以下图表交换：</p>
+<p>$$
+\begin{CD}
+V @&gt;P_f&gt;&gt; V \cr
+@V\rho(g)VV @VV\rho(g)V \cr
+V @&gt;&gt;P_f&gt; V
+\end{CD}
+$$</p>
+<p>而满足这样的全体函数是 $1$ 维的，故 $P_f = \lambda I$，又：</p>
+<p>$$\mathrm{tr}(P_f) = \sum_{g \in G} f(g) \chi_V(g) = |G| \cdot \sum_{g \in G} \braket{f, \overline{\chi_V}} = 0$$</p>
+<p>故 $P_f \equiv 0$，知 $f \equiv 0$，结论成立。</p>
+<hr />
+<p>另一种证法是，让不可约表示是行标题 $V_i$，共轭类是列标题 $C_j$，建立表格，填入：</p>
+<p>$$\sqrt{\frac{|C_j|}{|G|}} \chi_{V_i}(C_j)$$</p>
+<p>有行构成标准正交基，从而列也构成。故填入 $\chi_{V_i}(C_j)$ 时正交。</p>
+<p>考虑 $Q_8$，$4$ 个一维表示容易找到，然后此结论可用于填满以下例子的表格：</p>
+<table><thead><tr><th style="text-align: center">$Q_8$</th><th style="text-align: center">$1$</th><th style="text-align: center">$-1$</th><th style="text-align: center">$\pm i$</th><th style="text-align: center">$\pm j$</th><th style="text-align: center">$\pm k$</th></tr></thead><tbody>
+<tr><td style="text-align: center">$V_1$</td><td style="text-align: center">$1$</td><td style="text-align: center">$1$</td><td style="text-align: center">$1$</td><td style="text-align: center">$1$</td><td style="text-align: center">$1$</td></tr>
+<tr><td style="text-align: center">$V_2$</td><td style="text-align: center">$1$</td><td style="text-align: center">$1$</td><td style="text-align: center">$1$</td><td style="text-align: center">$-1$</td><td style="text-align: center">$-1$</td></tr>
+<tr><td style="text-align: center">$V_3$</td><td style="text-align: center">$1$</td><td style="text-align: center">$1$</td><td style="text-align: center">$-1$</td><td style="text-align: center">$1$</td><td style="text-align: center">$-1$</td></tr>
+<tr><td style="text-align: center">$V_4$</td><td style="text-align: center">$1$</td><td style="text-align: center">$1$</td><td style="text-align: center">$-1$</td><td style="text-align: center">$-1$</td><td style="text-align: center">$1$</td></tr>
+<tr><td style="text-align: center">$V_5$</td><td style="text-align: center">$2$</td><td style="text-align: center">$?$</td><td style="text-align: center">$?$</td><td style="text-align: center">$?$</td><td style="text-align: center">$?$</td></tr>
+</tbody></table>
+</section>
+  <hr />
+  
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/代数学/">代数学</a>
+    
+  </div>
+</footer>
+
+  
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- page_end inject -->
+
+</article>
+
+  </main>
+  <footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+    <div class="mr-auto basis-full lg:basis-1/2">
+      
+&copy; 2025-2026 Rratic
+ &vert; <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+
+    </div>
+    <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+      
+  <span class="mr-6 lg:ml-6">
+    <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+  </span>
+  <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+
+    </div>
+  <!-- footer inject -->
+
+  </footer>
+  
+  <link rel="stylesheet" href="https://rratic.top/katex/katex.min.css?h=180c2d77d434d7da51d6" />
+  <script defer src="https://rratic.top/katex/katex.min.js?h=2ec5916941ef4383e031"></script>
+  <script defer src="https://rratic.top/katex/contrib/auto-render.min.js?h=e5372d199bcdae8b4de7"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+  
+
+  <!-- body_end inject -->
+
+</body>
+
+</html>
