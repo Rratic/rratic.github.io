@@ -1,6 +1,7 @@
 +++
-title = "光滑流形（二）：定向与积分"
+title = "光滑流形（二）：积分与 de Rham 上同调"
 date = 2026-07-20
+updated = 2026-10-06
 
 [extra]
 math = true
@@ -11,22 +12,32 @@ categories = ["知识"]
 tags = ["数学", "几何学"]
 +++
 
-在光滑流形上我们可以对微分形式作积分，其定义需要一些关于定向的说明。基于这一套语言可以给出 Stokes 定理。
+在光滑流形上我们可以对微分形式作积分，其定义需要一些关于定向的说明。基于这一套语言可以给出 Stokes 定理，这是一个看起来很拓扑的定理，实际上可以建立起 de Rham 上同调。
 
 <!-- more -->
 
-本文参考 *Introduction to Smooth Manifolds* (GTM 218).
+本文参考 *Introduction to Smooth Manifolds* (GTM 218) 及 Bott, Tu *Differential Forms in Algebraic Topology*.
 
 ## 定向
 对向量空间来说，考虑等价关系是两组有序基的变换矩阵行列式为正。一个 $V$ 的定向是指一个等价类。易知这对应于 $\Lambda^n(V^\ast) \setminus \set{0}$ 的两支。当我们指定一个定向是正的时，可以称另一个是负的。
 
-流形 $M$ 上的一个定向是指，对每一点处的切空间选择一个定向，且是连续的。此时称 $M$ 是**可定向**的。或者，也可以用不取零的光滑 $n$-形式定义。
+流形 $M$ 上的一个定向是指，对每一点处的切空间选择一个定向，且是连续的。此时称 $M$ 是**可定向**的。或者把定向结构看成一族与光滑结构相容的图卡，其中转移函数的 Jacobi 行列式处处为正。故如果一个流形“可平行化”（有光滑的全局标架），则易见它可定向。
+
+{% <example title="复流形可定向"> %}
+考虑复 $n$ 维流形作为实 $2n$ 维流形，将复的坐标卡拆开成 $(x_1, y_1, \dots, x_n, y_n)$，则这是定向结构，因为有 $\det J(\varphi^\R) = |\det J(\varphi^\Complex)|^2 > 0$.
+
+典型的复流形是复射影空间 $\Complex \mathbf P^n$，令 $U_i = \set{z_i \neq 0}$，其上的坐标形如：
+
+$$\left(\frac{z_0}{z_i}, \dots, \frac{z_{i-1}}{z_i}, \frac{z_{i+1}}{z_i}, \dots, \frac{z_n}{z_i}\right)$$
+
+有 $U_i \cong \Complex^n$，又转移函数是分式线性函数，一定全纯，如此给出了复结构。
+{% </example> %}
+
+或者，定向也可以定义为存在处处非零的光滑 $n$-形式。
 
 对于可定向光滑流形 $M_1, \dots, M_k$，有一个积定向对应于：
 
 $$\pi_1^\ast \omega_1 \wedge \cdots \wedge \pi_k^\ast \omega_k$$
-
-如果一个流形可平行化（有光滑的全局标架），则易见它可定向。
 
 ---
 
@@ -38,11 +49,11 @@ $M$ 是可定向光滑流形（可带边），$S$ 是的超平面（可带边）
 
 对于 $M$ 的定向形式 $\omega$，考察 $S$ 上的 $(n-1)$-形式 $\sigma$，定义为 $\sigma_p(v_1, \dots, v_{n-1}) = \omega_p(N(p), v_1, \dots, v_{n-1})$. 由不相切有 $\sigma_p \neq 0$.
 
-其一个推论是 $\mathbb S^n$ 可定向，因为可以在 $\R^{n+1}$ 中让：
+其一个推论是 $\mathbb S^n$ 可定向（称为标准定向），在 $\R^{n+1}$ 中让：
 
 $$N = \sum x^i \frac{\partial}{\partial x^i}$$
 
-此定向被作为 $\mathbb S^n$ 的标准定向。
+另一个推论是 Möbius 带不可定向。如果可定向我们可以取法方向，转一圈后反向，这是不可能的。
 
 {% <theorem title="边界的定向"> %}
 $M$ 是可定向的光滑带边流形（$n \geq 1$），则 $\partial M$ 可定向，且 $\partial M$ 所有向外的向量场决定相同的定向。
@@ -91,6 +102,16 @@ $$
 
 这典型的应用是 $\mathbb{RP}^n$ 可定向当且仅当 $n$ 为奇。
 
+{% <example title="实射影平面不可定向"> %}
+考虑复叠 $\pi: \mathbb S^2 \to \R \mathbf P^2$，并令 $A(x) = -x$，假设 $\R \mathbf P^2$ 可定向，其上有处处非零的 $2$-形式 $\omega$，拉回得到 $\mathbb S^2$ 上处处非零的 $2$-形式 $\Omega = \pi^\ast \omega$.
+
+我们知道 $\pi \circ A = \pi$，故：
+
+$$A^\ast \Omega = A^\ast \pi^\ast \omega = (\pi \circ A)^\ast \omega = \pi^\ast \omega = \Omega$$
+
+然而 $\R^3$ 中 $\det (\mathrm dA) = -1$，故 $A^\ast \Omega = -\Omega$，矛盾。
+{% </example> %}
+
 ## 流形上的积分
 ### 微分形式的积分
 在流形上，如果不附加 Riemann 度规这样的额外结构，没有办法独立于坐标系对实值函数积分。例如闭球的体积会被坐标系变换影响。而另一方面，我们可以沿着曲线对 $1$-形式积分：
@@ -117,7 +138,7 @@ $$\int_D G^\ast \omega = \mathrm{sgn}(G) \int_E \omega$$
 
 $$\int_M \omega = \pm \int_{\varphi(U)} (\varphi^{-1})^\ast \omega$$
 
-一般地，对 $\omega$ 紧支，设 $\set{U_i}$ 是 $\operatorname{supp} \omega$ 的有限开覆盖，令 $\set{\psi_i}$ 是其单位分解[^partition-of-unity]，则可定义：
+一般地，对 $\omega$ 紧支，设 $\set{U_i}$ 是 $\operatorname{supp} \omega$ 的有限开覆盖，令 $\set{\psi_i}$ 是其单位分解，则可定义：
 
 $$\int_M \omega = \sum_i \int_M \psi_i \omega$$
 
@@ -201,6 +222,52 @@ $$\mu: \underbrace{V \times \cdots \times V}_{n \text{ copies}} \to \R$$
 
 $$\mathcal{D}M = \bigsqcup_{p \in M} \mathcal{D}(T_pM)$$
 
----
+## de Rham 上同调
+考虑[高阶同伦群的环路空间理解](@/posts/geometry_2_final.md)。由于同伦群不易计算，我们考虑对偶观点。一个连通分支满足这样的性质：所有局部常值函数都是常值的。我们让 $H^0(X)$ 是 $X$ 上局部常值实函数构成的向量空间。当 $X$ 的连通分支与道路连通分支一致且分支数有限时，有：
 
-[^partition-of-unity]: 即让 $\sum \psi_\alpha = 1$，且每个 $\operatorname{supp} \psi_\alpha$ 含于某个 $U_i$.
+$$\operatorname{card} \pi_0(X) = \dim H^0(X)$$
+
+在光滑流形 $M$ 上，这个空间正是零阶 de Rham 上同调 $H^0_{\mathrm{dR}}(M)$，更一般地，实际上有 de Rham 定理给出自然同构：
+
+$$H^p_{\mathrm{dR}}(M) \cong H^p_{\mathrm{sing}}(M; \R)$$
+
+{% <definition title="de Rham 上同调"> %}
+光滑流形 $M$ 的 $p$ 阶 de Rham 上同调是向量空间（按向量加法构成上同调群）：
+
+$$H^p_{\mathrm{dR}}(M) = \frac{\ker(\mathrm d:\Omega^p(M)\to\Omega^{p+1}(M))}{\operatorname{im}(\mathrm d:\Omega^{p-1}(M)\to\Omega^p(M))}.$$
+{% </definition> %}
+
+一个非平凡上同调群的例子是，在 $\R^2 \setminus \set{0}$ 中存在闭但非恰的 $1$-形式：
+
+$$\omega = \frac{x\mathrm{d}y - y\mathrm{d}x}{x^2 + y^2}$$
+
+对光滑流形（可带边）的光滑映射 $f: M \to N$，其拉回 $f^\ast: \Omega^p(N) \to \Omega^p(M)$ 会诱导一个上同调映射 $f^\ast: H^p_{\mathrm{dR}}(N) \to H^p_{\mathrm{dR}}(M)$.
+
+$$
+\begin{CD}
+	\cdots @>>> \Omega^{p-1}(N) @>\mathrm{d}>> \Omega^p(N) @>\mathrm{d}>> \Omega^{p+1}(N) @>>> \cdots \cr
+	@. @Vf^\ast VV @Vf^\ast VV @Vf^\ast VV @. \cr
+	\cdots @>>> \Omega^{p-1}(M) @>\mathrm{d}>> \Omega^p(M) @>\mathrm{d}>> \Omega^{p+1}(M) @>>> \cdots
+\end{CD}
+$$
+
+我们称一族 $h: \Omega^p(N) \to \Omega^{p-1}(M)$ 是一个**同伦算子/上链同伦**，如果：
+
+$$\mathrm{d}h + h\mathrm{d} = g^\ast - f^\ast$$
+
+{% <theorem title="同伦不变性"> %}
+若 $f, g: M \to N$ 光滑同伦，则它们诱导相同的 $f^\ast = g^\ast: H^p_{\mathrm{dR}}(N) \to H^p_{\mathrm{dR}}(M)$.
+{% </theorem> %}
+
+令 $i_t: M \to M \times I, i_t(x) = (x, t)$，令 $M \times \R$ 上的向量场 $S$ 是 $S_{(q, s)} = (0, \partial / \partial s|_s)$. 则 $i_0^\ast, i_1^\ast: \Omega^\ast(M \times I) \to \Omega^\ast(M)$ 间存在同伦算子：
+
+$$h\omega = \int_0^1 i_t^\ast (S \lrcorner \omega) \mathrm{d}t$$
+
+我们实际上可以定义 de Rham 上同调上的一个乘积：
+
+$$
+\begin{aligned}
+	\smile: H^p_{\mathrm{dR}}(M) \times H^q_{\mathrm{dR}}(M) &\to H^{p+q}_{\mathrm{dR}}(M) \\\\
+		([\alpha], [\beta]) &\mapsto [\alpha \wedge \beta]
+\end{aligned}
+$$

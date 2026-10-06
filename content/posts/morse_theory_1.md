@@ -72,7 +72,7 @@ $$(\bar h_{ij}) = \left(\frac 1 2 \frac{\partial^2 f}{\partial x^i \partial x^j}
 
 $$X_q = \rho(q) (\operatorname{grad} f)_q$$
 
-这会生成一个单参数群[^flow] $\varphi_t: M \to M$，生成是指满足：
+[这会生成一个单参数群](@/posts/smooth_manifolds_1.md) $\varphi_t: M \to M$，生成是指满足：
 
 $$X_q(f) = \lim_{h \to 0} \frac{f(\varphi_h(q)) - f(q)}{h}$$
 

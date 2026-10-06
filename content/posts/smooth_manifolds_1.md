@@ -1,7 +1,7 @@
 +++
 title = "光滑流形（一）：切空间与微分形式"
 date = 2025-11-19
-updated = 2026-09-18
+updated = 2026-10-06
 
 [extra]
 math = true
@@ -15,18 +15,37 @@ categories = ["知识"]
 tags = ["数学", "几何学"]
 +++
 
-我们来看了解 $\partial/\partial x$，$\mathrm{d}/\mathrm{d}x$ 及更复杂的记号在一般的流形上的推广是什么。
+本文原本动机是了解 $\partial/\partial x$，$\mathrm{d}/\mathrm{d}x$ 及更复杂的记号在一般的流形上的推广是什么。由于学校本学期开不出《微分流形与拓扑》“几何三”，此系列被重新整理，结合 GTM 218 (*Introduction to Smooth Manifolds*) 及 [2024 课程大纲](http://scholar.pku.edu.cn/liuyi/fall_2024_course_00137914)、[2022 课程笔记](https://zhuanlan.zhihu.com/p/580953949)。
 
 <!-- more -->
 
-参考阅读 *Introduction to Smooth Manifolds* (GTM 218).
-
 ## 光滑流形
+### 定义
 我们回顾**光滑流形**是在普通的拓扑流形上附加一个（最大的）光滑结构（包含一组光滑坐标卡）。注意拓扑流形可能没有光滑结构，有可能有多种光滑结构。“微分（differentiable）”一词依赖于语境，有时就是指光滑，有时是指某个 $C^k$.
+
+所谓**带边光滑流形**额外允许一些邻域同胚于上半空间 $\mathbb H^n = \set{x_n \geq 0}$ 中的开集，坐标邻域同胚于坐标半球。很多对光滑流形成立的性质对带边光滑流形也成立。
 
 一个 $f: M \to \R$ 是**光滑函数**指在每个光滑坐标卡 $(U, \varphi)$ 处，有 $f \circ \varphi^{-1}$ 在 $\R^n$ 的多元微积分意义下是光滑的。全体光滑函数构成的 $\R$-线性空间记作 $C^\infty(M)$.
 
 对 $f, g \in C^\infty (M)$，我们用 $fg$ 表示逐点乘积。
+
+给定光滑映射 $F: M \to N$，所谓**拉回**就是把 $N$ 上的对象“拉回”成 $M$ 上的对象。例如 $f: N \to \R$ 光滑函数可以拉回成：
+
+$$
+\begin{aligned}
+    f^\ast: M &\to \R \\\\
+        p &\mapsto f(F(p))
+\end{aligned}
+$$
+
+### 单位分解
+单位分解（partition of unity）是作证明时经常用到的技术。关于一族坐标卡 $\set{U_i}$ 的**单位分解**是指一族连续函数 $\psi_\alpha: M \to \R$，使得：
+1. 处处 $0 \leq \psi_\alpha(x) \leq 1$
+2. 每个支集 $\operatorname{supp} \psi_\alpha$ 含于某个 $U_i$
+3. 支集族局部有限，即每个点有一个邻域，只与有限多个支集相交
+4. 处处 $\sum \psi_\alpha = 1$
+
+对任意构成开覆盖的 $\set{U_i}$，总是存在关于它的光滑单位分解。证明略。
 
 ## 切空间
 ### 两种看法
@@ -42,7 +61,7 @@ $p$ 处 $C^\infty (M)$ 的全体导子构成 $M$ 在 $p$ 处的**切空间**，�
 
 使用此可进一步证明：若 $M$ 是 $n$ 维光滑流形，则任一 $T_pM$ 都是 $n$ 维向量空间，此结论甚至可以推广到带边光滑流形的边界上。
 
-因此，我们可以说把这个向量空间里的*向量 $V$ 作用到函数 $f$*上，记作 $V(f)$，有所谓的：
+因此，我们可以说“把这个向量空间里的向量 $V$ 作用到函数 $f$ 上”，记作 $V(f)$，有所谓的：
 
 $$\frac{\partial f}{\partial x_ i} = \frac{\partial}{\partial x_ i}(f)$$
 
@@ -58,8 +77,11 @@ $$\gamma '(t_ 0) = \mathrm{d}\gamma \left(\left.\frac{\mathrm{d}}{\mathrm{d}t}\r
 
 $$\frac{\mathrm{d}}{\mathrm{d}t} (f \circ \gamma_1) \Big| _{t=0} = \frac{\mathrm{d}}{\mathrm{d}t} (f \circ \gamma_2) \Big| _{t=0}$$
 
----
+{% <example title="李括号"> %}
+我们定义李括号算子 $[X, Y]$ 是 $[X, Y]f = X(Yf) - Y(Xf)$，读者可以验证 $[X, Y]$ 总是切向量，且满足李代数要求的 Jacobi 恒等式。
+{% </example> %}
 
+### 微分
 对光滑流形（或带边光滑流形）$M$ 与 $N$ 及光滑映射 $F: M\to N$，在 $M$ 上每一点 $p$ 我们定义 $F$ 在 $p$ 处的**微分**为：
 
 $$
@@ -80,11 +102,17 @@ $$\mathrm{Jac}(f) = \left(\frac{\partial f^a}{\partial x^i}\right)_{1\leq a\leq 
 
 $$TM = \bigsqcup_{p\in M}T_pM$$
 
+读者之后可以验证切丛总是光滑流形。
+
 又，我们定义点 $p$ 处的**余切空间** $T_p^\ast M$ 是指 $T_pM$ 的对偶空间，那么 $M$ 的**余切丛**是指：
 
 $$T^\ast M = \bigsqcup_{p\in M} T_p^\ast M$$
 
-因此我们说对光滑的 $F: M \to \R$，整个 $\mathrm{d}F$ 实际上是余切丛的一个截面[^section]。一般的 $\mathrm{d}F$ 则是向量丛 $\mathrm{Hom}(TM, F^\ast TN)$ 的截面。
+我们说底空间 $B$ 上的**向量丛**是连续映射 $\pi: E \to B$，对任意 $b \in B$ 有邻域 $U$，自然数 $n$ 及微分同胚 $h: U \times \R^n \to \pi^{-1}(U)$，使得 $h(b, \cdot)$ 是 $\R^n$ 与 $\pi^{-1}(b)$ 作为向量空间的同构，且 $\pi \circ h = \operatorname{pr}_1$.
+
+在此基础上，一个 $s: B \to E$ 是**截面**，如果 $\pi \circ s = \mathrm{id}_B$. 我们用 $\Gamma(E)$ 表示所有光滑截面的集合。
+
+因此我们说对光滑的 $F: M \to \R$，整个 $\mathrm{d}F$ 实际上是余切丛的一个截面。一般的 $\mathrm{d}F$ 则是向量丛 $\mathrm{Hom}(TM, F^\ast TN)$ 的截面。
 
 切丛的光滑截面则称为**向量场**，其全体记作：
 
@@ -208,13 +236,7 @@ $$
 \end{align*}
 $$
 
-## 补充
-$\mathrm{d}f / \mathrm{d}x$ 的另一种看法是**缩并** $\iota_X(\mathrm{d}f)$，其中取 $X = \partial / \partial x$，则运算 $\iota_X$ 或 $X \lrcorner$ 是：
-
-$$(\iota_X\omega)(Y_1, \dots, Y_{k-1}) = \omega(X, Y_1, \dots, Y_{k-1})$$
-
----
-
+### 外微分
 **外微分** $\mathrm{d}: \Omega^k(M) \to \Omega^{k+1}(M)$ 被定义为在每个光滑坐标卡上是：
 
 $$\mathrm{d}\left(\sum_J \omega_J \mathrm{d}x^J\right) = \sum_J \mathrm{d}\omega_J\wedge\mathrm{d}x^J$$
@@ -227,7 +249,34 @@ $$\mathrm{d}f = \sum_{i=1}^n \frac{\partial f}{\partial x_i} \mathrm{d}x_i$$
 
 $$\mathrm{d}(\omega \wedge \eta) = \mathrm{d}\omega \wedge \eta + (-1)^k\omega \wedge \mathrm{d}\eta$$
 
-我们称一个 $\omega \in \Omega^k(M)$ 是**闭**的，如果 $\mathrm{d}\omega = 0$，称它是**恰当**[^exact]的，如果存在 $\eta \in \Omega^{k-1}(M)$ 使 $\omega = \mathrm{d}\eta$.
+我们称一个 $\omega \in \Omega^k(M)$ 是**闭**的，如果 $\mathrm{d}\omega = 0$，称它是**恰当**（exact）的，如果存在 $\eta \in \Omega^{k-1}(M)$ 使 $\omega = \mathrm{d}\eta$.
+
+{% <example> %}
+在 $U = \R^2 - \set{(0, 0)}$ 上，$x\mathrm dx + y\mathrm dy / (x^2 + y^2)$ 闭且恰当，$y\mathrm dx - x\mathrm dy / (x^2 + y^2)$ 闭但不恰当。
+{% </example> %}
+
+{% <question title="辛流形"> %}
+辛结构是指存在处处非退化的闭的 $2$-形式 $\omega$，证明辛流形一定是偶数维（设为 $2n$），且 $\underbrace{\omega \wedge \cdots \wedge \omega}_n$ 处处非零。
+{% </question> %}
+
+每一点处 $\omega_p: T_pM \times T_pM \to \R$ 是一个双线性形式。设对应的矩阵 $A$，由反对称知 $\det A = (-1)^m \det A$，又 $\det A \neq 0$，故 $m$ 偶。
+
+又，[回忆辛形式](@/posts/linear_algebra_2_final.md)，可以找到一族基使得 $\omega_p = \sum_{i=1}^n e^i \wedge f^i$，故结论成立。
+
+## 流
+对光滑向量场 $X$，其**流**是一族映射 $\phi_t: M \to M$，满足 $\phi_0(q) = q$ 及：
+
+$$\frac{\mathrm d}{\mathrm dt} \phi_t(q) = X(\phi_t(q))$$
+
+由 ODE，其局部存在唯一且光滑；在 $X$ 有紧支集时是全局的。
+
+易见流有定义的地方具备群性质；在流是全局的时 $\varphi_t$ 是微分同胚，称为一个单参数群作用。
+
+---
+
+$\mathrm{d}f / \mathrm{d}x$ 的另一种看法是**缩并** $\iota_X(\mathrm{d}f)$，其中取 $X = \partial / \partial x$，则运算 $\iota_X$ 或 $X \lrcorner$ 是：
+
+$$(\iota_X\omega)(Y_1, \dots, Y_{k-1}) = \omega(X, Y_1, \dots, Y_{k-1})$$
 
 ---
 
@@ -235,18 +284,6 @@ $\mathrm{d}f / \mathrm{d}x$ 也可看成**李导数** $\mathcal{L}_X f$，这里
 
 $$(\mathcal{L} _X A) _p = \lim _{t \to 0} \frac{(\phi _t^\ast A) _p - A _p}{t}$$
 
-其中 $\phi_t$ 是 $X$ 生成的局部流，满足 $\phi_0(p) = p$，$\phi_{s+t} = \phi_s \circ \phi_t$，及：
-
-$$\frac{\mathrm{d}}{\mathrm{d}t} \phi_t(p) = X_{\phi_t(p)}$$
-
 对 $A$ 是微分形式 $\omega$ 有 Cartan 魔法公式：
 
 $$\mathcal{L}_X \omega = \mathrm{d}(\iota_X \omega) + \iota_X(\mathrm{d}\omega)$$
-
----
-
-[^section]: 我们说底空间 $B$ 上的**向量丛**是连续映射 $\pi: E \to B$，对任意 $b \in B$ 有邻域 $U$，自然数 $n$ 及微分同胚 $h: U \times \R^n \to \pi^{-1}(U)$，使得 $h(b, \cdot)$ 是 $\R^n$ 与 $\pi^{-1}(b)$ 作为向量空间的同构，且 $\pi \circ h = \operatorname{pr}_1$.
-
-    在此基础上，一个 $s: B \to E$ 是**截面**，如果 $\pi \circ s = \mathrm{id}_B$. 我们用 $\Gamma(E)$ 表示所有光滑截面的集合。
-
-[^exact]: 英文为 exact，但没有正合的含义。
