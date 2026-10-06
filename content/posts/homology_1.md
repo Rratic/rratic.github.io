@@ -1,5 +1,5 @@
 +++
-title = "同调论的拓扑基础与持续同调"
+title = "同调论（一）：基本定义与等价性"
 date = 2026-06-30
 
 [extra]
@@ -11,11 +11,13 @@ categories = ["知识"]
 tags = ["数学", "拓扑学"]
 +++
 
-由于高阶同伦群不好算，我们引入了同调群。其一个应用是数据分析的持续同调。
+本文出现的一个原因是帮学长搬书获得实体版的 Allen Hatcher *Algebraic Topology*，进行一些阅读。由于高阶同伦群不好算，我们引入了同调群。
 
 <!-- more -->
 
 ## 同调群
+这里我们展示在空间上定义链复形的几种方式，依链复形可以给出同调群。
+
 ### 胞腔同调
 考虑胞腔复形 $X$ 为点 $x$ 到点 $y$ 的四条标记了方向的道路 $a, b, c, d$. 有 $ab^{-1}$ 与 $b^{-1}a$ 描述的是同一个圈，我们用加法表示运算是交换的，一个边链 $ka + lb + mc + nd$ 是圈的充要条件是 $k + l + m + n = 0$.
 
@@ -43,8 +45,45 @@ $\Delta$-复形可以进一步割为单纯复形，其要求单形唯一被其�
 ### 奇异同调
 为了证明同胚、同伦等价的空间有相同的同调群，我们引入奇异同调。一个奇异 $n$-单形指的是一个连续映射 $\sigma: \Delta^n \to X$. 仿照前文定义**奇异同调群**。基本的结论略过，注意 $H_1(X)$ 实际上是 $\pi_1(X)$ 的交换化。
 
+{% <theorem> %}
+若 $f: X \to Y$ 连续映射诱导一个同态 $f_\ast: H_n(X) \to H_n(Y)$.
+{% </theorem> %}
+
+我们可以定义链群同态：
+
+$$
+\begin{aligned}
+	f_\sharp: C_n(X) &\longrightarrow C_n(Y) \\\\
+		\sigma &\longmapsto f \circ \sigma
+\end{aligned}
+$$
+
+且它与边缘同态交换，故 $f_\ast([z]) = [f_\sharp z]$ 良定义。
+
+### 评注
 为了方便描述，我们定义约化同调群 $\tilde{H}_n(X)$，它只在 $0$ 处不同，把 $\partial_0$ 换成 $\varepsilon(\sum n_i\sigma_i) = \sum n_i$. 有 $H_0(X) \simeq \tilde{H}_0(X) \oplus \Z$.
 
+我们知道有限生成 Abel 群的结构定理：
+
+$$H_n(X) \cong \Z^{\beta_n} \oplus \bigoplus_i \Z/d_i\Z, \quad d_1 \mid d_2 \mid \cdots \mid d_k$$
+
+因此可以定义 Betti 数是 $\beta_n = \operatorname{rank} H_n(X)$，实际历史上同调群最开始是用 Betti 数和扭系数表示的。
+
+{% <example title="持续同调"> %}
+持续同调是拓扑数据分析（TDA）的一种技术。我们考虑一般的欧氏空间中的点集，我们有一些方法将数据降维到适合观察的低维空间，如主成分分析（PCA），但降维可能丢失数据。而持续同调（PH）则不需要降维就能刻画数据全貌。
+{% </example> %}
+
+对一个取定的 $\varepsilon$，我们用该点集构建 Vietoris–Rips 复形，定义为：
+
+$$V_\varepsilon(P) = \set{\sigma \subseteq P | \lVert u-v \rVert \leq \varepsilon, \forall u, v \in \sigma}$$
+
+另一种选择是 Čech 复形：
+
+$$C_\varepsilon(P) = \set{\sigma \subseteq P | \bigcap_{x \in \sigma} B(x, \varepsilon) \neq \emptyset}$$
+
+对于这样建立的单纯复形，我们可以计算它的 Betti 数（只需用矩阵化简的方法）。考虑 $\varepsilon$ 在 $[0, +\infty)$ 连续改变，观察那些拓扑特性的持续时间。持续时间长的更可能是信号而不是噪声。对每个持续段 $[l, r]$，有两种表现方式：在平面上绘制点 $(l, r)$，得到的持续图，和绘制区间 $[l, r]$ 得到的条形码。
+
+### 同伦不变性
 对 $f: X \to Y$ 有交换的图表：
 
 $$
@@ -67,26 +106,20 @@ $$P(\sigma) = \sum_i (-1)^i F((\sigma \times \mathrm{id})([v_0, \dots, v_i, w_i,
 
 算得 $\partial P = g_\sharp - f_\sharp - P\partial$，满足此条件称 $P$ 为**链同伦**。从而 $\alpha \in \ker \partial_n \implies g_\sharp(\alpha) - f_\sharp(\alpha) \in \mathrm{Im} \partial_{n+1}$，知结论成立。
 
-### 正合列
-我们说一列同态在以下 $B$ 处正合，如果 $\ker \beta = \mathrm{Im} \alpha$. 处处正合的称为**正合列**。
+其推论是 $f: X \simeq Y$ 同伦等价可以诱导一个同构 $f_\ast: H_n(X) \cong H_n(Y)$.
 
-$$\begin{CD} A @>\alpha>> B @>\beta>> C \end{CD}$$
+## 正合列
+### 定义
+我们说一列同态在以下 $B$ 处正合，如果 $\ker \beta = \operatorname{Im} \alpha$；处处正合的称为**正合列**。
 
-我们将证明对于空间 $X$ 与 $X$ 中某个开集的非空、闭的形变收缩核 $A$（注意 CW 对 $(X, A)$ 一定满足此条件）有以下正合列：
+$$A \stackrel \alpha \longrightarrow B \stackrel \beta \longrightarrow C$$
 
-$$
-\begin{CD}
-	\cdots @>>> \tilde{H} _n(A)
-	@>\mathrm{inj} _\ast>> \tilde{H} _n(X)
-	@>\mathrm{quot} _\ast>> \tilde{H} _n(X/A)
-	@>\partial>> \tilde{H} _{n-1}(A)
-	@>>> \cdots @>>> 0
-\end{CD}
-$$
+所谓**短正合列**是指如下正合列：
 
-我们定义 $C_n(X, A) = C_n(X) / C_n(A)$. 依此同前定义**相对同调群** $H_n(X, A)$.
+$$0 \longrightarrow A \longrightarrow B \longrightarrow C \longrightarrow 0$$
 
-考虑如下交换图表，其中每一列是短正合列，每一行是链复形：
+{% <theorem title="同调长正合列引理"> %}
+如果我们有关于链复形的短正合列 $0 \to A_\ast \to B_\ast \to C_\ast \to 0$，也就是说对每个 $n$ 有 $0 \to A_n \to B_n \to C_n \to 0$ 短正合列，且短正合列中的映射与边缘同态交换：
 
 $$
 \begin{CD}
@@ -102,7 +135,29 @@ $$
 \end{CD}
 $$
 
-我们需要定义 $\partial: H_n(C) \to H_{n-1}(A)$. 考虑图中被框出群的元素 $a, b, \partial b, c$，有 $\partial [c] = [a]$ 是良定义的。从而可代入证明所需结论。
+则可以定义**连接同态** $\partial: H_n(C) \to H_{n-1}(A)$ 是 $\partial [c] = [a]$，考虑图中被框出群的元素 $a, b, \partial b, c$ 知良定义。有长正合列：
+
+$$\cdots \to H_n(A) \stackrel {i_\ast} \to H_n(B) \stackrel {j_\ast} \to H_n(C) \stackrel \partial \to H_{n-1}(A) \to \cdots$$
+{% </theorem> %}
+
+通过 diagram chasing 即可。
+
+### 切除引理
+对于空间 $X$ 与 $X$ 中某个开集的非空、闭的形变收缩核 $A$（注意 CW 对 $(X, A)$ 一定满足此条件），定义 $C_n(X, A) = C_n(X) / C_n(A)$. 依此同前定义**相对同调群** $H_n(X, A)$.
+
+我们有以下短正合列：
+
+$$0 \longrightarrow C_n(A) \stackrel {\mathrm{inj}} \longrightarrow C_n(X) \stackrel {\mathrm{quot}} \longrightarrow C_n(X, A) \longrightarrow 0$$
+
+从而有长正合列：
+
+$$
+\cdots \longrightarrow \tilde{H} _n(A)
+\stackrel {\mathrm{inj} _\ast} \longrightarrow \tilde{H} _n(X)
+\stackrel {\mathrm{quot} _\ast} \longrightarrow \tilde{H} _n(X/A)
+\stackrel \partial \longrightarrow \tilde{H} _{n-1}(A)
+\longrightarrow \cdots \longrightarrow 0
+$$
 
 {% <theorem title="Excision Theorem"> %}
 对 $X$ 的子空间 $\bar{Z} \subseteq A^{\circ}$，嵌入 $(X-Z, A-Z) \hookrightarrow (X, A)$ 诱导了同构 $H_n(X-Z, A-Z) \to H_n(X, A)$.
@@ -116,8 +171,8 @@ $$
 
 $$
 \begin{aligned}
-b: \mathrm{LC} _n(Y) & \to \mathrm{LC} _{n+1}(Y) \cr
-	[w_0, \dots, w_n] & \mapsto [b, w_0, \dots, w_n]
+b: \mathrm{LC} _n(Y) & \longrightarrow \mathrm{LC} _{n+1}(Y) \cr
+	[w_0, \dots, w_n] & \longmapsto [b, w_0, \dots, w_n]
 \end{aligned}
 $$
 
@@ -125,8 +180,8 @@ $$
 
 $$
 \begin{aligned}
-S: \mathrm{LC} _n(Y) & \to \mathrm{LC} _n(Y) \cr
-	\lambda & \mapsto b _\lambda(S\partial\lambda)
+S: \mathrm{LC} _n(Y) & \longrightarrow \mathrm{LC} _n(Y) \cr
+	\lambda & \longmapsto b _\lambda(S\partial\lambda)
 \end{aligned}
 $$
 
@@ -144,8 +199,8 @@ $$
 
 $$
 \begin{aligned}
-T: \mathrm{LC} _n(Y) & \to \mathrm{LC} _{n+1}(Y) \cr
-	\lambda & \mapsto b _\lambda(\lambda - T\partial\lambda)
+T: \mathrm{LC} _n(Y) & \longrightarrow \mathrm{LC} _{n+1}(Y) \cr
+	\lambda & \longmapsto b _\lambda(\lambda - T\partial\lambda)
 \end{aligned}
 $$
 
@@ -155,8 +210,8 @@ $$
 
 $$
 \begin{aligned}
-D: C _n(X) & \to C _{n+1}(X) \cr
-	\sigma & \mapsto \sum _{i=0}^{m(\sigma)-1} TS^i \sigma
+D: C _n(X) & \longrightarrow C _{n+1}(X) \cr
+	\sigma & \longmapsto \sum _{i=0}^{m(\sigma)-1} TS^i \sigma
 \end{aligned}
 $$
 
@@ -177,10 +232,13 @@ $$\partial D\sigma + D\partial\sigma = \sigma - [S^{m(\sigma)}\sigma + D_{m(\sig
 使用 excision 及之前长正合列知：
 
 $$
-H _k(U, U - \set{x}) \cong H _k(\R^m, \R^m - \set{x}) \cong
-\tilde{H} _{k-1}(\R^m - \set{x}) \cong
-\tilde{H} _{k-1}(S^{m-1}) =
-\begin{cases} \Z & k=m \cr 0 & \text{otherwise} \end{cases}
+\begin{align*}
+	&H _k(U, U - \set{x}) \\\\
+	\cong \\, &H _k(\R^m, \R^m - \set{x}) \\\\
+	\cong \\, &\tilde{H} _{k-1}(\R^m - \set{x}) \\\\
+	\cong \\, &\tilde{H} _{k-1}(S^{m-1}) \\\\
+	= \\, &\begin{cases} \Z & k=m \cr 0 & \text{otherwise} \end{cases}
+\end{align*}
 $$
 
 一般地定义**局部同调群**是指 $H_n(X, X - \set{x})$. 由 excision 知它只和局部的拓扑有关。这可以用于考察局部的同胚情况。
@@ -205,25 +263,3 @@ $$
 根据以上条件使用 $5$-引理（通过对具体的元素作 diagram chasing）知 $3$ 列是同构。
 
 对无限维的 $X$，使用 $X$ 的紧集只能与可数个开单形（单形去掉面）有交，知 $H_n^\Delta(X) \to H_n(X)$ 满，又它一定是单的，得证。$A \neq \emptyset$ 的证法则同理。
-
-## 持续同调
-持续同调是拓扑数据分析（TDA）的一种技术。我们考虑一般的欧氏空间中的点集，我们有一些方法将数据降维到适合观察的低维空间，如主成分分析（PCA），但降维可能丢失数据。而持续同调（PH）则不需要降维就能刻画数据全貌。
-
-### Betti 数
-定义 Betti 数 $\beta_n = \operatorname{rank} H_n(X)$. 历史上同调群最开始是用 Betti 数和扭系数表示的。我们知道有限生成 Abel 群的结构定理：
-
-$$H_n(X) \cong \Z^{\beta_n} \oplus \bigoplus_i \Z/d_i\Z, \quad d_1 \mid d_2 \mid \cdots \mid d_k$$
-
-### 构建复形
-对一个取定的 $\varepsilon$，我们用该点集构建 Vietoris–Rips 复形，定义为：
-
-$$V_\varepsilon(P) = \set{\sigma \subseteq P | \lVert u-v \rVert \leq \varepsilon, \forall u, v \in \sigma}$$
-
-另一种选择是 Čech 复形：
-
-$$C_\varepsilon(P) = \set{\sigma \subseteq P | \bigcap_{x \in \sigma} B(x, \varepsilon) \neq \emptyset}$$
-
-### 算法
-对于这样建立的单纯复形，我们可以计算它的 Betti 数。考虑 $\varepsilon$ 在 $[0, +\infty)$ 连续改变，观察那些拓扑特性的持续时间。持续时间长的更可能是信号而不是噪声。对每个持续段 $[l, r]$，有两种表现方式：在平面上绘制点 $(l, r)$，得到的持续图，和绘制区间 $[l, r]$ 得到的条形码。
-
-在计算 Betti 数时，只需用矩阵化简的方法即可。
