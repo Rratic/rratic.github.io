@@ -1,6 +1,6 @@
 +++
-title = "【草稿】机器学习数学导引"
-draft = true
+title = "机器学习（一）：概论与线性方法"
+date = 2026-09-25
 
 [extra]
 math = true
@@ -13,6 +13,10 @@ priority = "0.8"
 categories = ["知识"]
 tags = ["计算机"]
 +++
+
+本文内容来自于《机器学习数学导引》课程听课笔记。这一部分（除核方法外）为第一次小测涉及的内容，对应于[教师 Lecture Notes](https://leiwu0.github.io/courses/mi2ml/index.html) 的 Lecture 1, 2.
+
+<!-- more -->
 
 ## 导论
 ### 数学理解

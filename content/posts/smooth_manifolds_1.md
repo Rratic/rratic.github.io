@@ -146,21 +146,21 @@ $$\mathrm{d}x^i \left(\frac{\partial}{\partial x^j}\right) = \delta^i_j$$
 
 ## 微分形式
 ### 张量
-为了定义微分形式，让我们先回顾张量的定义（注：在讨论张量时，会把一些下标写成上标来便于阅读，由于不会出现幂次，一般不会产生歧义）：
-
-首先，定义 $V_1 \otimes \cdots \otimes V_k = \mathcal{F}(V_1 \times \cdots \times V_k)/\mathcal{R}$，其中 $\mathcal{F}(S)$ 是指集合 $S$ 上的自由向量空间，$\mathcal{R}$ 是由形如 $(v_1\cdots av_i\cdots v_k)-a(v_1\cdots v_i\cdots v_k)$ 与 $(v_1\cdots v_i+v_i'\cdots v_k) - (v_1\cdots v_i\cdots v_k) - (v_1\cdots v_i'\cdots v_k)$ 的元素生成的子空间。
-
-对有限维向量空间，读者可以验证此定义会使得：
+为了定义微分形式，让我们先回顾张量的定义（注：在讨论张量时，会把一些下标写成上标来便于阅读，由于不会出现幂次，一般不会产生歧义）。先回忆[张量积](@/posts/hilbert_s_third_problem.md)，读者可验证：
 
 $$V_1^\ast \otimes \cdots \otimes V_k^\ast \cong L(V_1, \dots, V_k; \R)$$
 
-我们称 $V$ 上的**协变** $k$-张量是指 $\underbrace{V^\ast\otimes\cdots\otimes V^\ast}_k$，其全体记作 $T^k(V^\ast)$；称 $V$ 上的**逆变** $k$-张量是指 $\underbrace{V\otimes\cdots\otimes V}_k$，其全体记作 $T^k(V)$；称 $(k, l)$-型混合张量是指 $\underbrace{V\otimes\cdots\otimes V}_k \otimes \underbrace{V^\ast\otimes\cdots\otimes V^\ast}_l$，其全体记作 $T^{(k, l)}(V)$.
+我们称 $V$ 上的**协变** $k$-张量是指 $T^k(V^\ast) = \underbrace{V^\ast \otimes \cdots \otimes V^\ast}_k$ 的元素；**逆变** $k$-张量是指 $T^k(V) = \underbrace{V \otimes \cdots \otimes V}_k$ 的元素；$(k, l)$-型混合张量是指 $T^{(k, l)}(V) = \underbrace{V \otimes \cdots \otimes V}_k \otimes \underbrace{V^\ast \otimes \cdots \otimes V^\ast}_l$ 的元素。
 
 一个协变 $k$-张量 $\alpha$ 被称为是**对称**的，如果 $\alpha(\cdots v_i\cdots v_j \cdots) = \alpha(\cdots v_j\cdots v_i \cdots)$，其全体称为 $\Sigma^k(V^\ast)$；我们有一个投射 $\mathrm{Sym}: T^k(V^\ast) \to \Sigma^k(V^\ast)$，它是：
 
 $$(\operatorname{Sym} \alpha)(v_1, \dots, v_k) = \frac{1}{k!}\sum_{\sigma\in S_k} \alpha(v_{\sigma(1)}, \dots, v_{\sigma(k)})$$
 
 对 $\alpha, \beta \in \Sigma^k(V^\ast)$，可以定义其对称积 $\alpha\beta = \mathrm{Sym}(\alpha\otimes\beta)$.
+
+{% <example title="黎曼度规"> %}
+光滑流形上总是存在黎曼度规（对称、正定的 $(0, 2)$-型张量）。这是因为可以在坐标卡上取欧氏内积，然后用光滑单位分解。
+{% </example> %}
 
 一个协变 $k$-张量 $\alpha$ 被称为是**交错/反对称**的，如果 $\alpha(\cdots v_i\cdots v_j \cdots) = -\alpha(\cdots v_j\cdots v_i \cdots)$，其全体称为 $\Lambda^k(V^\ast)$；我们有一个投射 $\mathrm{Alt}: T^k(V^\ast) \to \Lambda^k(V^\ast)$，它是：
 
