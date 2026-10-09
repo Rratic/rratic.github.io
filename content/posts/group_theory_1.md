@@ -20,7 +20,7 @@ tags = ["数学", "代数学"]
 <!-- more -->
 
 ## 群在集合上的作用
-群 $G$ 在集合 $\Omega$ 上的作用是一个映射：
+群 $G$ 在集合 $\Omega$ 上的作用（记 $G \curvearrowright \Omega$）是一个映射：
 
 $$
 \begin{aligned}
@@ -29,7 +29,7 @@ $$
 \end{aligned}
 $$
 
-满足 $(\alpha^x)^y = \alpha^{xy}$，这给出单位元对应恒等映射，逆元对应逆映射。
+满足 $(\alpha^x)^y = \alpha^{xy}$，这给出单位元对应恒等映射，逆元对应逆映射。或者说，$\varphi$ 是从 $G$ 到 $\Omega$ 上对称群的同态。
 
 它有时被写成不同的形式，如：
 
@@ -40,17 +40,15 @@ f \colon G\times S & \longrightarrow S \cr
 \end{aligned}
 $$
 
-个人认为前一种看法更直观一些。
-
-显然有 $\varphi$ 是从 $G$ 到 $\Omega$ 上对称群的同态。
+个人认为前一种看法更直观一些。只不过对一些群以外的范畴，不一定笛卡尔闭，不一定能写成前一种形式。
 
 记集合元素 $\alpha$ 在这一关系下的等价类为其**轨道**：
 
-$$\mathrm{Orb}(\alpha) = \set{\alpha^x | x\in G}$$
+$$\mathrm{Orb}(\alpha) \coloneqq \set{\alpha^x | x\in G}$$
 
 记全体不变映射为其**稳定化子**，满足 $|\mathrm{Orb}(\alpha)| = |G\colon \mathrm{Stab}(\alpha)|$：
 
-$$\mathrm{Stab}(\alpha) = \set{x | \alpha^x = \alpha}$$
+$$\mathrm{Stab}(\alpha) \coloneqq \set{x | \alpha^x = \alpha}$$
 
 作为一个例子，对于正四面体（记顶点 $\set{A, B, C, D}$），设其旋转变换群为 $G$，则：任取一个顶点，它对应的稳定子群阶为 $3$，轨道为 $\set{A, B, C, D}$，故而 $G$ 是 $S_4$ 的 $12$ 阶子群，必然是 $A_4$.
 

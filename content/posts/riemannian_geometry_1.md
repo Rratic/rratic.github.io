@@ -345,6 +345,8 @@ $$T_\gamma \Omega = T_\gamma \Omega(t_0, \dots, t_k) \oplus T'$$
 
 $$d(\omega, \omega') = \max_{0 \leq t \leq 1} \rho(\omega(t), \omega'(t)) + \sqrt{\int_0^1 (\dot s - \dot s')^2 \mathrm dt}$$
 
+这里加上第二项是为了使得能量函数在这个度量下连续。
+
 这个度量可以诱导 $\Omega$ 上的拓扑。
 
 我们记 $\Omega^c$ 是 $E^{-1}([0, c])$，则我们可以给 $(\operatorname{Int} \Omega^c) \cap \Omega(t_0, \dots, t_k)$ 自然地赋予有限维光滑流形结构。
