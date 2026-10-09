@@ -22,7 +22,7 @@ tags = ["计算机"]
 ### 数学理解
 我们来从数学角度理解机器学习中的监督学习。我们希望知道一个目标函数：
 
-$$f^\ast: X \to Y$$
+$$f^\ast: \mathcal X \to \mathcal Y$$
 
 我们通过数据和先验知识（如目标函数光滑）去找函数 $\hat f$ 使得：
 
@@ -46,16 +46,13 @@ $$\underbrace{y_i} _{\text{label}} = \underbrace{f(x_i)} _{\text{target function
 ### 方法论
 Step 1 是选择一个带参数模型族，如：
 
-$$f_\theta: X \to Y \qquad (\theta \in \R^m)$$
+$$f_\theta: \mathcal X \to \mathcal Y \qquad (\theta \in \R^m)$$
 
-其可能是：
-- $b + w^\top x \qquad (\theta = (b, w))$
-- $\sum b_j \varphi_j(x)$
-- 神经网络
+其内容可能是线性函数 $b + w^\top x \\, (\theta = (b, w))$、基展开 $\sum b_j \varphi_j(x)$、神经网络等，不一而足。
 
 ---
 
-Step 2.0 是建立一个优化问题。定义**经验风险**（empirical risk）：
+Step 2.0 是建立一个优化问题。确定度量差异的**损失函数**（loss function）$l$，然后定义**经验风险**（empirical risk）：
 
 $$\hat R(\theta) = \frac 1 n \sum l(f(x_i), y_i)$$
 
@@ -64,6 +61,8 @@ $$\min_\theta \hat R(\theta)$$
 我们通常还会加上正则化项：
 
 $$J(\theta) = \hat R(\theta) + \lambda \underbrace{P(f_\theta)}_{\text{penalty}}$$
+
+这就是我们的训练目标（optimization objective）。
 
 $$\min_\theta J(\theta)$$
 
@@ -75,7 +74,9 @@ $$\theta_{k+1} = \theta_k - \eta \nabla J(\theta_k)$$
 
 ---
 
-对公司来说还有 Step 3，对应评测部门。记（用 $\leftarrow$ 表示赋值，用 $\hat ~$ 表示从数据学到的）：
+对公司来说还有 Step 3，对应评测部门。数据集被分成三部分：训练集⽤于拟合模型参数，即最⼩化训练⽬标；验证集（validation set）⽤于选择超参数（hyperparameter）（如正则化强度等）、模型结构、训练轮数等；测试集只⽤于最终报告泛化性能。将测试集放进模型选择与训练过程会使之不再可信。
+
+记（用 $\leftarrow$ 表示赋值，用 $\hat ~$ 表示从数据学到的）：
 
 $$\hat f \leftarrow \argmin_{f \in \mathcal H_m} \hat R(f)$$
 
@@ -88,6 +89,8 @@ $$R(f) = \mathbb E_{x \sim \rho}[l(f(x), f^\ast(x))]$$
 取测试集 $S_{\text{test}}$ 满足 $\tilde x_j \stackrel {\text {iid}} \sim \rho$，定义 test error 是：
 
 $$\hat R_{\text{test}}(f) = \frac 1 {n_{\text{test}}} \sum l(f(\tilde x_j, \tilde y_j))$$
+
+$$\hat R_{\text{test}}(f) = R(f)$$
 
 这就是 Monte Carlo 近似。若记 $z_i = l(f(\tilde x_i), \tilde y_i)$，并令 $\mu = \mathbb E[z]$，则独立同分布样本的平均值满足：
 
@@ -157,8 +160,8 @@ $$|\hat f(x) - f^\ast(x)| \sim n^{-\frac s d} = \varepsilon$$
 
 如果假设空间是分片常值函数（在实际中确有，如 K-nearest neighbour (KNN)），想要去拟合线性函数，则读者可验证也会造成维数灾难。
 
-## 线性方法
-### 模型
+## 线性回归
+### 线性模型
 线性方法比较 robust，同时完全可解释、可计算，因此学习时不能当黑箱来看。
 
 线性方法的假设空间即：
@@ -171,7 +174,8 @@ $$\underbrace{\begin{pmatrix}\beta^\top & \beta_0\end{pmatrix}}_\beta \underbrac
 
 $$\mathcal H = \set{x \mapsto \beta^\top x | \beta \in \R^d}$$
 
-考察以下经典的 risk，注意使用 square loss 并不是天然的：这会带来解析解，在噪声 $\varepsilon_i \sim N(0, \sigma^2)$ 时适用，但在 $P(|\varepsilon_i| \geq R) \propto R^{-\beta}$ 这样尾部较大的情形可能不适用。
+### 最小二乘法
+最小二乘法（Ordinary Least Squares, OLS）使用以下经典的 risk. 注意使用 square loss 并不是天然的：这会带来解析解，在噪声 $\varepsilon_i \sim N(0, \sigma^2)$ 时适用，但在 $P(|\varepsilon_i| \geq R) \propto R^{-\beta}$ 这样尾部较大的情形可能不适用。
 
 $$\hat R(\beta) = \frac 1 {2n} \lVert x\beta - y \rVert^2$$
 
@@ -188,16 +192,17 @@ $$
 
 但实际中几乎不会直接用这个解。一方面需要 $x^\top x$ 可逆，这需要样本数大于维数。另一方面，这个解对标签噪声（label noise）和异常值敏感，因此需要改为：
 
-$$\min_\beta \hat R(\beta) + \underbrace\lambda_{\text{hyper parameter}} r(\beta)$$
+$$\min_\beta \hat R(\beta) + \lambda r(\beta)$$
 
-所谓“调参”，就是调整这里的 hyper parameter，这没有什么一般的方法，但可以参考一些原则：
+所谓“调参”，就是调整超参数（这里只有 $\lambda$）。这没有什么一般的方法，但可以参考一些原则：
 - $n$ 变大，左边更接近真实，应当 $\lambda$ 变小
     - 对大模型来说假设有一个 scaling law $\lambda \propto n^{-r}$，先在小模型上拟合然后推广
-- 准备一个 validation set，设 $\beta(\lambda)$ 是一个 $\lambda$ 对应的 $\argmax$，
+- 准备一个验证集，设 $\beta(\lambda)$ 是一个 $\lambda$ 对应的 $\argmax$，
     $$\lambda \leftarrow \argmin \frac 1 {|n_{\text{val}}|} \sum |x\beta(\lambda) - y|^2$$
 
-### Ridge Regression
-岭回归是指使用 L2 正则化：
+### 岭回归
+岭回归（Ridge Regression）是指使用 $\ell_2$ 正则化：
+
 $$\min_\beta \frac 1 n \lVert x\beta - y \rVert^2 + \lambda \lVert \beta \rVert^2$$
 
 $$\hat \beta_\lambda = \left(\frac 1 n x^\top x + \lambda I_n\right)^{-1} \frac 1 n x^\top y$$
@@ -208,6 +213,7 @@ $$\hat \beta_\lambda = (\Sigma + \lambda)^{-1} \Sigma \beta^\ast + (\Sigma + \la
 
 $$\Delta = \lambda (\Sigma + \lambda)^{-1} \beta^\ast - (\Sigma + \lambda)^{-1} \frac 1 n x^\top \varepsilon$$
 
+于是有下式，可以发现通常正则化增⼤时，偏差增⼤，⽅差减⼩，因此存在一个权衡。
 
 $$
 \begin{align*}
@@ -232,22 +238,22 @@ $$\lambda_{\text{opt}} \propto \frac 1 n$$
 
 另外可分析得绝大部分误差来自于 $\lambda_j \ll \lambda$ 的方向的噪声。这样看正则化可以降低该部分误差。
 
-### LASSO
+### Lasso 回归
 思考上面在使用 $\lambda \lVert \beta \rVert_2^q$ 时为什么选取 $q = 2$？一方面是为了更好算，另一方面是为了让量纲一致。
 
-考虑 L0 正则化（相当于 sparsity）：
+考虑 $\ell_0$ 正则化（相当于考察稀疏性（sparsity））：
 
 $$\lVert\beta\rVert_0 \coloneqq \\#\set{\beta_j \neq 0 | j \in [d]}$$
 
-最终会有 $\lVert\beta\rVert_0 \ll d$，这使得结果有较好的可解释性。但 L0 正则化不连续且非凸，无法梯度下降，因此考虑用一般的 $p$ norm，由于 $p = 1$ 时函数才凸，考虑 L1 正则化。
+最终会有 $\lVert\beta\rVert_0 \ll d$，这使得结果有较好的可解释性。但 $\ell_0$ 正则化不连续且非凸，无法梯度下降，因此考虑用一般的 $p$ norm，由于 $p = 1$ 时函数才凸，考虑 $\ell_1$ 正则化，得到的是 Lasso 回归（Least Absolute Shrinkage and Selection Operator, Lasso）。
 
-一般用 L1 正则化的时候不会平方。原因不明，一方面可能因为实际中会把数据归一化，另一方面 L0 正则化是没有量纲的，我们本质上考虑的是 L0 而不是 $\lambda \lVert \beta \rVert_2^2$.
+一般用 $\ell_1$ 正则化的时候不会平方。原因不明，一方面可能因为实际中会把数据归一化，另一方面 $\ell_0$ 正则化是没有量纲的，我们本质上考虑的是 $\ell_0$ 而不是 $\lambda \lVert \beta \rVert_2^2$.
 
 可解释是指对于人类可解释，如 $\beta = (1, 0, 0, 0)$ 误差 $0.02$，$\beta = (0.6, 0.15, 0.15, 0.1)$ 误差 $0.01$，则人类心智偏向于前者。也许对 AI 来说并不如此。
 
-考察一下为什么会让 $\beta$ 稀疏：
+用一维 Lasso 考察为什么会让 $\beta$ 稀疏：
 
-$$S_\lambda(y) = \min_\beta \frac 1 2 (\beta - y)^2 + \lambda |\beta|$$
+$$S_\lambda(y) = \argmin_\beta \frac 1 2 (\beta - y)^2 + \lambda |\beta|$$
 
 $$
 S_\lambda(y) = \begin{cases}
@@ -257,7 +263,7 @@ S_\lambda(y) = \begin{cases}
 \end{cases}
 $$
 
-因此，较小的参数会直接变为零。相反地，
+因此，较小的参数会直接变为零。反观一维 Ridge 则是收缩：
 
 $$\hat \beta_{\text{ridge}} = \frac{y}{\lambda + 1}$$
 
@@ -290,46 +296,47 @@ $$\beta_1 = \argmin_{\beta \in \R^p}\lVert\beta\rVert_1 \quad \text{s.t.} \quad 
 $$\lVert\beta_1 - \beta_0\rVert_2 \leq C_k \\, \lVert\beta_0 - T_k(\beta_0)\rVert_2,$$
 {% </theorem> %}
 
-### 核方法
+## 核方法
+### 特征与核
 将线性方法推广到非线性时一个方法是引入基函数：
 
-$$f_\theta(x) = \theta^\top \varphi(x)$$
+$$f_\theta(x) = \theta^\top \phi(x)$$
 
 做机器学习的人进一步把它看成：
 
-$$f_\theta(x) = \braket{\theta, \varphi(x)}$$
+$$f_\theta(x) = \braket{\theta, \phi(x)}$$
 
-这里 $\varphi$ 是一个 feature map，将数据打到某个 Hilbert 空间 $\mathcal H$，
+这里 $\phi$ 是一个 feature map，将数据打到某个 Hilbert 空间 $\mathcal H$，
 
-$$\varphi: X \to \underbrace{\mathcal H}_{\text{feature space}}$$
+$$\phi: \mathcal X \to \underbrace{\mathcal H}_{\text{feature space}}$$
 
 总体图景如下：
 
-$$X \xrightarrow{\varphi} \mathcal H \xrightarrow{\text{linear}} \R$$
+$$X \xrightarrow{\phi} \mathcal H \xrightarrow{\text{linear}} \R$$
 
 “特征”的直观在于，我们看到人的时候并不是看对应的像素点，而是考虑纹理、局部形状；手之类的特征。
 
 在特征空间 $m \gg 1$ 时，朴素地按下式计算有很高的成本：
 
-$$\min_\theta \frac 1 n \sum_{i=1}^n (\braket{\varphi(x_i), \theta} - y_i)^2 + \lambda \lVert\theta\rVert^2$$
+$$\min_\theta \frac 1 n \sum_{i=1}^n (\braket{\phi(x_i), \theta} - y_i)^2 + \lambda \lVert\theta\rVert^2$$
 
 {% <theorem title="Representer Theorem"> %}
-最优解一定如下在 $\varphi(x_i)$ 张成空间中：
+最优解一定在如下 $\phi(x_i)$ 张成空间中：
 
-$$V_n = \operatorname{span}\set{\varphi(x_1), \dots, \varphi(x_n)}$$
+$$V_n = \operatorname{span}\set{\phi(x_1), \dots, \phi(x_n)}$$
 {% </theorem> %}
 
 考虑正交分解 $\theta = \theta^\parallel + \theta^\perp$，
 
-$$f_\theta(x_i) = \braket{\theta, \varphi(x_i)} = \braket{\theta^\parallel, \varphi(x_i)} = f_{\theta^\parallel}(x_i)$$
+$$f_\theta(x_i) = \braket{\theta, \phi(x_i)} = \braket{\theta^\parallel, \phi(x_i)} = f_{\theta^\parallel}(x_i)$$
 
 因此我们可以只考虑：
 
-$$\hat\theta = \sum_{i=1}^n \alpha_i \varphi(x_i)$$
+$$\hat\theta = \sum_{i=1}^n \alpha_i \phi(x_i)$$
 
 我们定义以下核函数，并令矩阵 $K_{ij} = k(x_i, x_j)$，
 
-$$k(x_i, x_j) \coloneqq \braket{\varphi(x_i), \varphi(x_j)}$$
+$$k(x_i, x_j) \coloneqq \braket{\phi(x_i), \phi(x_j)}$$
 
 因此只需要考虑以下问题（Kernel Ridge Regression, KRR）：
 
@@ -344,8 +351,33 @@ $$\min_{\alpha \in \R^n} \frac 1 n \lVert K\alpha -y \rVert^2 + \lambda \alpha^\
 | Gaussian | $\exp(- \lVert x-x'\rVert^2 / 2\sigma^2)$ |
 | Laplace | $\exp(- \lVert x-x'\rVert_2 / \sigma)$ |
 
-核函数的判别法是：对称、半正定。以以下 Gaussian kernel 为例：
+函数是核函数的充要条件是对称、半正定（Moore–Aronszajn 定理）。以以下 Gaussian kernel 为例：
 
 $$k(x, x') = e^{-\frac{(x-x')^2} 2}$$
 
-$$\varphi(x) = e^{-\frac{x^2}{2}} \left(1, x, \frac{x^2}{\sqrt 2}, \frac{x^3}{\sqrt {3!}}, \dots\right)$$
+$$\phi(x) = e^{-\frac{x^2}{2}} \left(1, x, \frac{x^2}{\sqrt 2}, \frac{x^3}{\sqrt {3!}}, \dots\right)$$
+
+### 随机特征方法
+可以算得 KRR 的解析解是：
+
+$$\hat \alpha = (K + n\lambda I)^{-1} y$$
+
+在 1985-1995，机器学习主要是做浅层神经网络，但是因为非凸所以优化很复杂，于是 1995-2015 做核方法。大约 2005-2006 年，随互联网发展，$n$ 达到 $10^6$ 量级，而上面的解需要 $O(n^3)$ 的计算与 $O(n^2)$ 的存储，这是不可接受的。
+
+在数值线性代数中，优化靠的是稀疏矩阵，在这里我们不妨考虑：
+
+$$k(x, x') \approx \frac 1 m \sum_{j=1}^m \varphi(x; \omega_j) \varphi(x'; \omega_j)$$
+
+这里 $\omega_i$ 是随机特征方向：
+
+$$\varphi: \mathcal X \times \Omega \to \R$$
+
+随机特征模型（Random Feature Model）即：
+
+$$f(x; \beta) = \frac 1 m \sum_{j=1}^m \beta_j \varphi(x; \omega_j)$$
+
+对应的岭回归问题是：
+
+$$\min_\beta \frac 1 {2n} \sum_{i=1}^n \left(\frac 1 m \sum_{j=1}^m \beta_j \varphi(x; \omega_j) - y_i\right)^2 + \frac \lambda {2m} \lVert\beta\rVert_2^2$$
+
+这个方法可以解释为核方法的随机特征近似（random feature approximation），只需要 $O(m^2n)$ 的计算与 $O(mn)$ 的存储，对 $m \ll n$ 优化相当显著。
