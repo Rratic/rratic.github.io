@@ -1,6 +1,7 @@
 +++
 title = "机器学习（一）：概论与线性方法"
 date = 2026-09-25
+updated = 2026-10-10
 
 [extra]
 math = true
@@ -10,7 +11,7 @@ toc = true
 priority = "0.8"
 
 [taxonomies]
-categories = ["知识"]
+categories = ["知识", "课程"]
 tags = ["计算机"]
 +++
 
@@ -366,11 +367,13 @@ $$\hat \alpha = (K + n\lambda I)^{-1} y$$
 
 在数值线性代数中，优化靠的是稀疏矩阵，在这里我们不妨考虑：
 
+$$k(x, x') = \mathbb E_{\omega \sim \pi}[\varphi(x; \omega_j) \varphi(x'; \omega_j)]$$
+
+这里 $\varphi: \mathcal X \times \Omega \to \R$，$\pi$ 是 $\Omega$ 上的概率测度。
+
+我们可以做 Monte Carlo 离散：
+
 $$k(x, x') \approx \frac 1 m \sum_{j=1}^m \varphi(x; \omega_j) \varphi(x'; \omega_j)$$
-
-这里 $\omega_i$ 是随机特征方向：
-
-$$\varphi: \mathcal X \times \Omega \to \R$$
 
 随机特征模型（Random Feature Model）即：
 
@@ -380,4 +383,39 @@ $$f(x; \beta) = \frac 1 m \sum_{j=1}^m \beta_j \varphi(x; \omega_j)$$
 
 $$\min_\beta \frac 1 {2n} \sum_{i=1}^n \left(\frac 1 m \sum_{j=1}^m \beta_j \varphi(x; \omega_j) - y_i\right)^2 + \frac \lambda {2m} \lVert\beta\rVert_2^2$$
 
+记 $\Phi = (\varphi(x_i; \omega_j)) \in \R^{n \times m}$，则解是：
+
+$$\hat \beta = (\Phi^\top \Phi + n\lambda I)^{-1} \Phi^\top y$$
+
 这个方法可以解释为核方法的随机特征近似（random feature approximation），只需要 $O(m^2n)$ 的计算与 $O(mn)$ 的存储，对 $m \ll n$ 优化相当显著。
+
+---
+
+考虑平移不变（translation invariant）的核，即形如 $k(x, x') = \kappa(x - x')$ 的核。
+
+采取如下 Fourier 变换约定：
+
+$$
+\hat f(x) = \frac 1 {(2\pi)^{d/2}} \int f(x) e^{-\mathrm i\omega x} \mathrm d\omega \\\\
+\check g(x) = \frac 1 {(2\pi)^{d/2}} \int g(x) e^{\mathrm i\omega x} \mathrm d\omega
+$$
+
+对于 $\hat \kappa(\omega) \geq 0$，可以让 $\hat \kappa(\omega) / c$ 是一个密度，
+
+$$k(x, x') = (\hat \kappa)^\vee(x - x') = \frac c {(2\pi)^{d/2}} \int \frac{\hat \kappa(\omega)}{c} e^{\mathrm i\omega x} \cdot \overline{e^{\mathrm i\omega x'}} \mathrm d\omega$$
+
+设这个密度决定的分布 $\pi$，则上式即：
+
+$$\frac c {(2\pi)^{d/2}} \mathbb E_{\omega \sim \pi}[e^{\mathrm i\omega x} \cdot \overline{e^{\mathrm i\omega x'}}]$$
+
+于是有随机 Fourier 特征（random Fourier features, RFFs）：
+
+$$\varphi(x; \omega) = e^{\mathrm i\omega x}$$
+
+例如说，对 Gaussian kernel，其 Fourier 变换是它自身，对应的分布 $\pi$ 是高斯分布。
+
+---
+
+回顾核方法将基函数变成核，再将核拆成随机特征。尽管数学上这两个操作互逆，其 modeling 不同：一开始的特征是人类认为的那些特征，而之后的则是一些人类无法想象的“随机特征”。
+
+回忆 Gaussian kernel $\exp(- \lVert x-x'\rVert^2 / 2\sigma^2)$，在 $\lVert x-x'\rVert \ll \sigma$ 时，它约等于 $1 - \lVert x-x'\rVert^2 / 2\sigma^2$，反之 $\gg$ 则约等于零。直观上这说的是只关心临近的点。
