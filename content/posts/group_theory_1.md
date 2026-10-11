@@ -52,6 +52,26 @@ $$\mathrm{Stab}(\alpha) \coloneqq \set{x | \alpha^x = \alpha}$$
 
 作为一个例子，对于正四面体（记顶点 $\set{A, B, C, D}$），设其旋转变换群为 $G$，则：任取一个顶点，它对应的稳定子群阶为 $3$，轨道为 $\set{A, B, C, D}$，故而 $G$ 是 $S_4$ 的 $12$ 阶子群，必然是 $A_4$.
 
+## 平移作用
+左平移作用是在 $G$ 的集合上的作用：
+
+$$
+\begin{aligned}
+\varphi(g) \colon G & \longrightarrow G \cr
+    h & \longmapsto gh
+\end{aligned}
+$$
+
+{% <theorem> %}
+对 $|G| = n$ 的最小素因子 $p$，所有 $n / p$ 阶子群都是正规的。
+{% </theorem> %}
+
+设 $n / p$ 阶子群 $H$，考察左平移作用 $G \curvearrowright G/H$，这给出了 $\varphi: G \to S_p$ 同态。
+
+一方面，$\operatorname{Im} \varphi \leq S_p$，故 $|\operatorname{Im} \varphi|$ 整除 $p!$；另一方面 $\ker \varphi \leq H$，有 $|\ker \varphi| \cdot [H : \ker \varphi] = n / p$，相乘即 $[H : \ker \varphi] \mid (p - 1)!$，只能为一。
+
+故 $H = \ker \varphi$，而 $\ker \varphi$ 正规，故 $H$ 正规。
+
 ## 半直积
 对于 $\phi: H \to \mathrm{Aut}(N)$，我们定义半直积 $N\rtimes_\phi H$ 是：
 
