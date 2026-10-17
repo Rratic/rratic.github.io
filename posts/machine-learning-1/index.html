@@ -1,0 +1,505 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola v0.23.4" />
+  <title>机器学习（一）：概论与线性方法 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="机器学习（一）：概论与线性方法" />
+  <meta name="description" content="本文内容来自于《机器学习数学导引》课程听课笔记。这一部分（除核方法外）为第一次小测涉及的内容，对应于教师 Lecture Notes 的 Lecture 1, 2" />
+  <meta property="og:description" content="本文内容来自于《机器学习数学导引》课程听课笔记。这一部分（除核方法外）为第一次小测涉及的内容，对应于教师 Lecture Notes 的 Lecture 1, 2" />
+  <meta property="og:url" content="https://rratic.top/posts/machine-learning-1/" />
+  <link rel="canonical" href="https://rratic.top/posts/machine-learning-1/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-09-25T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2026-10-10T00:00:00+00:00" />
+  <meta property="article:tag" content="计算机" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <meta name="msvalidate.01" content="9BE559916FDB06A7A09EA17370F0ED09" />
+<link rel="icon" type="image/svg+xml" href="https://rratic.top/favicon.svg" />
+<link rel="stylesheet" href="https://rratic.top/style/shared.css?h=2dac71ecd418f5165c3d" />
+
+  <link rel="stylesheet" href="https://rratic.top/giallo-light.css?h=396eaa20499714fdb600" media="(prefers-color-scheme: light)" />
+  <link rel="stylesheet" href="https://rratic.top/giallo-dark.css?h=536598ee42e9e9a795bc" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=f166037ad671ba6bfd13" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=11a0f44fbe01f53dbaf9"></script>
+  <!-- head_end inject -->
+
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      
+<menu
+  class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/posts/"
+    >文章</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/categories/"
+    >分类</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/tags/"
+    >标签</a>
+  </li>
+</menu>
+
+      <!-- header_nav inject -->
+
+    </nav>
+  </div>
+</header>
+
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    <!-- body_start inject -->
+
+    
+<article>
+  <!-- page_start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-3">机器学习（一）：概论与线性方法</h1>
+    <div class="text-sm antialiased opacity-80"><time
+      datetime="2026-09-25T00:00:00+00:00">2026-09-25</time><span
+        class="middot"></span><time
+    datetime="PT0H18M0S">18&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+  </header>
+  
+  
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#dao-lun">导论</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#shu-xue-li-jie">数学理解</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#fang-fa-lun">方法论</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#wu-chai-fen-jie">误差分解</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#cheng-ben">成本</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#fan-hua">泛化</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#xian-xing-hui-gui">线性回归</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#xian-xing-mo-xing">线性模型</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#zui-xiao-er-cheng-fa">最小二乘法</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ling-hui-gui">岭回归</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#lasso-hui-gui">Lasso 回归</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ya-suo-gan-zhi">压缩感知</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#he-fang-fa">核方法</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#te-zheng-yu-he">特征与核</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#sui-ji-te-zheng-fang-fa">随机特征方法</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </details>
+</nav>
+  <!-- Content -->
+  <section><p>本文内容来自于《机器学习数学导引》课程听课笔记。这一部分（除核方法外）为第一次小测涉及的内容，对应于<a rel="external" href="https://leiwu0.github.io/courses/mi2ml/index.html">教师 Lecture Notes</a> 的 Lecture 1, 2.</p>
+<span id="continue-reading"></span><h2 id="dao-lun">导论</h2>
+<h3 id="shu-xue-li-jie">数学理解</h3>
+<p>我们来从数学角度理解机器学习中的监督学习。我们希望知道一个目标函数：</p>
+<p>$$f^\ast: \mathcal X \to \mathcal Y$$</p>
+<p>我们通过数据和先验知识（如目标函数光滑）去找函数 $\hat f$ 使得：</p>
+<p>$$\hat f \approx f^\ast$$</p>
+<p>考虑训练集 $S = \set{(x_i, y_i)}$，定义：</p>
+<p>$$\underbrace{y_i} _{\text{label}} = \underbrace{f(x_i)} _{\text{target function}} + \underbrace{\varepsilon_i} _{\text{noise}}$$</p>
+<hr />
+<p>典型的 $y_i$ 有两种：实值，此时称模型为回归（regression）；类型，此时称模型为分类（classification）。</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-note);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/note.svg)">note</div>
+    <span><strong>根据需要去建模</strong></span>
+  </div>
+  <div class="pl-4"><p>考虑预测同学的成绩，虽然可以表达成实值，但我们并不关心小数点两位那么精确的值，同时也不认为我们能做到如此精确的估计。考虑将成绩分为 $1, \dots, 10$ 十类，实际中建模成分类任务可能会比直接做回归效果更好。</p>
+</div>
+</div>
+<p>考虑学习任务的难度可能来自哪里。这一方面会受到 linear vs nonlinear 的影响；另一方面受到维数的影响。一维数据可以肉眼看出来，但图像识别（早期重要的体现机器学习价值的例子）的输入可能是 $224 \times 224 \times 3$ 维的，无法用传统统计方法处理。由此看维数是重要的区分传统方法和机器学习的依据。</p>
+<h3 id="fang-fa-lun">方法论</h3>
+<p>Step 1 是选择一个带参数模型族，如：</p>
+<p>$$f_\theta: \mathcal X \to \mathcal Y \qquad (\theta \in \R^m)$$</p>
+<p>其内容可能是线性函数 $b + w^\top x \, (\theta = (b, w))$、基展开 $\sum b_j \varphi_j(x)$、神经网络等，不一而足。</p>
+<hr />
+<p>Step 2.0 是建立一个优化问题。确定度量差异的<strong>损失函数</strong>（loss function）$l$，然后定义<strong>经验风险</strong>（empirical risk）：</p>
+<p>$$\hat R(\theta) = \frac 1 n \sum l(f(x_i), y_i)$$</p>
+<p>$$\min_\theta \hat R(\theta)$$</p>
+<p>我们通常还会加上正则化项：</p>
+<p>$$J(\theta) = \hat R(\theta) + \lambda \underbrace{P(f_\theta)}_{\text{penalty}}$$</p>
+<p>这就是我们的训练目标（optimization objective）。</p>
+<p>$$\min_\theta J(\theta)$$</p>
+<p>Step 2.1 是设计优化器。如梯度下降迭代：</p>
+<p>$$\theta_{k+1} = \theta_k - \eta \nabla J(\theta_k)$$</p>
+<p>在公司中，Step 1 会对应一个架构/模型组，Step 2 对应一个优化器组。这两个组有时合并，因为取决于算力，架构设计时需要让收敛更快。</p>
+<hr />
+<p>对公司来说还有 Step 3，对应评测部门。数据集被分成三部分：训练集⽤于拟合模型参数，即最⼩化训练⽬标；验证集（validation set）⽤于选择超参数（hyperparameter）（如正则化强度等）、模型结构、训练轮数等；测试集只⽤于最终报告泛化性能。将测试集放进模型选择与训练过程会使之不再可信。</p>
+<p>记（用 $\leftarrow$ 表示赋值，用 $\hat ~$ 表示从数据学到的）：</p>
+<p>$$\hat f \leftarrow \argmin_{f \in \mathcal H_m} \hat R(f)$$</p>
+<p>我们定义<strong>期望损失</strong>（expected risk）：</p>
+<p>$$R(f) = \mathbb E_{x \sim \rho}[l(f(x), f^\ast(x))]$$</p>
+<p>这里我们假设存在一个客观存在的分布 $\rho$，并有 $x_i \stackrel {\text {iid}} \sim \rho$.</p>
+<p>取测试集 $S_{\text{test}}$ 满足 $\tilde x_j \stackrel {\text {iid}} \sim \rho$，定义 test error 是：</p>
+<p>$$\hat R_{\text{test}}(f) = \frac 1 {n_{\text{test}}} \sum l(f(\tilde x_j, \tilde y_j))$$</p>
+<p>$$\hat R_{\text{test}}(f) = R(f)$$</p>
+<p>这就是 Monte Carlo 近似。若记 $z_i = l(f(\tilde x_i), \tilde y_i)$，并令 $\mu = \mathbb E[z]$，则独立同分布样本的平均值满足：</p>
+<p>$$
+\begin{align*}
+&amp;\mathbb E(R(f) - \hat R(f))^2 \cr
+=&amp; \mathbb E\left(\frac 1 N \sum (z_j - \mu)\right)^2 \cr
+=&amp; \frac 1 {N^2} \sum_{i \neq j} \mathbb E[(z_i - \mu)(z_j - \mu)] + \frac 1 {N^2} \sum \mathbb E[(z_i - \mu)^2] \cr
+=&amp; \frac 1 {N^2} \sum_{i \neq j} \mathbb E[z_i - \mu] \mathbb E[z_j - \mu] + \frac 1 {N^2} \sum \mathbb E[(z_i - \mu)^2] \cr
+=&amp; \frac 1 {N^2} \sum \mathbb E[(z_i - \mu)^2] \cr
+=&amp; \frac {\mathrm{Var}(z)} N
+\end{align*}
+$$</p>
+<hr />
+<p>在整个过程中，Step 1 与 2 门槛最高，但核心是数据，清洗数据带来的效果可能比优化架构有用很多。</p>
+<h3 id="wu-chai-fen-jie">误差分解</h3>
+<p>记假设空间 $\mathcal H_m = \set{f_\theta | \theta \in \R^m}$ 内最优：</p>
+<p>$$f_H^\ast \leftarrow \argmin_{f \in \mathcal H_m} R(f)$$</p>
+<p>则可以作分解（$R(f^\ast) = 0$）：</p>
+<p>$$R(\hat f) - R(f^\ast) = \underbrace{R(\hat f) - R(f_H^\ast)} _{\text{estimation error}} + \underbrace{R(f_H^\ast) - R(f^\ast)} _{\text{approximation error}}$$</p>
+<p>这里估计误差来自于有限训练数据和优化过程，记作 $E_H(n, m)$，一般来说会随 $m$ 增大（表达能力增强后有更大的风险得到复杂而非真实的函数）；近似误差来自空间 $\mathcal H_m$ 的表达能力，记作 $A_H(m)$；总误差记为 $\mathcal E(n, m)$.</p>
+<p>增加数据主要有助于降低估计误差，而扩大模型的表达能力主要有助于降低近似误差。朴素的看法认为误差会随 capacity $m$ 呈 U 型曲线，因此正则化作用是惩罚复杂性。现代深度学习会更复杂，如在 capacity 足够高时会出现二次下降。</p>
+<h3 id="cheng-ben">成本</h3>
+<p>我们希望在 $\min_{m, n} R_H(m, n)$ 的同时让成本 $C_H(m, n) \leq B$.</p>
+<p>不妨考察：</p>
+<p>$$C_H(m, n) = n \cdot m \cdot \alpha_H$$</p>
+<p>$$R_H(m, n) = \frac 1 {m^\alpha} + \frac 1 {n^\beta} \tag{deepmind scaling law}$$</p>
+<p>$$\begin{cases} \min \frac 1 {m^\alpha} + \frac 1 {n^\beta} \cr m \cdot n \leq c \end{cases} \implies \begin{cases} m \sim C^{\frac \beta {\alpha+\beta}} \cr n \sim C^{\frac \alpha {\alpha+\beta}} \end{cases}$$</p>
+<p>现代来看，我们可以设计 $R$，从而给出对应 scaling law 结果，可以预测增加若干预算能有多少优化。由此我们离开了古法的“炼丹”情景。</p>
+<h3 id="fan-hua">泛化</h3>
+<p>我们希望从有限的数据推广到无限的数据。考察：</p>
+<p>$$
+\begin{align*}
+&amp;\hat f(x) - f^\ast(x) \cr
+=&amp; \hat f(x) - \hat f(x_k) + \hat f(x_k) - f^\ast(x_k) + f^\ast(x_k) - f^\ast(x) \cr
+\leq &amp; \mathrm{Lip}(f) |x - x_k| + \mathrm{Lip}(f^\ast) |x - x_k| + \delta_k
+\end{align*}
+$$</p>
+<p>假设数据在 $[0, 1]$ 上均匀，有 $\min_j |x - x_j| \sim \frac 1 n$；对 $X = [0, 1]^d$ 则（考察网格情况及使用 sphere packing argument）：</p>
+<p>$$\min_j |x - x_j| \sim n^{-\frac 1 d} = Q_n$$</p>
+<p>对 $s$ 阶可微的函数：</p>
+<p>$$|\hat f(x) - f^\ast(x)| \sim n^{-\frac s d} = \varepsilon$$</p>
+<p>此现象（维数灾难）等价于，高维单位球面上的向量几乎都是正交的。</p>
+<p>假若希望 $\varepsilon \leq 0.1$，对 $d = 150000$ 就需要 $10^{150000}$ 的数据，这是不可接受的。因此，我们会利用一些数据的结构。</p>
+<p>如果假设空间是分片常值函数（在实际中确有，如 K-nearest neighbour (KNN)），想要去拟合线性函数，则读者可验证也会造成维数灾难。</p>
+<h2 id="xian-xing-hui-gui">线性回归</h2>
+<h3 id="xian-xing-mo-xing">线性模型</h3>
+<p>线性方法比较 robust，同时完全可解释、可计算，因此学习时不能当黑箱来看。</p>
+<p>线性方法的假设空间即：</p>
+<p>$$\mathcal H = \set{x \mapsto \beta^\top x + \beta_0 | \beta \in \R^d, \beta_0 \in \R}$$</p>
+<p>有时我们会作简化，将它看成：</p>
+<p>$$\underbrace{\begin{pmatrix}\beta^\top &amp; \beta_0\end{pmatrix}}_\beta \underbrace{\begin{pmatrix}x \cr 1\end{pmatrix}}_x$$</p>
+<p>$$\mathcal H = \set{x \mapsto \beta^\top x | \beta \in \R^d}$$</p>
+<h3 id="zui-xiao-er-cheng-fa">最小二乘法</h3>
+<p>最小二乘法（Ordinary Least Squares, OLS）使用以下经典的 risk. 注意使用 square loss 并不是天然的：这会带来解析解，在噪声 $\varepsilon_i \sim N(0, \sigma^2)$ 时适用，但在 $P(|\varepsilon_i| \geq R) \propto R^{-\beta}$ 这样尾部较大的情形可能不适用。</p>
+<p>$$\hat R(\beta) = \frac 1 {2n} \lVert x\beta - y \rVert^2$$</p>
+<p>这里 $x$ 是 $n \times d$ 的。容易解出：</p>
+<p>$$
+\begin{align*}
+&amp;\min_\beta \frac 1 {2n} \lVert x\beta - y \rVert^2 \cr
+\iff&amp; \frac 1 n x^\top (x\beta - y) = 0 \cr
+\iff&amp; x^\top x\beta = x^\top y \cr
+\iff&amp; \hat \beta_{\text{OLS}} = (x^\top x)^{-1} x^\top y
+\end{align*}
+$$</p>
+<p>但实际中几乎不会直接用这个解。一方面需要 $x^\top x$ 可逆，这需要样本数大于维数。另一方面，这个解对标签噪声（label noise）和异常值敏感，因此需要改为：</p>
+<p>$$\min_\beta \hat R(\beta) + \lambda r(\beta)$$</p>
+<p>所谓“调参”，就是调整超参数（这里只有 $\lambda$）。这没有什么一般的方法，但可以参考一些原则：</p>
+<ul>
+<li>$n$ 变大，左边更接近真实，应当 $\lambda$ 变小
+<ul>
+<li>对大模型来说假设有一个 scaling law $\lambda \propto n^{-r}$，先在小模型上拟合然后推广</li>
+</ul>
+</li>
+<li>准备一个验证集，设 $\beta(\lambda)$ 是一个 $\lambda$ 对应的 $\argmax$，
+$$\lambda \leftarrow \argmin \frac 1 {|n_{\text{val}}|} \sum |x\beta(\lambda) - y|^2$$</li>
+</ul>
+<h3 id="ling-hui-gui">岭回归</h3>
+<p>岭回归（Ridge Regression）是指使用 $\ell_2$ 正则化：</p>
+<p>$$\min_\beta \frac 1 n \lVert x\beta - y \rVert^2 + \lambda \lVert \beta \rVert^2$$</p>
+<p>$$\hat \beta_\lambda = \left(\frac 1 n x^\top x + \lambda I_n\right)^{-1} \frac 1 n x^\top y$$</p>
+<p>假设 $\varepsilon_i \sim N(0, \sigma^2)$，并令 $\Sigma = \frac 1 n x^\top x$ 及 $\Delta = \beta^\ast - \hat \beta_\lambda$，则：</p>
+<p>$$\hat \beta_\lambda = (\Sigma + \lambda)^{-1} \Sigma \beta^\ast + (\Sigma + \lambda)^{-1} \frac 1 n x^\top \varepsilon$$</p>
+<p>$$\Delta = \lambda (\Sigma + \lambda)^{-1} \beta^\ast - (\Sigma + \lambda)^{-1} \frac 1 n x^\top \varepsilon$$</p>
+<p>于是有下式，可以发现通常正则化增⼤时，偏差增⼤，⽅差减⼩，因此存在一个权衡。</p>
+<p>$$
+\begin{align*}
+&amp;\mathbb E \lVert \Delta \rVert^2 \cr
+=&amp; \lambda^2 \beta^\ast (\Sigma + \lambda)^{-2} \beta^\ast + \frac 1 {n^2} \mathbb E[\varepsilon^\top x (\Sigma + \lambda)^{-2} x^\top \varepsilon] \cr
+=&amp; \lambda^2 \beta^\ast (\Sigma + \lambda)^{-2} \beta^\ast + \frac{\sigma^2}{n} \mathrm{tr}[(\Sigma + \lambda)^{-2} \Sigma]
+\end{align*}
+$$</p>
+<p>作特征值分解：</p>
+<p>$$
+\Sigma = \sum_{j=1}^d \lambda_j u_j u_j^\top \\
+\beta^\ast = \sum_{j=1}^d \beta_j^\ast u_j
+$$</p>
+<p>$$\mathbb E \lVert \Delta \rVert^2 = \lambda^2 \sum_{j=1}^d \frac{|\beta_j^\ast|^2}{\lambda_j + \lambda} + \frac{\sigma^2}{n} \sum_{j=1}^d \frac{\lambda_j}{(\lambda_j + \lambda)^2}$$</p>
+<p>假设各向同性 $\lambda_i = 1$，则算得：</p>
+<p>$$\lambda_{\text{opt}} \propto \frac 1 n$$</p>
+<p>另外可分析得绝大部分误差来自于 $\lambda_j \ll \lambda$ 的方向的噪声。这样看正则化可以降低该部分误差。</p>
+<h3 id="lasso-hui-gui">Lasso 回归</h3>
+<p>思考上面在使用 $\lambda \lVert \beta \rVert_2^q$ 时为什么选取 $q = 2$？一方面是为了更好算，另一方面是为了让量纲一致。</p>
+<p>考虑 $\ell_0$ 正则化（相当于考察稀疏性（sparsity））：</p>
+<p>$$\lVert\beta\rVert_0 \coloneqq \#\set{\beta_j \neq 0 | j \in [d]}$$</p>
+<p>最终会有 $\lVert\beta\rVert_0 \ll d$，这使得结果有较好的可解释性。但 $\ell_0$ 正则化不连续且非凸，无法梯度下降，因此考虑用一般的 $p$ norm，由于 $p = 1$ 时函数才凸，考虑 $\ell_1$ 正则化，得到的是 Lasso 回归（Least Absolute Shrinkage and Selection Operator, Lasso）。</p>
+<p>一般用 $\ell_1$ 正则化的时候不会平方。原因不明，一方面可能因为实际中会把数据归一化，另一方面 $\ell_0$ 正则化是没有量纲的，我们本质上考虑的是 $\ell_0$ 而不是 $\lambda \lVert \beta \rVert_2^2$.</p>
+<p>可解释是指对于人类可解释，如 $\beta = (1, 0, 0, 0)$ 误差 $0.02$，$\beta = (0.6, 0.15, 0.15, 0.1)$ 误差 $0.01$，则人类心智偏向于前者。也许对 AI 来说并不如此。</p>
+<p>用一维 Lasso 考察为什么会让 $\beta$ 稀疏：</p>
+<p>$$S_\lambda(y) = \argmin_\beta \frac 1 2 (\beta - y)^2 + \lambda |\beta|$$</p>
+<p>$$
+S_\lambda(y) = \begin{cases}
+y + \lambda &amp; y &lt; -\lambda \cr
+y - \lambda &amp; y &gt; \lambda \cr
+0 &amp; \text{otherwise}
+\end{cases}
+$$</p>
+<p>因此，较小的参数会直接变为零。反观一维 Ridge 则是收缩：</p>
+<p>$$\hat \beta_{\text{ridge}} = \frac{y}{\lambda + 1}$$</p>
+<p>可参考如下几何直观。可见只需要让单位圆是尖的。实际中有时把 $p = 1$ 换成 $0.5, 0.6$ 会更好用。</p>
+<p><img src="/images/misc/2026_09_24.png" alt="几何直观" /></p>
+<h3 id="ya-suo-gan-zhi">压缩感知</h3>
+<p>Compressive sensing 是说，数据在某个 $d$ 维空间中，但我们的数据量 $n \ll d$. 考察：</p>
+<p>$$y = x\beta^\ast, \quad x \in \R^{n \times d}$$</p>
+<p>并要求 $\beta^\ast$ 是稀疏的。当 $\lVert\beta^\ast\rVert_0 = k$ 时称 $\beta^\ast$ 为 $k$-稀疏的。为了能够唯一地恢复信号，我们不妨要求：</p>
+<p>$$\lVert x\beta - y\rVert = \lVert x(\beta - \beta^\ast)\rVert = \lVert\beta - \beta^\ast\rVert$$</p>
+<p>这个在稀疏向量上保距的性质称为 Restricted Isometry Property (RIP). 我们有以下结论：</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>Candes-Tao (2006)</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $X \in \R^{n\times p}, \beta_0 \in \R^p$，若 $X$ 满足 $2k$ 阶限制等距性质，即存在 $\delta_{2k} \in (0, 1)$，使得对所有 $2k$-稀疏向量 $\beta$ 有：</p>
+<p>$$(1 - \delta_{2k}) \lVert\beta\rVert_2^2 \leq \lVert X\beta\rVert_2^2 \leq (1 + \delta_{2k}) \lVert\beta\rVert_2^2$$</p>
+<p>且 $\delta_{2k} &lt; \sqrt 2 - 1$；给定无噪声观测 $y = X\beta_0$，令 $\beta_1$ 为 $\ell_1$ 最小化问题的解：</p>
+<p>$$\beta_1 = \argmin_{\beta \in \R^p}\lVert\beta\rVert_1 \quad \text{s.t.} \quad X\beta = y$$</p>
+<p>则有下式成立，其中 $T_k$ 是 top-$k$ 稀疏近似，即保留绝对值最大的 $k$ 个分量，其余分量置零：</p>
+<p>$$\lVert\beta_1 - \beta_0\rVert_2 \leq C_k \, \lVert\beta_0 - T_k(\beta_0)\rVert_2,$$</p>
+</div>
+</div>
+<h2 id="he-fang-fa">核方法</h2>
+<h3 id="te-zheng-yu-he">特征与核</h3>
+<p>将线性方法推广到非线性时一个方法是引入基函数：</p>
+<p>$$f_\theta(x) = \theta^\top \phi(x)$$</p>
+<p>做机器学习的人进一步把它看成：</p>
+<p>$$f_\theta(x) = \braket{\theta, \phi(x)}$$</p>
+<p>这里 $\phi$ 是一个 feature map，将数据打到某个 Hilbert 空间 $\mathcal H$，</p>
+<p>$$\phi: \mathcal X \to \underbrace{\mathcal H}_{\text{feature space}}$$</p>
+<p>总体图景如下：</p>
+<p>$$X \xrightarrow{\phi} \mathcal H \xrightarrow{\text{linear}} \R$$</p>
+<p>“特征”的直观在于，我们看到人的时候并不是看对应的像素点，而是考虑纹理、局部形状；手之类的特征。</p>
+<p>在特征空间 $m \gg 1$ 时，朴素地按下式计算有很高的成本：</p>
+<p>$$\min_\theta \frac 1 n \sum_{i=1}^n (\braket{\phi(x_i), \theta} - y_i)^2 + \lambda \lVert\theta\rVert^2$$</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>Representer Theorem</strong></span>
+  </div>
+  <div class="pl-4"><p>最优解一定在如下 $\phi(x_i)$ 张成空间中：</p>
+<p>$$V_n = \operatorname{span}\set{\phi(x_1), \dots, \phi(x_n)}$$</p>
+</div>
+</div>
+<p>考虑正交分解 $\theta = \theta^\parallel + \theta^\perp$，</p>
+<p>$$f_\theta(x_i) = \braket{\theta, \phi(x_i)} = \braket{\theta^\parallel, \phi(x_i)} = f_{\theta^\parallel}(x_i)$$</p>
+<p>因此我们可以只考虑：</p>
+<p>$$\hat\theta = \sum_{i=1}^n \alpha_i \phi(x_i)$$</p>
+<p>我们定义以下核函数，并令矩阵 $K_{ij} = k(x_i, x_j)$，</p>
+<p>$$k(x_i, x_j) \coloneqq \braket{\phi(x_i), \phi(x_j)}$$</p>
+<p>因此只需要考虑以下问题（Kernel Ridge Regression, KRR）：</p>
+<p>$$\min_{\alpha \in \R^n} \frac 1 n \lVert K\alpha -y \rVert^2 + \lambda \alpha^\top K\alpha$$</p>
+<p>常见的核函数有：</p>
+<table><thead><tr><th style="text-align: center">名称</th><th style="text-align: center">表达式</th></tr></thead><tbody>
+<tr><td style="text-align: center">linear</td><td style="text-align: center">$x^\top x'$</td></tr>
+<tr><td style="text-align: center">poly</td><td style="text-align: center">$(x^\top x' + c)^p$</td></tr>
+<tr><td style="text-align: center">Gaussian</td><td style="text-align: center">$\exp(- \lVert x-x'\rVert^2 / 2\sigma^2)$</td></tr>
+<tr><td style="text-align: center">Laplace</td><td style="text-align: center">$\exp(- \lVert x-x'\rVert_2 / \sigma)$</td></tr>
+</tbody></table>
+<p>函数是核函数的充要条件是对称、半正定（Moore–Aronszajn 定理）。以以下 Gaussian kernel 为例：</p>
+<p>$$k(x, x') = e^{-\frac{(x-x')^2} 2}$$</p>
+<p>$$\phi(x) = e^{-\frac{x^2}{2}} \left(1, x, \frac{x^2}{\sqrt 2}, \frac{x^3}{\sqrt {3!}}, \dots\right)$$</p>
+<h3 id="sui-ji-te-zheng-fang-fa">随机特征方法</h3>
+<p>可以算得 KRR 的解析解是：</p>
+<p>$$\hat \alpha = (K + n\lambda I)^{-1} y$$</p>
+<p>在 1985-1995，机器学习主要是做浅层神经网络，但是因为非凸所以优化很复杂，于是 1995-2015 做核方法。大约 2005-2006 年，随互联网发展，$n$ 达到 $10^6$ 量级，而上面的解需要 $O(n^3)$ 的计算与 $O(n^2)$ 的存储，这是不可接受的。</p>
+<p>在数值线性代数中，优化靠的是稀疏矩阵，在这里我们不妨考虑：</p>
+<p>$$k(x, x') = \mathbb E_{\omega \sim \pi}[\varphi(x; \omega_j) \varphi(x'; \omega_j)]$$</p>
+<p>这里 $\varphi: \mathcal X \times \Omega \to \R$，$\pi$ 是 $\Omega$ 上的概率测度。</p>
+<p>我们可以做 Monte Carlo 离散：</p>
+<p>$$k(x, x') \approx \frac 1 m \sum_{j=1}^m \varphi(x; \omega_j) \varphi(x'; \omega_j)$$</p>
+<p>随机特征模型（Random Feature Model）即：</p>
+<p>$$f(x; \beta) = \frac 1 m \sum_{j=1}^m \beta_j \varphi(x; \omega_j)$$</p>
+<p>对应的岭回归问题是：</p>
+<p>$$\min_\beta \frac 1 {2n} \sum_{i=1}^n \left(\frac 1 m \sum_{j=1}^m \beta_j \varphi(x; \omega_j) - y_i\right)^2 + \frac \lambda {2m} \lVert\beta\rVert_2^2$$</p>
+<p>记 $\Phi = (\varphi(x_i; \omega_j)) \in \R^{n \times m}$，则解是：</p>
+<p>$$\hat \beta = (\Phi^\top \Phi + n\lambda I)^{-1} \Phi^\top y$$</p>
+<p>这个方法可以解释为核方法的随机特征近似（random feature approximation），只需要 $O(m^2n)$ 的计算与 $O(mn)$ 的存储，对 $m \ll n$ 优化相当显著。</p>
+<hr />
+<p>考虑平移不变（translation invariant）的核，即形如 $k(x, x') = \kappa(x - x')$ 的核。</p>
+<p>采取如下 Fourier 变换约定：</p>
+<p>$$
+\hat f(x) = \frac 1 {(2\pi)^{d/2}} \int f(x) e^{-\mathrm i\omega x} \mathrm d\omega \\
+\check g(x) = \frac 1 {(2\pi)^{d/2}} \int g(x) e^{\mathrm i\omega x} \mathrm d\omega
+$$</p>
+<p>对于 $\hat \kappa(\omega) \geq 0$，可以让 $\hat \kappa(\omega) / c$ 是一个密度，</p>
+<p>$$k(x, x') = (\hat \kappa)^\vee(x - x') = \frac c {(2\pi)^{d/2}} \int \frac{\hat \kappa(\omega)}{c} e^{\mathrm i\omega x} \cdot \overline{e^{\mathrm i\omega x'}} \mathrm d\omega$$</p>
+<p>设这个密度决定的分布 $\pi$，则上式即：</p>
+<p>$$\frac c {(2\pi)^{d/2}} \mathbb E_{\omega \sim \pi}[e^{\mathrm i\omega x} \cdot \overline{e^{\mathrm i\omega x'}}]$$</p>
+<p>于是有随机 Fourier 特征（random Fourier features, RFFs）：</p>
+<p>$$\varphi(x; \omega) = e^{\mathrm i\omega x}$$</p>
+<p>例如说，对 Gaussian kernel，其 Fourier 变换是它自身，对应的分布 $\pi$ 是高斯分布。</p>
+<hr />
+<p>回顾核方法将基函数变成核，再将核拆成随机特征。尽管数学上这两个操作互逆，其 modeling 不同：一开始的特征是人类认为的那些特征，而之后的则是一些人类无法想象的“随机特征”。</p>
+<p>回忆 Gaussian kernel $\exp(- \lVert x-x'\rVert^2 / 2\sigma^2)$，在 $\lVert x-x'\rVert \ll \sigma$ 时，它约等于 $1 - \lVert x-x'\rVert^2 / 2\sigma^2$，反之 $\gg$ 则约等于零。直观上这说的是只关心临近的点。</p>
+</section>
+  <hr />
+  
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/课程/">课程</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/计算机/">计算机</a>
+    
+  </div>
+</footer>
+
+  
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- page_end inject -->
+
+</article>
+
+  </main>
+  <footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+    <div class="mr-auto basis-full lg:basis-1/2">
+      
+&copy; 2025-2026 Rratic
+ &vert; <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+
+    </div>
+    <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+      
+  <span class="mr-6 lg:ml-6">
+    <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+  </span>
+  <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+
+    </div>
+  <!-- footer inject -->
+
+  </footer>
+  
+  <link rel="stylesheet" href="https://rratic.top/katex/katex.min.css?h=180c2d77d434d7da51d6" />
+  <script defer src="https://rratic.top/katex/katex.min.js?h=2ec5916941ef4383e031"></script>
+  <script defer src="https://rratic.top/katex/contrib/auto-render.min.js?h=e5372d199bcdae8b4de7"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+  
+
+  <!-- body_end inject -->
+
+</body>
+
+</html>

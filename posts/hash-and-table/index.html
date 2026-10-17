@@ -1,0 +1,506 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola v0.23.4" />
+  <title>Hash 与基于哈希的 table 实现 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="Hash 与基于哈希的 table 实现" />
+  <meta name="description" content="阅读一下 Rust 标准库的 Hash 与 RawTable 相关代码。本文参考的 Rust 版本是 1.90.0-nightly" />
+  <meta property="og:description" content="阅读一下 Rust 标准库的 Hash 与 RawTable 相关代码。本文参考的 Rust 版本是 1.90.0-nightly" />
+  <meta property="og:url" content="https://rratic.top/posts/hash-and-table/" />
+  <link rel="canonical" href="https://rratic.top/posts/hash-and-table/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2025-12-08T00:00:00+00:00" />
+  <meta property="article:tag" content="计算机" />
+  <meta property="article:tag" content="算法" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <meta name="msvalidate.01" content="9BE559916FDB06A7A09EA17370F0ED09" />
+<link rel="icon" type="image/svg+xml" href="https://rratic.top/favicon.svg" />
+<link rel="stylesheet" href="https://rratic.top/style/shared.css?h=2dac71ecd418f5165c3d" />
+
+  <link rel="stylesheet" href="https://rratic.top/giallo-light.css?h=396eaa20499714fdb600" media="(prefers-color-scheme: light)" />
+  <link rel="stylesheet" href="https://rratic.top/giallo-dark.css?h=536598ee42e9e9a795bc" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=f166037ad671ba6bfd13" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=11a0f44fbe01f53dbaf9"></script>
+  <!-- head_end inject -->
+
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      
+<menu
+  class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/posts/"
+    >文章</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/categories/"
+    >分类</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/tags/"
+    >标签</a>
+  </li>
+</menu>
+
+      <!-- header_nav inject -->
+
+    </nav>
+  </div>
+</header>
+
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    <!-- body_start inject -->
+
+    
+<article>
+  <!-- page_start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-3">Hash 与基于哈希的 table 实现</h1>
+    <div class="text-sm antialiased opacity-80"><time
+      datetime="2025-12-08T00:00:00+00:00">2025-12-08</time><span
+        class="middot"></span><time
+    datetime="PT0H3M0S">3&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+  </header>
+  
+  
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#hash">Hash</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#hashing">Hashing</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#rawtable">RawTable</a>
+      </li>
+    </ul>
+  </details>
+</nav>
+  <!-- Content -->
+  <section><p>阅读一下 Rust 标准库的 <code>Hash</code> 与 <code>RawTable</code> 相关代码。本文参考的 Rust 版本是 <code>1.90.0-nightly</code>.</p>
+<span id="continue-reading"></span>
+<p>参考资料为 Steven S. Skiena 的 <em>The Algorithm Design Manual</em> 第三版。</p>
+<h2 id="hash">Hash</h2>
+<p>哈希的想法是：把任何对象编码到一个有限位的数字。</p>
+<p>Rust 中的 <code>Hash</code> trait 的实例能够被 <code>Hasher</code> 实例作用得到哈希值。对使用 <code>#[derive(Hash)]</code> 的结构将依次对每个字段作 <code>hash()</code> 并结合。有两个要求：</p>
+<ul>
+<li>如果还实现了 <code>Eq</code>，则必须满足若 <code>k1 == k2</code> 则 <code>hash(k1) == hash(k2)</code></li>
+<li>写入 <code>Hasher</code> 的字节流应当是 prefix-free 的，如 <code>("ab", "c")</code> 与 <code>("a", "bc")</code> 不能产生互为前缀或相同的输入字节流</li>
+</ul>
+<p>这个 trait 的声明大致如下：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-17 z-d-10">pub</span><span class="z-l-17 z-d-10"> trait</span><span class="z-l-1 z-d-7"> Hash</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> marker</span><span class="z-l-16 z-d-10">::</span><span class="z-l-1 z-d-7">PointeeSized</span><span> {</span></span>
+<span class="giallo-l"><span>	#</span><span>[</span><span>stable</span><span>(</span><span>feature </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">rust1</span><span class="z-l-8 z-d-6">&quot;</span><span>,</span><span> since </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">1.0.0</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    fn</span><span class="z-l-14 z-d-7"> hash</span><span>&lt;</span><span class="z-l-1 z-d-7">H</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> Hasher</span><span>&gt;</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span class="z-l-4 z-l-i z-d-4">self</span><span>,</span><span> state</span><span class="z-l-16 z-d-10">:</span><span class="z-l-16 z-d-10"> &amp;</span><span class="z-l-17 z-d-10">mut</span><span class="z-l-1 z-d-7"> H</span><span>)</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>	#</span><span>[</span><span>stable</span><span>(</span><span>feature </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">hash_slice</span><span class="z-l-8 z-d-6">&quot;</span><span>,</span><span> since </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">1.3.0</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    fn</span><span class="z-l-14 z-d-7"> hash_slice</span><span>&lt;</span><span class="z-l-1 z-d-7">H</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> Hasher</span><span>&gt;</span><span>(</span><span>data</span><span class="z-l-16 z-d-10">:</span><span class="z-l-16 z-d-10"> &amp;</span><span>[</span><span class="z-l-4 z-l-i z-d-4">Self</span><span>]</span><span>,</span><span> state</span><span class="z-l-16 z-d-10">:</span><span class="z-l-16 z-d-10"> &amp;</span><span class="z-l-17 z-d-10">mut</span><span class="z-l-1 z-d-7"> H</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    where</span></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">        Self</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> Sized</span><span>,</span></span>
+<span class="giallo-l"><span>    {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        for</span><span> piece</span><span class="z-l-17 z-d-10"> in</span><span> data</span><span> {</span></span>
+<span class="giallo-l"><span>            piece</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">hash</span><span>(</span><span>state</span><span>)</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p><code>Hasher</code> trait 的声明大致如下：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-17 z-d-10">pub</span><span class="z-l-17 z-d-10"> trait</span><span class="z-l-1 z-d-7"> Hasher</span><span> {</span></span>
+<span class="giallo-l"><span>	#</span><span>[</span><span>stable</span><span>(</span><span>feature </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">rust1</span><span class="z-l-8 z-d-6">&quot;</span><span>,</span><span> since </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">1.0.0</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>must_use</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    fn</span><span class="z-l-14 z-d-7"> finish</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span class="z-l-4 z-l-i z-d-4">self</span><span>)</span><span class="z-l-16 z-d-10"> -&gt;</span><span class="z-l-1 z-d-7"> u64</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">	///</span><span class="z-l-10 z-l-i z-d-3"> 如果需要把长度作为前缀，额外调用 [`Hasher::write_length_prefix`]</span></span>
+<span class="giallo-l"><span>	#</span><span>[</span><span>stable</span><span>(</span><span>feature </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">rust1</span><span class="z-l-8 z-d-6">&quot;</span><span>,</span><span> since </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">1.0.0</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">	fn</span><span class="z-l-14 z-d-7"> write</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span class="z-l-17 z-d-10">mut</span><span class="z-l-4 z-l-i z-d-4"> self</span><span>,</span><span> bytes</span><span class="z-l-16 z-d-10">:</span><span class="z-l-16 z-d-10"> &amp;</span><span>[</span><span class="z-l-1 z-d-7">u8</span><span>]</span><span>)</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>inline</span><span>]</span></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>stable</span><span>(</span><span>feature </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">hasher_write</span><span class="z-l-8 z-d-6">&quot;</span><span>,</span><span> since </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">1.3.0</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    fn</span><span class="z-l-14 z-d-7"> write_u8</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span class="z-l-17 z-d-10">mut</span><span class="z-l-4 z-l-i z-d-4"> self</span><span>,</span><span> i</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> u8</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">        self</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">write</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span>[</span><span>i</span><span>]</span><span>)</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>inline</span><span>]</span></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>stable</span><span>(</span><span>feature </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">hasher_write</span><span class="z-l-8 z-d-6">&quot;</span><span>,</span><span> since </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">1.3.0</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    fn</span><span class="z-l-14 z-d-7"> write_u16</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span class="z-l-17 z-d-10">mut</span><span class="z-l-4 z-l-i z-d-4"> self</span><span>,</span><span> i</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> u16</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">        self</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">write</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span>i</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">to_ne_bytes</span><span>(</span><span>)</span><span>)</span><span class="z-l-10 z-l-i z-d-3"> //</span><span class="z-l-10 z-l-i z-d-3"> 注：使用原生大小端约定</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>inline</span><span>]</span></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>stable</span><span>(</span><span>feature </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">hasher_write</span><span class="z-l-8 z-d-6">&quot;</span><span>,</span><span> since </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">1.3.0</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    fn</span><span class="z-l-14 z-d-7"> write_u32</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span class="z-l-17 z-d-10">mut</span><span class="z-l-4 z-l-i z-d-4"> self</span><span>,</span><span> i</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> u32</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">        self</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">write</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span>i</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">to_ne_bytes</span><span>(</span><span>)</span><span>)</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>inline</span><span>]</span></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>stable</span><span>(</span><span>feature </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">hasher_write</span><span class="z-l-8 z-d-6">&quot;</span><span>,</span><span> since </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">1.3.0</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    fn</span><span class="z-l-14 z-d-7"> write_u64</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span class="z-l-17 z-d-10">mut</span><span class="z-l-4 z-l-i z-d-4"> self</span><span>,</span><span> i</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> u64</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">        self</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">write</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span>i</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">to_ne_bytes</span><span>(</span><span>)</span><span>)</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>inline</span><span>]</span></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>stable</span><span>(</span><span>feature </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">i128</span><span class="z-l-8 z-d-6">&quot;</span><span>,</span><span> since </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">1.26.0</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    fn</span><span class="z-l-14 z-d-7"> write_u128</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span class="z-l-17 z-d-10">mut</span><span class="z-l-4 z-l-i z-d-4"> self</span><span>,</span><span> i</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> u128</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">        self</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">write</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span>i</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">to_ne_bytes</span><span>(</span><span>)</span><span>)</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>inline</span><span>]</span></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>stable</span><span>(</span><span>feature </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">hasher_write</span><span class="z-l-8 z-d-6">&quot;</span><span>,</span><span> since </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">1.3.0</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    fn</span><span class="z-l-14 z-d-7"> write_usize</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span class="z-l-17 z-d-10">mut</span><span class="z-l-4 z-l-i z-d-4"> self</span><span>,</span><span> i</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> usize</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">        self</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">write</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span>i</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">to_ne_bytes</span><span>(</span><span>)</span><span>)</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>	#</span><span>[</span><span>inline</span><span>]</span></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>stable</span><span>(</span><span>feature </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">hasher_write</span><span class="z-l-8 z-d-6">&quot;</span><span>,</span><span> since </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">1.3.0</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    fn</span><span class="z-l-14 z-d-7"> write_i8</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span class="z-l-17 z-d-10">mut</span><span class="z-l-4 z-l-i z-d-4"> self</span><span>,</span><span> i</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> i8</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">        self</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">write_u8</span><span>(</span><span>i</span><span class="z-l-17 z-d-10"> as</span><span class="z-l-1 z-d-7"> u8</span><span>)</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>inline</span><span>]</span></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>stable</span><span>(</span><span>feature </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">hasher_write</span><span class="z-l-8 z-d-6">&quot;</span><span>,</span><span> since </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">1.3.0</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    fn</span><span class="z-l-14 z-d-7"> write_i16</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span class="z-l-17 z-d-10">mut</span><span class="z-l-4 z-l-i z-d-4"> self</span><span>,</span><span> i</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> i16</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">        self</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">write_u16</span><span>(</span><span>i</span><span class="z-l-17 z-d-10"> as</span><span class="z-l-1 z-d-7"> u16</span><span>)</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>inline</span><span>]</span></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>stable</span><span>(</span><span>feature </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">hasher_write</span><span class="z-l-8 z-d-6">&quot;</span><span>,</span><span> since </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">1.3.0</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    fn</span><span class="z-l-14 z-d-7"> write_i32</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span class="z-l-17 z-d-10">mut</span><span class="z-l-4 z-l-i z-d-4"> self</span><span>,</span><span> i</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> i32</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">        self</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">write_u32</span><span>(</span><span>i</span><span class="z-l-17 z-d-10"> as</span><span class="z-l-1 z-d-7"> u32</span><span>)</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>inline</span><span>]</span></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>stable</span><span>(</span><span>feature </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">hasher_write</span><span class="z-l-8 z-d-6">&quot;</span><span>,</span><span> since </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">1.3.0</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    fn</span><span class="z-l-14 z-d-7"> write_i64</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span class="z-l-17 z-d-10">mut</span><span class="z-l-4 z-l-i z-d-4"> self</span><span>,</span><span> i</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> i64</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">        self</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">write_u64</span><span>(</span><span>i</span><span class="z-l-17 z-d-10"> as</span><span class="z-l-1 z-d-7"> u64</span><span>)</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>inline</span><span>]</span></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>stable</span><span>(</span><span>feature </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">i128</span><span class="z-l-8 z-d-6">&quot;</span><span>,</span><span> since </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">1.26.0</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    fn</span><span class="z-l-14 z-d-7"> write_i128</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span class="z-l-17 z-d-10">mut</span><span class="z-l-4 z-l-i z-d-4"> self</span><span>,</span><span> i</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> i128</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">        self</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">write_u128</span><span>(</span><span>i</span><span class="z-l-17 z-d-10"> as</span><span class="z-l-1 z-d-7"> u128</span><span>)</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>inline</span><span>]</span></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>stable</span><span>(</span><span>feature </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">hasher_write</span><span class="z-l-8 z-d-6">&quot;</span><span>,</span><span> since </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">1.3.0</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    fn</span><span class="z-l-14 z-d-7"> write_isize</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span class="z-l-17 z-d-10">mut</span><span class="z-l-4 z-l-i z-d-4"> self</span><span>,</span><span> i</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> isize</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">        self</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">write_usize</span><span>(</span><span>i</span><span class="z-l-17 z-d-10"> as</span><span class="z-l-1 z-d-7"> usize</span><span>)</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">	///</span><span class="z-l-10 z-l-i z-d-3"> 为了 prefix-free</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">	///</span><span class="z-l-10 z-l-i z-d-3"> 如果不在意 Hash-DoS 攻击而想提升性能也可跳过</span></span>
+<span class="giallo-l"><span>	#</span><span>[</span><span>inline</span><span>]</span></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>unstable</span><span>(</span><span>feature </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">hasher_prefixfree_extras</span><span class="z-l-8 z-d-6">&quot;</span><span>,</span><span> issue </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">96762</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    fn</span><span class="z-l-14 z-d-7"> write_length_prefix</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span class="z-l-17 z-d-10">mut</span><span class="z-l-4 z-l-i z-d-4"> self</span><span>,</span><span> len</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> usize</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">        self</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">write_usize</span><span>(</span><span>len</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">	///</span><span class="z-l-10 z-l-i z-d-3"> 加上长度作为前缀是一种总是正确的实现方法</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    ///</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    ///</span><span class="z-l-10 z-l-i z-d-3"> ```</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    ///</span><span class="z-l-10 z-l-i z-d-3"> fn write_str(&amp;mut self, s: &amp;str) {</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    ///</span><span class="z-l-10 z-l-i z-d-3">     self.write_length_prefix(s.len());</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    ///</span><span class="z-l-10 z-l-i z-d-3">     self.write(s.as_bytes());</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    ///</span><span class="z-l-10 z-l-i z-d-3"> }</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    ///</span><span class="z-l-10 z-l-i z-d-3"> ```</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">	///</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">	///</span><span class="z-l-10 z-l-i z-d-3"> 如果你的 `Hasher` 是以 `usize` 为单位的话它是高效的</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">	///</span><span class="z-l-10 z-l-i z-d-3"> 如果 `Hasher` 是以字节为单位的，则可使用 `b&#39;\xFF&#39;`</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">	///</span><span class="z-l-10 z-l-i z-d-3"> 因为在正确的 UTF-8 编码中不会出现</span></span>
+<span class="giallo-l"><span>	#</span><span>[</span><span>inline</span><span>]</span></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>unstable</span><span>(</span><span>feature </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">hasher_prefixfree_extras</span><span class="z-l-8 z-d-6">&quot;</span><span>,</span><span> issue </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">96762</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    fn</span><span class="z-l-14 z-d-7"> write_str</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span class="z-l-17 z-d-10">mut</span><span class="z-l-4 z-l-i z-d-4"> self</span><span>,</span><span> s</span><span class="z-l-16 z-d-10">:</span><span class="z-l-16 z-d-10"> &amp;</span><span class="z-l-1 z-d-7">str</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">        self</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">write</span><span>(</span><span>s</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">as_bytes</span><span>(</span><span>)</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">        self</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">write_u8</span><span>(</span><span class="z-l-9 z-d-4">0xff</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>大部分类型的 <code>Hash</code> 实现不外乎是反复调用 <code>hash()</code> 或 <code>write_</code> 对应位数，间隔着 <code>write_length_prefix()</code>，如：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>stable</span><span>(</span><span>feature </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">rust1</span><span class="z-l-8 z-d-6">&quot;</span><span>,</span><span> since </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">1.0.0</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">impl</span><span>&lt;</span><span class="z-l-1 z-d-7">K</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> Hash</span><span>,</span><span class="z-l-1 z-d-7"> V</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> Hash</span><span>,</span><span class="z-l-1 z-d-7"> A</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> Allocator</span><span class="z-l-16 z-d-10"> +</span><span class="z-l-1 z-d-7"> Clone</span><span>&gt;</span><span class="z-l-1 z-d-7"> Hash</span><span class="z-l-17 z-d-10"> for</span><span class="z-l-1 z-d-7"> BTreeMap</span><span>&lt;</span><span class="z-l-1 z-d-7">K</span><span>,</span><span class="z-l-1 z-d-7"> V</span><span>,</span><span class="z-l-1 z-d-7"> A</span><span>&gt;</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    fn</span><span class="z-l-14 z-d-7"> hash</span><span>&lt;</span><span class="z-l-1 z-d-7">H</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> Hasher</span><span>&gt;</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span class="z-l-4 z-l-i z-d-4">self</span><span>,</span><span> state</span><span class="z-l-16 z-d-10">:</span><span class="z-l-16 z-d-10"> &amp;</span><span class="z-l-17 z-d-10">mut</span><span class="z-l-1 z-d-7"> H</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span>        state</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">write_length_prefix</span><span>(</span><span class="z-l-4 z-l-i z-d-4">self</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">len</span><span>(</span><span>)</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        for</span><span> elt</span><span class="z-l-17 z-d-10"> in</span><span class="z-l-4 z-l-i z-d-4"> self</span><span> {</span></span>
+<span class="giallo-l"><span>            elt</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">hash</span><span>(</span><span>state</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>当前 Rust 标准库的 <code>DefaultHasher</code> 实现使用 SipHash 1-3 一类的带密钥哈希，以兼顾一般性能和对 HashDoS 的抵抗。</p>
+<h2 id="hashing">Hashing</h2>
+<p>我们先介绍一般的原理。在 Rust 中 <code>hash()</code> 的结果是一个 <code>u64</code> 值，但一般我们的 hash table 的容量远小于 <code>u64</code> 可表示的最大值，并且即使容量足够大也存在不同对象的哈希值相同（称为“哈希碰撞”）的可能。</p>
+<p>为了处理哈希碰撞，一种方式拉链法 chaining 是在每个编号对应位置放一个链表。C++ 的许多 <code>std::unordered_set</code> 标准库实现就是这么做的，并且对遍历操作进行了优化：给链表尾额外链接到了下一个非空链表。</p>
+<p>另一种方法是开放寻址 open addressing，这会在目标槽被占据时寻找新的空槽（这最简单的方法是每次编号 +1 直到找到空槽）。这个算法在处理元素删除时会很麻烦：有两种简单的操作方式：（1）把后面的元素往前移（2）加标记，但都会导致元素变多时查找效率变差。</p>
+<p>Robin Hood 哈希算法作了这样的优化：称距离指存储位置与哈希值直接对应的索引的差，在插入操作时，仍然每次 +1 地找，但若那个槽中元素的距离小于现在要插入的元素走过的距离，就插入到该槽中，改为寻找位置插入原本那个槽中的元素。</p>
+<h2 id="rawtable">RawTable</h2>
+<p><code>HashSet</code> 及 <code>HashMap</code> 的声明如下：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-17 z-d-10">pub</span><span class="z-l-17 z-d-10"> struct</span><span class="z-l-1 z-d-7"> HashSet</span><span>&lt;</span><span class="z-l-1 z-d-7">T</span><span>,</span><span class="z-l-1 z-d-7"> S</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-1 z-d-7"> DefaultHashBuilder</span><span>,</span><span class="z-l-1 z-d-7"> A</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> Allocator</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-1 z-d-7"> Global</span><span>&gt;</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    pub</span><span>(</span><span class="z-l-17 z-d-10">crate</span><span>)</span><span> map</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> HashMap</span><span>&lt;</span><span class="z-l-1 z-d-7">T</span><span>,</span><span> (</span><span>)</span><span>,</span><span class="z-l-1 z-d-7"> S</span><span>,</span><span class="z-l-1 z-d-7"> A</span><span>&gt;</span><span>,</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">pub</span><span class="z-l-17 z-d-10"> struct</span><span class="z-l-1 z-d-7"> HashMap</span><span>&lt;</span><span class="z-l-1 z-d-7">K</span><span>,</span><span class="z-l-1 z-d-7"> V</span><span>,</span><span class="z-l-1 z-d-7"> S</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-1 z-d-7"> DefaultHashBuilder</span><span>,</span><span class="z-l-1 z-d-7"> A</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> Allocator</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-1 z-d-7"> Global</span><span>&gt;</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    pub</span><span>(</span><span class="z-l-17 z-d-10">crate</span><span>)</span><span> hash_builder</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> S</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    pub</span><span>(</span><span class="z-l-17 z-d-10">crate</span><span>)</span><span> table</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> RawTable</span><span>&lt;</span><span>(</span><span class="z-l-1 z-d-7">K</span><span>,</span><span class="z-l-1 z-d-7"> V</span><span>)</span><span>,</span><span class="z-l-1 z-d-7"> A</span><span>&gt;</span><span>,</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>因此我们直接阅读 <code>RawTable</code> 的实现。</p>
+<p>相关声明如下：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-17 z-d-10">pub</span><span class="z-l-17 z-d-10"> struct</span><span class="z-l-1 z-d-7"> Bucket</span><span>&lt;</span><span class="z-l-1 z-d-7">T</span><span>&gt;</span><span> {</span></span>
+<span class="giallo-l"><span>    ptr</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> NonNull</span><span>&lt;</span><span class="z-l-1 z-d-7">T</span><span>&gt;</span><span>,</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">pub</span><span class="z-l-17 z-d-10"> struct</span><span class="z-l-1 z-d-7"> RawTable</span><span>&lt;</span><span class="z-l-1 z-d-7">T</span><span>,</span><span class="z-l-1 z-d-7"> A</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> Allocator</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-1 z-d-7"> Global</span><span>&gt;</span><span> {</span></span>
+<span class="giallo-l"><span>    table</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> RawTableInner</span><span>,</span></span>
+<span class="giallo-l"><span>    alloc</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> A</span><span>,</span></span>
+<span class="giallo-l"><span>    marker</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> PhantomData</span><span>&lt;</span><span class="z-l-1 z-d-7">T</span><span>&gt;</span><span>,</span><span class="z-l-10 z-l-i z-d-3"> //</span><span class="z-l-10 z-l-i z-d-3"> 告知编译器，使行为类似于存储了 `T` 的实例</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">struct</span><span class="z-l-1 z-d-7"> RawTableInner</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    //</span><span class="z-l-10 z-l-i z-d-3"> 用于从哈希值获取索引的掩码</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    //</span><span class="z-l-10 z-l-i z-d-3"> 值就是 `bucket` 的数量 -1</span></span>
+<span class="giallo-l"><span>    bucket_mask</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> usize</span><span>,</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    //</span><span class="z-l-10 z-l-i z-d-3"> 指向控制字节第一位</span></span>
+<span class="giallo-l"><span>    ctrl</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> NonNull</span><span>&lt;</span><span class="z-l-1 z-d-7">u8</span><span>&gt;</span><span>,</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    //</span><span class="z-l-10 z-l-i z-d-3"> 在扩容前可以继续插入的元素个数（下界）</span></span>
+<span class="giallo-l"><span>    growth_left</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> usize</span><span>,</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    //</span><span class="z-l-10 z-l-i z-d-3"> 含有的元素个数</span></span>
+<span class="giallo-l"><span>    items</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> usize</span><span>,</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>控制字节大致形如：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>derive</span><span>(</span><span class="z-l-1 z-d-7">Copy</span><span>,</span><span class="z-l-1 z-d-7"> Clone</span><span>,</span><span class="z-l-1 z-d-7"> PartialEq</span><span>,</span><span class="z-l-1 z-d-7"> Eq</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span>#</span><span>[</span><span>repr</span><span>(</span><span>transparent</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">pub</span><span>(</span><span class="z-l-17 z-d-10">crate</span><span>)</span><span class="z-l-17 z-d-10"> struct</span><span class="z-l-1 z-d-7"> Tag</span><span>(</span><span class="z-l-17 z-d-10">pub</span><span>(</span><span class="z-l-4 z-l-i z-d-4">super</span><span>)</span><span class="z-l-1 z-d-7"> u8</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">impl</span><span class="z-l-1 z-d-7"> Tag</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    pub</span><span>(</span><span class="z-l-17 z-d-10">crate</span><span>)</span><span class="z-l-17 z-d-10"> const</span><span class="z-l-3 z-d-4"> EMPTY</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> Tag</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-14 z-d-7"> Tag</span><span>(</span><span class="z-l-9 z-d-4">0b1111_1111</span><span>)</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    pub</span><span>(</span><span class="z-l-17 z-d-10">crate</span><span>)</span><span class="z-l-17 z-d-10"> const</span><span class="z-l-3 z-d-4"> DELETED</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> Tag</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-14 z-d-7"> Tag</span><span>(</span><span class="z-l-9 z-d-4">0b1000_0000</span><span>)</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>inline</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    pub</span><span>(</span><span class="z-l-17 z-d-10">crate</span><span>)</span><span class="z-l-17 z-d-10"> const</span><span class="z-l-17 z-d-10"> fn</span><span class="z-l-14 z-d-7"> is_full</span><span>(</span><span class="z-l-4 z-l-i z-d-4">self</span><span>)</span><span class="z-l-16 z-d-10"> -&gt;</span><span class="z-l-1 z-d-7"> bool</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">        self</span><span class="z-l-16 z-d-10">.</span><span class="z-l-9 z-d-4">0</span><span class="z-l-16 z-d-10"> &amp;</span><span class="z-l-9 z-d-4"> 0x80</span><span class="z-l-16 z-d-10"> ==</span><span class="z-l-9 z-d-4"> 0</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>inline</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    pub</span><span>(</span><span class="z-l-17 z-d-10">crate</span><span>)</span><span class="z-l-17 z-d-10"> const</span><span class="z-l-17 z-d-10"> fn</span><span class="z-l-14 z-d-7"> is_special</span><span>(</span><span class="z-l-4 z-l-i z-d-4">self</span><span>)</span><span class="z-l-16 z-d-10"> -&gt;</span><span class="z-l-1 z-d-7"> bool</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">        self</span><span class="z-l-16 z-d-10">.</span><span class="z-l-9 z-d-4">0</span><span class="z-l-16 z-d-10"> &amp;</span><span class="z-l-9 z-d-4"> 0x80</span><span class="z-l-16 z-d-10"> !=</span><span class="z-l-9 z-d-4"> 0</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>inline</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    pub</span><span>(</span><span class="z-l-17 z-d-10">crate</span><span>)</span><span class="z-l-17 z-d-10"> const</span><span class="z-l-17 z-d-10"> fn</span><span class="z-l-14 z-d-7"> special_is_empty</span><span>(</span><span class="z-l-4 z-l-i z-d-4">self</span><span>)</span><span class="z-l-16 z-d-10"> -&gt;</span><span class="z-l-1 z-d-7"> bool</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">        debug_assert!</span><span>(</span><span class="z-l-4 z-l-i z-d-4">self</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">is_special</span><span>(</span><span>)</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">        self</span><span class="z-l-16 z-d-10">.</span><span class="z-l-9 z-d-4">0</span><span class="z-l-16 z-d-10"> &amp;</span><span class="z-l-9 z-d-4"> 0x01</span><span class="z-l-16 z-d-10"> !=</span><span class="z-l-9 z-d-4"> 0</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>inline</span><span>]</span></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>allow</span><span>(</span><span>clippy</span><span class="z-l-16 z-d-10">::</span><span>cast_possible_truncation</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    pub</span><span>(</span><span class="z-l-17 z-d-10">crate</span><span>)</span><span class="z-l-17 z-d-10"> const</span><span class="z-l-17 z-d-10"> fn</span><span class="z-l-14 z-d-7"> full</span><span>(</span><span>hash</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> u64</span><span>)</span><span class="z-l-16 z-d-10"> -&gt;</span><span class="z-l-1 z-d-7"> Tag</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        const</span><span class="z-l-3 z-d-4"> MIN_HASH_LEN</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> usize</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-17 z-d-10"> if</span><span class="z-l-1 z-d-7"> mem</span><span class="z-l-16 z-d-10">::</span><span class="z-l-14 z-d-7">size_of</span><span class="z-l-16 z-d-10">::</span><span>&lt;</span><span class="z-l-1 z-d-7">usize</span><span>&gt;</span><span>(</span><span>)</span><span> &lt;</span><span class="z-l-1 z-d-7"> mem</span><span class="z-l-16 z-d-10">::</span><span class="z-l-14 z-d-7">size_of</span><span class="z-l-16 z-d-10">::</span><span>&lt;</span><span class="z-l-1 z-d-7">u64</span><span>&gt;</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-1 z-d-7">            mem</span><span class="z-l-16 z-d-10">::</span><span class="z-l-14 z-d-7">size_of</span><span class="z-l-16 z-d-10">::</span><span>&lt;</span><span class="z-l-1 z-d-7">usize</span><span>&gt;</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>        }</span><span class="z-l-17 z-d-10"> else</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-1 z-d-7">            mem</span><span class="z-l-16 z-d-10">::</span><span class="z-l-14 z-d-7">size_of</span><span class="z-l-16 z-d-10">::</span><span>&lt;</span><span class="z-l-1 z-d-7">u64</span><span>&gt;</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>        }</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        let</span><span> top7</span><span class="z-l-16 z-d-10"> =</span><span> hash</span><span class="z-l-16 z-d-10"> &gt;&gt;</span><span> (</span><span class="z-l-3 z-d-4">MIN_HASH_LEN</span><span class="z-l-16 z-d-10"> *</span><span class="z-l-9 z-d-4"> 8</span><span class="z-l-16 z-d-10"> -</span><span class="z-l-9 z-d-4"> 7</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">        Tag</span><span>(</span><span>(</span><span>top7</span><span class="z-l-16 z-d-10"> &amp;</span><span class="z-l-9 z-d-4"> 0x7f</span><span>)</span><span class="z-l-17 z-d-10"> as</span><span class="z-l-1 z-d-7"> u8</span><span>)</span><span class="z-l-10 z-l-i z-d-3"> //</span><span class="z-l-10 z-l-i z-d-3"> truncation</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p><code>bucket_mask</code> 总是二的幂减一，从而可以直接使用按位与来获得索引。</p>
+<p>计算容量时，使用如下方法。这意味着桶数量大于 8 时我们会保留 12.5% 的空槽。</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>inline</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">fn</span><span class="z-l-14 z-d-7"> bucket_mask_to_capacity</span><span>(</span><span>bucket_mask</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> usize</span><span>)</span><span class="z-l-16 z-d-10"> -&gt;</span><span class="z-l-1 z-d-7"> usize</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    if</span><span> bucket_mask</span><span class="z-l-16 z-d-10"> &lt;</span><span class="z-l-9 z-d-4"> 8</span><span> {</span></span>
+<span class="giallo-l"><span>        bucket_mask</span></span>
+<span class="giallo-l"><span>    }</span><span class="z-l-17 z-d-10"> else</span><span> {</span></span>
+<span class="giallo-l"><span>        (</span><span>(</span><span>bucket_mask</span><span class="z-l-16 z-d-10"> +</span><span class="z-l-9 z-d-4"> 1</span><span>)</span><span class="z-l-16 z-d-10"> /</span><span class="z-l-9 z-d-4"> 8</span><span>)</span><span class="z-l-16 z-d-10"> *</span><span class="z-l-9 z-d-4"> 7</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>探测插入的可用槽位涉及以下代码：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>derive</span><span>(</span><span class="z-l-1 z-d-7">Clone</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">struct</span><span class="z-l-1 z-d-7"> ProbeSeq</span><span> {</span></span>
+<span class="giallo-l"><span>    pos</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> usize</span><span>,</span></span>
+<span class="giallo-l"><span>    stride</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> usize</span><span>,</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">impl</span><span class="z-l-1 z-d-7"> ProbeSeq</span><span> {</span></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>inline</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    fn</span><span class="z-l-14 z-d-7"> move_next</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span class="z-l-17 z-d-10">mut</span><span class="z-l-4 z-l-i z-d-4"> self</span><span>,</span><span> bucket_mask</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> usize</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">        debug_assert!</span><span>(</span></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">            self</span><span class="z-l-16 z-d-10">.</span><span>stride </span><span class="z-l-16 z-d-10">&lt;=</span><span> bucket_mask</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-6">            &quot;</span><span class="z-l-8 z-d-6">Went past end of probe sequence</span><span class="z-l-8 z-d-6">&quot;</span></span>
+<span class="giallo-l"><span>        )</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">        self</span><span class="z-l-16 z-d-10">.</span><span>stride </span><span class="z-l-16 z-d-10">+=</span><span class="z-l-1 z-d-7"> Group</span><span class="z-l-16 z-d-10">::</span><span class="z-l-3 z-d-4">WIDTH</span><span>;</span><span class="z-l-10 z-l-i z-d-3"> //</span><span class="z-l-10 z-l-i z-d-3"> 宽度取决于实现与平台</span></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">        self</span><span class="z-l-16 z-d-10">.</span><span>pos </span><span class="z-l-16 z-d-10">+=</span><span class="z-l-4 z-l-i z-d-4"> self</span><span class="z-l-16 z-d-10">.</span><span>stride</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">        self</span><span class="z-l-16 z-d-10">.</span><span>pos </span><span class="z-l-16 z-d-10">&amp;=</span><span> bucket_mask</span><span>;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">impl</span><span class="z-l-1 z-d-7"> RawTableInner</span><span> {</span></span>
+<span class="giallo-l"><span>	#</span><span>[</span><span>inline</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    unsafe</span><span class="z-l-17 z-d-10"> fn</span><span class="z-l-14 z-d-7"> find_insert_slot</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span class="z-l-4 z-l-i z-d-4">self</span><span>,</span><span> hash</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> u64</span><span>)</span><span class="z-l-16 z-d-10"> -&gt;</span><span class="z-l-1 z-d-7"> InsertSlot</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        let</span><span class="z-l-17 z-d-10"> mut</span><span> probe_seq</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-4 z-l-i z-d-4"> self</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">probe_seq</span><span>(</span><span>hash</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        loop</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">            let</span><span> group</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-17 z-d-10"> unsafe</span><span> {</span><span class="z-l-1 z-d-7"> Group</span><span class="z-l-16 z-d-10">::</span><span class="z-l-14 z-d-7">load</span><span>(</span><span class="z-l-4 z-l-i z-d-4">self</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">ctrl</span><span>(</span><span>probe_seq</span><span class="z-l-16 z-d-10">.</span><span>pos</span><span>)</span><span>)</span><span> }</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">            let</span><span> index</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-4 z-l-i z-d-4"> self</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">find_insert_slot_in_group</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span>group</span><span>,</span><span class="z-l-16 z-d-10"> &amp;</span><span>probe_seq</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">            if</span><span class="z-l-14 z-d-7"> likely</span><span>(</span><span>index</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">is_some</span><span>(</span><span>)</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">                unsafe</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">                    return</span><span class="z-l-4 z-l-i z-d-4"> self</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">fix_insert_slot</span><span>(</span><span>index</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">unwrap_unchecked</span><span>(</span><span>)</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>                }</span></span>
+<span class="giallo-l"><span>            }</span></span>
+<span class="giallo-l"><span>            probe_seq</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">move_next</span><span>(</span><span class="z-l-4 z-l-i z-d-4">self</span><span class="z-l-16 z-d-10">.</span><span>bucket_mask</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>这里探测方式是第一次跳过一个组的长度，第二次跳过两个组的长度，依此类推。容易证明（槽数量为 2 的幂时）可以遍历所有的槽。</p>
+<p>这里 <code>likely</code>（及对应的 <code>unlikely</code>）是用于分支预测优化的。</p>
+<p>现在来看看 <code>insert</code> 的实现：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-17 z-d-10">impl</span><span>&lt;</span><span class="z-l-1 z-d-7">T</span><span>,</span><span class="z-l-1 z-d-7"> A</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> Allocator</span><span>&gt;</span><span class="z-l-1 z-d-7"> RawTable</span><span>&lt;</span><span class="z-l-1 z-d-7">T</span><span>,</span><span class="z-l-1 z-d-7"> A</span><span>&gt;</span><span> {</span></span>
+<span class="giallo-l"><span>	#</span><span>[</span><span>cfg_attr</span><span>(</span><span>feature </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">inline-more</span><span class="z-l-8 z-d-6">&quot;</span><span>,</span><span> inline</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    pub</span><span class="z-l-17 z-d-10"> fn</span><span class="z-l-14 z-d-7"> reserve</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span class="z-l-17 z-d-10">mut</span><span class="z-l-4 z-l-i z-d-4"> self</span><span>,</span><span> additional</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> usize</span><span>,</span><span> hasher</span><span class="z-l-16 z-d-10">:</span><span class="z-l-17 z-d-10"> impl</span><span class="z-l-14 z-d-7"> Fn</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span class="z-l-1 z-d-7">T</span><span>)</span><span class="z-l-16 z-d-10"> -&gt;</span><span class="z-l-1 z-d-7"> u64</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        if</span><span class="z-l-14 z-d-7"> unlikely</span><span>(</span><span>additional</span><span class="z-l-16 z-d-10"> &gt;</span><span class="z-l-4 z-l-i z-d-4"> self</span><span class="z-l-16 z-d-10">.</span><span>table</span><span class="z-l-16 z-d-10">.</span><span>growth_left</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">            unsafe</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">                if</span><span class="z-l-4 z-l-i z-d-4"> self</span></span>
+<span class="giallo-l"><span class="z-l-16 z-d-10">                    .</span><span class="z-l-14 z-d-7">reserve_rehash</span><span>(</span><span>additional</span><span>,</span><span> hasher</span><span>,</span><span class="z-l-1 z-d-7"> Fallibility</span><span class="z-l-16 z-d-10">::</span><span class="z-l-1 z-d-7">Infallible</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-16 z-d-10">                    .</span><span class="z-l-14 z-d-7">is_err</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>                {</span></span>
+<span class="giallo-l"><span class="z-l-1 z-d-7">                    hint</span><span class="z-l-16 z-d-10">::</span><span class="z-l-14 z-d-7">unreachable_unchecked</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>                }</span></span>
+<span class="giallo-l"><span>            }</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span>inline</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    pub</span><span class="z-l-17 z-d-10"> unsafe</span><span class="z-l-17 z-d-10"> fn</span><span class="z-l-14 z-d-7"> insert_in_slot</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span class="z-l-17 z-d-10">mut</span><span class="z-l-4 z-l-i z-d-4"> self</span><span>,</span><span> hash</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> u64</span><span>,</span><span> slot</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> InsertSlot</span><span>,</span><span> value</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> T</span><span>)</span><span class="z-l-16 z-d-10"> -&gt;</span><span class="z-l-1 z-d-7"> Bucket</span><span>&lt;</span><span class="z-l-1 z-d-7">T</span><span>&gt;</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        let</span><span> old_ctrl</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-16 z-d-10"> *</span><span class="z-l-4 z-l-i z-d-4">self</span><span class="z-l-16 z-d-10">.</span><span>table</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">ctrl</span><span>(</span><span>slot</span><span class="z-l-16 z-d-10">.</span><span>index</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">        self</span><span class="z-l-16 z-d-10">.</span><span>table</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">record_item_insert_at</span><span>(</span><span>slot</span><span class="z-l-16 z-d-10">.</span><span>index</span><span>,</span><span> old_ctrl</span><span>,</span><span> hash</span><span>)</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        let</span><span> bucket</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-4 z-l-i z-d-4"> self</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">bucket</span><span>(</span><span>slot</span><span class="z-l-16 z-d-10">.</span><span>index</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>        bucket</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">write</span><span>(</span><span>value</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>        bucket</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>	#</span><span>[</span><span>cfg_attr</span><span>(</span><span>feature </span><span class="z-l-16 z-d-10">=</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">inline-more</span><span class="z-l-8 z-d-6">&quot;</span><span>,</span><span> inline</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    pub</span><span class="z-l-17 z-d-10"> fn</span><span class="z-l-14 z-d-7"> insert</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span class="z-l-17 z-d-10">mut</span><span class="z-l-4 z-l-i z-d-4"> self</span><span>,</span><span> hash</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> u64</span><span>,</span><span> value</span><span class="z-l-16 z-d-10">:</span><span class="z-l-1 z-d-7"> T</span><span>,</span><span> hasher</span><span class="z-l-16 z-d-10">:</span><span class="z-l-17 z-d-10"> impl</span><span class="z-l-14 z-d-7"> Fn</span><span>(</span><span class="z-l-16 z-d-10">&amp;</span><span class="z-l-1 z-d-7">T</span><span>)</span><span class="z-l-16 z-d-10"> -&gt;</span><span class="z-l-1 z-d-7"> u64</span><span>)</span><span class="z-l-16 z-d-10"> -&gt;</span><span class="z-l-1 z-d-7"> Bucket</span><span>&lt;</span><span class="z-l-1 z-d-7">T</span><span>&gt;</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        unsafe</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">            let</span><span class="z-l-17 z-d-10"> mut</span><span> slot</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-4 z-l-i z-d-4"> self</span><span class="z-l-16 z-d-10">.</span><span>table</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">find_insert_slot</span><span>(</span><span>hash</span><span>)</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">            let</span><span> old_ctrl</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-16 z-d-10"> *</span><span class="z-l-4 z-l-i z-d-4">self</span><span class="z-l-16 z-d-10">.</span><span>table</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">ctrl</span><span>(</span><span>slot</span><span class="z-l-16 z-d-10">.</span><span>index</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">            if</span><span class="z-l-14 z-d-7"> unlikely</span><span>(</span><span class="z-l-4 z-l-i z-d-4">self</span><span class="z-l-16 z-d-10">.</span><span>table</span><span class="z-l-16 z-d-10">.</span><span>growth_left </span><span class="z-l-16 z-d-10">==</span><span class="z-l-9 z-d-4"> 0</span><span class="z-l-16 z-d-10"> &amp;&amp;</span><span> old_ctrl</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">special_is_empty</span><span>(</span><span>)</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">                self</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">reserve</span><span>(</span><span class="z-l-9 z-d-4">1</span><span>,</span><span> hasher</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>                slot</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-4 z-l-i z-d-4"> self</span><span class="z-l-16 z-d-10">.</span><span>table</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">find_insert_slot</span><span>(</span><span>hash</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>            }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">            self</span><span class="z-l-16 z-d-10">.</span><span class="z-l-14 z-d-7">insert_in_slot</span><span>(</span><span>hash</span><span>,</span><span> slot</span><span>,</span><span> value</span><span>)</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre></section>
+  <hr />
+  
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/计算机/">计算机</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/算法/">算法</a>
+    
+  </div>
+</footer>
+
+  
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- page_end inject -->
+
+</article>
+
+  </main>
+  <footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+    <div class="mr-auto basis-full lg:basis-1/2">
+      
+&copy; 2025-2026 Rratic
+ &vert; <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+
+    </div>
+    <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+      
+  <span class="mr-6 lg:ml-6">
+    <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+  </span>
+  <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+
+    </div>
+  <!-- footer inject -->
+
+  </footer>
+  
+
+  <!-- body_end inject -->
+
+</body>
+
+</html>
