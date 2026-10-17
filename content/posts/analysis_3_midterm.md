@@ -89,13 +89,48 @@ $$\iint_D f(\mathbf x) \mathrm d\sigma \coloneqq \lim_{n \to \infty} \iint_{D_n}
 
 累次广义积分和广义重积分的关系略去。
 
+## 曲线与曲面积分
 ### 曲线积分
-对可求长简单曲线，仿照 Riemann 和容易定义Ⅰ型曲线积分：
+回忆可以用折线逼近的方法定义参数曲线的长度，有限时它是可求长曲线。可以证明参数曲线可求长当且仅当对每个分量是有界变差函数；函数是有界变差函数当且仅当可以写成两个单调递增函数之差。
 
-$$\int_{\Gamma} f(\mathbf x) \mathrm ds$$
+对可求长参数曲线及有界实值函数，仿照 Riemann 和容易定义Ⅰ型曲线积分：
+
+$$\int_{\Gamma} f(\mathbf x) \mathrm ds = \lim_{\lVert\Delta\rVert \to 0} \sum_{i=1}^n f(\gamma(\xi_i)) \Delta s_i$$
 
 两端点重合时，也记作：
 
 $$\oint_{\Gamma} f(\mathbf x) \mathrm ds$$
 
 分段光滑曲线是可求长的。对可求长简单曲线 $\Gamma$ 及 $f \in C(\Gamma)$ 有曲线积分存在。
+
+对向量场 $\mathbf F$，定义Ⅱ型曲线积分是：
+
+$$\int_\gamma \mathbf F \mathrm ds = \int_\gamma f_1 \mathrm dx_1 + \cdots + f_1 \mathrm dx_n$$
+
+对于分段 $C^1$ 曲线，可以转化为 Riemann 积分：
+
+$$\int_\gamma \mathbf F \mathrm ds = \int_\alpha^\beta \mathbf F(\gamma(t)) \cdot \gamma'(t) \mathrm dt$$
+
+### 曲面积分
+对于 $\varphi: \Omega \to \R^n$ 为 $C^1$ 的参数曲面，$f$ 在 $\varphi(\Omega)$ 上连续，定义Ⅰ型曲面积分：
+
+$$\int_{\varphi(\Omega)} f \mathrm d\sigma = \iint \cdots \int_\Omega f \circ \varphi |\det (J\varphi)| \mathrm du_1 \cdots \mathrm du_n$$
+
+对于 $\mathbb E^3$ 中的可定向曲面 $\Sigma$ 及连续的单位法向量场 $\mathbf n$，定义连续向量值函数 $\mathbf X$ 的Ⅱ型曲面积分：
+
+$$\int_\Sigma \mathbf X \mathrm d\sigma = \int_\Sigma \mathbf X \cdot \mathbf n \mathrm d\sigma$$
+
+使用[微分形式](@/posts/smooth_manifolds_1.md)的语言它等于：
+
+$$\int_\Sigma X_x \mathrm dy \wedge \mathrm dz + X_y \mathrm dz \wedge \mathrm dx + X_z \mathrm dx \wedge \mathrm dy$$
+
+### 关联
+{% <theorem title="散度定理"> %}
+设 $\Omega$ 是 $\R^n$ 中有 $C^1$ 边界的有界开集，$\mathbf X$ 是 $\bar \Omega$ 上的 $C^1$ 向量场，$\mathbf n$ 是边界上的单位外法向量场，则：
+
+$$\int_\Omega \mathrm{div}(\mathbf X) \mathrm d\mathbf x = \int_{\partial \Omega} \mathbf X \cdot \mathbf n \mathrm d\sigma$$
+{% </theorem> %}
+
+取 $\mathbf X = (Q, -P)$ 就可得到 Green 公式：
+
+$$\int_\Omega \left(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}\right) \mathrm dx\mathrm dy = \int_{\partial \Omega} P \mathrm dx + Q \mathrm dy$$

@@ -98,3 +98,44 @@ $$P(\set{\omega | \exists \lim_{n \to \infty} X_n}) = 1$$
 我们称联合分布列是指 $p_{ij} = P(X = i, Y = j)$，联合密度函数等定义同理。对可测区域就有：
 
 $$P((X, Y) \in D) = \iint p_{X, Y}(x, y) \mathrm d\mu$$
+
+二维正态分布 $(X, Y) \sim N(\mu_1, \mu_2, \sigma_1^2, \sigma_2^2, \rho)$ 的联合密度函数：
+
+$$\frac 1 {2\pi \sigma_1 \sigma_2 \sqrt{1 - \rho^2}} \exp \left[- \frac {(x - \mu_1)^2 - 2\rho(x - \mu_1)(y - \mu_2) + (y - \mu_2)^2} {2 (1 - \rho^2) \sigma_1^2 \sigma_2^2}\right]$$
+
+### 独立性
+对 $\vec X = (X_1, \dots, X_n)$，对 $m < n$ 称 $\vec Y = (X_{i_1}, \dots, X_{i_m})$ 是 $\vec X$ 的**边缘**。对应分布/密度称边缘（联合）分布/密度。
+
+称 $X_1, \dots, X_n$ **相互独立**，如果对任意 $x_1, \dots, x_n$，
+
+$$P(X_1 \leq x_1, \dots, X_n \leq x_n) = P(X_1 \leq x_1) \cdots P(X_n \leq x_n)$$
+
+相互独立可以推出两两独立。若对所有 $i$ 有 $X_i \stackrel d = X_1$，则称它们独立同分布。
+
+对两个概率分布 $\mu_1, \mu_2$，若 $\mu$ 是联合分布，以 $\mu_1, \mu_2$ 为边缘分布，则称 $\mu$ 是 $\mu_1, \mu_2$ 的耦合。
+
+## 琐碎定义
+所谓条件密度函数是为：
+
+$$p_{Y|X}(y|x) = p_X(x) p_{Y|X}(y|x)$$
+
+定义分布函数 $F$ 的广义反函数：
+
+$$
+\begin{aligned}
+F^{-1}: (0, 1) &\longrightarrow \R \cr
+    u &\longmapsto \inf \set{x \in \R | F(x) \geq u}
+\end{aligned}
+$$
+
+设 $(\R, \mathcal R)$ 上两个分布 $\mu, \nu$，取 $X \sim \mu, Y \sim \nu$ 相互独立，则：
+
+$$X + Y \sim \mu \ast \nu = \int_{-\infty}^{+\infty} \mu(t) \nu(z - t) \mathrm dt$$
+
+这里 $\ast$ 是卷积；若分布族满足对 $\mu_\alpha, \mu_\beta$ 存在 $\mu_\alpha \ast \mu_\beta = \mu_\gamma$，则称该分布族有可加性/再生性。
+
+随机向量的变换
+
+顺序统计量
+
+随机变量序列
