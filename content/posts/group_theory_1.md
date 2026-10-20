@@ -1,7 +1,7 @@
 +++
-title = "群论（一）：群在集合上的作用"
+title = "群论（一）：群在集合/群上的作用"
 date = 2025-06-09
-updated = 2025-06-11
+updated = 2026-10-19
 
 [extra]
 math = true
@@ -104,15 +104,13 @@ $$\mathrm{Ad}_h(n) = hnh^{-1}$$
 $\varphi$ 对应的轨道数为 $\sum_{g \in G} |X(g)| / |G|$，其中 $X(g) = \set{x | x^g = x}$.
 {% </theorem> %}
 
-其本质是对所有满足 $x^g = x$ 的数对的算两次。
-- 对 $g$ 计数为 $\sum |\mathrm{Stab}(g)| = \sum\frac{|G|}{|\mathrm{Orb}(g)|} = |G|\cdot \text{ans}$
-- 对 $x$ 计数则为 $\sum_{g\in G}|X(g)|$
+对所有满足 $x^g = x$ 的数对的算两次（分别对 $g, x$ 计数）。
 
 {% <question title="立方体染色Ⅰ"> %}
 一个立方体六个面颜色不同，有多少种旋转下不同的染色？
 {% </question> %}
 
-易知对称群大小 $|G| = |\mathrm{Orb}(x)|\cdot |\mathrm{Stab}(x)| = 24$.
+旋转对称群大小 $|G| = |\mathrm{Orb}(x)|\cdot |\mathrm{Stab}(x)| = 24$.
 
 集合 $\Omega$ 是六个面的染色状态构成的集合，作用 $\varphi$ 使得 $\varphi(g)$ 是进行 $g$ 对应的旋转操作。所求即它的轨道数。
 
@@ -147,54 +145,99 @@ $$
 
 那么我们可以写出**类方程**：
 
-$$|G| = |Z(G)| + \sum_{y_i \notin Z(G)} |G\colon C_G(y_i)|$$
+$$|G| = |Z(G)| + \sum_{y_i \notin Z(G)} [G : C_G(y_i)]$$
 
-例如，考察 $|G| = p^l$，所有的 $C_G(y_i)$ 都是真子群，有 $|Z(G)|$ 是 $p$ 的倍数，从而是非平凡的。
+称阶是素数 $p$ 的幂的群为 **$p$-群**。
+
+{% <example> %}
+$p$-群的中心非平凡。
+{% </example> %}
+
+对 $y_i \notin Z(G)$，有 $C_G(y_i)$ 是真子群，$p \mid [G : C_G(y_i)]$，由类方程知 $p \mid \\#Z(G)$，从而中心非平凡。
 
 ## Sylow 定理
-对有限群 $G$ 和素数 $p$ 使 $p^l$ 恰整除 $|G|$，称 $G$ 的 $p^l$ 阶子群为其 **Sylow $p$-子群**。以下设 $|G| = p^l m$. 可以参考[启发式推导过程](https://zhuanlan.zhihu.com/p/358852225)。
+对有限群 $G$ 和素数 $p$ 使 $p^l$ 恰整除 $|G|$，以下设 $|G| = p^l m$，称 $G$ 的 $p^l$ 阶子群为其 **Sylow $p$-子群**。
+
+记 $H$ 在 $G$ 中**正规化子**是：
+
+$$N_G(H) = \set{G | gHg^{-1} = H}$$
 
 {% <theorem title="第一 Sylow 定理"> %}
-对有限群 $G$ 和素数 $p$ 使 $p^k$ 整除 $|G|$，$G$ 存在 $p^k$ 阶子群。
+Sylow $p$-子群存在。其推论是对 $k \leq l$，$p^k$ 阶子群均存在。
 {% </theorem> %}
-
-只需讨论阶大于 $p$ 的非交换群，因为交换群一定可以分解为循环群的直积。[^1]
 
 对 $|G|$ 归纳：
-- 若 $p\mid Z(G)$，由于它是交换的，有 $p$ 阶子群；考察它和对应的商群，使用归纳假设
-- 若 $p\nmid Z(G)$，由类方程，存在一个 $p\nmid \mathrm{Orb}(y_i)$，有 $p^l\parallel C_G(y_i)$，使用归纳假设
+- 若 $p\mid Z(G)$，由于 $Z(G)$ 交换，可以分解为循环群的直积[^1]，分解中可提取 $p$ 有关部分；对 $G / Z(G)$ 用归纳假设
+- 若 $p\nmid Z(G)$，由类方程，存在一个 $p\nmid \mathrm{Orb}(g_i)$，有 $p^l\parallel C_G(g_i)$，对 $C_G(g_i)$ 用归纳假设
 
 {% <theorem title="第二 Sylow 定理"> %}
-对 $p^k$ 整除 $|G|$ 及 Sylow $p$-子群 $P$，$p^k$ 阶子群必为 $P$ 的某个共轭的子群。
+对 $p^k$ 整除 $|G|$ 及 Sylow $p$-子群 $P$，$p^k$ 阶子群必为 $P$ 的某个共轭的子群。其推论是 Sylow $p$-子群两两共轭，每个 $p$-子群都在某个 Sylow $p$-子群中。
 {% </theorem> %}
 
-对一个 $p^k$ 阶子群 $H$，考察 $H$ 在 $P$ 上的作用 $\varphi(h) = (aP\mapsto haP)$. 有 $|\mathrm{Orb}(aP)|$ 整除 $|H|$，且：
+对一个 $p^k$ 阶子群 $H$，考察 $H$ 在 $G/P$ 上的左平移作用 $\varphi(h)(aP) = haP$，有 $|\mathrm{Orb}(aP)|$ 整除 $|H|$，且：
 
-$$|G:P| = \sum_{aP} 1 = \sum |\mathrm{Orb}(aP)|\not\equiv 0\pmod{p}$$
+$$[G : P] = \sum_{aP} 1 = \sum |\mathrm{Orb}(aP)| \not\equiv 0 \pmod{p}$$
 
-故至少一个 $|\mathrm{Orb}(aP)| = 1$. 对应 $h\in aPa^{-1}$ 即满足 $H\subseteq aPa^{-1}$.
+故至少一个 $|\mathrm{Orb}(aP)| = 1$，这个 $a$ 给出 $H\subseteq aPa^{-1}$.
 
 {% <theorem title="第三 Sylow 定理"> %}
-设 Sylow $p$-子群个数 $r$，则 $r\equiv 1\pmod{p}$ 且 $r\mid m$.
+设 Sylow $p$-子群个数 $n_p$，则 $n_p \equiv 1\pmod{p}$ 且 $n_p \mid m$.
 {% </theorem> %}
 
-称 $H$ 在 $G$ 中**正规化子** $N_G(H) = \set{G | gHg^{-1}=H}$. 则对 $G$ 的 Sylow $p$-子群 $P$，有 $P\unlhd N_G(P)\le G$.
+由上一定理，对 $G$ 的 Sylow $p$-子群 $P$，有 $P$ 是 $N_G(P)$ 唯一的正规子群。
 
-对 $G$ 的 Sylow $p$-子群 $Q\subseteq N_G(P)$，$P,Q$ 同为 $N_G(P)$ 的 Sylow p 子群，由第二定理知相互共轭。由 $P$ 为 $N_G(P)$ 的正规子群，$P = Q$.
+令 $\Omega$ 为 Sylow $p$-子群的集合，考察 $P$ 在 $\Omega$ 上的共轭作用 $\varphi(p)(Q) = pQp^{-1}$，有 $|\mathrm{Orb}(Q)| = 1$ 当且仅当 $Q = P$，否则整除 $|P|$，
 
-令 $\Omega$ 为 Sylow $p$-子群的集合，令 $P$ 在 $\Omega$ 上作用为共轭 $\varphi(p) = (Q\mapsto pQp^{-1})$. 有 $|\mathrm{Orb}(Q)| = 1 \iff Q = P$，其余整除 $|P|$. 即：
+$$n_p = \sum |\mathrm{Orb}(Q)|\equiv 1\pmod{p}$$
 
-$$r = \sum |\mathrm{Orb}(Q)|\equiv 1\pmod{p}$$
+又由下式知 $n_p \mid m$：
 
-由第二定理知 $G$ 在 $\Omega$ 上的共轭作用使 $\Omega$ 成为轨道，$|\Omega|$ 整除 $|G|$，即 $r\mid m$.
+$$n_p = |G/N_G(P)| = \frac{|G|}{|N_G(P)|} = \frac{p^l \cdot m}{p^l \cdot [N_G(P) : P]}$$
 
-{% <theorem title="p·q 阶群分类"> %}
-对素数 $p < q$，$pq$ 阶群在 $q\not\equiv 1\pmod{p}$ 时只有循环群。
+{% <example> %}
+对素数 $p < q$，考察 $pq$ 阶群的分类。
+{% </example> %}
+
+Sylow $q$-子群恰一个，从而正规。而 $n_p = 1$ 或 $q$，对前一情形，有 $P\cap Q = \set{e}, G = QP$，可知：
+
+$$G\cong P\oplus Q\cong \Z_p\oplus \Z_q\cong \Z_{pq}$$
+
+对 $n_p = q \equiv 1 \pmod{p}$，有 $G = Q \rtimes P$，对应于同态：
+
+$$
+\begin{aligned}
+\Z_p \simeq P &\stackrel \eta \longrightarrow \mathrm{Aut}(Q) \cong \mathrm{Aut}(\Z_q) \cong \Z_q^\times \\\\
+y &\longmapsto (x \mapsto yxy^{-1} = y^a) \longmapsto a
+\end{aligned}
+$$
+
+在同构意义下这个半直积是唯一的。因为另外的同态必形如：
+
+$$
+\begin{aligned}
+\eta_i: \Z_p &\longrightarrow \Z_q^\times \\\\
+    \sigma &\longmapsto a^i
+\end{aligned}
+$$
+
+然后就可给出如下同构：
+
+$$
+\begin{aligned}
+Q \rtimes_{\eta_1} \Z_p &\longrightarrow Q \rtimes_{\eta_i} \Z_p \\\\
+    (y, c) &\longmapsto (y, ic)
+\end{aligned}
+$$
+
+{% <theorem> %}
+对有限群 $G$ 的正规子群 $N$，商映射 $\pi: G \twoheadrightarrow G/N$，Sylow $p$-子群 $H$，有 $\pi(H)$ 是 $G/N$ 的 Sylow $p$-子群；$N \cap H$ 是 $N$ 的 Sylow $p$-子群。
 {% </theorem> %}
 
-考察 Sylow $p$-子群及 Sylow $q$-子群，由第三定理知个数均为 $1$，从而分别是正规的。
+{% <example> %}
+132 阶群不可能是单群。
+{% </example> %}
 
-易知 $PQ = G$，又由 $P\cap Q = \set{e}$，可知 $G\cong P\oplus Q\cong Z_p\oplus Z_q\cong Z_{pq}$.
+假设是单群，$n_2, n_3, n_{11} \neq 1$，有 $n_{11} = 12$，由于对应的 Sylow 子群只有平凡交，至少存在 120 个元素阶 11；同理至少存在 8 个元素阶 3；至少存在 7 个元素阶 2，而 $135 > 132$ 矛盾。
 
 ---
 
