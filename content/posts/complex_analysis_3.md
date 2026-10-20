@@ -1,5 +1,5 @@
 +++
-title = "单复变 Weierstrass 级数理论"
+title = "单复变（三）：Weierstrass 级数理论"
 date = 2025-12-04
 
 [extra]

@@ -1,5 +1,5 @@
 +++
-title = "基于 GLSL 的色彩与数学绘制"
+title = "着色器（二）：色彩；色板；数学绘制"
 description = "基于 GLSL 的 HSV 操作与经典数学对象的绘制。"
 date = 2025-09-22
 

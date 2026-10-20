@@ -1,5 +1,5 @@
 +++
-title = "GLSL 的基础用法与 Raymarching"
+title = "着色器（一）：GLSL 基础；Raymarching"
 description = "基于 GLSL 的着色器基础内容：2D 绚丽图像及 Raymarching."
 date = 2025-09-03
 

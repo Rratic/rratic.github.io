@@ -1,5 +1,5 @@
 +++
-title = "单复变 Cauchy 积分理论"
+title = "单复变（二）：Cauchy 积分理论"
 date = 2025-11-16
 
 [extra]
@@ -54,7 +54,7 @@ $$f(z) = \frac{1}{2\pi\mathrm{i}} \int_{\partial \Omega} \frac{f(w)}{w - z} \mat
 
 取一个邻域 $\overline{D(z, \varepsilon)}$ 在 $\Omega$ 内，则显然可以将 RHS 中沿着 $\partial \Omega$ 积分改为沿着 $|w - z| = \varepsilon$ 积分。使用熟悉的局部线性化然后让 $\varepsilon \to 0$ 即可：
 
-$$f(w) = f(z) + f'(z)(w - z) + o(w - z)$$
+$$f(w) = f(z) + f'(w)(w - z) + o(w - z)$$
 
 ### 全纯的等价性
 我们现在可以证明全纯函数和解析函数是等价的条件了。其中解析推全纯是容易的，因为幂级数在收敛半径内全纯。
