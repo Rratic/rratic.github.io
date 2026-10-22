@@ -146,3 +146,62 @@ $$\hat \rho_h(x) = \sum_{j=1}^m \frac{n_j}{h^d n} \mathbf 1_{I_j}(x)$$
 第二种方法是核密度估计（kernel density estimator, KDE）。$\hat \rho_n(x) = \sum_i \delta(x - x_i)$ 在某种意义下可以趋近于 $\rho^\ast$.
 
 我们把 $\delta$ 换成某个 $K_h$. 定义 $K$ 是 smoothing kernel 如果 $K \geq 0$、积分为 $1$ 及对称 $K(x) = K(-x)$，常见的选取有 Box、Triangular 及 Gaussian；然后令 $K_h(x) = h^{-d} K(x / h)$.
+
+现在来估计误差，使用 variance-bias 分解（$\mathbb E[Z^2] = (\mathbb EZ)^2 + \mathbb E[(Z - \mathbb EZ)^2]$），设 $\rho_h(x) = \mathbb E_S[\hat \rho_h(x)]$：
+
+$$\mathbb E_S[(\hat \rho_h - \rho^\ast)^2] = (\underbrace{\mathbb E_S(\rho_h - \rho^\ast))^2}_{\text{bias}} + \mathrm{Var}(\hat \rho_h)$$
+
+则这里 bias 是（使用积分为 $1$ 与对称性）：
+
+$$
+\begin{split} \text{bias}
+&= \mathbb E_{x \sim \rho^\ast}[K_h(x - x')] \cr
+&= \int K_h(x - x') \rho^\ast(x') \mathrm dx' \cr
+&= \int K(z) \rho^\ast(x - hz) \mathrm dz \cr
+&= \int K(z) (\rho^\ast(x) - h\braket{\nabla \rho^\ast(x), z} + \frac{h^2}2 z^\top \nabla^2 \rho^\ast(x) + o(h^2)) \mathrm dz \cr
+&= \rho^\ast(x) + C_1h + C_2h^2 + o(h^2) \cr
+&\eqsim h^4
+\end{split}
+$$
+
+$$
+\begin{split} \text{variance}
+&= \frac 1 {nh^d} \int K^2(z) \rho^\ast(x + hz) \mathrm dz \cr
+&\leq \frac{c_3}{nh^d}
+\end{split}
+$$
+
+故而，我们希望 $\min (h^4 + \frac 1 {hd^n})$，大概希望 $\hat h_{\text{opt}} = cn^{- 1 / (d+4)}$，这里的常数我们不知道，可以用一些小模型来尝试。又，这里可知此方法有维数灾难，只适合低维（$\leq 3$）。
+
+### 降维
+降维依赖于：假设数据在某个低维子流形上。
+
+线性降维的经典方法是主成分分析（PCA, principal component analysis）。
+
+![主成分](/images/misc/pca.png)
+
+先归一化到重心是原点，考虑投影到 $1$ 维，计算投影的方差：
+
+$$\max_{\lVert w\rVert = 1} \frac 1 n \sum_{i=1}^n (x_i^\top w)^2$$
+
+令 $\hat \Sigma = \frac 1 n \sum x_i x_i^\top$，即：
+
+$$\max_{\lVert w\rVert = 1} w^\top \hat \Sigma w$$
+
+这个最大值是最大特征值，此时 $w$ 是对应特征向量。
+
+把这个方法推广到 $k$ 维，设 $W = (w_1, \dots, w_k) \in \R^{n \times k}$，假设 $W^\top W = I_k$，则：
+
+$$\max_{W^\top W = I_k} \sum_{\alpha=1}^k w_\alpha^\top \hat \Sigma w_\alpha$$
+
+随机投影（random projection）
+
+$f: \R^d \to \R^k$
+
+$$1 - \varepsilon \leq \frac{\lVert f(x_i) - f(x_j) \rVert}{\lVert x_i - x_j \rVert} \leq 1 + \varepsilon$$
+
+$$f(x) = \frac 1 {\sqrt k} Wx, W \in \R^{k \times d}, w_{ij} \sim N(0, 1)$$
+
+{% <theorem title="Johnson-Lindenstrauss 引理"> %}
+...
+{% </theorem> %}
