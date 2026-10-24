@@ -1,8 +1,5 @@
 +++
 title = "FAQs"
-
-[extra]
-toc = true
 +++
 
 ## CHANGELOG

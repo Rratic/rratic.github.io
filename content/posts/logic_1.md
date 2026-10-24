@@ -6,9 +6,6 @@ updated = 2026-03-18
 [extra]
 math = true
 
-[extra.sitemap]
-priority = "0.8"
-
 [taxonomies]
 categories = ["知识", "课程"]
 tags = ["数学", "基石"]

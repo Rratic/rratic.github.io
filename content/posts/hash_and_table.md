@@ -2,12 +2,6 @@
 title = "Hash 与基于哈希的 table 实现"
 date = 2025-12-08
 
-[extra]
-toc = true
-
-[extra.sitemap]
-priority = "0.8"
-
 [taxonomies]
 categories = ["知识"]
 tags = ["计算机", "算法"]

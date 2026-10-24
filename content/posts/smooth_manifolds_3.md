@@ -4,7 +4,6 @@ date = 2026-09-29
 
 [extra]
 math = true
-toc = true
 
 [taxonomies]
 categories = ["知识"]

@@ -6,9 +6,6 @@ updated = 2025-12-08
 [extra]
 math = true
 
-[extra.sitemap]
-priority = "0.8"
-
 [taxonomies]
 categories = ["知识"]
 tags = ["数学", "范畴论"]

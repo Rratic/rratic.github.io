@@ -2,12 +2,6 @@
 title = "记一个 Martin-Löf 类型论的实现"
 draft = true
 
-[extra]
-toc = true
-
-[extra.sitemap]
-priority = "0.8"
-
 [taxonomies]
 categories = ["项目"]
 tags = ["概述", "计算机"]

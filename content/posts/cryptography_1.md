@@ -2,12 +2,6 @@
 title = "异或密码的实现与 AES"
 date = 2025-10-30
 
-[extra]
-toc = true
-
-[extra.sitemap]
-priority = "0.8"
-
 [taxonomies]
 categories = ["知识"]
 tags = ["计算机", "密码学"]

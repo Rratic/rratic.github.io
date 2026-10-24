@@ -6,13 +6,9 @@ updated = 2025-10-02
 
 [extra]
 math = true
-toc = true
 
 [extra.cover]
 image = "/images/cover/galois_theory.png"
-
-[extra.sitemap]
-priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]

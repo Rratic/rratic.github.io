@@ -4,14 +4,8 @@ description = "函数式语言的基础特性概览：列表、类型与高阶�
 date = 2025-08-26
 updated = 2025-08-27
 
-[extra]
-toc = true
-
 [extra.cover]
 image = "/images/cover/haskell_p1.png"
-
-[extra.sitemap]
-priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
@@ -92,7 +86,7 @@ ghci> :t (+)
 (+) :: Num a => a -> a -> a
 ```
 
-Haskell 中实际上存在元组，对应的泛性质是[积](@/posts/category_theory_1.md#product-and-coproduct)。用括号表示元组：
+Haskell 中实际上存在元组，对应的泛性质是[积](@/posts/category_theory_1.md)。用括号表示元组：
 ```hs
 ghci> (fst (1, 2), snd (3, 4))
 (1,4)

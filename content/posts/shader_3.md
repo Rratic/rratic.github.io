@@ -5,14 +5,10 @@ date = 2025-10-01
 updated = 2025-10-30
 
 [extra]
-toc = true
 math = true
 
 [extra.cover]
 image = "images/cover/shader_pencil_effect.png"
-
-[extra.sitemap]
-priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]

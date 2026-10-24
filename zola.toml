@@ -3,11 +3,7 @@ theme = "linkita"
 
 author = "Rratic"
 title = "错行"
-generate_feeds = false
-
 default_language = "zh"
-build_search_index = false
-compile_sass = false
 
 [slugify]
 taxonomies = "off"
@@ -33,7 +29,6 @@ extra_grammars = ["syntaxes/agda.json"]
 comment = true
 math = false
 mermaid = false
-toc = false
 
 header_menu_name = "my_header_menu"
 

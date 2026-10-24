@@ -4,10 +4,6 @@ date = 2026-08-17
 
 [extra]
 math = true
-toc = true
-
-[extra.sitemap]
-priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]

@@ -5,9 +5,6 @@ date = 2026-05-12
 [extra]
 math = true
 
-[extra.sitemap]
-priority = "0.8"
-
 [taxonomies]
 categories = ["知识"]
 tags = ["数学", "基石", "范畴论"]
@@ -53,7 +50,7 @@ ETCS 是 Lawvere 的集合范畴基本理论（Elementary Theory of the Category
 每对集合都有一个积。
 {% </info> %}
 
-积不仅包含一个集合，还有两个投影映射。积的定义即[范畴论中的定义](@/posts/category_theory_1.md#product-and-coproduct)。
+积不仅包含一个集合，还有两个投影映射。积的定义即[范畴论中的定义](@/posts/category_theory_1.md)。
 
 两个积是唯一同构的，故我们在讨论时假定一个优选的 $(X \times Y, \mathrm{pr}_1^{X,Y}, \mathrm{pr}_2^{X,Y})$ 是无碍的（或者直接将此运算放在原始概念列表中）。
 

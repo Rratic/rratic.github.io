@@ -4,10 +4,6 @@ draft = true
 
 [extra]
 math = true
-toc = true
-
-[extra.sitemap]
-priority = "0.8"
 
 [taxonomies]
 categories = ["知识", "课程"]

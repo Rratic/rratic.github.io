@@ -1,19 +1,14 @@
 +++
 title = "功能测试"
-date = 1900-01-01
 
 [extra]
 math = true
 mermaid = true
-toc = true
 
 [extra.cover]
 image = "images/cover/gear.jpg"
 width = 800
 height = 450
-
-[extra.sitemap]
-priority = "0.0"
 +++
 
 ## Zola

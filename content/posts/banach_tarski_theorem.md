@@ -5,9 +5,6 @@ date = 2026-01-01
 [extra]
 math = true
 
-[extra.sitemap]
-priority = "0.8"
-
 [taxonomies]
 categories = ["知识"]
 tags = ["数学", "代数学"]

@@ -3,11 +3,7 @@ title = "【草稿】广义相对论"
 date = 2026-08-31
 
 [extra]
-toc = true
 math = true
-
-[extra.sitemap]
-priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]

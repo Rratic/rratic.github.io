@@ -5,10 +5,6 @@ updated = 2025-11-26
 
 [extra]
 math = true
-toc = true
-
-[extra.sitemap]
-priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]

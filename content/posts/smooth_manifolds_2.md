@@ -5,7 +5,6 @@ updated = 2026-10-06
 
 [extra]
 math = true
-toc = true
 
 [taxonomies]
 categories = ["知识"]

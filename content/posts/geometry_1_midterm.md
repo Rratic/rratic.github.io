@@ -6,9 +6,6 @@ updated = 2025-11-05
 [extra]
 math = true
 
-[extra.sitemap]
-priority = "0.8"
-
 [taxonomies]
 categories = ["知识", "课程"]
 tags = ["数学", "几何学"]

@@ -3,11 +3,7 @@ title = "基于有限域上数论的密码系统"
 date = 2026-02-12
 
 [extra]
-toc = true
 math = true
-
-[extra.sitemap]
-priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]

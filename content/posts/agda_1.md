@@ -3,12 +3,6 @@ title = "Agda 语言与基本的形式化证明"
 date = 2025-11-12
 updated = 2025-12-13
 
-[extra]
-toc = true
-
-[extra.sitemap]
-priority = "0.8"
-
 [taxonomies]
 categories = ["知识", "课程"]
 tags = ["计算机", "计算理论"]

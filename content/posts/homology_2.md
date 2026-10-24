@@ -4,7 +4,6 @@ draft = true
 
 [extra]
 math = true
-toc = true
 
 [taxonomies]
 categories = ["知识"]

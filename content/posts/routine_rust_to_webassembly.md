@@ -3,9 +3,6 @@ title = "记 Rust 编译至 WebAssembly 流程"
 description = "一个完整的极度简化和减少下载量的 Rust 编译至 WebAssembly 的流程。"
 date = 2026-01-27
 
-[extra.sitemap]
-priority = "0.8"
-
 [taxonomies]
 categories = ["杂物"]
 tags = ["计算机"]

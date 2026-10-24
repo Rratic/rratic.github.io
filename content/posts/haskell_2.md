@@ -5,14 +5,10 @@ date = 2025-08-27
 updated = 2025-10-26
 
 [extra]
-toc = true
 math = true
 
 [extra.cover]
 image = "/images/cover/haskell_p2.png"
-
-[extra.sitemap]
-priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]

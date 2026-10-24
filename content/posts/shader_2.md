@@ -4,14 +4,10 @@ description = "基于 GLSL 的 HSV 操作与经典数学对象的绘制。"
 date = 2025-09-22
 
 [extra]
-toc = true
 math = true
 
 [extra.cover]
 image = "images/cover/shader_complex.png"
-
-[extra.sitemap]
-priority = "0.8"
 
 [taxonomies]
 categories = ["知识"]
