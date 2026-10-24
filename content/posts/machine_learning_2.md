@@ -1,6 +1,6 @@
 +++
-title = "【草稿】机器学习（二）"
-draft = true
+title = "机器学习（二）：分类；无监督学习"
+date = 2026-10-24
 
 [extra]
 math = true
@@ -9,6 +9,10 @@ math = true
 categories = ["知识", "课程"]
 tags = ["计算机"]
 +++
+
+对应于[教师 Lecture Notes](https://leiwu0.github.io/courses/mi2ml/index.html) 的 Lecture 3, 4.
+
+<!-- more -->
 
 ## 分类
 ### 数学理解
@@ -190,14 +194,32 @@ $$\max_{\lVert w\rVert = 1} w^\top \hat \Sigma w$$
 
 $$\max_{W^\top W = I_k} \sum_{\alpha=1}^k w_\alpha^\top \hat \Sigma w_\alpha$$
 
-随机投影（random projection）
+非线性降维的方法在今日看大多不好用，因为非线性，难以从降维结果推测原本的性质。
 
-$f: \R^d \to \R^k$
+---
+
+现在来看随机投影（random projection），想法是找一个 $f: \R^d \to \R^k$ 大致满足：
 
 $$1 - \varepsilon \leq \frac{\lVert f(x_i) - f(x_j) \rVert}{\lVert x_i - x_j \rVert} \leq 1 + \varepsilon$$
+
+后来人们发现，实际上只要取成：
 
 $$f(x) = \frac 1 {\sqrt k} Wx, W \in \R^{k \times d}, w_{ij} \sim N(0, 1)$$
 
 {% <theorem title="Johnson-Lindenstrauss 引理"> %}
-...
+设 $x_1, \dots, x_n$ 是 $\R^d$ 中样本，给定 $0 < \delta < 1$，令 $k_\varepsilon = 6\log(2n/\delta)/\varepsilon^2$，对于 $k \geq k_\varepsilon$，在 $W$ 的随机采样上有 $1 - \delta$ 的概率：
+
+$$\max_{i \in [n]} \left|\frac{\lVert \frac 1 {\sqrt k} Wx_i \rVert_2^2}{\lVert x_i \rVert_2^2} - 1\right| \leq \varepsilon$$
 {% </theorem> %}
+
+不失一般性假设 $\lVert x_i \rVert_2 = 1$，设 $W = (w_1, \dots, w_k)^\top$，则 $w_j^\top x \sim N(0, 1)$，有：
+
+$$\mathbb E[\lVert \frac 1 {\sqrt k} Wx \rVert_2^2] = \frac 1 k \sum_{j=1}^k \mathbb E[|w_j^\top x|^2] = 1$$
+
+使用集中不等式，有：
+
+$$P\left(\left|\frac 1 k \sum_{j=1}^k |w_j^\top x|^2 - 1\right| \geq \varepsilon\right) \leq 2e^{-k\varepsilon^2/6}$$
+
+$$P\left(\max_{i \in [n]} \left|\frac 1 k \sum_{j=1}^k |w_j^\top x|^2 - 1\right| \geq \varepsilon\right) \leq n2e^{-k\varepsilon^2/6}$$
+
+让 $2ne^{-k\varepsilon^2/6} \leq \delta$ 即得原定理。
