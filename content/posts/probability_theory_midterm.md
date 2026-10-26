@@ -113,7 +113,7 @@ $$P(X_1 \leq x_1, \dots, X_n \leq x_n) = P(X_1 \leq x_1) \cdots P(X_n \leq x_n)$
 ## 琐碎定义
 所谓条件密度函数是为：
 
-$$p_{Y|X}(y|x) = p_X(x) p_{Y|X}(y|x)$$
+$$p_{Y|X}(y|x) = \frac{p_{X, Y}(x, y)}{p_X(x)}$$
 
 定义分布函数 $F$ 的广义反函数：
 
