@@ -1,6 +1,7 @@
 +++
 title = "单复变（一）：基本概念；复平面"
 date = 2025-08-28
+updated = 2026-10-27
 
 [extra]
 math = true
@@ -49,7 +50,9 @@ $$\mathrm{d}f = \mathrm{d}u + \mathrm{i}\cdot\mathrm{d}v = \frac{\partial f}{\pa
 
 现在，我们可以定义：若函数 $f$ 在区域 $D$ 内每一点都是复可导的，则称其为 $D$ 上的**全纯函数**。用定义即知全纯函数在 $f'(z_0) \neq 0$ 处是保角的，也就是说 $\gamma_1(t)$ 与 $\gamma_2(t)$ 的夹角等于 $f(\gamma_1(t))$ 与 $f(\gamma_2(t))$ 的夹角。
 
-若 $f$ 在区域 $D$ 内每一点 $z_0$，都可在它的邻域上展开为 $z-z_0$ 的幂级数，则称它在 $D$ 上是**解析**的。如果进一步在 $D$ 上是单的，则称它是**单叶解析**的。此时如果还是满的且逆 $f^{-1}$ 也是解析的，则称为**解析同胚/共形映射**。
+若 $f$ 在区域 $D$ 内每一点 $z_0$，都可在它的邻域上展开为 $z-z_0$ 的幂级数，则称它在 $D$ 上是**解析**的。如果进一步在 $D$ 上是单的，则称它是**单叶解析**的；如果是满的且逆 $f^{-1}$ 也是解析的，称为**拟共形映射**。单的拟共形映射称为**解析同胚/共形映射**。
+
+这些定义可以推广到非开集上，此时邻域改为：在 $\Complex$ 中的邻域与该集合的交。
 
 我们在[之后](@/posts/complex_analysis_2.md)会说明，全纯函数的导数仍然是全纯的，并且全纯函数和解析函数是等价的条件。
 
@@ -162,17 +165,17 @@ $$D(\infty, \varepsilon) = \set{z\in\bar{\Complex} | \lVert z \rVert > \frac 1 \
 同时，可以将它看作复射影直线 $\Complex\mathrm{P}^1$，其中 $z = z_1 / z_2$ 可写作 $(z_1 : z_2)$，这体现了它的[射影性质](@/posts/geometry_1_final.md)。
 
 ### 分式线性变换
-分式线性变换是重要的解析函数例子，指代：
+分式线性变换，又称 Möbius 变换，是重要的解析函数例子，指代所有的：
 
-$$z\mapsto \frac{az + b}{cz + d}$$
+$$f(z) = \frac{az + b}{cz + d} \quad (ad - bc \neq 0)$$
 
-又称 Möbius 变换。有时我们也会考虑如下共轭分式线性变换，它们均可将扩充复平面映到自身：
+有时我们也会考虑如下共轭分式线性变换，它们均可将扩充复平面映到自身：
 
-$$z\mapsto \frac{a\bar{z} + b}{c\bar{z} + d}$$
+$$f(z) = \frac{a\bar{z} + b}{c\bar{z} + d}$$
 
 分式线性变换以 $\Complex\mathrm{P}^1$ 视角看作射影变换（可由平移、位似、伊朗式反演复合得到）：
 
-$$\begin{pmatrix} z_1 \cr z_2 \end{pmatrix} \mapsto \begin{pmatrix} a & b \cr c & d \end{pmatrix} \begin{pmatrix} z_1 \cr z_2 \end{pmatrix}$$
+$$f\begin{pmatrix} z_1 \cr z_2 \end{pmatrix} = \begin{pmatrix} a & b \cr c & d \end{pmatrix} \begin{pmatrix} z_1 \cr z_2 \end{pmatrix}$$
 
 {% <theorem title="由三点的像确定"> %}
 对不同的三点 $z_i$ 及不同的三点 $w_i$，存在唯一的分式线性变换满足 $f(z_i) = w_i$.
@@ -180,7 +183,22 @@ $$\begin{pmatrix} z_1 \cr z_2 \end{pmatrix} \mapsto \begin{pmatrix} a & b \cr c 
 
 因为可以将 $1, 0, \infty$ 映到任意指定的不同 $z_1, z_2, z_3$，且分式线性变换可逆。
 
-对扩充平面上三个不同的点 $z_2, z_3, z_4$，将它们变成 $1, 0, \infty$ 的变换将 $z_1$ 映到其交比 $(z_1, z_2; z_3, z_4)$，它是射影不变量。
+对扩充平面上三个不同的点 $z_2, z_3, z_4$，将它们变成 $1, 0, \infty$ 的变换将 $z_1$ 映到其交比 $(z_1, z_2; z_3, z_4) = (z_1 - z_3) / (z_1 - z_4) : (z_2 - z_3) / (z_2 - z_4)$，它是射影不变量。
+
+---
+
+讨论 Möbius 变换群时，一般看成 $\mathrm{PSL}(2, \Complex)$，即要求 $ad - bc = 1$；考虑其不动点，方程 $f(z) = z$ 对应判别式 $(\operatorname{tr} A)^2 - 4$，于是可以将非恒等的 Möbius 变换分为四类：
+
+$$
+\begin{cases}
+	\text{parabolic} & (\operatorname{tr} A)^2 = 4 \\\\
+	\text{elliptic} & (\operatorname{tr} A)^2 \in [0, 4) \\\\
+	\text{hyperbolic} & (\operatorname{tr} A)^2 \in (4, +\infty) \\\\
+	\text{loxodromic} & \text{otherwise}
+\end{cases}
+$$
+
+其中只有第一种抛物型恰有一个不动点，其它恰有两个不动点。两个变换 $A, B$ 交换则 $x$ 是 $A$ 的不动点可以推出 $B(x)$ 也是 $A$ 的不动点。
 
 ---
 
