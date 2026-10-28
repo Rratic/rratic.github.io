@@ -116,7 +116,7 @@ $$|H \cap Z(P)| \equiv \sum_i |\mathrm{Orb}(a_i)| \equiv |H| \equiv 0 \pmod p$$
 回忆 Hölder 纲领，我们希望从 $N$ 与 $G/N$ 拼出 $G$ 的结构，不过这比较复杂。
 
 {% <theorem title="Schur–Zassenhaus 定理"> %}
-对 $N \unlhd G$，若 $|H|$ 与 $|G/N|$ 互素，
+对 $N \unlhd G$，若 $|N|$ 与 $|G/N|$ 互素，
 1. 存在 $H \leq G$ 使得 $\pi|_H: H \to G/N$ 是同构，称为“补”
 2. 若 $N$ 与 $G/N$ 之一可解，则所有的“补”互相共轭
 {% </theorem> %}

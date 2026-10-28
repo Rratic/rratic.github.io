@@ -1,7 +1,7 @@
 +++
 title = "光滑流形（一）：切空间与微分形式"
 date = 2025-11-19
-updated = 2026-10-06
+updated = 2026-10-28
 
 [extra]
 math = true
@@ -11,7 +11,7 @@ categories = ["知识"]
 tags = ["数学", "几何学"]
 +++
 
-本文原本动机是了解 $\partial/\partial x$，$\mathrm{d}/\mathrm{d}x$ 及更复杂的记号在一般的流形上的推广是什么。由于学校本学期开不出《微分流形与拓扑》“几何三”，此系列被重新整理，结合 GTM 218 (*Introduction to Smooth Manifolds*) 及 [2024 课程大纲](http://scholar.pku.edu.cn/liuyi/fall_2024_course_00137914)、[2022 课程笔记](https://zhuanlan.zhihu.com/p/580953949)。
+本文原本动机是了解 $\partial/\partial x$，$\mathrm{d}/\mathrm{d}x$ 及更复杂的记号在一般的流形上的推广是什么。由于学校本学期（2026秋）开不出《微分流形与拓扑》“几何三”，此系列被重新整理，结合 GTM 218 (*Introduction to Smooth Manifolds*) 及 [2024 课程大纲](http://scholar.pku.edu.cn/liuyi/fall_2024_course_00137914)、[2022 课程笔记](https://zhuanlan.zhihu.com/p/580953949)。
 
 <!-- more -->
 
@@ -104,7 +104,7 @@ $$TM = \bigsqcup_{p\in M}T_pM$$
 
 $$T^\ast M = \bigsqcup_{p\in M} T_p^\ast M$$
 
-我们说底空间 $B$ 上的**向量丛**是连续映射 $\pi: E \to B$，对任意 $b \in B$ 有邻域 $U$，自然数 $n$ 及微分同胚 $h: U \times \R^n \to \pi^{-1}(U)$，使得 $h(b, \cdot)$ 是 $\R^n$ 与 $\pi^{-1}(b)$ 作为向量空间的同构，且 $\pi \circ h = \operatorname{pr}_1$.
+我们说底空间 $B$ 上的**向量丛**[^fibre-bundle]是连续映射 $\pi: E \to B$，对任意 $b \in B$ 有邻域 $U$，自然数 $n$ 及称为**局部平凡化**的微分同胚 $h: U \times \R^n \to \pi^{-1}(U)$，使得 $h(b, \cdot)$ 是 $\R^n$ 与纤维 $\pi^{-1}(b)$ 作为向量空间的同构，且 $\pi \circ h = \operatorname{pr}_1$.
 
 在此基础上，一个 $s: B \to E$ 是**截面**，如果 $\pi \circ s = \mathrm{id}_B$. 我们用 $\Gamma(E)$ 表示所有光滑截面的集合。
 
@@ -283,3 +283,7 @@ $$(\mathcal{L} _X A) _p = \lim _{t \to 0} \frac{(\phi _t^\ast A) _p - A _p}{t}$$
 对 $A$ 是微分形式 $\omega$ 有 Cartan 魔法公式：
 
 $$\mathcal{L}_X \omega = \mathrm{d}(\iota_X \omega) + \iota_X(\mathrm{d}\omega)$$
+
+---
+
+[^fibre-bundle]: 可以定义更一般的**纤维丛**。底空间上有纤维 $F$ 与结构群 $G$ 的纤维丛要求 $\pi^{-1}(b)$ 同胚于 $F$；$G$ 是在 $F$ 上的拓扑群作用。对 $h$ 的要求是 $h_i^{-1}h_j: U_i \cap U_j \times F \to U_i \cap U_j \times F$ 形如 $(b, x) \mapsto (b, g_{ij}(b)x)$，其中 $g_{ij}: U_i \cap U_j \to G$ 连续。那么，向量丛就是 $G$ 为 $\mathrm{GL}_n(\R)$ 的对应物。
