@@ -1,6 +1,6 @@
 +++
 title = "机器学习（二）：分类；无监督学习"
-date = 2026-10-24
+date = 2026-10-28
 
 [extra]
 math = true
@@ -10,7 +10,7 @@ categories = ["知识", "课程"]
 tags = ["计算机"]
 +++
 
-对应于[教师 Lecture Notes](https://leiwu0.github.io/courses/mi2ml/index.html) 的 Lecture 3, 4.
+一些剩余的传统机器学习方法，对应于[教师 Lecture Notes](https://leiwu0.github.io/courses/mi2ml/index.html) 的 Lecture 3, 4.
 
 <!-- more -->
 
@@ -174,9 +174,7 @@ $$
 故而，我们希望 $\min (h^4 + \frac 1 {hd^n})$，大概希望 $\hat h_{\text{opt}} = cn^{- 1 / (d+4)}$，这里的常数我们不知道，可以用一些小模型来尝试。又，这里可知此方法有维数灾难，只适合低维（$\leq 3$）。
 
 ### 降维
-降维依赖于：假设数据在某个低维子流形上。
-
-线性降维的经典方法是主成分分析（PCA, principal component analysis）。
+线性降维的经典方法是主成分分析（PCA, principal component analysis），这假设数据在某个低维子流形上。
 
 ![主成分](/images/misc/pca.png)
 
@@ -223,3 +221,50 @@ $$P\left(\left|\frac 1 k \sum_{j=1}^k |w_j^\top x|^2 - 1\right| \geq \varepsilon
 $$P\left(\max_{i \in [n]} \left|\frac 1 k \sum_{j=1}^k |w_j^\top x|^2 - 1\right| \geq \varepsilon\right) \leq n2e^{-k\varepsilon^2/6}$$
 
 让 $2ne^{-k\varepsilon^2/6} \leq \delta$ 即得原定理。
+
+回忆没有免费的午餐定理，这里用到的性质是降到的维数只能 $\propto \log n$.
+
+### 聚类
+聚类想做的是把数据集分成几个集合的无交并，在同一个集合中的点相似。
+
+$k$-均值算法是：设类 $C_1, \dots, C_k$，每个类中心 $\alpha_k = \sum x_j / |C_k|$，目标函数是：
+
+$$
+\begin{split} I(C_1, \dots, C_k)
+&= \frac 1 2 \sum_{k=1}^K \frac 1 {|C_k|} \sum_{i, j \in C_k} \lVert x_i - x_j \rVert^2 \\\\
+&= \sum_{k=1}^K \sum_{x_j \in C_k} \lVert x_j - \alpha_k \rVert^2 \\\\
+&= \min_\beta \sum_{k=1}^K \sum_{x_j \in C_k} \lVert x_j - \beta_k \rVert^2
+\end{split}
+$$
+
+使用迭代的方法计算（这是一般的找 $\min f(x, y)$ 方法的特例）：
+
+$$
+C^{t+1} \leftarrow \argmin I(C, \beta^t) \\\\
+\beta^{t+1} \leftarrow \argmin I(C^{t+1}, \beta)
+$$
+
+这里第一步称为 assignment，第二步称为 update，因为本质上最优的 $\beta_k$ 就是中心。初始的 $\beta^0$ 可能需要选多次。
+
+---
+
+概率分类给每个点属于某个类分配概率。Gaussian mixture model (GMM) 假设：
+
+$$p(x) = \sum_{k=1}^K \pi_k N(x|\mu_k, \sigma_k) \quad \pi_k \geq 0, \sum_{k=1}^K \pi_k = 1$$
+
+这里理解为有某个隐变量 $z$，
+
+$$
+z \sim \mathrm{Categorical}(\pi_k) \\\\
+p(x) = \sum_z p(x|z)p(z)
+$$
+
+在 $k$-均值中 $x$ 的标签是 $\argmin_k \lVert x - \alpha_k \rVert$，而 GMM 中是 $x$ 在第 $k$ 类的概率：
+
+$$\gamma_x(k) = p(z = k | x) = \frac{\pi_k \phi(x; \mu_k, \sigma_k)}{\sum_{z=1}^k \pi_z \phi(x; \mu_z, \sigma_z)}$$
+
+EM 算法就是假设 $x_i \stackrel {\text{iid}} \sim p(\cdot | \theta)$，去进行 MLE：
+
+$$\max \prod_{i=1}^n p(x_i | \theta) \iff \min -\sum_{i=1}^n \log p(x_i | \theta)$$
+
+这是一个典型的隐变量模型（latent state model）。这个结果无法用于密度估计，因为每一类是 Gauss 的不太可能；但是 Gauss 的等高线是椭圆，可以聚类。
