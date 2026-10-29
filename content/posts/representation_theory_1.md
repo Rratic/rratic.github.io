@@ -1,6 +1,7 @@
 +++
-title = "群表示论（一）：初步的理论"
+title = "群表示论（一）：基本定义；特征标"
 date = 2026-07-19
+updated = 2026-10-29
 
 [extra]
 math = true
@@ -10,17 +11,46 @@ categories = ["知识"]
 tags = ["数学", "代数学"]
 +++
 
-本文的内容是我的同学听“代数与数论”暑校相关课程后教我的。
+本文的内容部分来自于我的同学听“代数与数论”暑校相关课程所教我的，部分来自于26秋代数学课程的最后两节课；参考了薛航的讲义。本文主要考虑复表示（要求线性空间是复的）。
 
 <!-- more -->
 
 {% <definition title="群表示"> %}
-有限群 $G$ 在线性空间 $V$ 上的一个表示是一个 $G$ 到 $\mathrm{GL}(V)$ 的同态。
+有限群 $G$ 的一个表示是一个线性空间 $V$ 及一个群同态：
+
+$$\rho: G \to \mathrm{GL}(V)$$
 {% </definition> %}
 
 最简单的是群的一维表示，我们可以为每个群元素分配一个复数并保持乘法结构。给定群 $G$ 到置换群 $S_n$ 的同态，可以让 $V$ 的基是被置换的元 $e_i$，此时得到**置换表示**。我们也可以让 $V$ 的基形式地是群的元素，作用是左乘，此时得到**正则表示**。
 
 我们称两个表示同构，如果存在一个线性空间的同构保持群作用结构。
+
+如果一个表示没有非平凡子表示，则称它是**不可约**的。
+
+{% <theorem title="Maschke 定理"> %}
+若有限群 $G$ 的表示 $V$ 有子表示 $W$，则存在表示 $W'$ 使得 $V = W \oplus W'$.
+{% </theorem> %}
+
+我们在 $V$ 上取一个 $G$-不变内积，这是通过：
+
+$$\braket{\braket{v_1, v_2}} = \frac 1 {|G|} \sum_{g \in G} \braket{gv_1, gv_2}$$
+
+现在取 $W$ 是该内积下的正交补，易见是子表示：
+
+$$W' = W^\perp = \set{w' | \braket{\braket{w', gw}} = 0, \\, \forall g, w}$$
+
+{% <theorem title="Schur 引理"> %}
+若有限群 $G$ 的不可约表示 $V, W$，则：
+
+$$
+\dim \mathrm{Hom}_G(V, W) = \begin{cases}
+	1 & V \cong W \\\\
+	0 & V \ncong W
+\end{cases}
+$$
+{% </theorem> %}
+
+对 $f \in \mathrm{Hom}_G(V, W)$，有 $\ker f$ 与 $\operatorname{Im} f$ 都是 $G$-不变子空间。由不可约性 $f$ 要么是同构要么是零同态。不妨设 $V = W$，存在非零的 $v$ 使得 $f(v) = \lambda v$，有 $\ker (f - \lambda \mathbf 1_V)$ 非零，故 $\ker (f - \lambda \mathbf 1_V) = V$，只有 $f = \lambda \mathbf 1_V$ 得证。
 
 {% <definition title="类函数"> %}
 类函数是指满足下式的 $f: G \to \Complex$，其全体记为 $\mathrm{Cf}(G)$：
@@ -28,7 +58,7 @@ tags = ["数学", "代数学"]
 $$f(s) = f(tst^{-1}),\quad \forall s, t \in G$$
 {% </definition> %}
 
-一个重要的类函数是**特征标**。对一个群 $G$ 在有限维 $\Complex$-线性空间 $V$ 上的表示，记 $\rho(g)$ 是 $g$ 对应的线性映射，定义特征标为：
+一个重要的类函数是**特征标**。对一个群 $G$ 在有限维 $\Complex$-线性空间 $V$ 上的表示，定义特征标为：
 
 $$\chi_V(g) = \mathrm{tr}(\rho(g))$$
 
@@ -119,13 +149,12 @@ $$\sum_{V \in \mathrm{Irr}(G)} (\dim V)^2 = |G|$$
 考虑正则表示 $V_{\mathrm{reg}}$，设 $V$ 不可约，则：
 
 $$
-\begin{align*}
-    & \braket{\chi_V, \chi_{V_{\mathrm{reg}}}} \cr
-    = & \frac 1 {|G|} \sum_{g \in G} \chi_V(g) \overline{\chi_{V_{\mathrm{reg}}}(g)} \cr
-    = & \frac 1 {|G|} \chi_V(1) \overline{\chi_{V_{\mathrm{reg}}}(1)} \cr
-    = & \chi_V(1) \cr
-	= & \dim V
-\end{align*}
+\begin{split} \braket{\chi_V, \chi_{V_{\mathrm{reg}}}}
+&= \frac 1 {|G|} \sum_{g \in G} \chi_V(g) \overline{\chi_{V_{\mathrm{reg}}}(g)} \cr
+&= \frac 1 {|G|} \chi_V(1) \overline{\chi_{V_{\mathrm{reg}}}(1)} \cr
+&= \chi_V(1) \cr
+&= \dim V
+\end{split}
 $$
 
 作为一个例子，考虑 $S^3$，有两个 $1$ 维表示分别是全部映到 $1$ 与映射到 $\mathrm{sgn}(g)$. 通过对正则表示分解 $V_{\mathrm{reg}} = \mathrm{span}\set{a + b + c} \oplus \mathrm{span}\set{a - b, b - c}$ 有一个二维表示将 $(1)$ 映到 $I$，将 $(1 \\; 2)$ 映到 $\begin{pmatrix} -1 & ~ \cr 1 & 1 \end{pmatrix}$，将 $(1 \\; 2 \\; 3)$ 映到 $\begin{pmatrix} ~ & 1 \cr -1 & -1 \end{pmatrix}$. 由定理知这些就是所有不同构的不可约复表示。
@@ -172,4 +201,47 @@ $$\sqrt{\frac{|C_j|}{|G|}} \chi_{V_i}(C_j)$$
 | $V_2$ | $1$ | $1$ | $1$ | $-1$ | $-1$ |
 | $V_3$ | $1$ | $1$ | $-1$ | $1$ | $-1$ |
 | $V_4$ | $1$ | $1$ | $-1$ | $-1$ | $1$ |
-| $V_5$ | $2$ | $?$ | $?$ | $?$ | $?$ |
+| $V_5$ | $2$ | $\boxed{-2}$ | $\boxed 0$ | $\boxed 0$ | $\boxed 0$ |
+
+{% <theorem title="不可约表示维数整除群阶数"> %}
+对有限群 $G$ 的不可约表示 $V$，有：
+
+$$\dim V \mid \\#G$$
+{% </theorem> %}
+
+对 $g_i$ 的共轭类，取一个 $G$-不变的 $V$ 自同态：
+
+$$T_i(v) = \sum_{h \in \mathrm{Ad}(g_i)} \rho(g)(v)$$
+
+由于 $V$ 不可约，由 Schur 引理 $T = \lambda_i \mathrm{id}_V$，其中：
+
+$$
+\begin{split} \lambda_i
+&= \frac 1 {\dim V} \operatorname{tr} T_i \\\\
+&= \frac 1 {\dim V} \sum_{h \in \mathrm{Ad}(g_i)} \chi(h) \\\\
+&= \frac{|\mathrm{Ad}(g_i)|}{\dim V} \chi(g_i)
+\end{split}
+$$
+
+$\rho$ 是正则表示 $L: G \to \mathrm{GL}(\Complex[G])$ 的子表示。我们令：
+
+$$
+\begin{aligned}
+S_i: \Complex[G] &\longrightarrow \Complex[G] \\\\
+	v &\longmapsto \sum_{h \in \mathrm{Ad}(g_i)} L(h)v
+\end{aligned}
+$$
+
+$S_i$ 限制在 $(\rho, V)$ 上是 $T_i$，故 $\lambda_i$ 为 $S_i$ 特征值。又 $S$ 是 $0-1$ 矩阵，故 $\lambda_i$ 是代数整数。
+
+又 $\chi(g_i)$ 为单位根之和，是代数整数，故下式为代数整数：
+
+$$\frac{|G|}{\dim V} = \sum_{i=1}^n \frac{|\mathrm{Ad}(g_i)|\chi(g_i)}{\dim V} \overline{\chi(g_i)}$$
+
+同时左式为有理数，故它是整数。原命题得证。
+
+{% <theorem title="Burnside 可解性定理"> %}
+对有限群 $G$，若有共轭类 $|C| = p^t$，则 $G$ 不是单群；若 $|G| = p^a q^b$，则 $G$ 可解。
+{% </theorem> %}
+
+证明略。
