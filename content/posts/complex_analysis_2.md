@@ -39,7 +39,7 @@ $n = -1$ 时考虑 $\gamma(\theta) = re^{\mathrm{i}\theta}$，换元知积分结
 $$\oint_{\partial \Omega} f(z)\mathrm{d}z = 0$$
 {% </theorem> %}
 
-如果全纯的条件改为解析，则使用 Green 公式即可。然而我们还没有证明这两个条件等价。Goursat 的证法是：对于三角形（一般图形作三角剖分），连接四边中点得到 4 个全等三角形，有：
+如果全纯的条件改为解析，则使用 [Green 公式](@/posts/smooth_manifolds_2.md)即可。然而我们还没有证明这两个条件等价。Goursat 的证法是：对于三角形（一般图形作三角剖分），连接四边中点得到 4 个全等三角形，有：
 
 $$\oint_{\partial T} f(z)\mathrm{d}z = \sum_{i=1}^4 \oint_{\partial T_i} f(z)\mathrm{d}z$$
 

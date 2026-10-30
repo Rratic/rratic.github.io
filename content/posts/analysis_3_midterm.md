@@ -1,6 +1,6 @@
 +++
 title = "数学分析Ⅲ期中复习笔记"
-draft = true
+date = 2026-10-30
 
 [extra]
 math = true
@@ -60,7 +60,9 @@ $$\int_E f(\varphi(\mathbf x)) |\det J| \mathrm dx = \int_{\varphi(E)} f(\mathbf
 
 通过琐碎的分析。如，
 
-$$\int_0^{2\pi} \mathrm d\theta \int_0^R f(r\cos\theta, r\sin\theta) r \mathrm dr = \iint_{x^2+y^2 \leq R^2} f(x, y) \mathrm d\sigma$$
+$$\int_0^{2\pi} \mathrm d\theta \int_0^R f(r\cos\theta, r\sin\theta) r \mathrm dr = \iint\limits_{x^2+y^2 \leq R^2} f(x, y) \mathrm d\sigma$$
+
+$$\int_0^{\pi} \mathrm d\theta \int_0^{2\pi} \mathrm d\varphi \int_0^R f(r\cos\theta, r\sin\theta\cos\varphi, r\sin\theta\sin\varphi) r^2\sin\theta \mathrm dr = \iiint\limits_{x^2+y^2+z^2 \leq R^2} f(x, y, z) \mathrm dv$$
 
 ### 广义重积分
 称一列有界可求面积闭集 $\\{D_n\\}_{n=1}^\infty$ 为闭集 $D$ 的穷竭，如果 $D_1 \subset D_2 \subset \cdots \subset D$，且任意有界闭集 $F \subset D$ 存在 $D_i \supset F$.
@@ -110,13 +112,13 @@ $$\int_\gamma \mathbf F \mathrm ds = \int_\alpha^\beta \mathbf F(\gamma(t)) \cdo
 ### 曲面积分
 对于 $\varphi: \Omega \to \R^n$ 为 $C^1$ 的参数曲面，$f$ 在 $\varphi(\Omega)$ 上连续，定义Ⅰ型曲面积分：
 
-$$\int_{\varphi(\Omega)} f \mathrm d\sigma = \iint \cdots \int_\Omega f \circ \varphi |\det (J\varphi)| \mathrm du_1 \cdots \mathrm du_n$$
+$$\iint_{\varphi(\Omega)} f \mathrm d\sigma = \iint \cdots \int_\Omega f \circ \varphi |\det (J\varphi)| \mathrm du_1 \cdots \mathrm du_n$$
 
 对于 $\mathbb E^3$ 中的可定向曲面 $\Sigma$ 及连续的单位法向量场 $\mathbf n$，定义连续向量值函数 $\mathbf X$ 的Ⅱ型曲面积分：
 
-$$\int_\Sigma \mathbf X \mathrm d\sigma = \int_\Sigma \mathbf X \cdot \mathbf n \mathrm d\sigma$$
+$$\iint_\Sigma \mathbf X \mathrm d\sigma = \iint_\Sigma \mathbf X \cdot \mathbf n \mathrm d\sigma$$
 
-使用[微分形式](@/posts/smooth_manifolds_1.md)的语言它等于：
+使用[微分形式](@/posts/smooth_manifolds_2.md)的语言它等于下式：
 
 $$\int_\Sigma X_x \mathrm dy \wedge \mathrm dz + X_y \mathrm dz \wedge \mathrm dx + X_z \mathrm dx \wedge \mathrm dy$$
 
@@ -130,3 +132,5 @@ $$\int_\Omega \mathrm{div}(\mathbf X) \mathrm d\mathbf x = \int_{\partial \Omega
 取 $\mathbf X = (Q, -P)$ 就可得到 Green 公式：
 
 $$\int_\Omega \left(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}\right) \mathrm dx\mathrm dy = \int_{\partial \Omega} P \mathrm dx + Q \mathrm dy$$
+
+实际上所有的转换都可以使用 Stokes 定理直接得到，故这里略去。
