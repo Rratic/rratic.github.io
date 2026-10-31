@@ -1,0 +1,383 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola v0.23.4" />
+  <title>机器学习（二）：分类；无监督学习 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="机器学习（二）：分类；无监督学习" />
+  <meta name="description" content="一些剩余的传统机器学习方法，对应于教师 Lecture Notes 的 Lecture 3, 4" />
+  <meta property="og:description" content="一些剩余的传统机器学习方法，对应于教师 Lecture Notes 的 Lecture 3, 4" />
+  <meta property="og:url" content="https://rratic.top/posts/machine-learning-2/" />
+  <link rel="canonical" href="https://rratic.top/posts/machine-learning-2/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-10-28T00:00:00+00:00" />
+  <meta property="article:tag" content="计算机" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <meta name="msvalidate.01" content="9BE559916FDB06A7A09EA17370F0ED09" />
+<link rel="icon" type="image/svg+xml" href="https://rratic.top/favicon.svg" />
+<link rel="stylesheet" href="https://rratic.top/style/shared.css?h=2dac71ecd418f5165c3d" />
+
+  <link rel="stylesheet" href="https://rratic.top/giallo-light.css?h=396eaa20499714fdb600" media="(prefers-color-scheme: light)" />
+  <link rel="stylesheet" href="https://rratic.top/giallo-dark.css?h=536598ee42e9e9a795bc" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=f166037ad671ba6bfd13" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=11a0f44fbe01f53dbaf9"></script>
+  <!-- head_end inject -->
+
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      
+<menu
+  class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/posts/"
+    >文章</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/categories/"
+    >分类</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/tags/"
+    >标签</a>
+  </li>
+</menu>
+
+      <!-- header_nav inject -->
+
+    </nav>
+  </div>
+</header>
+
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    <!-- body_start inject -->
+
+    
+<article>
+  <!-- page_start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-3">机器学习（二）：分类；无监督学习</h1>
+    <div class="text-sm antialiased opacity-80"><time
+      datetime="2026-10-28T00:00:00+00:00">2026-10-28</time><span
+        class="middot"></span><time
+    datetime="PT0H11M0S">11&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+  </header>
+  
+  
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#fen-lei">分类</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#shu-xue-li-jie">数学理解</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#gai-lu-mo-xing">概率模型</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ji-he-mo-xing-zhi-chi-xiang-liang-ji">几何模型：支持向量机</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#wu-jian-du-xue-xi">无监督学习</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#shu-xue-li-jie-1">数学理解</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#mi-du-gu-ji">密度估计</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#jiang-wei">降维</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ju-lei">聚类</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </details>
+</nav>
+  <!-- Content -->
+  <section><p>一些剩余的传统机器学习方法，对应于<a rel="external" href="https://leiwu0.github.io/courses/mi2ml/index.html">教师 Lecture Notes</a> 的 Lecture 3, 4.</p>
+<span id="continue-reading"></span><h2 id="fen-lei">分类</h2>
+<h3 id="shu-xue-li-jie">数学理解</h3>
+<p>与回归不同的是，分类的 label 是“类型”（category），这里用整数指代：</p>
+<p>$$[c] = \set{1, \dots, c}$$</p>
+<p>分类误差（classification error）是：</p>
+<p>$$\min_\theta \frac 1 n \sum_{i=1}^n l_{\text{0-1}}(h_\theta(x_i), y_i)$$</p>
+<p>这里 $l_{\text{0-1}}(y, y') = 1 - \delta_{y, y'}$，但这个损失函数不适合计算，因此通常使用一些代理损失函数（surrogate loss）$l$，要求的是 $l$ 光滑及 $l$ 小推出 $l_{\text{0-1}}$ 小。</p>
+<h3 id="gai-lu-mo-xing">概率模型</h3>
+<p>概率模型考虑的是软标签（soft label），即每个 $p(x)$ 在 $c-1$ 维单形中：</p>
+<p>$$p(x) = (p_1(x), \dots, p_n(x)) \in \Delta^{c-1}$$</p>
+<p>$$y \sim \mathrm{Categorical}(p(x))$$</p>
+<p>我们需要选定一个将“逻辑值” （logits）$f_\theta$ 转为 $F_\theta$ 的函数。</p>
+<p>$$
+F_\theta: \mathcal X \to \Delta^{c-1} \\
+f_\theta: \mathcal X \to \R^c
+$$</p>
+<p>最常见的选择是 softmax，很多分类任务是比较有确定性的，指数强调了这一点：</p>
+<p>$$\mathrm{softmax}(z) = \left(\frac{e^{z_1 / T}}{\sum e^{z_i / T}}, \dots, \frac{e^{z_c / T}}{\sum e^{z_i / T}}\right)$$</p>
+<p>我们的优化目标就是：</p>
+<p>$$\min_\theta \frac 1 n \sum_{i=1}^n d(p(x_i), F_\theta(x_i))$$</p>
+<p>记 one-hot label $e_y = (0, \dots, 0, 1, 0, \dots, 0)$，我们实际上的优化目标是：</p>
+<p>$$\min_\theta \frac 1 n \sum_{i=1}^n d(e_{y_i}, F_\theta(x_i))$$</p>
+<p>就像回归中的标签也有噪声，只不过无偏一样，用 $e_{y_i}$ 没有什么问题。有时采取 label smoothing $(\delta / (c-1), \dots, \delta / (c-1), 1 - \delta, \delta / (c-1), \dots, \delta / (c-1))$.</p>
+<p>这里的 $d$ 是“散度”（divergence），并不完全是距离。常用的是 KL 散度：</p>
+<p>$$d_{\text{KL}}(p, q) = \sum p_i \log \frac{p_i}{q_i}$$</p>
+<p>使用这个散度，优化目标就是：</p>
+<p>$$\min -\frac 1 n \sum_{i=1}^n \left(\sum_{j=1}^c y_{i, j} \log F_j(x_i; \theta)\right)$$</p>
+<p>如果用的是 one-hot label 就是：</p>
+<p>$$\min -\frac 1 n \sum_{i=1}^n \log F_{y_i}(x_i; \theta)$$</p>
+<p>这实际上就是极大似然估计（Maximize Likelihood Estimation, MLE）。极大似然估计是一个一般的方法：假设 $z \sim P_\theta$，生成了数据 $(z_1, \dots, z_n)$，看什么样的 $\theta$ 最有可能生成这组数据。我们要：</p>
+<p>$$
+\max \prod_{i=1}^n P_\theta(z_i) \iff
+\max \sum_{i=1}^n \underbrace{\log P_\theta(z_i)}_{\text{likelihood}}
+$$</p>
+<p>现在热门的 Next-token prediction (NTP) 本质上也就是此：</p>
+<p>$$\max_\theta \sum_{j=1}^n \sum_{i=1}^l \log F_{x_{i+1}^{(j)}}(x_{\leq i}^{(j)}; \theta)$$</p>
+<h3 id="ji-he-mo-xing-zhi-chi-xiang-liang-ji">几何模型：支持向量机</h3>
+<p>想象空间中有两团数据（相较于概率模型，几何模型无法自然地推广到多分类），我们用一个超平面把它们分开。超平面即：</p>
+<p>$$H_\theta = \set{x | w^\top x + b = 0}$$</p>
+<p>除了将两团分开外，还有一个直观是：扰动后数据仍不容易越过超平面。因此考虑最大化 $\min d(x_i, H_\theta)$（不去最大化 $\frac 1 n \sum d(x_i, H_\theta)$，因为这对于不均衡的数据等情况结果不太合理）。</p>
+<p>我们的优化目标即（$y_i = \pm 1$）：</p>
+<p>$$\max_{w \in \mathbb S^{d-1}, b} \min_i |w^\top x_i + b| \text{ s.t. } (w^\top x_i + b) y_i \geq 0$$</p>
+<p>令 $t = \min_i |w^\top x_i + b|$，那么（假设线性可分）等价于：</p>
+<p>$$\max_{w \in \mathbb S^{d-1}, b} t \text{ s.t. } (w^\top x_i + b) y_i \geq t$$</p>
+<p>令 $\tilde w = w / t, \tilde b = b / t$，即：</p>
+<p>$$\min_{\tilde w, \tilde b} \lVert \tilde w \rVert^2 \text{ s.t. } \underbrace{(\tilde w x_i + \tilde b) y_i}_{\text{confidence}} \geq 1$$</p>
+<p>我们称 $(\hat w x_i + \hat b) y_i = 1$ 的点为支持向量（support vector），它们是真正决定结果的点。</p>
+<p>直观上，更少的支持向量能带来更好的泛化能力。</p>
+<hr />
+<p>如果数据不线性可分，则有如下两种方法：</p>
+<p><img src="/images/misc/svm_nonseparable.png" alt="不线性可分" /></p>
+<p>第一种是非线性地分，放到更大的特征空间中用支持向量机分开。这也是核方法在机器学习中被推动的重要因素。记某个 complexity $\Omega: \mathcal F \to \R_{\geq 0}$，所做就是：</p>
+<p>$$\min \Omega(f) \text{ s.t. } f(x)y_i \geq 1$$</p>
+<p>第二种就是 soft margin，允许少量数据有错。</p>
+<p>$$\min \Omega(f) + \frac \lambda n \sum_{i=1}^n \xi_i \text{ s.t. } f(x_i)y_i \geq 1 - \xi_i, \, \xi_i \geq 0$$</p>
+<p>这等价于如下无约束问题：</p>
+<p>$$\min \frac 1 \lambda \Omega(f) + \frac 1 n \sum_{i=1}^n \max(0, 1 - f(x_i) y_i)$$</p>
+<p>我们不妨将 $\max(0, 1 - f(x_i) y_i)$ 写成 $l(f(x_i) y_i)$，就可以写成熟悉的形式：</p>
+<p>$$\min_f \frac 1 n \sum_i l(f(x_i) y_i) + \tilde \lambda \Omega(f)$$</p>
+<p>我们可以形成的一般准则（margin/confidence-based principle）是：confidence 高时应降低惩罚。</p>
+<p>这里损失函数有很多种选择：</p>
+<p><img src="/images/misc/margin_based_loss.png" alt="margin-based loss" /></p>
+<p>这里 logistic 是：</p>
+<p>$$l(z) = \log(1 + e^{-z}) = \begin{cases} e^{-z} &amp; z \gg 1 \cr -z &amp; z \ll 1 \end{cases}$$</p>
+<h2 id="wu-jian-du-xue-xi">无监督学习</h2>
+<h3 id="shu-xue-li-jie-1">数学理解</h3>
+<p>无监督学习有两类，传统的那一类 discriminative 是对于分布 $\rho^\ast$ 生成 $x_i \stackrel {\text{iid}} \sim \rho^\ast$，根据 $x_1, \dots, x_n$ 推导 $\rho^\ast$ 的某些性质；另一类 generative 则是生成某些 $\{\tilde x_j\}_{j=1}^m$.</p>
+<p>第一类中方法有：密度估计（density estimation）希望得到 $\hat \rho_n \approx \rho^\ast$；降维（dimension reduction）希望找到低维结构；聚类（clustering）。</p>
+<h3 id="mi-du-gu-ji">密度估计</h3>
+<p>第一种方法是直方图（histogram estimate）。假设 $x_i \in [0, 1]^d = I$，将 $I$ 划分成 $h^d$ 个网格 $I_j$，每个网格有 $n_j$ 个样本点。那么平凡地：</p>
+<p>$$\hat \rho_h(x) = \sum_{j=1}^m \frac{n_j}{h^d n} \mathbf 1_{I_j}(x)$$</p>
+<p>第二种方法是核密度估计（kernel density estimator, KDE）。$\hat \rho_n(x) = \sum_i \delta(x - x_i)$ 在某种意义下可以趋近于 $\rho^\ast$.</p>
+<p>我们把 $\delta$ 换成某个 $K_h$. 定义 $K$ 是 smoothing kernel 如果 $K \geq 0$、积分为 $1$ 及对称 $K(x) = K(-x)$，常见的选取有 Box、Triangular 及 Gaussian；然后令 $K_h(x) = h^{-d} K(x / h)$.</p>
+<p>现在来估计误差，使用 variance-bias 分解（$\mathbb E[Z^2] = (\mathbb EZ)^2 + \mathbb E[(Z - \mathbb EZ)^2]$），设 $\rho_h(x) = \mathbb E_S[\hat \rho_h(x)]$：</p>
+<p>$$\mathbb E_S[(\hat \rho_h - \rho^\ast)^2] = (\underbrace{\mathbb E_S(\rho_h - \rho^\ast))^2}_{\text{bias}} + \mathrm{Var}(\hat \rho_h)$$</p>
+<p>则这里 bias 是（使用积分为 $1$ 与对称性）：</p>
+<p>$$
+\begin{split} \text{bias}
+&amp;= \mathbb E_{x \sim \rho^\ast}[K_h(x - x')] \cr
+&amp;= \int K_h(x - x') \rho^\ast(x') \mathrm dx' \cr
+&amp;= \int K(z) \rho^\ast(x - hz) \mathrm dz \cr
+&amp;= \int K(z) (\rho^\ast(x) - h\braket{\nabla \rho^\ast(x), z} + \frac{h^2}2 z^\top \nabla^2 \rho^\ast(x) + o(h^2)) \mathrm dz \cr
+&amp;= \rho^\ast(x) + C_1h + C_2h^2 + o(h^2) \cr
+&amp;\eqsim h^4
+\end{split}
+$$</p>
+<p>$$
+\begin{split} \text{variance}
+&amp;= \frac 1 {nh^d} \int K^2(z) \rho^\ast(x + hz) \mathrm dz \cr
+&amp;\leq \frac{c_3}{nh^d}
+\end{split}
+$$</p>
+<p>故而，我们希望 $\min (h^4 + \frac 1 {hd^n})$，大概希望 $\hat h_{\text{opt}} = cn^{- 1 / (d+4)}$，这里的常数我们不知道，可以用一些小模型来尝试。又，这里可知此方法有维数灾难，只适合低维（$\leq 3$）。</p>
+<h3 id="jiang-wei">降维</h3>
+<p>线性降维的经典方法是主成分分析（PCA, principal component analysis），这假设数据在某个低维子流形上。</p>
+<p><img src="/images/misc/pca.png" alt="主成分" /></p>
+<p>先归一化到重心是原点，考虑投影到 $1$ 维，计算投影的方差：</p>
+<p>$$\max_{\lVert w\rVert = 1} \frac 1 n \sum_{i=1}^n (x_i^\top w)^2$$</p>
+<p>令 $\hat \Sigma = \frac 1 n \sum x_i x_i^\top$，即：</p>
+<p>$$\max_{\lVert w\rVert = 1} w^\top \hat \Sigma w$$</p>
+<p>这个最大值是最大特征值，此时 $w$ 是对应特征向量。</p>
+<p>把这个方法推广到 $k$ 维，设 $W = (w_1, \dots, w_k) \in \R^{n \times k}$，假设 $W^\top W = I_k$，则：</p>
+<p>$$\max_{W^\top W = I_k} \sum_{\alpha=1}^k w_\alpha^\top \hat \Sigma w_\alpha$$</p>
+<p>非线性降维的方法在今日看大多不好用，因为非线性，难以从降维结果推测原本的性质。</p>
+<hr />
+<p>现在来看随机投影（random projection），想法是找一个 $f: \R^d \to \R^k$ 大致满足：</p>
+<p>$$1 - \varepsilon \leq \frac{\lVert f(x_i) - f(x_j) \rVert}{\lVert x_i - x_j \rVert} \leq 1 + \varepsilon$$</p>
+<p>后来人们发现，实际上只要取成：</p>
+<p>$$f(x) = \frac 1 {\sqrt k} Wx, W \in \R^{k \times d}, w_{ij} \sim N(0, 1)$$</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>Johnson-Lindenstrauss 引理</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $x_1, \dots, x_n$ 是 $\R^d$ 中样本，给定 $0 &lt; \delta &lt; 1$，令 $k_\varepsilon = 6\log(2n/\delta)/\varepsilon^2$，对于 $k \geq k_\varepsilon$，在 $W$ 的随机采样上有 $1 - \delta$ 的概率：</p>
+<p>$$\max_{i \in [n]} \left|\frac{\lVert \frac 1 {\sqrt k} Wx_i \rVert_2^2}{\lVert x_i \rVert_2^2} - 1\right| \leq \varepsilon$$</p>
+</div>
+</div>
+<p>不失一般性假设 $\lVert x_i \rVert_2 = 1$，设 $W = (w_1, \dots, w_k)^\top$，则 $w_j^\top x \sim N(0, 1)$，有：</p>
+<p>$$\mathbb E[\lVert \frac 1 {\sqrt k} Wx \rVert_2^2] = \frac 1 k \sum_{j=1}^k \mathbb E[|w_j^\top x|^2] = 1$$</p>
+<p>使用集中不等式，有：</p>
+<p>$$P\left(\left|\frac 1 k \sum_{j=1}^k |w_j^\top x|^2 - 1\right| \geq \varepsilon\right) \leq 2e^{-k\varepsilon^2/6}$$</p>
+<p>$$P\left(\max_{i \in [n]} \left|\frac 1 k \sum_{j=1}^k |w_j^\top x|^2 - 1\right| \geq \varepsilon\right) \leq n2e^{-k\varepsilon^2/6}$$</p>
+<p>让 $2ne^{-k\varepsilon^2/6} \leq \delta$ 即得原定理。</p>
+<p>回忆没有免费的午餐定理，这里用到的性质是降到的维数只能 $\propto \log n$.</p>
+<h3 id="ju-lei">聚类</h3>
+<p>聚类想做的是把数据集分成几个集合的无交并，在同一个集合中的点相似。</p>
+<p>$k$-均值算法是：设类 $C_1, \dots, C_k$，每个类中心 $\alpha_k = \sum x_j / |C_k|$，目标函数是：</p>
+<p>$$
+\begin{split} I(C_1, \dots, C_k)
+&amp;= \frac 1 2 \sum_{k=1}^K \frac 1 {|C_k|} \sum_{i, j \in C_k} \lVert x_i - x_j \rVert^2 \\
+&amp;= \sum_{k=1}^K \sum_{x_j \in C_k} \lVert x_j - \alpha_k \rVert^2 \\
+&amp;= \min_\beta \sum_{k=1}^K \sum_{x_j \in C_k} \lVert x_j - \beta_k \rVert^2
+\end{split}
+$$</p>
+<p>使用迭代的方法计算（这是一般的找 $\min f(x, y)$ 方法的特例）：</p>
+<p>$$
+C^{t+1} \leftarrow \argmin I(C, \beta^t) \\
+\beta^{t+1} \leftarrow \argmin I(C^{t+1}, \beta)
+$$</p>
+<p>这里第一步称为 assignment，第二步称为 update，因为本质上最优的 $\beta_k$ 就是中心。初始的 $\beta^0$ 可能需要选多次。</p>
+<hr />
+<p>概率分类给每个点属于某个类分配概率。Gaussian mixture model (GMM) 假设：</p>
+<p>$$p(x) = \sum_{k=1}^K \pi_k N(x|\mu_k, \sigma_k) \quad \pi_k \geq 0, \sum_{k=1}^K \pi_k = 1$$</p>
+<p>这里理解为有某个隐变量 $z$，</p>
+<p>$$
+z \sim \mathrm{Categorical}(\pi_k) \\
+p(x) = \sum_z p(x|z)p(z)
+$$</p>
+<p>在 $k$-均值中 $x$ 的标签是 $\argmin_k \lVert x - \alpha_k \rVert$，而 GMM 中是 $x$ 在第 $k$ 类的概率：</p>
+<p>$$\gamma_x(k) = p(z = k | x) = \frac{\pi_k \phi(x; \mu_k, \sigma_k)}{\sum_{z=1}^k \pi_z \phi(x; \mu_z, \sigma_z)}$$</p>
+<p>EM 算法就是假设 $x_i \stackrel {\text{iid}} \sim p(\cdot | \theta)$，去进行 MLE：</p>
+<p>$$\max \prod_{i=1}^n p(x_i | \theta) \iff \min -\sum_{i=1}^n \log p(x_i | \theta)$$</p>
+<p>这是一个典型的隐变量模型（latent state model）。这个结果无法用于密度估计，因为每一类是 Gauss 的不太可能；但是 Gauss 的等高线是椭圆，可以聚类。</p>
+</section>
+  <hr />
+  
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/课程/">课程</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/计算机/">计算机</a>
+    
+  </div>
+</footer>
+
+  
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- page_end inject -->
+
+</article>
+
+  </main>
+  <footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+    <div class="mr-auto basis-full lg:basis-1/2">
+      
+&copy; 2025-2026 Rratic
+ &vert; <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+
+    </div>
+    <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+      
+  <span class="mr-6 lg:ml-6">
+    <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+  </span>
+  <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+
+    </div>
+  <!-- footer inject -->
+
+  </footer>
+  
+  <link rel="stylesheet" href="https://rratic.top/katex/katex.min.css?h=180c2d77d434d7da51d6" />
+  <script defer src="https://rratic.top/katex/katex.min.js?h=2ec5916941ef4383e031"></script>
+  <script defer src="https://rratic.top/katex/contrib/auto-render.min.js?h=e5372d199bcdae8b4de7"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+  
+
+  <!-- body_end inject -->
+
+</body>
+
+</html>

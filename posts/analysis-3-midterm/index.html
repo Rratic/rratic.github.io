@@ -1,0 +1,334 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola v0.23.4" />
+  <title>数学分析Ⅲ期中复习笔记 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="数学分析Ⅲ期中复习笔记" />
+  <meta name="description" content="这半学期的内容是多元函数积分学。我们还是用 Riemann 积分的引申来做，出于与“测度”的区分及教师的习惯，这里的用词是“体积”。" />
+  <meta property="og:description" content="这半学期的内容是多元函数积分学。我们还是用 Riemann 积分的引申来做，出于与“测度”的区分及教师的习惯，这里的用词是“体积”。" />
+  <meta property="og:url" content="https://rratic.top/posts/analysis-3-midterm/" />
+  <link rel="canonical" href="https://rratic.top/posts/analysis-3-midterm/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-10-30T00:00:00+00:00" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="分析学" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <meta name="msvalidate.01" content="9BE559916FDB06A7A09EA17370F0ED09" />
+<link rel="icon" type="image/svg+xml" href="https://rratic.top/favicon.svg" />
+<link rel="stylesheet" href="https://rratic.top/style/shared.css?h=2dac71ecd418f5165c3d" />
+
+  <link rel="stylesheet" href="https://rratic.top/giallo-light.css?h=396eaa20499714fdb600" media="(prefers-color-scheme: light)" />
+  <link rel="stylesheet" href="https://rratic.top/giallo-dark.css?h=536598ee42e9e9a795bc" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=f166037ad671ba6bfd13" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=11a0f44fbe01f53dbaf9"></script>
+  <!-- head_end inject -->
+
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      
+<menu
+  class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/posts/"
+    >文章</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/categories/"
+    >分类</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/tags/"
+    >标签</a>
+  </li>
+</menu>
+
+      <!-- header_nav inject -->
+
+    </nav>
+  </div>
+</header>
+
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    <!-- body_start inject -->
+
+    
+<article>
+  <!-- page_start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-3">数学分析Ⅲ期中复习笔记</h1>
+    <div class="text-sm antialiased opacity-80"><time
+      datetime="2026-10-30T00:00:00+00:00">2026-10-30</time><span
+        class="middot"></span><time
+    datetime="PT0H7M0S">7&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+  </header>
+  
+  
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#duo-yuan-han-shu-ji-fen-xue">多元函数积分学</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#zhong-ji-fen">重积分</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#yan-yi-zhong-ji-fen">广义重积分</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#qu-xian-yu-qu-mian-ji-fen">曲线与曲面积分</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#qu-xian-ji-fen">曲线积分</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#qu-mian-ji-fen">曲面积分</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#guan-lian">关联</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </details>
+</nav>
+  <!-- Content -->
+  <section><p>这半学期的内容是多元函数积分学。我们还是用 Riemann 积分的引申来做，出于与“测度”的区分及教师的习惯，这里的用词是“体积”。</p>
+<span id="continue-reading"></span><h2 id="duo-yuan-han-shu-ji-fen-xue">多元函数积分学</h2>
+<h3 id="zhong-ji-fen">重积分</h3>
+<p>对 $\R^n$ 的非空有界集 $E$，称（面平行于坐标面的）长方体集 $\mathcal A_E = \{A_k\}$ 是其恰当覆盖，如果 $\circ A_i \cap \circ A_j = \emptyset$ 且是覆盖。</p>
+<p>令 $m(\mathcal A_E)$ 是 $\mathcal A_E$ 中完全含于 $E$ 的长方体体积之和，$M(\mathcal A_E)$ 是与 $E$ 有交的长方体体积之和；</p>
+<p>$$m(E) = \sup m(\mathcal A_E) \\ M(E) = \inf M(\mathcal A_E)$$</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-definition);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/definition.svg)">definition</div>
+    <span><strong>体积</strong></span>
+  </div>
+  <div class="pl-4"><p>有界集合 $E$ 在 $m(E) = M(E)$ 时称它可求体积，此时这个值定义为它的体积，记作 $V(E)$.</p>
+</div>
+</div>
+<p>易证 $E \subset \R^n$ 可求体积当且仅当 $V(\partial E) = 0$，其推论是，有界集合 $E$ 可求体积当且仅当 $\bar E$ 可求体积，且此时体积相等。</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-definition);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/definition.svg)">definition</div>
+    <span><strong>重积分</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $f$ 是 $\R^n$ 中可求体积有界闭区域 $D$ 上函数，称 $\Delta = \set{\Delta D_1, \dots, \Delta D_k}$ 为一个分割，若 $\Delta D_i$ 均是可求体积闭子集，两两交集体积零，且并是 $D$ 整体。</p>
+<p>若存在常数 $I$，使得对任意 $\varepsilon &gt; 0$ 存在 $\delta &gt; 0$，对任意分割 $\Delta$ 及取点 $\xi_i \in \Delta D_i$ 在 $\max \operatorname{diam} \Delta D_i$，使得：</p>
+<p>$$\left|\sum f(\xi_i)V(\Delta D_i) - I\right| &lt; \varepsilon$$</p>
+<p>则称 $I$ 为 $f$ 在 $D$ 上的 $n$ 重积分，记作：</p>
+<p>$$\underbrace{\iint \cdots \int_D}_n f(\mathbf x) \mathrm d\sigma$$</p>
+</div>
+</div>
+<p>$\mathrm dx_1 \cdots \mathrm dx_n$ 是 $\mathrm d\sigma$ 的一种记法。</p>
+<p>类似于一维的 Riemann 和，我们可以用 Darboux 和来分析，给出 Lebesgue 定理：$f$ 在可求体积的有界闭区域 $D$ 上有界，则 $f \in R(D)$ 当且仅当其间断点集体积为零。</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>转化为累次积分</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $f(x, y) \in R([a, b] \times [c, d])$，若对任意 $x \in [a, b]$ 有 $\int_c^d f(x, y) \mathrm dy$ 存在，则：</p>
+<p>$$\int_a^b \mathrm dx \int_c^d f(x, y) \mathrm dy = \iint_{[a, b] \times [c, d]} f(x, y) \mathrm d\sigma$$</p>
+</div>
+</div>
+<p>更多重积分同理。若定义域不规则，可以补成一个矩形区域并令未定义区域值为零。</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>变量替换</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $E$ 可求体积有界闭区域，$f \in R(E)$，$\mathbf y = \varphi(\mathbf x)$ 是 $C^1$ 同胚，其 Jacobi 矩阵 $J = \frac{\partial(y_1, \dots, y_n)}{\partial(x_1, \dots, x_n)}$，则：</p>
+<p>$$\int_E f(\varphi(\mathbf x)) |\det J| \mathrm dx = \int_{\varphi(E)} f(\mathbf y) \mathrm dy$$</p>
+</div>
+</div>
+<p>通过琐碎的分析。如，</p>
+<p>$$\int_0^{2\pi} \mathrm d\theta \int_0^R f(r\cos\theta, r\sin\theta) r \mathrm dr = \iint\limits_{x^2+y^2 \leq R^2} f(x, y) \mathrm d\sigma$$</p>
+<p>$$\int_0^{\pi} \mathrm d\theta \int_0^{2\pi} \mathrm d\varphi \int_0^R f(r\cos\theta, r\sin\theta\cos\varphi, r\sin\theta\sin\varphi) r^2\sin\theta \mathrm dr = \iiint\limits_{x^2+y^2+z^2 \leq R^2} f(x, y, z) \mathrm dv$$</p>
+<h3 id="yan-yi-zhong-ji-fen">广义重积分</h3>
+<p>称一列有界可求面积闭集 $\{D_n\}_{n=1}^\infty$ 为闭集 $D$ 的穷竭，如果 $D_1 \subset D_2 \subset \cdots \subset D$，且任意有界闭集 $F \subset D$ 存在 $D_i \supset F$.</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-definition);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/definition.svg)">definition</div>
+    <span><strong>广义重积分</strong></span>
+  </div>
+  <div class="pl-4"><p>“内闭可积”即在任意可求面积有界闭子集上可积。在此及任意 $B(0, R) \cap D$ 可求面积的基础上，如果对 $D$ 的任意穷竭列 $\set{D_n}$ 都有右式存在且唯一，则定义：</p>
+<p>$$\iint_D f(\mathbf x) \mathrm d\sigma \coloneqq \lim_{n \to \infty} \iint_{D_n} f(\mathbf x) \mathrm d\sigma$$</p>
+</div>
+</div>
+<p>任意 $B(0, R) \cap D$ 可求面积即有界范围内边界集零体积。绝对收敛的定义易见。</p>
+<p>注意这和<a href="https://rratic.top/posts/analysis-2-midterm/">之前的一元函数广义积分定义</a>不同，有以下结论：</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>定理</strong></span>
+  </div>
+  <div class="pl-4"><p>在前一定义条件下，广义重积分收敛当且仅当其绝对收敛。</p>
+</div>
+</div>
+<p>证明略。</p>
+<p>在前一定义条件下，若 $f(x, y) \geq 0$，则广义重积分收敛当且仅当存在一个穷竭列对应极限存在。且存在时二者相等。</p>
+<p>累次广义积分和广义重积分的关系略去。</p>
+<h2 id="qu-xian-yu-qu-mian-ji-fen">曲线与曲面积分</h2>
+<h3 id="qu-xian-ji-fen">曲线积分</h3>
+<p>回忆可以用折线逼近的方法定义参数曲线的长度，有限时它是可求长曲线。可以证明参数曲线可求长当且仅当对每个分量是有界变差函数；函数是有界变差函数当且仅当可以写成两个单调递增函数之差。</p>
+<p>对可求长参数曲线及有界实值函数，仿照 Riemann 和容易定义Ⅰ型曲线积分：</p>
+<p>$$\int_{\Gamma} f(\mathbf x) \mathrm ds = \lim_{\lVert\Delta\rVert \to 0} \sum_{i=1}^n f(\gamma(\xi_i)) \Delta s_i$$</p>
+<p>两端点重合时，也记作：</p>
+<p>$$\oint_{\Gamma} f(\mathbf x) \mathrm ds$$</p>
+<p>分段光滑曲线是可求长的。对可求长简单曲线 $\Gamma$ 及 $f \in C(\Gamma)$ 有曲线积分存在。</p>
+<p>对向量场 $\mathbf F$，定义Ⅱ型曲线积分是：</p>
+<p>$$\int_\gamma \mathbf F \mathrm ds = \int_\gamma f_1 \mathrm dx_1 + \cdots + f_1 \mathrm dx_n$$</p>
+<p>对于分段 $C^1$ 曲线，可以转化为 Riemann 积分：</p>
+<p>$$\int_\gamma \mathbf F \mathrm ds = \int_\alpha^\beta \mathbf F(\gamma(t)) \cdot \gamma'(t) \mathrm dt$$</p>
+<h3 id="qu-mian-ji-fen">曲面积分</h3>
+<p>对于 $\varphi: \Omega \to \R^n$ 为 $C^1$ 的参数曲面，$f$ 在 $\varphi(\Omega)$ 上连续，定义Ⅰ型曲面积分：</p>
+<p>$$\iint_{\varphi(\Omega)} f \mathrm d\sigma = \iint \cdots \int_\Omega f \circ \varphi |\det (J\varphi)| \mathrm du_1 \cdots \mathrm du_n$$</p>
+<p>对于 $\mathbb E^3$ 中的可定向曲面 $\Sigma$ 及连续的单位法向量场 $\mathbf n$，定义连续向量值函数 $\mathbf X$ 的Ⅱ型曲面积分：</p>
+<p>$$\iint_\Sigma \mathbf X \mathrm d\sigma = \iint_\Sigma \mathbf X \cdot \mathbf n \mathrm d\sigma$$</p>
+<p>使用<a href="https://rratic.top/posts/smooth-manifolds-2/">微分形式</a>的语言它等于下式：</p>
+<p>$$\int_\Sigma X_x \mathrm dy \wedge \mathrm dz + X_y \mathrm dz \wedge \mathrm dx + X_z \mathrm dx \wedge \mathrm dy$$</p>
+<h3 id="guan-lian">关联</h3>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>散度定理</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $\Omega$ 是 $\R^n$ 中有 $C^1$ 边界的有界开集，$\mathbf X$ 是 $\bar \Omega$ 上的 $C^1$ 向量场，$\mathbf n$ 是边界上的单位外法向量场，则：</p>
+<p>$$\int_\Omega \mathrm{div}(\mathbf X) \mathrm d\mathbf x = \int_{\partial \Omega} \mathbf X \cdot \mathbf n \mathrm d\sigma$$</p>
+</div>
+</div>
+<p>取 $\mathbf X = (Q, -P)$ 就可得到 Green 公式：</p>
+<p>$$\int_\Omega \left(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}\right) \mathrm dx\mathrm dy = \int_{\partial \Omega} P \mathrm dx + Q \mathrm dy$$</p>
+<p>实际上所有的转换都可以使用 Stokes 定理直接得到，故这里略去。</p>
+</section>
+  <hr />
+  
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/课程/">课程</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/分析学/">分析学</a>
+    
+  </div>
+</footer>
+
+  
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- page_end inject -->
+
+</article>
+
+  </main>
+  <footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+    <div class="mr-auto basis-full lg:basis-1/2">
+      
+&copy; 2025-2026 Rratic
+ &vert; <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+
+    </div>
+    <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+      
+  <span class="mr-6 lg:ml-6">
+    <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+  </span>
+  <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+
+    </div>
+  <!-- footer inject -->
+
+  </footer>
+  
+  <link rel="stylesheet" href="https://rratic.top/katex/katex.min.css?h=180c2d77d434d7da51d6" />
+  <script defer src="https://rratic.top/katex/katex.min.js?h=2ec5916941ef4383e031"></script>
+  <script defer src="https://rratic.top/katex/contrib/auto-render.min.js?h=e5372d199bcdae8b4de7"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+  
+
+  <!-- body_end inject -->
+
+</body>
+
+</html>

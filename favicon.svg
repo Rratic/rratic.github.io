@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!DOCTYPE svg>
+<svg width="480" height="480" version="1.1" xmlns="http://www.w3.org/2000/svg">
+	<circle cx="240" cy="240" r="200" stroke="black" stroke-width="1"/>
+	<path fill="black" d="M 418.606,150 A 200 200 0 0 1 61.394,330 M 61.394,330 L 110,270 L 180,270 L 240,330 L 240,150 L 300,210 L 370,210 L 418.606,150 Z"/>
+	<path fill="white" d="M 418.606,150 A 200 200 0 0 0 61.394,330 M 61.394,330 L 110,270 L 180,270 L 240,330 L 240,150 L 300,210 L 370,210 L 418.606,150 Z"/>
+	<circle cx="300" cy="260" r="15" fill="white"/>
+	<circle cx="370" cy="260" r="15" fill="white"/>
+	<circle cx="180" cy="220" r="15" fill="black"/>
+	<circle cx="110" cy="220" r="15" fill="black"/>
+</svg>
