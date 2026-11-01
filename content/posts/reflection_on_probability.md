@@ -35,15 +35,6 @@ tags = ["数学", "概率论", "统计学"]
 - 换和不换同样是在两个门中选择，因此不合理
 - 可以理解为：把两个门合并成一个，因此结果是合理的
 
-{% <example title="Bertrand 悖论"> %}
-在单位圆内任意画一条弦，弦长超过 $\sqrt{3}$ 的概率是多少？
-{% </example> %}
-
-存在以下不同的答案：
-1. 先固定一点，再取另一点，结果为 $\frac{1}{3}$
-2. 先固定弦的斜率，考察弦中点的位置，结果为 $\frac{1}{2}$
-3. 直接考察弦中点的位置，只能在一个小圆内，结果为 $\frac{1}{4}$
-
 ## 讨论的可能
 这里的引用来自《概率论及其应用》的前几页。此书译自 William Feller 所作的经典 *An Introduction to Probability Theory and Its Application*.
 
@@ -124,22 +115,7 @@ tags = ["数学", "概率论", "统计学"]
 
 对于现实问题，例如“摸到黑球”，我们可以将其分解为“今天在下雨并且摸到了黑球”和“今天不在下雨并且摸到了黑球”，但是这就成为了“空洞的形式化练习”。我们应当把 $AB$ 视作两者都为真的陈述，$P(AB|C)$ 是一个基本量，不一定可解析为更基本的量（尽管可以用于计算）。
 
-### Kolmogorov 公理
-Kolmogorov 提出了一种用集合论（和测度论）语言表达概率论的方法。回顾其公理化定义：
-
-给定集合 $\Omega$，称 $\mathfrak{F}\subset 2^\Omega$ 为 $\Omega$ 上的 σ-代数，如果满足：
-1. $\Omega \in \mathfrak{F}$
-2. 取逆封闭：若 $A \in \mathfrak{F}$ 则 $\bar{A} \in \mathfrak{F}$
-3. 可列并封闭：若 $\\{A_n\\}_{n\geq 1}\subset \mathfrak{F}$ 则其并 $\in \mathfrak{F}$
-
-$\mathfrak{F}$ 上的概率测度 $P: \mathfrak{F}\to [0, 1]$ 满足：
-1. 非负：$P(A)\geq 0$
-2. 规范性：$P(\Omega) = 1$
-3. 可列可加性：对 $\\{A_n\\}_{n\geq 1}$ 两两不交，有：
-
-$$P\left(\bigcup\limits_{n=1}^{+\infty} A_n\right) = \sum_{n=1}^{+\infty} P(A_n)$$
-
-我们在技术上支持此，但不局限于集合。
+我们在技术上支持 [Kolmogorov 公理](@/posts/probability_theory_midterm.md)，但不局限于集合。
 
 ## 初等抽样论
 ### 无放回抽样
