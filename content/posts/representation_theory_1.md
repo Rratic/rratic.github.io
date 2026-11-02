@@ -68,9 +68,9 @@ $$\chi_{V^\ast}(g) = \overline{\chi_{V}(g)}$$
 
 这里 $V$ 上的表示诱导的 $V^\ast$ 上的表示需要满足 $gf(gv) = f(v)$，此时在取定的基下（用方括号表示对应的矩阵）：
 
-$$[f]^\perp [\pi(g)]^\perp [\rho(g)] [v] = [f]^\perp [v]$$
+$$[f]^\top [\pi(g)]^\top [\rho(g)] [v] = [f]^\top [v]$$
 
-故 $[\pi(g)]^\perp [\rho(g)] = I$. 由于 $g$ 有限两个矩阵是幂零的，特征值是单位根，从而 $\mathrm{tr}([\pi(g)]) = \overline{\mathrm{tr}([\rho(g)])}$.
+故 $[\pi(g)]^\top [\rho(g)] = I$，又由于 $g$ 有限，两个矩阵是幂零的，特征值是单位根，从而 $\mathrm{tr}([\pi(g)]) = \overline{\mathrm{tr}([\rho(g)])}$.
 
 {% <theorem title="张量积的特征标"> %}
 对有限维的 $V, W$：

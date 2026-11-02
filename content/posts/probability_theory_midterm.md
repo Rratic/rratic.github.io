@@ -114,10 +114,10 @@ $X: \Omega \to \R$ 称为**随机变量**，如果对任意 $B \in \mathcal R$ �
 
 | 分布名称 | 记号 | $P(X = k)$ 表达式 |
 | :-----: | :--: | :--------------: |
-| 超几何分布 | $H(N, M, n)$ | $\binom{M}{k} \binom{N-M}{n-k} / \binom{N}{n}$ |
-| 二项分布 | $B(n, p)$ | $C_n^k p^k (1-p)^{n-k}$ |
-| 几何分布 | $G(p)$ | $(1-p)^{k-1} p$ |
-| 负二项分布 | $NB(r, p)$ | $C_{r+k-1}^k (1-p)^k p^r$ |
+| 超几何分布[^hypergeometric] | $H(N, M, n)$ | $\binom{M}{k} \binom{N-M}{n-k} / \binom{N}{n}$ |
+| 二项分布[^binomial] | $B(n, p)$ | $C_n^k p^k (1-p)^{n-k}$ |
+| 几何分布[^geometric] | $G(p)$ | $(1-p)^{k-1} p$ |
+| 负二项分布[^negative-binomial] | $NB(r, p)$ | $C_{r+k-1}^k (1-p)^k p^r$ |
 | Poisson 分布 | $P(\lambda)$ | $\lambda^k e^{-\lambda} / k!$ |
 
 **连续型随机变量**要求分布函数有如下形式。此时称 $X$ 有**密度函数** $f$：
@@ -131,6 +131,8 @@ $f$ 也常被更清晰地写成 $p_X(x)$. 例子如下：
 | 均匀分布 | $U(a, b)$ | $\begin{cases} 1 / (b-a) & x \in [a, b] \\\\ 0 & \text{otherwise} \end{cases}$ |
 | 指数分布 | $\mathrm{Exp}(\lambda)$ | $\begin{cases} \lambda e^{-\lambda x} & x > 0 \\\\ 0 & x \leq 0 \end{cases}$ |
 | 正态分布 | $N(\mu, \sigma^2)$ | $e^{- (x - \mu)^2 / 2 \sigma^2} / \sqrt{2\pi \sigma^2}$ |
+| $\Gamma$ 分布 | $\Gamma(\alpha, \lambda)$ | $\begin{cases} \frac{\lambda^\alpha}{\Gamma(\alpha)} x^{\alpha-1} e^{-\lambda x} & x > 0 \\\\ 0 & \text{otherwise} \end{cases}$ |
+| Cauchy 分布[^cauchy] | $C(\mu, \alpha)$ | $\alpha / \pi((x - \mu^2)^2 + \alpha^2)$ |
 
 当我们有 $X$ 的密度函数，对变换 $Y = f(X)$，如果 $f$ 分段严格单调且可微，则在 $Y$ 的取值范围内有密度函数：
 
@@ -226,7 +228,13 @@ F^{-1}: (0, 1) &\longrightarrow \R \cr
 \end{aligned}
 $$
 
-这可以带来一些证明上的便利。
+{% <question title="2025 P5"> %}
+设 $F(x)$ 分布函数，构造随机向量 $(X, Y)$ 使边缘分布函数都是 $F(x)$，且 $\max \set{X, Y}$ 的分布函数是 $\max \set{2F(x) - 1, 0}$.
+{% </question> %}
+
+可以令 $F(x, y) = \max \set{F(x) + F(y) - 1, 0}$，更一般的做法是让 $U \sim U(0, 1)$，取：
+
+$$X = F^{-1}(U),\\ Y = F^{-1}(1 - U)$$
 
 ---
 
@@ -239,6 +247,7 @@ $$p_{X+Y}(z) = \int_{-\infty}^{+\infty} p_X(z-y) p_Y(y) \mathrm dy$$
 若分布族 $\\{\mu_\alpha\\}$ 满足对 $\mu_\alpha, \mu_\beta$ 存在 $\mu_\alpha \ast \mu_\beta = \mu_\gamma$，则称该分布族有可加性/再生性。例如：
 - 二项分布 $B(n, p) \ast B(m, p) = B(n + m, p)$
 - Poisson 分布 $P(\lambda_1) \ast P(\lambda_2) = P(\lambda_1 + \lambda_2)$
+- $\Gamma$ 分布 $\Gamma(\alpha_1, \lambda) \ast \Gamma(\alpha_2, \lambda) = \Gamma(\alpha_1 + \alpha_2, \lambda)$
 
 ---
 
@@ -246,7 +255,7 @@ Borel 函数是指 $\R^n \to \R^m$ 的可测映射。对于 $n$ 维随机向量 
 
 一个常见的问题是对 $\vec Y = f(\vec X) \in \R^n$，用 $\vec X$ 的联合密度求 $Y$ 的联合密度。若某个邻域上 $f: D \to D'$ 一一且 Jacobi 行列式处处非零，则对 $y \in D'$，
 
-$$p_{\vec Y}(y) = p_{\vec X}(f^{-1}(y)) \cdot |\det J(y)|$$
+$$p_{\vec Y}(y) = p_{\vec X}(f^{-1}(y)) \cdot |\det J(f^{-1})|$$
 
 若 $f: D \to D'$ 是多对一的，则只需要把各个反函数对应的结果加起来。
 
@@ -285,3 +294,11 @@ $$\mathbb EX = \mathbb EX^+ - \mathbb EX^-$$
 
 $$P(X \geq \varepsilon) \leq \frac{\mathbb EX}{\varepsilon} \quad (\varepsilon > 0)$$
 {% </theorem> %}
+
+---
+
+[^hypergeometric]: $N$ 个产品中 $N$ 个次品，随机选出 $n$ 个，次品数 $X$.
+[^binomial]: 硬币正面概率 $p$，抛 $n$ 次正面数 $X$.
+[^geometric]: 硬币正面概率 $p > 0$，首次正面时抛的次数 $X$.
+[^negative-binomial]: 硬币正面概率 $p > 0$，$r$ 此正面时抛过反面次数 $X$.
+[^cauchy]: 对于独立的 $X \sim N(\mu, \sigma_1^2)$，$Y \sim N(\mu, \sigma_2^2)$，有 $X/Y \sim C(\mu, \sigma_1/\sigma_2)$.

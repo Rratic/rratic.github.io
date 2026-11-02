@@ -135,7 +135,7 @@ $$|H \cap Z(P)| \equiv \sum_i |\mathrm{Orb}(a_i)| \equiv |H| \equiv 0 \pmod p$$
 现代的证明通过一种称为“转移同态”的构造（证明略）。
 
 {% <theorem title="Hall 子群存在定理"> %}
-设 $|G| = \prod_{i \in I} p_i^{k_i}$，群 $G$ 可解，当且仅当对 $J \subseteq I$ 都存在一个阶为 $\prod_{i \in I} p_i^{k_i}$ 的子群。
+设 $|G| = \prod_{i \in I} p_i^{k_i}$，群 $G$ 可解，当且仅当对 $J \subseteq I$ 都存在一个阶为 $\prod_{i \in J} p_i^{k_i}$ 的子群。
 {% </theorem> %}
 
 证明略。其可以写成类似 Sylow 系定理的形式：在有限可解群中，对 $(m, |G|/m) = 1$，存在 $m$ 阶子群；所有 $m$ 阶子群都共轭；任意 $d \mid m$ 阶子群包含于一个 $m$ 阶子群。
