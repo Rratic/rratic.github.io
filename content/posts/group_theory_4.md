@@ -1,6 +1,7 @@
 +++
 title = "群论（四）：特征子群；幂零群"
 date = 2026-10-20
+updated = 2026-11-02
 
 [extra]
 math = true
@@ -9,6 +10,10 @@ math = true
 categories = ["知识"]
 tags = ["数学", "代数学"]
 +++
+
+作为古典群论之旅的最后一站，本文之后不再进一步展开有限群理论。其后的更现代理论包括群上同调理论与[群表示论](@/posts/representation_theory_1.md)等。
+
+<!-- more -->
 
 ## 特征子群
 ### 内自同构
@@ -123,4 +128,14 @@ $$|H \cap Z(P)| \equiv \sum_i |\mathrm{Orb}(a_i)| \equiv |H| \equiv 0 \pmod p$$
 
 使用群上同调理论可以说明定理对交换的 $N$ 成立。然后可以归结到交换的情形（证明略）。
 
-这个定理与 Burnside 正规补定理可以用来证明 P. Hall 定理。
+{% <theorem title="Burnside 正规补定理"> %}
+有限群 $G$ 的 Sylow-$p$ 子群 $P$，若 $P \leq Z(N_G(P))$，则存在正规子群 $N$ 使得 $p \nmid |N|$，$G/N$ 是 $p$-群。
+{% </theorem> %}
+
+现代的证明通过一种称为“转移同态”的构造（证明略）。
+
+{% <theorem title="Hall 子群存在定理"> %}
+设 $|G| = \prod_{i \in I} p_i^{k_i}$，群 $G$ 可解，当且仅当对 $J \subseteq I$ 都存在一个阶为 $\prod_{i \in I} p_i^{k_i}$ 的子群。
+{% </theorem> %}
+
+证明略。其可以写成类似 Sylow 系定理的形式：在有限可解群中，对 $(m, |G|/m) = 1$，存在 $m$ 阶子群；所有 $m$ 阶子群都共轭；任意 $d \mid m$ 阶子群包含于一个 $m$ 阶子群。
