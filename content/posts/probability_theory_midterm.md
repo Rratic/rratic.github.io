@@ -247,6 +247,7 @@ $$p_{X+Y}(z) = \int_{-\infty}^{+\infty} p_X(z-y) p_Y(y) \mathrm dy$$
 若分布族 $\\{\mu_\alpha\\}$ 满足对 $\mu_\alpha, \mu_\beta$ 存在 $\mu_\alpha \ast \mu_\beta = \mu_\gamma$，则称该分布族有可加性/再生性。例如：
 - 二项分布 $B(n, p) \ast B(m, p) = B(n + m, p)$
 - Poisson 分布 $P(\lambda_1) \ast P(\lambda_2) = P(\lambda_1 + \lambda_2)$
+- 正态分布 $N(\mu_1, \sigma_1^2) + N(\mu_2, \sigma_2^2) = N(\mu_1 + \mu_2, \sigma_1^2 + \sigma_2^2)$
 - $\Gamma$ 分布 $\Gamma(\alpha_1, \lambda) \ast \Gamma(\alpha_2, \lambda) = \Gamma(\alpha_1 + \alpha_2, \lambda)$
 
 ---
