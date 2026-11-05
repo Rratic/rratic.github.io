@@ -1,0 +1,590 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola v0.23.4" />
+  <title>Haskell 的单子与副作用 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="Haskell 的单子与副作用" />
+  <meta name="description" content="函数式语言如何引入副作用：函子、应用函子、单子。" />
+  <meta property="og:description" content="函数式语言如何引入副作用：函子、应用函子、单子。" />
+  <meta property="og:url" content="https://rratic.top/posts/haskell-2/" />
+  <link rel="canonical" href="https://rratic.top/posts/haskell-2/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2025-08-27T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2025-10-26T00:00:00+00:00" />
+  <meta property="article:tag" content="计算机" />
+  <meta property="article:tag" content="计算理论" />
+  <meta property="og:image" content="https://rratic.top/images/cover/haskell_p2.png" />
+  <meta property="og:image:alt" content="" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <meta name="msvalidate.01" content="9BE559916FDB06A7A09EA17370F0ED09" />
+<link rel="icon" type="image/svg+xml" href="https://rratic.top/favicon.svg" />
+<link rel="stylesheet" href="https://rratic.top/style/shared.css?h=2dac71ecd418f5165c3d" />
+
+  <link rel="stylesheet" href="https://rratic.top/giallo-light.css?h=396eaa20499714fdb600" media="(prefers-color-scheme: light)" />
+  <link rel="stylesheet" href="https://rratic.top/giallo-dark.css?h=536598ee42e9e9a795bc" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=f166037ad671ba6bfd13" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=11a0f44fbe01f53dbaf9"></script>
+  <!-- head_end inject -->
+
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      
+<menu
+  class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/posts/"
+    >文章</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/categories/"
+    >分类</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/tags/"
+    >标签</a>
+  </li>
+</menu>
+
+      <!-- header_nav inject -->
+
+    </nav>
+  </div>
+</header>
+
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    <!-- body_start inject -->
+
+    
+<article>
+  <!-- page_start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-3">Haskell 的单子与副作用</h1>
+    <div class="text-sm antialiased opacity-80"><time
+      datetime="2025-08-27T00:00:00+00:00">2025-08-27</time><span
+        class="middot"></span><time
+    datetime="PT0H6M0S">6&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+  </header>
+  
+  <figure class="mt-0 mb-12">
+    <img
+      class="h-auto w-full rounded-lg"
+      src="https://rratic.top/images/cover/haskell_p2.png"
+    />
+  </figure>
+  
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#fu-zuo-yong">副作用</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#chou-xiang-ceng-ci">抽象层次</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ban-qun-yu-yao-ban-qun">半群与幺半群</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#hask-fan-chou">Hask 范畴</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#han-zi">函子</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ying-yong-han-zi">应用函子</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#dan-zi">单子</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#wei-liao-fu-zuo-yong">为了副作用</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ji-ben-fu-zuo-yong">基本副作用</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#shang-xia-wen-fu-zuo-yong">上下文副作用</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#gong-ju-functor">工具 Functor</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#gao-ji-monad">高级 Monad</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </details>
+</nav>
+  <!-- Content -->
+  <section><p>封面图为 <code>Monad</code> 类型类的声明，使用字体 JetBrains Mono.</p>
+<hr />
+<p>关于 Haskell 有一句广泛流传的话：</p>
+<blockquote>
+<p>一个单子说白了不过就是自函子范畴上的一个幺半群而已，这有什么难以理解的？</p>
+</blockquote>
+<p>这句话有一点不负责任。现在我们来尝试理清 Haskell 中对应的概念。</p>
+<h2 id="fu-zuo-yong">副作用</h2>
+<p>在 Haskell 中，函数是没有副作用的，正如数学中的函数不会进行输出一样。</p>
+<p>而 <code>IO</code> 类则以一种方式间接的方式<em>引入</em>了副作用。</p>
+<p>我们可以把 <code>IO</code> 类型的定义视作：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span class="z-l-17 z-d-10">type</span><span class="z-l-1 z-d-10"> IO</span><span> a</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-1 z-d-10"> World</span><span class="z-l-16 z-d-10"> -&gt;</span><span> (</span><span>a</span><span class="z-l-6">,</span><span class="z-l-1 z-d-10"> World</span><span>)</span></span></code></pre>
+<p>然后可以使用相关函数进行 IO 操作：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span class="z-l-14 z-d-7">getChar</span><span class="z-l-16 z-d-10"> ::</span><span class="z-l-1 z-d-10"> IO</span><span class="z-l-1 z-d-10"> Char</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">putChar</span><span class="z-l-16 z-d-10"> ::</span><span class="z-l-1 z-d-10"> Char</span><span class="z-l-16 z-d-10"> -&gt;</span><span class="z-l-1 z-d-10"> IO</span><span class="z-l-16 z-l-i z-d-4"> (</span><span class="z-l-16 z-l-i z-d-4">)</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">putStrLn</span><span class="z-l-16 z-d-10"> ::</span><span class="z-l-1 z-d-10"> String</span><span class="z-l-16 z-d-10"> -&gt;</span><span class="z-l-1 z-d-10"> IO</span><span class="z-l-16 z-l-i z-d-4"> (</span><span class="z-l-16 z-l-i z-d-4">)</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">return</span><span class="z-l-16 z-d-10"> ::</span><span> a</span><span class="z-l-16 z-d-10"> -&gt;</span><span class="z-l-1 z-d-10"> IO</span><span> a</span></span></code></pre>
+<p>使用 <code>do</code> 语法糖，我们可以顺序地执行：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span class="z-l-14 z-d-7">myGetLine</span><span class="z-l-16 z-d-10"> ::</span><span class="z-l-1 z-d-10"> IO</span><span class="z-l-1 z-d-10"> String</span></span>
+<span class="giallo-l"><span>myGetLine </span><span class="z-l-16 z-d-10">=</span><span class="z-l-17 z-d-10"> do</span></span>
+<span class="giallo-l"><span>  x </span><span class="z-l-16 z-d-10">&lt;-</span><span> getChar</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">  if</span><span> x </span><span class="z-l-16 z-d-10">==</span><span class="z-l-8 z-d-6"> &#39;</span><span class="z-l-3 z-d-4">\n</span><span class="z-l-8 z-d-6">&#39;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    then</span></span>
+<span class="giallo-l"><span>      return </span><span class="z-l-9 z-d-4">[</span><span class="z-l-9 z-d-4">]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    else</span><span class="z-l-17 z-d-10"> do</span></span>
+<span class="giallo-l"><span>      xs </span><span class="z-l-16 z-d-10">&lt;-</span><span> myGetLine</span></span>
+<span class="giallo-l"><span>      return </span><span>(</span><span>x </span><span class="z-l-16 z-d-10">:</span><span> xs</span><span>)</span></span></code></pre>
+<p>就有：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span> str </span><span class="z-l-16 z-d-10">&lt;-</span><span> myGetLine</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-4">It&#39;s</span><span> a red fox</span><span class="z-l-16 z-d-10">.</span></span>
+<span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span> str</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-6">&quot;</span><span class="z-l-8 z-d-6">It&#39;s a red fox.</span><span class="z-l-8 z-d-6">&quot;</span></span></code></pre>
+<p>我们在文件中写：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span class="z-l-17 z-d-10">module</span><span class="z-l-1 z-d-7"> Main</span><span class="z-l-17 z-d-10"> where</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">main</span><span class="z-l-16 z-d-10"> ::</span><span class="z-l-1 z-d-10"> IO</span><span class="z-l-16 z-l-i z-d-4"> (</span><span class="z-l-16 z-l-i z-d-4">)</span></span>
+<span class="giallo-l"><span>main </span><span class="z-l-16 z-d-10">=</span><span class="z-l-17 z-d-10"> do</span></span>
+<span class="giallo-l"><span>  putStrLn </span><span class="z-l-8 z-d-6">&quot;</span><span class="z-l-8 z-d-6">Hello, Haskell!</span><span class="z-l-8 z-d-6">&quot;</span></span>
+<span class="giallo-l"><span>  putStrLn </span><span class="z-l-8 z-d-6">&quot;</span><span class="z-l-8 z-d-6">Hello, World!</span><span class="z-l-8 z-d-6">&quot;</span></span></code></pre>
+<p>并用 <code>:load Main</code> 加载模块就可得到效果：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span class="z-l-16 z-d-10"> :</span><span>main</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-4">Hello</span><span>, </span><span class="z-l-3 z-d-4">Haskell</span><span class="z-l-16 z-d-10">!</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-4">Hello</span><span>, </span><span class="z-l-3 z-d-4">World</span><span class="z-l-16 z-d-10">!</span></span></code></pre><h2 id="chou-xiang-ceng-ci">抽象层次</h2>
+<p>半群与幺半群是计算机中很容易出现的事物。</p>
+<p>如果以一串函数复合为元素，考虑复合，或以一段程序为元素，定义复合为把两段程序紧挨着拼起来，那么此种意义下它们就是半群。</p>
+<p>如果进一步允许恒等函数/空程序段，就能构成幺半群。</p>
+<p>这将意味着，如果想要良好地处理副作用，就需要研究幺半群的结构和如何保持幺半群。</p>
+<h3 id="ban-qun-yu-yao-ban-qun">半群与幺半群</h3>
+<p><code>Semigroup</code> 半群类型类的原型如下：<sup class="footnote-reference"><a href="#omit">1</a></sup></p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span class="z-l-17 z-d-10">class</span><span class="z-l-1 z-d-10"> Semigroup</span><span> a</span><span class="z-l-17 z-d-10"> where</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">  (</span><span class="z-l-14 z-d-7">&lt;&gt;</span><span class="z-l-14 z-d-7">)</span><span class="z-l-16 z-d-10"> ::</span><span> a</span><span class="z-l-16 z-d-10"> -&gt;</span><span> a</span><span class="z-l-16 z-d-10"> -&gt;</span><span> a</span></span></code></pre>
+<p>我们要求 <code>&lt;&gt;</code> 是一个满足结合律的二元运算（尽管编译器无法强制检查这一点）。</p>
+<p>易知列表类型 <code>[a]</code> 是半群。</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span> [</span><span class="z-l-9 z-d-4">1</span><span class="z-l-16 z-d-10">..</span><span class="z-l-9 z-d-4">3</span><span>]</span><span class="z-l-16 z-d-10"> &lt;&gt;</span><span> [</span><span class="z-l-9 z-d-4">4</span><span class="z-l-16 z-d-10">..</span><span class="z-l-9 z-d-4">6</span><span>]</span></span>
+<span class="giallo-l"><span>[</span><span class="z-l-9 z-d-4">1</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">2</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">3</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">4</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">5</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">6</span><span>]</span></span></code></pre>
+<p><code>Monoid</code> 幺半群类型类的原型如下：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span class="z-l-17 z-d-10">class</span><span class="z-l-1 z-d-10"> Semigroup</span><span> a</span><span class="z-l-16 z-d-10"> =&gt;</span><span class="z-l-1 z-d-10"> Monoid</span><span> a</span><span class="z-l-17 z-d-10"> where</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">  mempty</span><span class="z-l-16 z-d-10"> ::</span><span> a</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">  mappend</span><span class="z-l-16 z-d-10"> ::</span><span> a</span><span class="z-l-16 z-d-10"> -&gt;</span><span> a</span><span class="z-l-16 z-d-10"> -&gt;</span><span> a</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">  mconcat</span><span class="z-l-16 z-d-10"> ::</span><span> [</span><span>a</span><span>]</span><span class="z-l-16 z-d-10"> -&gt;</span><span> a</span></span></code></pre>
+<p>其中 <code>mempty</code> 是需要定义的，对应单位元；而 <code>mappend</code> 与 <code>mconcat</code> 可由二元运算和单位元得到。</p>
+<p>列表 <code>[a]</code> 同样是幺半群。</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span> [</span><span class="z-l-9 z-d-4">1</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">2</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">3</span><span>]</span><span class="z-l-16 z-d-10"> &lt;&gt;</span><span> [</span><span class="z-l-9 z-d-4">1</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">2</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">3</span><span>]</span></span>
+<span class="giallo-l"><span>[</span><span class="z-l-9 z-d-4">1</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">2</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">3</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">1</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">2</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">3</span><span>]</span></span>
+<span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span> mappend </span><span>[</span><span class="z-l-9 z-d-4">1</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">2</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">3</span><span>]</span><span> [</span><span class="z-l-9 z-d-4">4</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">5</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">6</span><span>]</span></span>
+<span class="giallo-l"><span>[</span><span class="z-l-9 z-d-4">1</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">2</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">3</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">4</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">5</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">6</span><span>]</span></span>
+<span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span> mappend </span><span>[</span><span class="z-l-9 z-d-4">1</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">2</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">3</span><span>]</span><span> mempty</span></span>
+<span class="giallo-l"><span>[</span><span class="z-l-9 z-d-4">1</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">2</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">3</span><span>]</span></span>
+<span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span> mconcat </span><span>[</span><span>[</span><span class="z-l-9 z-d-4">1</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">2</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">3</span><span>]</span><span class="z-l-6">,</span><span> mempty</span><span class="z-l-6">,</span><span> [</span><span class="z-l-9 z-d-4">4</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">5</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">6</span><span>]</span><span>]</span></span>
+<span class="giallo-l"><span>[</span><span class="z-l-9 z-d-4">1</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">2</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">3</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">4</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">5</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">6</span><span>]</span></span></code></pre>
+<p><code>Ordering</code> 类型也是幺半群，其原型为 <code>data Ordering = LT | EQ | GT</code>，可用于多个分量的数据的大小比较。</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span class="z-l-3 z-d-4"> LT</span><span class="z-l-16 z-d-10"> &lt;&gt;</span><span class="z-l-3 z-d-4"> GT</span><span class="z-l-16 z-d-10"> &lt;&gt;</span><span class="z-l-3 z-d-4"> EQ</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-4">LT</span></span>
+<span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span class="z-l-3 z-d-4"> EQ</span><span class="z-l-16 z-d-10"> &lt;&gt;</span><span class="z-l-3 z-d-4"> GT</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-4">GT</span></span></code></pre><h3 id="hask-fan-chou">Hask 范畴</h3>
+<p>我们所说 $\mathbf{Hask}$ 范畴是指：</p>
+<ul>
+<li>以类型（如 <code>Int</code> 等）为对象</li>
+<li>以函数（如 <code>isUpper</code> 等）为态射</li>
+<li>单位态射为 <code>id</code></li>
+<li>态射复合是 <code>.</code></li>
+</ul>
+<p>不过，这个说法是不严格的，例如说：</p>
+<ul>
+<li>Haskell 的惰性求值特性会导致等式与求值策略有关</li>
+<li><code>seq</code> 与性能分析等可以区分细节</li>
+<li>存在 <code>undefined</code> 等特殊特性</li>
+</ul>
+<p>如果我们需要讨论 <code>Functor</code> 等高级特性，还需要注意两个 Haskell 语言特性带来的影响。</p>
+<p><code>Functor</code> 和 <code>Monad</code> 是 $\mathbf{Hask}$-enriched 的（参考 <a rel="external" href="https://ncatlab.org/nlab/show/enriched+category+theory">enriched category theory in nLab</a> 页面），这意味着它们所定义的那些操作本身就是 Haskell 中的态射，只不过是高阶函数。</p>
+<p><code>Functor</code> 和 <code>Monad</code> 是自带 strength 的。</p>
+<h3 id="han-zi">函子</h3>
+<p>我们来考虑前述 $\mathbf{Hask}$ 范畴上的自函子。</p>
+<p><code>Functor</code> 函子类型类的原型是：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span class="z-l-17 z-d-10">class</span><span class="z-l-1 z-d-10"> Functor</span><span> f</span><span class="z-l-17 z-d-10"> where</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">  fmap</span><span class="z-l-16 z-d-10"> ::</span><span> (</span><span>a</span><span class="z-l-16 z-d-10"> -&gt;</span><span> b</span><span>)</span><span class="z-l-16 z-d-10"> -&gt;</span><span> f</span><span> a</span><span class="z-l-16 z-d-10"> -&gt;</span><span> f</span><span> b</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">  (</span><span class="z-l-14 z-d-7">&lt;$</span><span class="z-l-14 z-d-7">)</span><span class="z-l-16 z-d-10"> ::</span><span> a</span><span class="z-l-16 z-d-10"> -&gt;</span><span> f</span><span> b</span><span class="z-l-16 z-d-10"> -&gt;</span><span> f</span><span> a</span></span>
+<span class="giallo-l"><span>  (</span><span class="z-l-14 z-d-7">&lt;$</span><span>)</span><span class="z-l-16 z-d-10"> =</span><span> fmap </span><span class="z-l-16 z-d-10">.</span><span> const</span></span></code></pre>
+<p>例如说，<code>IO</code> 实现了 <code>Functor</code>，其中 <code>IO</code> 本身将对象（如类型 <code>a</code>）映到对象（类型 <code>IO a</code>），函数 <code>fmap</code> 则将 <code>a -&gt; b</code> 的态射映到 <code>IO a -&gt; IO b</code> 的态射。</p>
+<p>我们希望它对应到数学上协/共变函子的定义，这给出的额外要求是：</p>
+<ul>
+<li><code>fmap id</code> 恒等于 <code>id</code></li>
+<li><code>fmap (f . g)</code> 恒等于 <code>fmap f . fmap g</code></li>
+</ul>
+<p>让我们测试这一点：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span> fmap show </span><span class="z-l-16 z-d-10">$</span><span> return </span><span class="z-l-3 z-d-4">True</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-6">&quot;</span><span class="z-l-8 z-d-6">True</span><span class="z-l-8 z-d-6">&quot;</span></span></code></pre>
+<p>这是因为 <code>show</code> 的类型是 <code>Show a =&gt; a -&gt; String</code>，从而 <code>fmap</code> 把一个 <code>IO Bool</code> 映到了 <code>IO String</code>.</p>
+<p>我们可以给之前的 <code>Option</code> 实现 <code>Functor</code>.</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span class="z-l-17 z-d-10">data</span><span class="z-l-1 z-d-10"> Option</span><span> a</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-3 z-d-4"> None</span><span class="z-l-16 z-d-10"> |</span><span class="z-l-3 z-d-4"> Some</span><span> a</span><span class="z-l-17 z-d-10"> deriving</span><span> (</span><span class="z-l-1 z-d-10">Show</span><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">instance</span><span class="z-l-1 z-d-10"> Functor</span><span class="z-l-1 z-d-10"> Option</span><span class="z-l-17 z-d-10"> where</span></span>
+<span class="giallo-l"><span>  fmap f </span><span>(</span><span class="z-l-3 z-d-4">Some</span><span> a</span><span>)</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-3 z-d-4"> Some</span><span class="z-l-16 z-d-10"> $</span><span> f a</span></span>
+<span class="giallo-l"><span>  fmap f </span><span>(</span><span class="z-l-3 z-d-4">None</span><span>)</span><span class="z-l-16 z-d-10">   =</span><span class="z-l-3 z-d-4"> None</span></span></code></pre>
+<p>有：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span> fmap </span><span>(</span><span class="z-l-16 z-d-10">+</span><span class="z-l-9 z-d-4">1</span><span>)</span><span class="z-l-3 z-d-4"> None</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-4">None</span></span>
+<span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span> fmap </span><span>(</span><span class="z-l-16 z-d-10">+</span><span class="z-l-9 z-d-4">1</span><span>)</span><span class="z-l-16 z-d-10"> $</span><span class="z-l-3 z-d-4"> Some</span><span class="z-l-9 z-d-4"> 2</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-4">Some</span><span class="z-l-9 z-d-4"> 3</span></span>
+<span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span> (</span><span class="z-l-16 z-d-10">+</span><span class="z-l-9 z-d-4">1</span><span>)</span><span class="z-l-16 z-d-10"> &lt;$&gt;</span><span> (</span><span class="z-l-3 z-d-4">Some</span><span class="z-l-9 z-d-4"> 2</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-4">Some</span><span class="z-l-9 z-d-4"> 3</span></span></code></pre><h3 id="ying-yong-han-zi">应用函子</h3>
+<p>我们来考虑 $\mathbf{Hask}$ 范畴到自身的 lax monoidal functor（参考 <a rel="external" href="https://ncatlab.org/nlab/show/monoidal+functor">monoidal functor in nLab</a> 页面，是通过特定的自然变换保持幺半结构（张量积和单位元）的函子）。</p>
+<p><code>Applicative</code> 类型类的原型如下：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span class="z-l-17 z-d-10">class</span><span class="z-l-1 z-d-10"> Functor</span><span> f</span><span class="z-l-16 z-d-10"> =&gt;</span><span class="z-l-1 z-d-10"> Applicative</span><span> f</span><span class="z-l-17 z-d-10"> where</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">  pure</span><span class="z-l-16 z-d-10"> ::</span><span> a</span><span class="z-l-16 z-d-10"> -&gt;</span><span> f</span><span> a</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">  (</span><span class="z-l-14 z-d-7">&lt;*&gt;</span><span class="z-l-14 z-d-7">)</span><span class="z-l-16 z-d-10"> ::</span><span> f</span><span> (</span><span>a</span><span class="z-l-16 z-d-10"> -&gt;</span><span> b</span><span>)</span><span class="z-l-16 z-d-10"> -&gt;</span><span> f</span><span> a</span><span class="z-l-16 z-d-10"> -&gt;</span><span> f</span><span> b</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">  liftA2</span><span class="z-l-16 z-d-10"> ::</span><span> (</span><span>a</span><span class="z-l-16 z-d-10"> -&gt;</span><span> b</span><span class="z-l-16 z-d-10"> -&gt;</span><span> c</span><span>)</span><span class="z-l-16 z-d-10"> -&gt;</span><span> f</span><span> a</span><span class="z-l-16 z-d-10"> -&gt;</span><span> f</span><span> b</span><span class="z-l-16 z-d-10"> -&gt;</span><span> f</span><span> c</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">  (</span><span class="z-l-14 z-d-7">*&gt;</span><span class="z-l-14 z-d-7">)</span><span class="z-l-16 z-d-10"> ::</span><span> f</span><span> a</span><span class="z-l-16 z-d-10"> -&gt;</span><span> f</span><span> b</span><span class="z-l-16 z-d-10"> -&gt;</span><span> f</span><span> b</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">  (</span><span class="z-l-14 z-d-7">&lt;*</span><span class="z-l-14 z-d-7">)</span><span class="z-l-16 z-d-10"> ::</span><span> f</span><span> a</span><span class="z-l-16 z-d-10"> -&gt;</span><span> f</span><span> b</span><span class="z-l-16 z-d-10"> -&gt;</span><span> f</span><span> a</span></span></code></pre>
+<p>其中必须实现的是 <code>pure</code>，另可选择实现 <code>&lt;*&gt;</code> 与 <code>liftA2</code> 之一。</p>
+<p>它们可以由如下方式组合出：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span class="z-l-14 z-d-7">fmap0</span><span class="z-l-16 z-d-10"> ::</span><span> a</span><span class="z-l-16 z-d-10"> -&gt;</span><span> f</span><span> a</span></span>
+<span class="giallo-l"><span>fmap0 </span><span class="z-l-16 z-d-10">=</span><span> pure</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">fmap1</span><span class="z-l-16 z-d-10"> ::</span><span> (</span><span>a</span><span class="z-l-16 z-d-10"> -&gt;</span><span> b</span><span>)</span><span class="z-l-16 z-d-10"> -&gt;</span><span> f</span><span> a</span><span class="z-l-16 z-d-10"> -&gt;</span><span> f</span><span> b</span></span>
+<span class="giallo-l"><span>fmap1 g x </span><span class="z-l-16 z-d-10">=</span><span> pure g </span><span class="z-l-16 z-d-10">&lt;*&gt;</span><span> x </span><span class="z-l-16 z-d-10">=</span><span> fmap g x </span><span class="z-l-16 z-d-10">=</span><span> g </span><span class="z-l-16 z-d-10">&lt;$&gt;</span><span> x</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">fmap2</span><span class="z-l-16 z-d-10"> ::</span><span> (</span><span>a</span><span class="z-l-16 z-d-10"> -&gt;</span><span> b</span><span class="z-l-16 z-d-10"> -&gt;</span><span> c</span><span>)</span><span class="z-l-16 z-d-10"> -&gt;</span><span> f</span><span> a</span><span class="z-l-16 z-d-10"> -&gt;</span><span> f</span><span> b</span><span class="z-l-16 z-d-10"> -&gt;</span><span> f</span><span> c</span></span>
+<span class="giallo-l"><span>fmap2 g x y </span><span class="z-l-16 z-d-10">=</span><span> g </span><span class="z-l-16 z-d-10">&lt;$&gt;</span><span> x </span><span class="z-l-16 z-d-10">&lt;*&gt;</span><span> y</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">fmap3</span><span class="z-l-16 z-d-10"> ::</span><span> (</span><span>a</span><span class="z-l-16 z-d-10"> -&gt;</span><span> b</span><span class="z-l-16 z-d-10"> -&gt;</span><span> c</span><span class="z-l-16 z-d-10"> -&gt;</span><span> d</span><span>)</span><span class="z-l-16 z-d-10"> -&gt;</span><span> f</span><span> a</span><span class="z-l-16 z-d-10"> -&gt;</span><span> f</span><span> b</span><span class="z-l-16 z-d-10"> -&gt;</span><span> f</span><span> c</span><span class="z-l-16 z-d-10"> -&gt;</span><span> f</span><span> d</span></span>
+<span class="giallo-l"><span>fmap3 g x y z </span><span class="z-l-16 z-d-10">=</span><span> g </span><span class="z-l-16 z-d-10">&lt;$&gt;</span><span> x </span><span class="z-l-16 z-d-10">&lt;*&gt;</span><span> y </span><span class="z-l-16 z-d-10">&lt;*&gt;</span><span> z</span></span></code></pre>
+<p>我们可以接着定义：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span class="z-l-17 z-d-10">instance</span><span class="z-l-1 z-d-10"> Applicative</span><span class="z-l-1 z-d-10"> Option</span><span class="z-l-17 z-d-10"> where</span></span>
+<span class="giallo-l"><span>  pure                  </span><span class="z-l-16 z-d-10">=</span><span class="z-l-3 z-d-4"> Some</span></span>
+<span class="giallo-l"><span>  (</span><span class="z-l-3 z-d-4">Some</span><span> f</span><span>)</span><span class="z-l-16 z-d-10"> &lt;*&gt;</span><span> (</span><span class="z-l-3 z-d-4">Some</span><span> x</span><span>)</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-3 z-d-4"> Some</span><span class="z-l-16 z-d-10"> $</span><span> f x</span></span>
+<span class="giallo-l"><span>  (</span><span class="z-l-3 z-d-4">None</span><span>)</span><span class="z-l-16 z-d-10">   &lt;*&gt;</span><span> _        </span><span class="z-l-16 z-d-10">=</span><span class="z-l-3 z-d-4"> None</span></span>
+<span class="giallo-l"><span>  _        </span><span class="z-l-16 z-d-10">&lt;*&gt;</span><span> (</span><span class="z-l-3 z-d-4">None</span><span>)</span><span class="z-l-16 z-d-10">   =</span><span class="z-l-3 z-d-4"> None</span></span></code></pre>
+<p>从而：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span> import </span><span class="z-l-1 z-d-7">Data.</span><span class="z-l-3 z-d-4">Char</span></span>
+<span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span> (</span><span class="z-l-3 z-d-4">Some</span><span> isUpper</span><span>)</span><span class="z-l-16 z-d-10"> &lt;*&gt;</span><span> (</span><span class="z-l-3 z-d-4">Some</span><span class="z-l-8 z-d-6"> &#39;</span><span class="z-l-8 z-d-6">a</span><span class="z-l-8 z-d-6">&#39;</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-4">Some</span><span class="z-l-3 z-d-4"> False</span></span></code></pre>
+<p>一个神奇的例子是：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span> data </span><span class="z-l-3 z-d-4">Person</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-3 z-d-4"> Person</span><span class="z-l-3 z-d-4"> String</span><span class="z-l-3 z-d-4"> Int</span><span class="z-l-3 z-d-4"> Int</span><span class="z-l-17 z-d-10"> deriving</span><span> (</span><span class="z-l-1 z-d-10">Show</span><span>)</span></span>
+<span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span class="z-l-3 z-d-4"> Person</span><span class="z-l-16 z-d-10"> &lt;$&gt;</span><span> (</span><span class="z-l-3 z-d-4">Some</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">Alice</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span class="z-l-16 z-d-10"> &lt;*&gt;</span><span> (</span><span class="z-l-3 z-d-4">Some</span><span class="z-l-9 z-d-4"> 1</span><span>)</span><span class="z-l-16 z-d-10"> &lt;*&gt;</span><span> (</span><span class="z-l-3 z-d-4">Some</span><span class="z-l-9 z-d-4"> 2</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-4">Some</span><span> (</span><span class="z-l-3 z-d-4">Person</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">Alice</span><span class="z-l-8 z-d-6">&quot;</span><span class="z-l-9 z-d-4"> 1</span><span class="z-l-9 z-d-4"> 2</span><span>)</span></span>
+<span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span class="z-l-16 z-d-10"> :</span><span>t </span><span class="z-l-3 z-d-4">Person</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-4">Person</span><span class="z-l-16 z-d-10"> ::</span><span class="z-l-1 z-d-10"> String</span><span class="z-l-16 z-d-10"> -&gt;</span><span class="z-l-1 z-d-10"> Int</span><span class="z-l-16 z-d-10"> -&gt;</span><span class="z-l-1 z-d-10"> Int</span><span class="z-l-16 z-d-10"> -&gt;</span><span class="z-l-1 z-d-10"> Person</span></span>
+<span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span class="z-l-16 z-d-10"> :</span><span>t </span><span class="z-l-3 z-d-4">Person</span><span class="z-l-16 z-d-10"> &lt;$&gt;</span><span> (</span><span class="z-l-3 z-d-4">Some</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">Alice</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-4">Person</span><span class="z-l-16 z-d-10"> &lt;$&gt;</span><span> (</span><span class="z-l-3 z-d-4">Some</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">Alice</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span class="z-l-16 z-d-10"> ::</span><span class="z-l-1 z-d-10"> Option</span><span> (</span><span class="z-l-1 z-d-10">Int</span><span class="z-l-16 z-d-10"> -&gt;</span><span class="z-l-1 z-d-10"> Int</span><span class="z-l-16 z-d-10"> -&gt;</span><span class="z-l-1 z-d-10"> Person</span><span>)</span></span>
+<span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span class="z-l-16 z-d-10"> :</span><span>t </span><span class="z-l-3 z-d-4">Person</span><span class="z-l-16 z-d-10"> &lt;$&gt;</span><span> (</span><span class="z-l-3 z-d-4">Some</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">Alice</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span class="z-l-16 z-d-10"> &lt;*&gt;</span><span> (</span><span class="z-l-3 z-d-4">Some</span><span class="z-l-9 z-d-4"> 1</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-4">Person</span><span class="z-l-16 z-d-10"> &lt;$&gt;</span><span> (</span><span class="z-l-3 z-d-4">Some</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">Alice</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span class="z-l-16 z-d-10"> &lt;*&gt;</span><span> (</span><span class="z-l-3 z-d-4">Some</span><span class="z-l-9 z-d-4"> 1</span><span>)</span><span class="z-l-16 z-d-10"> ::</span><span class="z-l-1 z-d-10"> Option</span><span> (</span><span class="z-l-1 z-d-10">Int</span><span class="z-l-16 z-d-10"> -&gt;</span><span class="z-l-1 z-d-10"> Person</span><span>)</span></span>
+<span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span class="z-l-16 z-d-10"> :</span><span>t </span><span class="z-l-3 z-d-4">Person</span><span class="z-l-16 z-d-10"> &lt;$&gt;</span><span> (</span><span class="z-l-3 z-d-4">Some</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">Alice</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span class="z-l-16 z-d-10"> &lt;*&gt;</span><span> (</span><span class="z-l-3 z-d-4">Some</span><span class="z-l-9 z-d-4"> 1</span><span>)</span><span class="z-l-16 z-d-10"> &lt;*&gt;</span><span> (</span><span class="z-l-3 z-d-4">Some</span><span class="z-l-9 z-d-4"> 2</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-4">Person</span><span class="z-l-16 z-d-10"> &lt;$&gt;</span><span> (</span><span class="z-l-3 z-d-4">Some</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">Alice</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span class="z-l-16 z-d-10"> &lt;*&gt;</span><span> (</span><span class="z-l-3 z-d-4">Some</span><span class="z-l-9 z-d-4"> 1</span><span>)</span><span class="z-l-16 z-d-10"> &lt;*&gt;</span><span> (</span><span class="z-l-3 z-d-4">Some</span><span class="z-l-9 z-d-4"> 2</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-16 z-d-10">  ::</span><span class="z-l-1 z-d-10"> Option</span><span class="z-l-1 z-d-10"> Person</span></span></code></pre><h3 id="dan-zi">单子</h3>
+<p>现在我们可以考虑把副作用包装起来了。</p>
+<p><code>Monad</code> 单子类型类的原型是：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span class="z-l-17 z-d-10">class</span><span class="z-l-1 z-d-10"> Applicative</span><span> m</span><span class="z-l-16 z-d-10"> =&gt;</span><span class="z-l-1 z-d-10"> Monad</span><span> m</span><span class="z-l-17 z-d-10"> where</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">  (</span><span class="z-l-14 z-d-7">&gt;&gt;=</span><span class="z-l-14 z-d-7">)</span><span class="z-l-16 z-d-10"> ::</span><span> m</span><span> a</span><span class="z-l-16 z-d-10"> -&gt;</span><span> (</span><span>a</span><span class="z-l-16 z-d-10"> -&gt;</span><span> m</span><span> b</span><span>)</span><span class="z-l-16 z-d-10"> -&gt;</span><span> m</span><span> b</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">  (</span><span class="z-l-14 z-d-7">&gt;&gt;</span><span class="z-l-14 z-d-7">)</span><span class="z-l-16 z-d-10"> ::</span><span> m</span><span> a</span><span class="z-l-16 z-d-10"> -&gt;</span><span> m</span><span> b</span><span class="z-l-16 z-d-10"> -&gt;</span><span> m</span><span> b</span></span>
+<span class="giallo-l"><span>    m</span><span class="z-l-1 z-d-10"> &gt;&gt;</span><span> k</span><span class="z-l-16 z-d-10"> =</span><span> m </span><span class="z-l-16 z-d-10">&gt;&gt;=</span><span class="z-l-16 z-d-10"> \</span><span>_ </span><span class="z-l-16 z-d-10">-&gt;</span><span> k</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">  return</span><span class="z-l-16 z-d-10"> ::</span><span> a</span><span class="z-l-16 z-d-10"> -&gt;</span><span> m</span><span> a</span></span>
+<span class="giallo-l"><span>  return </span><span class="z-l-16 z-d-10">=</span><span> pure </span><span class="z-l-10 z-l-i z-d-3">--</span><span class="z-l-10 z-l-i z-d-3"> 不要更改此定义</span></span></code></pre>
+<p>其中必须实现的是 <code>&gt;&gt;=</code>，它表义为 <code>flatmap/bind</code>.</p>
+<p><code>ma &gt;&gt;= mb</code> 等价于：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span class="z-l-17 z-d-10">do</span><span> a </span><span class="z-l-16 z-d-10">&lt;-</span><span> ma</span></span>
+<span class="giallo-l"><span>  mb a</span></span></code></pre>
+<p>因此我们可以写：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span> [</span><span class="z-l-9 z-d-4">1</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">2</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">3</span><span>]</span><span class="z-l-16 z-d-10"> &gt;&gt;=</span><span> (</span><span class="z-l-16 z-d-10">\</span><span>x </span><span class="z-l-16 z-d-10">-&gt;</span><span> [</span><span>x</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">0</span><span>]</span><span>)</span></span>
+<span class="giallo-l"><span>[</span><span class="z-l-9 z-d-4">1</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">0</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">2</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">0</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">3</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">0</span><span>]</span></span>
+<span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span> putStrLn </span><span class="z-l-8 z-d-6">&quot;</span><span class="z-l-8 z-d-6">Hello, Haskell!</span><span class="z-l-8 z-d-6">&quot;</span><span class="z-l-16 z-d-10"> &gt;&gt;=</span><span> (</span><span class="z-l-16 z-d-10">\</span><span>_ </span><span class="z-l-16 z-d-10">-&gt;</span><span> putStrLn </span><span class="z-l-8 z-d-6">&quot;</span><span class="z-l-8 z-d-6">Hello, World!</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-4">Hello</span><span>, </span><span class="z-l-3 z-d-4">Haskell</span><span class="z-l-16 z-d-10">!</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-4">Hello</span><span>, </span><span class="z-l-3 z-d-4">World</span><span class="z-l-16 z-d-10">!</span></span></code></pre>
+<p>我们的要求是:</p>
+<ul>
+<li><code>return x &gt;&gt;= f</code> 等价于 <code>f x</code></li>
+<li><code>mx &gt;&gt;= return</code> 等价于 <code>mx</code></li>
+<li><code>(mx &gt;&gt;= f) &gt;&gt;= g</code> 等价于 <code>mx &gt;&gt;= (\x -&gt; f x &gt;&gt;= g)</code></li>
+</ul>
+<p>我们发现它确实构成一个 $\mathbf{Hask}$ 范畴上的自函子范畴上的幺半群。</p>
+<p>让我们继续定义：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span class="z-l-17 z-d-10">instance</span><span class="z-l-1 z-d-10"> Monad</span><span class="z-l-1 z-d-10"> Option</span><span class="z-l-17 z-d-10"> where</span></span>
+<span class="giallo-l"><span>  (</span><span class="z-l-3 z-d-4">Some</span><span> x</span><span>)</span><span class="z-l-16 z-d-10"> &gt;&gt;=</span><span> f </span><span class="z-l-16 z-d-10">=</span><span> f x</span></span>
+<span class="giallo-l"><span>  (</span><span class="z-l-3 z-d-4">None</span><span>)</span><span class="z-l-16 z-d-10">   &gt;&gt;=</span><span> f </span><span class="z-l-16 z-d-10">=</span><span class="z-l-3 z-d-4"> None</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">safeDiv</span><span class="z-l-16 z-d-10"> ::</span><span class="z-l-1 z-d-10"> Option</span><span class="z-l-1 z-d-10"> Int</span><span class="z-l-16 z-d-10"> -&gt;</span><span class="z-l-1 z-d-10"> Option</span><span class="z-l-1 z-d-10"> Int</span><span class="z-l-16 z-d-10"> -&gt;</span><span class="z-l-1 z-d-10"> Option</span><span class="z-l-1 z-d-10"> Int</span></span>
+<span class="giallo-l"><span>safeDiv xm ym </span><span class="z-l-16 z-d-10">=</span><span> xm </span><span class="z-l-16 z-d-10">&gt;&gt;=</span><span> (</span><span class="z-l-16 z-d-10">\</span><span>x </span><span class="z-l-16 z-d-10">-&gt;</span></span>
+<span class="giallo-l"><span>                ym </span><span class="z-l-16 z-d-10">&gt;&gt;=</span><span> (</span><span class="z-l-16 z-d-10">\</span><span>y </span><span class="z-l-16 z-d-10">-&gt;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">                  if</span><span> y </span><span class="z-l-16 z-d-10">==</span><span class="z-l-9 z-d-4"> 0</span><span class="z-l-17 z-d-10"> then</span><span class="z-l-3 z-d-4"> None</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">                            else</span><span> return </span><span>(</span><span>x </span><span class="z-l-16 z-d-10">`</span><span class="z-l-16 z-d-10">div</span><span class="z-l-16 z-d-10">`</span><span> y</span><span>)</span><span>)</span><span>)</span></span></code></pre>
+<p><code>safeDiv</code> 的定义也可以使用 <code>do</code> 语法糖：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span>safeDiv xm ym </span><span class="z-l-16 z-d-10">=</span><span class="z-l-17 z-d-10"> do</span></span>
+<span class="giallo-l"><span>           x </span><span class="z-l-16 z-d-10">&lt;-</span><span> xm</span></span>
+<span class="giallo-l"><span>		   y </span><span class="z-l-16 z-d-10">&lt;-</span><span> ym</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">           if</span><span> y </span><span class="z-l-16 z-d-10">==</span><span class="z-l-9 z-d-4"> 0</span><span class="z-l-17 z-d-10"> then</span><span class="z-l-3 z-d-4"> None</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">                     else</span><span> return </span><span>(</span><span>x </span><span class="z-l-16 z-d-10">`</span><span class="z-l-16 z-d-10">div</span><span class="z-l-16 z-d-10">`</span><span> y</span><span>)</span></span></code></pre>
+<p>有</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span> safeDiv </span><span>(</span><span class="z-l-3 z-d-4">Some</span><span class="z-l-9 z-d-4"> 4</span><span>)</span><span class="z-l-16 z-d-10"> $</span><span> safeDiv </span><span>(</span><span class="z-l-3 z-d-4">Some</span><span class="z-l-9 z-d-4"> 1</span><span>)</span><span> (</span><span class="z-l-3 z-d-4">Some</span><span class="z-l-9 z-d-4"> 0</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-4">None</span></span></code></pre><h2 id="wei-liao-fu-zuo-yong">为了副作用</h2>
+<p>让我们从抽象的定义中抽身，看看现在究竟能做到怎样的副作用处理。</p>
+<p><code>Monad</code> 的定义使得我们可以进行顺序计算，并在计算时携带类型安全的上下文/副作用。</p>
+<h3 id="ji-ben-fu-zuo-yong">基本副作用</h3>
+<p><code>Maybe</code> 类型的原型是：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span class="z-l-17 z-d-10">data</span><span class="z-l-1 z-d-10"> Maybe</span><span> a</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-3 z-d-4"> Nothing</span><span class="z-l-16 z-d-10"> |</span><span class="z-l-3 z-d-4"> Just</span><span> a</span></span></code></pre>
+<p>这将允许计算失败。</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span class="z-l-14 z-d-7">safeDiv</span><span class="z-l-16 z-d-10"> ::</span><span class="z-l-1 z-d-10"> Integral</span><span> a</span><span class="z-l-16 z-d-10"> =&gt;</span><span> a</span><span class="z-l-16 z-d-10"> -&gt;</span><span> a</span><span class="z-l-16 z-d-10"> -&gt;</span><span class="z-l-1 z-d-10"> Maybe</span><span> a</span></span>
+<span class="giallo-l"><span>safeDiv _ </span><span class="z-l-9 z-d-4">0</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-3 z-d-4"> Nothing</span></span>
+<span class="giallo-l"><span>safeDiv x y </span><span class="z-l-16 z-d-10">=</span><span class="z-l-3 z-d-4"> Just</span><span> (</span><span>x </span><span class="z-l-16 z-d-10">`</span><span class="z-l-16 z-d-10">div</span><span class="z-l-16 z-d-10">`</span><span> y</span><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">result</span><span class="z-l-16 z-d-10"> ::</span><span class="z-l-1 z-d-10"> Maybe</span><span class="z-l-1 z-d-10"> Int</span></span>
+<span class="giallo-l"><span>result </span><span class="z-l-16 z-d-10">=</span><span class="z-l-17 z-d-10"> do</span></span>
+<span class="giallo-l"><span>  x </span><span class="z-l-16 z-d-10">&lt;-</span><span class="z-l-3 z-d-4"> Just</span><span class="z-l-9 z-d-4"> 6</span></span>
+<span class="giallo-l"><span>  y </span><span class="z-l-16 z-d-10">&lt;-</span><span> safeDiv x </span><span class="z-l-9 z-d-4">2</span></span>
+<span class="giallo-l"><span>  z </span><span class="z-l-16 z-d-10">&lt;-</span><span> safeDiv y </span><span class="z-l-9 z-d-4">0</span></span>
+<span class="giallo-l"><span>  return z</span></span></code></pre>
+<hr />
+<p><code>Either</code> 类型的原型是：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span class="z-l-17 z-d-10">data</span><span class="z-l-1 z-d-10"> Either</span><span> a</span><span> b</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-3 z-d-4"> Left</span><span> a</span><span class="z-l-16 z-d-10"> |</span><span class="z-l-3 z-d-4"> Right</span><span> b</span></span></code></pre>
+<p>它可以这样用：<code>Left</code> 与 <code>Right</code> 一边存储异常提示，一边存储返回值。</p>
+<hr />
+<p>列表作为单子，副作用语义是一个计算可能产生多个结果，我们会对所有可能性的笛卡尔积遍历。</p>
+<h3 id="shang-xia-wen-fu-zuo-yong">上下文副作用</h3>
+<p>下文中提到的 <code>Monad</code> 都需通过以下方式导入：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span class="z-l-17 z-d-10">import</span><span class="z-l-1 z-d-7"> Control.Monad.Reader</span></span></code></pre>
+<p>GHCi 可能会提示说它在一个隐藏的 package "mtl-2.3.1" 里，需要运行指令 <code>:set -package mtl</code> 来导入。</p>
+<p><code>Reader</code> 类型的原型是 <code>type Reader r = ReaderT r Identity</code>，为方便起见，把它视作 <code>Reader r a</code>，其含义是：<code>r</code> 是只读的环境，<code>a</code> 是你操作的值。<sup class="footnote-reference"><a href="#reader">2</a></sup></p>
+<p>一个例子如下：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span class="z-l-17 z-d-10">import</span><span class="z-l-1 z-d-7"> Control.Monad.Reader</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">tom</span><span class="z-l-16 z-d-10"> ::</span><span class="z-l-1 z-d-10"> Reader</span><span class="z-l-1 z-d-10"> String</span><span class="z-l-1 z-d-10"> String</span></span>
+<span class="giallo-l"><span>tom </span><span class="z-l-16 z-d-10">=</span><span class="z-l-17 z-d-10"> do</span></span>
+<span class="giallo-l"><span>    env </span><span class="z-l-16 z-d-10">&lt;-</span><span> ask </span><span class="z-l-10 z-l-i z-d-3">--</span><span class="z-l-10 z-l-i z-d-3"> gives you the environment which in this case is a String</span></span>
+<span class="giallo-l"><span>    return </span><span>(</span><span>env </span><span class="z-l-16 z-d-10">++</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6"> This is Tom.</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">jerry</span><span class="z-l-16 z-d-10"> ::</span><span class="z-l-1 z-d-10"> Reader</span><span class="z-l-1 z-d-10"> String</span><span class="z-l-1 z-d-10"> String</span></span>
+<span class="giallo-l"><span>jerry </span><span class="z-l-16 z-d-10">=</span><span class="z-l-17 z-d-10"> do</span></span>
+<span class="giallo-l"><span>  env </span><span class="z-l-16 z-d-10">&lt;-</span><span> ask</span></span>
+<span class="giallo-l"><span>  return </span><span>(</span><span>env </span><span class="z-l-16 z-d-10">++</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6"> This is Jerry.</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">tomAndJerry</span><span class="z-l-16 z-d-10"> ::</span><span class="z-l-1 z-d-10"> Reader</span><span class="z-l-1 z-d-10"> String</span><span class="z-l-1 z-d-10"> String</span></span>
+<span class="giallo-l"><span>tomAndJerry </span><span class="z-l-16 z-d-10">=</span><span class="z-l-17 z-d-10"> do</span></span>
+<span class="giallo-l"><span>    t </span><span class="z-l-16 z-d-10">&lt;-</span><span> tom</span></span>
+<span class="giallo-l"><span>    j </span><span class="z-l-16 z-d-10">&lt;-</span><span> jerry</span></span>
+<span class="giallo-l"><span>    return </span><span>(</span><span>t </span><span class="z-l-16 z-d-10">++</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-3 z-d-4">\n</span><span class="z-l-8 z-d-6">&quot;</span><span class="z-l-16 z-d-10"> ++</span><span> j</span><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">runJerryRun</span><span class="z-l-16 z-d-10"> ::</span><span class="z-l-1 z-d-10"> String</span></span>
+<span class="giallo-l"><span>runJerryRun </span><span class="z-l-16 z-d-10">=</span><span> (</span><span>runReader tomAndJerry</span><span>)</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">Who is this?</span><span class="z-l-8 z-d-6">&quot;</span></span></code></pre>
+<p>这将给出：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span> putStrLn </span><span class="z-l-16 z-d-10">$</span><span> runJerryRun</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-4">Who</span><span> is this</span><span class="z-l-16 z-d-10">?</span><span class="z-l-3 z-d-4"> This</span><span> is </span><span class="z-l-1 z-d-7">Tom.</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-4">Who</span><span> is this</span><span class="z-l-16 z-d-10">?</span><span class="z-l-3 z-d-4"> This</span><span> is </span><span class="z-l-1 z-d-7">Jerry.</span></span></code></pre>
+<p>这可用于依赖注入、配置传递。</p>
+<hr />
+<p><code>Writer</code> 类型同理，可视作 <code>Monoid w =&gt; Writer w a</code>。每次计算会产生一个辅助的输出，其将被 <code>mappend</code> 到 <code>w</code> 中。</p>
+<p>这可用于日志、计数器等。</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span class="z-l-17 z-d-10">import</span><span class="z-l-1 z-d-7"> Control.Monad.Writer</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">compute</span><span class="z-l-16 z-d-10"> ::</span><span class="z-l-1 z-d-10"> Writer</span><span> [</span><span class="z-l-1 z-d-10">String</span><span>]</span><span class="z-l-1 z-d-10"> Int</span></span>
+<span class="giallo-l"><span>compute </span><span class="z-l-16 z-d-10">=</span><span class="z-l-17 z-d-10"> do</span></span>
+<span class="giallo-l"><span>  tell </span><span>[</span><span class="z-l-8 z-d-6">&quot;</span><span class="z-l-8 z-d-6">Starts here ###</span><span class="z-l-8 z-d-6">&quot;</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">  let</span><span> x </span><span class="z-l-16 z-d-10">=</span><span class="z-l-9 z-d-4"> 10</span></span>
+<span class="giallo-l"><span>  tell </span><span>[</span><span class="z-l-8 z-d-6">&quot;</span><span class="z-l-8 z-d-6">Initial: </span><span class="z-l-8 z-d-6">&quot;</span><span class="z-l-16 z-d-10"> ++</span><span> show x</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">  let</span><span> y </span><span class="z-l-16 z-d-10">=</span><span> x </span><span class="z-l-16 z-d-10">*</span><span class="z-l-9 z-d-4"> 2</span></span>
+<span class="giallo-l"><span>  tell </span><span>[</span><span class="z-l-8 z-d-6">&quot;</span><span class="z-l-8 z-d-6">Multiply by 2: </span><span class="z-l-8 z-d-6">&quot;</span><span class="z-l-16 z-d-10"> ++</span><span> show y</span><span>]</span></span>
+<span class="giallo-l"><span>  </span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">  let</span><span> z </span><span class="z-l-16 z-d-10">=</span><span> y </span><span class="z-l-16 z-d-10">+</span><span class="z-l-9 z-d-4"> 5</span></span>
+<span class="giallo-l"><span>  tell </span><span>[</span><span class="z-l-8 z-d-6">&quot;</span><span class="z-l-8 z-d-6">Add by 5: </span><span class="z-l-8 z-d-6">&quot;</span><span class="z-l-16 z-d-10"> ++</span><span> show z</span><span>]</span></span>
+<span class="giallo-l"><span>  </span></span>
+<span class="giallo-l"><span>  tell </span><span>[</span><span class="z-l-8 z-d-6">&quot;</span><span class="z-l-8 z-d-6">Done.</span><span class="z-l-8 z-d-6">&quot;</span><span>]</span></span>
+<span class="giallo-l"><span>  return z</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">example</span><span class="z-l-16 z-d-10"> ::</span><span class="z-l-1 z-d-10"> IO</span><span class="z-l-16 z-l-i z-d-4"> (</span><span class="z-l-16 z-l-i z-d-4">)</span></span>
+<span class="giallo-l"><span>example </span><span class="z-l-16 z-d-10">=</span><span class="z-l-17 z-d-10"> do</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">  let</span><span> (</span><span>result</span><span class="z-l-6">,</span><span> log</span><span>)</span><span class="z-l-16 z-d-10"> =</span><span> runWriter compute</span></span>
+<span class="giallo-l"><span>  putStrLn </span><span class="z-l-16 z-d-10">$</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">Result: </span><span class="z-l-8 z-d-6">&quot;</span><span class="z-l-16 z-d-10"> ++</span><span> show result</span></span>
+<span class="giallo-l"><span>  putStrLn </span><span class="z-l-8 z-d-6">&quot;</span><span class="z-l-8 z-d-6">Log:</span><span class="z-l-8 z-d-6">&quot;</span></span>
+<span class="giallo-l"><span>  mapM_ putStrLn log</span></span></code></pre>
+<hr />
+<p><code>State</code> 同样可看作 <code>State s a</code>，可看作 <code>Reader</code> 与 <code>Writer</code> 的结合。</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span class="z-l-17 z-d-10">import</span><span class="z-l-1 z-d-7"> Control.Monad.State</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">type</span><span class="z-l-1 z-d-10"> Account</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-1 z-d-10"> Int</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">deposit</span><span class="z-l-16 z-d-10"> ::</span><span class="z-l-1 z-d-10"> Int</span><span class="z-l-16 z-d-10"> -&gt;</span><span class="z-l-1 z-d-10"> State</span><span class="z-l-1 z-d-10"> Account</span><span class="z-l-16 z-l-i z-d-4"> (</span><span class="z-l-16 z-l-i z-d-4">)</span></span>
+<span class="giallo-l"><span>deposit amount </span><span class="z-l-16 z-d-10">=</span><span> modify </span><span>(</span><span class="z-l-16 z-d-10">+</span><span> amount</span><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">withdraw</span><span class="z-l-16 z-d-10"> ::</span><span class="z-l-1 z-d-10"> Int</span><span class="z-l-16 z-d-10"> -&gt;</span><span class="z-l-1 z-d-10"> State</span><span class="z-l-1 z-d-10"> Account</span><span class="z-l-1 z-d-10"> Bool</span></span>
+<span class="giallo-l"><span>withdraw amount </span><span class="z-l-16 z-d-10">=</span><span class="z-l-17 z-d-10"> do</span></span>
+<span class="giallo-l"><span>  balance </span><span class="z-l-16 z-d-10">&lt;-</span><span> get</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">  if</span><span> amount </span><span class="z-l-16 z-d-10">&lt;=</span><span> balance</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    then</span><span> modify </span><span>(</span><span>subtract amount</span><span>)</span><span class="z-l-16 z-d-10"> &gt;&gt;</span><span> return </span><span class="z-l-3 z-d-4">True</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    else</span><span> return </span><span class="z-l-3 z-d-4">False</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">example</span><span class="z-l-16 z-d-10"> ::</span><span> (</span><span class="z-l-1 z-d-10">Bool</span><span class="z-l-6">,</span><span class="z-l-1 z-d-10"> Account</span><span>)</span></span>
+<span class="giallo-l"><span>example </span><span class="z-l-16 z-d-10">=</span><span> runState </span><span>(</span><span class="z-l-17 z-d-10">do</span></span>
+<span class="giallo-l"><span>  put </span><span class="z-l-9 z-d-4">10</span></span>
+<span class="giallo-l"><span>  deposit </span><span class="z-l-9 z-d-4">100</span></span>
+<span class="giallo-l"><span>  deposit </span><span class="z-l-9 z-d-4">50</span></span>
+<span class="giallo-l"><span>  success </span><span class="z-l-16 z-d-10">&lt;-</span><span> withdraw </span><span class="z-l-9 z-d-4">200</span></span>
+<span class="giallo-l"><span>  return success</span><span>)</span><span class="z-l-9 z-d-4"> 1000</span></span></code></pre><h3 id="gong-ju-functor">工具 Functor</h3>
+<p><code>Data.Functor</code> 提供了一些工具性质的函子。</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span> import </span><span class="z-l-1 z-d-7">Data.</span><span class="z-l-1 z-d-7">Functor.</span><span class="z-l-3 z-d-4">Identity</span></span>
+<span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span> fmap </span><span>(</span><span class="z-l-16 z-d-10">+</span><span class="z-l-9 z-d-4">1</span><span>)</span><span> (</span><span class="z-l-3 z-d-4">Identity</span><span class="z-l-9 z-d-4"> 0</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-4">Identity</span><span class="z-l-9 z-d-4"> 1</span></span>
+<span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span class="z-l-16 z-d-10"> :</span><span>{</span></span>
+<span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">|</span><span class="z-l-17 z-d-10"> do</span></span>
+<span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">|</span><span>   x </span><span class="z-l-16 z-d-10">&lt;-</span><span class="z-l-3 z-d-4"> Identity</span><span class="z-l-9 z-d-4"> 10</span></span>
+<span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">|</span><span>   y </span><span class="z-l-16 z-d-10">&lt;-</span><span class="z-l-3 z-d-4"> Identity</span><span> (</span><span>x </span><span class="z-l-16 z-d-10">+</span><span class="z-l-9 z-d-4"> 5</span><span>)</span></span>
+<span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">|</span><span>   pure </span><span>(</span><span>x </span><span class="z-l-16 z-d-10">+</span><span> y</span><span>)</span></span>
+<span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">|</span><span class="z-l-16 z-d-10"> :</span><span>}</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-4">Identity</span><span class="z-l-9 z-d-4"> 25</span></span>
+<span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span> import </span><span class="z-l-1 z-d-7">Data.</span><span class="z-l-1 z-d-7">Functor.</span><span class="z-l-3 z-d-4">Const</span></span>
+<span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span> fmap </span><span>(</span><span class="z-l-16 z-d-10">++</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">World</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span> (</span><span class="z-l-3 z-d-4">Const</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">Hello</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-4">Const</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">Hello</span><span class="z-l-8 z-d-6">&quot;</span></span>
+<span class="giallo-l"><span>ghci</span><span class="z-l-16 z-d-10">&gt;</span><span class="z-l-3 z-d-4"> Const</span><span> [</span><span class="z-l-9 z-d-4">1</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4"> 2</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4"> 3</span><span>]</span><span class="z-l-16 z-d-10"> &lt;*&gt;</span><span class="z-l-3 z-d-4"> Const</span><span> [</span><span class="z-l-9 z-d-4">4</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4"> 5</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4"> 6</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-4">Const</span><span> [</span><span class="z-l-9 z-d-4">1</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">2</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">3</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">4</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">5</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">6</span><span>]</span></span></code></pre><h3 id="gao-ji-monad">高级 Monad</h3>
+<p>Haskell 中还有更加强大的控制流。</p>
+<p>以下在 GHCi 中需要设置 <code>:set -package transformers</code>.</p>
+<p><code>Cont</code> 可以做 continuation-passing style 计算，可以实现任意跳转、提前返回、复杂错误处理。</p>
+<p><code>Select</code> 可解决搜索和优化问题。</p>
+<p><code>Free</code> 可以将任意 <code>Functor</code> 提升为 <code>Monad</code>.</p>
+<p>关于它们的详细内容或许会在之后的文章中讨论。</p>
+<hr />
+<p>事实上，在实际的 Haskell 开发中很少直接使用 <code>State s</code> 或 <code>Writer w</code> 等纯的单子，而是组合 Monad 变换器，形如：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="haskell"><span class="giallo-l"><span class="z-l-17 z-d-10">type</span><span class="z-l-1 z-d-10"> MyApp</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-1 z-d-10"> ReaderT</span><span class="z-l-1 z-d-10"> Config</span><span> (</span><span class="z-l-1 z-d-10">StateT</span><span class="z-l-1 z-d-10"> AppState</span><span> (</span><span class="z-l-1 z-d-10">ExceptT</span><span class="z-l-1 z-d-10"> Error</span><span class="z-l-1 z-d-10"> IO</span><span>)</span><span>)</span></span></code></pre>
+<div class="footnote-definition" id="omit"><sup class="footnote-definition-label">1</sup>
+<p>在 GHCi 中使用命令 <code>:info Semigroup</code>（可简写为 <code>:i Semigroup</code>）可以看到更详细的信息。一部分不必要的内容被省略了，下同。</p>
+</div>
+<div class="footnote-definition" id="reader"><sup class="footnote-definition-label">2</sup>
+<p>参考了 <a rel="external" href="https://blog.ssanj.net/posts/2014-09-23-A-Simple-Reader-Monad-Example.html">A Simple Reader Monad Example</a> 的看法，下面的示例也来自此文。</p>
+</div>
+</section>
+  <hr />
+  
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/计算机/">计算机</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/计算理论/">计算理论</a>
+    
+  </div>
+</footer>
+
+  
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- page_end inject -->
+
+</article>
+
+  </main>
+  <footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+    <div class="mr-auto basis-full lg:basis-1/2">
+      
+&copy; 2025-2026 Rratic
+ &vert; <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+
+    </div>
+    <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+      
+  <span class="mr-6 lg:ml-6">
+    <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+  </span>
+  <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+
+    </div>
+  <!-- footer inject -->
+
+  </footer>
+  
+  <link rel="stylesheet" href="https://rratic.top/katex/katex.min.css?h=180c2d77d434d7da51d6" />
+  <script defer src="https://rratic.top/katex/katex.min.js?h=2ec5916941ef4383e031"></script>
+  <script defer src="https://rratic.top/katex/contrib/auto-render.min.js?h=e5372d199bcdae8b4de7"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+  
+
+  <!-- body_end inject -->
+
+</body>
+
+</html>

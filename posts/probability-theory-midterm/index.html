@@ -1,0 +1,507 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola v0.23.4" />
+  <title>《概率论》期中复习笔记 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="《概率论》期中复习笔记" />
+  <meta name="description" content="26秋的概率论课程期中复习。教材的材料组织形式令人不悦，这里参考 Durrett, Probability Theory and Examples 作一些整理。" />
+  <meta property="og:description" content="26秋的概率论课程期中复习。教材的材料组织形式令人不悦，这里参考 Durrett, Probability Theory and Examples 作一些整理。" />
+  <meta property="og:url" content="https://rratic.top/posts/probability-theory-midterm/" />
+  <link rel="canonical" href="https://rratic.top/posts/probability-theory-midterm/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-11-01T00:00:00+00:00" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="概率论" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <meta name="msvalidate.01" content="9BE559916FDB06A7A09EA17370F0ED09" />
+<link rel="icon" type="image/svg+xml" href="https://rratic.top/favicon.svg" />
+<link rel="stylesheet" href="https://rratic.top/style/shared.css?h=2dac71ecd418f5165c3d" />
+
+  <link rel="stylesheet" href="https://rratic.top/giallo-light.css?h=396eaa20499714fdb600" media="(prefers-color-scheme: light)" />
+  <link rel="stylesheet" href="https://rratic.top/giallo-dark.css?h=536598ee42e9e9a795bc" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=f166037ad671ba6bfd13" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=11a0f44fbe01f53dbaf9"></script>
+  <!-- head_end inject -->
+
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      
+<menu
+  class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/posts/"
+    >文章</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/categories/"
+    >分类</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/tags/"
+    >标签</a>
+  </li>
+</menu>
+
+      <!-- header_nav inject -->
+
+    </nav>
+  </div>
+</header>
+
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    <!-- body_start inject -->
+
+    
+<article>
+  <!-- page_start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-3">《概率论》期中复习笔记</h1>
+    <div class="text-sm antialiased opacity-80"><time
+      datetime="2026-11-01T00:00:00+00:00">2026-11-01</time><span
+        class="middot"></span><time
+    datetime="PT0H13M0S">13&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+  </header>
+  
+  
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#chu-deng-li-lun">初等理论</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#gai-lu-kong-jian">概率空间</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#sui-ji-bian-liang">随机变量</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#sui-ji-bian-liang-yu-fen-bu">随机变量与分布</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#chi-san-xing-yu-lian-xu-xing">离散型与连续型</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ke-ce-ying-she">可测映射</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#sui-ji-xiang-liang">随机向量</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ji-ben-ding-yi">基本定义</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#tiao-jian-fen-bu">条件分布</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#bian-huan">变换</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#sui-ji-bian-liang-xu-lie">随机变量序列</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#shu-xue-qi-wang">数学期望</a>
+      </li>
+    </ul>
+  </details>
+</nav>
+  <!-- Content -->
+  <section><p>26秋的概率论课程期中复习。教材的材料组织形式令人不悦，这里参考 Durrett, <em>Probability Theory and Examples</em> 作一些整理。</p>
+<span id="continue-reading"></span><h2 id="chu-deng-li-lun">初等理论</h2>
+<p>称<strong>随机试验</strong>的每个结果为<strong>样本</strong>/样本点，样本构成的集合 $\Omega$ 称为<strong>样本空间</strong>，称其某些子集为<strong>事件</strong>。在古典概率模型中，$\Omega$ 是有限集，每个可能结果等可能出现。即：</p>
+<p>$$P(A) \coloneqq \frac{|A|}{|\Omega|}$$</p>
+<p>几何概率模型中，$\Omega$ 是某个 $d$ 维区域，</p>
+<p>$$P(A) \coloneqq \frac{\mathrm{Vol}(A)}{\mathrm{Vol}(\Omega)}$$</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-example);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/example.svg)">example</div>
+    <span><strong>Buffon 投针问题</strong></span>
+  </div>
+  <div class="pl-4"><p>平面上一组等距的平行线，相邻直线距离 $a$，随机投一根长度 $l$ 的针，求针与平行线相交概率。</p>
+</div>
+</div>
+<p>考虑的建模是：针的中点与平行线距离 $r$，针与平行线所夹锐角 $\theta$，</p>
+<p>$$
+\Omega = \set{(r, \theta) | r \in [0, a/2], \theta \in [0, \pi/2]} \\
+A = \set{(r, \theta) | r \leq (l \sin \theta) / 2}
+$$</p>
+<p>算得 $P(A) = 2l / a\pi$；投针问题的变体可以类似地计算（如投正三角形可以考虑竖直方向上的投影）。</p>
+<p>可以讨论此建模的合理性。但实际上几何概率模型可能产生不同的“随机”理解：</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-example);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/example.svg)">example</div>
+    <span><strong>Bertrand 悖论</strong></span>
+  </div>
+  <div class="pl-4"><p>在单位圆内任意画一条弦，弦长超过 $\sqrt{3}$ 的概率是多少？</p>
+<p>存在以下不同的答案：用弦中点确定，它只能在一个小圆内，结果为 $1 / 4$；用弦中点与圆心距离确定，结果为 $1 / 2$；用两个端点之间的弧长确定，结果为 $1 / 3$……</p>
+</div>
+</div>
+<p>对于 $P(A) &gt; 0$，我们定义在 $A$ 发生的条件下 $B$ 的<strong>条件概率</strong>是：</p>
+<p>$$P(B|A) = P_A(B) \coloneqq \frac{P(AB)}{P(A)}$$</p>
+<p>于是有全概率公式、Bayes 公式；可以定义事件的<strong>独立</strong>是 $P(AB) = P(A)P(B)$；定义重复独立试验。</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-question);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/question.svg)">question</div>
+    <span><strong>习题 1.7.5</strong></span>
+  </div>
+  <div class="pl-4"><p>坛中有若干黑球、红球。定义操作：从坛中随机取一个球（称为“甲”），记下颜色并扔掉；然后，每次从剩下的球中随机取一个，若颜色与甲相同，则扔掉并进行下一次取球；否则放回坛中，结束操作。假设初始有 $b$ 黑球 $r$ 红球，重复操作直到没有球，求最后一个被扔掉的是黑球的概率。</p>
+</div>
+</div>
+<p>记概率 $P(b, r)$ 关于两个参数对称，有：</p>
+<p>$$P(b, r) = \sum_{j=1}^b P(b-j, r) \cdot \frac{A_b^j}{A_{b+r}^j} \cdot \frac{r}{b+r-j} + \sum_{j=1}^r P(b, r-j) \cdots$$</p>
+<p>我们想要说明的是下式，因此可以简化只讨论是否 $j = b, j = r$，并归纳：</p>
+<p>$$
+P(b, r) = \begin{cases}
+1 &amp; r = 0 \\
+0 &amp; b = 0 \\
+\frac 1 2 &amp; \text{otherwise}
+\end{cases}
+$$</p>
+<h2 id="gai-lu-kong-jian">概率空间</h2>
+<p>通过 Kolmogorov 公理，正式地定义<strong>概率空间</strong>是三元组 $(\Omega, \mathcal F, P)$，其中 $\mathcal F$ 是 $\sigma$-代数，$P: \mathcal F \to [0, 1]$ 是概率测度。</p>
+<p>这里 $\sigma$-代数的要求是 $\Omega \in \mathcal F \subseteq \mathscr P(\Omega)$，且 $\mathcal F$ 对补、可列并封闭。在 $\R^d$ 上用 $\mathcal R^d$ 表示 Borel 集（包含所有开集的最小 $\sigma$-代数）。$(\Omega, \mathcal F)$ 上的<strong>测度</strong>是非负、可列可加的 $\mu: \mathcal F \to \R$，在 $\mu(\Omega) = 1$ 时称为概率测度。</p>
+<p>我们用符号 $A_i \uparrow A$ 表示 $A_1 \sub A_2 \sub \dots$ 且 $\bigcup A_i = A$，符号 $\downarrow$ 反之。易见：</p>
+<p>$$
+A_i \uparrow A \implies P(A_i) \uparrow P(A) \\
+A_i \downarrow A \implies P(A_i) \downarrow P(A)
+$$</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>一维的测度</strong></span>
+  </div>
+  <div class="pl-4"><p>每个 Stieltjes 测度函数（不降、右连续）$F$ 对应唯一的一个 $(R, \mathcal R)$ 上的测度 $\mu((a, b]) = F(b) - F(a)$.</p>
+</div>
+</div>
+<p>证明略。在 $F(x) = x$ 时对应的就是 Lebesgue 测度。</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>d 维的测度</strong></span>
+  </div>
+  <div class="pl-4"><p>$F: \R^d \to [0, 1]$ 满足以下条件时对应唯一概率测度 $\mu(A) = \Delta_A F$：</p>
+<ul>
+<li>对所有分量不降</li>
+<li>对所有分量右连续</li>
+<li>$x_n \downarrow -\infty \implies F(x_n) \downarrow 0$</li>
+<li>$x_n \uparrow +\infty \implies F(x_n) \uparrow 1$</li>
+<li>对所有矩形 $A$ 有 $\Delta_A F \geq 0$</li>
+</ul>
+</div>
+</div>
+<p>如果不要求最后一个条件则存在反例。</p>
+<h2 id="sui-ji-bian-liang">随机变量</h2>
+<h3 id="sui-ji-bian-liang-yu-fen-bu">随机变量与分布</h3>
+<p>$X: \Omega \to \R$ 称为<strong>随机变量</strong>，如果对任意 $B \in \mathcal R$ 有 $X^{-1}(B) \in \mathcal F$. 对离散概率空间所有函数都是随机变量；另一个例子是取 $A \in \mathcal F$，示性函数 $1_A$ 是随机变量。实际上，在验证时只需要考虑所有的 $B = (-\infty, a]$，还可以只考虑其中 $a \in \mathbb Q$ 不过一般不会更容易。</p>
+<p>随机变量会诱导一个随机测度 $\mu = P \circ X^{-1}$，称为<strong>分布</strong>。我们用 $P(X \in A)$ 指代 $P(\set{\omega | X(\omega) \in A})$，通常用（累积）<strong>分布函数</strong> $F(x) = P(X \leq x)$ 刻画随机变量。相应地 $G(x) = P(X &gt; x)$ 称为尾分布函数。</p>
+<p>易知：随机变量的分布函数单调不降、右连续、两端分别趋向 $0, 1$；反之这样的函数也一定决定一个唯一的分布。</p>
+<p>我们说 $X, Y$ <strong>同分布</strong> $X \stackrel d = Y$ 或 $X \sim Y$，如果它们诱导的分布函数相同。若 $P(\set{\omega | X(\omega) = Y(\omega)}) = 1$，则称它们几乎必然（almost surely）相等 $X = Y \text{ a.s.}$，这是概率论风格的“几乎处处（almost everywhere）”。其它的“依测度 $\mu$ 某某”亦类似此理解。</p>
+<p>对概率分布 $Y$，称 $X$ 服从于分布 $Y$（$X \sim Y$），如果 $X$ 的分布等于 $Y$.</p>
+<h3 id="chi-san-xing-yu-lian-xu-xing">离散型与连续型</h3>
+<p><strong>离散型随机变量</strong>要求 $X$ 只有可数的取值。分布的例子如下：</p>
+<table><thead><tr><th style="text-align: center">分布名称</th><th style="text-align: center">记号</th><th style="text-align: center">$P(X = k)$ 表达式</th></tr></thead><tbody>
+<tr><td style="text-align: center">超几何分布<sup class="footnote-reference"><a href="#hypergeometric">1</a></sup></td><td style="text-align: center">$H(N, M, n)$</td><td style="text-align: center">$\binom{M}{k} \binom{N-M}{n-k} / \binom{N}{n}$</td></tr>
+<tr><td style="text-align: center">二项分布<sup class="footnote-reference"><a href="#binomial">2</a></sup></td><td style="text-align: center">$B(n, p)$</td><td style="text-align: center">$C_n^k p^k (1-p)^{n-k}$</td></tr>
+<tr><td style="text-align: center">几何分布<sup class="footnote-reference"><a href="#geometric">3</a></sup></td><td style="text-align: center">$G(p)$</td><td style="text-align: center">$(1-p)^{k-1} p$</td></tr>
+<tr><td style="text-align: center">负二项分布<sup class="footnote-reference"><a href="#negative-binomial">4</a></sup></td><td style="text-align: center">$NB(r, p)$</td><td style="text-align: center">$C_{r+k-1}^k (1-p)^k p^r$</td></tr>
+<tr><td style="text-align: center">Poisson 分布</td><td style="text-align: center">$P(\lambda)$</td><td style="text-align: center">$\lambda^k e^{-\lambda} / k!$</td></tr>
+</tbody></table>
+<p><strong>连续型随机变量</strong>要求分布函数有如下形式。此时称 $X$ 有<strong>密度函数</strong> $f$：</p>
+<p>$$F(x) = \int_{-\infty}^x f(t) \mathrm dt$$</p>
+<p>$f$ 也常被更清晰地写成 $p_X(x)$. 例子如下：</p>
+<table><thead><tr><th style="text-align: center">分布名称</th><th style="text-align: center">记号</th><th style="text-align: center">$p_X(x)$ 表达式</th></tr></thead><tbody>
+<tr><td style="text-align: center">均匀分布</td><td style="text-align: center">$U(a, b)$</td><td style="text-align: center">$\begin{cases} 1 / (b-a) &amp; x \in [a, b] \\ 0 &amp; \text{otherwise} \end{cases}$</td></tr>
+<tr><td style="text-align: center">指数分布</td><td style="text-align: center">$\mathrm{Exp}(\lambda)$</td><td style="text-align: center">$\begin{cases} \lambda e^{-\lambda x} &amp; x &gt; 0 \\ 0 &amp; x \leq 0 \end{cases}$</td></tr>
+<tr><td style="text-align: center">正态分布</td><td style="text-align: center">$N(\mu, \sigma^2)$</td><td style="text-align: center">$e^{- (x - \mu)^2 / 2 \sigma^2} / \sqrt{2\pi \sigma^2}$</td></tr>
+<tr><td style="text-align: center">$\Gamma$ 分布</td><td style="text-align: center">$\Gamma(\alpha, \lambda)$</td><td style="text-align: center">$\begin{cases} \frac{\lambda^\alpha}{\Gamma(\alpha)} x^{\alpha-1} e^{-\lambda x} &amp; x &gt; 0 \\ 0 &amp; \text{otherwise} \end{cases}$</td></tr>
+<tr><td style="text-align: center">Cauchy 分布<sup class="footnote-reference"><a href="#cauchy">5</a></sup></td><td style="text-align: center">$C(\mu, \alpha)$</td><td style="text-align: center">$\alpha / \pi((x - \mu^2)^2 + \alpha^2)$</td></tr>
+</tbody></table>
+<p>当我们有 $X$ 的密度函数，对变换 $Y = f(X)$，如果 $f$ 分段严格单调且可微，则在 $Y$ 的取值范围内有密度函数：</p>
+<p>$$p_Y(y) = \sum_{f(x_i) = y} \frac{p_X(x_i)}{|f'(x_i)|}$$</p>
+<hr />
+<p>注意存在既不是离散型也不是连续型的随机变量。实际上可以非常奇怪：称一个分布函数奇异，如果对应的测度关于 Lebesgue 测度奇异（称两个测度奇异 $\mu \perp \lambda$，如果存在集合 $N$ 使得 $\lambda(N) = \mu(N^\complement) = 0$）。奇异分布的例子如：</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-example);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/example.svg)">example</div>
+    <span><strong>Cantor 集上的均匀分布</strong></span>
+  </div>
+  <div class="pl-4"><p>考虑 Cantor 集，让 $F(x)$ 在 $[1/3, 2/3]$ 是 $1/2$；在 $[1/9, 2/9]$ 是 $1/4$，在 $[7/9, 8/9]$ 是 $3/4$；以此类推，然后用单调性定义。</p>
+</div>
+</div>
+<h3 id="ke-ce-ying-she">可测映射</h3>
+<p>稍微扩展一下随机变量的定义，考虑一般的 $X: \Omega \to S$，称为可测映射。后者是 $(\R^d, \mathcal R^d)$ 时，称它是<strong>随机向量</strong>。后者是扩展实数系时，称为广义随机变量。</p>
+<p>可测映射的复合是可测映射。</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-note);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/note.svg)">note</div>
+    <span><strong>注</strong></span>
+  </div>
+  <div class="pl-4"><p>或许我们采取范畴看法会更舒服。</p>
+</div>
+</div>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-example);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/example.svg)">example</div>
+    <span><strong>例</strong></span>
+  </div>
+  <div class="pl-4"><p>对随机变量 $X_1, \dots, X_n$，有 $X_1 + \cdots + X_n$ 是随机变量。</p>
+<p>首先，$(X_1, \dots, X_n)$ 是随机向量。而 $f(x_1, \dots, x_n) = x_1 + \cdots + x_n$ 是可测映射，这里只需验证 $(-\infty, a)$ 的原像，而这个原像一定是开集。</p>
+</div>
+</div>
+<p>同理知 $\inf X_n, \sup X_n, \liminf X_n, \limsup X_n$ 也是随机变量。</p>
+<p>我们称 $X_n$ 几乎必然收敛，如果：</p>
+<p>$$P(\set{\omega | \exists \lim_{n \to \infty} X_n}) = 1$$</p>
+<h2 id="sui-ji-xiang-liang">随机向量</h2>
+<h3 id="ji-ben-ding-yi">基本定义</h3>
+<p>对离散型随机向量我们称“联合分布列”，记作：</p>
+<p>$$p_{ij} = P(X = i, Y = j)$$</p>
+<p>对连续性随机向量我们称“联合密度函数”，对可测区域有：</p>
+<p>$$P((X, Y) \in D) = \iint p_{X, Y}(x, y) \mathrm d\mu$$</p>
+<p>二维正态分布 $(X, Y) \sim N(\mu_1, \mu_2, \sigma_1^2, \sigma_2^2, \rho)$ 的联合密度函数：</p>
+<p>$$\frac 1 {2\pi \sigma_1 \sigma_2 \sqrt{1 - \rho^2}} \exp \left[- \frac {(x - \mu_1)^2 - 2\rho(x - \mu_1)(y - \mu_2) + (y - \mu_2)^2} {2 (1 - \rho^2) \sigma_1^2 \sigma_2^2}\right]$$</p>
+<p>对 $\vec X = (X_1, \dots, X_n)$，对 $m &lt; n$ 称 $\vec Y = (X_{i_1}, \dots, X_{i_m})$ 是 $\vec X$ 的<strong>边缘</strong>。对应分布/密度称边缘（联合）分布/密度。对两个概率分布 $\mu_1, \mu_2$，若 $\mu$ 是联合分布，以 $\mu_1, \mu_2$ 为边缘分布，则称 $\mu$ 是 $\mu_1, \mu_2$ 的耦合。</p>
+<p>使用随机变量可以更方便地表述：称 $X_1, \dots, X_n$ <strong>相互独立</strong>，如果对任意 $x_1, \dots, x_n$，</p>
+<p>$$P(X_1 \leq x_1, \dots, X_n \leq x_n) = P(X_1 \leq x_1) \cdots P(X_n \leq x_n)$$</p>
+<p>相互独立可以推出两两独立。若对所有 $i$ 有 $X_i \stackrel d = X_1$，则称它们独立同分布，</p>
+<p>$$X_i \stackrel {\text{iid}} \sim X_1$$</p>
+<h3 id="tiao-jian-fen-bu">条件分布</h3>
+<p>对连续型随机向量，我们通过极限来给出定义：</p>
+<p>$$F_{Y|X}(y|x) \coloneqq \lim_{\varepsilon \to 0^+} P(Y \leq y | x - \varepsilon &lt; X \leq x + \varepsilon)$$</p>
+<p>在涉及函数足够连续时，所谓条件密度函数是为：</p>
+<p>$$p_{Y|X}(y|x) = \frac{p_{X, Y}(x, y)}{p_X(x)}$$</p>
+<p>一般地定义在 $X = x$ 的条件下，$Y$ 关于 $X$ 的条件分布函数是 $F_{Y|X}(\cdot|x)$，其中在 $y$ 是间断点时用右连续补全：</p>
+<p>$$F_{Y|X}(y|x) \coloneqq \lim_{z \to y^+} F_{Y|X}(z|x)$$</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-question);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/question.svg)">question</div>
+    <span><strong>书例 2.6.4</strong></span>
+  </div>
+  <div class="pl-4"><p>在单位球面 $\mathbb S^2$ 上随机取四个点，求这四个点不共半球的概率。</p>
+</div>
+</div>
+<p>设 $\xi_i \stackrel {\text{iid}} \sim U(\mathbb S^2)$，用 $\Delta_{\alpha\beta\gamma}$ 表示三条大圆上的劣弧围成的三角形。令 $A = \set{\xi_4 \in \Delta_{-\xi_1, -\xi_2, -\xi_3}}$，所求即 $P(A)$.</p>
+<p>取与 $\xi_1, \xi_2, \xi_3$ 相互独立的随机变量 $W_1, W_2, W_3$ 是 $P(W_i = 1) = P(W_i = -1) = 1/2$，令 $\eta_i = W_i\xi_i$，$B = \set{\xi_4 \in \Delta_{\eta_1, \eta_2, \eta_3}}$，由同分布 $P(A) = P(B)$.</p>
+<p>对固定点 $\alpha_1, \alpha_2, \alpha_3$，有：</p>
+<p>$$P(B|\xi_1 = \alpha_1, \xi_2 = \alpha_2, \xi_3 = \alpha_3) = 1/8$$</p>
+<p>用全概率公式，就有 $P(B) = 1/8$，即为所求。</p>
+<h3 id="bian-huan">变换</h3>
+<p>定义分布函数 $F: \R \to [0, 1]$ 的广义反函数：</p>
+<p>$$
+\begin{aligned}
+F^{-1}: (0, 1) &amp;\longrightarrow \R \cr
+u &amp;\longmapsto \inf \set{x \in \R | F(x) \geq u}
+\end{aligned}
+$$</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-question);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/question.svg)">question</div>
+    <span><strong>2025 P5</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $F(x)$ 分布函数，构造随机向量 $(X, Y)$ 使边缘分布函数都是 $F(x)$，且 $\max \set{X, Y}$ 的分布函数是 $\max \set{2F(x) - 1, 0}$.</p>
+</div>
+</div>
+<p>可以令 $F(x, y) = \max \set{F(x) + F(y) - 1, 0}$，更一般的做法是让 $U \sim U(0, 1)$，取：</p>
+<p>$$X = F^{-1}(U),\ Y = F^{-1}(1 - U)$$</p>
+<hr />
+<p>回忆 $X + Y$ 是随机变量。对 $X, Y$ 独立的连续型随机变量，易见：</p>
+<p>$$p_{X+Y}(z) = \int_{-\infty}^{+\infty} p_X(z-y) p_Y(y) \mathrm dy$$</p>
+<p>对 $(\R, \mathcal R)$ 上两个分布 $\mu, \nu$，$X \sim \mu, Y \sim \nu$ 相互独立，则称 $X + Y$ 的分布为 $\mu$ 与 $\nu$ 的<strong>卷积</strong> $\mu \ast \nu$.</p>
+<p>若分布族 $\{\mu_\alpha\}$ 满足对 $\mu_\alpha, \mu_\beta$ 存在 $\mu_\alpha \ast \mu_\beta = \mu_\gamma$，则称该分布族有可加性/再生性。例如：</p>
+<ul>
+<li>二项分布 $B(n, p) \ast B(m, p) = B(n + m, p)$</li>
+<li>Poisson 分布 $P(\lambda_1) \ast P(\lambda_2) = P(\lambda_1 + \lambda_2)$</li>
+<li>正态分布 $N(\mu_1, \sigma_1^2) + N(\mu_2, \sigma_2^2) = N(\mu_1 + \mu_2, \sigma_1^2 + \sigma_2^2)$</li>
+<li>$\Gamma$ 分布 $\Gamma(\alpha_1, \lambda) \ast \Gamma(\alpha_2, \lambda) = \Gamma(\alpha_1 + \alpha_2, \lambda)$</li>
+</ul>
+<hr />
+<p>Borel 函数是指 $\R^n \to \R^m$ 的可测映射。对于 $n$ 维随机向量 $\vec X \sim \vec Y$ 与 Borel 函数 $f$，有 $f(\vec X) \sim f(\vec Y)$.</p>
+<p>一个常见的问题是对 $\vec Y = f(\vec X) \in \R^n$，用 $\vec X$ 的联合密度求 $Y$ 的联合密度。若某个邻域上 $f: D \to D'$ 一一且 Jacobi 行列式处处非零，则对 $y \in D'$，</p>
+<p>$$p_{\vec Y}(y) = p_{\vec X}(f^{-1}(y)) \cdot |\det J(f^{-1})|$$</p>
+<p>若 $f: D \to D'$ 是多对一的，则只需要把各个反函数对应的结果加起来。</p>
+<p>对一般的 $\vec Y \in \R^m$，其中 $m &lt; n$ 时，可以通过补全到 $n$ 维然后取边缘分布来计算。</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-example);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/example.svg)">example</div>
+    <span><strong>顺序统计量</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $X_i$ 独立同分布，$X_1(\omega), \dots, X_n(\omega)$ 从小到大排列得到 $X_{(1)}(\omega) \leq \cdots \leq X_{(n)}(\omega)$，求 $(X_{(1)}, \dots, X_{(n)})$ 的联合密度函数。</p>
+<p>分解 $\set{X_{(i)} \leq x_i}$ 为 $\set{X_{(i)} \leq x_{i-1}} \cup \set{x_{i-1} &lt; X_{(i)} \leq x_i}$，讨论可知：</p>
+<p>$$p(\vec x) = n! p(x_1) \cdots p(x_n) \mathbf 1_{\set{x_1 &lt; \cdots &lt; x_n}}$$</p>
+</div>
+</div>
+<h3 id="sui-ji-bian-liang-xu-lie">随机变量序列</h3>
+<p>我们还可以考虑无穷维的随机向量。于是可以考虑一族随机变量 $\mathbf X = \set{X_\alpha | \alpha \in I}$，在 $I \subseteq \R$ 时称为<strong>随机过程</strong>。</p>
+<p>设 $\xi_1, \dots$ 独立同分布，则称 $\set{S_n | n \geq 0}$ 为<strong>随机游走</strong>。</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-example);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/example.svg)">example</div>
+    <span><strong>Poisson 过程</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $\xi_i \sim \mathrm{Exp}(\lambda)$，令 $X_t = \#\set{n \geq 1 | S_n \leq t}$，则 $X_t \sim P(\lambda t)$.</p>
+</div>
+</div>
+<h2 id="shu-xue-qi-wang">数学期望</h2>
+<p>对于 $X \geq 0$ 的随机变量，我们定义其<strong>期望</strong>是：</p>
+<p>$$\mathbb EX = \int X \mathrm dP$$</p>
+<p>对于一般的情形，我们让 $x^+ = \max\set{x, 0}$ 正部，$x^- = \max\set{-x, 0}$ 负部，当 $\mathbb EX^+$ 与 $\mathbb EX^-$ 之一有限时，可以让：</p>
+<p>$$\mathbb EX = \mathbb EX^+ - \mathbb EX^-$$</p>
+<p>称 $\mathbb EX^k$ 为 $X$ 的 $k$ 阶矩，$\mathbb E(X - \mathbb EX)^k$ 为 $X$ 的 $k$ 阶中心矩。</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>Markov 不等式</strong></span>
+  </div>
+  <div class="pl-4"><p>非负随机变量 $X$，有：</p>
+<p>$$P(X \geq \varepsilon) \leq \frac{\mathbb EX}{\varepsilon} \quad (\varepsilon &gt; 0)$$</p>
+</div>
+</div>
+<hr />
+<div class="footnote-definition" id="hypergeometric"><sup class="footnote-definition-label">1</sup>
+<p>$N$ 个产品中 $N$ 个次品，随机选出 $n$ 个，次品数 $X$.</p>
+</div>
+<div class="footnote-definition" id="binomial"><sup class="footnote-definition-label">2</sup>
+<p>硬币正面概率 $p$，抛 $n$ 次正面数 $X$.</p>
+</div>
+<div class="footnote-definition" id="geometric"><sup class="footnote-definition-label">3</sup>
+<p>硬币正面概率 $p &gt; 0$，首次正面时抛的次数 $X$.</p>
+</div>
+<div class="footnote-definition" id="negative-binomial"><sup class="footnote-definition-label">4</sup>
+<p>硬币正面概率 $p &gt; 0$，$r$ 此正面时抛过反面次数 $X$.</p>
+</div>
+<div class="footnote-definition" id="cauchy"><sup class="footnote-definition-label">5</sup>
+<p>对于独立的 $X \sim N(\mu, \sigma_1^2)$，$Y \sim N(\mu, \sigma_2^2)$，有 $X/Y \sim C(\mu, \sigma_1/\sigma_2)$.</p>
+</div>
+</section>
+  <hr />
+  
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/课程/">课程</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/概率论/">概率论</a>
+    
+  </div>
+</footer>
+
+  
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- page_end inject -->
+
+</article>
+
+  </main>
+  <footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+    <div class="mr-auto basis-full lg:basis-1/2">
+      
+&copy; 2025-2026 Rratic
+ &vert; <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+
+    </div>
+    <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+      
+  <span class="mr-6 lg:ml-6">
+    <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+  </span>
+  <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+
+    </div>
+  <!-- footer inject -->
+
+  </footer>
+  
+  <link rel="stylesheet" href="https://rratic.top/katex/katex.min.css?h=180c2d77d434d7da51d6" />
+  <script defer src="https://rratic.top/katex/katex.min.js?h=2ec5916941ef4383e031"></script>
+  <script defer src="https://rratic.top/katex/contrib/auto-render.min.js?h=e5372d199bcdae8b4de7"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+  
+
+  <!-- body_end inject -->
+
+</body>
+
+</html>

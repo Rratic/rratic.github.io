@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>迷宫生成算法演示</title>
+    <meta name="description" content="随机化 Prim 与递归分割迷宫生成算法的交互式演示。" />
+    <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="/style/form.css" type="text/css">
+    <style>
+        body {
+            margin: 0;
+            background: #f7f7f7;
+            color: #222;
+            font-family: system-ui, sans-serif;
+        }
+
+        #app {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+        }
+
+        #maze-canvas {
+            border: 1px solid #cfcfcf;
+            background: #fff;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+        }
+
+        .hint {
+            margin: 0;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .legend {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .legend span {
+            display: inline-block;
+            margin-right: 12px;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin-right: 4px;
+            border: 1px solid #999;
+            vertical-align: -1px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="form-area">
+            <fieldset class="row">
+                <legend>算法</legend>
+                <select id="select-algorithm">
+                    <option value="prim">随机化 Prim</option>
+                    <option value="chunk">递归分割</option>
+                </select>
+                <button type="button" id="button-generate" class="confirm-btn">生成</button>
+            </fieldset>
+
+            <fieldset id="prim-options" class="row">
+                <legend>Prim 参数</legend>
+                <label>宽 <input id="input-width" type="number" min="5" max="127" value="41"></label>
+                <label>高 <input id="input-height" type="number" min="5" max="127" value="31"></label>
+            </fieldset>
+
+            <fieldset id="chunk-options" class="row hidden">
+                <legend>Chunk 参数</legend>
+                <label>seed <input id="input-seed" type="number" value="2026"></label>
+                <label>x <input id="input-chunk-x" type="number" value="0"></label>
+                <label>y <input id="input-chunk-y" type="number" value="0"></label>
+            </fieldset>
+        </div>
+
+        <canvas id="maze-canvas" width="640" height="640"></canvas>
+
+        <p id="output" class="hint"></p>
+        <p class="legend">
+            <span><i class="dot" style="background:#1f2937;"></i>墙</span>
+            <span><i class="dot" style="background:#ffffff;"></i>空地</span>
+            <span><i class="dot" style="background:#16a34a;"></i>起点</span>
+            <span><i class="dot" style="background:#f59e0b;"></i>终点</span>
+        </p>
+    </div>
+
+    <script src="./main.js"></script>
+</body>
+
+</html>

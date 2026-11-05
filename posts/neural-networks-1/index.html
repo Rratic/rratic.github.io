@@ -1,0 +1,478 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola v0.23.4" />
+  <title>从反向传播到多层感知机 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="从反向传播到多层感知机" />
+  <meta property="og:url" content="https://rratic.top/posts/neural-networks-1/" />
+  <link rel="canonical" href="https://rratic.top/posts/neural-networks-1/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-09-06T00:00:00+00:00" />
+  <meta property="article:tag" content="计算机" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <meta name="msvalidate.01" content="9BE559916FDB06A7A09EA17370F0ED09" />
+<link rel="icon" type="image/svg+xml" href="https://rratic.top/favicon.svg" />
+<link rel="stylesheet" href="https://rratic.top/style/shared.css?h=2dac71ecd418f5165c3d" />
+
+  <link rel="stylesheet" href="https://rratic.top/giallo-light.css?h=396eaa20499714fdb600" media="(prefers-color-scheme: light)" />
+  <link rel="stylesheet" href="https://rratic.top/giallo-dark.css?h=536598ee42e9e9a795bc" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=f166037ad671ba6bfd13" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=11a0f44fbe01f53dbaf9"></script>
+  <!-- head_end inject -->
+
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      
+<menu
+  class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/posts/"
+    >文章</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/categories/"
+    >分类</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/tags/"
+    >标签</a>
+  </li>
+</menu>
+
+      <!-- header_nav inject -->
+
+    </nav>
+  </div>
+</header>
+
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    <!-- body_start inject -->
+
+    
+<article>
+  <!-- page_start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-3">从反向传播到多层感知机</h1>
+    <div class="text-sm antialiased opacity-80"><time
+      datetime="2026-09-06T00:00:00+00:00">2026-09-06</time><span
+        class="middot"></span><time
+    datetime="PT0H7M0S">7&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+  </header>
+  
+  
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#fan-xiang-chuan-bo">反向传播</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#bigram">Bigram</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#duo-ceng-gan-zhi-ji">多层感知机</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#chu-shi-hua">初始化</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#batch-normalization">Batch Normalization</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </details>
+</nav>
+  <!-- Content -->
+  <section><p>参考的是 Andrej Karpathy 的经典课程 Neural Networks: Zero to Hero 视频。</p>
+<h2 id="fan-xiang-chuan-bo">反向传播</h2>
+<p>反向传播是经典的底层机制，作者提供的仓库在 <a rel="external" href="https://github.com/karpathy/micrograd">Micrograd</a>.</p>
+<p>我们考虑可以良好分层的树。先从源节点到汇节点（记作 $L$）将数据值正向传播（就是计算）；然后考虑反向传播，在每个叶节点加一个字段 <code>.grad</code> 表示 $L$ 关于它的偏导，对 $e = \mathrm{op}(b_1, \dots, b_n)$ 只需：</p>
+<p>$$\frac{\partial L}{\partial b_i} = \frac{\partial L}{\partial e} \cdot \frac{\partial e}{\partial b_i}$$</p>
+<p>如果变量被重复使用，则梯度叠加即可。</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="python"><span class="giallo-l"><span class="z-l-17 z-d-10">def</span><span class="z-l-15 z-d-4"> __add__</span><span>(</span><span class="z-l-9">self</span><span class="z-l-6">,</span><span class="z-l-9"> other</span><span>)</span><span>:</span></span>
+<span class="giallo-l"><span>    out</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-14"> Value</span><span>(</span><span class="z-l-4 z-l-i z-d-4">self</span><span class="z-l-6">.</span><span>data</span><span class="z-l-16 z-d-10"> +</span><span> other</span><span class="z-l-6">.</span><span>data</span><span class="z-l-6">,</span><span> (</span><span class="z-l-4 z-l-i z-d-4">self</span><span class="z-l-6">,</span><span> other</span><span>)</span><span class="z-l-6">,</span><span class="z-l-8 z-d-6"> &#39;</span><span class="z-l-8 z-d-6">+</span><span class="z-l-8 z-d-6">&#39;</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    def</span><span class="z-l-14 z-d-7"> _backward</span><span>(</span><span>)</span><span>:</span></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">        self</span><span class="z-l-6">.</span><span>grad</span><span class="z-l-16 z-d-10"> +=</span><span> out</span><span class="z-l-6">.</span><span>grad</span></span>
+<span class="giallo-l"><span>        other</span><span class="z-l-6">.</span><span>grad</span><span class="z-l-16 z-d-10"> +=</span><span> out</span><span class="z-l-6">.</span><span>grad</span></span>
+<span class="giallo-l"><span>    out</span><span class="z-l-6">.</span><span>_backward</span><span class="z-l-16 z-d-10"> =</span><span> _backward</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    return</span><span> out</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">def</span><span class="z-l-15 z-d-4"> __mul__</span><span>(</span><span class="z-l-9">self</span><span class="z-l-6">,</span><span class="z-l-9"> other</span><span>)</span><span>:</span></span>
+<span class="giallo-l"><span>    out</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-14"> Value</span><span>(</span><span class="z-l-4 z-l-i z-d-4">self</span><span class="z-l-6">.</span><span>data</span><span class="z-l-16 z-d-10"> +</span><span> other</span><span class="z-l-6">.</span><span>data</span><span class="z-l-6">,</span><span> (</span><span class="z-l-4 z-l-i z-d-4">self</span><span class="z-l-6">,</span><span> other</span><span>)</span><span class="z-l-6">,</span><span class="z-l-8 z-d-6"> &#39;</span><span class="z-l-8 z-d-6">*</span><span class="z-l-8 z-d-6">&#39;</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    def</span><span class="z-l-14 z-d-7"> _backward</span><span>(</span><span>)</span><span>:</span></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">        self</span><span class="z-l-6">.</span><span>grad</span><span class="z-l-16 z-d-10"> +=</span><span> other</span><span class="z-l-6">.</span><span>data</span><span class="z-l-16 z-d-10"> *</span><span> out</span><span class="z-l-6">.</span><span>grad</span></span>
+<span class="giallo-l"><span>        other</span><span class="z-l-6">.</span><span>grad</span><span class="z-l-16 z-d-10"> +=</span><span class="z-l-4 z-l-i z-d-4"> self</span><span class="z-l-6">.</span><span>data</span><span class="z-l-16 z-d-10"> *</span><span> out</span><span class="z-l-6">.</span><span>grad</span></span>
+<span class="giallo-l"><span>    out</span><span class="z-l-6">.</span><span>_backward</span><span class="z-l-16 z-d-10"> =</span><span> _backward</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    return</span><span> out</span></span></code></pre>
+<p>在反向传播时需要进行拓扑排序：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="python"><span class="giallo-l"><span class="z-l-17 z-d-10">def</span><span class="z-l-14 z-d-7"> backward</span><span>(</span><span class="z-l-9">self</span><span>)</span><span>:</span></span>
+<span class="giallo-l"><span>    topo</span><span class="z-l-16 z-d-10"> =</span><span> [</span><span>]</span></span>
+<span class="giallo-l"><span>    visited</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-4 z-d-4"> set</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    def</span><span class="z-l-14 z-d-7"> build_topo</span><span>(</span><span class="z-l-9">v</span><span>)</span><span>:</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        if</span><span> v</span><span class="z-l-16 z-d-10"> not</span><span class="z-l-16 z-d-10"> in</span><span> visited</span><span class="z-l-6">:</span></span>
+<span class="giallo-l"><span>            visited</span><span class="z-l-6">.</span><span class="z-l-14">add</span><span>(</span><span>v</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">            for</span><span> child</span><span class="z-l-17 z-d-10"> in</span><span> v</span><span class="z-l-6">.</span><span>_prev</span></span>
+<span class="giallo-l"><span class="z-l-14">                build_topo</span><span>(</span><span>child</span><span>)</span></span>
+<span class="giallo-l"><span>            topo</span><span class="z-l-6">.</span><span class="z-l-14">append</span><span>(</span><span>v</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-14">    build_topo</span><span>(</span><span class="z-l-4 z-l-i z-d-4">self</span><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">    self</span><span class="z-l-6">.</span><span>grad</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-9 z-d-4"> 1.0</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    for</span><span> node</span><span class="z-l-17 z-d-10"> in</span><span class="z-l-15 z-d-4"> reversed</span><span>(</span><span>topo</span><span>)</span><span class="z-l-6">:</span></span>
+<span class="giallo-l"><span>        node</span><span class="z-l-6">.</span><span class="z-l-14">_backward</span><span>(</span><span>)</span></span></code></pre>
+<p>在 PyTorch 中，也存在对应的功能：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="python"><span class="giallo-l"><span>x1</span><span class="z-l-16 z-d-10"> =</span><span> torch</span><span class="z-l-6">.</span><span class="z-l-14">Tensor</span><span>(</span><span>[</span><span class="z-l-9 z-d-4">2</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4"> 0</span><span>]</span><span>)</span><span class="z-l-6">.</span><span class="z-l-14">double</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-4">...</span></span>
+<span class="giallo-l"><span>o</span><span class="z-l-16 z-d-10"> =</span><span> torch</span><span class="z-l-6">.</span><span class="z-l-14">tanh</span><span>(</span><span>x1</span><span class="z-l-16 z-d-10">*</span><span>w1</span><span class="z-l-16 z-d-10"> +</span><span> x2</span><span class="z-l-16 z-d-10">*</span><span>w2</span><span class="z-l-16 z-d-10"> +</span><span> b</span><span>)</span></span>
+<span class="giallo-l"><span>o</span><span class="z-l-6">.</span><span class="z-l-14">backward</span><span>(</span><span>)</span></span></code></pre>
+<p>假若我们希望让 $L$ 尽量大，则应该让源节点沿着梯度走某个微小的步长（<code>a.data += a.grad * step</code>），调整完所有源节点后，再做一次正向传播，如此循环。</p>
+<p>现在考虑更现实的模型。考虑神经元，一个神经元接受 $x_1, \dots, x_n$，通过权重和偏置项（bias）计算 $\sum w_i x_i + b$，再将此值喂给一个激活函数，使之非线性。激活函数通常是压缩函数，如：</p>
+<table><thead><tr><th style="text-align: center">名称</th><th style="text-align: center">效果</th></tr></thead><tbody>
+<tr><td style="text-align: center">Sigmoid</td><td style="text-align: center">$1 / (1 + e^{-x})$</td></tr>
+<tr><td style="text-align: center">Leaky ReLU</td><td style="text-align: center">$\max(0.1x, x)$</td></tr>
+<tr><td style="text-align: center">tanh</td><td style="text-align: center">$\tanh(x)$</td></tr>
+<tr><td style="text-align: center">Maxout</td><td style="text-align: center">$\max(w_1^\top x + b_1, w_2^\top x + b_2)$</td></tr>
+<tr><td style="text-align: center">ReLU</td><td style="text-align: center">$\max(0, x)$</td></tr>
+<tr><td style="text-align: center">ELU</td><td style="text-align: center">$\begin{cases} x &amp; x \geq 0 \cr \alpha (e^x-1) &amp; x &lt; 0 \end{cases}$</td></tr>
+</tbody></table>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="python"><span class="giallo-l"><span class="z-l-17 z-d-10">class</span><span class="z-l-1 z-d-7"> Neuron</span><span>:</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    def</span><span class="z-l-15 z-d-4"> __init__</span><span>(</span><span class="z-l-9">self</span><span class="z-l-6">,</span><span class="z-l-9"> nin</span><span>)</span><span>:</span></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">        self</span><span class="z-l-6">.</span><span>w</span><span class="z-l-16 z-d-10"> =</span><span> [</span><span class="z-l-14">Value</span><span>(</span><span>random</span><span class="z-l-6">.</span><span class="z-l-14">uniform</span><span>(</span><span class="z-l-16 z-d-10">-</span><span class="z-l-9 z-d-4">1</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">1</span><span>)</span><span>)</span><span class="z-l-17 z-d-10"> for</span><span> _</span><span class="z-l-17 z-d-10"> in</span><span class="z-l-15 z-d-4"> range</span><span>(</span><span>nin</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">        self</span><span class="z-l-6">.</span><span>b</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-14"> Value</span><span>(</span><span>random</span><span class="z-l-6">.</span><span class="z-l-14">uniform</span><span>(</span><span class="z-l-16 z-d-10">-</span><span class="z-l-9 z-d-4">1</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4">1</span><span>)</span><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    def</span><span class="z-l-15 z-d-4"> __call__</span><span>(</span><span class="z-l-9">self</span><span class="z-l-6">,</span><span class="z-l-9"> x</span><span>)</span><span>:</span></span>
+<span class="giallo-l"><span>        act</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-15 z-d-4"> sum</span><span>(</span><span>wi</span><span class="z-l-16 z-d-10">*</span><span>xi</span><span class="z-l-17 z-d-10"> for</span><span> wi</span><span class="z-l-6">,</span><span> xi</span><span class="z-l-17 z-d-10"> in</span><span class="z-l-15 z-d-4"> zip</span><span>(</span><span class="z-l-4 z-l-i z-d-4">self</span><span class="z-l-6">.</span><span>w</span><span class="z-l-6">,</span><span> x</span><span>)</span><span class="z-l-6">,</span><span class="z-l-4 z-l-i z-d-4"> self</span><span class="z-l-6">.</span><span>b</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        return</span><span> act</span><span class="z-l-6">.</span><span class="z-l-14">tanh</span><span>(</span><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    def</span><span class="z-l-14 z-d-7"> parameters</span><span>(</span><span class="z-l-9">self</span><span>)</span><span>:</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        return</span><span class="z-l-4 z-l-i z-d-4"> self</span><span class="z-l-6">.</span><span>w</span><span class="z-l-16 z-d-10"> +</span><span> [</span><span class="z-l-4 z-l-i z-d-4">self</span><span class="z-l-6">.</span><span>b</span><span>]</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">class</span><span class="z-l-1 z-d-7"> Layer</span><span>:</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    def</span><span class="z-l-15 z-d-4"> __init__</span><span>(</span><span class="z-l-9">self</span><span class="z-l-6">,</span><span class="z-l-9"> nin</span><span class="z-l-6">,</span><span class="z-l-9"> nout</span><span>)</span><span>:</span></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">        self</span><span class="z-l-6">.</span><span>neurons</span><span class="z-l-16 z-d-10"> =</span><span> [</span><span class="z-l-14">Neuron</span><span>(</span><span>nin</span><span>)</span><span class="z-l-17 z-d-10"> for</span><span> _</span><span class="z-l-17 z-d-10"> in</span><span class="z-l-15 z-d-4"> range</span><span>(</span><span>nout</span><span>)</span><span>]</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    def</span><span class="z-l-15 z-d-4"> __call__</span><span>(</span><span class="z-l-9">self</span><span class="z-l-6">,</span><span class="z-l-9"> x</span><span>)</span><span>:</span></span>
+<span class="giallo-l"><span>        outs</span><span class="z-l-16 z-d-10"> =</span><span> [</span><span class="z-l-14">n</span><span>(</span><span>x</span><span>)</span><span class="z-l-17 z-d-10"> for</span><span> n</span><span class="z-l-17 z-d-10"> in</span><span class="z-l-4 z-l-i z-d-4"> self</span><span class="z-l-6">.</span><span>neurons</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        return</span><span> outs</span><span>[</span><span class="z-l-9 z-d-4">0</span><span>]</span><span class="z-l-17 z-d-10"> if</span><span class="z-l-15 z-d-4"> len</span><span>(</span><span>outs</span><span>)</span><span class="z-l-16 z-d-10"> ==</span><span class="z-l-9 z-d-4"> 1</span><span class="z-l-17 z-d-10"> else</span><span> outs</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    def</span><span class="z-l-14 z-d-7"> parameters</span><span>(</span><span class="z-l-9">self</span><span>)</span><span>:</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        return</span><span> [</span><span>p</span><span class="z-l-17 z-d-10"> for</span><span> n</span><span class="z-l-17 z-d-10"> in</span><span class="z-l-4 z-l-i z-d-4"> self</span><span class="z-l-6">.</span><span>neurons</span><span class="z-l-17 z-d-10"> for</span><span> p</span><span class="z-l-17 z-d-10"> in</span><span> n</span><span class="z-l-6">.</span><span class="z-l-14">parameters</span><span>(</span><span>)</span><span>]</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">class</span><span class="z-l-1 z-d-7"> MLP</span><span>:</span><span class="z-l-10 z-l-i z-d-3"> #</span><span class="z-l-10 z-l-i z-d-3"> 多层感知机</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    def</span><span class="z-l-15 z-d-4"> __init__</span><span>(</span><span class="z-l-9">self</span><span class="z-l-6">,</span><span class="z-l-9"> nin</span><span class="z-l-6">,</span><span class="z-l-9"> nouts</span><span>)</span><span>:</span></span>
+<span class="giallo-l"><span>        sz</span><span class="z-l-16 z-d-10"> =</span><span> [</span><span>nin</span><span>]</span><span class="z-l-16 z-d-10"> +</span><span> nouts</span></span>
+<span class="giallo-l"><span class="z-l-4 z-l-i z-d-4">        self</span><span class="z-l-6">.</span><span>layers</span><span class="z-l-16 z-d-10"> =</span><span> [</span><span class="z-l-14">Layer</span><span>(</span><span>sz</span><span>[</span><span>i</span><span>]</span><span class="z-l-6">,</span><span> sz</span><span>[</span><span>i</span><span class="z-l-16 z-d-10">+</span><span class="z-l-9 z-d-4">1</span><span>]</span><span>)</span><span class="z-l-17 z-d-10"> for</span><span> i</span><span class="z-l-17 z-d-10"> in</span><span class="z-l-15 z-d-4"> range</span><span>(</span><span class="z-l-15 z-d-4">len</span><span>(</span><span>nouts</span><span>)</span><span>)</span><span>]</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    def</span><span class="z-l-15 z-d-4"> __call__</span><span>(</span><span class="z-l-9">self</span><span class="z-l-6">,</span><span class="z-l-9"> x</span><span>)</span><span>:</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        for</span><span> layer</span><span class="z-l-17 z-d-10"> in</span><span class="z-l-4 z-l-i z-d-4"> self</span><span class="z-l-6">.</span><span>layers</span><span class="z-l-6">:</span></span>
+<span class="giallo-l"><span>            x</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-14"> layer</span><span>(</span><span>x</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        return</span><span> x</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    def</span><span class="z-l-14 z-d-7"> parameters</span><span>(</span><span class="z-l-9">self</span><span>)</span><span>:</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        return</span><span> [</span><span>p</span><span class="z-l-17 z-d-10"> for</span><span> layer</span><span class="z-l-17 z-d-10"> in</span><span class="z-l-4 z-l-i z-d-4"> self</span><span class="z-l-6">.</span><span>layers</span><span class="z-l-17 z-d-10"> for</span><span> p</span><span class="z-l-17 z-d-10"> in</span><span> layer</span><span class="z-l-6">.</span><span class="z-l-14">parameters</span><span>(</span><span>)</span><span>]</span></span></code></pre>
+<p>一个回归分析的例子，使用最小二乘法给出损失函数：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="python"><span class="giallo-l"><span class="z-l-17 z-d-10">for</span><span> k</span><span class="z-l-17 z-d-10"> in</span><span class="z-l-15 z-d-4"> range</span><span>(</span><span class="z-l-9 z-d-4">20</span><span>)</span><span class="z-l-6">:</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    #</span><span class="z-l-10 z-l-i z-d-3"> forward pass</span></span>
+<span class="giallo-l"><span>    ypred</span><span class="z-l-16 z-d-10"> =</span><span> [</span><span class="z-l-14">n</span><span>(</span><span>x</span><span>)</span><span class="z-l-17 z-d-10"> for</span><span> x</span><span class="z-l-17 z-d-10"> in</span><span> xs</span><span>]</span></span>
+<span class="giallo-l"><span>    loss</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-15 z-d-4"> sum</span><span>(</span><span>(</span><span>yout</span><span class="z-l-16 z-d-10"> -</span><span> ygt</span><span>)</span><span class="z-l-16 z-d-10">**</span><span class="z-l-9 z-d-4">2</span><span class="z-l-17 z-d-10"> for</span><span> ygt</span><span class="z-l-6">,</span><span> yout</span><span class="z-l-17 z-d-10"> in</span><span class="z-l-15 z-d-4"> zip</span><span>(</span><span>ys</span><span class="z-l-6">,</span><span> ypred</span><span>)</span><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    #</span><span class="z-l-10 z-l-i z-d-3"> backward pass</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    for</span><span> p</span><span class="z-l-17 z-d-10"> in</span><span> n</span><span class="z-l-6">.</span><span class="z-l-14">parameters</span><span>(</span><span>)</span><span class="z-l-6">:</span></span>
+<span class="giallo-l"><span>        p</span><span class="z-l-6">.</span><span>grad</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-9 z-d-4"> 0.0</span></span>
+<span class="giallo-l"><span>    loss</span><span class="z-l-6">.</span><span class="z-l-14">backward</span><span>(</span><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    #</span><span class="z-l-10 z-l-i z-d-3"> update</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    for</span><span> p</span><span class="z-l-17 z-d-10"> in</span><span> n</span><span class="z-l-6">.</span><span class="z-l-14">parameters</span><span>(</span><span>)</span><span class="z-l-6">:</span></span>
+<span class="giallo-l"><span>        p</span><span class="z-l-6">.</span><span>data</span><span class="z-l-16 z-d-10"> +=</span><span class="z-l-16 z-d-10"> -</span><span class="z-l-9 z-d-4">0.05</span><span class="z-l-16 z-d-10"> *</span><span> p</span><span class="z-l-6">.</span><span>grad</span></span></code></pre>
+<p>在实际应用中，数据集规模达到百万级别时，通常随机选取一个子集，称为批次（batch），只对它作计算。</p>
+<p>有时使用 L2 正则化技术去增强泛化能力。</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-tip);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/tip.svg)">tip</div>
+    <span><strong>上上学期旁听元培的课听到的技巧</strong></span>
+  </div>
+  <div class="pl-4"><ul>
+<li>使用 Residual Connection，使得更深的层数不会变劣</li>
+<li>选择 ReLU</li>
+<li>进行好的初始化</li>
+<li>使用 dropout，即每一层大量神经元时每次临时隐藏一半神经元</li>
+<li>使用 weight decay，如加入 L2 正则</li>
+<li>依据 batch size 调整 learning rate</li>
+<li>使用 warm up 及 learning rate decay</li>
+</ul>
+</div>
+</div>
+<h2 id="bigram">Bigram</h2>
+<p>作者提供的仓库在 <a rel="external" href="https://github.com/karpathy/makemore">Makemore</a>，是一个把字符视作基本元素，生成人名的模型。</p>
+<p>最简单的方法是 bigram 模型。用 <code>&lt;S&gt;</code> 标记开头，用 <code>&lt;E&gt;</code> 标记结尾，统计所有的二元组在所有的词中的出现次数；在生成时，从 <code>&lt;S&gt;</code> 开始，每次按概率生成下一个字符，直到 <code>&lt;E&gt;</code>. 不过这样的效果很差。</p>
+<p>为了衡量模型的优质程度，我们使用似然（likelihood），定义为整个概率表格中所有概率的乘积。为了方便计算我们使用其对数的负，再除以 $n$，这个值越高模型表现越差。我们也可以对一个指定的词计算这个值。</p>
+<p>有时一个二元组从未出现过，计算时对数会变为负无穷。为了让模型平滑一些，我们将所有的计数增加 $1$.</p>
+<hr />
+<p>现在用基于梯度的学习方法实现 bigram 的效果。我们准备 27 个接受 27 个输入的神经元，对一个单词的 $m$ 个二元组，将它们 one-hot 编码（编码为长 27 的数组，除一处是 1 外均为 0），然后前向传播得到概率：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="python"><span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">#</span><span class="z-l-10 z-l-i z-d-3"> &quot;Emma&quot;</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">#</span><span class="z-l-10 z-l-i z-d-3"> xs = tensor([0, 5, 13, 13, 1])</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">#</span><span class="z-l-10 z-l-i z-d-3"> ys = tensor([5, 13, 13, 1, 0])</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">#</span><span class="z-l-10 z-l-i z-d-3"> 初始化神经元的权重</span></span>
+<span class="giallo-l"><span>g</span><span class="z-l-16 z-d-10"> =</span><span> torch</span><span class="z-l-6">.</span><span class="z-l-14">Generator</span><span>(</span><span>)</span><span class="z-l-6">.</span><span class="z-l-14">manual_seed</span><span>(</span><span class="z-l-9 z-d-4">2147483647</span><span>)</span></span>
+<span class="giallo-l"><span>W</span><span class="z-l-16 z-d-10"> =</span><span> torch</span><span class="z-l-6">.</span><span class="z-l-14">randn</span><span>(</span><span>(</span><span class="z-l-9 z-d-4">27</span><span class="z-l-6">,</span><span class="z-l-9 z-d-4"> 27</span><span>)</span><span class="z-l-6">,</span><span class="z-d-12"> generator</span><span class="z-l-16 z-d-10">=</span><span>g</span><span class="z-l-6">,</span><span class="z-d-12"> requires_grad</span><span class="z-l-16 z-d-10">=</span><span class="z-l-9 z-d-4">True</span><span>)</span><span class="z-l-10 z-l-i z-d-3"> #</span><span class="z-l-10 z-l-i z-d-3"> 正态分布 N(0, 1)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">#</span><span class="z-l-10 z-l-i z-d-3"> one-hot 编码</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">import</span><span> torch</span><span class="z-l-6">.</span><span>nn</span><span class="z-l-6">.</span><span>functional</span><span class="z-l-17 z-d-10"> as</span><span> F</span></span>
+<span class="giallo-l"><span>xenc</span><span class="z-l-16 z-d-10"> =</span><span> F</span><span class="z-l-6">.</span><span class="z-l-14">one_hot</span><span>(</span><span>xs</span><span class="z-l-6">,</span><span class="z-d-12"> num_classes</span><span class="z-l-16 z-d-10">=</span><span class="z-l-9 z-d-4">27</span><span>)</span><span class="z-l-6">.</span><span class="z-l-14">float</span><span>(</span><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>logits</span><span class="z-l-16 z-d-10"> =</span><span> xenc</span><span class="z-l-16 z-d-10"> @</span><span> W</span><span class="z-l-10 z-l-i z-d-3"> #</span><span class="z-l-10 z-l-i z-d-3"> 矩阵乘法 (m, 27) @ (27, 27) =&gt; (m, 27) 此结果表示对数计数值</span></span>
+<span class="giallo-l"><span>counts</span><span class="z-l-16 z-d-10"> =</span><span> logits</span><span class="z-l-6">.</span><span class="z-l-14">exp</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>prob</span><span class="z-l-16 z-d-10"> =</span><span> counts</span><span class="z-l-16 z-d-10"> /</span><span> counts</span><span class="z-l-6">.</span><span class="z-l-14">sum</span><span>(</span><span class="z-l-9 z-d-4">1</span><span class="z-l-6">,</span><span class="z-d-12"> keepdims</span><span class="z-l-16 z-d-10">=</span><span class="z-l-9 z-d-4">True</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">#</span><span class="z-l-10 z-l-i z-d-3"> 最后两行合称 `softmax`</span></span></code></pre>
+<p>计算损失函数：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="python"><span class="giallo-l"><span>nlls</span><span class="z-l-16 z-d-10"> =</span><span> torch</span><span class="z-l-6">.</span><span class="z-l-14">zeros</span><span>(</span><span class="z-l-9 z-d-4">5</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">for</span><span> i</span><span class="z-l-17 z-d-10"> in</span><span class="z-l-15 z-d-4"> range</span><span>(</span><span class="z-l-9 z-d-4">5</span><span>)</span><span class="z-l-6">:</span></span>
+<span class="giallo-l"><span>    p</span><span class="z-l-16 z-d-10"> =</span><span> probs</span><span>[</span><span>i</span><span class="z-l-6">,</span><span> ys</span><span>[</span><span>i</span><span>]</span><span class="z-l-6">.</span><span class="z-l-14">item</span><span>(</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span>    nll</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-16 z-d-10"> -</span><span>torch</span><span class="z-l-6">.</span><span class="z-l-14">log</span><span>(</span><span>p</span><span>)</span><span class="z-l-10 z-l-i z-d-3"> #</span><span class="z-l-10 z-l-i z-d-3"> negative log likelihood</span></span>
+<span class="giallo-l"><span>    nlls</span><span>[</span><span>i</span><span>]</span><span class="z-l-16 z-d-10"> =</span><span> nll</span></span>
+<span class="giallo-l"><span>loss</span><span class="z-l-16 z-d-10"> =</span><span> nlls</span><span class="z-l-6">.</span><span class="z-l-14">mean</span><span>(</span><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">#</span><span class="z-l-10 z-l-i z-d-3"> 向量化地写为</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">#</span><span class="z-l-10 z-l-i z-d-3"> loss = -probs[torch.argane(5), ys].log().mean()</span></span></code></pre>
+<p>现在就可以仿照上一节做反向传播。</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="python"><span class="giallo-l"><span>W</span><span class="z-l-6">.</span><span>grad</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-9 z-d-4"> None</span></span>
+<span class="giallo-l"><span>loss</span><span class="z-l-6">.</span><span class="z-l-14">backward</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>W</span><span class="z-l-6">.</span><span>data</span><span class="z-l-16 z-d-10"> +=</span><span class="z-l-16 z-d-10"> -</span><span class="z-l-9 z-d-4">0.1</span><span class="z-l-16 z-d-10"> *</span><span> W</span><span class="z-l-6">.</span><span>grad</span></span></code></pre>
+<p>改为考虑所有单词的所有二元组，然后增大 learning rate. 最终的效果不会好于 bigram，因为没有引入额外的信息；但这种方法更灵活，可以将它扩展到利用 $n$-元组的结果。</p>
+<p>在这种方法中，等效于之前方法中平滑处理的是：尽量让权重 <code>W</code> 趋于零，进行这种引导的就是正则化方法。</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="python"><span class="giallo-l"><span>loss</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-3 z-d-4"> ...</span><span class="z-l-16 z-d-10"> +</span><span class="z-l-9 z-d-4"> 0.01</span><span class="z-l-16 z-d-10"> *</span><span> (</span><span>W</span><span class="z-l-16 z-d-10">**</span><span class="z-l-9 z-d-4">2</span><span>)</span><span class="z-l-6">.</span><span class="z-l-14">mean</span><span>(</span><span>)</span></span></code></pre><h2 id="duo-ceng-gan-zhi-ji">多层感知机</h2>
+<p>如果用朴素的方法扩展到 $n$-元组，则需要的存储空间会相当巨大。</p>
+<p>作者参考的论文是 <a rel="external" href="https://www.jmlr.org/papers/volume3/bengio03a/bengio03a.pdf">Bengio et al. 2003</a>，该论文中关注的是词（我们继续考虑字符），为 17000 个词中的每一个分配到一个 30 维的向量。建模方法则和之前是类似的：</p>
+<p><img src="/images/misc/2026_09_02.png" alt="MLP" /></p>
+<p>这里中间的那层称为隐藏层，其大小称为超参数，可任意设定。</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="python"><span class="giallo-l"><span>vocab_size</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-9 z-d-4"> 27</span></span>
+<span class="giallo-l"><span>block_size</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-9 z-d-4"> 3</span><span class="z-l-10 z-l-i z-d-3"> #</span><span class="z-l-10 z-l-i z-d-3"> 用于预测下一字符的字符数</span></span>
+<span class="giallo-l"><span>n_embd</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-9 z-d-4"> 10</span><span class="z-l-10 z-l-i z-d-3"> #</span><span class="z-l-10 z-l-i z-d-3"> 嵌入的维数</span></span>
+<span class="giallo-l"><span>n_hidden</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-9 z-d-4"> 200</span><span class="z-l-10 z-l-i z-d-3"> #</span><span class="z-l-10 z-l-i z-d-3"> 隐藏层的神经元个数</span></span>
+<span class="giallo-l"><span>max_steps</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-9 z-d-4"> 200000</span></span>
+<span class="giallo-l"><span>batch_size</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-9 z-d-4"> 32</span><span class="z-l-10 z-l-i z-d-3"> #</span><span class="z-l-10 z-l-i z-d-3"> 批次大小</span></span>
+<span class="giallo-l"><span>g</span><span class="z-l-16 z-d-10"> =</span><span> torch</span><span class="z-l-6">.</span><span class="z-l-14">Generator</span><span>(</span><span>)</span><span class="z-l-6">.</span><span class="z-l-14">manual_seed</span><span>(</span><span class="z-l-9 z-d-4">2147483647</span><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>C</span><span class="z-l-16 z-d-10"> =</span><span> torch</span><span class="z-l-6">.</span><span class="z-l-14">randn</span><span>(</span><span>(</span><span>vocab_size</span><span class="z-l-6">,</span><span> n_embd</span><span>)</span><span class="z-l-6">,</span><span class="z-d-12"> generator</span><span class="z-l-16 z-d-10">=</span><span>g</span><span>)</span></span>
+<span class="giallo-l"><span>W1</span><span class="z-l-16 z-d-10"> =</span><span> torch</span><span class="z-l-6">.</span><span class="z-l-14">randn</span><span>(</span><span>(</span><span>n_embd</span><span class="z-l-16 z-d-10"> *</span><span> block_size</span><span class="z-l-6">,</span><span> n_hidden</span><span>)</span><span class="z-l-6">,</span><span class="z-d-12"> generator</span><span class="z-l-16 z-d-10">=</span><span>g</span><span>)</span></span>
+<span class="giallo-l"><span>b1</span><span class="z-l-16 z-d-10"> =</span><span> torch</span><span class="z-l-6">.</span><span class="z-l-14">randn</span><span>(</span><span>n_hidden</span><span class="z-l-6">,</span><span class="z-d-12"> generator</span><span class="z-l-16 z-d-10">=</span><span>g</span><span>)</span></span>
+<span class="giallo-l"><span>W2</span><span class="z-l-16 z-d-10"> =</span><span> torch</span><span class="z-l-6">.</span><span class="z-l-14">randn</span><span>(</span><span>(</span><span>n_hidden</span><span class="z-l-6">,</span><span> vocab_size</span><span>)</span><span class="z-l-6">,</span><span class="z-d-12"> generator</span><span class="z-l-16 z-d-10">=</span><span>g</span><span>)</span></span>
+<span class="giallo-l"><span>b2</span><span class="z-l-16 z-d-10"> =</span><span> torch</span><span class="z-l-6">.</span><span class="z-l-14">randn</span><span>(</span><span>vocab_size</span><span class="z-l-6">,</span><span class="z-d-12"> generator</span><span class="z-l-16 z-d-10">=</span><span>g</span><span>)</span></span>
+<span class="giallo-l"><span>parameters</span><span class="z-l-16 z-d-10"> =</span><span> [</span><span>C</span><span class="z-l-6">,</span><span> W1</span><span class="z-l-6">,</span><span> b1</span><span class="z-l-6">,</span><span> W2</span><span class="z-l-6">,</span><span> b2</span><span>]</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">#</span><span class="z-l-10 z-l-i z-d-3"> minibatch construct</span></span>
+<span class="giallo-l"><span>ix</span><span class="z-l-16 z-d-10"> =</span><span> torch</span><span class="z-l-6">.</span><span class="z-l-14">randint</span><span>(</span><span class="z-l-9 z-d-4">0</span><span class="z-l-6">,</span><span> X</span><span class="z-l-6">.</span><span>shape</span><span>[</span><span class="z-l-9 z-d-4">0</span><span>]</span><span class="z-l-6">,</span><span> (</span><span>batch_size</span><span class="z-l-6">,</span><span>)</span><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">#</span><span class="z-l-10 z-l-i z-d-3"> forward pass</span></span>
+<span class="giallo-l"><span>emb</span><span class="z-l-16 z-d-10"> =</span><span> C</span><span>[</span><span>X</span><span>[</span><span>ix</span><span>]</span><span>]</span><span class="z-l-10 z-l-i z-d-3"> #</span><span class="z-l-10 z-l-i z-d-3"> (batch_size, block_size, n_embd)</span></span>
+<span class="giallo-l"><span>embcat</span><span class="z-l-16 z-d-10"> =</span><span> emb</span><span class="z-l-6">.</span><span class="z-l-14">view</span><span>(</span><span>emb</span><span class="z-l-6">.</span><span>shape</span><span>[</span><span class="z-l-9 z-d-4">0</span><span>]</span><span class="z-l-6">,</span><span> block_size</span><span class="z-l-16 z-d-10"> *</span><span> n_embd</span><span>)</span><span class="z-l-10 z-l-i z-d-3"> #</span><span class="z-l-10 z-l-i z-d-3"> (batch_size, n_hidden)</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">#</span><span class="z-l-10 z-l-i z-d-3"> tensor 实际上是用一维数组存储的，所以直接 `view` 即可</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">#</span><span class="z-l-10 z-l-i z-d-3"> 参数也可改为 `-1` 表示自动推断</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>hpreact</span><span class="z-l-16 z-d-10"> =</span><span> embcat</span><span class="z-l-16 z-d-10"> @</span><span> W1</span><span class="z-l-16 z-d-10"> +</span><span> b1</span></span>
+<span class="giallo-l"><span>h</span><span class="z-l-16 z-d-10"> =</span><span> torch</span><span class="z-l-6">.</span><span class="z-l-14">tanh</span><span>(</span><span>hpreact</span><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>logits</span><span class="z-l-16 z-d-10"> =</span><span> h</span><span class="z-l-16 z-d-10"> @</span><span> W2</span><span class="z-l-16 z-d-10"> +</span><span> b2</span><span class="z-l-10 z-l-i z-d-3"> #</span><span class="z-l-10 z-l-i z-d-3"> (batch_size, vocab_size)</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">#</span><span class="z-l-10 z-l-i z-d-3"> counts = logits.exp()</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">#</span><span class="z-l-10 z-l-i z-d-3"> prob = counts / counts.sum(1, keepdims=True)</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">#</span><span class="z-l-10 z-l-i z-d-3"> loss = -prob[torch.arange(batch_size), Y].log().mean()</span></span>
+<span class="giallo-l"><span>loss</span><span class="z-l-16 z-d-10"> =</span><span> F</span><span class="z-l-6">.</span><span class="z-l-14">cross_entropy</span><span>(</span><span>logits</span><span class="z-l-6">,</span><span> Y</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">#</span><span class="z-l-10 z-l-i z-d-3"> 过大的正数 `exp()` 后会变成 `nan`，此函数内部会减去最大的正数</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">#</span><span class="z-l-10 z-l-i z-d-3"> 或者用 `prob = F.softmax(logits, dim=1)`</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">#</span><span class="z-l-10 z-l-i z-d-3"> backward pass</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">for</span><span> p</span><span class="z-l-17 z-d-10"> in</span><span> parameters</span><span class="z-l-6">:</span></span>
+<span class="giallo-l"><span>    p</span><span class="z-l-6">.</span><span>grad</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-9 z-d-4"> None</span></span>
+<span class="giallo-l"><span>loss</span><span class="z-l-6">.</span><span class="z-l-14">backward</span><span>(</span><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">#</span><span class="z-l-10 z-l-i z-d-3"> update</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">for</span><span> p</span><span class="z-l-17 z-d-10"> in</span><span> parameters</span><span class="z-l-6">:</span></span>
+<span class="giallo-l"><span>    p</span><span class="z-l-6">.</span><span>data</span><span class="z-l-16 z-d-10"> +=</span><span class="z-l-16 z-d-10"> -</span><span class="z-l-9 z-d-4">0.1</span><span class="z-l-16 z-d-10"> *</span><span> p</span><span class="z-l-6">.</span><span>grad</span></span></code></pre>
+<p>为了确定合适的 learning rate，可以选取 -1 ~ -0.001 中的值（<code>10**torch.linspace(-3, 0, 1000)</code>），计算效果然后绘图查看不稳定性。</p>
+<p>训练到一定程度后可以降低 learning rate. 经过数千个循环后 loss 将低于 bigram 模型。但这个值低并不总是好的，可能发生过拟合。为了防止过拟合，我们会把数据分为训练集（~80%）、开放/验证集（~10%，用于调整超参数，如隐藏层大小、嵌入层大小、正则化强度）、测试集（~10%）三份。</p>
+<p>在生成时：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="python"><span class="giallo-l"><span>out</span><span class="z-l-16 z-d-10"> =</span><span> [</span><span>]</span></span>
+<span class="giallo-l"><span>context</span><span class="z-l-16 z-d-10"> =</span><span> [</span><span class="z-l-9 z-d-4">0</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">while</span><span class="z-l-9 z-d-4"> True</span><span class="z-l-6">:</span></span>
+<span class="giallo-l"><span>    emb</span><span class="z-l-16 z-d-10"> =</span><span> C</span><span>[</span><span>torch</span><span class="z-l-6">.</span><span class="z-l-14">tensor</span><span>(</span><span>[</span><span>context</span><span>]</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span>    h</span><span class="z-l-16 z-d-10"> =</span><span> torch</span><span class="z-l-6">.</span><span class="z-l-14">tanh</span><span>(</span><span>emb</span><span class="z-l-6">.</span><span class="z-l-14">view</span><span>(</span><span class="z-l-9 z-d-4">1</span><span class="z-l-6">,</span><span class="z-l-16 z-d-10"> -</span><span class="z-l-9 z-d-4">1</span><span>)</span><span class="z-l-16 z-d-10"> @</span><span> W1</span><span class="z-l-16 z-d-10"> +</span><span> b1</span><span>)</span></span>
+<span class="giallo-l"><span>    logits</span><span class="z-l-16 z-d-10"> =</span><span> h</span><span class="z-l-16 z-d-10"> @</span><span> W2</span><span class="z-l-16 z-d-10"> +</span><span> b2</span></span>
+<span class="giallo-l"><span>    probs</span><span class="z-l-16 z-d-10"> =</span><span> F</span><span class="z-l-6">.</span><span class="z-l-14">softmax</span><span>(</span><span>logits</span><span class="z-l-6">,</span><span class="z-d-12"> dim</span><span class="z-l-16 z-d-10">=</span><span class="z-l-9 z-d-4">1</span><span>)</span></span>
+<span class="giallo-l"><span>    ix</span><span class="z-l-16 z-d-10"> =</span><span> torch</span><span class="z-l-6">.</span><span class="z-l-14">multinomial</span><span>(</span><span>probs</span><span class="z-l-6">,</span><span class="z-d-12"> num_samples</span><span class="z-l-16 z-d-10">=</span><span class="z-l-9 z-d-4">1</span><span class="z-l-6">,</span><span class="z-d-12"> generator</span><span class="z-l-16 z-d-10">=</span><span>g</span><span>)</span><span class="z-l-6">.</span><span class="z-l-14">item</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>    context</span><span class="z-l-16 z-d-10"> =</span><span> context</span><span>[</span><span class="z-l-9 z-d-4">1</span><span class="z-l-6">:</span><span>]</span><span class="z-l-16 z-d-10"> +</span><span> [</span><span>ix</span><span>]</span></span>
+<span class="giallo-l"><span>    out</span><span class="z-l-6">.</span><span class="z-l-14">append</span><span>(</span><span>ix</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    if</span><span> ix</span><span class="z-l-16 z-d-10"> ==</span><span class="z-l-9 z-d-4"> 0</span><span class="z-l-6">:</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        break</span></span></code></pre><h3 id="chu-shi-hua">初始化</h3>
+<p>我们稍微测试一下，会发现最开始的 loss 相当大，因此考虑初始化时让 <code>W1</code> 是原本初始化的 0.2 倍，<code>b1</code>、<code>W2</code> 是原本的 0.01 倍，<code>b2</code> 为零。我们希望避免这样的情况：</p>
+<p>以 ReLU 为例，如果一个神经元不会被任何一组数据激活（始终落在 $&lt; 0$ 区域），则在训练时梯度会被归零，那么这个神经元的权重与偏置根本不会被改变，从满足这个条件开始可以视为这个神经元“已死”。对 tanh 等压缩函数，情况也类似（分布在 $\pm 1$ 附近）。</p>
+<p>在较深、较复杂的网络中，不良的初始化可能导致根本无法训练。</p>
+<p>那如何调这个参数呢？我们希望让 <code>hpreact</code> 大致是 $\mathcal N(0, 1)$ 的高斯分布。可以参考 <a rel="external" href="https://arxiv.org/abs/1502.01852">Delving Deep into Rectifiers</a> 论文。在 PyTorch 中可以调用 <code>torch.nn.init</code> 中的函数。参考以下表格：</p>
+<table><thead><tr><th style="text-align: center">nonlinearity</th><th style="text-align: center">gain</th></tr></thead><tbody>
+<tr><td style="text-align: center">Linear / Identity</td><td style="text-align: center">1</td></tr>
+<tr><td style="text-align: center">Conv{1,2,3}D</td><td style="text-align: center">1</td></tr>
+<tr><td style="text-align: center">Sigmoid</td><td style="text-align: center">1</td></tr>
+<tr><td style="text-align: center">Tanh</td><td style="text-align: center">$5/3$</td></tr>
+<tr><td style="text-align: center">ReLU</td><td style="text-align: center">$\sqrt{2}$</td></tr>
+<tr><td style="text-align: center">Leaky Relu</td><td style="text-align: center">$\sqrt{2 / (1 + \text{negative\textunderscore slope}^2)}$</td></tr>
+<tr><td style="text-align: center">SELU</td><td style="text-align: center">$3/4$</td></tr>
+</tbody></table>
+<p>$$\text{std} = \frac{\text{gain}}{\sqrt{\text{fan\textunderscore mode}}} \tag{Kaiming}$$</p>
+<p>这里 <code>fan_mode</code> 我们取 <code>fan_in</code>，指一个层的输入节点数量。</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="python"><span class="giallo-l"><span>W1</span><span class="z-l-16 z-d-10"> =</span><span> torch</span><span class="z-l-6">.</span><span class="z-l-14">randn</span><span>(</span><span class="z-l-3 z-d-4">...</span><span>)</span><span class="z-l-16 z-d-10"> *</span><span> (</span><span class="z-l-9 z-d-4">5</span><span class="z-l-16 z-d-10">/</span><span class="z-l-9 z-d-4">3</span><span>)</span><span class="z-l-16 z-d-10"> /</span><span> (</span><span>(</span><span>n_embd</span><span class="z-l-16 z-d-10"> *</span><span> block_size</span><span>)</span><span class="z-l-16 z-d-10">**</span><span class="z-l-9 z-d-4">0.5</span><span>)</span></span></code></pre>
+<p>之后的技术，如 residue connections、使用 normalization layers、更先进的优化器，使得初始化可以不需要特别精细。</p>
+<h3 id="batch-normalization">Batch Normalization</h3>
+<p>考虑 <a rel="external" href="https://arxiv.org/abs/1502.03167">Batch Normalization</a>：直接将 <code>hpreact</code> 归一化，这是可微的操作。</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="python"><span class="giallo-l"><span>hpreact</span><span class="z-l-16 z-d-10"> =</span><span> (</span><span>hpreact</span><span class="z-l-16 z-d-10"> -</span><span> hpreact</span><span class="z-l-6">.</span><span class="z-l-14">mean</span><span>(</span><span class="z-l-9 z-d-4">0</span><span class="z-l-6">,</span><span class="z-d-12"> keepdim</span><span class="z-l-16 z-d-10">=</span><span class="z-l-9 z-d-4">True</span><span>)</span><span>)</span><span class="z-l-16 z-d-10"> /</span><span> hpreact</span><span class="z-l-6">.</span><span class="z-l-14">std</span><span>(</span><span class="z-l-9 z-d-4">0</span><span class="z-l-6">,</span><span class="z-d-12"> keepdim</span><span class="z-l-16 z-d-10">=</span><span class="z-l-9 z-d-4">True</span><span>)</span></span></code></pre>
+<p>但是我们希望允许在非初始化阶段这个分布可以调整，因此额外引入矩阵，并将它们作为可训练的参数：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="python"><span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">#</span><span class="z-l-10 z-l-i z-d-3"> bngain = torch.ones((1, n_hidden))</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">#</span><span class="z-l-10 z-l-i z-d-3"> bnbias = torch.zeros((1, n_hidden))</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>hpreact</span><span class="z-l-16 z-d-10"> =</span><span> bngain</span><span class="z-l-16 z-d-10"> *</span><span class="z-l-3 z-d-4"> ...</span><span class="z-l-16 z-d-10"> +</span><span> bnbias</span></span></code></pre>
+<p>由于批次是随机选择的，<code>logits</code> 及 <code>h</code> 会抖动。也许这会被认为是某种缺陷，但实际上它起到的是积极效果，产生类似正则化的效果。</p>
+<p>因为人们不希望前向传播的过程中 batch 的数据耦合起来，人们尝试弃用 batch normalization，转而采用其它归一化技术。</p>
+<p>现在讨论这个问题：训练时使用 batch normalization，那我们在使用时如何对单个样本作预测呢？在训练后使用训练数据单独进行一次：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="python"><span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">#</span><span class="z-l-10 z-l-i z-d-3"> calibrate the batch norm at the end of training</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">with</span><span> torch</span><span class="z-l-6">.</span><span class="z-l-14">no_grad</span><span>(</span><span>)</span><span class="z-l-6">:</span></span>
+<span class="giallo-l"><span>    emb</span><span class="z-l-16 z-d-10"> =</span><span> C</span><span>[</span><span>Xtr</span><span>]</span></span>
+<span class="giallo-l"><span>    embcat</span><span class="z-l-16 z-d-10"> =</span><span> emb</span><span class="z-l-6">.</span><span class="z-l-14">view</span><span>(</span><span>emb</span><span class="z-l-6">.</span><span>shape</span><span>[</span><span class="z-l-9 z-d-4">0</span><span>]</span><span class="z-l-6">,</span><span class="z-l-16 z-d-10"> -</span><span class="z-l-9 z-d-4">1</span><span>)</span></span>
+<span class="giallo-l"><span>    hpreact</span><span class="z-l-16 z-d-10"> =</span><span> embcat</span><span class="z-l-16 z-d-10"> @</span><span> W1</span><span class="z-l-16 z-d-10"> +</span><span> b1</span></span>
+<span class="giallo-l"><span>    bnmean</span><span class="z-l-16 z-d-10"> =</span><span> hpreact</span><span class="z-l-6">.</span><span class="z-l-14">mean</span><span>(</span><span class="z-l-9 z-d-4">0</span><span class="z-l-6">,</span><span class="z-d-12"> keepdim</span><span class="z-l-16 z-d-10">=</span><span class="z-l-9 z-d-4">True</span><span>)</span></span>
+<span class="giallo-l"><span>    bnstd</span><span class="z-l-16 z-d-10"> =</span><span> hpreact</span><span class="z-l-6">.</span><span class="z-l-14">std</span><span>(</span><span class="z-l-9 z-d-4">0</span><span class="z-l-6">,</span><span class="z-d-12"> keepdim</span><span class="z-l-16 z-d-10">=</span><span class="z-l-9 z-d-4">True</span><span>)</span></span></code></pre>
+<p>另一种方法是在训练时以滑动平均的发生动态估算均值和标准差。</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="python"><span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">#</span><span class="z-l-10 z-l-i z-d-3"> bnmean_running = torch.zeros((1, n_hidden))</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">#</span><span class="z-l-10 z-l-i z-d-3"> bnstd_running = torch.ones((1, n_hidden))</span></span>
+<span class="giallo-l"><span>bnmeani</span><span class="z-l-16 z-d-10"> =</span><span> hpreact</span><span class="z-l-6">.</span><span class="z-l-14">mean</span><span>(</span><span class="z-l-9 z-d-4">0</span><span class="z-l-6">,</span><span class="z-d-12"> keepdim</span><span class="z-l-16 z-d-10">=</span><span class="z-l-9 z-d-4">True</span><span>)</span></span>
+<span class="giallo-l"><span>bnstdi</span><span class="z-l-16 z-d-10"> =</span><span> hpreact</span><span class="z-l-6">.</span><span class="z-l-14">std</span><span>(</span><span class="z-l-9 z-d-4">0</span><span class="z-l-6">,</span><span class="z-d-12"> keepdim</span><span class="z-l-16 z-d-10">=</span><span class="z-l-9 z-d-4">True</span><span>)</span></span>
+<span class="giallo-l"><span>hpreact</span><span class="z-l-16 z-d-10"> =</span><span> bngain</span><span class="z-l-16 z-d-10"> *</span><span> (</span><span>hpreact</span><span class="z-l-16 z-d-10"> -</span><span> bnmeani</span><span>)</span><span class="z-l-16 z-d-10"> /</span><span> bnstdi</span><span class="z-l-16 z-d-10"> +</span><span> bnbias</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">with</span><span> torch</span><span class="z-l-6">.</span><span class="z-l-14">no_grad</span><span>(</span><span>)</span><span class="z-l-6">:</span></span>
+<span class="giallo-l"><span>    bnmean_running</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-9 z-d-4"> 0.999</span><span class="z-l-16 z-d-10"> *</span><span> bnmean_running</span><span class="z-l-16 z-d-10"> +</span><span class="z-l-9 z-d-4"> 0.001</span><span class="z-l-16 z-d-10"> *</span><span> bnmeani</span></span>
+<span class="giallo-l"><span>    bnstd_running</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-9 z-d-4"> 0.999</span><span class="z-l-16 z-d-10"> *</span><span> bnstd_running</span><span class="z-l-16 z-d-10"> +</span><span class="z-l-9 z-d-4"> 0.001</span><span class="z-l-16 z-d-10"> *</span><span> bnstdi</span></span></code></pre>
+<p>最后作两点补充。为了防止 <code>bnstdi</code> 为零导致除零错误，有时会给它加上一个小的常数（如 1e-5）；另外，这里偏置项是冗余的。</p>
+<p>读者可以参考 <a rel="external" href="https://docs.pytorch.org/docs/2.14/generated/torch.nn.BatchNorm1d.html">PyTorch 的 Batch Normalization 文档</a>：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="python"><span class="giallo-l"><span class="z-l-17 z-d-10">class</span><span> torch</span><span class="z-l-6">.</span><span>nn</span><span class="z-l-6">.</span><span class="z-l-14">BatchNorm1d</span><span>(</span><span>num_features</span><span class="z-l-6">,</span><span class="z-d-12"> eps</span><span class="z-l-16 z-d-10">=</span><span class="z-l-9 z-d-4">1e-05</span><span class="z-l-6">,</span><span class="z-d-12"> momentum</span><span class="z-l-16 z-d-10">=</span><span class="z-l-9 z-d-4">0.1</span><span class="z-l-6">,</span><span class="z-d-12"> affine</span><span class="z-l-16 z-d-10">=</span><span class="z-l-9 z-d-4">True</span><span class="z-l-6">,</span><span class="z-d-12"> track_running_stats</span><span class="z-l-16 z-d-10">=</span><span class="z-l-9 z-d-4">True</span><span class="z-l-6">,</span><span class="z-d-12"> device</span><span class="z-l-16 z-d-10">=</span><span class="z-l-9 z-d-4">None</span><span class="z-l-6">,</span><span class="z-d-12"> dtype</span><span class="z-l-16 z-d-10">=</span><span class="z-l-9 z-d-4">None</span><span class="z-l-6">,</span><span class="z-l-16 z-d-10"> *</span><span class="z-l-6">,</span><span class="z-d-12"> bias</span><span class="z-l-16 z-d-10">=</span><span class="z-l-9 z-d-4">True</span><span>)</span></span></code></pre>
+<p>$$y = \frac{x - \mathrm E[x]}{\sqrt{\mathrm{Var}[x] + \epsilon}} \ast \gamma + \beta$$</p>
+</section>
+  <hr />
+  
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/计算机/">计算机</a>
+    
+  </div>
+</footer>
+
+  
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- page_end inject -->
+
+</article>
+
+  </main>
+  <footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+    <div class="mr-auto basis-full lg:basis-1/2">
+      
+&copy; 2025-2026 Rratic
+ &vert; <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+
+    </div>
+    <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+      
+  <span class="mr-6 lg:ml-6">
+    <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+  </span>
+  <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+
+    </div>
+  <!-- footer inject -->
+
+  </footer>
+  
+  <link rel="stylesheet" href="https://rratic.top/katex/katex.min.css?h=180c2d77d434d7da51d6" />
+  <script defer src="https://rratic.top/katex/katex.min.js?h=2ec5916941ef4383e031"></script>
+  <script defer src="https://rratic.top/katex/contrib/auto-render.min.js?h=e5372d199bcdae8b4de7"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+  
+
+  <!-- body_end inject -->
+
+</body>
+
+</html>
