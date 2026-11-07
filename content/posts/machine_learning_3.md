@@ -127,7 +127,7 @@ $$
 
 $$x_t = \sum_{j=1}^d (1 - \eta\lambda_j)^t \alpha_j(0) u_j$$
 
-$$f(x_t) \lesssim C \left(\frac{\kappa - 1}{\kappa + 1}\right)^{2t}$$
+$$f(x_t) \lesssim \left(\frac{\kappa - 1}{\kappa + 1}\right)^{2t} \approx e^{-t / \kappa}$$
 
 于是，达到 $\varepsilon$ 所需的迭代数有下式，知条件数是优化困难的一个重要来源：
 
@@ -149,4 +149,63 @@ $$
 \end{cases}
 $$
 
+$$v_{k+1} = \beta^k \nabla f(x_0) + \cdots + \nabla f(x_k)$$
+
+如果我们设 $\beta = 1 - \alpha$，就可以推导出：
+
+$$\frac{\frac{x_{k+1} - x_k}{\sqrt \eta} - \frac{x_k - x_{k-1}}{\sqrt \eta}}{\sqrt \eta} = -\nabla f(x_k) - \frac{\alpha}{\sqrt \eta} \frac{x_k - x_{k-1}}{\sqrt \eta}$$
+
+连续化之后得到的就是 Newton 方程（$f(\cdot)$ 是潜能，$-\gamma V$ 是阻力）：
+
+$$
+\begin{cases}
+    \dot X = V \\\\
+    \dot V = -\gamma V - \nabla f(x)
+\end{cases}
+$$
+
+于是我们可以作出解释：这个方法可以越过一些较浅的局部最小值点。但物理学直观还不足以说明为什么能减小 $T_\varepsilon$.
+
+![二维二次函数 HB](/images/misc/hb_momentum.png)
+
+可以在 <https://distill.pub/2017/momentum/> 看到一个在线演示。
+
+同样考虑多维二次函数，沿用之前记号，这里有：
+
+$$\alpha_j(t + 1) = (1 + \beta - \eta \lambda_j) \alpha_j(t) - \beta \alpha_j(t - 1)$$
+
+为此考虑其特征方程：
+
+$$z^2 - (1 + \beta - \eta \lambda_j) z + \beta = 0$$
+
+于是可以给出解：
+
+$$
+z_{j, \pm} = \frac{1 + \beta - \eta \lambda_j \pm \sqrt{\Delta_j}}{2} \\\\
+\alpha_j(t) = C_+ z_{j, +}^t + C_- z_{j, -}^t
+$$
+
+$\beta$ 接近 $0$ 时这和 GD 没有很大区别。但接近 $1$ 时就有很大不同。考虑 $\Delta_j < 0$，这需要：
+
+$$(1 - \sqrt \beta)^2 \leq \eta \lambda_j \leq (1 + \sqrt \beta)^2$$
+
+此时，$z_+ = \overline{z_-}$，有：
+
+$$\alpha_j(t) = |z|^t (C_1 \cos (at) + C_2 \sin (bt))$$
+
+且 $|z_+| = |z_-| = \sqrt \beta$，条件在最大最小方向取等可以取：
+
+$$\sqrt \beta = \frac{\sqrt \kappa - 1}{\sqrt \kappa + 1}, \quad \eta = \frac{2(1 + \beta)}{\lambda_1 + \lambda_d}$$
+
+于是就有以下结果，相比 GD 对条件数的依赖多了一个根号：
+
+$$|\alpha_j(t)| \lesssim \left(\frac{\sqrt \kappa - 1}{\sqrt \kappa + 1}\right)^t \approx e^{-t / \sqrt \kappa}$$
+
+$$T_\varepsilon = O(\sqrt \kappa \log (1 / \varepsilon))$$
+
 ### Nesterov 方法
+GD 与 HBM 的收敛速率都是 $O(1/t)$，这自然引出了能否通过惯性得到快于 $O(1/t)$ 的收敛速率的问题。
+
+其中考虑的一般框架是：
+
+$$x_{t+1} = \mathcal M(\nabla f(x_t), \dots, \nabla f(x_0), x_0)$$
