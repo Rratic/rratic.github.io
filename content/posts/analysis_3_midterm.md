@@ -1,6 +1,6 @@
 +++
 title = "数学分析Ⅲ期中复习笔记"
-date = 2026-10-30
+date = 2026-11-09
 
 [extra]
 math = true
@@ -10,13 +10,13 @@ categories = ["知识", "课程"]
 tags = ["数学", "分析学"]
 +++
 
-这半学期的内容是多元函数积分学。我们还是用 Riemann 积分的引申来做，出于与“测度”的区分及教师的习惯，这里的用词是“体积”。
+这半学期的内容是多元函数积分学。我们还是用 Riemann 积分的引申来做，出于与 Lebesgue 测度的区分及教师的习惯，这里的用词是“体积”，实际上是 Jordan 测度。
 
 <!-- more -->
 
 ## 多元函数积分学
 ### 重积分
-对 $\R^n$ 的非空有界集 $E$，称（面平行于坐标面的）长方体集 $\mathcal A_E = \\{A_k\\}$ 是其恰当覆盖，如果 $\circ A_i \cap \circ A_j = \emptyset$ 且是覆盖。
+对 $\R^n$ 的非空有界集 $E$，称（面平行于坐标面的）长方体集 $\mathcal A_E = \\{A_k\\}$ 是其恰当覆盖，如果 $\mathring A_i \cap \mathring A_j = \emptyset$ 且是覆盖。
 
 令 $m(\mathcal A_E)$ 是 $\mathcal A_E$ 中完全含于 $E$ 的长方体体积之和，$M(\mathcal A_E)$ 是与 $E$ 有交的长方体体积之和；
 
@@ -53,18 +53,18 @@ $$\int_a^b \mathrm dx \int_c^d f(x, y) \mathrm dy = \iint_{[a, b] \times [c, d]}
 更多重积分同理。若定义域不规则，可以补成一个矩形区域并令未定义区域值为零。
 
 {% <theorem title="变量替换"> %}
-设 $E$ 可求体积有界闭区域，$f \in R(E)$，$\mathbf y = \varphi(\mathbf x)$ 是 $C^1$ 同胚，其 Jacobi 矩阵 $J = \frac{\partial(y_1, \dots, y_n)}{\partial(x_1, \dots, x_n)}$，则：
+设 $E$ 可求体积有界闭区域，$f \in R(E)$，$\mathbf y = \varphi(\mathbf x)$ 是 $C^1$ 同胚，其 Jacobi 矩阵 $J_{ij} = \partial y_i / \partial x_j$，则：
 
-$$\int_E f(\varphi(\mathbf x)) |\det J| \mathrm dx = \int_{\varphi(E)} f(\mathbf y) \mathrm dy$$
+$$\int_E f(\varphi(\mathbf x)) |\det J\varphi| \mathrm d\mathbf x = \int_{\varphi(E)} f(\mathbf y) \mathrm d\mathbf y$$
 {% </theorem> %}
 
-通过琐碎的分析。如，
+先证明对初等线性变换成立，从而对仿射变换成立，然后分析。典型的例子是：
 
 $$\int_0^{2\pi} \mathrm d\theta \int_0^R f(r\cos\theta, r\sin\theta) r \mathrm dr = \iint\limits_{x^2+y^2 \leq R^2} f(x, y) \mathrm d\sigma$$
 
 $$\int_0^{\pi} \mathrm d\theta \int_0^{2\pi} \mathrm d\varphi \int_0^R f(r\cos\theta, r\sin\theta\cos\varphi, r\sin\theta\sin\varphi) r^2\sin\theta \mathrm dr = \iiint\limits_{x^2+y^2+z^2 \leq R^2} f(x, y, z) \mathrm dv$$
 
-### 广义重积分
+### 广义、瑕重积分
 称一列有界可求面积闭集 $\\{D_n\\}_{n=1}^\infty$ 为闭集 $D$ 的穷竭，如果 $D_1 \subset D_2 \subset \cdots \subset D$，且任意有界闭集 $F \subset D$ 存在 $D_i \supset F$.
 
 {% <definition title="广义重积分"> %}
@@ -87,40 +87,52 @@ $$\iint_D f(\mathbf x) \mathrm d\sigma \coloneqq \lim_{n \to \infty} \iint_{D_n}
 
 累次广义积分和广义重积分的关系略去。
 
+---
+
+简单考虑瑕积分。如果 $f$ 有瑕点 $p$，若恒非负则可简单定义为：
+
+$$\iint_A f = \lim_{\varepsilon \to 0^+} \iint_{A \setminus B_{\varepsilon}(p)} f$$
+
+若不恒非负，可以考虑 $f^+$ 与 $f^-$ 的瑕积分，若都收敛，定义为其差。
+
 ## 曲线与曲面积分
 ### 曲线积分
-回忆可以用折线逼近的方法定义参数曲线的长度，有限时它是可求长曲线。可以证明参数曲线可求长当且仅当对每个分量是有界变差函数；函数是有界变差函数当且仅当可以写成两个单调递增函数之差。
+回忆可以用折线逼近的方法定义参数曲线的长度，有限时它是可求长曲线。可以证明分段光滑曲线是可求长的；参数曲线可求长当且仅当对每个分量是有界变差函数；函数是有界变差函数当且仅当可以写成两个单调递增函数之差。
 
 对可求长参数曲线及有界实值函数，仿照 Riemann 和容易定义Ⅰ型曲线积分：
 
-$$\int_{\Gamma} f(\mathbf x) \mathrm ds = \lim_{\lVert\Delta\rVert \to 0} \sum_{i=1}^n f(\gamma(\xi_i)) \Delta s_i$$
+$$\int_{\gamma} f(\mathbf x) \mathrm ds \coloneqq \lim_{\lVert\Delta\rVert \to 0} \sum_{i=1}^n f(\gamma(\xi_i)) \Delta s_i$$
 
-两端点重合时，也记作：
+对可求长简单曲线 $\gamma$ 及 $f \in C(\gamma)$，该极限存在。
 
-$$\oint_{\Gamma} f(\mathbf x) \mathrm ds$$
-
-分段光滑曲线是可求长的。对可求长简单曲线 $\Gamma$ 及 $f \in C(\Gamma)$ 有曲线积分存在。
+---
 
 对向量场 $\mathbf F$，定义Ⅱ型曲线积分是：
 
-$$\int_\gamma \mathbf F \mathrm ds = \int_\gamma f_1 \mathrm dx_1 + \cdots + f_1 \mathrm dx_n$$
+$$\int_\gamma f_1 \mathrm dx_1 + \cdots + f_n \mathrm dx_n = \int_\gamma \mathbf F \cdot \mathrm d\vec s \coloneqq \lim_{\lVert\Delta\rVert \to 0} \sum_{i=1}^n \mathbb F(\gamma(\xi_i)) \cdot [\gamma(t_i) - \gamma(t_{i-1})]$$
 
 对于分段 $C^1$ 曲线，可以转化为 Riemann 积分：
 
-$$\int_\gamma \mathbf F \mathrm ds = \int_\alpha^\beta \mathbf F(\gamma(t)) \cdot \gamma'(t) \mathrm dt$$
+$$\int_\gamma \mathbf F \cdot \mathrm d\vec s = \int_\alpha^\beta \mathbf F(\gamma(t)) \cdot \gamma'(t) \mathrm dt$$
+
+两端点重合时，约定了方向后，积分值与起点选取无关，记作（此时 $\gamma$ 常用点集表示）：
+
+$$\oint_{\gamma} f_1 \mathrm dx_1 + \cdots + f_n \mathrm dx_n$$
 
 ### 曲面积分
-对于 $\varphi: \Omega \to \R^n$ 为 $C^1$ 的参数曲面，$f$ 在 $\varphi(\Omega)$ 上连续，定义Ⅰ型曲面积分：
+对于 $\varphi: \Omega \to \R^n$ 为 $C^1$ 的参数曲面（$\Omega$ 在 $m \leq n$ 维中），$f$ 在 $\varphi(\Omega)$ 上连续，定义Ⅰ型曲面积分：
 
-$$\iint_{\varphi(\Omega)} f \mathrm d\sigma = \iint \cdots \int_\Omega f \circ \varphi |\det (J\varphi)| \mathrm du_1 \cdots \mathrm du_n$$
+$$\iint_{\varphi(\Omega)} f \mathrm d\sigma = \iint \cdots \int_\Omega f \circ \varphi \sqrt{\det (J\varphi)^\top (J\varphi)} \mathrm du_1 \cdots \mathrm du_n$$
 
 对于 $\mathbb E^3$ 中的可定向曲面 $\Sigma$ 及连续的单位法向量场 $\mathbf n$，定义连续向量值函数 $\mathbf X$ 的Ⅱ型曲面积分：
 
-$$\iint_\Sigma \mathbf X \mathrm d\sigma = \iint_\Sigma \mathbf X \cdot \mathbf n \mathrm d\sigma$$
+$$\iint_\Sigma \mathbf X \cdot \mathrm d\vec \sigma = \iint_\Sigma \mathbf X \cdot \mathbf n \mathrm d\sigma$$
 
 使用[微分形式](@/posts/smooth_manifolds_2.md)的语言它等于下式：
 
 $$\int_\Sigma X_x \mathrm dy \wedge \mathrm dz + X_y \mathrm dz \wedge \mathrm dx + X_z \mathrm dx \wedge \mathrm dy$$
+
+这里（对可定向曲面）$\mathbf n$ 的选取有两种，标准定向对应的是向外。题目中可能使用别的表述方式来约定，对此约定使用右手坐标系。
 
 ### 关联
 {% <theorem title="散度定理"> %}
@@ -129,8 +141,12 @@ $$\int_\Sigma X_x \mathrm dy \wedge \mathrm dz + X_y \mathrm dz \wedge \mathrm d
 $$\int_\Omega \mathrm{div}(\mathbf X) \mathrm d\mathbf x = \int_{\partial \Omega} \mathbf X \cdot \mathbf n \mathrm d\sigma$$
 {% </theorem> %}
 
+这里散度是 $\nabla \cdot \mathbf X$，可以看成通量密度。使用单位分解与重积分化累次积分证明。
+
+---
+
 取 $\mathbf X = (Q, -P)$ 就可得到 Green 公式：
 
 $$\int_\Omega \left(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}\right) \mathrm dx\mathrm dy = \int_{\partial \Omega} P \mathrm dx + Q \mathrm dy$$
 
-实际上所有的转换都可以使用 Stokes 定理直接得到，故这里略去。
+这里定向取的是诱导定向。实际上所有的转换都可以使用微分形式的 Stokes 定理直接得到，故这里略去。
