@@ -126,14 +126,13 @@ $$\mathrm{Hom} _{\mathbf{Top}}(|X|, Y) \cong \mathrm{Hom} _{P(\Delta)}(X, S(Y))$
 {% </theorem> %}
 
 $$
-\begin{align*}
-	& \text{LHS} \cr
-	= & \mathrm{Hom} _{\mathbf{Top}}(\operatorname*{colim} _{\Delta \downarrow X} |\Delta^n|, Y) \cr
-	= & \operatorname*{lim} _{\Delta \downarrow X} \mathrm{Hom} _{\mathbf{Top}}(|\Delta^n|, Y) \cr
-	\cong & \operatorname*{lim} _{\Delta \downarrow X} \mathrm{Hom} _{P(\Delta)}(\Delta^n, S(Y)) \cr
-	= & \mathrm{Hom} _{P(\Delta)}(\operatorname*{colim} _{\Delta \downarrow X} \Delta^n, S(Y)) \cr
-	\cong & \text{RHS}
-\end{align*}
+\begin{split} \text{LHS}
+&= \mathrm{Hom} _{\mathbf{Top}}(\operatorname*{colim} _{\Delta \downarrow X} |\Delta^n|, Y) \cr
+&= \operatorname*{lim} _{\Delta \downarrow X} \mathrm{Hom} _{\mathbf{Top}}(|\Delta^n|, Y) \cr
+&\cong \operatorname*{lim} _{\Delta \downarrow X} \mathrm{Hom} _{P(\Delta)}(\Delta^n, S(Y)) \cr
+&= \mathrm{Hom} _{P(\Delta)}(\operatorname*{colim} _{\Delta \downarrow X} \Delta^n, S(Y)) \cr
+&\cong \text{RHS}
+\end{split}
 $$
 
 ## 无穷范畴

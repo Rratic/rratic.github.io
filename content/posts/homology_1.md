@@ -136,7 +136,7 @@ $$
 
 则可以定义**连接同态** $\partial: H_n(C) \to H_{n-1}(A)$ 是 $\partial [c] = [a]$，考虑图中被框出群的元素 $a, b, \partial b, c$ 知良定义。有长正合列：
 
-$$\cdots \to H_n(A) \stackrel {i_\ast} \to H_n(B) \stackrel {j_\ast} \to H_n(C) \stackrel \partial \to H_{n-1}(A) \to \cdots$$
+$$\cdots \to H_n(A) \xrightarrow{i_\ast} H_n(B) \xrightarrow{j_\ast} H_n(C) \xrightarrow{\partial} H_{n-1}(A) \to \cdots$$
 {% </theorem> %}
 
 通过 diagram chasing 即可。
@@ -231,13 +231,12 @@ $$\partial D\sigma + D\partial\sigma = \sigma - [S^{m(\sigma)}\sigma + D_{m(\sig
 使用 excision 及之前长正合列知：
 
 $$
-\begin{align*}
-	&H _k(U, U - \set{x}) \\\\
-	\cong \\, &H _k(\R^m, \R^m - \set{x}) \\\\
-	\cong \\, &\tilde{H} _{k-1}(\R^m - \set{x}) \\\\
-	\cong \\, &\tilde{H} _{k-1}(S^{m-1}) \\\\
-	= \\, &\begin{cases} \Z & k=m \cr 0 & \text{otherwise} \end{cases}
-\end{align*}
+\begin{split} H _k(U, U - \set{x})
+&\cong H _k(\R^m, \R^m - \set{x}) \\\\
+&\cong \tilde{H} _{k-1}(\R^m - \set{x}) \\\\
+&\cong \tilde{H} _{k-1}(S^{m-1}) \\\\
+&= \begin{cases} \Z & k=m \cr 0 & \text{otherwise} \end{cases}
+\end{split}
 $$
 
 一般地定义**局部同调群**是指 $H_n(X, X - \set{x})$. 由 excision 知它只和局部的拓扑有关。这可以用于考察局部的同胚情况。

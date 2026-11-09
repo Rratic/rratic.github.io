@@ -109,7 +109,7 @@ $$\int_{\gamma} f(\mathbf x) \mathrm ds \coloneqq \lim_{\lVert\Delta\rVert \to 0
 
 对向量场 $\mathbf F$，定义Ⅱ型曲线积分是：
 
-$$\int_\gamma f_1 \mathrm dx_1 + \cdots + f_n \mathrm dx_n = \int_\gamma \mathbf F \cdot \mathrm d\vec s \coloneqq \lim_{\lVert\Delta\rVert \to 0} \sum_{i=1}^n \mathbb F(\gamma(\xi_i)) \cdot [\gamma(t_i) - \gamma(t_{i-1})]$$
+$$\int_\gamma f_1 \mathrm dx_1 + \cdots + f_n \mathrm dx_n = \int_\gamma \mathbf F \cdot \mathrm d\vec s \coloneqq \lim_{\lVert\Delta\rVert \to 0} \sum_{i=1}^n \mathbf F(\gamma(\xi_i)) \cdot [\gamma(t_i) - \gamma(t_{i-1})]$$
 
 对于分段 $C^1$ 曲线，可以转化为 Riemann 积分：
 

@@ -204,8 +204,29 @@ $$|\alpha_j(t)| \lesssim \left(\frac{\sqrt \kappa - 1}{\sqrt \kappa + 1}\right)^
 $$T_\varepsilon = O(\sqrt \kappa \log (1 / \varepsilon))$$
 
 ### Nesterov 方法
-GD 与 HBM 的收敛速率都是 $O(1/t)$，这自然引出了能否通过惯性得到快于 $O(1/t)$ 的收敛速率的问题。
+GD 与 HBM 的收敛速率都是 $O(1/t)$，这自然引出了能否通过惯性得到快于 $O(1/t)$ 的收敛速率的问题。Nestov 证明了凸问题只用一阶方法最快是 $O(1/t^2)$.
 
 其中考虑的一般框架是：
 
 $$x_{t+1} = \mathcal M(\nabla f(x_t), \dots, \nabla f(x_0), x_0)$$
+
+Nesterov Accelerated Gradient (NAG) 方法是：
+
+$$
+\begin{cases}
+    y_t = x_t + \beta_t (x_t - x_{t-1}) \\\\
+    x_{t+1} = y_t - \eta \nabla f(y_t)
+\end{cases}
+$$
+
+这里是对 $y_t$ 算梯度，向前看（look ahead）。$\beta_t$ 通常会固定在 $0.9$，对于凸问题会选择 $(t - 1)/(t + 2)$.
+
+我们同样可以把表达式整理成：
+
+$$\frac{x_{t+1} - 2x_t + x_{t-1}}{(\sqrt \eta)^2} = -\frac{3}{(t + 2)\sqrt \eta} \frac{x_t - x_{t-1}}{\sqrt \eta} - \nabla f(y_t)$$
+
+令 $\tau = t\sqrt \eta$，$X(t\sqrt \eta) = x_t$ 及 $\eta \to 0$ 得到：
+
+$$\ddot X = -\frac{3}{\tau} \dot X - \nabla f(X)$$
+
+## 随机梯度下降
