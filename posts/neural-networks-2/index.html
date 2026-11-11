@@ -1,0 +1,228 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola v0.23.4" />
+  <title>读论文：Attention Is All You Need | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="读论文：Attention Is All You Need" />
+  <meta name="description" content="因为今天上午的面试需要从两篇论文中选择一篇（另一篇是 Discovering faster matrix multiplication algorithms with reinforcement learning）讨论，久仰大名故阅读之。本文主要提出了完全依赖注意力机制，摒弃循环和卷积的模型，解决了之前长距离依赖路径长、训练无法并行与训练成本高的问题。" />
+  <meta property="og:description" content="因为今天上午的面试需要从两篇论文中选择一篇（另一篇是 Discovering faster matrix multiplication algorithms with reinforcement learning）讨论，久仰大名故阅读之。本文主要提出了完全依赖注意力机制，摒弃循环和卷积的模型，解决了之前长距离依赖路径长、训练无法并行与训练成本高的问题。" />
+  <meta property="og:url" content="https://rratic.top/posts/neural-networks-2/" />
+  <link rel="canonical" href="https://rratic.top/posts/neural-networks-2/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-10-16T00:00:00+00:00" />
+  <meta property="article:tag" content="计算机" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <meta name="msvalidate.01" content="9BE559916FDB06A7A09EA17370F0ED09" />
+<link rel="icon" type="image/svg+xml" href="https://rratic.top/favicon.svg" />
+<link rel="stylesheet" href="https://rratic.top/style/shared.css?h=2dac71ecd418f5165c3d" />
+
+  <link rel="stylesheet" href="https://rratic.top/giallo-light.css?h=396eaa20499714fdb600" media="(prefers-color-scheme: light)" />
+  <link rel="stylesheet" href="https://rratic.top/giallo-dark.css?h=536598ee42e9e9a795bc" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=f166037ad671ba6bfd13" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=11a0f44fbe01f53dbaf9"></script>
+  <!-- head_end inject -->
+
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      
+<menu
+  class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/posts/"
+    >文章</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/categories/"
+    >分类</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/tags/"
+    >标签</a>
+  </li>
+</menu>
+
+      <!-- header_nav inject -->
+
+    </nav>
+  </div>
+</header>
+
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    <!-- body_start inject -->
+
+    
+<article>
+  <!-- page_start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-3">读论文：Attention Is All You Need</h1>
+    <div class="text-sm antialiased opacity-80"><time
+      datetime="2026-10-16T00:00:00+00:00">2026-10-16</time><span
+        class="middot"></span><time
+    datetime="PT0H4M0S">4&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+  </header>
+  
+  
+  <!-- Content -->
+  <section><p>因为今天上午的面试需要从两篇论文中选择一篇（另一篇是 Discovering faster matrix multiplication algorithms with reinforcement learning）讨论，久仰大名故阅读之。</p>
+<p>本文主要提出了完全依赖注意力机制，摒弃循环和卷积的模型，解决了之前长距离依赖路径长、训练无法并行与训练成本高的问题。</p>
+<span id="continue-reading"></span>
+<hr />
+<p>我们先来过一遍模型架构：</p>
+<p><img src="/images/misc/transformer.png" alt="模型架构" /></p>
+<p>这篇论文在当时关心的是翻译问题，在大体上它是 encoder-decoder 架构<sup class="footnote-reference"><a href="#encoder-decoder">1</a></sup>：前者将输入 $(x_1, \dots, x_n)$ 变成一组表示 $(z_1, \dots, z_n)$，后者将表示变成一组输出 $(y_1, \dots, y_m)$；这里，在训练时将翻译原句输入左边 inputs，将翻译结果右移一位（前面加上 <code>&lt;start&gt;</code> 标记 token，去掉末尾 token），做训练；使用时只将原句输入左边一次，然后右边从 <code>&lt;start&gt;</code> 开始，每过一遍生成一个词。</p>
+<p>在左边的每一层中，先做 Multi-Head Attention，进行残差连接<sup class="footnote-reference"><a href="#residue-connection">2</a></sup>与 Layer Normalization<sup class="footnote-reference"><a href="#layer-normalization">3</a></sup>，然后做 position-wise fully connected feed-foward network.</p>
+<hr />
+<p>所谓 Attention 说的是，对于 $L \times d_{\text{model}}$ 的输入，我们用投影矩阵得到 $d_{\text{model}} \times d_k$ 维的 $Q, K$ 及 $d_{\text{model}} \times d_v$ 维的 $V$，分别代表查询条件、索引标签、数据内容。然后：</p>
+<p>$$\text{Attention}(Q, K, V) = \mathrm{softmax}(\frac{QK^\top}{\sqrt{d_k}}) V$$</p>
+<p>这里除以 $\sqrt{d_k}$，是因为：若假设 $Q, K$ 每一维上独立并且方差为 $1$，则积会有方差 $d_k$，需要降到 $1$ 才能正常<sup class="footnote-reference"><a href="#softmax-normal">4</a></sup>用 softmax.</p>
+<p>然后一般来说 $d_{\text{model}} = hd_v$，Multi-Head Attention 是：</p>
+<p>$$\text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}_1, \dots, \text{head}_h)W^O$$</p>
+<p>每个 head 学习不同特征，然后融合起来。</p>
+<p>这里 Multi-Head Attention 共有三种用法：在交叉注意力（左边到右边的箭头），左边给出 Key 与 Value，右边给出 Query；在 encoder 的 self-attention 层，所有的 Query、Key、Value 均来自上一层；在 decoder 的 self-attention 层，为了保证自回归性质（只知道过去不知道未来），将 $j &gt; i$ 部分给“mask out”。</p>
+<p>自注意力成功地使得，不同位置间的连接是 $O(1)$ 的（但计算、存储复杂度变为 $O(n^2)$），而传统方法则有长距离梯度消失/爆炸的问题。</p>
+<hr />
+<p>这里的 Position-wise Feed-Foward Network 在两个线性变换中有一个 ReLU，即：</p>
+<p>$$\text{FFN}(x) = \max(0, xW_1 + b_1) W_2 + b_2$$</p>
+<p>这里 $d_{\text{model}} = 512$，中间维数 $2048$，中间维数高是为提高表达能力。</p>
+<hr />
+<p>Postional Encoding 是为将位置信息编码进去。论文用的是分配不同的频率：<sup class="footnote-reference"><a href="#rope">5</a></sup></p>
+<p>$$
+\text{PE} _{\text{pos}, 2i} = \sin (\text{pos} / 10000^{2i / d _{\text{model}}}) \\
+\text{PE} _{\text{pos}, 2i + 1} = \cos (\text{pos} / 10000^{2i / d _{\text{model}}})
+$$</p>
+<p>关于 Embedding、优化器、正则化等参考原论文即可。</p>
+<hr />
+<div class="footnote-definition" id="encoder-decoder"><sup class="footnote-definition-label">1</sup>
+<p>现代 LLM 是 decoder-only 的。</p>
+</div>
+<div class="footnote-definition" id="residue-connection"><sup class="footnote-definition-label">2</sup>
+<p>即 $F(x) + x$，这在深层神经网络可以防止梯度消失。</p>
+</div>
+<div class="footnote-definition" id="layer-normalization"><sup class="footnote-definition-label">3</sup>
+<p>与 <a href="https://rratic.top/posts/neural-networks-1/">Batch Normalization</a> 相反，分别对每个样本的所有特征做归一化。这里是 $\text{LayerNorm}(x + \text{Sublayer}(x))$，现代则大多用 $x + \text{Sublayer}(\text{LayerNorm}(x))$.</p>
+</div>
+<div class="footnote-definition" id="softmax-normal"><sup class="footnote-definition-label">4</sup>
+<p>面试时被问不正常会怎样发现不会。实际上一般控制方差在 $0.5 \sim 1$，太大会容易饱和梯度变小，太小会让输出信号接近均匀。</p>
+</div>
+<div class="footnote-definition" id="rope"><sup class="footnote-definition-label">5</sup>
+<p>现代会用 RoPE，每个词有一对分量，随位置施加旋转，这样旋转差只和位置差有关。</p>
+</div>
+</section>
+  <hr />
+  
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/计算机/">计算机</a>
+    
+  </div>
+</footer>
+
+  
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- page_end inject -->
+
+</article>
+
+  </main>
+  <footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+    <div class="mr-auto basis-full lg:basis-1/2">
+      
+&copy; 2025-2026 Rratic
+ &vert; <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+
+    </div>
+    <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+      
+  <span class="mr-6 lg:ml-6">
+    <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+  </span>
+  <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+
+    </div>
+  <!-- footer inject -->
+
+  </footer>
+  
+  <link rel="stylesheet" href="https://rratic.top/katex/katex.min.css?h=180c2d77d434d7da51d6" />
+  <script defer src="https://rratic.top/katex/katex.min.js?h=2ec5916941ef4383e031"></script>
+  <script defer src="https://rratic.top/katex/contrib/auto-render.min.js?h=e5372d199bcdae8b4de7"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+  
+
+  <!-- body_end inject -->
+
+</body>
+
+</html>

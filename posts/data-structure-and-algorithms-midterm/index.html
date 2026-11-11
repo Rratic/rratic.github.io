@@ -1,0 +1,659 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola v0.23.4" />
+  <title>《数据结构与算法》期中复习笔记 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="《数据结构与算法》期中复习笔记" />
+  <meta name="description" content="本文为复习《数据结构与算法A》，参考其仓库；读者也可参考 Steven S. Skiena The Algorithm Design Manual 及 OI Wiki 对应内容（含有动图）。" />
+  <meta property="og:description" content="本文为复习《数据结构与算法A》，参考其仓库；读者也可参考 Steven S. Skiena The Algorithm Design Manual 及 OI Wiki 对应内容（含有动图）。" />
+  <meta property="og:url" content="https://rratic.top/posts/data-structure-and-algorithms-midterm/" />
+  <link rel="canonical" href="https://rratic.top/posts/data-structure-and-algorithms-midterm/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-11-03T00:00:00+00:00" />
+  <meta property="article:tag" content="计算机" />
+  <meta property="article:tag" content="算法" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <meta name="msvalidate.01" content="9BE559916FDB06A7A09EA17370F0ED09" />
+<link rel="icon" type="image/svg+xml" href="https://rratic.top/favicon.svg" />
+<link rel="stylesheet" href="https://rratic.top/style/shared.css?h=2dac71ecd418f5165c3d" />
+
+  <link rel="stylesheet" href="https://rratic.top/giallo-light.css?h=396eaa20499714fdb600" media="(prefers-color-scheme: light)" />
+  <link rel="stylesheet" href="https://rratic.top/giallo-dark.css?h=536598ee42e9e9a795bc" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=f166037ad671ba6bfd13" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=11a0f44fbe01f53dbaf9"></script>
+  <!-- head_end inject -->
+
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      
+<menu
+  class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/posts/"
+    >文章</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/categories/"
+    >分类</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/tags/"
+    >标签</a>
+  </li>
+</menu>
+
+      <!-- header_nav inject -->
+
+    </nav>
+  </div>
+</header>
+
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    <!-- body_start inject -->
+
+    
+<article>
+  <!-- page_start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-3">《数据结构与算法》期中复习笔记</h1>
+    <div class="text-sm antialiased opacity-80"><time
+      datetime="2026-11-03T00:00:00+00:00">2026-11-03</time><span
+        class="middot"></span><time
+    datetime="PT0H9M0S">9&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+  </header>
+  
+  
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#gai-lun">概论</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#xian-xing-biao">线性表</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#shun-xu-biao">顺序表</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#lian-biao">链表</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#zhan-yu-dui-lie">栈与队列</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#zhan">栈</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#diao-du-chang-suan-fa">调度场算法</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#dui-lie">队列</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#zi-fu-chuan">字符串</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#er-cha-shu">二叉树</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ding-yi-yu-shi-xian">定义与实现</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#er-cha-sou-suo-shu">二叉搜索树</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#dui-yu-you-xian-dui-lie">堆与优先队列</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#huffman-shu">Huffman 树</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#shu">树</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#ji-ben-xing-zhi">基本性质</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#lian-shi-cun-chu">链式存储</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#bing-cha-ji">并查集</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#shun-xu-cun-chu">顺序存储</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </details>
+</nav>
+  <!-- Content -->
+  <section><p>本文为复习《数据结构与算法A》，参考其<a rel="external" href="https://github.com/GMyhf/dsa-modernization">仓库</a>；读者也可参考 Steven S. Skiena <em>The Algorithm Design Manual</em> 及 <a rel="external" href="https://oi-wiki.org/">OI Wiki</a> 对应内容（含有动图）。</p>
+<span id="continue-reading"></span><h2 id="gai-lun">概论</h2>
+<p>数据结构的研究内容包括数据的逻辑结构、数据的存储结构与在此结构上定义的运算（算法）。抽象数据类型（ADT）不关心存储结构，我们用有向图来表示。</p>
+<p>数据的四种基本存储方式是顺序存储、链接存储、索引存储、散列存储。</p>
+<p>算法的四个性质是通用性、有效性（每条指令能被确切执行）、确定性（每步之后下一步怎么走有明确指示）、有穷性（有限步内结束）。五个特性是有穷性、确定性（每步含义唯一）、可行性（每步都能机械执行）、 输入（零个或多个）、输出（一个或多个）。</p>
+<p>渐进分析方法中，我们定义 $f(n) = O(g(n))$，如果存在正常数 $c$ 和 $N$，对 $n &gt; N$ 均有 $f(n) \leq c g(n)$.</p>
+<p>这控制的是上界，控制下界的记号是 $\Omega$；如果有 $c_1 g(n) \leq f(n) \leq c_2 g(n)$ 则称 $f(n) = \Theta(g(n))$.</p>
+<p>一个算法的时间复杂度还有“最佳”、“最差”和“平均”的区分。</p>
+<h2 id="xian-xing-biao">线性表</h2>
+<p>线性表中要求元素之间有“前驱”/“后继”的逻辑关系，元素的相对位置是线性的；每一个元素有相同的数据类型和长度。</p>
+<h3 id="shun-xu-biao">顺序表</h3>
+<p>按顺序方式存储的线性表称为顺序表（array-based list），允许以 $O(1)$ 随机存取。一个工程版<sup class="footnote-reference"><a href="#modern">1</a></sup>实现例子如下：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="cpp"><span class="giallo-l"><span class="z-l-17 z-d-10">#</span><span class="z-l-17 z-d-10">pragma</span><span class="z-l-14 z-d-7"> once</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">#</span><span class="z-l-17 z-d-10">include</span><span class="z-l-8 z-d-6"> &lt;</span><span class="z-l-8 z-d-6">cstddef</span><span class="z-l-8 z-d-6">&gt;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">#</span><span class="z-l-17 z-d-10">include</span><span class="z-l-8 z-d-6"> &lt;</span><span class="z-l-8 z-d-6">limits</span><span class="z-l-8 z-d-6">&gt;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">#</span><span class="z-l-17 z-d-10">include</span><span class="z-l-8 z-d-6"> &lt;</span><span class="z-l-8 z-d-6">optional</span><span class="z-l-8 z-d-6">&gt;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">#</span><span class="z-l-17 z-d-10">include</span><span class="z-l-8 z-d-6"> &lt;</span><span class="z-l-8 z-d-6">stdexcept</span><span class="z-l-8 z-d-6">&gt;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">#</span><span class="z-l-17 z-d-10">include</span><span class="z-l-8 z-d-6"> &lt;</span><span class="z-l-8 z-d-6">type_traits</span><span class="z-l-8 z-d-6">&gt;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">#</span><span class="z-l-17 z-d-10">include</span><span class="z-l-8 z-d-6"> &lt;</span><span class="z-l-8 z-d-6">utility</span><span class="z-l-8 z-d-6">&gt;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">namespace</span><span class="z-l-1 z-d-7"> dsa</span><span> {</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">template</span><span> &lt;</span><span class="z-l-17 z-d-10">typename</span><span class="z-l-1 z-d-7"> T</span><span>&gt;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">class</span><span class="z-l-1 z-d-7"> array_list</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">public</span><span class="z-l-6 z-d-10">:</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    using</span><span class="z-l-1 z-d-7"> value_type</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-1 z-d-7"> T</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    using</span><span class="z-l-1 z-d-7"> size_type</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-1 z-d-7"> std</span><span class="z-l-6">::</span><span class="z-l-17 z-d-10">size_t</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    //</span><span class="z-l-10 z-l-i z-d-3"> 因为需要调用 new T[n]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    static_assert</span><span>(</span><span class="z-l-1 z-d-7">std</span><span class="z-l-6">::</span><span class="z-l-1 z-d-7">is_default_constructible</span><span>&lt;</span><span class="z-l-1 z-d-7">T</span><span>&gt;</span><span class="z-l-6">::</span><span>value</span><span class="z-l-6">,</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-6">                  &quot;</span><span class="z-l-8 z-d-6">array_list&lt;T&gt;: T must be default constructible</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    //</span><span class="z-l-10 z-l-i z-d-3"> 插入/删除要搬动元素</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    static_assert</span><span>(</span><span class="z-l-1 z-d-7">std</span><span class="z-l-6">::</span><span class="z-l-1 z-d-7">is_move_assignable</span><span>&lt;</span><span class="z-l-1 z-d-7">T</span><span>&gt;</span><span class="z-l-6">::</span><span>value</span><span class="z-l-6">,</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-6">                  &quot;</span><span class="z-l-8 z-d-6">array_list&lt;T&gt;: T must be move assignable</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    static_assert</span><span>(</span><span class="z-l-1 z-d-7">std</span><span class="z-l-6">::</span><span class="z-l-1 z-d-7">is_copy_assignable</span><span>&lt;</span><span class="z-l-1 z-d-7">T</span><span>&gt;</span><span class="z-l-6">::</span><span>value</span><span class="z-l-16 z-d-10"> ||</span><span class="z-l-1 z-d-7"> std</span><span class="z-l-6">::</span><span class="z-l-1 z-d-7">is_nothrow_move_assignable</span><span>&lt;</span><span class="z-l-1 z-d-7">T</span><span>&gt;</span><span class="z-l-6">::</span><span>value</span><span class="z-l-6">,</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-6">                  &quot;</span><span class="z-l-8 z-d-6">array_list&lt;T&gt;: non-replicable T must be able to be assigned values without any exceptions through movement</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    static_assert</span><span>(</span><span class="z-l-16 z-d-10">!</span><span class="z-l-1 z-d-7">std</span><span class="z-l-6">::</span><span class="z-l-1 z-d-7">is_reference</span><span>&lt;</span><span class="z-l-1 z-d-7">T</span><span>&gt;</span><span class="z-l-6">::</span><span>value</span><span class="z-l-6">,</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-6">                  &quot;</span><span class="z-l-8 z-d-6">array_list&lt;T&gt;: T must not be reference</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">    array_list</span><span>(</span><span>)</span><span class="z-l-17 z-d-10"> noexcept</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-17 z-d-10"> default</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    explicit</span><span class="z-l-14 z-d-7"> array_list</span><span>(</span><span class="z-l-1 z-d-7">size_type</span><span class="z-l-9 z-d-12"> capacity</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-6">        :</span><span class="z-l-14 z-d-7"> capacity_</span><span>(</span><span>capacity</span><span>)</span><span class="z-l-6">,</span><span class="z-l-14 z-d-7"> data_</span><span>(</span><span>capacity</span><span class="z-l-16 z-d-10"> ?</span><span class="z-l-16 z-d-10"> new</span><span> T</span><span class="z-l-9">[</span><span>capacity</span><span class="z-l-9">]</span><span class="z-l-16 z-d-10"> :</span><span class="z-l-9 z-d-4"> nullptr</span><span>)</span><span> {</span><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">    array_list</span><span>(</span><span class="z-l-17 z-d-10">const</span><span class="z-l-1 z-d-7"> array_list</span><span class="z-l-17 z-d-10">&amp;</span><span class="z-l-9 z-d-12"> other</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-6">        :</span><span class="z-l-14 z-d-7"> capacity_</span><span>(</span><span>other</span><span class="z-l-6">.</span><span>capacity_</span><span>)</span><span class="z-l-6">,</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">          size_</span><span>(</span><span>other</span><span class="z-l-6">.</span><span>size_</span><span>)</span><span class="z-l-6">,</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">          data_</span><span>(</span><span>other</span><span class="z-l-6">.</span><span>capacity_</span><span class="z-l-16 z-d-10"> ?</span><span class="z-l-16 z-d-10"> new</span><span> T</span><span class="z-l-9">[</span><span>other</span><span class="z-l-6">.</span><span>capacity_</span><span class="z-l-9">]</span><span class="z-l-16 z-d-10"> :</span><span class="z-l-9 z-d-4"> nullptr</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        for</span><span> (</span><span>size_type</span><span> i</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-9 z-d-4"> 0</span><span class="z-l-6">;</span><span> i</span><span class="z-l-16 z-d-10"> &lt;</span><span> size_</span><span class="z-l-6">;</span><span class="z-l-16 z-d-10"> ++</span><span>i</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span>            data_</span><span>[</span><span>i</span><span>]</span><span class="z-l-16 z-d-10"> =</span><span> other</span><span class="z-l-6">.</span><span>data_</span><span>[</span><span>i</span><span>]</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-1 z-d-7">    array_list</span><span class="z-l-17 z-d-10">&amp;</span><span class="z-l-17 z-d-10"> operator</span><span class="z-l-1 z-d-7">=</span><span>(</span><span class="z-l-17 z-d-10">const</span><span class="z-l-1 z-d-7"> array_list</span><span class="z-l-17 z-d-10">&amp;</span><span class="z-l-9 z-d-12"> other</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        if</span><span> (</span><span class="z-l-4 z-l-i z-d-4">this</span><span class="z-l-16 z-d-10"> !=</span><span class="z-l-16 z-d-10"> &amp;</span><span>other</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-1 z-d-7">            array_list</span><span class="z-l-14 z-d-7"> copy</span><span>(</span><span>other</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">            swap</span><span>(</span><span>copy</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        return</span><span class="z-l-16 z-d-10"> *</span><span class="z-l-4 z-l-i z-d-4">this</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">    array_list</span><span>(</span><span class="z-l-1 z-d-7">array_list</span><span class="z-l-17 z-d-10">&amp;</span><span class="z-l-17 z-d-10">&amp;</span><span class="z-l-9 z-d-12"> other</span><span>)</span><span class="z-l-17 z-d-10"> noexcept</span><span> {</span><span class="z-l-14 z-d-7"> swap</span><span>(</span><span>other</span><span>)</span><span class="z-l-6">;</span><span> }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-1 z-d-7">    array_list</span><span class="z-l-17 z-d-10">&amp;</span><span class="z-l-17 z-d-10"> operator</span><span class="z-l-1 z-d-7">=</span><span>(</span><span class="z-l-1 z-d-7">array_list</span><span class="z-l-17 z-d-10">&amp;</span><span class="z-l-17 z-d-10">&amp;</span><span class="z-l-9 z-d-12"> other</span><span>)</span><span class="z-l-17 z-d-10"> noexcept</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        if</span><span> (</span><span class="z-l-4 z-l-i z-d-4">this</span><span class="z-l-16 z-d-10"> !=</span><span class="z-l-16 z-d-10"> &amp;</span><span>other</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">            //</span><span class="z-l-10 z-l-i z-d-3"> std::move 将左值转为右值引用</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">            //</span><span class="z-l-10 z-l-i z-d-3"> 从而避免拷贝</span></span>
+<span class="giallo-l"><span class="z-l-1 z-d-7">            array_list</span><span class="z-l-14 z-d-7"> moved</span><span>(</span><span class="z-l-1 z-d-7">std</span><span class="z-l-6">::</span><span class="z-l-14 z-d-7">move</span><span>(</span><span>other</span><span>)</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">            swap</span><span>(</span><span>moved</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        return</span><span class="z-l-16 z-d-10"> *</span><span class="z-l-4 z-l-i z-d-4">this</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">    ~array_list</span><span>(</span><span>)</span><span> {</span><span class="z-l-16 z-d-10"> delete</span><span class="z-l-16 z-d-10">[]</span><span> data_</span><span class="z-l-6">;</span><span> }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    void</span><span class="z-l-14 z-d-7"> swap</span><span>(</span><span class="z-l-1 z-d-7">array_list</span><span class="z-l-17 z-d-10">&amp;</span><span class="z-l-9 z-d-12"> other</span><span>)</span><span class="z-l-17 z-d-10"> noexcept</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        using</span><span class="z-l-1 z-d-7"> std</span><span class="z-l-6">::</span><span>swap</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">        swap</span><span>(</span><span>capacity_</span><span class="z-l-6">,</span><span> other</span><span class="z-l-6">.</span><span>capacity_</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">        swap</span><span>(</span><span>size_</span><span class="z-l-6">,</span><span> other</span><span class="z-l-6">.</span><span>size_</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">        swap</span><span>(</span><span>data_</span><span class="z-l-6">,</span><span> other</span><span class="z-l-6">.</span><span>data_</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    //</span><span class="z-l-10 z-l-i z-d-3"> 返回值不能被丢弃</span></span>
+<span class="giallo-l"><span class="z-d-4">    [[</span><span class="z-d-7">nodiscard</span><span class="z-d-4">]]</span><span class="z-l-17 z-d-10"> bool</span><span class="z-l-14 z-d-7"> empty</span><span>(</span><span>)</span><span class="z-l-17 z-d-10"> const</span><span class="z-l-17 z-d-10"> noexcept</span><span> {</span><span class="z-l-17 z-d-10"> return</span><span> size_</span><span class="z-l-16 z-d-10"> ==</span><span class="z-l-9 z-d-4"> 0</span><span class="z-l-6">;</span><span> }</span></span>
+<span class="giallo-l"><span class="z-d-4">    [[</span><span class="z-d-7">nodiscard</span><span class="z-d-4">]]</span><span class="z-l-1 z-d-7"> size_type</span><span class="z-l-14 z-d-7"> size</span><span>(</span><span>)</span><span class="z-l-17 z-d-10"> const</span><span class="z-l-17 z-d-10"> noexcept</span><span> {</span><span class="z-l-17 z-d-10"> return</span><span> size_</span><span class="z-l-6">;</span><span> }</span></span>
+<span class="giallo-l"><span class="z-d-4">    [[</span><span class="z-d-7">nodiscard</span><span class="z-d-4">]]</span><span class="z-l-1 z-d-7"> size_type</span><span class="z-l-14 z-d-7"> capacity</span><span>(</span><span>)</span><span class="z-l-17 z-d-10"> const</span><span class="z-l-17 z-d-10"> noexcept</span><span> {</span><span class="z-l-17 z-d-10"> return</span><span> capacity_</span><span class="z-l-6">;</span><span> }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    //</span><span class="z-l-10 z-l-i z-d-3"> 清空会保留已分配容量</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    void</span><span class="z-l-14 z-d-7"> clear</span><span>(</span><span>)</span><span class="z-l-17 z-d-10"> noexcept</span><span> {</span><span> size_</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-9 z-d-4"> 0</span><span class="z-l-6">;</span><span> }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    //</span><span class="z-l-10 z-l-i z-d-3"> 读取相关实现</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    //</span><span class="z-l-10 z-l-i z-d-3"> 按下标 O(1) 读取，越界抛出 std::out_of_range</span></span>
+<span class="giallo-l"><span class="z-d-4">    [[</span><span class="z-d-7">nodiscard</span><span class="z-d-4">]]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    const</span><span class="z-l-1 z-d-7"> T</span><span class="z-l-17 z-d-10">&amp;</span><span class="z-l-14 z-d-7"> at</span><span>(</span><span class="z-l-1 z-d-7">size_type</span><span class="z-l-9 z-d-12"> index</span><span>)</span><span class="z-l-17 z-d-10"> const</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">        check_index</span><span>(</span><span>index</span><span class="z-l-6">,</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">array_list::at</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        return</span><span> data_</span><span>[</span><span>index</span><span>]</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-1 z-d-7">    T</span><span class="z-l-17 z-d-10">&amp;</span><span class="z-l-14 z-d-7"> at</span><span>(</span><span class="z-l-1 z-d-7">size_type</span><span class="z-l-9 z-d-12"> index</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">        check_index</span><span>(</span><span>index</span><span class="z-l-6">,</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">array_list::at</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        return</span><span> data_</span><span>[</span><span>index</span><span>]</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    void</span><span class="z-l-14 z-d-7"> set</span><span>(</span><span class="z-l-1 z-d-7">size_type</span><span class="z-l-9 z-d-12"> index</span><span class="z-l-6">,</span><span class="z-l-17 z-d-10"> const</span><span class="z-l-1 z-d-7"> T</span><span class="z-l-17 z-d-10">&amp;</span><span class="z-l-9 z-d-12"> value</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">        check_index</span><span>(</span><span>index</span><span class="z-l-6">,</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">array_list::set</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>        data_</span><span>[</span><span>index</span><span>]</span><span class="z-l-16 z-d-10"> =</span><span> value</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    //</span><span class="z-l-10 z-l-i z-d-3"> 查找</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    //</span><span class="z-l-10 z-l-i z-d-3"> 按内容 O(n) 查找，未找到返回 std::nullopt</span></span>
+<span class="giallo-l"><span class="z-d-4">    [[</span><span class="z-d-7">nodiscard</span><span class="z-d-4">]]</span></span>
+<span class="giallo-l"><span class="z-l-1 z-d-7">    std</span><span class="z-l-6">::</span><span class="z-l-1 z-d-7">optional</span><span>&lt;</span><span class="z-l-1 z-d-7">size_type</span><span>&gt;</span><span class="z-l-14 z-d-7"> find</span><span>(</span><span class="z-l-17 z-d-10">const</span><span class="z-l-1 z-d-7"> T</span><span class="z-l-17 z-d-10">&amp;</span><span class="z-l-9 z-d-12"> value</span><span>)</span><span class="z-l-17 z-d-10"> const</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        for</span><span> (</span><span>size_type</span><span> i</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-9 z-d-4"> 0</span><span class="z-l-6">;</span><span> i</span><span class="z-l-16 z-d-10"> &lt;</span><span> size_</span><span class="z-l-6">;</span><span class="z-l-16 z-d-10"> ++</span><span>i</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">            if</span><span> (</span><span>data_</span><span>[</span><span>i</span><span>]</span><span class="z-l-16 z-d-10"> ==</span><span> value</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">                return</span><span> i</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>            }</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        return</span><span class="z-l-1 z-d-7"> std</span><span class="z-l-6">::</span><span>nullopt</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    //</span><span class="z-l-10 z-l-i z-d-3"> 插入相关实现</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    //</span><span class="z-l-10 z-l-i z-d-3"> 在位置 pos 插入元素，pos 可以等于 size()</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    //</span><span class="z-l-10 z-l-i z-d-3"> 位置非法时抛出 std::out_of_range</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    //</span><span class="z-l-10 z-l-i z-d-3"> 容量不足时自动翻倍</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    //</span><span class="z-l-10 z-l-i z-d-3"> pos 之后的元素都要右移一位，故 O(n)</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    void</span><span class="z-l-14 z-d-7"> insert</span><span>(</span><span class="z-l-1 z-d-7">size_type</span><span class="z-l-9 z-d-12"> pos</span><span class="z-l-6">,</span><span class="z-l-17 z-d-10"> const</span><span class="z-l-1 z-d-7"> T</span><span class="z-l-17 z-d-10">&amp;</span><span class="z-l-9 z-d-12"> value</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">        make_gap</span><span>(</span><span>pos</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>        data_</span><span>[</span><span>pos</span><span>]</span><span class="z-l-16 z-d-10"> =</span><span> value</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-16 z-d-10">        ++</span><span>size_</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    void</span><span class="z-l-14 z-d-7"> insert</span><span>(</span><span class="z-l-1 z-d-7">size_type</span><span class="z-l-9 z-d-12"> pos</span><span class="z-l-6">,</span><span class="z-l-1 z-d-7"> T</span><span class="z-l-17 z-d-10">&amp;</span><span class="z-l-17 z-d-10">&amp;</span><span class="z-l-9 z-d-12"> value</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">        make_gap</span><span>(</span><span>pos</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>        data_</span><span>[</span><span>pos</span><span>]</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-1 z-d-7"> std</span><span class="z-l-6">::</span><span class="z-l-14 z-d-7">move</span><span>(</span><span>value</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-16 z-d-10">        ++</span><span>size_</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    void</span><span class="z-l-14 z-d-7"> append</span><span>(</span><span class="z-l-17 z-d-10">const</span><span class="z-l-1 z-d-7"> T</span><span class="z-l-17 z-d-10">&amp;</span><span class="z-l-9 z-d-12"> value</span><span>)</span><span> {</span><span class="z-l-14 z-d-7"> insert</span><span>(</span><span>size_</span><span class="z-l-6">,</span><span> value</span><span>)</span><span class="z-l-6">;</span><span> }</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    void</span><span class="z-l-14 z-d-7"> append</span><span>(</span><span class="z-l-1 z-d-7">T</span><span class="z-l-17 z-d-10">&amp;</span><span class="z-l-17 z-d-10">&amp;</span><span class="z-l-9 z-d-12"> value</span><span>)</span><span> {</span><span class="z-l-14 z-d-7"> insert</span><span>(</span><span>size_</span><span class="z-l-6">,</span><span class="z-l-1 z-d-7"> std</span><span class="z-l-6">::</span><span class="z-l-14 z-d-7">move</span><span>(</span><span>value</span><span>)</span><span>)</span><span class="z-l-6">;</span><span> }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    //</span><span class="z-l-10 z-l-i z-d-3"> 删除</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    //</span><span class="z-l-10 z-l-i z-d-3"> 删除位置 pos 上的元素并返回</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    //</span><span class="z-l-10 z-l-i z-d-3"> 位置非法时抛出 std::out_of_range</span></span>
+<span class="giallo-l"><span class="z-l-1 z-d-7">    T</span><span class="z-l-14 z-d-7"> remove</span><span>(</span><span class="z-l-1 z-d-7">size_type</span><span class="z-l-9 z-d-12"> pos</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">        check_index</span><span>(</span><span>pos</span><span class="z-l-6">,</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6">array_list::remove</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-1 z-d-7">        T</span><span> removed</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-1 z-d-7"> std</span><span class="z-l-6">::</span><span class="z-l-14 z-d-7">move</span><span>(</span><span>data_</span><span>[</span><span>pos</span><span>]</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        for</span><span> (</span><span>size_type</span><span> i</span><span class="z-l-16 z-d-10"> =</span><span> pos</span><span class="z-l-6">;</span><span> i</span><span class="z-l-16 z-d-10"> +</span><span class="z-l-9 z-d-4"> 1</span><span class="z-l-16 z-d-10"> &lt;</span><span> size_</span><span class="z-l-6">;</span><span class="z-l-16 z-d-10"> ++</span><span>i</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span>            data_</span><span>[</span><span>i</span><span>]</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-1 z-d-7"> std</span><span class="z-l-6">::</span><span class="z-l-14 z-d-7">move</span><span>(</span><span>data_</span><span>[</span><span>i</span><span class="z-l-16 z-d-10"> +</span><span class="z-l-9 z-d-4"> 1</span><span>]</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span class="z-l-16 z-d-10">        --</span><span>size_</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        return</span><span> removed</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    //</span><span class="z-l-10 z-l-i z-d-3"> 用裸指针当迭代器</span></span>
+<span class="giallo-l"><span class="z-d-4">    [[</span><span class="z-d-7">nodiscard</span><span class="z-d-4">]]</span><span class="z-l-1 z-d-7"> T</span><span class="z-l-17 z-d-10">*</span><span class="z-l-14 z-d-7"> begin</span><span>(</span><span>)</span><span class="z-l-17 z-d-10"> noexcept</span><span> {</span><span class="z-l-17 z-d-10"> return</span><span> data_</span><span class="z-l-6">;</span><span> }</span></span>
+<span class="giallo-l"><span class="z-d-4">    [[</span><span class="z-d-7">nodiscard</span><span class="z-d-4">]]</span><span class="z-l-1 z-d-7"> T</span><span class="z-l-17 z-d-10">*</span><span class="z-l-14 z-d-7"> end</span><span>(</span><span>)</span><span class="z-l-17 z-d-10"> noexcept</span><span> {</span><span class="z-l-17 z-d-10"> return</span><span> data_</span><span class="z-l-16 z-d-10"> +</span><span> size_</span><span class="z-l-6">;</span><span> }</span></span>
+<span class="giallo-l"><span class="z-d-4">    [[</span><span class="z-d-7">nodiscard</span><span class="z-d-4">]]</span><span class="z-l-17 z-d-10"> const</span><span> T</span><span class="z-l-16 z-d-10">*</span><span class="z-l-14 z-d-7"> begin</span><span>(</span><span>)</span><span class="z-l-17 z-d-10"> const</span><span class="z-l-17 z-d-10"> noexcept</span><span> {</span><span class="z-l-17 z-d-10"> return</span><span> data_</span><span class="z-l-6">;</span><span> }</span></span>
+<span class="giallo-l"><span class="z-d-4">    [[</span><span class="z-d-7">nodiscard</span><span class="z-d-4">]]</span><span class="z-l-17 z-d-10"> const</span><span> T</span><span class="z-l-16 z-d-10">*</span><span class="z-l-14 z-d-7"> end</span><span>(</span><span>)</span><span class="z-l-17 z-d-10"> const</span><span class="z-l-17 z-d-10"> noexcept</span><span> {</span><span class="z-l-17 z-d-10"> return</span><span> data_</span><span class="z-l-16 z-d-10"> +</span><span> size_</span><span class="z-l-6">;</span><span> }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">private</span><span class="z-l-6 z-d-10">:</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    static</span><span class="z-l-17 z-d-10"> constexpr</span><span> size_type</span><span> initial_capacity</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-9 z-d-4"> 4</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    //</span><span class="z-l-10 z-l-i z-d-3"> 私有数据</span></span>
+<span class="giallo-l"><span class="z-l-1 z-d-7">    size_type</span><span> capacity_</span><span>{</span><span class="z-l-9 z-d-4">0</span><span>}</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-1 z-d-7">    size_type</span><span> size_</span><span>{</span><span class="z-l-9 z-d-4">0</span><span>}</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>    T</span><span class="z-l-16 z-d-10">*</span><span> data_</span><span>{</span><span class="z-l-9 z-d-4">nullptr</span><span>}</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    void</span><span class="z-l-14 z-d-7"> check_index</span><span>(</span><span class="z-l-1 z-d-7">size_type</span><span class="z-l-9 z-d-12"> index</span><span class="z-l-6">,</span><span class="z-l-17 z-d-10"> const</span><span class="z-l-17 z-d-10"> char</span><span class="z-l-17 z-d-10">*</span><span class="z-l-9 z-d-12"> who</span><span>)</span><span class="z-l-17 z-d-10"> const</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        if</span><span> (</span><span>index</span><span class="z-l-16 z-d-10"> &gt;=</span><span> size_</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">            throw</span><span class="z-l-1 z-d-7"> std</span><span class="z-l-6">::</span><span class="z-l-14 z-d-7">out_of_range</span><span>(</span><span>who</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    //</span><span class="z-l-10 z-l-i z-d-3"> 在 pos 处腾出一个空位</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    //</span><span class="z-l-10 z-l-i z-d-3"> 先保证容量，再把 [pos, size_) 整体右移一位</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    void</span><span class="z-l-14 z-d-7"> make_gap</span><span>(</span><span class="z-l-1 z-d-7">size_type</span><span class="z-l-9 z-d-12"> pos</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        if</span><span> (</span><span>pos</span><span class="z-l-16 z-d-10"> &gt;</span><span> size_</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">            throw</span><span class="z-l-1 z-d-7"> std</span><span class="z-l-6">::</span><span class="z-l-14 z-d-7">out_of_range</span><span>(</span><span class="z-l-8 z-d-6">&quot;</span><span class="z-l-8 z-d-6">array_list::insert: illegal place of insertion</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">        ensure_capacity</span><span>(</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        for</span><span> (</span><span>size_type</span><span> i</span><span class="z-l-16 z-d-10"> =</span><span> size_</span><span class="z-l-6">;</span><span> i</span><span class="z-l-16 z-d-10"> &gt;</span><span> pos</span><span class="z-l-6">;</span><span class="z-l-16 z-d-10"> --</span><span>i</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span>            data_</span><span>[</span><span>i</span><span>]</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-1 z-d-7"> std</span><span class="z-l-6">::</span><span class="z-l-14 z-d-7">move</span><span>(</span><span>data_</span><span>[</span><span>i</span><span class="z-l-16 z-d-10"> -</span><span class="z-l-9 z-d-4"> 1</span><span>]</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">    //</span><span class="z-l-10 z-l-i z-d-3"> 扩大容量</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    void</span><span class="z-l-14 z-d-7"> ensure_capacity</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        if</span><span> (</span><span>size_</span><span class="z-l-16 z-d-10"> &lt;</span><span> capacity_</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">            return</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        constexpr</span><span> size_type</span><span> k_max</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-1 z-d-7"> std</span><span class="z-l-6">::</span><span class="z-l-1 z-d-7">numeric_limits</span><span>&lt;</span><span class="z-l-1 z-d-7">size_type</span><span>&gt;</span><span class="z-l-6">::</span><span class="z-l-14 z-d-7">max</span><span>(</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        if</span><span> (</span><span>capacity_</span><span class="z-l-16 z-d-10"> &gt;</span><span> k_max</span><span class="z-l-16 z-d-10"> /</span><span class="z-l-9 z-d-4"> 2</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">            throw</span><span class="z-l-1 z-d-7"> std</span><span class="z-l-6">::</span><span class="z-l-14 z-d-7">overflow_error</span><span>(</span><span class="z-l-8 z-d-6">&quot;</span><span class="z-l-8 z-d-6">array_list: doubling capacity will overflow</span><span class="z-l-8 z-d-6">&quot;</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        const</span><span class="z-l-1 z-d-7"> size_type</span><span> next</span><span class="z-l-16 z-d-10"> =</span><span> capacity_</span><span class="z-l-16 z-d-10"> ==</span><span class="z-l-9 z-d-4"> 0</span><span class="z-l-16 z-d-10"> ?</span><span> initial_capacity</span><span class="z-l-16 z-d-10"> :</span><span> capacity_</span><span class="z-l-16 z-d-10"> *</span><span class="z-l-9 z-d-4"> 2</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-1 z-d-7">        T</span><span class="z-l-17 z-d-10">*</span><span> fresh</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-16 z-d-10"> new</span><span> T</span><span>[</span><span>next</span><span>]</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        try</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">            for</span><span> (</span><span>size_type</span><span> i</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-9 z-d-4"> 0</span><span class="z-l-6">;</span><span> i</span><span class="z-l-16 z-d-10"> &lt;</span><span> size_</span><span class="z-l-6">;</span><span class="z-l-16 z-d-10"> ++</span><span>i</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">                if</span><span class="z-l-17 z-d-10"> constexpr</span><span> (</span><span class="z-l-1 z-d-7">std</span><span class="z-l-6">::</span><span class="z-l-1 z-d-7">is_nothrow_move_assignable</span><span>&lt;</span><span class="z-l-1 z-d-7">T</span><span>&gt;</span><span class="z-l-6">::</span><span>value</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span>                    fresh</span><span>[</span><span>i</span><span>]</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-1 z-d-7"> std</span><span class="z-l-6">::</span><span class="z-l-14 z-d-7">move</span><span>(</span><span>data_</span><span>[</span><span>i</span><span>]</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>                }</span><span class="z-l-17 z-d-10"> else</span><span> {</span></span>
+<span class="giallo-l"><span>                    fresh</span><span>[</span><span>i</span><span>]</span><span class="z-l-16 z-d-10"> =</span><span> data_</span><span>[</span><span>i</span><span>]</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>                }</span></span>
+<span class="giallo-l"><span>            }</span></span>
+<span class="giallo-l"><span>        }</span><span class="z-l-17 z-d-10"> catch</span><span> (</span><span>...</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-16 z-d-10">            delete</span><span class="z-l-16 z-d-10">[]</span><span> fresh</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">            throw</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span class="z-l-16 z-d-10">        delete</span><span class="z-l-16 z-d-10">[]</span><span> data_</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>        data_</span><span class="z-l-16 z-d-10"> =</span><span> fresh</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>        capacity_</span><span class="z-l-16 z-d-10"> =</span><span> next</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>}</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">template</span><span> &lt;</span><span class="z-l-17 z-d-10">typename</span><span class="z-l-1 z-d-7"> T</span><span>&gt;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">void</span><span class="z-l-14 z-d-7"> swap</span><span>(</span><span class="z-l-1 z-d-7">array_list</span><span>&lt;</span><span class="z-l-1 z-d-7">T</span><span>&gt;</span><span class="z-l-17 z-d-10">&amp;</span><span class="z-l-9 z-d-12"> a</span><span class="z-l-6">,</span><span class="z-l-1 z-d-7"> array_list</span><span>&lt;</span><span class="z-l-1 z-d-7">T</span><span>&gt;</span><span class="z-l-17 z-d-10">&amp;</span><span class="z-l-9 z-d-12"> b</span><span>)</span><span class="z-l-17 z-d-10"> noexcept</span><span> {</span></span>
+<span class="giallo-l"><span>    a</span><span class="z-l-6">.</span><span class="z-l-14 z-d-7">swap</span><span>(</span><span>b</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>实际上 <code>std::vector</code> 的实现也是在扩容时移动到更大的区域，只不过一些实现可能不是两倍。扩容时向操作系统申请连续虚拟地址（并不需要物理上连续）。如果忽略掉一些底层机制，申请需要 $O(\log n)$ 而随机访问是 $O(1)$.</p>
+<h3 id="lian-biao">链表</h3>
+<p>所谓有头节点的单链表（singly linked list），就是：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>--head--&gt; [10 | -]---&gt; [8 | -]---&gt; [50 | /]</span></span></code></pre>
+<p>每个节点类型是 <code>struct Node { T value; Node* next; };</code>；双链表、循环链表等同理。</p>
+<h2 id="zhan-yu-dui-lie">栈与队列</h2>
+<h3 id="zhan">栈</h3>
+<p>栈（stack）是限定仅在一端进行插入和删除运算的线性表，该端称为栈顶，另一端称为栈底。栈的元素按后进先出（LIFO, last in first out）的次序访问：最后压入的元素最先弹出。</p>
+<p><code>push(x)</code>、<code>pop()</code>、<code>top()</code>、<code>isempty()</code>、<code>size()</code>、<code>clear()</code> 操作都是 $O(1)$ 的。超过容量时 <code>push</code> 称为 overflow，对空栈 <code>pop</code> 称为 underflow.</p>
+<p>顺序栈和链式栈的实现方式略去。</p>
+<p>递归调用时，系统运行栈中每个活动记录（栈帧）主要保存返回地址、实在参数、本层的局部变量（及需要保护的寄存器现场）。-O2 优化有时会把递归转为循环。</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-question);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/question.svg)">question</div>
+    <span><strong>问题</strong></span>
+  </div>
+  <div class="pl-4"><p>设有 $n$ 个元素按 $1, \dots, n$ 的顺序依次入栈（中途可任意出栈），则可能得到多少种不同的出栈序列？</p>
+</div>
+</div>
+<p>按照 $1$ 的输出顺序，结果 $C_n$ 满足：</p>
+<p>$$C_n = \sum_{i=0}^{n-1} C_i C_{n-1-i}$$</p>
+<p>实际上这就是 Catalan 数，$C_n = C_{2n}^n / (n+1)$，可以使用反射法：$C_n$ 对应于每次升/降 $1$，共 $n$ 个升/降，恒在 $x$ 轴上的折线。不合法的折线可以在第一次达到 $-1$ 以后的部分关于 $y = -1$ 对称，得到与 $n - 1$ 升 $n + 1$ 降折线的一一对应。于是不合法的有 $C_{2n}^{n-1}$ 种。</p>
+<h3 id="diao-du-chang-suan-fa">调度场算法</h3>
+<p>后缀表达式的计算只需要用栈就行。现在考虑将中缀表达式转化为后缀表达式的栈方法。</p>
+<p>将表达式从左到右依次扫描，维护一个操作栈，按下表规则作处理：</p>
+<table><thead><tr><th style="text-align: center">对象</th><th style="text-align: center">操作</th></tr></thead><tbody>
+<tr><td style="text-align: center">操作数</td><td style="text-align: center">直接输出到后缀序列</td></tr>
+<tr><td style="text-align: center">左括号 <code>(</code></td><td style="text-align: center">入操作栈</td></tr>
+<tr><td style="text-align: center">右括号 <code>)</code></td><td style="text-align: center">反复弹出并输出，直到遇到 <code>(</code>；<code>(</code> 弹出但不输出；若未遇到说明括号不匹配</td></tr>
+<tr><td style="text-align: center">运算符</td><td style="text-align: center">当栈非空且栈顶不是 <code>(</code> 且栈顶优先级不低于当前时反复弹出并输出；然后把当前运算符入栈</td></tr>
+<tr><td style="text-align: center">扫描结束</td><td style="text-align: center">剩余的依次弹出输出；若弹出 <code>(</code>，说明括号不匹配</td></tr>
+</tbody></table>
+<p>参考以下来自 Wikipedia 的图片：</p>
+<p><img src="/images/misc/shunting_yard.webp" alt="调度场算法" /></p>
+<h3 id="dui-lie">队列</h3>
+<p>队列（queue）是限定元素只能从表的一端插入，另一端删除的线性表。只允许删除的一端称为队头（front），删除操作称为出队（dequeue）；另一端为队尾（rear），插入操作称为入队 （enqueue）。队列的元素先进先出（FIFO, first in first out）表。</p>
+<p>关于顺序队列、链式队列的实现；用两个栈来实现队列略去。</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-question);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/question.svg)">question</div>
+    <span><strong>滑动窗口</strong></span>
+  </div>
+  <div class="pl-4"><p>有一个长为 $n$ 的序列 $a$，以及一个大小为 $k$ 的窗口。现在这个窗口从左边开始向右滑动，每次滑动一个单位，求出每次滑动后窗口中的最小值。</p>
+</div>
+</div>
+<p>核心想法是，老而更劣的元素不可能成为最值。用一个双端队列（deque）维护一个单调队列（$i &lt; j$ 时 $s_i &lt; s_j$），新加入元素时，在右侧移除大于等于它的元素然后加入它，再从左侧移除离开窗口的元素。</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="cpp"><span class="giallo-l"><span>deque</span><span class="z-l-16 z-d-10">&lt;</span><span>tuple</span><span class="z-l-16 z-d-10">&lt;</span><span class="z-l-17 z-d-10">int</span><span class="z-l-6">,</span><span class="z-l-17 z-d-10"> int</span><span class="z-l-16 z-d-10">&gt;&gt;</span><span> s</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">for</span><span> (</span><span class="z-l-17 z-d-10">int</span><span> i</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-9 z-d-4"> 0</span><span class="z-l-6">;</span><span> i</span><span class="z-l-16 z-d-10"> &lt;</span><span> k</span><span class="z-l-6">;</span><span> i</span><span class="z-l-16 z-d-10">++</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    int</span><span> current</span><span class="z-l-16 z-d-10"> =</span><span> a</span><span>[</span><span>i</span><span>]</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    while</span><span> (</span><span class="z-l-16 z-d-10">!</span><span>s</span><span class="z-l-6">.</span><span class="z-l-14 z-d-7">empty</span><span>(</span><span>)</span><span class="z-l-16 z-d-10"> &amp;&amp;</span><span class="z-l-14 z-d-7"> get</span><span>&lt;</span><span class="z-l-9 z-d-4">1</span><span>&gt;</span><span>(</span><span>s</span><span class="z-l-6">.</span><span class="z-l-14 z-d-7">back</span><span>(</span><span>)</span><span>)</span><span class="z-l-16 z-d-10"> &gt;</span><span> current</span><span>)</span><span> s</span><span class="z-l-6">.</span><span class="z-l-14 z-d-7">pop_back</span><span>(</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>    s</span><span class="z-l-6">.</span><span class="z-l-14 z-d-7">push_back</span><span>(</span><span class="z-l-14 z-d-7">make_tuple</span><span>(</span><span>i</span><span class="z-l-6">,</span><span> current</span><span>)</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"><span>cout</span><span class="z-l-16 z-d-10"> &lt;&lt;</span><span class="z-l-14 z-d-7"> get</span><span>&lt;</span><span class="z-l-9 z-d-4">1</span><span>&gt;</span><span>(</span><span>s</span><span class="z-l-6">.</span><span class="z-l-14 z-d-7">front</span><span>(</span><span>)</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">for</span><span> (</span><span class="z-l-17 z-d-10">int</span><span> i</span><span class="z-l-16 z-d-10"> =</span><span> k</span><span class="z-l-6">;</span><span> i</span><span class="z-l-16 z-d-10"> &lt;</span><span> n</span><span class="z-l-6">;</span><span> i</span><span class="z-l-16 z-d-10">++</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    int</span><span> current</span><span class="z-l-16 z-d-10"> =</span><span> a</span><span>[</span><span>i</span><span>]</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    if</span><span> (</span><span class="z-l-16 z-d-10">!</span><span>s</span><span class="z-l-6">.</span><span class="z-l-14 z-d-7">empty</span><span>(</span><span>)</span><span class="z-l-16 z-d-10"> &amp;&amp;</span><span class="z-l-14 z-d-7"> get</span><span>&lt;</span><span class="z-l-9 z-d-4">0</span><span>&gt;</span><span>(</span><span>s</span><span class="z-l-6">.</span><span class="z-l-14 z-d-7">front</span><span>(</span><span>)</span><span>)</span><span class="z-l-16 z-d-10"> &lt;=</span><span> i</span><span class="z-l-16 z-d-10"> -</span><span> k</span><span>)</span><span> s</span><span class="z-l-6">.</span><span class="z-l-14 z-d-7">pop_front</span><span>(</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    while</span><span> (</span><span class="z-l-16 z-d-10">!</span><span>s</span><span class="z-l-6">.</span><span class="z-l-14 z-d-7">empty</span><span>(</span><span>)</span><span class="z-l-16 z-d-10"> &amp;&amp;</span><span class="z-l-14 z-d-7"> get</span><span>&lt;</span><span class="z-l-9 z-d-4">1</span><span>&gt;</span><span>(</span><span>s</span><span class="z-l-6">.</span><span class="z-l-14 z-d-7">back</span><span>(</span><span>)</span><span>)</span><span class="z-l-16 z-d-10"> &gt;</span><span> current</span><span>)</span><span> s</span><span class="z-l-6">.</span><span class="z-l-14 z-d-7">pop_back</span><span>(</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>    s</span><span class="z-l-6">.</span><span class="z-l-14 z-d-7">push_back</span><span>(</span><span class="z-l-14 z-d-7">make_tuple</span><span>(</span><span>i</span><span class="z-l-6">,</span><span> current</span><span>)</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>    cout</span><span class="z-l-16 z-d-10"> &lt;&lt;</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-8 z-d-6"> &quot;</span><span class="z-l-16 z-d-10"> &lt;&lt;</span><span class="z-l-14 z-d-7"> get</span><span>&lt;</span><span class="z-l-9 z-d-4">1</span><span>&gt;</span><span>(</span><span>s</span><span class="z-l-6">.</span><span class="z-l-14 z-d-7">front</span><span>(</span><span>)</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre><h2 id="zi-fu-chuan">字符串</h2>
+<p>C++ 中由于历史遗留问题，字符串字面量 <code>"abc"</code> 的类型是 <code>char*</code>，实际上是一段连续字符并以 <code>\0</code> 结尾。因此比较字符串时需要先转成 <code>std::string</code>，此时是字典序（<code>"a" &lt; "ab"</code>）。</p>
+<p>关于字符串的重要算法是模式匹配。这里只考虑匹配子串的问题。对于串 <code>"abababd"</code> 和子串 <code>"ababd"</code>，匹配最开头不同后朴素的算法是重新从第二位开始匹配，但实际上我们已经知道前四位是什么了。我们去看 <code>"abab"</code> 的前缀和后缀里最长的相同一段：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>a ab aba</span></span>
+<span class="giallo-l"><span>b ab bab</span></span></code></pre>
+<p>是 <code>"ab"</code>，因此我们只需要重新从第三位开始匹配。同理，可以定义字符串的特征数组 <code>next</code>，标记在该处匹配失败时应退到的位置（见后文 KMP 算法）：</p>
+<table><thead><tr><th style="text-align: center">0</th><th style="text-align: center">1</th><th style="text-align: center">2</th><th style="text-align: center">3</th><th style="text-align: center">4</th></tr></thead><tbody>
+<tr><td style="text-align: center">a</td><td style="text-align: center">b</td><td style="text-align: center">a</td><td style="text-align: center">b</td><td style="text-align: center">d</td></tr>
+<tr><td style="text-align: center">-1</td><td style="text-align: center">0</td><td style="text-align: center">-1</td><td style="text-align: center">0</td><td style="text-align: center">2</td></tr>
+</tbody></table>
+<p><code>next</code> 数组计算方式如下：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="python"><span class="giallo-l"><span class="z-l-17 z-d-10">def</span><span class="z-l-14 z-d-7"> build_next</span><span>(</span><span class="z-l-9">pattern</span><span class="z-l-6">:</span><span class="z-l-4 z-d-4"> str</span><span>)</span><span class="z-l-6"> -&gt;</span><span> list</span><span>[</span><span class="z-l-4 z-d-4">int</span><span>]</span><span>:</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    if</span><span class="z-l-16 z-d-10"> not</span><span> pattern</span><span class="z-l-6">:</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        return</span><span> [</span><span>]</span></span>
+<span class="giallo-l"><span>    next_values</span><span class="z-l-16 z-d-10"> =</span><span> [</span><span class="z-l-16 z-d-10">-</span><span class="z-l-9 z-d-4">1</span><span>]</span><span class="z-l-16 z-d-10"> *</span><span class="z-l-15 z-d-4"> len</span><span>(</span><span>pattern</span><span>)</span></span>
+<span class="giallo-l"><span>    i</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-9 z-d-4"> 0</span></span>
+<span class="giallo-l"><span>    k</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-16 z-d-10"> -</span><span class="z-l-9 z-d-4">1</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    while</span><span> i</span><span class="z-l-16 z-d-10"> &lt;</span><span class="z-l-15 z-d-4"> len</span><span>(</span><span>pattern</span><span>)</span><span class="z-l-6">:</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        while</span><span> k</span><span class="z-l-16 z-d-10"> &gt;=</span><span class="z-l-9 z-d-4"> 0</span><span class="z-l-16 z-d-10"> and</span><span> pattern</span><span>[</span><span>i</span><span>]</span><span class="z-l-16 z-d-10"> !=</span><span> pattern</span><span>[</span><span>k</span><span>]</span><span class="z-l-6">:</span></span>
+<span class="giallo-l"><span>            k</span><span class="z-l-16 z-d-10"> =</span><span> next_values</span><span>[</span><span>k</span><span>]</span></span>
+<span class="giallo-l"><span>        i</span><span class="z-l-16 z-d-10"> +=</span><span class="z-l-9 z-d-4"> 1</span></span>
+<span class="giallo-l"><span>        k</span><span class="z-l-16 z-d-10"> +=</span><span class="z-l-9 z-d-4"> 1</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        if</span><span> i</span><span class="z-l-16 z-d-10"> ==</span><span class="z-l-15 z-d-4"> len</span><span>(</span><span>pattern</span><span>)</span><span class="z-l-6">:</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">            break</span></span>
+<span class="giallo-l"><span>        next_values</span><span>[</span><span>i</span><span>]</span><span class="z-l-16 z-d-10"> =</span><span> next_values</span><span>[</span><span>k</span><span>]</span><span class="z-l-17 z-d-10"> if</span><span> pattern</span><span>[</span><span>i</span><span>]</span><span class="z-l-16 z-d-10"> ==</span><span> pattern</span><span>[</span><span>k</span><span>]</span><span class="z-l-17 z-d-10"> else</span><span> k</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    return</span><span> next_values</span></span></code></pre>
+<p>然后 KMP 算法即：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="python"><span class="giallo-l"><span class="z-l-17 z-d-10">def</span><span class="z-l-14 z-d-7"> kmp_search</span><span>(</span><span class="z-l-9">text</span><span class="z-l-6">:</span><span class="z-l-4 z-d-4"> str</span><span class="z-l-6">,</span><span class="z-l-9"> pattern</span><span class="z-l-6">:</span><span class="z-l-4 z-d-4"> str</span><span>)</span><span class="z-l-6"> -&gt;</span><span class="z-l-4 z-d-4"> int</span><span class="z-l-16 z-d-10"> |</span><span class="z-l-9 z-d-4"> None</span><span>:</span></span>
+<span class="giallo-l"><span>    next_values</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-14"> build_next</span><span>(</span><span>pattern</span><span>)</span></span>
+<span class="giallo-l"><span>    i</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-9 z-d-4"> 0</span></span>
+<span class="giallo-l"><span>    j</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-9 z-d-4"> 0</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    while</span><span> i</span><span class="z-l-16 z-d-10"> &lt;</span><span class="z-l-15 z-d-4"> len</span><span>(</span><span>pattern</span><span>)</span><span class="z-l-16 z-d-10"> and</span><span> j</span><span class="z-l-16 z-d-10"> &lt;</span><span class="z-l-15 z-d-4"> len</span><span>(</span><span>text</span><span>)</span><span class="z-l-6">:</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        if</span><span> i</span><span class="z-l-16 z-d-10"> ==</span><span class="z-l-16 z-d-10"> -</span><span class="z-l-9 z-d-4">1</span><span class="z-l-16 z-d-10"> or</span><span> text</span><span>[</span><span>j</span><span>]</span><span class="z-l-16 z-d-10"> ==</span><span> pattern</span><span>[</span><span>i</span><span>]</span><span class="z-l-6">:</span></span>
+<span class="giallo-l"><span>            i</span><span class="z-l-16 z-d-10"> +=</span><span class="z-l-9 z-d-4"> 1</span></span>
+<span class="giallo-l"><span>            j</span><span class="z-l-16 z-d-10"> +=</span><span class="z-l-9 z-d-4"> 1</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        else</span><span class="z-l-6">:</span></span>
+<span class="giallo-l"><span>            i</span><span class="z-l-16 z-d-10"> =</span><span> next_values</span><span>[</span><span>i</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    return</span><span> j</span><span class="z-l-16 z-d-10"> -</span><span class="z-l-15 z-d-4"> len</span><span>(</span><span>pattern</span><span>)</span><span class="z-l-17 z-d-10"> if</span><span> i</span><span class="z-l-16 z-d-10"> ==</span><span class="z-l-15 z-d-4"> len</span><span>(</span><span>pattern</span><span>)</span><span class="z-l-17 z-d-10"> else</span><span class="z-l-9 z-d-4"> None</span></span></code></pre>
+<p>有些实现中用的是另一个数组 <code>lps</code>，<code>lps[i]</code> 表示 <code>pattern[0..i]</code> 的最长相等真前后缀长度。计算方法为：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="python"><span class="giallo-l"><span class="z-l-17 z-d-10">def</span><span class="z-l-14 z-d-7"> build_lps</span><span>(</span><span class="z-l-9">s</span><span class="z-l-6">:</span><span class="z-l-4 z-d-4"> str</span><span>)</span><span class="z-l-6"> -&gt;</span><span> list</span><span>[</span><span class="z-l-4 z-d-4">int</span><span>]</span><span>:</span></span>
+<span class="giallo-l"><span>    lps</span><span class="z-l-16 z-d-10"> =</span><span> [</span><span class="z-l-9 z-d-4">0</span><span>]</span><span class="z-l-16 z-d-10"> *</span><span class="z-l-15 z-d-4"> len</span><span>(</span><span>s</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    for</span><span> i</span><span class="z-l-17 z-d-10"> in</span><span class="z-l-15 z-d-4"> range</span><span>(</span><span class="z-l-9 z-d-4">1</span><span class="z-l-6">,</span><span class="z-l-15 z-d-4"> len</span><span>(</span><span>s</span><span>)</span><span>)</span><span class="z-l-6">:</span></span>
+<span class="giallo-l"><span>        k</span><span class="z-l-16 z-d-10"> =</span><span> lps</span><span>[</span><span>i</span><span class="z-l-16 z-d-10"> -</span><span class="z-l-9 z-d-4"> 1</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        while</span><span> k</span><span class="z-l-16 z-d-10"> &gt;</span><span class="z-l-9 z-d-4"> 0</span><span class="z-l-16 z-d-10"> and</span><span> s</span><span>[</span><span>i</span><span>]</span><span class="z-l-16 z-d-10"> !=</span><span> s</span><span>[</span><span>k</span><span>]</span><span class="z-l-6">:</span></span>
+<span class="giallo-l"><span>            k</span><span class="z-l-16 z-d-10"> =</span><span> lps</span><span>[</span><span>k</span><span class="z-l-16 z-d-10"> -</span><span class="z-l-9 z-d-4"> 1</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        if</span><span> s</span><span>[</span><span>i</span><span>]</span><span class="z-l-16 z-d-10"> ==</span><span> s</span><span>[</span><span>k</span><span>]</span><span class="z-l-6">:</span></span>
+<span class="giallo-l"><span>            k</span><span class="z-l-16 z-d-10"> +=</span><span class="z-l-9 z-d-4"> 1</span></span>
+<span class="giallo-l"><span>        lps</span><span>[</span><span>i</span><span>]</span><span class="z-l-16 z-d-10"> =</span><span> k</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    return</span><span> lps</span></span></code></pre>
+<p>这与 <code>next</code> 的关系是 <code>next</code> 约定 <code>next[0] = -1</code>，<code>next[i + 1] = lps[i]</code>，然后优化掉无用的回退（如果预期回退到的字母相同则继续回退）。</p>
+<h2 id="er-cha-shu">二叉树</h2>
+<h3 id="ding-yi-yu-shi-xian">定义与实现</h3>
+<p>二叉树指的是：每个节点有严格区分的左子树、右子树（可以为空）。对非空的二叉树，定义其根的层数为零。最大的层数称为深度，高度定义为深度加 $1$.</p>
+<p>满二叉树（full binary tree）定义为没有度为 $1$ 的节点；完全二叉树（complete binary tree）定义为除最下面两层外节点度均为 $2$，且最下层的结点从左到右连续排列、没有空洞的树；完美二叉树定义为深度 $k$ 时恰有 $2^{k+1}-1$ 个节点的树。</p>
+<p>二叉树典型的深度优先遍历方式是：先序（先根，然后归纳地便利左子树，然后右子树）、中序（左、根、右）、后序（左、右、根），递归（或模拟递归）即可。广度优先遍历方式是按层数遍历，使用队列：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="cpp"><span class="giallo-l"><span class="z-l-17 z-d-10">template</span><span> &lt;</span><span class="z-l-17 z-d-10">typename</span><span class="z-l-1 z-d-7"> T</span><span>&gt;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">void</span><span class="z-l-14 z-d-7"> traversal</span><span>(</span><span class="z-l-1 z-d-7">binary_tree</span><span>&lt;</span><span class="z-l-1 z-d-7">T</span><span>&gt;</span><span class="z-l-9 z-d-12"> tree</span><span class="z-l-6">,</span><span class="z-l-17 z-d-10"> void</span><span> (</span><span class="z-l-9">*</span><span class="z-l-9 z-d-12">visit</span><span>)</span><span>(</span><span class="z-l-1 z-d-7">T</span><span>)</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-1 z-d-7">    queue</span><span>&lt;</span><span class="z-l-17 z-d-10">int</span><span>&gt;</span><span> list</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>    list</span><span class="z-l-6">.</span><span class="z-l-14 z-d-7">push</span><span>(</span><span>tree</span><span class="z-l-6">.</span><span>root</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    while</span><span> (</span><span class="z-l-16 z-d-10">!</span><span>queue</span><span class="z-l-6">.</span><span class="z-l-14 z-d-7">empty</span><span>(</span><span>)</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-1 z-d-7">        T</span><span> node</span><span class="z-l-16 z-d-10"> =</span><span> queue</span><span class="z-l-6">.</span><span class="z-l-14 z-d-7">pop</span><span>(</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">        visit</span><span>(</span><span>node</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        if</span><span> (</span><span>tree</span><span class="z-l-6">.</span><span class="z-l-14 z-d-7">has_left</span><span>(</span><span>)</span><span>)</span><span> queue</span><span class="z-l-6">.</span><span class="z-l-14 z-d-7">push</span><span>(</span><span>tree</span><span class="z-l-6">.</span><span class="z-l-14 z-d-7">get_left</span><span>(</span><span>)</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">        if</span><span> (</span><span>tree</span><span class="z-l-6">.</span><span class="z-l-14 z-d-7">has_right</span><span>(</span><span>)</span><span>)</span><span> queue</span><span class="z-l-6">.</span><span class="z-l-14 z-d-7">push</span><span>(</span><span>tree</span><span class="z-l-6">.</span><span class="z-l-14 z-d-7">get_right</span><span>(</span><span>)</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>二叉树常见的存储方式是链式存储与顺序存储（$i$ 的左、右子节点下标 $2i+1, 2i+2$）。</p>
+<h3 id="er-cha-sou-suo-shu">二叉搜索树</h3>
+<p>二叉搜索树（binary search tree，BST）是为了避免动态增减变化需要移动大量元素的结构。其满足的是：一个节点左子树上所有节点都小于它的值，右子树上所有节点都大于它的值。在树比较平衡时，插入效率较高；而删除比较复杂。</p>
+<p>删除有两个子树的节点时，将左子树的最右节点代替该节点，如果这里最右节点有左子树则需要先移走。如果只有一侧子树，上移即可。</p>
+<h3 id="dui-yu-you-xian-dui-lie">堆与优先队列</h3>
+<p>堆处理的是频繁在一组对象中查找最大值或最小值，避免反复排序的问题。最小堆（min-heap）是一个序列 $\{K _i\} _0^{n-1}$，具备的特性是 $K _i \leq K _{2i+1}, K _{2i+2}$. 在插入时，先将元素添加在队尾，然后不断与上级节点比较、交换，直到满足性质。</p>
+<p>在删除时，我们直接将末尾元素填到空中，然后如果这个元素小于现在上级节点，则不断上浮，否则不断下沉，直到符合要求。</p>
+<p>在建堆时，从 $\lfloor n/2 \rfloor - 1$ 往前依次向下调整，理解为每次合并两个堆，此时间复杂度 $\Theta(n)$.</p>
+<p>优先队列适合查找和删除最小元素，可以应用于操作系统的进程调度管理。堆就是很好的优先队列实现方式。</p>
+<h3 id="huffman-shu">Huffman 树</h3>
+<p>Huffman 树是这样建立的：每次取出两个最小权，将它们合成一棵树，新的权是它们之和。这一过程使用堆就可以 $O(n\log n)$ 完成。</p>
+<p>Huffman 树的特性是最小化带权路径长度（Weighted Path Length of Tree, WPL），即所有叶子的权重乘以深度的求和。</p>
+<p>其用途是给字符编码。如果要传输的信息中字符 $c_i$ 有 $k_i$ 个，用这些 $k_i$ 建树，从根节点开始往左标 $0$ 往右标 $1$，此序列即单个字符的编码。这天然使得任何字符的编码都不是另一个字符编码的前缀，从而对一串编码的拼接，可以解码。</p>
+<h2 id="shu">树</h2>
+<h3 id="ji-ben-xing-zhi">基本性质</h3>
+<p>我们可以将森林转换成二叉树：先将同级节点连起来，然后砍掉上级节点到除第一个子节点以外节点的连线，再旋转即可。</p>
+<p>树有深度优先的先根次序、后根次序及广度优先。</p>
+<h3 id="lian-shi-cun-chu">链式存储</h3>
+<p>“子节点表”表示方法是：维护一个关于各节点信息的数组，内容包括节点信息、上级节点索引，及链表存储的子节点索引。</p>
+<p>这种表示方法的一个改进是：每个节点处不再存储所有子节点，而是存储其最左的子节点与其右侧的同级节点的索引，称为 left child / right sibling 表示法。</p>
+<p>两种表示法也有对应的动态版本，即把数组维护改为用指针。</p>
+<h3 id="bing-cha-ji">并查集</h3>
+<p>并查集（disjoint set）是一种管理元素所属集合的数据结构，实现为一个森林。其支持的操作是：合并两个元素所属集合（合并对应的树）；查询某个元素所属集合（查询对应的树的根节点）。</p>
+<p>我们只需要维护每个节点的上级节点索引。</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="cpp"><span class="giallo-l"><span class="z-l-17 z-d-10">int</span><span class="z-l-14 z-d-7"> find</span><span>(</span><span class="z-l-17 z-d-10">int</span><span class="z-l-9 z-d-12"> x</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    if</span><span> (</span><span>parent</span><span>[</span><span>x</span><span>]</span><span class="z-l-16 z-d-10"> !=</span><span> x</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">        //</span><span class="z-l-10 z-l-i z-d-3"> 路径压缩</span></span>
+<span class="giallo-l"><span>        parent</span><span>[</span><span>x</span><span>]</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-14 z-d-7"> find</span><span>(</span><span>parent</span><span>[</span><span>x</span><span>]</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    return</span><span> parent</span><span>[</span><span>x</span><span>]</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">void</span><span class="z-l-14 z-d-7"> unite</span><span>(</span><span class="z-l-17 z-d-10">int</span><span class="z-l-9 z-d-12"> x</span><span class="z-l-6">,</span><span class="z-l-17 z-d-10"> int</span><span class="z-l-9 z-d-12"> y</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span>    parent</span><span>[</span><span class="z-l-14 z-d-7">find</span><span>(</span><span>x</span><span>)</span><span>]</span><span class="z-l-16 z-d-10"> =</span><span class="z-l-14 z-d-7"> find</span><span>(</span><span>y</span><span>)</span><span class="z-l-6">;</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>可以稍微优化一下，维护每棵树的大小，合并时将节点较少的树连到另一颗。Tarjan 证明了不使用启发式合并，最坏时间复杂度 $O(m \log n)$，姚期智证明了不使用启发式合并，平均时间复杂度 $O(m \alpha(m, n))$，其中 $\alpha$ 是 Ackermann 函数的反函数。</p>
+<h3 id="shun-xu-cun-chu">顺序存储</h3>
+<p>顺序存储表示法中，节点存储在一片连续的存储单元。</p>
+<p>“带右链的先根次序表示”对标于先根次序序列，会在每个节点处存储其是否是叶节点，及对应的二叉树中右节点（若有）。</p>
+<p>“带双标记的先根次序表示”只会在每个节点处存储其是否是叶节点、对应的二叉树中是否有右节点。</p>
+<p>“带度数的后根次序表示”对标于后根次序序列，会在每个节点处存储其度数。</p>
+<p>“带双标记的层次次序表示”对标于层次次序序列，会在每个节点处存储其是否有子节点、是否有右同级节点。</p>
+<hr />
+<div class="footnote-definition" id="modern"><sup class="footnote-definition-label">1</sup>
+<p>只在这里出现一次工程版，给读者一个大致印象。</p>
+</div>
+</section>
+  <hr />
+  
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/课程/">课程</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/计算机/">计算机</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/算法/">算法</a>
+    
+  </div>
+</footer>
+
+  
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- page_end inject -->
+
+</article>
+
+  </main>
+  <footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+    <div class="mr-auto basis-full lg:basis-1/2">
+      
+&copy; 2025-2026 Rratic
+ &vert; <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+
+    </div>
+    <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+      
+  <span class="mr-6 lg:ml-6">
+    <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+  </span>
+  <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+
+    </div>
+  <!-- footer inject -->
+
+  </footer>
+  
+  <link rel="stylesheet" href="https://rratic.top/katex/katex.min.css?h=180c2d77d434d7da51d6" />
+  <script defer src="https://rratic.top/katex/katex.min.js?h=2ec5916941ef4383e031"></script>
+  <script defer src="https://rratic.top/katex/contrib/auto-render.min.js?h=e5372d199bcdae8b4de7"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+  
+
+  <!-- body_end inject -->
+
+</body>
+
+</html>

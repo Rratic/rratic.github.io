@@ -1,0 +1,297 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola v0.23.4" />
+  <title>群论（三）：直积有关的讨论 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="群论（三）：直积有关的讨论" />
+  <meta name="description" content="写作业和与同学讨论时有感于：直积虽然定义简单且有良好的泛性质，但其很多事实是非平凡的。本文一为证明技术的练习，二为戒骄戒躁，三为展示此问题之勾连四方。" />
+  <meta property="og:description" content="写作业和与同学讨论时有感于：直积虽然定义简单且有良好的泛性质，但其很多事实是非平凡的。本文一为证明技术的练习，二为戒骄戒躁，三为展示此问题之勾连四方。" />
+  <meta property="og:url" content="https://rratic.top/posts/group-theory-3/" />
+  <link rel="canonical" href="https://rratic.top/posts/group-theory-3/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-10-11T00:00:00+00:00" />
+  <meta property="article:tag" content="数学" />
+  <meta property="article:tag" content="代数学" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <meta name="msvalidate.01" content="9BE559916FDB06A7A09EA17370F0ED09" />
+<link rel="icon" type="image/svg+xml" href="https://rratic.top/favicon.svg" />
+<link rel="stylesheet" href="https://rratic.top/style/shared.css?h=2dac71ecd418f5165c3d" />
+
+  <link rel="stylesheet" href="https://rratic.top/giallo-light.css?h=396eaa20499714fdb600" media="(prefers-color-scheme: light)" />
+  <link rel="stylesheet" href="https://rratic.top/giallo-dark.css?h=536598ee42e9e9a795bc" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=f166037ad671ba6bfd13" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=11a0f44fbe01f53dbaf9"></script>
+  <!-- head_end inject -->
+
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      
+<menu
+  class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/posts/"
+    >文章</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/categories/"
+    >分类</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/tags/"
+    >标签</a>
+  </li>
+</menu>
+
+      <!-- header_nav inject -->
+
+    </nav>
+  </div>
+</header>
+
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    <!-- body_start inject -->
+
+    
+<article>
+  <!-- page_start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-3">群论（三）：直积有关的讨论</h1>
+    <div class="text-sm antialiased opacity-80"><time
+      datetime="2026-10-11T00:00:00+00:00">2026-10-11</time><span
+        class="middot"></span><time
+    datetime="PT0H5M0S">5&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+  </header>
+  
+  
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#zi-qun-de-ke-hua">子群的刻画</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#zhi-ji-de-xiao-qu">直积的消去</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#grothendieck-qun">Grothendieck 群</a>
+      </li>
+    </ul>
+  </details>
+</nav>
+  <!-- Content -->
+  <section><p>写作业和与同学讨论时有感于：直积虽然定义简单且有<a href="https://rratic.top/posts/category-theory-1/">良好的泛性质</a>，但其很多事实是非平凡的。本文一为证明技术的练习，二为戒骄戒躁，三为展示此问题之勾连四方。</p>
+<span id="continue-reading"></span><h2 id="zi-qun-de-ke-hua">子群的刻画</h2>
+<p>考察 $H \leq A \times B$，其嵌入与投射的复合给出两个投射 $H \to A$ 及 $H \to B$，现在不妨设它们是满的（不然只需考虑对应的 $H \leq A' \times B'$）。</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>Goursat 引理</strong></span>
+  </div>
+  <div class="pl-4"><p>对上述 $H$，存在 $A_1 \unlhd A, B_1 \unlhd B$ 及同构 $\varphi: A/A_1 \to B/B_1$，使得：</p>
+<p>$$H = \set{(a, b) | \varphi(aA_1) = bB_1}$$</p>
+</div>
+</div>
+<p>我们令 $A_1 = \set{a | (a, 1) \in H}$，$B_1$ 同理，则它们是正规子群。</p>
+<p>我们取以下的 $\varphi$，这里 $[b]$ 是 $[a]$ 对应的唯一使 $(a, b) \in H$ 的选择：</p>
+<p>$$
+\begin{aligned}
+\varphi \colon A/A_1 &amp;\longrightarrow B/B_1 \cr
+[a] &amp;\longmapsto [b]
+\end{aligned}
+$$</p>
+<p>它良定义，且是同构，于是结论成立。</p>
+<p>如果从范畴论来看，有 $H$ 是这里诱导的 $A \to B/B_1$ 与 $B \to B/B_1$ 的一个拉回。故我们说子群都是“纤维积”：</p>
+<p>$$H \cong A \times_{B/B_1} B$$</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>定理</strong></span>
+  </div>
+  <div class="pl-4"><p>如若要求 $H \unlhd A \times B$，则易证它是 $1, A, B, A \times B$ 四者之一。如若 $A, B$ 中心平凡，则子群也一定是四者之一。</p>
+</div>
+</div>
+<p>考虑更一般的 $H \leq G_1 \times \cdots \times G_n$ 情形，令 $I = \set{i | H \cap G_i = G_i}$，</p>
+<p>考察 $h = (g_1, \dots, g_n) \in H$，对于 $i \notin I$，对所有 $g \in G_i$ 都有 $ghg^{-1} = h$，故 $g_i = 1$，由此：</p>
+<p>$$H = \prod_{i \in I} G_i$$</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-question);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/question.svg)">question</div>
+    <span><strong>习题（Alibaba 2022）</strong></span>
+  </div>
+  <div class="pl-4"><p>设 $G_1, \dots, G_n$ 是非交换的单群，$n \geq 2$，令 $H \leq G_1 \times \cdots \times G_n$ 满足所有投射 $H \to H_i \times H_j$ 满（$i &lt; j$），证明 $H = G_1 \times \cdots \times G_n$.</p>
+</div>
+</div>
+<h2 id="zhi-ji-de-xiao-qu">直积的消去</h2>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>消去律</strong></span>
+  </div>
+  <div class="pl-4"><p>对有限群 $H \times K_1 \cong H \times K_2$，有 $K_1 \cong K_2$.</p>
+</div>
+</div>
+<p>这没有什么简单的证法。需要用到大定理：</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>Remak–Krull–Schmidt 定理</strong></span>
+  </div>
+  <div class="pl-4"><p>对有限群 $G$ 的完全分解：</p>
+<p>$$
+G = H_1 \times \cdots \times H_s \\
+G = K_1 \times \cdots \times K_t
+$$</p>
+<p>存在双射 $\sigma: [s] \to [t]$ 使得 $H_i \cong K_{\sigma(i)}$.</p>
+</div>
+</div>
+<p>Remak 在其 1911 年的博士论文中证明了这一点（实际上加强到存在 $G$ 的正规自同构 $\varphi$ 使得 $\varphi(H_i) = K_{\sigma(i)}$）。</p>
+<p>我们称一个自同态是正规的，如果它与所有的内自同构交换。实际上投射 $\varepsilon_i: G \to H \hookrightarrow G$ 是正规自同态，且按逐点加法：</p>
+<p>$$1 = \varepsilon_1 + \cdots + \varepsilon_n$$</p>
+<p>容易证明引理：自同态的和 $\alpha + \beta$ 是自同态，当且仅当 $[\alpha(G), \beta(G)] = 1$，因此 $\varepsilon_i + \varepsilon_j$ 等也是自同态。</p>
+<p>现在刻画不可分解群。对不可分解群 $H$ 的正规自同态 $\alpha$，其核与像正规，$H = \ker \alpha \times \operatorname{Im} \alpha$，故其中之一平凡。故 $\alpha$ 要么是自同构，要么幂零。</p>
+<p>定义正规自同态 $\varphi_{ij}$ 是复合得到的：</p>
+<p>$$H_i \to G \to K_j \to G \to H_i$$</p>
+<p>固定 $i$，若所有 $\varphi_{ij}$ 幂零，则 $\sum_j \varphi_{ij}$ 幂零，但这个和是 $\mathrm{id} _ {H _ i}$，故至少一个 $\varphi_{ij}$ 是同构。</p>
+<p>不妨重排使得 $\varphi_{11}$ 是同构。有 $[H_1, K_1] = 1$，从而作为子群 $H_1 = K_1$，然后就可以考虑 $G / H_1, G / K_1$，归纳。</p>
+<p>实际上这里的核心观察可以推广为 Fitting 引理：对有限维<a href="https://rratic.top/posts/representation-theory-1/">表示</a> $V$ 及其自同态 $\phi$，对充分大的 $r$ 有 $V = \ker \phi^r \oplus \operatorname{Im} \phi^r$，如果 $V$ 不可分解则 $\phi$ 要么自同构要么幂零。于是给出定理的模论证法。另一种证法是使用特征标理论。</p>
+<p>实际上“有限”条件可以弱化为：满足升链条件（正规子群链 $H_1 \leq H_2 \leq \cdots$ 会从某一处起 $H_i = H_{i+1} = \cdots$）与降链条件（正规子群链 $H_1 \geq H_2 \geq \cdots$ 会从某一处起 $H_i = H_{i+1} = \cdots = \set{1}$）。证明略去。</p>
+<h2 id="grothendieck-qun">Grothendieck 群</h2>
+<p>除了有限群范畴外，还有什么范畴有直积消去律？实际上有：非空有限集范畴、有限维向量空间范畴、有限 Abel 群范畴、有限生成 Abel 群范畴、PID 上有限生成模范畴、有限环范畴、有限连通图范畴（Sabidussi 定理）、有限偏序集范畴（Hashimoto 定理）、有限布尔代数范畴……</p>
+<p>考虑在直积运算下，会构成一个交换幺半群。我们可以定义一个交换幺半群 $M$ 的 Grothendieck 群：</p>
+<p>$$
+G(M) \coloneqq (M \times M) / \sim \\
+(a, b) \sim (c, d) \iff a + d + m = b + c + m,\, \exists m
+$$</p>
+<p>易见它是 Abel 群，等价类 $[(a, b)]$ 含义是形式差。一个直观的例子可以参考 <a rel="external" href="https://www.bilibili.com/video/BV1Gjba6XEWo/">0=1−1=−1+1=0</a> 中用有限集定义整数。</p>
+<p>有一个典范的幺半群同态 $i(a) = [(a, 0)]$，有 $G(M)$ 是 $M$ 的“最小 Abel 群化”，即具有泛性质：对任意 Abel 群 $A$ 及幺半群同态 $\varphi: M \to A$，存在唯一 $\psi: G(M) \to A$ 使图表交换。</p>
+<p>对于有有限积的范畴 $\mathcal C$，设对象的同构类 $[X]$ 就可定义 $[X] + [Y] = [X \otimes Y]$，从而可定义 Grothendieck 群：</p>
+<p>$$K_0(\mathcal C) \coloneqq G(M(\mathcal C))$$</p>
+<p>那么所谓消去律等价于说以下自然的映射是单射：</p>
+<p>$$M(\mathcal C) \to K_0(\mathcal C)$$</p>
+<p>如果 $\mathcal C$ 是 Abel 范畴（核与余核存在、单态射是其余核的核、满态射是其核的余核、态射可分解为单态射与满态射乘积的加法范畴），则可以对 $0 \to A \to B \to C \to 0$ 让 $[B] = [A] + [C]$ 来定义。</p>
+</section>
+  <hr />
+  
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/数学/">数学</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/代数学/">代数学</a>
+    
+  </div>
+</footer>
+
+  
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- page_end inject -->
+
+</article>
+
+  </main>
+  <footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+    <div class="mr-auto basis-full lg:basis-1/2">
+      
+&copy; 2025-2026 Rratic
+ &vert; <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+
+    </div>
+    <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+      
+  <span class="mr-6 lg:ml-6">
+    <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+  </span>
+  <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+
+    </div>
+  <!-- footer inject -->
+
+  </footer>
+  
+  <link rel="stylesheet" href="https://rratic.top/katex/katex.min.css?h=180c2d77d434d7da51d6" />
+  <script defer src="https://rratic.top/katex/katex.min.js?h=2ec5916941ef4383e031"></script>
+  <script defer src="https://rratic.top/katex/contrib/auto-render.min.js?h=e5372d199bcdae8b4de7"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+  
+
+  <!-- body_end inject -->
+
+</body>
+
+</html>

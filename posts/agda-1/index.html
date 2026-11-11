@@ -1,0 +1,616 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola v0.23.4" />
+  <title>Agda 语言与基本的形式化证明 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="Agda 语言与基本的形式化证明" />
+  <meta name="description" content="下半学期使用 Agda 来讲授函数式程序推理与演算，也展示了 Internal Verification 思想。" />
+  <meta property="og:description" content="下半学期使用 Agda 来讲授函数式程序推理与演算，也展示了 Internal Verification 思想。" />
+  <meta property="og:url" content="https://rratic.top/posts/agda-1/" />
+  <link rel="canonical" href="https://rratic.top/posts/agda-1/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2025-11-12T00:00:00+00:00" />
+  <meta property="article:modified_time" content="2025-12-13T00:00:00+00:00" />
+  <meta property="article:tag" content="计算机" />
+  <meta property="article:tag" content="计算理论" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <meta name="msvalidate.01" content="9BE559916FDB06A7A09EA17370F0ED09" />
+<link rel="icon" type="image/svg+xml" href="https://rratic.top/favicon.svg" />
+<link rel="stylesheet" href="https://rratic.top/style/shared.css?h=2dac71ecd418f5165c3d" />
+
+  <link rel="stylesheet" href="https://rratic.top/giallo-light.css?h=396eaa20499714fdb600" media="(prefers-color-scheme: light)" />
+  <link rel="stylesheet" href="https://rratic.top/giallo-dark.css?h=536598ee42e9e9a795bc" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=f166037ad671ba6bfd13" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=11a0f44fbe01f53dbaf9"></script>
+  <!-- head_end inject -->
+
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      
+<menu
+  class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/posts/"
+    >文章</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/categories/"
+    >分类</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/tags/"
+    >标签</a>
+  </li>
+</menu>
+
+      <!-- header_nav inject -->
+
+    </nav>
+  </div>
+</header>
+
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    <!-- body_start inject -->
+
+    
+<article>
+  <!-- page_start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-3">Agda 语言与基本的形式化证明</h1>
+    <div class="text-sm antialiased opacity-80"><time
+      datetime="2025-11-12T00:00:00+00:00">2025-11-12</time><span
+        class="middot"></span><time
+    datetime="PT0H4M0S">4&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+  </header>
+  
+  
+<nav class="block-bg prose-a:secondary-link mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-3.5" title="[Alt + =]" accesskey="=">
+      <span class="cursor-pointer ml-0.5">目录</span>
+    </summary>
+    <ul class="ps-8">
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#huan-jing-pei-zhi">环境配置</a>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#gai-lan">概览</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#bu-er-lei-xing">布尔类型</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#shi-yong-refl-zheng-ming">使用 refl 证明</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#gui-na">归纳</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#zi-ran-shu-lei-xing">自然数类型</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#shi-yong-hole">使用 hole</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#fu-zhu-yin-li">辅助引理</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#xiang-deng-ce-shi">相等测试</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#xiang-hu-di-gui">相互递归</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#li-zi">例子</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#lie-biao">列表</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#lie-biao-lei-xing">列表类型</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#maybe-lei-xing">Maybe 类型</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#with-yu-in">with 与 in</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#internal-verification">Internal Verification</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#xiang-liang-lei-xing">向量类型</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#guan-xi">关系</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#dependent-sum">Dependent Sum</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#deng-shi-li-lun">等式理论</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#deng-shi-li-lun-1">等式理论</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#deng-shi-tui-li">等式推理</a>
+          </li>
+        </ul>
+      </li>
+      <li class="ps-0.5">
+        <a class="no-underline hover:underline" href="#shi-yi">拾遗</a>
+        <ul>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#record">Record</a>
+          </li>
+          <li class="ps-0.5">
+            <a class="no-underline hover:underline" href="#fou-ding">否定</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </details>
+</nav>
+  <!-- Content -->
+  <section><p>下半学期使用 Agda 来讲授函数式程序推理与演算，也展示了 Internal Verification 思想。</p>
+<span id="continue-reading"></span>
+<p>参考的是<a rel="external" href="https://zhenjiang888.github.io/FP/2025/">课程</a>的对应部分讲义及 <em>Verified Functional Programming in Agda</em>.</p>
+<h2 id="huan-jing-pei-zhi">环境配置</h2>
+<p>可参考 <a rel="external" href="https://agda.readthedocs.io/en/latest/getting-started/installation.html">https://agda.readthedocs.io/en/latest/getting-started/installation.html</a> 的指引。</p>
+<p>Agda 是用 Haskell 写的，可以在<a href="https://rratic.top/posts/haskell-1/">安装好 Haskell</a> 后通过如下命令安装：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="shellscript"><span class="giallo-l"><span class="z-l-1 z-d-7">cabal</span><span class="z-l-8 z-d-6"> update</span></span>
+<span class="giallo-l"><span class="z-l-1 z-d-7">cabal</span><span class="z-l-8 z-d-6"> install</span><span class="z-l-8 z-d-6"> Agda</span></span></code></pre>
+<p>在 Windows 下，如果 Agda 程序路径没有被自动添加到 PATH 下，可手动在命令行运行（后面的路径是 Cabal 安装路径）：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="bat"><span class="giallo-l"><span class="z-l-17 z-d-10">setx</span><span class="z-l-17 z-d-10"> PATH</span><span class="z-l-8 z-d-6"> &quot;</span><span>%</span><span>PATH</span><span>%</span><span class="z-l-8 z-d-6">;D:\cabal\bin</span><span class="z-l-8 z-d-6">&quot;</span></span></code></pre>
+<p>接下来需要安装标准库，步骤请参考<a rel="external" href="https://higher-order.fun/cn/2023/11/15/InstallAgda.html">配置 Agda 开发环境</a>，本文是基于 2.8.0 版本的标准库。</p>
+<p>在 VSCode 的 <code>agda-mode</code> 插件中，打开一个 Agda 文件，按 <kbd>Ctrl</kbd> + <kbd>C</kbd> 再按 <kbd>Ctrl</kbd> + <kbd>L</kbd> 来加载它。</p>
+<p>或者直接在命令行中使用 <code>agda filename.agda</code> 编译它。</p>
+<h2 id="gai-lan">概览</h2>
+<h3 id="bu-er-lei-xing">布尔类型</h3>
+<p>布尔类型的定义如下：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span class="z-l-17 z-d-10">module</span><span> Agda.Builtin.Bool </span><span class="z-l-17 z-d-10">where</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">data</span><span> Bool : </span><span class="z-l-17 z-d-10">Set</span><span class="z-l-17 z-d-10"> where</span></span>
+<span class="giallo-l"><span>  false true : Bool</span></span></code></pre>
+<p>有关的定义如：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span>infix </span><span class="z-l-9 z-d-4">0</span><span> if_then_else_</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">if_then_else_ :</span><span> Bool </span><span class="z-l-16 z-d-10">→</span><span> A </span><span class="z-l-16 z-d-10">→</span><span> A </span><span class="z-l-16 z-d-10">→</span><span> A</span></span>
+<span class="giallo-l"><span>if true  then t else f </span><span class="z-l-16 z-d-10">=</span><span> t</span></span>
+<span class="giallo-l"><span>if false then t else f </span><span class="z-l-16 z-d-10">=</span><span> f</span></span></code></pre>
+<p>这些语法与 Haskell 非常相似。</p>
+<h3 id="shi-yong-refl-zheng-ming">使用 <code>refl</code> 证明</h3>
+<p>Curry-Howard 同构的想法是：类型是命题，而实例是类型的证明。</p>
+<p><code>refl</code> 的原型如下：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span class="z-l-17 z-d-10">module</span><span> Agda.Builtin.Equality </span><span class="z-l-17 z-d-10">where</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>infix </span><span class="z-l-9 z-d-4">4</span><span> _</span><span class="z-l-16 z-d-10">≡</span><span>_</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">data</span><span> _</span><span class="z-l-16 z-d-10">≡</span><span>_ {a} {A : </span><span class="z-l-17 z-d-10">Set</span><span> a} (x : A) : A </span><span class="z-l-16 z-d-10">→</span><span class="z-l-17 z-d-10"> Set</span><span> a </span><span class="z-l-17 z-d-10">where</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">  instance</span><span> refl : x </span><span class="z-l-16 z-d-10">≡</span><span> x</span></span></code></pre>
+<p>这里的 <code>{}</code> 表示隐式参数，可以被自动推断；而 <code>()</code> 表示显式参数；是否加 <code>∀</code> 只是风格问题。</p>
+<p>可以以如下方式使用：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span>~~tt : ~ ~ true </span><span class="z-l-16 z-d-10">≡</span><span> true</span></span>
+<span class="giallo-l"><span>~~tt </span><span class="z-l-16 z-d-10">=</span><span> refl{lzero}{Bool}{true}</span></span>
+<span class="giallo-l"><span>~~ff : ~ ~ false </span><span class="z-l-16 z-d-10">≡</span><span> false</span></span>
+<span class="giallo-l"><span>~~ff </span><span class="z-l-16 z-d-10">=</span><span> refl{lzero}{Bool}{false}</span></span></code></pre>
+<p>可以被简化为 <code>~~tt = refl</code>.</p>
+<p>一个更一般的命题及其证明如下：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span>~~-elim : ∀ (b : Bool) </span><span class="z-l-16 z-d-10">→</span><span> ~ ~ b </span><span class="z-l-16 z-d-10">≡</span><span> b</span></span>
+<span class="giallo-l"><span>~~-elim true </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span>
+<span class="giallo-l"><span>~~-elim false </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span></code></pre>
+<p>或者使用：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span>~~-elim : ∀ (b : Bool) </span><span class="z-l-16 z-d-10">→</span><span> ~ ~ b </span><span class="z-l-16 z-d-10">≡</span><span> b</span></span>
+<span class="giallo-l"><span>~~-elim true </span><span class="z-l-16 z-d-10">=</span><span> ~~tt</span></span>
+<span class="giallo-l"><span>~~-elim false </span><span class="z-l-16 z-d-10">=</span><span> ~~ff</span></span></code></pre>
+<p>对于带假设的证明，可使用 <code>()</code> 表示条件不可能。</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span>||</span><span class="z-l-16 z-d-10">≡</span><span>ff : ∀ {b1 b2} </span><span class="z-l-16 z-d-10">→</span><span> b1 || b2 </span><span class="z-l-16 z-d-10">≡</span><span> false </span><span class="z-l-16 z-d-10">→</span><span> b2 </span><span class="z-l-16 z-d-10">≡</span><span> false</span></span>
+<span class="giallo-l"><span>||</span><span class="z-l-16 z-d-10">≡</span><span>ff {true} ()</span></span>
+<span class="giallo-l"><span>||</span><span class="z-l-16 z-d-10">≡</span><span>ff {false}{true} ()</span></span>
+<span class="giallo-l"><span>||</span><span class="z-l-16 z-d-10">≡</span><span>ff {false}{false} p </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span></code></pre>
+<p>对于等式，可以使用重写关键字 <code>rewrite</code>，其后接的是一个 <code>left ≡ right</code> 型的命题，这将会把表达式表层的 <code>left</code>（模式匹配）变为 <code>right</code>.</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span>||-cong : ∀ {b1 b2 b2&#39;} </span><span class="z-l-16 z-d-10">→</span><span> b2 </span><span class="z-l-16 z-d-10">≡</span><span> b2&#39; </span><span class="z-l-16 z-d-10">→</span><span> b1 || b2 </span><span class="z-l-16 z-d-10">≡</span><span> b1 || b2&#39;</span></span>
+<span class="giallo-l"><span>||-cong p rewrite p </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span></code></pre><h2 id="gui-na">归纳</h2>
+<h3 id="zi-ran-shu-lei-xing">自然数类型</h3>
+<p>自然数类型的定义如下：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span class="z-l-17 z-d-10">data</span><span> Nat : </span><span class="z-l-17 z-d-10">Set</span><span class="z-l-17 z-d-10"> where</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">  zero :</span><span> Nat</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">  suc  :</span><span> (n : Nat) </span><span class="z-l-16 z-d-10">→</span><span> Nat</span></span></code></pre>
+<p>各种运算符都是归纳定义的。</p>
+<p>我们来看加法结合律的证明：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span>+assoc : ∀ (x y z : ℕ) </span><span class="z-l-16 z-d-10">→</span><span> x + (y + z) </span><span class="z-l-16 z-d-10">≡</span><span> (x + y) + z</span></span>
+<span class="giallo-l"><span>+assoc zero y z </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span>
+<span class="giallo-l"><span>+assoc (suc x) y z rewrite +assoc x y z </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span></code></pre>
+<p>我们给一个小的定理：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span>+</span><span class="z-l-9 z-d-4">0</span><span> : ∀ (x : ℕ) </span><span class="z-l-16 z-d-10">→</span><span> x + </span><span class="z-l-9 z-d-4">0</span><span class="z-l-16 z-d-10"> ≡</span><span> x</span></span>
+<span class="giallo-l"><span>+</span><span class="z-l-9 z-d-4">0</span><span> zero </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span>
+<span class="giallo-l"><span>+</span><span class="z-l-9 z-d-4">0</span><span> (suc x) rewrite +</span><span class="z-l-9 z-d-4">0</span><span> x </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span></code></pre><h3 id="shi-yong-hole">使用 <code>hole</code></h3>
+<p>可以通过 <code>hole</code> 来交互式地得到以上证明，流程如下：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">-- 引入 hole</span></span>
+<span class="giallo-l"><span>+assoc zero y z </span><span class="z-l-16 z-d-10">=</span><span> ?</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">-- 按 Ctrl + C 再按 Ctrl + L</span></span>
+<span class="giallo-l"><span>+assoc zero y z </span><span class="z-l-16 z-d-10">=</span><span> {! </span><span class="z-l-9 z-d-4">0</span><span>!}</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">-- 显示 Goal: y+z ≡ y+z</span></span></code></pre><h3 id="fu-zhu-yin-li">辅助引理</h3>
+<p>为了证明 <code>+comm : ∀(x y : N) → x+y ≡ y+x</code>，分为两步：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span>+comm zero y rewrite +</span><span class="z-l-9 z-d-4">0</span><span> y </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span>
+<span class="giallo-l"><span>+comm (suc x) y rewrite +comm x y </span><span class="z-l-16 z-d-10">=</span><span> ?</span></span></code></pre>
+<p>这里的 <code>hole</code> 是 <code>suc (y + x) ≡ y + suc x</code>，额外用一个引理证明它：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span>+suc : ∀ (x y : N) </span><span class="z-l-16 z-d-10">→</span><span> x + (suc y) </span><span class="z-l-16 z-d-10">≡</span><span> suc (x + y) </span></span>
+<span class="giallo-l"><span>+suc zero y </span><span class="z-l-16 z-d-10">=</span><span> refl </span></span>
+<span class="giallo-l"><span>+suc (suc x) y rewrite +suc x y </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span></code></pre>
+<p>现在就可用 <code>+comm (suc x) y rewrite +suc y x | +comm x y = refl</code> 来完成。</p>
+<p>对于更复杂的命题如 <code>*distribr : ∀ (x y z : N) → (x + y) * z ≡ x * z + y * z</code>，需选取合适的归纳变量。</p>
+<p>在这个结论中：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span>&lt;-trans : ∀ {x y z : ℕ} </span><span class="z-l-16 z-d-10">→</span><span> x &lt; y </span><span class="z-l-16 z-d-10">≡</span><span> true </span><span class="z-l-16 z-d-10">→</span><span> y &lt; z </span><span class="z-l-16 z-d-10">≡</span><span> true </span><span class="z-l-16 z-d-10">→</span><span> x &lt; z </span><span class="z-l-16 z-d-10">≡</span><span> true</span></span>
+<span class="giallo-l"><span>&lt;-trans p q </span><span class="z-l-16 z-d-10">=</span><span> ?</span></span></code></pre>
+<p>加载将会显示：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span class="z-l-14 z-d-7">Goal:</span><span> .x &lt; .z </span><span class="z-l-16 z-d-10">≡</span><span> true</span></span>
+<span class="giallo-l"><span class="z-l-10 z-l-i z-d-3">------------------------------------------------</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">p :</span><span> .x &lt; .y </span><span class="z-l-16 z-d-10">≡</span><span> true</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">q :</span><span> .y &lt; .z </span><span class="z-l-16 z-d-10">≡</span><span> true</span></span>
+<span class="giallo-l"><span>.z : N</span></span>
+<span class="giallo-l"><span>.y : N </span></span>
+<span class="giallo-l"><span>.x : N</span></span></code></pre><h3 id="xiang-deng-ce-shi">相等测试</h3>
+<p>一个 <code>A → A → Bool</code> 类型的函数被称为相等测试，如果它返回 <code>true</code> 的条件是 <code>x ≡ y</code> 可证。</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span class="z-l-16 z-d-10">=</span><span>ℕ_ : ℕ </span><span class="z-l-16 z-d-10">→</span><span> ℕ </span><span class="z-l-16 z-d-10">→</span><span> Bool</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-4">0</span><span class="z-l-16 z-d-10"> =</span><span>ℕ </span><span class="z-l-9 z-d-4">0</span><span class="z-l-16 z-d-10"> =</span><span> true</span></span>
+<span class="giallo-l"><span>suc x </span><span class="z-l-16 z-d-10">=</span><span>ℕ suc y </span><span class="z-l-16 z-d-10">=</span><span> x </span><span class="z-l-16 z-d-10">=</span><span>ℕ y</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">_ =</span><span>ℕ _ </span><span class="z-l-16 z-d-10">=</span><span> false</span></span></code></pre><h3 id="xiang-hu-di-gui">相互递归</h3>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span>is-even zero </span><span class="z-l-16 z-d-10">=</span><span> true</span></span>
+<span class="giallo-l"><span>is-even (suc x) </span><span class="z-l-16 z-d-10">=</span><span> is-odd x</span></span>
+<span class="giallo-l"><span>is-odd zero </span><span class="z-l-16 z-d-10">=</span><span> false</span></span>
+<span class="giallo-l"><span>is-odd (suc x) </span><span class="z-l-16 z-d-10">=</span><span> is-even x</span></span></code></pre><h3 id="li-zi">例子</h3>
+<p>现在来看一个大例子：自然数乘法交换律的证明。</p>
+<p>其中少量使用了 <code>cong</code>，其定义将在之后等式理论节中说明。</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span class="z-l-17 z-d-10">module</span><span> Main </span><span class="z-l-17 z-d-10">where</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">open</span><span class="z-l-17 z-d-10"> import</span><span> Data.Nat using (ℕ; zero; suc; _+_; _*_)</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">open</span><span class="z-l-17 z-d-10"> import</span><span> Data.Bool using (Bool; true; false; _∨_; if_then_else_)</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">open</span><span class="z-l-17 z-d-10"> import</span><span> Data.Vec using (Vec; []; _∷_)</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">open</span><span class="z-l-17 z-d-10"> import</span><span> Data.List using (List; []; _∷_)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">import</span><span> Relation.Binary.PropositionalEquality as Eq</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">open</span><span> Eq using (_</span><span class="z-l-16 z-d-10">≡</span><span>_; refl; sym; trans; cong; cong-app)</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">open</span><span> Eq.</span><span class="z-l-16 z-d-10">≡</span><span>-Reasoning using (begin_; step-</span><span class="z-l-16 z-d-10">≡</span><span>-⟩; step-</span><span class="z-l-16 z-d-10">≡</span><span>-⟨; step-</span><span class="z-l-16 z-d-10">≡</span><span>-∣; _∎)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>+</span><span class="z-l-9 z-d-4">0</span><span> : (x : ℕ) </span><span class="z-l-16 z-d-10">→</span><span> x + </span><span class="z-l-9 z-d-4">0</span><span class="z-l-16 z-d-10"> ≡</span><span> x</span></span>
+<span class="giallo-l"><span>+</span><span class="z-l-9 z-d-4">0</span><span> zero </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span>
+<span class="giallo-l"><span>+</span><span class="z-l-9 z-d-4">0</span><span> (suc x) rewrite +</span><span class="z-l-9 z-d-4">0</span><span> x </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>+suc : (x y : ℕ) </span><span class="z-l-16 z-d-10">→</span><span> x + (suc y) </span><span class="z-l-16 z-d-10">≡</span><span> suc (x + y) </span></span>
+<span class="giallo-l"><span>+suc zero y </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span>
+<span class="giallo-l"><span>+suc (suc x) y rewrite +suc x y </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>+-comm : (x y : ℕ) </span><span class="z-l-16 z-d-10">→</span><span> x + y </span><span class="z-l-16 z-d-10">≡</span><span> y + x</span></span>
+<span class="giallo-l"><span>+-comm zero y rewrite +</span><span class="z-l-9 z-d-4">0</span><span> y </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span>
+<span class="giallo-l"><span>+-comm (suc x) y rewrite +suc y x | +-comm x y </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>+-assoc : (x y z : ℕ) </span><span class="z-l-16 z-d-10">→</span><span> x + (y + z) </span><span class="z-l-16 z-d-10">≡</span><span> (x + y) + z</span></span>
+<span class="giallo-l"><span>+-assoc zero y z </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span>
+<span class="giallo-l"><span>+-assoc (suc x) y z rewrite +-assoc x y z </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>*</span><span class="z-l-9 z-d-4">0</span><span> : (x : ℕ) </span><span class="z-l-16 z-d-10">→</span><span> x * </span><span class="z-l-9 z-d-4">0</span><span class="z-l-16 z-d-10"> ≡</span><span class="z-l-9 z-d-4"> 0</span></span>
+<span class="giallo-l"><span>*</span><span class="z-l-9 z-d-4">0</span><span> zero </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span>
+<span class="giallo-l"><span>*</span><span class="z-l-9 z-d-4">0</span><span> (suc x) rewrite *</span><span class="z-l-9 z-d-4">0</span><span> x </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>*-mylemmalemma : (x y z : ℕ) </span><span class="z-l-16 z-d-10">→</span><span> y + (x + z) </span><span class="z-l-16 z-d-10">≡</span><span> x + (y + z)</span></span>
+<span class="giallo-l"><span>*-mylemmalemma x y z rewrite +-assoc y x z | cong (_+ z) (+-comm y x) | +-assoc x y z </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>*-mylemma : (x y : ℕ) </span><span class="z-l-16 z-d-10">→</span><span> y + y * x </span><span class="z-l-16 z-d-10">≡</span><span> y * suc x</span></span>
+<span class="giallo-l"><span>*-mylemma x zero </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span>
+<span class="giallo-l"><span>*-mylemma x (suc y) rewrite *-mylemmalemma x y (y * x) | cong suc (cong (x +_) (*-mylemma x y)) </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>*-comm : (x y : ℕ) </span><span class="z-l-16 z-d-10">→</span><span> x * y </span><span class="z-l-16 z-d-10">≡</span><span> y * x</span></span>
+<span class="giallo-l"><span>*-comm zero y rewrite *</span><span class="z-l-9 z-d-4">0</span><span> y </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span>
+<span class="giallo-l"><span>*-comm (suc x) y rewrite *-comm x y </span><span class="z-l-16 z-d-10">=</span><span> *-mylemma x y</span></span></code></pre><h2 id="lie-biao">列表</h2>
+<h3 id="lie-biao-lei-xing">列表类型</h3>
+<p>列表类型的定义如下：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span>infixr </span><span class="z-l-9 z-d-4">5</span><span> _∷_</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">data</span><span> List {a} (A : </span><span class="z-l-17 z-d-10">Set</span><span> a) : </span><span class="z-l-17 z-d-10">Set</span><span> a </span><span class="z-l-17 z-d-10">where</span></span>
+<span class="giallo-l"><span>  []  : List A</span></span>
+<span class="giallo-l"><span>  _∷_ : (x : A) (xs : List A) </span><span class="z-l-16 z-d-10">→</span><span> List A</span></span></code></pre>
+<p>这里用的 <code>∷</code> 是单个字符。</p>
+<p>常见函数也以类似 Haskell 中的方式归纳定义。</p>
+<p>使用 <code>postulate</code> 关键字可以不加证明地给出结论。</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span>postulate</span></span>
+<span class="giallo-l"><span>  ≤-trans : {x y z : Nat} </span><span class="z-l-16 z-d-10">→</span></span>
+<span class="giallo-l"><span>    x ≤ y </span><span class="z-l-16 z-d-10">≡</span><span> true </span><span class="z-l-16 z-d-10">→</span><span> y ≤ z </span><span class="z-l-16 z-d-10">≡</span><span> true </span><span class="z-l-16 z-d-10">→</span><span> x ≤ z </span><span class="z-l-16 z-d-10">≡</span><span> true</span></span>
+<span class="giallo-l"><span>  ≤-suc : (x : Nat) </span><span class="z-l-16 z-d-10">→</span><span> x ≤ suc x </span><span class="z-l-16 z-d-10">≡</span><span> true</span></span></code></pre><h3 id="maybe-lei-xing"><code>Maybe</code> 类型</h3>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span class="z-l-17 z-d-10">data</span><span> Maybe {a} (A : </span><span class="z-l-17 z-d-10">Set</span><span> a) : </span><span class="z-l-17 z-d-10">Set</span><span> a </span><span class="z-l-17 z-d-10">where</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">  just :</span><span> A </span><span class="z-l-16 z-d-10">→</span><span> Maybe A</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">  nothing :</span><span> Maybe A</span></span></code></pre><h3 id="with-yu-in"><code>with</code> 与 <code>in</code></h3>
+<p><code>with</code> 关键字可以提供更丰富的类型匹配，例如：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span>length-filter : {a} {A : </span><span class="z-l-17 z-d-10">Set</span><span> a} (p : A </span><span class="z-l-16 z-d-10">→</span><span> Bool)(l : List A) </span><span class="z-l-16 z-d-10">→</span></span>
+<span class="giallo-l"><span>  length (filter p l) ≤ length l </span><span class="z-l-16 z-d-10">≡</span><span> true</span></span>
+<span class="giallo-l"><span>length-filter p [] </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span>
+<span class="giallo-l"><span>length-filter p (x ∷ l) with p x</span></span>
+<span class="giallo-l"><span>length-filter p (x ∷ l) | true </span><span class="z-l-16 z-d-10">=</span><span> ?</span></span>
+<span class="giallo-l"><span>length-filter p (x ∷ l) | false </span><span class="z-l-16 z-d-10">=</span><span> ?</span></span></code></pre>
+<p><code>keep</code> 函数可以同时给出一个结果值和证明，定义为：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span class="z-l-14 z-d-7">keep :</span><span> {a} </span><span class="z-l-16 z-d-10">→</span><span> {A : </span><span class="z-l-17 z-d-10">Set</span><span> a} </span><span class="z-l-16 z-d-10">→</span><span> (x : A) </span><span class="z-l-16 z-d-10">→</span><span> Σ A (x </span><span class="z-l-16 z-d-10">≡</span><span>_)</span></span>
+<span class="giallo-l"><span>keep x </span><span class="z-l-16 z-d-10">=</span><span> x , refl</span></span></code></pre>
+<p>如下例中得到的是 <code>(true, p x ≡ true)</code> 或 <code>(false, p x ≡ false)</code>.</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span>filter-idem : {a} {A : </span><span class="z-l-17 z-d-10">Set</span><span> a} (p : A </span><span class="z-l-16 z-d-10">→</span><span> Bool) (l : List A) </span><span class="z-l-16 z-d-10">→</span></span>
+<span class="giallo-l"><span>  (filter p (filter p l)) </span><span class="z-l-16 z-d-10">≡</span><span> (filter p l)</span></span>
+<span class="giallo-l"><span>filter-idem p [] </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span>
+<span class="giallo-l"><span>filter-idem p (x ∷ l) with keep (p x)</span></span>
+<span class="giallo-l"><span>filter-idem p (x ∷ l) | true , p&#39;</span></span>
+<span class="giallo-l"><span>  rewrite p&#39; | p&#39; | filter-idem p l </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span>
+<span class="giallo-l"><span>filter-idem p (x ∷ l) | false , p&#39;</span></span>
+<span class="giallo-l"><span>  rewrite p&#39; </span><span class="z-l-16 z-d-10">=</span><span> filter-idem p l</span></span></code></pre>
+<p>在现在的版本中可以改为使用 <code>in</code> 关键字：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span>filter-idem : {a} {A : </span><span class="z-l-17 z-d-10">Set</span><span> a} (p : A </span><span class="z-l-16 z-d-10">→</span><span> Bool) (l : List A) </span><span class="z-l-16 z-d-10">→</span></span>
+<span class="giallo-l"><span>  (filter p (filter p l)) </span><span class="z-l-16 z-d-10">≡</span><span> (filter p l)</span></span>
+<span class="giallo-l"><span>filter-idem p [] </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span>
+<span class="giallo-l"><span>filter-idem p (x ∷ xs) with p x </span><span class="z-l-17 z-d-10">in</span><span> p&#39;</span></span>
+<span class="giallo-l"><span>filter-idem p (x ∷ xs) | true rewrite p&#39; | filter-idem p xs </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span>
+<span class="giallo-l"><span>filter-idem p (x ∷ xs) | false </span><span class="z-l-16 z-d-10">=</span><span> filter-idem p xs</span></span></code></pre><h2 id="internal-verification">Internal Verification</h2>
+<p>Internal Verification 的想法是，值附带着命题。</p>
+<h3 id="xiang-liang-lei-xing">向量类型</h3>
+<p>向量类型的定义如下：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span>infixr </span><span class="z-l-9 z-d-4">5</span><span> _∷_</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">data</span><span> Vec (A : </span><span class="z-l-17 z-d-10">Set</span><span> a) : ℕ </span><span class="z-l-16 z-d-10">→</span><span class="z-l-17 z-d-10"> Set</span><span> a </span><span class="z-l-17 z-d-10">where</span></span>
+<span class="giallo-l"><span>  []  : Vec A zero</span></span>
+<span class="giallo-l"><span>  _∷_ : ∀ (x : A) (xs : Vec A n) </span><span class="z-l-16 z-d-10">→</span><span> Vec A (suc n)</span></span></code></pre>
+<p>这给出了一种定长数组。</p>
+<h3 id="guan-xi">关系</h3>
+<p>Relation 相关部分代码如下：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span class="z-l-14 z-d-7">REL :</span><span class="z-l-17 z-d-10"> Set</span><span> a </span><span class="z-l-16 z-d-10">→</span><span class="z-l-17 z-d-10"> Set</span><span> b </span><span class="z-l-16 z-d-10">→</span><span> (ℓ : Level) </span><span class="z-l-16 z-d-10">→</span><span class="z-l-17 z-d-10"> Set</span><span> (a ⊔ b ⊔ suc ℓ)</span></span>
+<span class="giallo-l"><span>REL A B ℓ </span><span class="z-l-16 z-d-10">=</span><span> A </span><span class="z-l-16 z-d-10">→</span><span> B </span><span class="z-l-16 z-d-10">→</span><span class="z-l-17 z-d-10"> Set</span><span> ℓ</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">Rel :</span><span class="z-l-17 z-d-10"> Set</span><span> a </span><span class="z-l-16 z-d-10">→</span><span> (ℓ : Level) </span><span class="z-l-16 z-d-10">→</span><span class="z-l-17 z-d-10"> Set</span><span> (a ⊔ suc ℓ)</span></span>
+<span class="giallo-l"><span>Rel A ℓ </span><span class="z-l-16 z-d-10">=</span><span> REL A A ℓ</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">Reflexive :</span><span> Rel A ℓ </span><span class="z-l-16 z-d-10">→</span><span class="z-l-17 z-d-10"> Set</span><span> _</span></span>
+<span class="giallo-l"><span>Reflexive _∼_ </span><span class="z-l-16 z-d-10">=</span><span> ∀ {x} </span><span class="z-l-16 z-d-10">→</span><span> x ∼ x</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">Transitive :</span><span> Rel A ℓ </span><span class="z-l-16 z-d-10">→</span><span class="z-l-17 z-d-10"> Set</span><span> _</span></span>
+<span class="giallo-l"><span>Transitive _∼_ </span><span class="z-l-16 z-d-10">=</span><span> Trans _∼_ _∼_ _∼_</span></span></code></pre><h3 id="dependent-sum">Dependent Sum</h3>
+<p>Σ-类型是一种笛卡尔积的泛化，不同的是第二个元素的类型依赖于第一个元素。</p>
+<p>其定义如下：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span class="z-l-17 z-d-10">record</span><span> Σ {a b} (A : </span><span class="z-l-17 z-d-10">Set</span><span> a) (B : A </span><span class="z-l-16 z-d-10">→</span><span class="z-l-17 z-d-10"> Set</span><span> b) : </span><span class="z-l-17 z-d-10">Set</span><span> (a ⊔ b) </span><span class="z-l-17 z-d-10">where</span></span>
+<span class="giallo-l"><span>  constructor _,_</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">  field</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">    fst :</span><span> A</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">    snd :</span><span> B fst</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">open</span><span> Σ </span><span class="z-l-17 z-d-10">public</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>infixr </span><span class="z-l-9 z-d-4">4</span><span> _,_</span></span></code></pre>
+<p>这可以给出一种定义正整数的方法（这里使用了 <code>λ</code> 生成匿名函数）：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span>ℕ⁺ : </span><span class="z-l-17 z-d-10">Set</span></span>
+<span class="giallo-l"><span>ℕ⁺ </span><span class="z-l-16 z-d-10">=</span><span> Σ ℕ (</span><span class="z-l-16 z-d-10">λ</span><span> n </span><span class="z-l-16 z-d-10">→</span><span> iszero n </span><span class="z-l-16 z-d-10">≡</span><span> false)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>suc⁺ : ℕ⁺ </span><span class="z-l-16 z-d-10">→</span><span> ℕ⁺ </span></span>
+<span class="giallo-l"><span>suc⁺ (x , p) </span><span class="z-l-16 z-d-10">=</span><span> (suc x , refl)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>_+⁺_ : ℕ⁺ </span><span class="z-l-16 z-d-10">→</span><span> ℕ⁺ </span><span class="z-l-16 z-d-10">→</span><span> ℕ⁺</span></span>
+<span class="giallo-l"><span>(x , p) +⁺ (y , q) </span><span class="z-l-16 z-d-10">=</span><span> x + y , iszerosum2 x y p</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>_*⁺_ : ℕ⁺ </span><span class="z-l-16 z-d-10">→</span><span> ℕ⁺ </span><span class="z-l-16 z-d-10">→</span><span> ℕ⁺</span></span>
+<span class="giallo-l"><span>(x , p) *⁺ (y , q) </span><span class="z-l-16 z-d-10">=</span><span> (x * y , iszeromult x y p q)</span></span></code></pre><h2 id="deng-shi-li-lun">等式理论</h2>
+<h3 id="deng-shi-li-lun-1">等式理论</h3>
+<p>有许多定理有助于我们进行 <code>rewrite</code>，一些常见内容如下：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span class="z-l-14 z-d-7">sym :</span><span> Symmetric {A </span><span class="z-l-16 z-d-10">=</span><span> A} _</span><span class="z-l-16 z-d-10">≡</span><span>_</span></span>
+<span class="giallo-l"><span>sym refl </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">trans :</span><span> Transitive {A </span><span class="z-l-16 z-d-10">=</span><span> A} _</span><span class="z-l-16 z-d-10">≡</span><span>_</span></span>
+<span class="giallo-l"><span>trans refl eq </span><span class="z-l-16 z-d-10">=</span><span> eq</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">subst :</span><span> Substitutive {A </span><span class="z-l-16 z-d-10">=</span><span> A} _</span><span class="z-l-16 z-d-10">≡</span><span>_ ℓ</span></span>
+<span class="giallo-l"><span>subst P refl p </span><span class="z-l-16 z-d-10">=</span><span> p</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">cong :</span><span> ∀ (f : A </span><span class="z-l-16 z-d-10">→</span><span> B) {x y} </span><span class="z-l-16 z-d-10">→</span><span> x </span><span class="z-l-16 z-d-10">≡</span><span> y </span><span class="z-l-16 z-d-10">→</span><span> f x </span><span class="z-l-16 z-d-10">≡</span><span> f y</span></span>
+<span class="giallo-l"><span>cong f refl </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>cong-app : ∀ {A : </span><span class="z-l-17 z-d-10">Set</span><span> a} {B : A </span><span class="z-l-16 z-d-10">→</span><span class="z-l-17 z-d-10"> Set</span><span> b} {f g : (x : A) </span><span class="z-l-16 z-d-10">→</span><span> B x} </span><span class="z-l-16 z-d-10">→</span></span>
+<span class="giallo-l"><span>           f </span><span class="z-l-16 z-d-10">≡</span><span> g </span><span class="z-l-16 z-d-10">→</span><span> (x : A) </span><span class="z-l-16 z-d-10">→</span><span> f x </span><span class="z-l-16 z-d-10">≡</span><span> g x</span></span>
+<span class="giallo-l"><span>cong-app refl x </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span></code></pre><h3 id="deng-shi-tui-li">等式推理</h3>
+<p>等式推理相关设施的简化版定义如下：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span>infix </span><span class="z-l-9 z-d-4">1</span><span> begin_</span></span>
+<span class="giallo-l"><span>infixr </span><span class="z-l-9 z-d-4">2</span><span> _</span><span class="z-l-16 z-d-10">≡</span><span>⟨⟩_ _</span><span class="z-l-16 z-d-10">≡</span><span>⟨_⟩_</span></span>
+<span class="giallo-l"><span>infix </span><span class="z-l-9 z-d-4">3</span><span> _∎</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">begin_ :</span><span> ∀ {x y : A}</span></span>
+<span class="giallo-l"><span class="z-l-16 z-d-10">  →</span><span> x </span><span class="z-l-16 z-d-10">≡</span><span> y</span></span>
+<span class="giallo-l"><span class="z-l-16 z-d-10">  →</span><span> x </span><span class="z-l-16 z-d-10">≡</span><span> y</span></span>
+<span class="giallo-l"><span>begin x</span><span class="z-l-16 z-d-10">≡</span><span>y </span><span class="z-l-16 z-d-10">=</span><span> x</span><span class="z-l-16 z-d-10">≡</span><span>y</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>_</span><span class="z-l-16 z-d-10">≡</span><span>⟨⟩_ : ∀ (x : A) {y : A}</span></span>
+<span class="giallo-l"><span class="z-l-16 z-d-10">  →</span><span> x </span><span class="z-l-16 z-d-10">≡</span><span> y</span></span>
+<span class="giallo-l"><span class="z-l-16 z-d-10">  →</span><span> x </span><span class="z-l-16 z-d-10">≡</span><span> y</span></span>
+<span class="giallo-l"><span>x </span><span class="z-l-16 z-d-10">≡</span><span>⟨⟩ x</span><span class="z-l-16 z-d-10">≡</span><span>y </span><span class="z-l-16 z-d-10">=</span><span> x</span><span class="z-l-16 z-d-10">≡</span><span>y</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>_</span><span class="z-l-16 z-d-10">≡</span><span>⟨_⟩_ : ∀ (x : A) {y z : A}</span></span>
+<span class="giallo-l"><span class="z-l-16 z-d-10">  →</span><span> x </span><span class="z-l-16 z-d-10">≡</span><span> y</span></span>
+<span class="giallo-l"><span class="z-l-16 z-d-10">  →</span><span> y </span><span class="z-l-16 z-d-10">≡</span><span> z</span></span>
+<span class="giallo-l"><span class="z-l-16 z-d-10">  →</span><span> x </span><span class="z-l-16 z-d-10">≡</span><span> z</span></span>
+<span class="giallo-l"><span>x </span><span class="z-l-16 z-d-10">≡</span><span>⟨ x</span><span class="z-l-16 z-d-10">≡</span><span>y ⟩ y</span><span class="z-l-16 z-d-10">≡</span><span>z </span><span class="z-l-16 z-d-10">=</span><span> trans x</span><span class="z-l-16 z-d-10">≡</span><span>y y</span><span class="z-l-16 z-d-10">≡</span><span>z</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>_∎ : ∀ (x : A)</span></span>
+<span class="giallo-l"><span class="z-l-16 z-d-10">  →</span><span> x </span><span class="z-l-16 z-d-10">≡</span><span> x</span></span>
+<span class="giallo-l"><span>x ∎ </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span></code></pre>
+<p>一个用例如下：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span>+-suc : (m n : ℕ) </span><span class="z-l-16 z-d-10">→</span><span> m + suc n </span><span class="z-l-16 z-d-10">≡</span><span> suc (m + n)</span></span>
+<span class="giallo-l"><span>+-suc zero n </span><span class="z-l-16 z-d-10">=</span><span> refl</span></span>
+<span class="giallo-l"><span>+-suc (suc m) n </span><span class="z-l-16 z-d-10">=</span></span>
+<span class="giallo-l"><span>  begin</span></span>
+<span class="giallo-l"><span>    (suc m) + suc n</span></span>
+<span class="giallo-l"><span class="z-l-16 z-d-10">  ≡</span><span>⟨ refl ⟩</span></span>
+<span class="giallo-l"><span>    suc (m + suc n)</span></span>
+<span class="giallo-l"><span class="z-l-16 z-d-10">  ≡</span><span>⟨ cong suc (+-suc m n) ⟩</span></span>
+<span class="giallo-l"><span>    suc (suc (m + n))</span></span>
+<span class="giallo-l"><span>  ∎</span></span></code></pre>
+<p>有时 <code>cong</code> 的第一个参数很难用 <code>a +_</code> 之类的方式表达，就可使用 <code>λ</code> 生成匿名函数，如 <code>λ h → map (foldl _⊙_ o) ([] ∷ h)</code>.</p>
+<h2 id="shi-yi">拾遗</h2>
+<h3 id="record">Record</h3>
+<p>可以用 <code>record</code> 关键字把一组对象的某些性质聚合起来，在使用时可用 <code>.fieldname</code> 调用。</p>
+<p>下面的例子相当于是说在自然数类型下 <code>+</code> 构成半群的二元运算，<code>(0, +)</code> 构成幺半群的幺元和二元运算。</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span class="z-l-17 z-d-10">open</span><span class="z-l-17 z-d-10"> import</span><span> Data.Nat using (_+_)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">record</span><span> IsSemigroup {A : </span><span class="z-l-17 z-d-10">Set</span><span>} (_⊕_ : A </span><span class="z-l-16 z-d-10">→</span><span> A </span><span class="z-l-16 z-d-10">→</span><span> A) : </span><span class="z-l-17 z-d-10">Set</span><span class="z-l-17 z-d-10"> where</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">  field</span><span> assoc : ∀ x y z </span><span class="z-l-16 z-d-10">→</span><span> (x ⊕ y) ⊕ z </span><span class="z-l-16 z-d-10">≡</span><span> x ⊕ (y ⊕ z)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">open</span><span class="z-l-17 z-d-10"> import</span><span> Data.Nat.Properties using (+-assoc)</span></span>
+<span class="giallo-l"><span>ℕ-add-is-semigroup : IsSemigroup _+_</span></span>
+<span class="giallo-l"><span>ℕ-add-is-semigroup .assoc </span><span class="z-l-16 z-d-10">=</span><span> +-assoc</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">record</span><span> IsMonoid {A : </span><span class="z-l-17 z-d-10">Set</span><span>} (e : A) (_⊕_ : A </span><span class="z-l-16 z-d-10">→</span><span> A </span><span class="z-l-16 z-d-10">→</span><span> A) : </span><span class="z-l-17 z-d-10">Set</span><span class="z-l-17 z-d-10"> where</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">  field</span></span>
+<span class="giallo-l"><span>    is-semigroup : IsSemigroup _⊕_</span></span>
+<span class="giallo-l"><span>    identityˡ : ∀ x </span><span class="z-l-16 z-d-10">→</span><span> e ⊕ x </span><span class="z-l-16 z-d-10">≡</span><span> x</span></span>
+<span class="giallo-l"><span>    identityʳ : ∀ x </span><span class="z-l-16 z-d-10">→</span><span> x ⊕ e </span><span class="z-l-16 z-d-10">≡</span><span> x</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">open</span><span class="z-l-17 z-d-10"> import</span><span> Data.Nat.Properties using (+-identityˡ; +-identityʳ)</span></span>
+<span class="giallo-l"><span>ℕ-add-is-monoid : IsMonoid </span><span class="z-l-9 z-d-4">0</span><span> _+_</span></span>
+<span class="giallo-l"><span>ℕ-add-is-monoid .is-semigroup </span><span class="z-l-16 z-d-10">=</span><span> ℕ-add-is-semigroup</span></span>
+<span class="giallo-l"><span>ℕ-add-is-monoid .identityˡ </span><span class="z-l-16 z-d-10">=</span><span> +-identityˡ</span></span>
+<span class="giallo-l"><span>ℕ-add-is-monoid .identityʳ </span><span class="z-l-16 z-d-10">=</span><span> +-identityʳ</span></span></code></pre><h3 id="fou-ding">否定</h3>
+<p>有时我们希望证明某个东西的否定 <code>¬ x</code>，这定义为 <code>x → ⊥</code>，其中 <code>⊥</code> 代表 falsity 是一个空类型。</p>
+<p>两个东西不等价 <code>expr1 ≢  expr2</code> 就是 <code>¬ (expr1 ≡ expr2)</code>.</p>
+<p>它们的证法参考：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="Agda"><span class="giallo-l"><span>init-is-not-homomorphism : ∀ {_⊗_} (m : IsSemigroup _⊗_)</span></span>
+<span class="giallo-l"><span class="z-l-16 z-d-10">  →</span><span> ¬ IsHomomorphism NList-++′-is-semigroup m (init {ℕ})</span></span>
+<span class="giallo-l"><span>init-is-not-homomorphism {_⊗_} m H </span><span class="z-l-16 z-d-10">=</span><span> ¬K K</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">  where</span></span>
+<span class="giallo-l"><span>    ¬K : [ </span><span class="z-l-9 z-d-4">0</span><span> ] ++ [ </span><span class="z-l-9 z-d-4">1</span><span> ] ≢  [ </span><span class="z-l-9 z-d-4">0</span><span> ] ++ [ </span><span class="z-l-9 z-d-4">2</span><span> ]</span></span>
+<span class="giallo-l"><span>    ¬K ()</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">    K :</span><span> [ </span><span class="z-l-9 z-d-4">0</span><span> ] ++ [ </span><span class="z-l-9 z-d-4">1</span><span> ] </span><span class="z-l-16 z-d-10">≡</span><span> [ </span><span class="z-l-9 z-d-4">0</span><span> ] ++ [ </span><span class="z-l-9 z-d-4">2</span><span> ]</span></span>
+<span class="giallo-l"><span class="z-l-14 z-d-7">    K =</span></span>
+<span class="giallo-l"><span>      begin</span></span>
+<span class="giallo-l"><span>        [ </span><span class="z-l-9 z-d-4">0</span><span> ] ++ [ </span><span class="z-l-9 z-d-4">1</span><span> ]</span></span>
+<span class="giallo-l"><span class="z-l-16 z-d-10">      ≡</span><span>⟨ ? ⟩ </span><span class="z-l-10 z-l-i z-d-3">-- 一定量的证明</span></span>
+<span class="giallo-l"><span>        [ </span><span class="z-l-9 z-d-4">0</span><span> ] ++ [ </span><span class="z-l-9 z-d-4">2</span><span> ]</span></span>
+<span class="giallo-l"><span>      ∎</span></span></code></pre>
+<p>我们使用 absurd pattern 定义出了函数 <code>¬K</code>，使得 <code>¬K K</code> 结果为 <code>⊥</code>.</p>
+</section>
+  <hr />
+  
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/课程/">课程</a>
+    
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/计算机/">计算机</a>
+    
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/计算理论/">计算理论</a>
+    
+  </div>
+</footer>
+
+  
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- page_end inject -->
+
+</article>
+
+  </main>
+  <footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+    <div class="mr-auto basis-full lg:basis-1/2">
+      
+&copy; 2025-2026 Rratic
+ &vert; <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+
+    </div>
+    <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+      
+  <span class="mr-6 lg:ml-6">
+    <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+  </span>
+  <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+
+    </div>
+  <!-- footer inject -->
+
+  </footer>
+  
+
+  <!-- body_end inject -->
+
+</body>
+
+</html>
