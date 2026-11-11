@@ -69,7 +69,7 @@ $$H_n(X) \cong \Z^{\beta_n} \oplus \bigoplus_i \Z/d_i\Z, \quad d_1 \mid d_2 \mid
 因此可以定义 Betti 数是 $\beta_n = \operatorname{rank} H_n(X)$，实际历史上同调群最开始是用 Betti 数和扭系数表示的。
 
 {% <example title="持续同调"> %}
-持续同调是拓扑数据分析（TDA）的一种技术。我们考虑一般的欧氏空间中的点集，我们有一些方法将数据降维到适合观察的低维空间，如主成分分析（PCA），但降维可能丢失数据。而持续同调（PH）则不需要降维就能刻画数据全貌。
+持续同调是拓扑数据分析的一种技术。我们考虑一般的欧氏空间中的点集，我们有一些方法将数据降维到适合观察的低维空间，如[主成分分析](@/posts/machine_learning_2.md)，但降维可能丢失数据。而持续同调则不需要降维就能刻画数据全貌。
 {% </example> %}
 
 对一个取定的 $\varepsilon$，我们用该点集构建 Vietoris–Rips 复形，定义为：
