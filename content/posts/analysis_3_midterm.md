@@ -1,6 +1,7 @@
 +++
 title = "数学分析Ⅲ期中复习笔记"
 date = 2026-11-09
+updated = 2026-11-13
 
 [extra]
 math = true
@@ -150,3 +151,12 @@ $$\int_\Omega \mathrm{div}(\mathbf X) \mathrm d\mathbf x = \int_{\partial \Omega
 $$\int_\Omega \left(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}\right) \mathrm dx\mathrm dy = \int_{\partial \Omega} P \mathrm dx + Q \mathrm dy$$
 
 这里定向取的是诱导定向。实际上所有的转换都可以使用微分形式的 Stokes 定理直接得到，故这里略去。
+
+## 场论
+这里讨论的是[平坦](@/posts/riemannian_geometry_1.md)的 $\R^n$ 中的场。定义梯度 $\operatorname{grad}(f) = \nabla f$，一个场称为有势场，如果它是某个场的梯度场。Ⅱ型曲线积分只与端点有关的场称为保守场。区域上的连续向量场是保守场当且仅当它是有势场。
+
+定义 $\Delta f = \nabla \cdot \nabla f$，称 $\Delta f = 0$ 的函数为调和函数。散度定理给出平均值公式，于是有 Liouville 定理：设 $f$ 为 $\R^n$ 上调和函数，若 $f \geq 0$ 则必常值，特别地，有界必常值。
+
+三维中定义旋度 $\mathrm{rot}(\mathbf X) = \mathrm{curl}(\mathbf X) = \nabla \times \mathbf X$.
+
+散度为零的场称为无源场；旋度为零的场称为无旋场。

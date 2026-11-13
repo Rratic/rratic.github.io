@@ -1,6 +1,7 @@
 +++
 title = "同调论（一）：基本定义与等价性"
 date = 2026-06-30
+updates = 2026-11-13
 
 [extra]
 math = true
@@ -59,7 +60,7 @@ $$
 
 且它与边缘同态交换，故 $f_\ast([z]) = [f_\sharp z]$ 良定义。
 
-### 评注
+### 同调群的结构
 为了方便描述，我们定义约化同调群 $\tilde{H}_n(X)$，它只在 $0$ 处不同，把 $\partial_0$ 换成 $\varepsilon(\sum n_i\sigma_i) = \sum n_i$. 有 $H_0(X) \simeq \tilde{H}_0(X) \oplus \Z$.
 
 我们知道有限生成 Abel 群的结构定理：
@@ -107,8 +108,8 @@ $$P(\sigma) = \sum_i (-1)^i F((\sigma \times \mathrm{id})([v_0, \dots, v_i, w_i,
 
 其推论是 $f: X \simeq Y$ 同伦等价可以诱导一个同构 $f_\ast: H_n(X) \cong H_n(Y)$.
 
-## 正合列
-### 定义
+## 相对同调群
+### 正合列
 我们说一列同态在以下 $B$ 处正合，如果 $\ker \beta = \operatorname{Im} \alpha$；处处正合的称为**正合列**。
 
 $$A \stackrel \alpha \longrightarrow B \stackrel \beta \longrightarrow C$$
@@ -116,6 +117,30 @@ $$A \stackrel \alpha \longrightarrow B \stackrel \beta \longrightarrow C$$
 所谓**短正合列**是指如下正合列：
 
 $$0 \longrightarrow A \longrightarrow B \longrightarrow C \longrightarrow 0$$
+
+{% <theorem> %}
+对空间 $X$ 及非空的闭子空间 $A$ 满足它是某个开集的形变收缩核，有以下长正合列：
+
+$$
+\cdots \longrightarrow \tilde{H} _n(A)
+\xrightarrow{\mathrm{inj} _\ast} \tilde{H} _n(X)
+\xrightarrow{\mathrm{quot} _\ast} \tilde{H} _n(X/A)
+\xrightarrow{\partial} \tilde{H} _{n-1}(A)
+\longrightarrow \cdots \longrightarrow 0
+$$
+{% </theorem> %}
+
+证明的想法是，一个元素 $x \in \tilde H_n(X/A)$ 可以被表示为 $X$ 中的一个链 $\alpha$，且 $\partial \alpha$ 是 $A$ 中的圈，同调类 $\partial x$；更正式地证法依赖于即将引入的相对同调群。
+
+注意 CW 对 $(X, A)$ 一定满足定理所需条件。考虑 $(D^n, S^{n-1})$ 对应的长正合列，由于 $D^n$ 可缩，对应项零，$\tilde H_i(S^n) \to \tilde H_{i-1}(S^{n-1})$ 是同构，故 $\tilde H_n(S^n) \cong \Z$.
+
+---
+
+对于空间 $X$ 与子空间 $A$，定义其相对链群 $C_n(X, A) = C_n(X) / C_n(A)$，使用其诱导的 $\partial$，可以同前定义**相对同调群** $H_n(X, A)$.
+
+我们有以下短正合列：
+
+$$0 \longrightarrow C_n(A) \stackrel {\mathrm{inj}} \longrightarrow C_n(X) \stackrel {\mathrm{quot}} \longrightarrow C_n(X, A) \longrightarrow 0$$
 
 {% <theorem title="同调长正合列引理"> %}
 如果我们有关于链复形的短正合列 $0 \to A_\ast \to B_\ast \to C_\ast \to 0$，也就是说对每个 $n$ 有 $0 \to A_n \to B_n \to C_n \to 0$ 短正合列，且短正合列中的映射与边缘同态交换：
@@ -139,25 +164,21 @@ $$
 $$\cdots \to H_n(A) \xrightarrow{i_\ast} H_n(B) \xrightarrow{j_\ast} H_n(C) \xrightarrow{\partial} H_{n-1}(A) \to \cdots$$
 {% </theorem> %}
 
-通过 diagram chasing 即可。
+通过 diagram chasing 即可。实际上如果还有 $\alpha: A_n \to A_n'$，$\beta: B_n \to B_n'$ 及 $\gamma: C_n \to C_n'$ 使图表交换，则进一步有以下图表交换（称为“自然性”）：
+
+$$
+\begin{CD}
+\cdots @>>> H_n(A) @>i_\ast>> H_n(B) @>j_\ast>> H_n(C) @>\partial>> H_{n-1}(A) @>>> \cdots \cr
+@. @VV\alpha_\ast V @VV\beta_\ast V @VV\gamma_\ast V @VV\alpha_\ast V \cr
+\cdots @>>> H_n(A') @>i_\ast>> H_n(B') @>j_\ast>> H_n(C') @>\partial>> H_{n-1}(A') @>>> \cdots
+\end{CD}
+$$
+
+于是有有关相对同调群的长正合列（及对应自然性）：
+
+$$\cdots \longrightarrow H _n(A) \xrightarrow{\mathrm{inj} _\ast} H _n(X) \xrightarrow{\mathrm{quot} _\ast} H _n(X, A) \xrightarrow{\partial} H _{n-1}(A) \longrightarrow \cdots \longrightarrow 0$$
 
 ### 切除引理
-对于空间 $X$ 与 $X$ 中某个开集的非空、闭的形变收缩核 $A$（注意 CW 对 $(X, A)$ 一定满足此条件），定义 $C_n(X, A) = C_n(X) / C_n(A)$. 依此同前定义**相对同调群** $H_n(X, A)$.
-
-我们有以下短正合列：
-
-$$0 \longrightarrow C_n(A) \stackrel {\mathrm{inj}} \longrightarrow C_n(X) \stackrel {\mathrm{quot}} \longrightarrow C_n(X, A) \longrightarrow 0$$
-
-从而有长正合列：
-
-$$
-\cdots \longrightarrow \tilde{H} _n(A)
-\stackrel {\mathrm{inj} _\ast} \longrightarrow \tilde{H} _n(X)
-\stackrel {\mathrm{quot} _\ast} \longrightarrow \tilde{H} _n(X/A)
-\stackrel \partial \longrightarrow \tilde{H} _{n-1}(A)
-\longrightarrow \cdots \longrightarrow 0
-$$
-
 {% <theorem title="Excision Theorem"> %}
 对 $X$ 的子空间 $\bar{Z} \subseteq A^{\circ}$，嵌入 $(X-Z, A-Z) \hookrightarrow (X, A)$ 诱导了同构 $H_n(X-Z, A-Z) \to H_n(X, A)$.
 {% </theorem> %}
@@ -222,7 +243,19 @@ $$\partial D\sigma + D\partial\sigma = \sigma - [S^{m(\sigma)}\sigma + D_{m(\sig
 
 回到原定理，我们令 $\mathcal{U} = \set{A, X - Z}$，分析即可。
 
-其推论是，对 $X$ 与 $X$ 中某个邻域的非空、闭的形变收缩核 $A$，商映射诱导了 $H_n(X, A) \to H_n(X/A, A/A)$ 的同构，而后者同构于 $\widetilde H_n(X/A)$.
+{% <theorem> %}
+对 $X$ 与 $X$ 中某个邻域的非空、闭的形变收缩核 $A$，商映射 $q: (X, A) \to H_n(X/A, A/A)$ 诱导了 $H_n(X, A) \to H_n(X/A, A/A)$ 的同构（且后者同构于 $\tilde H_n(X/A)$）。
+{% </theorem> %}
+
+设 $V$ 是那个邻域，我们考虑：
+
+$$
+\begin{CD}
+H_n(X, A) @>>> H_n(X, V) @<<< H_n(X-A, V-A) \cr
+@VVq_\ast V @VVq_\ast V @VVq_\ast V \cr
+H_n(X/A, A/A) @>>> H_n(X/A, V/A) @<<< H_n(X/A-A/A, V/A-A/A)
+\end{CD}
+$$
 
 {% <theorem title="维数不变性"> %}
 若非空开集 $U \subseteq \R^m$ 与 $V \subseteq \R^n$ 同胚，则 $m = n$.

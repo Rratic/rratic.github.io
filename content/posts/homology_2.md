@@ -57,8 +57,22 @@ $$\deg f = \sum_i \deg f|_{x_i}$$
 
 现在可以构造任意度的 $f: S^n \to S^n$，用 $\bigwedge_k S^n$ 指代：在 $S^n$ 上找 $k$ 个不交的开球，将除此之外的东西捏成一个点得到的东西，相当于是 $k$ 个 $S^n$ 的一点并。于是有商映射 $p: S^n \to \bigwedge_k S^n$，然后让 $q: \bigwedge_k S^n \to S^n$ 是将不同的 $S^n$ 部分映到同一个 $S^n$ 上。
 
+另一种方法是不断对 $z \mapsto z^k$ 作悬挂：
+
 {% <example title="悬挂映射的度"> %}
 悬挂 $SX$ 是指 $X \times [0, 1]$ 的顶、底缩成一个点得到的东西，$f \times \mathrm{id}_I$ 诱导 $Sf$；可以将 $f: S^n \to S^n$ 的悬挂看成 $Sf: S^{n+1} \to S^{n+1}$，此时有：
 
 $$\deg Sf = \deg f$$
+
+设 $CS^n$ 是 $(S^n \times I) / (S^n \times 1)$，用 $S^n$ 指代 $S^n \times 0$，有 $Cf: (CS^n, S^n) \to (CS^n, S^n)$，商为 $Sf$.
+
+由于 $CS^n$ 可缩，下图 $\partial$ 是同构；且图表交换，故得证。
+
+$$
+\begin{CD}
+    \tilde H_{n+1}(S^{n+1}) @>\partial>> \tilde H_n(S^n) \cr
+    @VVSf_\ast V    @VVf_\ast V \cr
+    \tilde H_{n+1}(S^{n+1}) @>\partial>> \tilde H_n(S^n) \cr
+\end{CD}
+$$
 {% </example> %}
