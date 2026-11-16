@@ -10,7 +10,7 @@ categories = ["知识", "课程"]
 tags = ["数学", "概率论"]
 +++
 
-26秋的概率论课程期中复习。教材的材料组织形式令人不悦，这里参考 Durrett, *Probability Theory and Examples* 作一些整理。
+26秋的概率论课程期中复习（实际上期中还包含了一小部分数学期望的内容，为文章连贯性考量移至下一篇中）。教材的材料组织形式令人不悦，这里参考 Durrett, *Probability Theory and Examples* 作一些整理。
 
 <!-- more -->
 
@@ -278,23 +278,6 @@ $$p(\vec x) = n! p(x_1) \cdots p(x_n) \mathbf 1_{\set{x_1 < \cdots < x_n}}$$
 {% <example title="Poisson 过程"> %}
 设 $\xi_i \sim \mathrm{Exp}(\lambda)$，令 $X_t = \\#\set{n \geq 1 | S_n \leq t}$，则 $X_t \sim P(\lambda t)$.
 {% </example> %}
-
-## 数学期望
-对于 $X \geq 0$ 的随机变量，我们定义其**期望**是：
-
-$$\mathbb EX = \int X \mathrm dP$$
-
-对于一般的情形，我们让 $x^+ = \max\set{x, 0}$ 正部，$x^- = \max\set{-x, 0}$ 负部，当 $\mathbb EX^+$ 与 $\mathbb EX^-$ 之一有限时，可以让：
-
-$$\mathbb EX = \mathbb EX^+ - \mathbb EX^-$$
-
-称 $\mathbb EX^k$ 为 $X$ 的 $k$ 阶矩，$\mathbb E(X - \mathbb EX)^k$ 为 $X$ 的 $k$ 阶中心矩。
-
-{% <theorem title="Markov 不等式"> %}
-非负随机变量 $X$，有：
-
-$$P(X \geq \varepsilon) \leq \frac{\mathbb EX}{\varepsilon} \quad (\varepsilon > 0)$$
-{% </theorem> %}
 
 ---
 
