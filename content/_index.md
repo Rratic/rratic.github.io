@@ -7,7 +7,7 @@ template = "index.html"
 profile = "rratic"
 +++
 
-[本站说明](about/) | [FAQs](faqs/) | [友链](friend-links/) | [交互页面索引](playgrounds/)
+[本站说明](@/about/_index.md) | [FAQs](@/_meta/faqs.md) | [友链](@/_meta/friend_links.md)
 
 {{ <quote_display id="main" text="点此生成引用。" /> }}
 
@@ -16,4 +16,4 @@ profile = "rratic"
 主要标签：
 - [数学](/tags/数学/)相关：[“基石”](/tags/基石/) | [范畴论](/tags/范畴论/) | [代数学](/tags/代数学/) | [数论](/tags/数论/) | [拓扑学](/tags/拓扑学/) | [几何学](/tags/几何学/) | [分析学](/tags/分析学/) | [概率论](/tags/概率论/) | [组合学](/tags/组合学/)
 - [计算机](/tags/计算机/)相关：[计算理论](/tags/计算理论/) | [算法](/tags/算法/) | [密码学](/tags/密码学/) | [图形学](/tags/图形学/)
-- [物理学](/tags/物理学/)
+- [物理学](/tags/物理学/) | [哲学](/tags/哲学/)

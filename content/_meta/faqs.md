@@ -3,6 +3,11 @@ title = "FAQs"
 +++
 
 ## CHANGELOG
+{% <shell text = "2026/11/18 小更改"> %}
+- 支持 [Tikzcd-KaTeX](https://github.com/Rratic/tikzcd-katex)
+- 移除/移动一些文章
+{% </shell> %}
+
 {% <shell text = "2026/09/12 大更改"> %}
 - 更新 Zola 到 0.23 Breaking Change
 {% </shell> %}
