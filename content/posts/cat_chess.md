@@ -3,9 +3,6 @@ title = "猫猫棋：一个棋子可变的游戏设计"
 date = 2023-12-09
 updated = 2025-07-13
 
-[extra.cover]
-image = "/images/cover/cat_chess.png"
-
 [taxonomies]
 categories = ["杂物"]
 tags = ["游戏"]
