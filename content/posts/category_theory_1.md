@@ -1,10 +1,11 @@
 +++
 title = "一些简单定义的范畴论观点"
 date = 2025-08-02
-updated = 2026-11-09
+updated = 2026-11-18
 
 [extra]
 math = true
+tikzcd = true
 
 [taxonomies]
 categories = ["知识"]
@@ -15,6 +16,8 @@ tags = ["数学", "范畴论"]
 
 <!-- more -->
 
+本文用虚线箭头表示唯一。
+
 ## 映射
 容易想见，我们说 $f: X \to Y$ 是**同构**，如果存在 $g: Y \to X$ 使得 $f \circ g = \mathrm{id}_Y$ 且 $g \circ f = \mathrm{id}_X$，对于 $\mathcal U$-小的范畴（且选择公理成立），我们可以从每个等价类选取一个对象，保留态射，得到的称为范畴的**骨架**（skeleton）。
 
@@ -22,7 +25,7 @@ tags = ["数学", "范畴论"]
 
 若范畴中某个对象满足 $\mathbf 1$：对任意对象 $X$ 存在唯一箭头 $\mathbf 1 \to X$，则称它为**始对象**（initial object）；其对偶即**终对象**（terminal object）；既是始对象又是终对象的称为**零对象**（null object），记作 $\mathbf 0$，易见 $\mathbf 0 \to X$ 单而 $X \to \mathbf 0$ 满。
 
-考虑一列单态射 $f_i: S_i \hookrightarrow$，若存在 $g: S_1 \to S_2$ 使图表交换，则记 $(S_1, f_1) \subseteq (S_2, f_2)$，若 $S_1 \subseteq S_2$ 且 $S_2 \subseteq S_1$ 则称它们等价。这样的等价类称为 $X$ 的**子对象**（subobject），构成偏序，$\mathrm{id}_X$ 给出极大元。其对偶即**商对象**（quotient object）。
+考虑一对单态射 $f_1: S_1 \hookrightarrow X, f_2: S_2 \hookrightarrow X$，若存在 $g: S_1 \to S_2$ 使图表交换，则记 $(S_1, f_1) \subseteq (S_2, f_2)$，若 $S_1 \subseteq S_2$ 且 $S_2 \subseteq S_1$ 则称它们等价。这样的等价类称为 $X$ 的**子对象**（subobject），构成偏序，$\mathrm{id}_X$ 给出极大元。其对偶即**商对象**（quotient object）。
 
 ## 积与余积
 代数结构的积以笛卡尔积为基础。对两个集合 $A$，$B$，我们熟知 $A\times B = \set{(a, b) | a\in A, b\in B}$，其中 $(a, b)$ 在集合论上严格地被定义为 $\set{\set{a}, \set{a, b}}$，读者可验证我们确实可以从 $(a, b)$ 中提取出 $a$ 与 $b$ 来。
@@ -30,7 +33,16 @@ tags = ["数学", "范畴论"]
 除笛卡尔积之外，我们有无交并。对实际上有交的集合，无交并在技术上可以定义为 $A\sqcup B = \set{(0, a) | a\in A}\cup \set{(1, b) | b\in B}$，其中记 $0 = \emptyset$ 及 $1 = \set{\emptyset}$.
 
 {% <definition title="积"> %}
-对范畴 $\mathcal{C}$，称 $P$ 是一族 $\\{X_i\\}_{i\in I}$ 的**积**，如果存在一族态射 $\pi_i: P\to X_i$，使得对任一族态射 $\varphi_i: Y\to X_i$，存在唯一的 $\phi: Y\to P$ 使 $\pi_i \circ \phi = \varphi_i$.
+对范畴 $\mathcal{C}$，称 $P$ 是一族 $\\{X_i\\}_{i\in I}$ 的**积**，如果存在一族态射 $\pi_i: P\to X_i$，使得对任一族态射 $\varphi_i: Y\to X_i$，存在唯一的 $\phi: Y\to P$ 使图表交换：
+
+$$
+\begin{tikzcd}
+	Y \arrow[rd, "\phi" description, dashed]
+	\arrow[rrd, "\varphi_i"]
+	&& \\\\
+	& P \arrow[r, "\pi_i"'] & {X_i}
+\end{tikzcd}
+$$
 {% </definition> %}
 
 自然地，可以在 $I = \emptyset$ 补充定义空积为终对象。
@@ -42,7 +54,18 @@ tags = ["数学", "范畴论"]
 {% <note title="关于嵌入的诱导"> %}
 在群范畴中，我们不仅有投影 $\pi_i$，还能自然地找到 $i_A: A \to A \times B$ 这样的嵌入。
 
-实际上当范畴有零对象时，任意 $A, B$ 可以找到一个 $O_{AB}: A \to B$ 是 $B \to \mathbf 0$ 与 $\mathbf 0 \to A$ 那两个唯一映射的复合。使用 $\mathrm{id} _A: A \to A$ 及 $O _{AB}: A \to B$，就有 $i _A = \braket{\mathrm{id} _A, O _{AB}}$ 是所求。
+实际上当范畴有零对象时，任意 $A, B$ 可以找到一个 $O_{AB}: A \to B$ 是 $B \to \mathbf 0$ 与 $\mathbf 0 \to A$ 那两个唯一映射的复合。于是有：
+
+$$
+\begin{tikzcd}
+	A \arrow[rd, "i _A" description, dashed]
+	\arrow[rrd, "\mathrm{id} _A"]
+	\arrow[rdd, "O _{AB}"']
+	&& \\\\
+	& A \times B \arrow[r, "\pi_1"'] \arrow[d, "\pi_2"] & A \\\\
+	& B
+\end{tikzcd}
+$$
 {% </note> %}
 
 {% <note title="关于箭头的方向"> %}
@@ -52,7 +75,15 @@ tags = ["数学", "范畴论"]
 积的对偶是**余积**（或称**上积**，上的译法可能来自画图时的方向；或称**和**），即：
 
 {% <definition title="余积"> %}
-称 $P$ 是一族 $\\{X_i\\}_{i\in I}$ 的余积，如果存在一族态射 $\iota_i: X_i\to P$，使得对任一族态射 $\varphi_i: X_i\to Y$，存在唯一的 $\phi: P\to Y$ 使 $\phi \circ \iota_i = \varphi_i$.
+称 $S$ 是一族 $\\{X_i\\}_{i\in I}$ 的余积，如果存在一族态射 $\iota_i: X_i\to S$，使得对任一族态射 $\varphi_i: X_i\to Y$，存在唯一的 $\phi: S\to Y$ 使图表交换：
+
+$$
+\begin{tikzcd}
+	Y && \\\\
+	& S \arrow[lu, "\phi" description, dashed]
+	& {X_i} \arrow[l, "\iota_i"] \arrow[llu, "\varphi_i"']
+\end{tikzcd}
+$$
 {% </definition> %}
 
 $I = \emptyset$ 时定义空积为始对象。
@@ -76,7 +107,16 @@ $I = \emptyset$ 时定义空积为始对象。
 对两个 $D$-空间 $(B, f: B\to D)$ 与 $(C, g: C\to D)$，它们的纤维积大概是：对 $d\in D$，考虑 $B_d\times C_d$，将它们拼成一个大空间，这也是一个 $D$-空间。
 
 {% <definition title="拉回"> %}
-对于对象 $B, C, D$ 与态射 $B\to D, C\to D$，它们的**拉回**/纤维积 $B \times_D C$ 是对象 $A$ 及态射 $A\to B, A\to C$，满足泛性质：对另一组对象 $A'$ 及态射 $A'\to B, A'\to C$，存在唯一的态射 $A'\to A$ 使图表交换。
+对于对象 $B, C, D$ 与态射 $B\to D, C\to D$，它们的**拉回**/纤维积 $B \times_D C$ 是对象 $A$ 及态射 $A\to B, A\to C$ 使得：
+
+$$
+\begin{tikzcd}
+	A' \arrow[rrd] \arrow[rdd] \arrow[rd, dashed] && \\\\
+	& A \arrow[r] \arrow[d] \arrow[dr, phantom, "\lrcorner", very near start]
+	& B \arrow[d] \\\\
+	& C \arrow[r] & D
+\end{tikzcd}
+$$
 {% </definition> %}
 
 读者容易写出两个集合的拉回是 $\set{(b, c) \in B\times C | f(b) = g(c)}$，因此一个集合的两个子集的拉回是它们的交。
@@ -94,7 +134,14 @@ $$
 拉回的对偶是**推出**/余纤维积，记作 $B \sqcup_A C$.
 
 {% <definition title="等化子"> %}
-对 $f, g: A \to B$，称对象 $E$ 及态射 $e: E \to A$ 为它们的**等化子** $\ker (f, g)$，如果 $f\circ e = g\circ e$，且对任意满足同样性质的 $z: Z \to A$ 有唯一的态射 $Z \to E$ 使图表交换。
+对 $f, g: A \to B$，称对象 $E$ 及态射 $e: E \to A$ 为它们的**等化子** $\ker (f, g)$，如果：
+
+$$
+\begin{tikzcd}
+	Z \arrow[d, dashed] \arrow[rd, "z"] \\\\
+	E \arrow[r, "e"] & A \arrow[r, "f"] \arrow[r, "g"'] & B
+\end{tikzcd}
+$$
 {% </definition> %}
 
 观察图表即可发现，$f: B \to D$ 与 $g: C \to D$ 的拉回是 $f \circ \pi_B, g \circ \pi_C: B \times C \rightrightarrows D$ 的等化子；与此同时等化子是 $\braket{1_A, f}, \braket{1_A, g}: A \to A \times B$ 的拉回。
@@ -113,10 +160,23 @@ $$
 设 $Y \sqcup_X Y$ 存在，态射 $f: X \to Y$ 的**像** $\operatorname{im} f$ 是等化子 $\ker (Y \rightrightarrows Y \sqcup_X Y)$.
 {% </definition> %}
 
-像带有典范的单态射 $\operatorname{im} f \hookrightarrow Y$.
+像带有典范的单态射 $\operatorname{im} f \hookrightarrow Y$，其泛性质是：
 
-像的对偶是**余像**，记作 $\operatorname{coim} f$，易见存在唯一态射 $\operatorname{coim} f \to \operatorname{im} f$ 使下图与 $f$ 交换：
+$$
+\begin{tikzcd}
+	X \arrow[r, "f"] \arrow[d, "q"', two heads] & Y \\\\
+	X' \arrow[ru, "g"] \arrow[r, dashed]
+	& \mathrm{im}(f) \arrow[u, hook]
+\end{tikzcd}
+$$
 
-$$X \twoheadrightarrow \operatorname{coim} f \to \operatorname{im} f \hookrightarrow Y$$
+像的对偶是**余像**，记作 $\operatorname{coim} f$，有：
+
+$$
+\begin{tikzcd}
+	X \arrow[r, "f"] \arrow[d, two heads] & Y \\\\
+	\mathrm{coim}(f) \arrow[r, dashed] & \mathrm{im}(f) \arrow[u, hook]
+\end{tikzcd}
+$$
 
 当像、余像存在，且该态射是同构时，称 $f$ 是**严格态射**。集合范畴中所有态射都严格。对严格态射可以作满-单分解，故，一个严格态射是同构当且仅当它既单又满。

@@ -4,6 +4,7 @@ draft = true
 
 [extra]
 math = true
+tikzcd = true
 
 [taxonomies]
 categories = ["知识"]
@@ -43,7 +44,19 @@ $n$ 为偶时 $\Z_2$ 是唯一能自由作用（非平凡元没有固定点）�
 ### 计算技术
 设 $f: S^n \to S^n$ 对于某个点 $y \in S^n$，其原像是有限个点 $x_1, \dots, x_m$，其不交的邻域 $U_i$ 满足 $f(U_i - \set{x_i}) \subseteq V - \set{y}$，则有：
 
-![局部度](/images/geometry/local_degree.png)
+$$
+\begin{tikzcd}
+    & H_n(U_i, U_i - x_i) \arrow[r, "f_\ast"]
+    \arrow[ld, "\approx"'] \arrow[d, "k_i"]
+    & H_n(V, V - y) \arrow[d, "\approx"] \\\\
+    H_n(S^n, S^n - x_i)
+    & \arrow[l, "p_i"'] H_n(S^n, S^n - f^{-1}(y)) \arrow[r, "f_\ast"]
+    & H_n(S^n, S^n - y) \\\\
+    & H_n(S^n) \arrow[r, "f_\ast"]
+    \arrow[lu, "\approx"] \arrow[u, "j"']
+    & H_n(S^n) \arrow[u, "\approx"']
+\end{tikzcd}
+$$
 
 这里 $k_i, p_i$ 是嵌入诱导的，上面两个同构来自切除引理，下面两个同构来自正合列。最上面两个群同构与 $\mathbb Z$，称 $f_\ast$ 对应的整数是**局部度** $\deg f|_{x_i}$，一般其符号容易确定。
 

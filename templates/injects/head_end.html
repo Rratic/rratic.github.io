@@ -2,6 +2,10 @@
     window.zolaTheme.katex.init = function () {
         if (window.TikzcdKaTeX) {
             window.TikzcdKaTeX.installTikzcd(katex);
+            window.TikzcdKaTeX.setTikzcdStyle({
+                "row sep": 2.7,
+                "column sep": 3.6
+            });
         }
 
         window.renderMathInElement(document.body, {

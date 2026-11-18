@@ -5,6 +5,7 @@ updated = 2025-12-30
 
 [extra]
 math = true
+tikzcd = true
 
 [taxonomies]
 categories = ["知识", "课程"]
@@ -225,7 +226,17 @@ $n = 2024$，任意域 $F$，令 $V = \set{h \in F[x] | \deg h < n}$，设 $f, g
 
 实际上存在：
 
-![一堆同构](/images/algebra/subspace_of_direct_sum_congs.png)
+$$
+\begin{tikzcd}
+    & \frac{\normalsize U}{\normalsize{U \cap V_1 + U \cap V_2}}
+    \arrow[ld, "\cong"' sloped] \arrow[rd, "\cong" sloped] \\\\
+    \frac{\normalsize{(U + V_2) \cap V_1}}{\normalsize{U \cap V_1}}
+    \arrow[rd, "\cong" sloped]
+    && \frac{\normalsize{(U + V_1) \cap V_2}}{\normalsize{U \cap V_2}}
+    \arrow[ld, "\cong"' sloped] \\\\
+    & \frac{\normalsize{(U + V_1) \cap (U + V_2)}}{\normalsize U}
+\end{tikzcd}
+$$
 
 介绍了直和、直积的泛性质及商空间的同构定理。
 

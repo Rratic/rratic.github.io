@@ -5,6 +5,7 @@ updated = 2025-12-08
 
 [extra]
 math = true
+tikzcd = true
 
 [taxonomies]
 categories = ["知识"]
@@ -14,14 +15,6 @@ tags = ["数学", "范畴论"]
 选做 Saunders Mac Lane 的书 *Categories for the Working Mathmatician* 第二版中一些不废话的习题，包含 Ⅱ. Constructions on Categories 及 Ⅲ. Universals and Limits 的 1. Universal Arrows 节。
 
 <!-- more -->
-
-<style>
-	img:where(.dark,.dark *) {
-        filter: invert(100%);
-    }
-</style>
-
-交换图表图片是用 [Quiver](https://q.uiver.app/) 绘制的。
 
 {% <question title="Ⅱ 3.2"> %}
 Show that the product of two preorders is a preorder.
@@ -53,7 +46,7 @@ For $R$ a ring, describe $R-\mathbf{Mod}$ as a full subcategory of the functor c
 
 设 $R \to \mathbf{Ab}$ 的函子 $f$ 将 $\ast$ 映到 $M$，则 $M$ 与 $f$ 的 arrow function 部分除了不满足环那一侧的线性性外构成左模；反之是可以取出的。
 
-现在验证它是 full 的。对 $f$ 与 $g$ 是左模对应的函子和 $f \stackrel{\bullet}{\to} g$ 的自然变换，这个自然变换对 $\ast$ 给出一个 $M$ 到 $N$ 的群同态 $\phi$，成立环元素 $r$ 对应的图表交换式 $\phi \circ f(r) = g(r) \circ \phi$，从而确实是模同态。
+现在验证它是 full 的。对 $f$ 与 $g$ 是左模对应的函子和 $f \xrightarrow{\bullet} g$ 的自然变换，这个自然变换对 $\ast$ 给出一个 $M$ 到 $N$ 的群同态 $\phi$，成立环元素 $r$ 对应的图表交换式 $\phi \circ f(r) = g(r) \circ \phi$，从而确实是模同态。
 
 {% <question title="Ⅱ 4.3"> %}
 Let $\mathbf{N}$ be the discrete category of natural numbers. Describe the functor category $\mathbf{Ab^N}$ (commonly known as the category of graded abelian groups).
@@ -83,7 +76,7 @@ and show it natural in $A$, $B$, and $C$. Hence show that $-\times B: \mathbf{Ca
 
 现在验证右伴随 [right adjoint](https://ncatlab.org/nlab/show/right+adjoint) 的定义，对 $F: \mathcal{C} \to \mathcal{D}$ 及 $G: \mathcal{D} \to \mathcal{C}$，称 $G$ 是 $F$ 的右伴随 $F \dashv G$，如果存在自然同构：
 
-$$\Phi: \mathcal{D}(F(-), -) \stackrel{\cong}{\to} \mathcal{C}(-, G(-))$$
+$$\Phi: \mathcal{D}(F(-), -) \xrightarrow{\cong} \mathcal{C}(-, G(-))$$
 
 那么 $-^B$ 是 $-\times B$ 的右伴随。
 
@@ -110,13 +103,23 @@ If $t$ is a terminal object in $C$, prove that $(C\downarrow t)$ is isomorphic t
 {% <question title="Ⅱ 6.5"> %}
 Given any commutative diagram of categories and functors
 
-![逗号范畴-别](/images/diagram/comma_category_another.png)
+$$
+\begin{tikzcd}
+    && X \arrow[lld, "P'"'] \arrow[d, "R'"] \arrow[rrd, "Q'"] \\\\
+    E \arrow[r] & C & \arrow[l] C^{\mathbf 2} \arrow[r] & C & \arrow[l] D
+\end{tikzcd}
+$$
 
 (bottom row as in
 
-![逗号范畴](/images/diagram/comma_category.png)
-
-![逗号范畴-解释](/images/diagram/comma_category_expl.png)
+$$
+\begin{tikzcd}
+    && (T \downarrow S) \arrow[lld, "P"'] \arrow[d, "R"] \arrow[rrd, "Q"] \\\\
+    E \arrow[r, "T"'] & C
+    & \arrow[l, "C^{d_0}"] C^{\mathbf 2} \arrow[r, "C^{d_1}"]
+    & C & \arrow[l, "S"] D
+\end{tikzcd}
+$$
 
 ), prove that there is a unique functor $L: X \to (T\downarrow S)$ for which $P'=PL$, $Q'=QL$ and $R'=RL$. (This describes $(T\downarrow S)$ as a "pull-back", cf. §Ⅲ.4.)
 {% </question> %}
@@ -144,7 +147,14 @@ $$\left(\sum_{g\in G} a_g g\right)\left(\sum_{h\in G} b_h h\right) = \sum_{g, h\
 
 考虑把环映到乘法幺半群的遗忘函子 $U: \mathbf{Ring} \to \mathbf{Mon}$，有：
 
-![整群环的泛态射表述](/images/diagram/universal_integral_group_ring.png)
+$$
+\begin{tikzcd}
+    M \arrow[r, "j"] \arrow[d, "=" sloped, phantom] &
+    U(\Z[M]) \arrow[d, "Uf'", dashed] &
+    \Z[M] \arrow[d, "f'", dashed] \\\\
+    M \arrow[r, "f"] & U(R) & R
+\end{tikzcd}
+$$
 
 ---
 
@@ -162,7 +172,14 @@ $$V^{\otimes n} = \underbrace{V \otimes\cdots \otimes V}_n$$
 
 考虑忘却 $F$-代数的结构的遗忘函子 $U: \mathbf{Alg}_F \to \mathbf{Vect}_F$，有：
 
-![张量代数的泛态射表述](/images/diagram/universal_tensor_algebra.png)
+$$
+\begin{tikzcd}
+    V \arrow[r, "\iota"] \arrow[d, "=" sloped, phantom] &
+    U(TV) \arrow[d, "Uf'", dashed] &
+    TV \arrow[d, "f'", dashed] \\\\
+    V \arrow[r, "f"] & U(A) & A
+\end{tikzcd}
+$$
 
 这是因为对 $v\in V$，有 $f'((0, (v), \dots)) = f(v)$，而 $TV$ 中的元素均可由所有 $(0, (v), \dots)$ 经乘法与加法生成，这保证了唯一性。而张量代数不引入额外的等同关系，保证了存在性。
 
@@ -180,7 +197,14 @@ Find a universal element for the contravariant power set function $\mathscr{P}: 
 
 我们取 $r = \set{a, b}$ 及 $e = \set{a}$ 即可。此时 $f$ 的选取方式是，若在 $x$ 中则映到 $a$，否则映到 $b$.
 
-![反变幂集函子的泛元素](/images/diagram/universal_power_set.png)
+$$
+\begin{tikzcd}
+    r \arrow[d, "f"', dashed] &
+    e \arrow[r, "\in", phantom] \arrow[d, "\mathscr{P}(f)"]
+    & \mathscr{P}(r) \\\\
+    d & x \arrow[r, "\in", phantom] & \mathscr{P}(d)
+\end{tikzcd}
+$$
 
 {% <question title="Ⅲ 1.4"> %}
 Use only universality (of projections) to prove the following isomorphisms of group theory:
@@ -190,12 +214,34 @@ Use only universality (of projections) to prove the following isomorphisms of gr
 
 先来考虑商群的泛性质是什么。对 $p: G \to G/N$，对 $N\subseteq \ker \varphi$，有：
 
-![商群的泛性质](/images/diagram/universal_quotient_group.png)
+$$
+\begin{tikzcd}
+    G \arrow[r, "p"] \arrow[d, "\varphi"']
+    & G/N \arrow[ld, "\bar \varphi", dashed] \\\\
+    H
+\end{tikzcd}
+$$
 
 对 (1) 来说，考虑下图。如果我没有搞错的话，它是不言自明的。然后使用一般的技术（分别放到 $H$ 的位置上）就可说明同构。
 
-![第二同构定理](/images/diagram/group_second_isomorphism.png)
+$$
+\begin{tikzcd}
+    & G \arrow[ld, "p'"'] \arrow[d, "\varphi'"] \\\\
+    G/N \arrow[rd, "\bar \varphi'"', dashed]
+    & G/M \arrow[l, "p_2"] \arrow[r, "p"] \arrow[d, "\varphi"]
+    & (G/M)/(N/M) \arrow[ld, "\bar \varphi", dashed] \\\\
+    & H
+\end{tikzcd}
+$$
 
 对 (2) 来说，考虑下图。其中 $\tau$ 是自然的嵌入。
 
-![第三同构定理](/images/diagram/group_third_isomorphism.png)
+$$
+\begin{tikzcd}
+    & S \arrow[ld, "p_2"'] \arrow[d, "\tau"'] \arrow[rd, "p"] \\\\
+    SN/N \arrow[rd, "\bar \varphi'"', dashed]
+    & SN \arrow[l, "p'"] \arrow[d, "\varphi"]
+    & S/S\cap N \arrow[ld, "\bar \varphi", dashed] \\\\
+    & H
+\end{tikzcd}
+$$
