@@ -1,0 +1,15 @@
+<script>
+    window.zolaTheme.katex.init = function () {
+        if (window.TikzcdKaTeX) {
+            window.TikzcdKaTeX.installTikzcd(katex);
+        }
+
+        window.renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+            ],
+            throwOnError: false,
+        })
+    }
+</script>
