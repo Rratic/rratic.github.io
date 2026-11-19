@@ -1,6 +1,6 @@
 +++
-title = "机器学习（三）：优化方法"
-draft = true
+title = "【草稿】机器学习（三）：优化方法"
+date = 2026-11-12
 
 [extra]
 math = true
@@ -9,6 +9,10 @@ math = true
 categories = ["知识", "课程"]
 tags = ["计算机"]
 +++
+
+优化方法。对应于[教师 Lecture Notes](https://leiwu0.github.io/courses/mi2ml/index.html) 的 Lecture 3, 4.
+
+<!-- more -->
 
 ## 问题建立
 对目标函数 $f: \Omega \to \R$，优化即可行域 $\Omega$ 中 $\inf_{x \in \Omega} f(x)$，我们一般希望把有约束的区域 $\Omega$ 重新 formula 成无约束的版本。
