@@ -19,13 +19,21 @@ tags = ["数学", "概率论"]
 
 $$P(A) \coloneqq \frac{|A|}{|\Omega|}$$
 
+{% <example title="Fisher-Yates 洗牌算法"> %}
+可以通过以下算法得到 $n!$ 种等可能排列：
+```cpp
+for (int i = n - 1; i >= 1; i--)
+	std::swap(arr[i], arr[rand(0, i)]);
+```
+{% </example> %}
+
 几何概率模型中，$\Omega$ 是某个 $d$ 维区域，
 
 $$P(A) \coloneqq \frac{\mathrm{Vol}(A)}{\mathrm{Vol}(\Omega)}$$
 
-{% <example title="Buffon 投针问题"> %}
+{% <question title="Buffon 投针问题"> %}
 平面上一组等距的平行线，相邻直线距离 $a$，随机投一根长度 $l$ 的针，求针与平行线相交概率。
-{% </example> %}
+{% </question> %}
 
 考虑的建模是：针的中点与平行线距离 $r$，针与平行线所夹锐角 $\theta$，
 

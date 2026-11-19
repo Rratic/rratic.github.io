@@ -67,8 +67,8 @@
 
 ```math
 \begin{aligned}
-f: A & \to B \cr
-    x & \mapsto g(x)
+f: A & \longrightarrow B \cr
+    x & \longmapsto g(x)
 \end{aligned}
 ```
 
@@ -86,3 +86,4 @@ f: A & \to B \cr
 - `tip` 表示提示与技巧；暂时额外用于表示算法
 - `info` 表示背景补充与上下文信息；暂时额外用于表示公理
 - `note` 表示补充信息，对标数学讲义的 Remark
+- `example` 应将信息全部放在框中，否则应使用 `question`

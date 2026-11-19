@@ -2,45 +2,6 @@
 title = "FAQs"
 +++
 
-## CHANGELOG
-{% <shell text = "2026/11/18 小更改"> %}
-- 支持 [Tikzcd-KaTeX](https://github.com/Rratic/tikzcd-katex)
-- 移除/移动一些文章
-{% </shell> %}
-
-{% <shell text = "2026/09/12 大更改"> %}
-- 更新 Zola 到 0.23 Breaking Change
-{% </shell> %}
-
-{% <shell text = "2026/07/03 精修"> %}
-- 修复了大量往期文章的问题
-- 移除了一些没有价值的文章
-{% </shell> %}
-
-{% <shell text = "2026/06/22 大更改"> %}
-- 移除了大量标签，重命名了少量标签
-- 更改了 playground 路径
-{% </shell> %}
-
-{% <shell text = "2025/12/17 大更改"> %}
-- 将 Linkita 更新到 v4
-- 修改了大量的路径，如 `category-theory-p1` 改为 `category-theory-1`；`category-theory-r1` 改为 `category-theory-exercise-1`
-- 新增了新的 `admonition` 类型并替换一些原有的使用
-- 改为以 `archive` 模板展示文章列表
-- 对此次更新之后**完成**的文章，参数 `date` 将由完成时间而非大纲产出时间而定，在此之前考虑使用参数 `draft = true`
-{% </shell> %}
-
-{% <shell text = "2025/09/30 新域名"> %}
-- 从阿里云获取的域名生效，现在 `https://rratic.github.io` 会重定向至 `https://rratic.top`
-{% </shell> %}
-
-{% <shell text = "2025/04/06 建站"> %}
-相比旧的站点（已下线）：
-- 使用现成框架 Zola 及主题 Linkita
-- 移除了没有阅读价值的文章
-- 更换了索引方式
-{% </shell> %}
-
 ## 命名 {#naming}
 {% <shell text = "“错行”的命名来自哪里？"> %}
 采自《中庸》中的“辟如天地之无不持载，无不覆帱。辟如四时之错行，如日月之代明。”
@@ -115,7 +76,6 @@ title = "FAQs"
 以下标签依次序排布：
 * 相关学科分类，精细到最多第二级，如“分析”
 * 现实话题，如“游戏”
-* “可运行”表示存在可以运行的代码
 {% </shell> %}
 
 {% <shell text = "标题中的‘草稿’意味着什么？"> %}
