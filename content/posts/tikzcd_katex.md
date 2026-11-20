@@ -29,28 +29,6 @@ $$
 
 ```tex
 \begin{tikzcd}
-	Y \arrow[rd, "\phi" description, dashed]
-	\arrow[rrd, "\varphi_1"]
-	\arrow[rdd, "\varphi_2"']
-	&& \\
-	& P \arrow[r, "\pi_1"'] \arrow[d, "\pi_2"] & {X_1} \\
-	& {X_2}
-\end{tikzcd}
-```
-
-$$
-\begin{tikzcd}
-	Y \arrow[rd, "\phi" description, dashed]
-	\arrow[rrd, "\varphi_1"]
-	\arrow[rdd, "\varphi_2"']
-	&& \\\\
-	& P \arrow[r, "\pi_1"'] \arrow[d, "\pi_2"] & {X_1} \\\\
-	& {X_2}
-\end{tikzcd}
-$$
-
-```tex
-\begin{tikzcd}
 	A \arrow[r] \arrow[d] \arrow[dr, phantom, "\ulcorner", very near start]
 	& B \arrow[d] \\
 	C \arrow[r] & D
@@ -67,18 +45,44 @@ $$
 
 ```tex
 \begin{tikzcd}
-	& \pi_1(U_1) \arrow[dr] \arrow[drr,"j_1"] && \\
-	\pi_1(U_1\cap U_2) \arrow[ur, "i_1"] \arrow[dr,"i_2" swap] &&
-	\pi_1(U_1) \ast_{\pi_1(U_1\cap U_2)} \pi_1(U_2) \arrow[r, dashed, "\simeq"] & \pi_1(X) \\
-	& \pi_1(U_2) \arrow[ur] \arrow[urr, "j_2" swap]
+  T
+  \arrow[drr, bend left, "x"]
+  \arrow[ddr, bend right, "y"]
+  \arrow[dr, dashed, "{(x,y)}" description] & & \\
+    & X \times_Z Y \arrow[r, "p"] \arrow[d, "q"]
+      & X \arrow[d, "f"] \\
+    & Y \arrow[r, "g"]
+      & Z
 \end{tikzcd}
 ```
 
 $$
 \begin{tikzcd}
-	& \pi_1(U_1) \arrow[dr] \arrow[drr,"j_1"] && \\\\
-	\pi_1(U_1\cap U_2) \arrow[ur, "i_1"] \arrow[dr,"i_2" swap] &&
+  T
+  \arrow[drr, bend left, "x"]
+  \arrow[ddr, bend right, "y"]
+  \arrow[dr, dashed, "{(x,y)}" description] & & \\\\
+    & X \times_Z Y \arrow[r, "p"] \arrow[d, "q"]
+      & X \arrow[d, "f"] \\\\
+    & Y \arrow[r, "g"]
+      & Z
+\end{tikzcd}
+$$
+
+```tex
+\begin{tikzcd}
+	& \pi_1(U_1) \arrow[dr] \arrow[drr, "j_1", bend left=20] && \\
+	\pi_1(U_1\cap U_2) \arrow[ur, "i_1"] \arrow[dr, "i_2"'] &&
+	\pi_1(U_1) \ast_{\pi_1(U_1\cap U_2)} \pi_1(U_2) \arrow[r, dashed, "\simeq"] & \pi_1(X) \\
+	& \pi_1(U_2) \arrow[ur] \arrow[urr, "j_2"', bend right=20]
+\end{tikzcd}
+```
+
+$$
+\begin{tikzcd}
+	& \pi_1(U_1) \arrow[dr] \arrow[drr, "j_1", bend left=20] && \\\\
+	\pi_1(U_1\cap U_2) \arrow[ur, "i_1"] \arrow[dr, "i_2"'] &&
 	\pi_1(U_1) \ast_{\pi_1(U_1\cap U_2)} \pi_1(U_2) \arrow[r, dashed, "\simeq"] & \pi_1(X) \\\\
-	& \pi_1(U_2) \arrow[ur] \arrow[urr, "j_2" swap]
+	& \pi_1(U_2) \arrow[ur] \arrow[urr, "j_2"', bend right=20]
 \end{tikzcd}
 $$

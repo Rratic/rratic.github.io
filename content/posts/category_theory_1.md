@@ -59,8 +59,8 @@ $$
 $$
 \begin{tikzcd}
 	A \arrow[rd, "i _A" description, dashed]
-	\arrow[rrd, "\mathrm{id} _A"]
-	\arrow[rdd, "O _{AB}"']
+	\arrow[rrd, "\mathrm{id} _A", bend left=20]
+	\arrow[rdd, "O _{AB}"', bend right=20]
 	&& \\\\
 	& A \times B \arrow[r, "\pi_1"'] \arrow[d, "\pi_2"] & A \\\\
 	& B
@@ -111,8 +111,8 @@ $I = \emptyset$ 时定义空积为始对象。
 
 $$
 \begin{tikzcd}
-	A' \arrow[rrd] \arrow[rdd] \arrow[rd, dashed] && \\\\
-	& A \arrow[r] \arrow[d] \arrow[dr, phantom, "\lrcorner", very near start]
+	A' \arrow[rrd, bend left=20] \arrow[rdd, bend right=20] \arrow[rd, dashed] && \\\\
+	& A \arrow[r] \arrow[d] \arrow[dr, phantom, "\ulcorner", very near start]
 	& B \arrow[d] \\\\
 	& C \arrow[r] & D
 \end{tikzcd}
@@ -139,7 +139,7 @@ $$
 $$
 \begin{tikzcd}
 	Z \arrow[d, dashed] \arrow[rd, "z"] \\\\
-	E \arrow[r, "e"] & A \arrow[r, "f"] \arrow[r, "g"'] & B
+	E \arrow[r, "e"] & A \arrow[r, "f", shift left] \arrow[r, "g"', shift right] & B
 \end{tikzcd}
 $$
 {% </definition> %}
