@@ -149,7 +149,7 @@ $$\left(\sum_{g\in G} a_g g\right)\left(\sum_{h\in G} b_h h\right) = \sum_{g, h\
 
 $$
 \begin{tikzcd}
-    M \arrow[r, "j"] \arrow[d, "=" sloped, phantom] &
+    M \arrow[r, "j"] \arrow[d, equal] &
     U(\Z[M]) \arrow[d, "Uf'", dashed] &
     \Z[M] \arrow[d, "f'", dashed] \\\\
     M \arrow[r, "f"] & U(R) & R
@@ -174,7 +174,7 @@ $$V^{\otimes n} = \underbrace{V \otimes\cdots \otimes V}_n$$
 
 $$
 \begin{tikzcd}
-    V \arrow[r, "\iota"] \arrow[d, "=" sloped, phantom] &
+    V \arrow[r, "\iota"] \arrow[d, equal] &
     U(TV) \arrow[d, "Uf'", dashed] &
     TV \arrow[d, "f'", dashed] \\\\
     V \arrow[r, "f"] & U(A) & A
