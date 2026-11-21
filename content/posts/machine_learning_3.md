@@ -1,6 +1,7 @@
 +++
-title = "【草稿】机器学习（三）：优化方法"
+title = "机器学习（三）：优化方法与分析"
 date = 2026-11-12
+updated = 2026-11-21
 
 [extra]
 math = true
@@ -10,7 +11,7 @@ categories = ["知识", "课程"]
 tags = ["计算机"]
 +++
 
-优化方法。对应于[教师 Lecture Notes](https://leiwu0.github.io/courses/mi2ml/index.html) 的 Lecture 3, 4.
+简要介绍优化方法并作分析，对应于[教师 Lecture Notes](https://leiwu0.github.io/courses/mi2ml/index.html) 的 Lecture 5, 6；教师在随机梯度下降部分另外宣传了其近期的 [Functional Scaling Law](https://arxiv.org/abs/2509.19189) 工作。
 
 <!-- more -->
 
@@ -28,12 +29,20 @@ $$x_{t+1} = x_t - \eta_t \nabla f(x_t)$$
 
 由于 $f$ 可能复杂，一般不使用点的收敛；又因为我们并不知道 $f(x^\ast)$ 是什么，故用梯度趋于零（尽管非凸问题中不一定达到全局最小值）。
 
+---
+
+为后文准备，我们定义：称一个 $C^1$ 函数 $f$ 是 $L$-光滑的，如果恒有 $\lVert\nabla f(x) - \nabla f(y)\rVert \leq L \lVert x - y \rVert$，其基本结论：
+
+{% <theorem title="下降引理"> %}
+$$f(y) \leq f(x) + \braket{\nabla f(x), y - x} + \frac L 2 \lVert y - x \rVert^2$$
+{% </theorem> %}
+
 ## 梯度下降
 ### 下降的分析
-这里 $\eta_k$ 称为**学习率**/步长（learning rate / step size），常用的调整学习率的方法有：
+这里 $\eta_k$ 称为**学习率**（learning rate, LR）或步长（step size），常用的调整学习率的方法有：
 - line search $\eta_t = \argmin_{\eta \geq 0} f(x_t - \eta \nabla f(x_t))$：在古典数值优化中常用但机器学习很少用
-- 常值学习率：最常用
-- 学习率衰减 $\eta_t = \eta_0 / (1 + t)$：常用于非凸的 $f$
+- 常值学习率（constant LR）：最常用
+- 学习率衰减（LR decay），如 $\eta_t = \eta_0 / (1 + t)$：常用于非凸的 $f$
 
 考虑 $f(x) = |x|$，使用常值学习率会导致在原点附近反复震荡。
 
@@ -49,7 +58,7 @@ $$\dot x_\tau = -\nabla f(x_\tau)$$
 
 $$\frac{\mathrm df(x_t)}{\mathrm dt} = \braket{\nabla f(x_t), \dot x_t} = -\lVert \nabla f(x_t) \rVert^2 \leq 0$$
 
-对于离散的情况，设 $\eta \leq 1 / \mathrm{Lip}(f)$，就有：
+回到离散的情况，对 $L$-光滑的 $f$ 及 $\eta \leq 1 / L$，有：
 
 $$
 \begin{split} f(x_{t+1})
@@ -223,14 +232,97 @@ $$
 \end{cases}
 $$
 
-这里是对 $y_t$ 算梯度，向前看（look ahead）。$\beta_t$ 通常会固定在 $0.9$，对于凸问题会选择 $(t - 1)/(t + 2)$.
+这里是对 $y_t$ 算梯度，向前看（look ahead）。$\beta_t$ 通常会固定在 $0.9$，对于凸问题会选择 $(t - 1)/(t + 2)$，对于这个选取，有 Nesterov 定理：对 $L$-光滑凸函数 $f$ 及 $\eta \leq 1/L$ 有：
+
+$$f(x_t) - f(x^\ast) \leq \frac{\lVert x_0 - x^\ast \rVert^2}{\eta(t + 1)^2}$$
 
 我们同样可以把表达式整理成：
 
 $$\frac{x_{t+1} - 2x_t + x_{t-1}}{(\sqrt \eta)^2} = -\frac{3}{(t + 2)\sqrt \eta} \frac{x_t - x_{t-1}}{\sqrt \eta} - \nabla f(y_t)$$
 
-令 $\tau = t\sqrt \eta$，$X(t\sqrt \eta) = x_t$ 及 $\eta \to 0$ 得到：
+考虑连续的版本（令 $\tau = t\sqrt \eta$，$X(t\sqrt \eta) = x_t$ 及 $\eta \to 0$）得到：
 
 $$\ddot X = -\frac{3}{\tau} \dot X - \nabla f(X)$$
 
+{% <theorem> %}
+设 $\dot X_t = 0$，则有：
+
+$$f(X_t) - f^\ast \leq \frac{2\lVert X_0 - x^\ast \rVert^2}{t^2}$$
+{% </theorem> %}
+
+如下定义如下泛函，然后分析。
+
+$$\mathcal E(t) = t^2(f(X_t) - f^\ast) + 2 \left\lVert X_t + \frac t 2 \dot X_t - x^\ast \right\rVert^2$$
+
 ## 随机梯度下降
+### 收敛性分析
+我们考虑一个以期望表达的函数及其梯度下降的形式：
+
+$$f(x) = \mathbb E_{w \sim \pi}[f(x; w)]$$
+
+$$x_{t+1} = x_t - \eta_t \mathbb E_{w \sim \pi}[\nabla f(x_t; w)]$$
+
+随机梯度下降（Stochastic Gradient Descent, SGD）说的是通过对一个小的批次采样来逼近：
+
+$$x_{t+1} = x_t - \eta_t \underbrace{\frac 1 B \sum_{j=1}^B \nabla f(x_t; w_{j,t})}_{\text{minibatch gradient}}$$
+
+其中 $w_{i, t}$ 独立同分布取样于 $\pi$，$B$ 称为 batch size；可以重新表述成：
+
+$$x_{t+1} = x_t - \eta_t(\nabla f(x_t) + \xi_t)$$
+
+$$\sigma_B^2 = \mathbb E \xi_t^2 \propto \frac 1 B$$
+
+实际上噪声可能是各向异性（anisotropic）的，可以用协方差矩阵 $\Sigma(\xi) = \mathbb E[\xi_t \xi_t^\top]$ 刻画，它在某种意义上约等于 Hessian；另一些人会研究噪声的尾分布行为，我们预期是 $P(|\xi| > t) \lesssim e^{-c_1 t}$，但实际中会出现 $P(|\xi| > t) \lesssim t^{-r}$，前者称为 light tail，后者称为 heavy tail.
+
+我们来证明，二阶矩 $\sigma_B^2$ 有界就能给出 SGD 收敛（取 $\eta_t \leq 1/L$）。
+
+$$f(x_{t+1}) = f(x_t - \eta_t g_t) \leq f(x_t) + \eta_t \braket{\nabla f(x_t), -\eta_t g_t} + \frac{L\eta_t^2}{2} \lVert g_t \rVert^2$$
+
+$$
+\begin{split} \mathbb E[f(x_{t+1}) | x_t]
+&\leq f(x_t) - \eta_t \lVert\nabla f(x_t)\rVert^2 + \frac{L\eta_t^2}{2} (\lVert\nabla f(x_t)\rVert^2 + \sigma_B^2) \\\\
+&\leq f(x_t) - \frac{\eta_t}{2} \lVert\nabla f(x_t)\rVert^2 + \frac{L\eta_t^2}{2} \sigma_B^2
+\end{split}
+$$
+
+注意其中前两项即 GD 对应的式子，故在梯度较大时由梯度下降主导而不是噪声主导。两边取期望再求和即有：
+
+$$\frac{\sum_{t=0}^T \eta_t \mathbb E\lVert\nabla f(x_t)\rVert^2}{\sum_{t=0}^T \eta_t} \leq \frac{2(f(x_0) - f(x^\ast)) + L\sigma^2 \sum_{t=0}^T \eta_t}{\sum_{t=0}^T \eta_t}$$
+
+其中左式 $\geq \min_{0 \leq t \leq T} \mathbb E\lVert\nabla f(x_t)\rVert^2$，我们总结一下这里用到的条件：
+
+$$
+\sum_{t=1}^N \eta_t \to +\infty, \quad
+\frac{\sum_{t=1}^N \eta_t^2}{\sum_{t=1}^N \eta_t} \to 0
+$$
+
+考虑和是定值 $T$ 而让平方和最小，则解是 $T/N, \cdots, T/N$，我们要选取 $T$ 来最小化 $1/T + T/N$，也就是选取 $\sqrt N$，故而在训练中是一个常值的学习率。
+
+OpenAI 的 Scaling Law 论文中算得有问题，学习率没有随 $N$ 改变，这在 DeepMind 的论文中被改正。
+
+传统教材会使用学习率衰减 $\eta_t \propto t^{-\alpha}, \alpha \in (1/2, 1]$，这不依赖于 $N$ 更为普适，但不 optimal，收敛慢。具体讨论衰减需要对噪声做额外的建模。比较收敛速度：
+
+| 方法 | 收敛速度 |
+| :-: | :----: |
+| GD | $1/N$ |
+| SGD | $1/\sqrt N$ |
+| 学习率 $\eta_k = k^{-1/2}$ 的 SGD | $\log N/\sqrt N$，实际中可能差得更多 |
+
+对 $(B, n)$ 来说，GD 与 SGD 的成本 $N \cdot n$ 与 $N \cdot B$，设 $K$ 为“时期”（epoch，指一个完整数据集通过一次）数，则成本 $K \cdot n$，有 GD 与 SGD 能达到的损失是 $1/K$ 与 $1/\sqrt n \cdot \sqrt{B/K}$，现在的场景是一种 large batch regime，我们可以说，卡越多应该使用的算法越偏向 GD（batch size 大）。
+
+### 随机逼近
+我们可以泛化 SGD 的思想，即：一、减少每一步的计算成本；二、通过合理衰减学习率保证收敛来减轻噪声的影响。考察一般的迭代：
+
+$$x_{t+1} = \bar G(x_t) = \mathbb E_{w \sim \pi_t}[G(x_t; w)]$$
+
+但是这如何收敛呢？随机逼近（Stochastic Approximation）是说，
+
+$$x_{t+1} = (1 - \alpha_t) x_t + \alpha_t G(x_t; w_t)$$
+
+让 $\alpha_t \to 0$，就有噪声的影响会逐渐消散。
+
+{% <theorem> %}
+对 $B = 1, \eta = 1/(1 - \alpha)(t + 1)$ 的随机逼近，若存在 $\alpha$ 使得 $\lVert G(x) - G(x')\rVert \leq \alpha \lVert x - x' \rVert$ 且 $\mathbb E_w[\lVert G(x; w) - \bar G(x) \rVert] \leq \sigma^2$，则有：
+
+$$\mathbb E[\lVert x_T - x^\ast \rVert^2] \leq \frac{\sigma^2}{(1 - \alpha^2) T}$$
+{% </theorem> %}
