@@ -10,7 +10,10 @@ categories = ["知识", "课程"]
 tags = ["计算机"]
 +++
 
-## 全连接神经网络
+对应于[教师 Lecture Notes](https://leiwu0.github.io/courses/mi2ml/index.html) 的 Lecture 7, 8.
+
+## 架构设计
+### 全连接神经网络
 1943 年在研究神经元时 McCulloch 与 Pitts 提出了神经元的数学模型，即 $f(\mathbf x) = \mathbf 1(\mathbf w \cdot \mathbf x + b > 0)$；1957 年 Rosenblatt 提出神经元学习参数的方法（当时还没有梯度下降）$w \leftarrow w + \eta (y - \hat y) x$，并制作了第一台神经网络的硬件 Mark I Perceptron，当时登上了纽约时报。
 
 Minsky 与 Papert 的 *The Perceptrons* 一书指出，Perceptron 无法表达异或（因为是线性的），带来第一次“AI 寒冬”。
@@ -43,7 +46,7 @@ $$\sup_{x \in \Omega} |f(\mathbf x) - f_m(\mathbf x)| \leq \varepsilon$$
 
 Cybenko 在 1989 年证明了这个定理，展示了神经网络的通用性，使得神经网络重新回温。
 
-## 卷积神经网络
+### 卷积神经网络
 1969 年 Kunihiko Fukushima 提出了第一个深层 ReLU 卷积神经网络，但其 filter 不可学习；1989 年 Yann LeCun 提出可学习的卷积 filter，后来其识别手写数字的 7 层神经网络 LeNet-5 被银行采用。
 
 2012 年 AlexNet 在 ImageNet 挑战中获胜，激发了深度学习的时代；2015 年的 ResNet 使得数百层的卷积神经网络训练能够实现。
@@ -68,4 +71,35 @@ AlexNet 成功系统性组合了一系列技术：加深加宽网络结构、使
 
 ResNets 引入了残差连接。
 
-## 循环神经网络
+### 循环神经网络
+循环神经网络希望捕捉远距离的依赖性。状态空间模型（State-Space Models, SSMs）认为直接建模 $H_t(x_1, \dots, x_t)$ 不合理，而应该用某种隐变量 $S_t \in \R^m$ 来总结过去的相关信息，状态更新写为 $S_t = G_{\theta}(x_t, S_{t-1})$，输出写为 $y_t = O_{\theta}(S_t)$. 具体来说，vanilla RNN 取：
+
+$$
+h_t = \tanh (W_{hh} h_{t-1} + W_{hx} x_t + b_h) \\\\
+y_t = W_{yh} h_t + b_y
+$$
+
+状态空间模型有一个普遍的问题：状态空间只有固定维，写入新的信息必然也会损失旧的信息；同时在梯度传播（gradient propagation）上 $\partial h_t / \partial h_{t-k} \approx (W_{hh}')^k$，梯度容易消失或爆炸。
+
+Long Short-Term Memory (LSTM) 提出，将记忆分成两种，像 $h$ 一样由矩阵乘法得到的是短期记忆。
+
+Gate update 是（分别称 forget gate、input gate、output gate）：
+
+$$\begin{pmatrix} f_t \\\\ i_t \\\\ o_t \end{pmatrix} = \mathrm{sigmoid} \begin{pmatrix} W_f x_t + U_f h_{t-1} + b_f \\\\ W_i x_t + U_i h_{t-1} + b_i \\\\ W_o x_t + U_o h_{t-1} + b_o \end{pmatrix}$$
+
+Memory update 是（$\odot$ 是 Hadamard 积）：
+
+$$
+c_t = f_t \odot c_{t-1} + i_t \odot \tanh (W_c x_t + U_c h_{t-1} + b_c) \\\\
+h_t = o_t \odot c_t
+$$
+
+gating 和 memory 的概念深刻影响了之后的模型。
+
+然而即使有了 gating，状态空间模型在直观上仍然对长程依赖性有困难。为了解决有限状态的问题，产生了 Encoder-Decoder 架构。
+
+Geometric Deep Learning 考虑对称不变的神经网络。对群 $G$，称 $f: \mathcal X^d \to \R$ 是 $G$-不变的，如果 $f(\sigma x) = f(x)$；称 $F: \mathcal X^d \to \mathcal X^d$ 是 $G$-等变的，如果 $F(\sigma x) = \sigma F(x)$. 考虑点云（空间中的点集），那么分类函数就应当有置换不变性。
+
+## 训练算法
+### 计算梯度
+[前向传播、反向传播](@/posts/neural_networks_1.md)略去。对深度 $L$、宽度 $m$、批次大小 $B$ 的网络，计算成本是 $O(Bm^2L)$，通过并行化可以降低对 $B, m$ 的依赖。

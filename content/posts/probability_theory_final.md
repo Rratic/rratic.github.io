@@ -76,6 +76,26 @@ $$P(|X - \mathbb EX| \geq \varepsilon) \leq \frac{\mathrm{Var}(X)}{\varepsilon^2
 这可以由 Markov 不等式给出。
 
 ### 协方差
+{% <theorem title="Cauchy-Schwarz 不等式"> %}
+对于 $\mathbb EX^2, \mathbb EY^2$ 存在且有限，
+
+$$(\mathbb EXY)^2 \leq (\mathbb EX)^2 + (\mathbb EY)^2$$
+{% </theorem> %}
+
+不妨设 $\mathbb EX^2, \mathbb EY^2 > 0$，令 $f(t) = \mathbb E(tX - Y)^2$ 为二次函数，其最小值 $((\mathbb EX^2) \cdot (\mathbb EY^2) - (\mathbb EXY)^2) / \mathbb EX^2$，这对应于某个 $\mathbb E(cX - Y)^2$，大于等于零。
+
+{% <theorem title="Hölder 不等式"> %}
+$p, q \geq 1$ 且 $1/p + 1/q = 1$，$\mathbb E|X|^p, \mathbb E|Y|^p$ 存在且有限，
+
+$$|\mathbb EXY| \leq (\mathbb E|X|^p)^{1/p} + (\mathbb E|Y|^q)^{1/q}$$
+{% </theorem> %}
+
+在 $a^{1/p} b^{1/q} \leq a/p + b/q$ 中分别代入下式，然后取期望：
+
+$$a = \frac{|X|^p}{\mathbb E|X|^p}, \quad b = \frac{|Y|^q}{\mathbb E|Y|^q}$$
+
+---
+
 对于 $\mathbb EX^2, \mathbb EY^2$ 存在且有限，定义 $X, Y$ 的**协方差**（也记作 $\sigma_{XY}$）：
 
 $$\mathrm{Cov}(X, Y) \coloneqq \mathbb E(X - \mathbb EX)(Y - \mathbb EY) = \mathbb E(XY) - (\mathbb EX)(\mathbb EY)$$
@@ -87,3 +107,31 @@ $$\mathrm{Cov}(X, Y) \coloneqq \mathbb E(X - \mathbb EX)(Y - \mathbb EY) = \math
 若 $X, Y$ 的方差非零且有限，定义其相关系数是：
 
 $$\rho_{XY} = \frac{\mathrm{Cov}(X, Y)}{\sqrt{\mathrm{Var}(X) \cdot \mathrm{Var}(Y)}}$$
+
+可以考虑几何的看法，让 $L^2 \coloneqq \set{X | \mathbb EX^2 < \infty}$，赋予内积 $\braket{X, Y} \coloneqq \mathbb EXY$，就有距离是 $\sqrt{\mathbb E(X - Y)^2}$，期望为 $0$ 的随机变量内积即其协方差。
+
+### 特征函数
+对于分布列 $P(X = k) = p_k$，记 $X$ 的**母函数**：
+
+$$g_X(s) = \sum_{k=0}^{\infty} p_k s^k$$
+
+| 分布 | 母函数 |
+| :-: | :----: |
+| $B(n, p)$ | $[(1 - p) + ps]^n$ |
+| $G(p)$ | $ps / [1 - (1 - p)s]$ |
+| $P(\lambda)$ | $e^{\lambda(s - 1)}$ |
+| $NB(r, p)$ | $(p / (1 - (1 - p)s))^r$ |
+
+$X, Y$ 同分布当且仅当存在 $0 < \delta < 1$，其母函数在 $[0, \delta]$ 恒等。对独立的 $X, Y$ 有 $g_{X+Y}(s) = g_X(s) g_Y(s)$；$\lim_{s \to 1} g_X^{(n)}(s)$ 收敛时，它等于 $\mathbb EX(X - 1) \cdots (X - n + 1)$.
+
+对于复值随机变量，可以考虑其**特征函数** $f_X(t) = \mathbb Ee^{\mathrm itX}$.
+
+{% <theorem title="逆转公式"> %}
+设特征函数 $f$，对 $a < b$ 有：
+
+$$\lim_{T \to \infty} \frac 1 {2\pi} \int_{-T}^T \frac{e^{-\mathrm ita} - e^{-\mathrm itb}}{\mathrm it} f(t) \mathrm dt = P(a < X < b) + \frac 1 2 P(X = b) + \frac 1 2 P(X = a)$$
+{% </theorem> %}
+
+故而 $f_X \equiv f_Y$ 推出 $X, Y$ 同分布。特征函数满足：$f(0) = 1$，$\lVert f(t) \rVert \leq 1$；一致连续；半正定。Bochner-Khinchin 定理指出 $f: \R \to \Complex$ 连续且满足前述性质（不要求一致连续）时，它是某个随机变量的特征函数。
+
+对分布函数 $F_1, F_2, \cdots$，若存在单调不降、右连续的 $F$，使得在每一点 $\lim_{n \to \infty} F_n(x) = F(x)$，则称 $F_n$ **弱收敛**于 $F$，记作 $F_n \xrightarrow{w} F$；由此定义分布的弱收敛。我们有连续性定理：$F_n$ 弱收敛于 $F$ 当且仅当特征函数 $f$ 逐点收敛于 $f$.
