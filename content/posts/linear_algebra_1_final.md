@@ -307,7 +307,7 @@ I_r & \cr
 \end{pmatrix} Q
 $$
 
-对复矩阵存在更细致的广义逆 Moore-Penrose 广义逆。
+对复矩阵存在更细致的广义逆 [Moore-Penrose 广义逆](@/posts/machine_learning_maths.md)。
 
 简单考察了 $\mathrm{SL}(2, \Z)$.
 
