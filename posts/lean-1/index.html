@@ -1,0 +1,244 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola v0.23.6" />
+  <title>Lean 语言（一）：基础图景 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="Lean 语言（一）：基础图景" />
+  <meta name="description" content="因为参与于形式化实习，故进行一些 Lean 的系统学习。" />
+  <meta property="og:description" content="因为参与于形式化实习，故进行一些 Lean 的系统学习。" />
+  <meta property="og:url" content="https://rratic.top/posts/lean-1/" />
+  <link rel="canonical" href="https://rratic.top/posts/lean-1/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-11-24T00:00:00+00:00" />
+  <meta property="article:tag" content="计算机" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <meta name="msvalidate.01" content="9BE559916FDB06A7A09EA17370F0ED09" />
+<link rel="icon" type="image/svg+xml" href="https://rratic.top/favicon.svg" />
+<link rel="stylesheet" href="https://rratic.top/style/shared.css?h=2dac71ecd418f5165c3d" />
+
+  <link rel="stylesheet" href="https://rratic.top/giallo-light.css?h=396eaa20499714fdb600" media="(prefers-color-scheme: light)" />
+  <link rel="stylesheet" href="https://rratic.top/giallo-dark.css?h=536598ee42e9e9a795bc" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=b541a0c002554175ad82" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=3ec183057d71fe947ecd"></script>
+  
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      
+<menu
+  class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/posts/"
+    >文章</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/categories/"
+    >分类</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/tags/"
+    >标签</a>
+  </li>
+</menu>
+
+      <!-- header_nav inject -->
+
+    </nav>
+  </div>
+</header>
+
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    <!-- body_start inject -->
+
+    
+<article>
+  <!-- page_start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-3">Lean 语言（一）：基础图景</h1>
+    <div class="text-sm antialiased opacity-80"><time
+      datetime="2026-11-24T00:00:00+00:00">2026-11-24</time><span
+        class="middot"></span><time
+    datetime="PT0H4M0S">4&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+  </header>
+  
+  
+  <!-- Content -->
+  <section><p>因为参与于形式化实习，故进行一些 Lean 的系统学习。</p>
+<span id="continue-reading"></span>
+<p>关于 Lean 4 的安装可以参见 <a rel="external" href="https://www.leanprover.cn/install/">https://www.leanprover.cn/install/</a>（实际上直接让 AI 为你安装即可）。</p>
+<hr />
+<p>如果读者较为熟悉<a href="https://rratic.top/posts/type-theory-1/">类型论</a>，我们先指出：Lean 4 使用的是一种 CIC 的变体。</p>
+<p>首先，宇宙层级定义如下，且是非累积的：</p>
+<p>$$
+\text{Prop} \coloneqq \operatorname{Sort} 0, \quad \operatorname{Type} u \coloneqq \operatorname{Sort} u + 1 \\
+\operatorname{Sort} u : \operatorname{Sort} u + 1
+$$</p>
+<p>依赖函数的宇宙规则是：</p>
+<p>$$
+\frac{
+\Gamma \vdash A: \operatorname{Sort} u
+\qquad \Gamma, x : A \vdash B(x) : \operatorname{Sort} v
+}{
+\Gamma \vdash \Pi (x : A).B(x): \mathrm{Sort} (\mathrm{imax}(u, v))
+}
+$$</p>
+<p>$$
+\operatorname{imax}(u, v) = \begin{cases}
+0 &amp; v = 0 \\
+\max(u, v) &amp; v &gt; 0
+\end{cases}
+$$</p>
+<p>对于 $P: \mathrm{Prop}$ 及 $p, q: P$，有 $p \equiv q$ 是定义相等，在内核中就忽略其差异。</p>
+<p>另外，<a href="https://rratic.top/posts/lambda-calculus/">$\eta$-归约</a> $f \equiv \lambda x.\ f\ x$ 及积的 $p \equiv (p.1, p.2)$ 也是定义性相等。命题外延性由公理 <code>propext</code> 给出：</p>
+<p>$$(P \leftrightarrow Q) \to P = Q$$</p>
+<p>内核支持归纳族和互归纳定义，并为其提供 recursor 及相应的 $\iota$ 计算规则。递归函数最终被 elaboration 成 recursor 的使用。<code>Prop</code> 中的归纳类型只有满足某种条件时才能消去到非 <code>Prop</code> 的 <code>Sort</code>.</p>
+<p>函数外延性可以通过商类型得到。商类型 <code>Quot</code> 是一个原始类型，配备有如下规则：</p>
+<p>$$\mathrm{Quot.lift}\ f\ h\ (\mathrm{Quot.mk}\ r\ a) \equiv f\ a$$</p>
+<p>公理 <code>Quot.sound</code> 额外提供了：</p>
+<p>$$r\ a\ b \to \mathrm{Quot.mk}\ r\ a = \mathrm{Quot.mk}\ r\ b$$</p>
+<p>Lean 通常使用的额外原则除了上述两者外，还有选择公理（这和外延性可以推出排中律）：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="lean"><span class="giallo-l"><span>Classical.choice : Nonempty α → α</span></span></code></pre>
+<hr />
+<p>如果熟悉<a href="https://rratic.top/posts/agda-1/">形式化语言</a>的套路，易见以下含义：</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="lean"><span class="giallo-l"><span class="z-l-17 z-d-10">def</span><span class="z-l-14 z-d-7"> double</span><span> : Nat → Nat</span></span>
+<span class="giallo-l"><span>  | </span><span class="z-l-9 z-d-4">0</span><span> =&gt; </span><span class="z-l-9 z-d-4">0</span></span>
+<span class="giallo-l"><span>  | n + </span><span class="z-l-9 z-d-4">1</span><span> =&gt; double n + </span><span class="z-l-9 z-d-4">2</span></span></code></pre>
+<p>以下例子展示了归纳法。这里 <code>ih</code> 是归纳假设；<code>show</code> 显示地指定当前目标的一个定义等价的形式，而后使用 <code>omega</code> 这个 tactic 自动完成整数的线性算术证明。</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="lean"><span class="giallo-l"><span class="z-l-17 z-d-10">theorem</span><span class="z-l-14 z-d-7"> double_eq</span><span> (n : Nat) : double n = </span><span class="z-l-9 z-d-4">2</span><span> * n := </span><span class="z-l-17 z-d-10">by</span></span>
+<span class="giallo-l"><span>  induction n </span><span class="z-l-17 z-d-10">with</span></span>
+<span class="giallo-l"><span>  | zero =&gt; rfl</span></span>
+<span class="giallo-l"><span>  | succ k ih =&gt;</span></span>
+<span class="giallo-l"><span class="z-l-17 z-d-10">    show</span><span> double k + </span><span class="z-l-9 z-d-4">2</span><span> = </span><span class="z-l-9 z-d-4">2</span><span> * (k + </span><span class="z-l-9 z-d-4">1</span><span>)</span></span>
+<span class="giallo-l"><span>    omega</span></span></code></pre>
+<p>日常 Lean 的使用风格不那么类型论，可以理解为维护一系列假设和目标（goal）。<code>by</code> 或 <code>=&gt;</code> 之后同一缩进（或使用 <code>;</code>）的一行行命令可以理解为依次变换目标。列举基础 tactic 如下：</p>
+<table><thead><tr><th style="text-align: center">用法</th><th style="text-align: center">效果</th></tr></thead><tbody>
+<tr><td style="text-align: center"><code>rfl</code></td><td style="text-align: center">/</td></tr>
+<tr><td style="text-align: center"><code>rw[h]</code></td><td style="text-align: center">对 <code>h: a = b</code>，将目标中所有 <code>a</code> 换成 <code>b</code>；更复杂的 <code>h: ∀ a b, a + b = b + a</code> 等也有效</td></tr>
+<tr><td style="text-align: center"><code>rw [← h]</code></td><td style="text-align: center">将目标中所有 <code>b</code> 换成 <code>a</code></td></tr>
+<tr><td style="text-align: center"><code>rw[h1, h2]</code></td><td style="text-align: center">先用 <code>h1</code> 重写再用 <code>h2</code> 重写</td></tr>
+<tr><td style="text-align: center"><code>rw [...] at h</code></td><td style="text-align: center">在 <code>h</code> 上而不是目标上重写，<code>*</code> 表示在所有假设和目标上重写</td></tr>
+<tr><td style="text-align: center"><code>simp[h1, h2]</code></td><td style="text-align: center">反复使用规则简化直到无法简化；标注有 <code>@[simp]</code> 的引理会自动被使用，可以用 <code>simp only</code> 阻止此行为</td></tr>
+<tr><td style="text-align: center"><code>exact h</code></td><td style="text-align: center"><code>h</code> 就是符合目标的东西；常使用 <code>trivial : True</code></td></tr>
+<tr><td style="text-align: center"><code>apply h</code></td><td style="text-align: center">形如 <code>exact</code> 但可以留洞，如 <code>apply Eq.trans</code> 留下了目标 <code>a = ?middle</code> 与目标 <code>?middle = c</code>，之后需要两次闭合目标</td></tr>
+<tr><td style="text-align: center"><code>intro h</code></td><td style="text-align: center">对 <code>P → Q</code> 将目标中的条件转化为假设，读者可参考<a href="https://rratic.top/posts/logic-2/">自然演绎系统</a>；对 <code>∀ x, P x</code> 引入一个任意的 <code>x</code></td></tr>
+<tr><td style="text-align: center"><code>intro h1 h2</code></td><td style="text-align: center">多次使用；使用时允许解构</td></tr>
+<tr><td style="text-align: center"><code>have h : T := ...</code></td><td style="text-align: center">在上下文中添加一个 <code>h : T</code>，但其值不透明</td></tr>
+<tr><td style="text-align: center"><code>let x := ...</code></td><td style="text-align: center">在上下文中添加一个定义，其值可见</td></tr>
+<tr><td style="text-align: center"><code>suffices h : T by ...</code></td><td style="text-align: center">反向的 <code>have</code></td></tr>
+<tr><td style="text-align: center"><code>cases h with ...</code></td><td style="text-align: center">通过归纳类型的构造器拆分目标</td></tr>
+<tr><td style="text-align: center"><code>induction n with ...</code></td><td style="text-align: center">通过归纳类型的归纳原则证明</td></tr>
+</tbody></table>
+</section>
+  <hr />
+  
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+        
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+        
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+        
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/计算机/">计算机</a>
+        
+  </div>
+</footer>
+
+  
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- page_end inject -->
+
+</article>
+
+  </main>
+  <footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+    <div class="mr-auto basis-full lg:basis-1/2">
+      © 2025–2026 Rratic | <a rel="external" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+    </div>
+    <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+      
+  <span class="mr-6 lg:ml-6">
+    <a class="link" href="https://www.getzola.org/" target="_blank">基于 Zola 制作</a>
+  </span>
+  <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+
+    </div>
+  <!-- footer inject -->
+
+  </footer>
+  
+  <link rel="stylesheet" href="https://rratic.top/katex/katex.min.css?h=00e0b094171b07f58422" />
+  <script defer src="https://rratic.top/katex/katex.min.js?h=fa140498b8cfc8302cbe"></script>
+  <script defer src="https://rratic.top/katex/contrib/auto-render.min.js?h=e5372d199bcdae8b4de7"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+  
+
+  
+</body>
+
+</html>

@@ -1,0 +1,258 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14 scheme-light dark:scheme-dark" lang="zh">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola v0.23.6" />
+  <title>机器学习理论中的数学基础 | 错行</title>
+  <meta property="og:site_name" content="错行" />
+  <meta property="og:title" content="机器学习理论中的数学基础" />
+  <meta property="og:url" content="https://rratic.top/posts/machine-learning-maths/" />
+  <link rel="canonical" href="https://rratic.top/posts/machine-learning-maths/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-11-25T00:00:00+00:00" />
+  <meta property="article:tag" content="数学" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+  <meta name="msvalidate.01" content="9BE559916FDB06A7A09EA17370F0ED09" />
+<link rel="icon" type="image/svg+xml" href="https://rratic.top/favicon.svg" />
+<link rel="stylesheet" href="https://rratic.top/style/shared.css?h=2dac71ecd418f5165c3d" />
+
+  <link rel="stylesheet" href="https://rratic.top/giallo-light.css?h=396eaa20499714fdb600" media="(prefers-color-scheme: light)" />
+  <link rel="stylesheet" href="https://rratic.top/giallo-dark.css?h=536598ee42e9e9a795bc" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="https://rratic.top/main.min.css?h=b541a0c002554175ad82" />
+  <link rel="stylesheet" href="https://rratic.top/icons.css?h=7dd5ab449fa840fc01e2" />
+  <link rel="stylesheet" href="https://rratic.top/admonition.css?h=78eb69fa9d4a0eea7f15" />
+  <style>:root{--bg: white; --header: #e6f4ff;} :root.dark{--bg: #424242; --header: #333333;}</style>
+  <meta name="theme-color" data-light="#e6f4ff" data-dark="#333333" content="#e6f4ff" />
+  <script src="https://rratic.top/js/zola-theme.min.js?h=3ec183057d71fe947ecd"></script>
+  
+</head>
+
+<body class="text-black duration-100 ease-out dark:text-white">
+  <!-- Header -->
+<header class="header fixed top-0 z-40 mx-auto min-h-13 w-full">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8 overflow-hidden">
+        <a title="转到主页 [Alt + !]" accesskey="!"
+          href="https://rratic.top/"
+          class="text-2xl font-semibold truncate">错行</a>
+        <button type="button" title="切换颜色方案 [Alt + $]" accesskey="$"
+          onclick="window.zolaTheme.color.toggle();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0px]
+            bg-center bg-no-repeat bg-cover [background-image:var(--icons-btn-dark,url(icons/btn-dark.svg))]
+            dark:[background-image:var(--icons-btn-light,url(icons/btn-light.svg))] dark:invert"
+        ></button>
+      </div>
+      <div title="导航 [Alt + `+`]" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.zolaTheme.menu.toggleHeader();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.zolaTheme.menu.toggleHeader() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      
+<menu
+  class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/posts/"
+    >文章</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/categories/"
+    >分类</a>
+  </li>
+  <li>
+    <a
+      class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+      href="https://rratic.top/tags/"
+    >标签</a>
+  </li>
+</menu>
+
+      <!-- header_nav inject -->
+
+    </nav>
+  </div>
+</header>
+
+  <main class="prose prose-neutral dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg
+    relative mx-auto min-h-[calc(100vh-4rem)] max-w-3xl px-4 pt-28 lg:pt-32 pb-12 wrap-break-word">
+    <!-- body_start inject -->
+
+    
+<article>
+  <!-- page_start inject -->
+
+  <header class="mb-16">
+    <h1 class="my-0! pb-3">机器学习理论中的数学基础</h1>
+    <div class="text-sm antialiased opacity-80"><time
+      datetime="2026-11-25T00:00:00+00:00">2026-11-25</time><span
+        class="middot"></span><time
+    datetime="PT0H5M0S">5&nbsp;分钟</time><span
+      class="middot"></span><span>Rratic</span>
+</div>
+  </header>
+  
+  
+  <!-- Content -->
+  <section><p>定义矩阵 $A$ 的 $1$-范数是 $\max_j \sum |a_{ij}|$，对于 $n \times 1$ 维，这就是向量的 $1$-范数。矩阵 $A$ 的 $2$-范数是最大奇异值，也就是 $\sqrt{\lambda_{\text{max}} (A^\top A)}$，对于 $n \times 1$ 维，这就是向量的 $2$-范数（即默认的范数）。</p>
+<p>定义矩阵 $A$ 的 Frobenius 范数是 $\sqrt{\mathrm{tr}(A^\top A)}$，对于 $n \times 1$ 维，这和 $2$-范数是一致的。</p>
+<p>对于 $A, B \in F^{n \times m}$，定义其 <strong>Hadamard 积</strong> $A \odot B$ 是指逐点的乘积。</p>
+<p>定义向量化算子 $\mathrm{vec}$ 将 $n \times m$ 的矩阵转成 $nm \times 1$ 的矩阵，则有：</p>
+<p>$$\mathrm{vec}(A \odot B) = \mathrm{diag}(\mathrm{vec}(A)) \cdot \mathrm{vec}(B)$$</p>
+<p>对于 $A \in F^{n \times m}$ 与 $B \in F^{s \times t}$，定义是 <strong>Kronecker 积</strong> $A \otimes B$ 是 $ns \times mt$ 维的：</p>
+<p>$$
+\begin{pmatrix}
+a_{11}B &amp; \cdots &amp; a_{1n}B \\
+\vdots &amp; \ddots &amp; \vdots \\
+a_{n1}B &amp; \cdots &amp; a_{nn}B
+\end{pmatrix}
+$$</p>
+<hr />
+<p>经常需要对矩阵乘法组成的式子求梯度。只考虑实矩阵与 $\beta \in \R^{d \times 1}$，$f(\beta) \in \R^{n \times m}$，这里采取分母布局，<strong>约定</strong> $\nabla_\beta f$ 是 $d \times (nm)$ 维的，满足 $\mathrm d(\mathrm{vec}(f)) = (\nabla_\beta A)^\top \mathrm d\beta$，其中 $\mathrm{vec}$ 是指将 $n \times m$ 维摊平成 $nm \times 1$ 维。</p>
+<p>通常使用微分来计算较为清晰。考虑 $\lVert\beta\rVert^2$，有：</p>
+<p>$$
+\begin{split} \mathrm d\lVert\beta\rVert^2
+&amp;= \mathrm d\beta^\top \beta \\
+&amp;= (\mathrm d\beta^\top) \beta + \beta^\top (\mathrm d\beta) \\
+&amp;= (\mathrm d\beta)^\top \beta + \beta^\top (\mathrm d\beta) \\
+&amp;= (\beta^\top (\mathrm d\beta))^\top + \beta^\top (\mathrm d\beta) \\
+&amp;= 2\beta^\top (\mathrm d\beta)
+\end{split}
+$$</p>
+<p>故有 $\nabla_\beta \lVert\beta\rVert^2 = 2\beta$ 成立。如果直接计算，我们总结：对于常值 $X \in \R^{n \times d}$，有 $\nabla_\beta (X\beta) = X^\top$；对于 $X \in \R^{n \times m}$ 有 $(\nabla _\beta (X^\top)) _{k, i, j} = (\nabla _\beta X) _{k, j, i}$；对 $X \in \R^{n \times m}, Y \in \R^{m \times p}$ 有：</p>
+<p>$$\nabla_\beta (XY) = (\nabla_\beta X)(Y \otimes I_n) + (\nabla_\beta Y)(I_p \otimes X^\top)$$</p>
+<p>对 $X \in \R^{n \times m}$，函数 $f$ 逐点作用，有：</p>
+<p>$$\nabla_\beta f(X) = (\nabla_\beta X) \cdot \mathrm{diag}(\mathrm{vec}(f'(X)))$$</p>
+<hr />
+<p>对于矩阵 $A \in \Complex^{m \times n}$ 及 $G \in \Complex^{n \times m}$，Moore–Penrose 方程是以下四个方程：</p>
+<p>$$
+\begin{cases}
+AGA = A \\
+GAG = G \\
+(AG)^\dagger = AG \\
+(GA)^\dagger = GA
+\end{cases}
+$$</p>
+<p>若 $G$ 满足全部四个方程，称它是 $A$ 的 <strong>Moore–Penrose 广义逆</strong>，记作 $A^+$；其它情况按满足方程编号记作 $A^{(1)}, A^{(1, 2)}$ 等。</p>
+<p>对于 $A$ 行满秩（必有 $m \leq n$），$AA^\dagger$ 有逆，$A^\dagger (AA^\dagger)^{-1}$ 即是一个 Moore–Penrose 广义逆。</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>定理</strong></span>
+  </div>
+  <div class="pl-4"><p>对于行满秩的 $X \in \R^{n \times d}$，$\min_{\beta} \lVert\beta\rVert_2 \text{ s.t. } X\beta = y$ 的解是 $X^+ y$.</p>
+</div>
+</div>
+<p>用 Lagrange 乘子法，考虑的是：</p>
+<p>$$L(\beta, \lambda) = \frac 1 2 \beta^\top \beta - \lambda^\top (X\beta - y)$$</p>
+<p>$\nabla_\beta L = 0$ 给出 $\beta = X^\top \lambda$，代入得 $XX^\top \lambda = y$，从而 $\lambda = (XX^\top)^{-1} y$，即 $\beta = X^+ y$.</p>
+<hr />
+<p>定义一个函数 $k(x, y)$ 是半正定（PSD）的，如果对有限集 $\set{\alpha_1, \dots, \alpha_n}$，和 $\sum_{i, j = 1}^n \alpha_i \alpha_j k(x_i, x_j)$ 总是非负的，也就是说取 $n$ 行及对应的列，矩阵半正定。这等价于它可以写成 $\braket{\phi(x), \phi(y)}$.</p>
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>Schur 乘积定理</strong></span>
+  </div>
+  <div class="pl-4"><p>对半正定矩阵 $A, B$，有 $A \odot B$ 半正定。</p>
+</div>
+</div>
+<p>设 $A_{ij} = \braket{u_i, u_j}$，$B_{ij} = \braket{v_i, v_j}$，则有 $(A \odot B)_{ij} = \braket{u_i \otimes v_i, u_j \otimes u_j}$.</p>
+<hr />
+<div class="my-4 flex flex-col rounded-lg bg-(--admonition-bg)" style="--admonition-bg: var(--admonition-theorem);">
+  <div class="flex items-center rounded-t-lg bg-(--admonition-bg) p-1">
+    <div class="mx-2 h-4 w-4 text-[0px] [background:var(--url)_center_center_no-repeat] dark:invert" style="--url: url(icons/theorem.svg)">theorem</div>
+    <span><strong>下降引理</strong></span>
+  </div>
+  <div class="pl-4"><p>对于 $L$-光滑函数 $f$ 有：</p>
+<p>$$f(y) \leq f(x) + \braket{\nabla f(x), y - x} + \frac L 2 \lVert y - x \rVert^2$$</p>
+</div>
+</div>
+<p>$$
+\begin{split} f(y) - f(x)
+&amp;= \int_0^1 \braket{\nabla f(x + t(y - x)), y - x} \mathrm dt \\
+&amp;= \int_0^1 \braket{\nabla f(x), y - x} \mathrm dt + \int_0^1 \braket{\nabla f(x + t(y - x)) - \nabla f(x), y - x} \\
+&amp;\leq \braket{\nabla f(x), y - x} + \frac L 2 \lVert y - x \rVert^2
+\end{split}
+$$</p>
+<p>分析梯度下降的收敛性时常用 Telescoping Sum，其实就是裂项法。对于随机梯度下降，可以先推导成 $\mathbb E[f(x_{t+1}) | x_t] = C \cdot f(x_t) + \cdots$ 再两边取期望。</p>
+</section>
+  <hr />
+  
+<footer class="mt-12 flex flex-col" tabindex="-1" accesskey="_">
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">分类</span>
+        
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/categories/知识/">知识</a>
+        
+  </div>
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mr-1.5 mb-1.5 rounded-lg px-5 py-1.5">标签</span>
+        
+    <a
+      class="block-bg block-hover mr-1.5 mb-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://rratic.top/tags/数学/">数学</a>
+        
+  </div>
+</footer>
+
+  
+<div class="giscus mt-12"></div>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Rratic/rratic.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzMzAxOTc5OTQ="
+  data-category="General"
+  data-category-id="DIC_kwDOE65r6s4CoFkL"
+  data-mapping="og:title"
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+  <!-- page_end inject -->
+
+</article>
+
+  </main>
+  <footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+    <div class="mr-auto basis-full lg:basis-1/2">
+      © 2025–2026 Rratic | <a rel="external" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+    </div>
+    <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+      
+  <span class="mr-6 lg:ml-6">
+    <a class="link" href="https://www.getzola.org/" target="_blank">基于 Zola 制作</a>
+  </span>
+  <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+
+    </div>
+  <!-- footer inject -->
+
+  </footer>
+  
+  <link rel="stylesheet" href="https://rratic.top/katex/katex.min.css?h=00e0b094171b07f58422" />
+  <script defer src="https://rratic.top/katex/katex.min.js?h=fa140498b8cfc8302cbe"></script>
+  <script defer src="https://rratic.top/katex/contrib/auto-render.min.js?h=e5372d199bcdae8b4de7"></script>
+  <script>document.addEventListener("DOMContentLoaded", window.zolaTheme.katex.init);</script>
+  
+
+  
+</body>
+
+</html>
