@@ -6,6 +6,9 @@ updated = 2026-11-05
 [extra]
 math = true
 
+[extra.cover]
+image = "images/cover/pca.png"
+
 [taxonomies]
 categories = ["知识", "课程"]
 tags = ["计算机"]

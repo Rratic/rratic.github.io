@@ -5,6 +5,9 @@ draft = true
 [extra]
 math = true
 
+[extra.cover]
+image = "images/cover/neural_networks.png"
+
 [taxonomies]
 categories = ["知识", "课程"]
 tags = ["计算机"]
@@ -12,9 +15,11 @@ tags = ["计算机"]
 
 对应于[教师 Lecture Notes](https://leiwu0.github.io/courses/mi2ml/index.html) 的 Lecture 7, 8.
 
+<!-- more -->
+
 ## 架构设计
 ### 全连接神经网络
-1943 年在研究神经元时 McCulloch 与 Pitts 提出了神经元的数学模型，即 $f(\mathbf x) = \mathbf 1(\mathbf w \cdot \mathbf x + b > 0)$；1957 年 Rosenblatt 提出神经元学习参数的方法（当时还没有梯度下降）$w \leftarrow w + \eta (y - \hat y) x$，并制作了第一台神经网络的硬件 Mark I Perceptron，当时登上了纽约时报。
+1943 年在研究神经元时 McCulloch 与 Pitts 提出了神经元的数学模型，即 $f(\mathbf x) = \mathbf 1(\mathbf w \cdot \mathbf x + b > 0)$；1957 年 Rosenblatt 提出神经元学习参数的方法（当时还没有梯度下降，这视作启发式的方法）$w \leftarrow w + \eta (y - \hat y) x$，并制作了第一台神经网络的硬件 Mark I Perceptron，当时登上了纽约时报。
 
 Minsky 与 Papert 的 *The Perceptrons* 一书指出，Perceptron 无法表达异或（因为是线性的），带来第一次“AI 寒冬”。
 
@@ -102,4 +107,25 @@ Geometric Deep Learning 考虑对称不变的神经网络。对群 $G$，称 $f:
 
 ## 训练算法
 ### 计算梯度
-[前向传播、反向传播](@/posts/neural_networks_1.md)略去。对深度 $L$、宽度 $m$、批次大小 $B$ 的网络，计算成本是 $O(Bm^2L)$，通过并行化可以降低对 $B, m$ 的依赖。
+[前向传播、反向传播](@/posts/neural_networks_1.md)略去。对深度 $L$、宽度 $m$、批次大小 $B$ 的网络，计算成本是 $O(Bm^2L)$，通过并行化可以降低对 $B, m$ 的依赖。存储成本是 $O(BmL + m^2L)$（往往 $B > m$），故 GPU 价格也被其存储影响。
+
+在公司中，可能会有一个专门的 infra 团队降低这一块成本。
+
+### 梯度消失
+考虑多层神经网络的梯度：
+
+$$\delta^l = [\sigma'(x^l) \odot (A^{l+1})^\top] [\sigma'(x^{l+1}) \odot (A^{l+2})^\top] \cdots [\sigma'(x^{L-1}) \odot (A^L)^\top]$$
+
+在 $\sigma'(z^l) < 1$ 或 $\lVert A^l \rVert_2 < 1$ 时，$\delta^l$ 会指数级减小。使用条件数的观点即条件数非常大。梯度下降/爆炸就是训练深层神经网络的主要障碍。
+
+2012 Hinton 提出用 ReLU 及其变体作激活函数（之前都是 Sigmoid）。相较饱和函数，可以防止 $|z| > O(1)$ 时 $\sigma'(z) \approx 0$.
+
+我们使用记号 $\mathbf x^{l+1} = \sigma(W^l \mathbf x^l + b^l)$，考虑的初始化框架是 $W_{i, j}^l \in N(0, t_w^2), b_j^l = 0$，并让初始输入 $\mathbf x \sim n(0, I_d)$. 为了防止梯度消失，我们希望让 $t_w$ 的选取使得 $\mathbb E[|x_i^l|^2] = 1$.
+
+考虑 ReLU，使用正齐次性，假设 $\mathbb E[|x_i^l|^2] = 1$，我们有下式。故取 $t_w^2 = 2 / m_l$，称为 Kaiming-He 初始化。
+
+$$\mathbb E[|x_i^{l+1}|^2] = m^l t_w^2 \mathbb E_{\zeta \sim N(0, 1)} [\sigma^2(\zeta)] = \frac 1 2 m^l t_w^2$$
+
+对于 tanh 等，可能取 $t_w^2 = 1 / m_l$，为 LeCun 初始化。
+
+残差连接（residue/skip connections）
