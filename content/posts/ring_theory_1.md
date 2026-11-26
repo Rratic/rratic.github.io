@@ -128,7 +128,7 @@ ED 说的就是，能够在上面进行辗转相除法。ED 的例子不多，�
 是 PID 但不是 ED 的例子有 $\Z[\frac{1 + \sqrt{-19}} 2]$.
 
 {% <theorem> %}
-ED 是 UID.
+ED 是 PID.
 {% </theorem> %}
 
 对理想 $I$，设 $b \in I \setminus \set{0}$ 在其中范数最小，则有 $I = (b)$.
