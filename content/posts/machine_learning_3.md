@@ -250,7 +250,7 @@ $$\ddot X = -\frac{3}{\tau} \dot X - \nabla f(X)$$
 $$f(X_t) - f^\ast \leq \frac{2\lVert X_0 - x^\ast \rVert^2}{t^2}$$
 {% </theorem> %}
 
-如下定义如下泛函，然后分析。
+定义如下泛函，然后分析。
 
 $$\mathcal E(t) = t^2(f(X_t) - f^\ast) + 2 \left\lVert X_t + \frac t 2 \dot X_t - x^\ast \right\rVert^2$$
 

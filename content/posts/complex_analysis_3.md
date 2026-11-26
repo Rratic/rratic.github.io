@@ -1,6 +1,7 @@
 +++
 title = "单复变（三）：Weierstrass 级数理论"
 date = 2025-12-04
+updates = 2026-11-26
 
 [extra]
 math = true
@@ -16,9 +17,9 @@ tags = ["数学", "分析学"]
 
 <!-- more -->
 
-## Laurent 级数
-### 定义
-我们使用以下 Laurent 级数来研究奇点附近的性质。其中 $n\leq -1$ 部分称为**主部**，$n\geq 0$ 部分称为**正则部分**：
+## 孤立奇点
+### Laurent 级数
+我们使用以下 Laurent 级数来研究奇点附近的性质。其中 $n\leq -1$ 部分称为**主部**/奇异部分，$n\geq 0$ 部分称为**正则部分**：
 
 $$\sum_{n = -\infty}^{+\infty} a_n (z - z_0)^n$$
 
@@ -31,39 +32,39 @@ $$f(z) = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = R'}\frac{f(w)}{w-z}\mathrm{d}w 
 其中减号左边部分可以写成正则部分，从而是 $D(0, R)$ 上的解析函数，右边部分则可写成主部。
 
 ### 孤立奇点分类
-如果 $f$ 在 $z_0$ 处未定义，而在它的一个去心邻域上解析，则称 $z_0$ 是它的**孤立奇点**。
+如果 $f$ 在 $z_0$ 处未定义，而在它的一个去心邻域上解析，则称 $z_0$ 是它的**孤立奇点**。此时可以在一个去心邻域上展开成 Laurent 级数。其中：
 
-例如，对 $f(z) = 1 / \sin (1/z)$，有 $1 / k\pi$ 与 $\infty$ 是它的孤立奇点，但 $0$ 不是。你可以在 [Classification of Singularities](https://complex-analysis.com/content/classification_of_singularities.html) 看到很多与奇点有关的函数的彩色绘制；也可阅读[基于 GLSL 的色彩与数学绘制](@/posts/shader_2.md)中对应的内容。
+$$a_n = \frac 1 {2\pi\mathrm i} \int_{|w - z_0| = r} \frac{f(w)}{(w - z_0)^{n+1}} \mathrm dw$$
+
+例如，对 $f(z) = 1 / \sin (1/z)$，有 $1 / k\pi$ 与 $\infty$ 是它的孤立奇点，但 $0$ 不是。你可以在 [Classification of Singularities](https://complex-analysis.com/content/classification_of_singularities.html) 看到很多与奇点有关的函数的彩色绘制；也可阅读[数学绘制](@/posts/shader_2.md)中对应的内容。
 
 {% <definition title="孤立奇点分类"> %}
-如果存在 $g$ 补上 $z_0$ 处的值，使得它在 $z_0$ 的邻域上解析，则称 $f$ 可以解析开拓到 $z_0$，且 $z_0$ 称为它的**可去奇点**。否则，若 $1 / f(z)$ 可解析开拓到 $z_0$，则称 $z_0$ 为它的**极点**。
+如果存在 $g$ 补上 $z_0$ 处的值，使得它在 $z_0$ 的邻域上解析，则称 $f$ 可以解析开拓到 $z_0$，且 $z_0$ 称为它的**可去奇点**。否则，若 $1 / f(z)$ 可解析开拓到 $z_0$，则称 $z_0$ 为它的**极点**（pole）。
 
-其余情况称 $z_0$ 为**本性奇点**。
+其余情况称 $z_0$ 为**本性奇点**（essential singularity）。
 {% </definition> %}
+
+称 $\infty$ 是 $f$ 的可去奇点/极点/本性奇点，如果 $0$ 是 $f(z^{-1})$ 的对应可去奇点/极点/本性奇点。
 
 {% <theorem title="可去奇点"> %}
 以下条件等价：
 1. $z_0$ 是可去奇点
 2. $\lim_{z \to z_0} f(z)$ 在 $\Complex$ 上存在
-3. $f(z)$ 在 $z_0$ 邻域上有界
+3. $f(z)$ 在 $z_0$ 的去心邻域上有界
 4. $f(z)$ 在 $z_0$ 的 Laurent 展式的主部为 $0$
 {% </theorem> %}
 
-其中 (3) 推 (4) 是不平凡的。设展式为 $f(z) = \sum_{-\infty}^{+\infty} a_n (z-z_0)^n$，取 $\varepsilon$ 则：
-
-$$a_n = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = \varepsilon}\frac{f(w)}{(w-z_0)^{n+1}}\mathrm{d}w$$
-
-设 $f$ 在 $z_0$ 的（去心）邻域上有界 $M$，则有 $a_{-n} \leq M \cdot \varepsilon^n$，令 $\varepsilon\to 0$ 知主部为零。
+只需 (3) 推 (4)，设 $f$ 在 $z_0$ 的去心邻域上有界 $M$，则取半径 $\varepsilon$ 的圆有 $a_{-n} \leq M \cdot \varepsilon^n$，令 $\varepsilon\to 0$ 知主部为零。
 
 {% <theorem title="极点"> %}
 以下条件等价：
 1. $z_0$ 是极点
-2. $z_0$ 是 $1 / f(z)$ 的零点
+2. $z_0$ 是 $1 / f(z)$ 的零点（补充定义后）
 3. $\lim_{z\to z_0} f(z) = \infty$
 4. $f(z)$ 在 $z_0$ 的 Laurent 展式的主部有且仅有有限项非 $0$
 {% </theorem> %}
 
-证明 (3) 推 (4) 只需要考虑，对 $z_0$ 是 $1 / f(z)$ 的 $m$ 阶零点（补充定义后），设在邻域内 $(z - z_0)^m g(z)$，则由 $1 / g(z)$ 解析即可。
+证明 (3) 推 (4) 只需要考虑，对 $z_0$ 是 $1 / f(z)$ 的 $m$ 阶零点（补充定义后），设在邻域内 $(z - z_0)^m g(z)$，则由 $1 / g(z)$ 解析即可。此时也称 $m$ 为极点的**阶数**，对应最小的正整数使得 $a_{-m}$ 非零。
 
 {% <theorem title="本性奇点"> %}
 以下条件等价：
@@ -74,7 +75,7 @@ $$a_n = \frac{1}{2\pi\mathrm{i}}\int_{|w-z_0| = \varepsilon}\frac{f(w)}{(w-z_0)^
 
 这是根据前两个结论得到的。
 
-{% <theorem title="Weierstrass 定理"> %}
+{% <theorem title="Casorati-Weierstrass 定理"> %}
 若 $z_0$ 是 $f$ 的一个本性奇点，则对任意 $\varepsilon > 0$，$f(\mathring{D}(z_0, \varepsilon))$ 在 $\Complex$ 中稠密。
 {% </theorem> %}
 
@@ -94,15 +95,12 @@ $z_0$ 是 $f$ 的一个本性奇点，则存在 $\theta\in [0, 2\pi)$，对任�
 
 证明略。
 
-{% <theorem title="全纯自同胚"> %}
-$f: \Complex \to \Complex$ 是全纯自同胚当且仅当它形如 $az + b$（$a$ 非零）。
-{% </theorem> %}
+### 整函数
+对于整函数 $f$，若 $\infty$ 是其可去奇点，则有 $f$ 在某个区域 $\set{|z| > R}$ 上有界。由于连续函数将紧集映到紧集，在 $\set{|z| \leq R}$ 上亦有界，用 Liouville 定理知只能是常值。
 
-只需证左推右。我们知道 $f$ 是整函数，且 $\infty$ 是孤立奇点。
+而若 $\infty$ 是阶数 $m$ 的极点，由 $f(z^{-1})$ 在 $0$ 附近 Laurent 展式得 $f$ 在 $\infty$ 附近 Laurent 展式，取其正则部分 $P(z)$，并令 $g(z) = f(z) - P(z)$，则有 $\lim_{z \to \infty} g(z) = 0$，又 $g$ 整函数，它常值。故 $f(z) = P(z)$，为 $m$ 次多项式。
 
-由 $f$ 无界知 $\infty$ 不是可去奇点，又由 Weierstrass 定理知它不是本性奇点，从而是极点。
-
-从而它是多项式，由代数学基本定理知是一次的。
+如果 $f: \Complex \to \Complex$ 是全纯自同胚，则它是整函数，且 $\infty$ 是孤立奇点。由 $f$ 无界知 $\infty$ 不是可去奇点，又由 Weierstrass 定理知它不是本性奇点，从而是极点。从而它是多项式，由代数基本定理知是一次的，即只能形如 $ax + b$.
 
 ### 亚纯函数
 对 $\bar{\Complex}$ 中区域 $\Omega$ 上的函数 $f$，若除了（可能）有极点外处处解析，则称它是**亚纯**的。记亚纯函数全体构成的域为 $m(\Omega)$.

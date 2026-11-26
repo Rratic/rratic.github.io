@@ -85,7 +85,11 @@ $\nabla_\beta L = 0$ 给出 $\beta = X^\top \lambda$，代入得 $XX^\top \lambd
 
 定义一个函数 $k(x, y)$ 是半正定（PSD）的，如果对有限集 $\set{\alpha_1, \dots, \alpha_n}$，和 $\sum_{i, j = 1}^n \alpha_i \alpha_j k(x_i, x_j)$ 总是非负的，也就是说取 $n$ 行及对应的列，矩阵半正定。这等价于它可以写成 $\braket{\phi(x), \phi(y)}$.
 
-Schur 乘积定理指出，对半正定矩阵 $A, B$，有 $A \odot B$ 半正定。
+{% <theorem title="Schur 乘积定理"> %}
+对半正定矩阵 $A, B$，有 $A \odot B$ 半正定。
+{% </theorem> %}
+
+设 $A_{ij} = \braket{u_i, u_j}$，$B_{ij} = \braket{v_i, v_j}$，则有 $(A \odot B)_{ij} = \braket{u_i \otimes v_i, u_j \otimes u_j}$.
 
 ---
 
