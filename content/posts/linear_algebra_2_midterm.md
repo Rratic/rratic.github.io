@@ -17,16 +17,14 @@ tags = ["数学", "代数学"]
 
 ## 引入
 ### 基本概念
-外直和定义略去，当以下映射：
+外直和定义略去，当以下映射为单射时称 $\sum_{i=1}^k V_i$ 为内直和。
 
 $$
 \begin{aligned}
-	\Phi: \bigoplus_{i=1}^k V_i & \to V \cr
-	(\alpha_1, \dots, \alpha_k) & \mapsto \alpha_1 + \cdots + \alpha_k
+	\Phi: \bigoplus_{i=1}^k V_i & \longrightarrow V \cr
+	(\alpha_1, \dots, \alpha_k) & \longmapsto \alpha_1 + \cdots + \alpha_k
 \end{aligned}
 $$
-
-为单射时称 $\sum_{i=1}^k V_i$ 为内直和。
 
 ### 特征值
 对 $T \in L(V)$ 考察：
@@ -230,7 +228,7 @@ $$V = \bigoplus_{i=1}^r R\alpha_i$$
 
 $$V = \boxed{\bigoplus_{i=1}^r R\alpha_i = \bigoplus_{i=1}^s R\beta_i}$$
 
-设 $p_i = p_{\alpha_i}, q_i = p_{\beta_i}$. 取最小的使 $p_t \neq q_t$ 的 $t$. 在 $\boxed{~}$ 两边同乘 $p_t$.
+设 $p_i = p_{\alpha_i}, q_i = p_{\beta_i}$，取最小的使 $p_t \neq q_t$ 的 $t$，在 $\boxed{\phantom{=}}$ 两边同乘 $p_t$.
 
 在 $i < t$ 时，有：
 

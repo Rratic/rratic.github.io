@@ -11,9 +11,7 @@ categories = ["知识"]
 tags = ["数学", "分析学"]
 +++
 
-> 一般认为 Cauchy 积分理论、Weierstrass 级数理论和共形映射理论是单复变函数理论中的三个最重要的组成部分。
-
-本章内容为 Laurent 级数与留数。
+使用 Cauchy 定理时就可注意到 $z^k$ 绕着原点积一圈只有在 $k = -1$ 时非零。此种观察给出留数定理，我们正式地用 Laurent 级数去建立理论。
 
 <!-- more -->
 
@@ -95,56 +93,44 @@ $z_0$ 是 $f$ 的一个本性奇点，则存在 $\theta\in [0, 2\pi)$，对任�
 
 证明略。
 
-### 整函数
+### 整函数的奇点
 对于整函数 $f$，若 $\infty$ 是其可去奇点，则有 $f$ 在某个区域 $\set{|z| > R}$ 上有界。由于连续函数将紧集映到紧集，在 $\set{|z| \leq R}$ 上亦有界，用 Liouville 定理知只能是常值。
 
 而若 $\infty$ 是阶数 $m$ 的极点，由 $f(z^{-1})$ 在 $0$ 附近 Laurent 展式得 $f$ 在 $\infty$ 附近 Laurent 展式，取其正则部分 $P(z)$，并令 $g(z) = f(z) - P(z)$，则有 $\lim_{z \to \infty} g(z) = 0$，又 $g$ 整函数，它常值。故 $f(z) = P(z)$，为 $m$ 次多项式。
 
 如果 $f: \Complex \to \Complex$ 是全纯自同胚，则它是整函数，且 $\infty$ 是孤立奇点。由 $f$ 无界知 $\infty$ 不是可去奇点，又由 Weierstrass 定理知它不是本性奇点，从而是极点。从而它是多项式，由代数基本定理知是一次的，即只能形如 $ax + b$.
 
-### 亚纯函数
-对 $\bar{\Complex}$ 中区域 $\Omega$ 上的函数 $f$，若除了（可能）有极点外处处解析，则称它是**亚纯**的。记亚纯函数全体构成的域为 $m(\Omega)$.
+## 亚纯函数
+对 $\bar{\Complex}$ 中区域 $\Omega$，若函数 $f$ 在 $\Omega$ 上除了（可能）有极点外处处解析，则称它是**亚纯**的（meromorphic）。如果 $\Omega$ 是紧的（注意 $\bar{\Complex}$ 是紧的），则易见极点只有有限个。
 
-{% <theorem title=`Mittag-Leffler 问题的 $\\Complex$ 版本`> %}
+有理函数（rational function）是指形如多项式之商的函数。类似于整函数与多项式的关系，$\bar{\Complex}$ 上的亚纯函数 $f$ 都是有理函数。不妨设极点 $z_1, \dots, z_n, \infty$，对应的 Laurent 展式主部 $L_k(z)$，则 $f(z) - \sum_{k=1}^n L_k(z) - L_\infty(z)$ 是 $\bar{\Complex}$ 上的全纯函数，因而是常数。从而 $f$ 是有理函数。
+
+进一步使用代数基本定理，知 $\bar{\Complex} \to \bar{\Complex}$ 的全纯自同胚只有分式线性变换。
+
+{% <theorem title="Mittag-Leffler 问题 / Cousin 问题Ⅰ"> %}
 设 $\\{z_n\\}$ 是无重复项的点列，且 $\lim_{n \to +\infty} z_n = \infty$，每个 $n$ 对应一个：
 
-$$L_n(z) = \frac{a_{n_1}}{z-z_n} + \frac{a_{n_2}}{(z-z_n)^2} + \cdots + \frac{a_{n_{m_n}}}{(z-z_n)^{m_n}}$$
+$$L_n(z) = \frac{a_{n, 1}}{z - z_n} + \frac{a_{n, 2}}{(z - z_n)^2} + \cdots + \frac{a_{n, {m_n}}}{(z - z_n)^{m_n}}$$
 
 则存在 $\Complex$ 上亚纯函数 $f$，使极点集为 $\\{z_n\\}$，且在 $z_n$ 处的 Laurent 展式的主部为 $L_n(z)$.
 {% </theorem> %}
 
-不妨设 $z_n \in D(0, n, n+1)$，取序列 $\\{a_n\\}$ 使 $a_n > 0$ 且和收敛，设对 $z_1, \dots, z_{n-1}$ 已取到 $P_1(z), \dots, P_{n-1}(z)$，使对任意 $k = 1, 2, \dots, n-1$ 有：
+重排点列使得 $|z_n| > R_n > |z_{n-1}|$，有 $L_n(z)$ 在 $\overline{D(0, R_n)}$ 的邻域上解析，从而它在 $z = 0$ 的 Taylor 展开在 $\overline{D(0, R_n)}$ 上内闭一致收敛于它，对 $\varepsilon_n > 0$ 可取出多项式 $P_n(z)$ 使得：
 
-$$\max_{z \in \overline{D(0, k)}} \set{|L_k(z)-P_k(z)|} < a_k$$
+$$\max_{z \in \overline{D(0, R_n)}} |L_n(z) - P_n(z)| < \varepsilon_n$$
 
-有 $L_n(z)$ 在 $\overline{D(0, n)}$ 的邻域上解析，从而它在 $z=0$ 展开的幂级数在 $\overline{D(0, n)}$ 上一致收敛于它，可用多项式一致逼近，从而可取出 $P_n(z)$.
+让 $\sum \varepsilon_n$ 收敛，下式在任意紧集一致收敛，即为所求。
 
-令 $f(z) = \sum_{k=1}^{+\infty} [L_k(z) - P_k(z)]$，它即是所求。
+$$f(z) = \sum_{k=1}^{+\infty} [L_k(z) - P_k(z)]$$
 
-{% <theorem title="有理函数"> %}
-$\bar{\Complex}$ 上的亚纯函数都是有理函数。
+{% <theorem title="Cousin 问题Ⅱ"> %}
+$\\{z_n\\}$ 是无重复项的点列，且 $\lim_{n \to +\infty} z_n = \infty$，又正整数列 $\\{m_n\\}$，则存在解析函数 $f$，使 $f$ 所有零点是 $\\{z_n\\}$，且在 $z_n$ 处零点的阶数是 $m_n$.
 {% </theorem> %}
 
-设亚纯函数 $f$，有极点 $z_1, \dots, z_l, \infty$，且对应的 Laurent 展式主部：
-
-$$L_k(z) = \frac{a_{k_1}}{z-z_k} + \frac{a_{k_2}}{(z-z_k)^2} + \cdots + \frac{a_{k_{m_k}}}{(z-z_k)^{m_k}}$$
-
-$$L_\infty(z) = b_1z + b_2z^2 + \cdots + b_mz^m$$
-
-则 $f(z) - \sum_{k=1}^l L_k(z) - L_\infty(z)$ 是 $\bar{\Complex}$ 上的全纯函数，因而是常数。从而 $f$ 是有理函数。
-
-利用此可以说明 $\bar{\Complex}$ 到 $\bar{\Complex}$ 的全纯自同胚只能是分式线性变换，这是因为考虑 $P(z)/Q(z)$，一一映射要求 $P$ 与 $Q$ 都是一次的。
-
-{% <theorem title=`Cousin 问题 2 的 $\\Complex$ 版本`> %}
-$\\{z_n\\}$ 是无重复项的点列，且 $\lim_{n\to+\infty}z_n = \infty$，又正整数列 $\\{m_n\\}$，则存在解析函数 $f$，使 $f$ 所有零点是 $\\{z_n\\}$，且在 $z_n$ 处零点的阶数是 $m_n$.
-{% </theorem> %}
-
-证明过程用到无穷乘积，此处略过。
-
-它的一个推论是：对 $\bar{\Complex}$ 上亚纯函数 $f$，存在解析函数 $g$ 与 $h$ 使得 $f(z) = g(z) / h(z)$.
+证明将在之后给出。
 
 ## 留数
-### 基本概念
+### 留数定理
 我们希望把 Cauchy 定理和 Cauchy 公式推广到有孤立奇点的函数上。
 
 设 $z_0$ 为 $f$ 的孤立奇点，在 $\mathring{D}(z_0, R)$ 上解析，则对该去心圆盘中一个包含了 $z_0$ 的简单闭曲线，有：
@@ -161,11 +147,7 @@ $$-\frac 1 {2\pi\mathrm{i}} \int_{|z| = \rho} f(z) \mathrm{d}z$$
 
 由于我们是对 $1$-形式 $f(z)\mathrm{d}z$ 定义的，这不依赖坐标选取。有时也省略 $\mathrm{d}z$.
 
-在 $z_0$ 为 $m$ 阶零点时，记 $f(z) = (z - z_0)^m g(z)$，设 $g$ 在 $z_0$ 处的 Taylor 展开式为：
-
-$$\sum_{n=0}^{+\infty} \frac 1 {n!} g^{(n)}(z_0)(z - z_0)^n$$
-
-这就给出以下计算方法：
+在 $z_0$ 为 $m$ 阶极点时，记 $g(z) = (z - z_0)^m f(z)$，使用 $g$ 在 $z_0$ 处的 Taylor 展开式有：
 
 $$\mathrm{Res}_{z = z_0} f(z)\mathrm{d}z = \frac 1 {(m - 1)!}g^{(m - 1)}(z_0)$$
 
@@ -181,68 +163,79 @@ $$\int_{\partial\Omega} f(z)\mathrm{d}z = 2\pi\mathrm{i}\sum_{i=1}^n\mathrm{Res}
 
 $$\sum_{i=1}^n\mathrm{Res}_ {z=z_i}f(z) + \mathrm{Res}_ {z=\infty}f(z) = 0$$
 
-### 辐角原理
-{% <theorem title="辐角原理"> %}
-$f$ 在区域 $D$ 内亚纯，$\Gamma = \partial \Omega, \Omega\subseteq D$ 是可求长简单闭曲线，且 $f$ 在 $\Gamma$ 上没有零点和极点，则
-
-$$\frac{1}{2\pi\mathrm{i}}\int_\Gamma \frac{f'(z)}{f(z)} \mathrm{d}z$$
-
-等于 $f$ 在 $\Gamma$ 内的零点个数减去极点个数（记重数）。
-{% </theorem> %}
-
-由 $f$ 在 $\Gamma$ 上没有零点和极点，在 $\Omega$ 内只有有限个零点和极点，设零点 $z_1, \dots, z_n$，极点 $w_1, \dots, w_k$，取充分小的 $r$ 使所有的 $D(z_i, r)$ 及 $D(w_j, r)$ 两两不交即可。
-
-实际上此定理说的是这个值等于 $w$ 沿着 $\gamma = f(\Gamma)$ 前进的辐角改变量 $\Delta_\gamma \operatorname{Arg} w$ 除以 $2\pi$.
-
-{% <theorem title="Rouché 定理"> %}
-$f$ 与 $g$ 在区域 $D$ 内解析，$\Gamma = \partial \Omega,\ \Omega\subseteq D$ 是可求长简单闭曲线，且在 $\Gamma$ 上 $|g(z)|<|f(z)|$，则 $f$ 与 $f+g$ 在 $\Gamma$ 内的零点个数（记重数）相同。
-{% </theorem> %}
-
-因为 $h = f + g$ 的零点个数减去 $f$ 的零点个数为：
-
-$$\frac{1}{2\pi\mathrm{i}}\int_\Gamma \left[\frac{h'(z)}{h(z)}-\frac{f'(z)}{f(z)}\right] \mathrm{d}z = \frac{1}{2\pi\mathrm{i}}\int_\Gamma \frac{(h/f)'(z)}{(h/f)(z)} \mathrm{d}z = \frac{1}{2\pi} \Delta_\Gamma \operatorname{Arg} \frac{h}{f} = 0$$
-
-{% <theorem title="分歧覆盖定理"> %}
-$f$ 在区域 $D$ 内解析，$z_0 \in D$ 的像是 $w_0$，$z_0$ 是 $f(z) - w_0$ 的 $m$ 阶零点，则存在 $\rho, \delta > 0$，对任意 $w \in \mathring{D}(w_0, \rho)$ 有 $f(z) - w$ 在 $\mathring{D}(z_0, \delta)$ 内恰有 $m$ 个零点（记重数）；当 $w \neq w_0$ 时，这些零点均为一阶零点。
-{% </theorem> %}
-
-由零点孤立性，可取出 $\delta$ 使 $\mathring{D}(z_0, \delta)$ 上 $f(z) - w_0$ 与 $f'(z)$ 无零点，再取 $\rho = \min_{|z-z_0|=\delta} |f(z) - w_0| > 0$.
-
-有 $|z-z_0|=\delta$ 时下式成立，使用 Rouché 定理即可。
-
-$$|(f(z) - w) - (f(z) - w_0)| < |f(z) - w_0|$$
-
-这意味着，$f(z) - w_0$ 在 $z_0$ 附近的性质与 $z^m$ 在 $0$ 附近的性质近似。
-
 ### 定积分计算
 许多 $\R$ 上难以处理的定积分问题可以放到 $\Complex$ 上来算。
 
-一个直接的例子是：
+一个直接使用留数定理的例子是：
 
-$$\int_0^{2\pi} \frac{\mathrm{d}\theta}{a + b\cos\theta} = \frac{2}{\mathrm{i}}\int_{|z|=1} \frac{\mathrm{d}z}{bz^2 + 2az + b} = 4\pi \mathrm{Res}_{z = (-a + \sqrt{a^2 - b^2}) / b} \left(\frac{\mathrm{d}z}{bz^2 + 2az + b}\right) = \frac{2\pi}{\sqrt{a^2 - b^2}}$$
+$$
+\begin{split} \int_0^{2\pi} \frac{\mathrm{d}\theta}{a + b\cos\theta}
+&= \int_0^{2\pi} \frac{\mathrm{d}z / \mathrm iz}{a + b(z + 1/z)/2} \\\\
+&= \frac 2 {\mathrm i} \int_{|z| = 1} \frac{\mathrm dz}{bz^2 + 2az + b} \\\\
+&= 4\pi \mathrm{Res}_{z = (-a + \sqrt{a^2 - b^2}) / b} \left(\frac{\mathrm dz}{bz^2 + 2az + b}\right) \\\\
+&= \frac{2\pi}{\sqrt{a^2 - b^2}}
+\end{split}
+$$
 
 ---
 
 计算下式需要手动建立回路：
 
-$$\int_0^{+\infty} \frac{1}{(1 + z^2)^{n + 1}} \mathrm{d}x$$
+$$\int_0^{+\infty} \frac 1 {(1 + z^2)^{n + 1}} \mathrm dx$$
 
 令 $\gamma$ 是从 $R$ 顺时针转到 $-R$ 的路径，则：
 
-$$\int_{-R}^{R} f(z)\mathrm{d}z + \int_\gamma f(z)\mathrm{d}z = 2\pi\mathrm{i}\cdot\mathrm{Res}_{z=\mathrm{i}} f(z)\mathrm{d}z = \frac{(2n-1)!!}{(2n)!!} \pi$$
+$$\int_{-R}^R f(z)\mathrm{d}z + \int_\gamma f(z)\mathrm dz = 2\pi\mathrm i \cdot \mathrm{Res}_{z = \mathrm i} f(z)\mathrm dz = \frac{(2n-1)!!}{(2n)!!} \pi$$
 
-令 $R \to +\infty$ 有 $\left|\int_\gamma f(z)\mathrm{d}z\right|\to 0$，故结果为 $\pi (2n-1)!! / 2(2n)!!$.
+令 $R \to +\infty$ 有 $\int_\gamma f(z)\mathrm dz \to 0$，故结果为 $\pi (2n-1)!! / 2(2n)!!$.
 
 ---
 
-对下式我们选取半环形回路：
+对下式我们选取半环形回路得到 $\pi / 2$：
 
-$$\int_0^{+\infty} \frac{\sin x}{x} \mathrm{d}x$$
+$$\int_0^{+\infty} \frac{\sin x}{x} \mathrm{d}x = \operatorname{Im} \int_0^{+\infty} \frac{e^{\mathrm ix}} x \mathrm{d}x$$
 
 ![Residue Half Ring](/images/complex/res_half_ring.svg)
 
-对下式（$0 < p < 1$）我们选取经典的“钥匙孔”回路：
+对下式（$0 < p < 1$）我们取去掉 $\R_{\geq 0}$ 解析的单值分支，然后选取经典的“钥匙孔”回路得到 $\pi / \sin(\pi/p)$：
 
 $$\int_0^{+\infty} \frac{x^{p - 1}}{1 + x} \mathrm{d}x$$
 
 ![Residue Key Hole](/images/complex/res_keyhole.svg)
+
+或者，代换 $t = x^p$ 将它转成下式，然后取扇形的回路：
+
+$$\frac 1 p \int_0^{+\infty} \frac 1 {1 + t^{1/p}} \mathrm{d}t$$
+
+## 辐角原理
+{% <theorem title="辐角原理"> %}
+$f$ 在区域 $D$ 内亚纯，其内 $\Gamma = \partial \Omega$ 是可求长简单闭曲线，且 $f$ 在 $\Gamma$ 上没有零点和极点，则以下积分等于 $f$ 在 $\Gamma$ 内的零点个数减去极点个数（计重数）。
+
+$$\frac 1 {2\pi\mathrm i} \int_\Gamma \frac{f'(z)}{f(z)} \mathrm dz$$
+{% </theorem> %}
+
+由 $f$ 在 $\Gamma$ 上没有零点和极点，在 $\Omega$ 内只有有限个零点和极点，设零点 $z_1, \dots, z_n$，极点 $w_1, \dots, w_k$，取充分小的邻域使得两两不交即可。
+
+想象沿着 $\Gamma$ 定义“$\log f(z)$”，则定理说的是，绕一圈后值增加 $2\pi\mathrm ik$，即虚部增加了辐角的改变量 $\Delta_\gamma \operatorname{Arg} w$（可以采用黎曼面的观点）。
+
+{% <theorem title="Rouché 定理"> %}
+$f$ 与 $g$ 在区域 $D$ 内解析，其内 $\Gamma = \partial \Omega$ 是可求长简单闭曲线，且在 $\Gamma$ 上 $|g(z)| < |f(z)|$，则 $f$ 与 $f + g$ 在 $\Gamma$ 内的零点个数（记重数）相同。
+{% </theorem> %}
+
+因为 $h = f + g$ 的零点个数减去 $f$ 的零点个数为：
+
+$$\frac 1 {2\pi\mathrm i} \int_\Gamma \left[\frac{h'(z)}{h(z)} - \frac{f'(z)}{f(z)}\right] \mathrm dz = \frac 1 {2\pi\mathrm i} \int_\Gamma \frac{(h/f)'(z)}{(h/f)(z)} \mathrm dz = \frac 1 {2\pi} \Delta_\Gamma \operatorname{Arg} \frac h f = 0$$
+
+这里用到的是 $h/f = 1 + g/f$，值域 $\subset \Complex \setminus (-\infty, 0]$，可以取 $\log$ 的一支为原函数。
+
+{% <theorem title="分歧覆盖定理"> %}
+$f$ 在区域 $D$ 内解析，$z_0 \in D$ 的像是 $w_0$，$z_0$ 是 $f(z) - w_0$ 的 $m$ 阶零点，则存在 $\rho, \delta > 0$，对任意 $w \in \mathring{D}(w_0, \rho)$ 有 $f(z) - w$ 在 $\mathring{D}(z_0, \delta)$ 内恰有 $m$ 个零点（记重数）；当 $w \neq w_0$ 时，这些零点均为一阶零点。
+{% </theorem> %}
+
+由零点孤立性，可取出 $\delta$ 使 $\mathring{D}(z_0, \delta)$ 上 $f(z) - w_0$ 与 $f'(z)$ 无零点，再取 $\rho = \min_{|z - z_0| = \delta} |f(z) - w_0| > 0$.
+
+有 $|z - z_0| = \delta$ 时下式成立，使用 Rouché 定理即可。
+
+$$|(f(z) - w) - (f(z) - w_0)| < |f(z) - w_0|$$
+
+这意味着，$f(z) - w_0$ 在 $z_0$ 附近的性质与 $z^m$ 在 $0$ 附近的性质近似。
